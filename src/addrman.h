@@ -144,13 +144,13 @@ public:
 #define ADDRMAN_TRIED_ENTRIES_INSPECT_ON_EVICT 4
 
 // how old addresses can maximally be
-#define ADDRMAN_HORIZON_DAYS 30
+#define ADDRMAN_HORIZON_DAYS 60
 
 // after how many failed attempts we give up on a new node
 #define ADDRMAN_RETRIES 3
 
 // how many successive failures are allowed ...
-#define ADDRMAN_MAX_FAILURES 10
+#define ADDRMAN_MAX_FAILURES 20
 
 // ... in at least this many days
 #define ADDRMAN_MIN_FAIL_DAYS 7

@@ -1,7 +1,7 @@
 src/*.exe
-src/bitcoin
-src/bitcoind
-src/test_bitcoin
+src/zetacoin
+src/zetacoind
+src/test_zetacoin
 .*.swp
 *.*~*
 *.bak
@@ -9,17 +9,17 @@ src/test_bitcoin
 *.orig
 *.o
 *.patch
-.bitcoin
+.zetacoin
 
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-bitcoin-qt
-Bitcoin-Qt.app
+zetacoin-qt
+Zetacoin-Qt.app
 
 # Unit-tests
 Makefile.test
-bitcoin-qt_test
+zetacoin-qt_test
 
 # Resources cpp
 qrc_*.cpp

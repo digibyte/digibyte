@@ -2,13 +2,14 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <QApplication>
+
 #include "paymentserver.h"
 
 #include "guiconstants.h"
 #include "ui_interface.h"
 #include "util.h"
 
-#include <QApplication>
 #include <QByteArray>
 #include <QDataStream>
 #include <QDebug>
@@ -33,7 +34,7 @@ const QString BITCOIN_IPC_PREFIX("bitcoin:");
 //
 static QString ipcServerName()
 {
-    QString name("BitcoinQt");
+    QString name("ZetacoinQt");
 
     // Append a simple hash of the datadir
     // Note that GetDataDir(true) returns a different path

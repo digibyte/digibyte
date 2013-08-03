@@ -37,7 +37,6 @@ public:
      * Determine default data directory for operating system.
      */
     static QString getDefaultDataDirectory();
-
 signals:
     void requestCheck();
     void stopThread();
