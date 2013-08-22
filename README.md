@@ -3,8 +3,8 @@ Zetacoin integration/staging tree
 
 https://bitcointalk.org/index.php?topic=267545.0
 
-Copyright (c) 2009-2013 Bitcoin Developers
-Copyright (c) 2013 Zetacoin developers
+Copyright (c) 2009-2013 Bitcoin Developers,
+Copyright (c) 2013 Zetacoin Developers
 
 What is Zetacoin?
 ----------------
