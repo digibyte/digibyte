@@ -71,6 +71,10 @@ public:
         vSeeds.push_back(CDNSSeedData("zetacoin.no-ip.org", "zetacoin.no-ip.org"));
         vSeeds.push_back(CDNSSeedData("zetacoin.strangled.net", "zetacoin.strangled.net"));
         vSeeds.push_back(CDNSSeedData("zetacoin.ignorelist.com", "zetacoin.ignorelist.com"));
+        vSeeds.push_back(CDNSSeedData("seed1.zeta-coin.org", "seed1.zeta-coin.org"));
+        vSeeds.push_back(CDNSSeedData("seed2.zeta-coin.org", "seed2.zeta-coin.org"));
+        vSeeds.push_back(CDNSSeedData("seed3.zeta-coin.org", "seed3.zeta-coin.org"));
+        vSeeds.push_back(CDNSSeedData("seed4.zeta-coin.org", "seed4.zeta-coin.org"));
 
         base58Prefixes[PUBKEY_ADDRESS] = 80;
         base58Prefixes[SCRIPT_ADDRESS] = 9;
