@@ -5,7 +5,7 @@ http://www.zeta-coin.org
 https://bitcointalk.org/index.php?topic=267545.0
 
 Copyright (c) 2009-2013 Bitcoin Developers,
-Copyright (c) 2013 Zetacoin Developers
+Copyright (c) 2013-2014 Zetacoin Developers
 
 What is Zetacoin?
 ----------------
