@@ -25,6 +25,19 @@ make -f makefile.unix USE_UPNP=-
 
 sudo cp digibyted /usr/bin
 
+
+When trying to compile if you get this error: "../share/genbuild.sh: 34: ../share/genbuild.sh: cannot create obj/build.h: Directory nonexistent
+make: *** [obj/build.h] Error "
+
+Make sure to created the folder "obj" in the "src" folder:
+
+cd /digibyte/src
+
+mkdir obj
+
+Then try compiling again.
+
+
 UBUNTU COMPILE digibyte-qt
 ========================
 cd digibyte
