@@ -1143,8 +1143,20 @@ void MapPort()
 // The second name should resolve to a list of seed addresses.
 static const char *strMainNetDNSSeed[][2] = {
     {"digibyte.co seed #1", "seed1.digibyte.co"},
-	{"hashdragon.com seed #1", "seed2.hashdragon.com"},
-
+    {"hashdragon.com seed #2", "seed2.hashdragon.com"},
+    {"dgb.luckyminers.com seed #3", "dgb.luckyminers.com"},
+    {"70.196.193.231 seed #4", "70.196.193.231"},
+    {"198.98.118.241 seed #5", "198.98.118.241"},
+    {"142.4.204.115 seed #6", "142.4.204.115"},
+    {"31.220.25.91 seed #7", "31.220.25.91"},
+    {"184.155.218.183 seed #8", "184.155.218.183"},
+    {"24.119.23.61 seed #9", "24.119.23.61"},
+    {"83.172.105.46 seed #10", "83.172.105.46"},
+    {"24.119.23.61 seed #11", "24.119.23.61"},
+    {"ceqsy.com seed #12", "ceqsy.com"},
+    {"digi.coinium.org seed #12", "digi.coinium.org"},
+    {"216.250.125.121 seed #13", "216.250.125.121"},
+    {"115.28.31.25 seed #14", "115.28.31.25 "},
     {NULL, NULL}
 };
 
