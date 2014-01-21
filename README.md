@@ -1,4 +1,3 @@
-
 Technical Specifications
 ========================
 
@@ -20,12 +19,19 @@ Links
 ======
 
 Website: http://www.digibyte.co
+
 DigiByteTalk: http://digibytetalk.com/index.php
+
 BitcoinTalk: https://bitcointalk.org/index.php?topic=408268.0
+
 Facebook: https://www.facebook.com/digibytecoin
+
 Twitter: https://twitter.com/digibytecoin
+
 VK: https://vk.com/digibyte
+
 Reddit: http://www.reddit.com/r/Digibyte/
+
 IRC Channel: http://webchat.freenode.net/?channels=#digibytecoin
 
 
