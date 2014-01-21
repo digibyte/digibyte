@@ -16,16 +16,21 @@ sudo apt-get install qrencode libqrencode-dev
 UBUNTU COMPILE digibyted
 ========================
 cd ~
+
 git clone git://github.com/digibyte/DigiByteProject.git
 
 cd /digibyte/src
+
 make -f makefile.unix USE_UPNP=-
+
 sudo cp digibyted /usr/bin
 
 UBUNTU COMPILE digibyte-qt
 ========================
 cd digibyte
+
 qmake "USE_UPNP=-" digibyte-qt.pro
+
 make
 
 Links
