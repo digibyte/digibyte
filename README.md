@@ -19,7 +19,7 @@ cd ~
 
 git clone git://github.com/digibyte/DigiByteProject.git
 
-cd /digibyte/src
+cd /DigiByteProject/src
 
 make -f makefile.unix USE_UPNP=-
 
