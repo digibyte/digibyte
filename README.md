@@ -7,13 +7,13 @@ Technical Specifications
  - 8,000 coins per block, halves every ~2 years
  - Retarget every 144 blocks
  
-UBUNTU DEPENDENCIES
+Ubuntu Dependencies
 ===================
 sudo apt-get install build-essential libboost-all-dev libcurl4-openssl-dev libdb5.1-dev libdb5.1++-dev git qt-sdk libminiupnpc-dev
 
 sudo apt-get install qrencode libqrencode-dev 
 
-UBUNTU COMPILE digibyted
+Ubuntu Compile digibyted
 ========================
 cd ~
 
@@ -40,7 +40,7 @@ mkdir obj
 Then try compiling again.
 
 
-UBUNTU COMPILE digibyte-qt
+Ubuntu Compile digibyte-qt
 ========================
 cd digibyte
 
