@@ -42,7 +42,7 @@ Then try compiling again.
 
 Ubuntu Compile digibyte-qt
 ========================
-cd digibyte
+cd DigiByteProject
 
 qmake "USE_UPNP=-" digibyte-qt.pro
 
