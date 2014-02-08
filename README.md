@@ -31,7 +31,9 @@ make: *** [obj/build.h] Error "
 
 Make sure to create the folder "obj" in the "src" folder:
 
-cd /digibyte/src
+cd /DigiByteProject/src
+
+If Root: cd ~/DigiByteProject/src
 
 mkdir obj
 
