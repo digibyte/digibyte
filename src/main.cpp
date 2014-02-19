@@ -900,6 +900,33 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Genesis block
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
+		
+	//Height that new difficulty takes effect	
+ 	static const int nDifficultySwitchHeight = 70000;
+	
+ 	int nHeight = pindexLast->nHeight + 1;
+ 	if(nHeight < nDifficultySwitchHeight ) {
+ 		if ((pindexLast->nHeight+1) % nInterval != 0)
+ 		{
+ 			// Special difficulty rule for testnet:
+ 			if (fTestNet)
+ 			{
+ 				// If the new block's timestamp is more than 2* 10 minutes
+ 				// then allow mining of a min-difficulty block.
+ 				if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+ 					return nProofOfWorkLimit;
+ 				else
+ 				{
+ 					// Return the last non-special-min-difficulty-rules-block
+ 					const CBlockIndex* pindex = pindexLast;
+ 					while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+ 						pindex = pindex->pprev;
+ 					return pindex->nBits;
+ 				}
+ 			}
+ 			return pindexLast->nBits;
+ 		}
+ 	}
 
 
     // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
