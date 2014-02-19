@@ -830,26 +830,41 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-int64 static GetBlockValue(int nHeight, int64 nFees)
-{
-    int64 nSubsidy = 8000 * COIN;
-	
-		if(nHeight < 1440)
-    {
-        nSubsidy = 72000 * COIN;
-    }
-	else if(nHeight < 5760)
-    {
-        nSubsidy = 16000 * COIN;
-    }
+static const int64 nDiffChangeTarget = 3;
+static const int64 patchBlockRewardDuration = 3;
 
-    // Subsidy is cut in half every 1051200 blocks, which will occur approximately every 2 years
-    nSubsidy >>= (nHeight / 1051200);
+int64 GetDGBSubsidy(int nHeight) {
+   // thanks to RealSolid for helping out with this code
+   int64 qSubsidy = 8000*COIN;
+   int blocks = nHeight - nDiffChangeTarget;
+   int weeks = (blocks / patchBlockRewardDuration)+1;
+   //for each week that has passed, decrease reward by 1%
+   for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);  
+   return qSubsidy;
 
-    return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+int64 static GetBlockValue(int nHeight, int64 nFees) {
+   int64 nSubsidy = COIN;
+
+   if(nHeight < nDiffChangeTarget) {
+      //this is pre-patch, reward is 8000.
+      nSubsidy = 8000 * COIN;
+      
+   } else {
+      //patch takes effect after 68,250 blocks solved
+      nSubsidy = GetDGBSubsidy(nHeight);
+   }
+
+   //make sure the reward is at least 1 DGB
+   if(nSubsidy < COIN) {
+      nSubsidy = COIN;
+   }
+
+   return nSubsidy + nFees;
+}
+
+static const int64 nTargetTimespan =  1 * 60; // 60 second difficulty re-target
 static const int64 nTargetSpacing = 60; // 60 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
