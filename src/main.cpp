@@ -6,7 +6,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "checkpoints.h"
-#include "db.h"
+#include "db.h" 
 #include "net.h"
 #include "init.h"
 #include "ui_interface.h"
@@ -1977,7 +1977,7 @@ bool LoadBlockIndex(bool fAllowNew)
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0x3fb5a99a05d3a7dbc4e6a323aca163cd3f6fa17eb9c2f0625c5fe9258505e757");
+        hashGenesisBlock = uint256("0xb5dca8039e300198e5fe7cd23bdd1728e2a444af34c447dbd0916fa3430a68c2");
     }
 
     //
@@ -2025,8 +2025,8 @@ bool LoadBlockIndex(bool fAllowNew)
 
         if (fTestNet)
         {
-            block.nTime    = 11389388394;
-            block.nNonce   = 541491;
+            block.nTime    = 1392796564;
+            block.nNonce   = 961533;
         }
 
         //// debug print
@@ -2036,7 +2036,7 @@ bool LoadBlockIndex(bool fAllowNew)
         assert(block.hashMerkleRoot == uint256("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         // If genesis block hash does not match, then generate new genesis hash.
-        if (false&& block.GetHash() != hashGenesisBlock)
+        if (false && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
             // This will figure out a valid hash and Nonce if you're
