@@ -830,7 +830,7 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-static const int64 nDiffChangeTarget = 3;
+static const int64 nDiffChangeTarget = 25;
 static const int64 patchBlockRewardDuration = 3;
 
 int64 GetDGBSubsidy(int nHeight) {
@@ -844,12 +844,21 @@ int64 GetDGBSubsidy(int nHeight) {
 
 }
 
+
 int64 static GetBlockValue(int nHeight, int64 nFees) {
    int64 nSubsidy = COIN;
-
+   
    if(nHeight < nDiffChangeTarget) {
       //this is pre-patch, reward is 8000.
       nSubsidy = 8000 * COIN;
+      if(nHeight < 15)  //1440
+      {
+        nSubsidy = 72000 * COIN;
+      }
+      else if(nHeight < 20)  //5760
+      {
+        nSubsidy = 16000 * COIN;
+      }
       
    } else {
       //patch takes effect after 68,250 blocks solved
@@ -903,6 +912,9 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 		
 	//Height that new difficulty takes effect
 	static const int nDifficultySwitchHeight = (fTestNet) ? 180 : 70000;
+    
+	const CBlockIndex* pindexFirst;
+	int64 nActualTimespan;
 	
  	int nHeight = pindexLast->nHeight + 1;
  	if(nHeight < nDifficultySwitchHeight ) {
@@ -933,21 +945,21 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 			blockstogoback = nInterval;
 
 		// Go back by what we want to be 14 days worth of blocks
-		const CBlockIndex* pindexFirst = pindexLast;
+		pindexFirst = pindexLast;
 		for (int i = 0; pindexFirst && i < blockstogoback; i++)
 			pindexFirst = pindexFirst->pprev;
 		assert(pindexFirst);
 		
-		int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+		nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
 		printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
 		if (nActualTimespan < nTargetTimespan/4)
 			nActualTimespan = nTargetTimespan/4;
 		if (nActualTimespan > nTargetTimespan*4)
 			nActualTimespan = nTargetTimespan*4;	
  	} else {
-	const CBlockIndex* pindexFirst = pindexLast;
+	pindexFirst = pindexLast;
 	// Limit adjustment step
-	int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+		nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
 		printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
 		if (nActualTimespan < nTargetSpacing/16)
 			nActualTimespan = nTargetSpacing/16;
