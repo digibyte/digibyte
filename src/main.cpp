@@ -925,30 +925,39 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
  				}
  			}
  			return pindexLast->nBits;
- 		}
- 	}
+ 		}		
+		// DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
+		// Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
+		int blockstogoback = nInterval-1;
+		if ((pindexLast->nHeight+1) != nInterval)
+			blockstogoback = nInterval;
 
-
-    // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
-    // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
-    int blockstogoback = nInterval-1;
-    if ((pindexLast->nHeight+1) != nInterval)
-        blockstogoback = nInterval;
-
-    // Go back by what we want to be 14 days worth of blocks
-    const CBlockIndex* pindexFirst = pindexLast;
-    for (int i = 0; pindexFirst && i < blockstogoback; i++)
-        pindexFirst = pindexFirst->pprev;
-    assert(pindexFirst);
-
+		// Go back by what we want to be 14 days worth of blocks
+		const CBlockIndex* pindexFirst = pindexLast;
+		for (int i = 0; pindexFirst && i < blockstogoback; i++)
+			pindexFirst = pindexFirst->pprev;
+		assert(pindexFirst);
+		
+		int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+		printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
+		if (nActualTimespan < nTargetTimespan/4)
+			nActualTimespan = nTargetTimespan/4;
+		if (nActualTimespan > nTargetTimespan*4)
+			nActualTimespan = nTargetTimespan*4;
+		
+ 	} else {
+	
+	const CBlockIndex* pindexFirst = pindexLast;
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nTargetTimespan/4)
-        nActualTimespan = nTargetTimespan/4;
-    if (nActualTimespan > nTargetTimespan*4)
-        nActualTimespan = nTargetTimespan*4;
+    if (nActualTimespan < nTargetSpacing/16)
+        nActualTimespan = nTargetSpacing/16;
+    if (nActualTimespan > nTargetSpacing*16)
+        nActualTimespan = nTargetSpacing*16;
 
+	}
+		
     // Retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
