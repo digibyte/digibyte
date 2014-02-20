@@ -902,7 +902,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
         return nProofOfWorkLimit;
 		
 	//Height that new difficulty takes effect
-	static const int nDifficultySwitchHeight = (fTestNet) 180 : 70000;
+	static const int nDifficultySwitchHeight = (fTestNet) ? 180 : 70000;
 	
  	int nHeight = pindexLast->nHeight + 1;
  	if(nHeight < nDifficultySwitchHeight ) {
