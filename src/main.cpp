@@ -943,19 +943,16 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 		if (nActualTimespan < nTargetTimespan/4)
 			nActualTimespan = nTargetTimespan/4;
 		if (nActualTimespan > nTargetTimespan*4)
-			nActualTimespan = nTargetTimespan*4;
-		
+			nActualTimespan = nTargetTimespan*4;	
  	} else {
-	
 	const CBlockIndex* pindexFirst = pindexLast;
-    // Limit adjustment step
-    int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
-    printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nTargetSpacing/16)
-        nActualTimespan = nTargetSpacing/16;
-    if (nActualTimespan > nTargetSpacing*16)
-        nActualTimespan = nTargetSpacing*16;
-
+	// Limit adjustment step
+	int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+		printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
+		if (nActualTimespan < nTargetSpacing/16)
+			nActualTimespan = nTargetSpacing/16;
+		if (nActualTimespan > nTargetSpacing*16)
+			nActualTimespan = nTargetSpacing*16;
 	}
 		
     // Retarget
