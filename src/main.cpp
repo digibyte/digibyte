@@ -864,7 +864,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees) {
    return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan =  1 * 60; // 60 second difficulty re-target
+static const int64 nTargetTimespan = 0.10 * 24 * 60 * 60; // retarget timespan before diff retarteting update
 static const int64 nTargetSpacing = 60; // 60 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
