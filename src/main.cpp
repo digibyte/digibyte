@@ -907,7 +907,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
             nTime -= nTargetTimespan*4;
         } else {
             // Maximum 10% adjustment...
-            bnResult = (bnResult * 1000) / 100;
+            bnResult = (bnResult * 1000) / 10;
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
         }
@@ -980,8 +980,8 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     
 // thanks to RealSolid & WDC for this code
 		if(fNewDifficultyProtocol) {
-			if (nActualTimespan < (retargetTimespan - (retargetTimespan/10)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/10));
-			if (nActualTimespan > (retargetTimespan + (retargetTimespan/10)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/10));
+			if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+			if (nActualTimespan > (retargetTimespan + (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/4));
 		}
 		else {
 			if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
