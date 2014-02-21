@@ -922,7 +922,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     unsigned int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
 
     int nHeight = pindexLast->nHeight + 1;
-    bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget || fTestNet);
+    bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget);
     int blockstogoback = 0;
     //set default to pre-v6.4.3 patch values
     int64 retargetTimespan = nTargetTimespan;
@@ -978,15 +978,11 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
     
-		// thanks to RealSolid for this code
-		if(fNewDifficultyProtocol) {
-			if (nActualTimespan < (retargetTimespan - (retargetTimespan/10)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/10));
-			if (nActualTimespan > (retargetTimespan + (retargetTimespan/10)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/10));
-		}
-		else {
-			if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
-			if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
-		}
+
+			if (nActualTimespan < retargetTimespan/4) 
+			    nActualTimespan = retargetTimespan/4;
+			if (nActualTimespan > retargetTimespan*4) 
+			    nActualTimespan = retargetTimespan*4;
 
     // Retarget
     bnNew *= nActualTimespan;
