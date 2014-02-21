@@ -838,7 +838,7 @@ int64 GetDGBSubsidy(int nHeight) {
    int64 qSubsidy = 8000*COIN;
    int blocks = nHeight - nDiffChangeTarget;
    int weeks = (blocks / patchBlockRewardDuration)+1;
-   //for each week that has passed, decrease reward by 1%
+   //decrease reward by 0.5% every week
    for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);  
    return qSubsidy;
 
