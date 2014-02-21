@@ -845,7 +845,7 @@ int64 GetDGBSubsidy(int nHeight) {
 }
 
 
-int64 static GetBlockValue(int nHeight, int64 nFees) {
+int64  GetBlockValue(int nHeight, int64 nFees) {
    int64 nSubsidy = COIN;
    
    if(nHeight < nDiffChangeTarget) {
@@ -873,16 +873,41 @@ int64 static GetBlockValue(int nHeight, int64 nFees) {
    return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 0.10 * 24 * 60 * 60; // retarget timespan before diff retarteting update
+
+int64 static GetTargetTimespan(const CBlock *pblock) {
+  
+      // Get prev block index
+    map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(pblock->hashPrevBlock);
+    CBlockIndex* pindexPrev = (*mi).second;
+    int nHeight = pindexPrev->nHeight+1;
+    
+    static const int64 nTargetTimespan = 0.10 * 24 * 60 * 60; 
+    static const int64 nTargetTimespanNew = 1 * 60; 
+  
+     if(nHeight < 180) { 
+       return nTargetTimespan;
+    } else { 
+      return nTargetTimespanNew;
+    }
+  
+}
+
+
+
+
+
+
+
 static const int64 nTargetSpacing = 60; // 60 seconds
-static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+
 
 //
 // minimum amount of work that could possibly be required nTime after
 // minimum work required was nBase
 //
-unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
+unsigned int ComputeMinWork(unsigned int nBase, int64 nTime, const CBlock *pblock)
 {
+    int64 nTargetTimespan = GetTargetTimespan(pblock);
     // Testnet has min-difficulty blocks
     // after nTargetSpacing*2 time between blocks:
     if (fTestNet && nTime > nTargetSpacing*2)
@@ -905,7 +930,9 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlock *pblock)
 {
     unsigned int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
-
+    int64 nTargetTimespan = GetTargetTimespan(pblock);
+    static int64 nInterval = nTargetTimespan / nTargetSpacing;
+    
     // Genesis block
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
@@ -918,6 +945,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 	
  	int nHeight = pindexLast->nHeight + 1;
  	if(nHeight < nDifficultySwitchHeight ) {
+	  
  		if ((pindexLast->nHeight+1) % nInterval != 0)
  		{
  			// Special difficulty rule for testnet:
@@ -956,33 +984,53 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 			nActualTimespan = nTargetTimespan/4;
 		if (nActualTimespan > nTargetTimespan*4)
 			nActualTimespan = nTargetTimespan*4;	
- 	} else {
-	pindexFirst = pindexLast;
-	// Limit adjustment step
-		nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
-		printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-		if (nActualTimespan < nTargetSpacing/16)
-			nActualTimespan = nTargetSpacing/16;
-		if (nActualTimespan > nTargetSpacing*16)
-			nActualTimespan = nTargetSpacing*16;
-	}
 		
-    // Retarget
-    CBigNum bnNew;
-    bnNew.SetCompact(pindexLast->nBits);
-    bnNew *= nActualTimespan;
-    bnNew /= nTargetTimespan;
 
-    if (bnNew > bnProofOfWorkLimit)
-        bnNew = bnProofOfWorkLimit;
+				// Retarget
+		CBigNum bnNew;
+		bnNew.SetCompact(pindexLast->nBits);
+		bnNew *= nActualTimespan;
+		bnNew /= nTargetTimespan;
 
-    /// debug print
-    printf("GetNextWorkRequired RETARGET\n");
-    printf("nTargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", nTargetTimespan, nActualTimespan);
-    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
-    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+		if (bnNew > bnProofOfWorkLimit)
+		    bnNew = bnProofOfWorkLimit;
 
-    return bnNew.GetCompact();
+		/// debug print
+		printf("GetNextWorkRequired RETARGET\n");
+		printf("nTargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", nTargetTimespan, nActualTimespan);
+		printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
+		printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+
+		return bnNew.GetCompact();
+		
+ 	} else {
+	  
+		const CBlockIndex* pindexFirst = pindexLast->pprev;
+		int64 nActualSpacing = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+		// printf(">>> nHeight = %d, blocktime now = %"PRI64d", previous = %"PRI64d"\n",
+		//	pindexLast->nHeight, pindexLast->GetBlockTime(), pindexFirst->GetBlockTime());
+
+		// limit the adjustment
+		if (nActualSpacing < nTargetSpacing/16)
+			nActualSpacing = nTargetSpacing/16;
+		if (nActualSpacing > nTargetSpacing*16)
+			nActualSpacing = nTargetSpacing*16; 
+
+		// printf(">>> nHeight = %d, nTargetSpacing = %"PRI64d", nActualSpacing = %"PRI64d"\n",
+		//	pindexLast->nHeight, nTargetSpacing, nActualSpacing);
+
+		// Retarget
+		CBigNum bnNew;
+		bnNew.SetCompact(pindexLast->nBits);
+
+		bnNew *= ((nInterval - 1) * nTargetSpacing + 2 * nActualSpacing);
+		bnNew /= ((nInterval + 1) * nTargetSpacing);
+
+		if (bnNew > bnProofOfWorkLimit)
+		    bnNew = bnProofOfWorkLimit;
+
+		return bnNew.GetCompact();
+	}		
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits)
@@ -1897,7 +1945,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
         CBigNum bnNewBlock;
         bnNewBlock.SetCompact(pblock->nBits);
         CBigNum bnRequired;
-        bnRequired.SetCompact(ComputeMinWork(pcheckpoint->nBits, deltaTime));
+        bnRequired.SetCompact(ComputeMinWork(pcheckpoint->nBits, deltaTime, pblock));
         if (bnNewBlock > bnRequired)
         {
             if (pfrom)
