@@ -280,7 +280,7 @@ public:
     {
         PUBKEY_ADDRESS = 30, // DigiByte addresses start with D
         SCRIPT_ADDRESS = 5,
-        PUBKEY_ADDRESS_TEST = 87,
+        PUBKEY_ADDRESS_TEST = 26,
         SCRIPT_ADDRESS_TEST = 196,
     };
 
