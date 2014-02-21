@@ -910,8 +910,8 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime, const CBlock *pbloc
     int64 nTargetTimespan = GetTargetTimespan(pblock);
     // Testnet has min-difficulty blocks
     // after nTargetSpacing*2 time between blocks:
-    if (fTestNet && nTime > nTargetSpacing*2)
-        return bnProofOfWorkLimit.GetCompact();
+    //if (fTestNet && nTime > nTargetSpacing*2)
+    //    return bnProofOfWorkLimit.GetCompact();
 
     CBigNum bnResult;
     bnResult.SetCompact(nBase);
@@ -938,7 +938,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
         return nProofOfWorkLimit;
 		
 	//Height that new difficulty takes effect
-	static const int nDifficultySwitchHeight = (fTestNet) ? 180 : 70000;
+	static const int nDifficultySwitchHeight = (fTestNet) ? 20 : 70000;
     
 	const CBlockIndex* pindexFirst;
 	int64 nActualTimespan;
@@ -948,6 +948,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 	  
  		if ((pindexLast->nHeight+1) % nInterval != 0)
  		{
+			/*
  			// Special difficulty rule for testnet:
  			if (fTestNet)
  			{
@@ -964,6 +965,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
  					return pindex->nBits;
  				}
  			}
+ 			*/
  			return pindexLast->nBits;
  		}		
 		// DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
@@ -1011,10 +1013,10 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 		//	pindexLast->nHeight, pindexLast->GetBlockTime(), pindexFirst->GetBlockTime());
 
 		// limit the adjustment
-		if (nActualSpacing < nTargetSpacing/16)
-			nActualSpacing = nTargetSpacing/16;
-		if (nActualSpacing > nTargetSpacing*16)
-			nActualSpacing = nTargetSpacing*16; 
+		if (nActualSpacing < nTargetSpacing/4)
+			nActualSpacing = nTargetSpacing/4;
+		if (nActualSpacing > nTargetSpacing*4)
+			nActualSpacing = nTargetSpacing*4; 
 
 		// printf(">>> nHeight = %d, nTargetSpacing = %"PRI64d", nActualSpacing = %"PRI64d"\n",
 		//	pindexLast->nHeight, nTargetSpacing, nActualSpacing);
@@ -1023,8 +1025,11 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 		CBigNum bnNew;
 		bnNew.SetCompact(pindexLast->nBits);
 
-		bnNew *= ((nInterval - 1) * nTargetSpacing + 2 * nActualSpacing);
-		bnNew /= ((nInterval + 1) * nTargetSpacing);
+		//bnNew *= ((nInterval - 1) * nTargetSpacing + 2 * nActualSpacing);
+		//bnNew /= ((nInterval + 1) * nTargetSpacing);
+		
+		bnNew *= nActualSpacing;
+		bnNew /= nTargetTimespan;
 
 		if (bnNew > bnProofOfWorkLimit)
 		    bnNew = bnProofOfWorkLimit;
