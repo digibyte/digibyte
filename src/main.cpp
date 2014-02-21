@@ -890,8 +890,8 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 {
     // Testnet has min-difficulty blocks
     // after nTargetSpacing*2 time between blocks:
-    if (fTestNet && nTime > nTargetSpacing*2)
-        return bnProofOfWorkLimit.GetCompact();
+    //if (fTestNet && nTime > nTargetSpacing*2)
+    //    return bnProofOfWorkLimit.GetCompact();
 
     CBigNum bnResult;
     bnResult.SetCompact(nBase);
@@ -941,7 +941,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Only change once per interval
     if ((pindexLast->nHeight+1) % retargetInterval != 0){
       // Special difficulty rule for testnet:
-      if (fTestNet){
+     /* if (fTestNet){
 	// If the new block's timestamp is more than 2* 10 minutes
 	// then allow mining of a min-difficulty block.
 	if (pblock->nTime > pindexLast->nTime + retargetSpacing*2)
@@ -954,6 +954,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 	  return pindex->nBits;
 	}
       }
+      */
       return pindexLast->nBits;
     }
     
