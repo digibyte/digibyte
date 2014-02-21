@@ -830,11 +830,11 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-static const int64 nDiffChangeTarget = 25;
-static const int64 patchBlockRewardDuration = 3;
+static const int64 nDiffChangeTarget = 25; // Patch effective @ block 64600 (Wed 2/26/2014)
+static const int64 patchBlockRewardDuration = 3; // 10080 blocks main net change
 
 int64 GetDGBSubsidy(int nHeight) {
-   // thanks to RealSolid for helping out with this code
+   // thanks to RealSolid & WDC for helping out with this code
    int64 qSubsidy = 8000*COIN;
    int blocks = nHeight - nDiffChangeTarget;
    int weeks = (blocks / patchBlockRewardDuration)+1;
@@ -876,8 +876,8 @@ int64  GetBlockValue(int nHeight, int64 nFees) {
 static const int64 nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
 static const int64 nTargetSpacing = 60; // 60 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
-static const int64 nTargetTimespanRe = 1 * 60; // 60 Minutes
-static const int64 nTargetSpacingRe = 1 * 60; // Worldcoin: 30 seconds
+static const int64 nTargetTimespanRe = 60; // 60 Seconds
+static const int64 nTargetSpacingRe = 60; // 60 seconds
 static const int64 nIntervalRe = nTargetTimespanRe / nTargetSpacingRe;
 
 
@@ -907,7 +907,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
             nTime -= nTargetTimespan*4;
         } else {
             // Maximum 10% adjustment...
-            bnResult = (bnResult * 500) / 100;
+            bnResult = (bnResult * 1000) / 100;
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
         }
@@ -958,7 +958,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
       return pindexLast->nBits;
     }
     
-    // Worldcoin: This fixes an issue where a 51% attack can change difficulty at will.
+    // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
     blockstogoback = retargetInterval-1;
     if ((pindexLast->nHeight+1) != retargetInterval) blockstogoback = retargetInterval;
@@ -978,11 +978,15 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
     
-
-			if (nActualTimespan < retargetTimespan/4) 
-			    nActualTimespan = retargetTimespan/4;
-			if (nActualTimespan > retargetTimespan*4) 
-			    nActualTimespan = retargetTimespan*4;
+// thanks to RealSolid & WDC for this code
+		if(fNewDifficultyProtocol) {
+			if (nActualTimespan < (retargetTimespan - (retargetTimespan/10)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/10));
+			if (nActualTimespan > (retargetTimespan + (retargetTimespan/10)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/10));
+		}
+		else {
+			if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
+			if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
+		}
 
     // Retarget
     bnNew *= nActualTimespan;
