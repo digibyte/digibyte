@@ -44,7 +44,7 @@ const std::string CLIENT_NAME("DigiByte");
 #define STRINGIFY(s) #s
 
 #define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \
-    "v" STRINGIFY(maj) "." STRINGIFY(min) "." STRINGIFY(rev) "." STRINGIFY(build) "-g" commit
+    "v" STRINGIFY(maj) "." STRINGIFY(min) "." STRINGIFY(rev) "." STRINGIFY(build) "" commit
 
 #define BUILD_DESC_FROM_UNKNOWN(maj,min,rev,build) \
     "v" STRINGIFY(maj) "." STRINGIFY(min) "." STRINGIFY(rev) "." STRINGIFY(build) "-unk"
