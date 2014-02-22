@@ -830,8 +830,8 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-static const int64 nDiffChangeTarget = 25; // Patch effective @ block 64600 (Wed 2/26/2014)
-static const int64 patchBlockRewardDuration = 3; // 10080 blocks main net change
+static const int64 nDiffChangeTarget = 3; // Patch effective @ block 64600 (Wed 2/26/2014)
+static const int64 patchBlockRewardDuration = 1; // 10080 blocks main net change
 
 int64 GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
@@ -850,11 +850,11 @@ int64  GetBlockValue(int nHeight, int64 nFees) {
    if(nHeight < nDiffChangeTarget) {
       //this is pre-patch, reward is 8000.
       nSubsidy = 8000 * COIN;
-      if(nHeight < 15)  //1440
+      if(nHeight < 1)  //1440
       {
         nSubsidy = 72000 * COIN;
       }
-      else if(nHeight < 20)  //5760
+      else if(nHeight < 2)  //5760
       {
         nSubsidy = 16000 * COIN;
       }
@@ -907,7 +907,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
             nTime -= nTargetTimespan*4;
         } else {
             // Maximum 10% adjustment...
-            bnResult = (bnResult * 1000) / 10;
+            bnResult = (bnResult * 500) / 100;
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
         }
