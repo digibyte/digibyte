@@ -876,7 +876,7 @@ int64  GetBlockValue(int nHeight, int64 nFees) {
 static const int64 nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
 static const int64 nTargetSpacing = 60; // 60 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
-static const int64 nTargetTimespanRe = 3*60; // 60 Seconds
+static const int64 nTargetTimespanRe = 1*60; // 60 Seconds
 static const int64 nTargetSpacingRe = 1*60; // 60 seconds
 static const int64 nIntervalRe = nTargetTimespanRe / nTargetSpacingRe;
 
@@ -907,7 +907,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
             nTime -= nTargetTimespan*4;
         } else {
             // Maximum 10% adjustment...
-            bnResult = (bnResult * 1000) / 10;
+            bnResult = (bnResult * 500) / 100;
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
         }
