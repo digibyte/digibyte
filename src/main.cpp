@@ -911,7 +911,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
             bnResult = (bnResult * 20);
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
-        //}
+        }
     }
     if (bnResult > bnProofOfWorkLimit)
         bnResult = bnProofOfWorkLimit;
