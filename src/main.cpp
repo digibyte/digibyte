@@ -830,7 +830,7 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-static const int64 nDiffChangeTarget = 55; // Patch effective @ block 64600 (Wed 2/26/2014)
+static const int64 nDiffChangeTarget = 5; // Patch effective @ block 64600 (Wed 2/26/2014)
 static const int64 patchBlockRewardDuration = 1; // 10080 blocks main net change
 
 int64 GetDGBSubsidy(int nHeight) {
@@ -902,13 +902,13 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 
         if(nBestHeight+1<nDiffChangeTarget){
             // Maximum 400% adjustment...
-            //bnResult *= 4;
-	    bnResult = (bnResult * 2000);
+            bnResult *= 4;
+	    //bnResult = (bnResult * 2000);
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespan*4;
         } else {
             // Maximum 10% adjustment...
-            bnResult = (bnResult * 2000);
+            bnResult = (bnResult * 20000);
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
         }
