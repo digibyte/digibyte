@@ -830,7 +830,7 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-static const int64 nDiffChangeTarget = 55; // Patch effective @ block 64600 (Wed 2/26/2014)
+static const int64 nDiffChangeTarget = 1; // Patch effective @ block 64600 (Wed 2/26/2014)
 static const int64 patchBlockRewardDuration = 1; // 10080 blocks main net change
 
 int64 GetDGBSubsidy(int nHeight) {
@@ -902,13 +902,13 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 
         if(nBestHeight+1<nDiffChangeTarget){
             // Maximum 400% adjustment...
-            //bnResult *= 4;
-	    bnResult = (bnResult * 20);
+            bnResult *= 4;
+	    //bnResult = (bnResult * 20);
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespan*4;
         } else {
             // Maximum 10% adjustment...
-            bnResult = (bnResult * 20);
+            bnResult = (bnResult * 1000);
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
         }
@@ -982,8 +982,8 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 // thanks to RealSolid & WDC for this code
 		if(fNewDifficultyProtocol) {
 		  
-			//if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
-			//if (nActualTimespan > (retargetTimespan + (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/4));
+			if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+			if (nActualTimespan > (retargetTimespan + (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/4));
 		}
 		else {
 			if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
