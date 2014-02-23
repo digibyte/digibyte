@@ -13,6 +13,8 @@ sudo apt-get install build-essential libboost-all-dev libcurl4-openssl-dev libdb
 
 sudo apt-get install qrencode libqrencode-dev 
 
+Qt v 4 is what we used to compile DigiByte.
+
 Ubuntu Compile digibyted
 ========================
 cd ~
