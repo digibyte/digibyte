@@ -860,7 +860,7 @@ int64  GetBlockValue(int nHeight, int64 nFees) {
       }
       
    } else {
-      //patch takes effect after 68,250 blocks solved
+      //patch takes effect after 67,200 blocks solved
       nSubsidy = GetDGBSubsidy(nHeight);
    }
 
