@@ -988,7 +988,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 		if(fNewDifficultyProtocol) {
 		  
 			if (nActualTimespan < (retargetTimespan - (retargetTimespan/3)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/3));
-			if (nActualTimespan > (retargetTimespan + (retargetTimespan/3)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
+			if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
 		}
 		else {
 			if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
