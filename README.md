@@ -19,7 +19,7 @@ cd ~
 
 git clone git://github.com/digibyte/DigiByteProject.git
 
-cd /DigiByteProject/src
+cd DigiByteProject/src
 
 make -f makefile.unix USE_UPNP=-
 
@@ -31,9 +31,9 @@ make: *** [obj/build.h] Error "
 
 Make sure to create the folder "obj" in the "src" folder:
 
-cd /DigiByteProject/src
+cd DigiByteProject/src
 
-If Root: cd ~/DigiByteProject/src
+If Root: cd ~DigiByteProject/src
 
 mkdir obj
 
