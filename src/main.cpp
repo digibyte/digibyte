@@ -979,11 +979,11 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
     
-// thanks to RealSolid & WDC for this code
+	// thanks to RealSolid & WDC for this code
 		if(fNewDifficultyProtocol) {
 		  
-			if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
-			if (nActualTimespan > (retargetTimespan + (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/4));
+			if (nActualTimespan < (retargetTimespan - (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/2));
+			if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
 		}
 		else {
 			if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
@@ -993,6 +993,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Retarget
     bnNew *= nActualTimespan;
     bnNew /= retargetTimespan;
+    
     /// debug print
     printf("GetNextWorkRequired RETARGET \n");
     printf("retargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", retargetTimespan, nActualTimespan);
