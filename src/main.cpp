@@ -6,7 +6,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "checkpoints.h"
-#include "db.h"
+#include "db.h" 
 #include "net.h"
 #include "init.h"
 #include "ui_interface.h"
@@ -830,28 +830,57 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-int64 static GetBlockValue(int nHeight, int64 nFees)
-{
-    int64 nSubsidy = 8000 * COIN;
-	
-		if(nHeight < 1440)
-    {
-        nSubsidy = 72000 * COIN;
-    }
-	else if(nHeight < 5760)
-    {
-        nSubsidy = 16000 * COIN;
-    }
+static const int64 nDiffChangeTarget = 67200; // Patch effective @ block 67200
+static const int64 patchBlockRewardDuration = 10080; // 10080 blocks main net change
 
-    // Subsidy is cut in half every 1051200 blocks, which will occur approximately every 2 years
-    nSubsidy >>= (nHeight / 1051200);
+int64 GetDGBSubsidy(int nHeight) {
+   // thanks to RealSolid & WDC for helping out with this code
+   int64 qSubsidy = 8000*COIN;
+   int blocks = nHeight - nDiffChangeTarget;
+   int weeks = (blocks / patchBlockRewardDuration)+1;
+   //decrease reward by 0.5% every week
+   for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);  
+   return qSubsidy;
 
-    return nSubsidy + nFees;
 }
+
+int64  GetBlockValue(int nHeight, int64 nFees) {
+   int64 nSubsidy = COIN;
+   
+   if(nHeight < nDiffChangeTarget) {
+      //this is pre-patch, reward is 8000.
+      nSubsidy = 8000 * COIN;
+      if(nHeight < 1440)  //1440
+      {
+        nSubsidy = 72000 * COIN;
+      }
+      else if(nHeight < 5760)  //5760
+      {
+        nSubsidy = 16000 * COIN;
+      }
+      
+   } else {
+      //patch takes effect after 68,250 blocks solved
+      nSubsidy = GetDGBSubsidy(nHeight);
+   }
+
+   //make sure the reward is at least 1 DGB
+   if(nSubsidy < COIN) {
+      nSubsidy = COIN;
+   }
+
+   return nSubsidy + nFees;
+}
+
 
 static const int64 nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
 static const int64 nTargetSpacing = 60; // 60 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+static const int64 nTargetTimespanRe = 1*60; // 60 Seconds
+static const int64 nTargetSpacingRe = 1*60; // 60 seconds
+static const int64 nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
+
+
 
 //
 // minimum amount of work that could possibly be required nTime after
@@ -866,12 +895,20 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 
     CBigNum bnResult;
     bnResult.SetCompact(nBase);
+
     while (nTime > 0 && bnResult < bnProofOfWorkLimit)
     {
-        // Maximum 400% adjustment...
-        bnResult *= 4;
-        // ... in best-case exactly 4-times-normal target time
-        nTime -= nTargetTimespan*4;
+		if(nBestHeight+1<nDiffChangeTarget){
+            // Maximum 400% adjustment...
+            bnResult *= 4;
+            // ... in best-case exactly 4-times-normal target time
+            nTime -= nTargetTimespan*4;
+        } else {
+            // Maximum 10% adjustment...
+            bnResult = (bnResult * 110) / 100;
+            // ... in best-case exactly 4-times-normal target time
+            nTime -= nTargetTimespanRe*4;
+        }
     }
     if (bnResult > bnProofOfWorkLimit)
         bnResult = bnProofOfWorkLimit;
@@ -882,39 +919,48 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 {
     unsigned int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
 
+    int nHeight = pindexLast->nHeight + 1;
+    bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget);
+    int blockstogoback = 0;
+	
+    //set default to pre-v2.0 values
+    int64 retargetTimespan = nTargetTimespan;
+    int64 retargetSpacing = nTargetSpacing;
+    int64 retargetInterval = nInterval;
     // Genesis block
-    if (pindexLast == NULL)
-        return nProofOfWorkLimit;
+    if (pindexLast == NULL) return nProofOfWorkLimit;
 
-    // Only change once per interval
-    if ((pindexLast->nHeight+1) % nInterval != 0)
-    {
-        // Special difficulty rule for testnet:
-        if (fTestNet)
-        {
-            // If the new block's timestamp is more than 2* 10 minutes
-            // then allow mining of a min-difficulty block.
-            if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
-                return nProofOfWorkLimit;
-            else
-            {
-                // Return the last non-special-min-difficulty-rules-block
-                const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
-                    pindex = pindex->pprev;
-                return pindex->nBits;
-            }
-        }
-
-        return pindexLast->nBits;
+    //if v2.0 changes are in effect for block num, alter retarget values 
+   if(fNewDifficultyProtocol) {
+      retargetTimespan = nTargetTimespanRe;
+      retargetSpacing = nTargetSpacingRe;
+      retargetInterval = nIntervalRe;
     }
-
+    
+    // Only change once per interval
+    if ((pindexLast->nHeight+1) % retargetInterval != 0){
+      // Special difficulty rule for testnet:
+		if (fTestNet){
+			// If the new block's timestamp is more than 2* 10 minutes
+			// then allow mining of a min-difficulty block.
+			if (pblock->nTime > pindexLast->nTime + retargetSpacing*2)
+				return nProofOfWorkLimit;
+		else {
+			// Return the last non-special-min-difficulty-rules-block
+			const CBlockIndex* pindex = pindexLast;
+			while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit) 
+			pindex = pindex->pprev;
+		return pindex->nBits;
+		}
+      }  
+      return pindexLast->nBits;
+    }
+    
     // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
-    int blockstogoback = nInterval-1;
-    if ((pindexLast->nHeight+1) != nInterval)
-        blockstogoback = nInterval;
-
+    blockstogoback = retargetInterval-1;
+    if ((pindexLast->nHeight+1) != retargetInterval) blockstogoback = retargetInterval;
+    
     // Go back by what we want to be 14 days worth of blocks
     const CBlockIndex* pindexFirst = pindexLast;
     for (int i = 0; pindexFirst && i < blockstogoback; i++)
@@ -924,25 +970,38 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nTargetTimespan/4)
-        nActualTimespan = nTargetTimespan/4;
-    if (nActualTimespan > nTargetTimespan*4)
-        nActualTimespan = nTargetTimespan*4;
 
-    // Retarget
+
+
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
+    
+	// thanks to RealSolid & WDC for this code
+		if(fNewDifficultyProtocol) {
+		  
+			if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+			if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
+		}
+		else {
+			if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
+			if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
+		}
+
+    // Retarget
     bnNew *= nActualTimespan;
-    bnNew /= nTargetTimespan;
+    bnNew /= retargetTimespan;
+    
+    /// debug print
+    printf("GetNextWorkRequired RETARGET \n");
+    printf("retargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", retargetTimespan, nActualTimespan);
+    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
+    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+    
 
     if (bnNew > bnProofOfWorkLimit)
         bnNew = bnProofOfWorkLimit;
 
-    /// debug print
-    printf("GetNextWorkRequired RETARGET\n");
-    printf("nTargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", nTargetTimespan, nActualTimespan);
-    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
-    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+
 
     return bnNew.GetCompact();
 }
@@ -1984,7 +2043,7 @@ bool LoadBlockIndex(bool fAllowNew)
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0xe5d98005cd7744147b4c472fffc04a81bdc04756ddbcb49e6675f01b1585c1d3");
+        hashGenesisBlock = uint256("0xb5dca8039e300198e5fe7cd23bdd1728e2a444af34c447dbd0916fa3430a68c2");
     }
 
     //
@@ -2032,8 +2091,8 @@ bool LoadBlockIndex(bool fAllowNew)
 
         if (fTestNet)
         {
-            block.nTime    = 11389388394;
-            block.nNonce   = 0;
+            block.nTime    = 1392796564;
+            block.nNonce   = 961533;
         }
 
         //// debug print

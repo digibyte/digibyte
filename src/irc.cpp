@@ -210,7 +210,7 @@ void ThreadIRCSeed(void* parg)
 void ThreadIRCSeed2(void* parg)
 {
     /* Disable IRC Seeding Entirely */
-    return;
+    //return;
 
     /* Dont advertise on IRC if we don't allow incoming connections */
     if (mapArgs.count("-connect") || fNoListen)
@@ -368,12 +368,6 @@ void ThreadIRCSeed2(void* parg)
             return;
     }
 }
-
-
-
-
-
-
 
 
 
