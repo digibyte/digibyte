@@ -895,7 +895,8 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 
     CBigNum bnResult;
     bnResult.SetCompact(nBase);
-
+     printf("Starting nTime = %"PRI64d" \n", nTime);
+     //printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
 
     while (nTime > 0 && bnResult < bnProofOfWorkLimit)
     {
@@ -909,8 +910,12 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
         } else {
             // Maximum 10% adjustment...
             bnResult = (bnResult * 20000);
-            // ... in best-case exactly 4-times-normal target time
+	    
+            // ... in best-case exactly 4-times-normal target time    
             nTime -= nTargetTimespanRe*4;
+	    printf("bnResult = %"PRI64d"    nTime = %"PRI64d" \n", bnResult.GetCompact(), nTime);
+	   
+	    
         }
     }
     if (bnResult > bnProofOfWorkLimit)
@@ -982,7 +987,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 	// thanks to RealSolid & WDC for this code
 		if(fNewDifficultyProtocol) {
 		  
-			if (nActualTimespan < (retargetTimespan - (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/2));
+			if (nActualTimespan < (retargetTimespan - (retargetTimespan/3)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/3));
 			if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
 		}
 		else {
@@ -997,8 +1002,8 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     /// debug print
     printf("GetNextWorkRequired RETARGET \n");
     printf("retargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", retargetTimespan, nActualTimespan);
-    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
-    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+    //printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
+    //printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
     
 
     if (bnNew > bnProofOfWorkLimit)
