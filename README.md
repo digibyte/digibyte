@@ -2,10 +2,10 @@ Technical Specifications
 ========================
 
  - Srypt proof-of-work algorithm
- - 60 second block time targets
+ - 60 second block time target
  - ~21 billion total coins
- - 8,000 coins per block, halves every ~2 years
- - Retarget every 144 blocks
+ - 8000 coins per block, reduces by 0.5% each week starting 2/28/14
+ - Difficulty retarget every 1 block
  
 Ubuntu Dependencies
 ===================
