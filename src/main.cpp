@@ -900,23 +900,12 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 
     while (nTime > 0 && bnResult < bnProofOfWorkLimit)
     {
-
-        if(nBestHeight+1<nDiffChangeTarget){
             // Maximum 400% adjustment...
             bnResult *= 4;
-	    //bnResult = (bnResult * 2000);
-            // ... in best-case exactly 4-times-normal target time
-            nTime -= nTargetTimespan*4;
-        } else {
-            // Maximum 10% adjustment...
-            bnResult = (bnResult * 20000);
-	    
+
             // ... in best-case exactly 4-times-normal target time    
             nTime -= nTargetTimespanRe*4;
-	    printf("bnResult = %"PRI64d"    nTime = %"PRI64d" \n", bnResult.GetCompact(), nTime);
-	   
-	    
-        }
+
     }
     if (bnResult > bnProofOfWorkLimit)
         bnResult = bnProofOfWorkLimit;
@@ -987,7 +976,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 	// thanks to RealSolid & WDC for this code
 		if(fNewDifficultyProtocol) {
 		  
-			if (nActualTimespan < (retargetTimespan - (retargetTimespan/3)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/3));
+			if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
 			if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
 		}
 		else {
