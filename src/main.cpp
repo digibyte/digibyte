@@ -830,8 +830,8 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-static const int64 nDiffChangeTarget = 5; // Patch effective @ block 67250
-static const int64 patchBlockRewardDuration = 1; // 10080 blocks main net change
+static const int64 nDiffChangeTarget = 67200; // Patch effective @ block 67200
+static const int64 patchBlockRewardDuration = 10080; // 10080 blocks main net change
 
 int64 GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
@@ -850,11 +850,11 @@ int64  GetBlockValue(int nHeight, int64 nFees) {
    if(nHeight < nDiffChangeTarget) {
       //this is pre-patch, reward is 8000.
       nSubsidy = 8000 * COIN;
-      if(nHeight < 2)  //1440
+      if(nHeight < 1440)  //1440
       {
         nSubsidy = 72000 * COIN;
       }
-      else if(nHeight < 4)  //5760
+      else if(nHeight < 5760)  //5760
       {
         nSubsidy = 16000 * COIN;
       }
@@ -940,7 +940,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Only change once per interval
     if ((pindexLast->nHeight+1) % retargetInterval != 0){
       // Special difficulty rule for testnet:
-		/*if (fTestNet){
+		if (fTestNet){
 			// If the new block's timestamp is more than 2* 10 minutes
 			// then allow mining of a min-difficulty block.
 			if (pblock->nTime > pindexLast->nTime + retargetSpacing*2)
@@ -952,7 +952,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 			pindex = pindex->pprev;
 		return pindex->nBits;
 		}
-      } */   
+      }  
       return pindexLast->nBits;
     }
     
