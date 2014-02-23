@@ -35,7 +35,7 @@ bool AppInit(int argc, char* argv[])
         //
         // Parameters
         //
-        // If Qt is used, parameters/zetacoin.conf are parsed in qt/bitcoin.cpp's main()
+        // If Qt is used, parameters/myriadcoin.conf are parsed in qt/bitcoin.cpp's main()
         ParseParameters(argc, argv);
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
@@ -46,13 +46,13 @@ bool AppInit(int argc, char* argv[])
 
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
-            // First part of help message is specific to zetacoind / RPC client
-            std::string strUsage = _("Zetacoin version") + " " + FormatFullVersion() + "\n\n" +
+            // First part of help message is specific to myriadcoind / RPC client
+            std::string strUsage = _("Myriadcoin version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  zetacoind [options]                     " + "\n" +
-                  "  zetacoind [options] <command> [params]  " + _("Send command to -server or zetacoind") + "\n" +
-                  "  zetacoind [options] help                " + _("List commands") + "\n" +
-                  "  zetacoind [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  myriadcoind [options]                     " + "\n" +
+                  "  myriadcoind [options] <command> [params]  " + _("Send command to -server or myriadcoind") + "\n" +
+                  "  myriadcoind [options] help                " + _("List commands") + "\n" +
+                  "  myriadcoind [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -62,7 +62,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "zetacoin:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "myriadcoin:"))
                 fCommandLine = true;
 
         if (fCommandLine)
@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
     bool fRet = false;
     fHaveGUI = false;
 
-    // Connect zetacoind signal handlers
+    // Connect myriadcoind signal handlers
     noui_connect();
 
     fRet = AppInit(argc, argv);

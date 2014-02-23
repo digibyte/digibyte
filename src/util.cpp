@@ -981,7 +981,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "zetacoin";
+    const char* pszModule = "myriadcoin";
 #endif
     if (pex)
         return strprintf(
@@ -1017,13 +1017,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Zetacoin
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Zetacoin
-    // Mac: ~/Library/Application Support/Zetacoin
-    // Unix: ~/.zetacoin
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Myriadcoin
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Myriadcoin
+    // Mac: ~/Library/Application Support/Myriadcoin
+    // Unix: ~/.myriadcoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Zetacoin";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Myriadcoin";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -1035,10 +1035,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "Zetacoin";
+    return pathRet / "Myriadcoin";
 #else
     // Unix
-    return pathRet / ".zetacoin";
+    return pathRet / ".myriadcoin";
 #endif
 #endif
 }
@@ -1079,7 +1079,7 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "zetacoin.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "myriadcoin.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
 }
@@ -1089,7 +1089,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good())
-        return; // No zetacoin.conf file is OK
+        return; // No myriadcoin.conf file is OK
 
     // clear path cache after loading config file
     fCachedPath[0] = fCachedPath[1] = false;
@@ -1099,7 +1099,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
     {
-        // Don't overwrite existing settings so command line settings override zetacoin.conf
+        // Don't overwrite existing settings so command line settings override myriadcoin.conf
         string strKey = string("-") + it->string_key;
         if (mapSettingsRet.count(strKey) == 0)
         {
@@ -1113,7 +1113,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "zetacoind.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "myriadcoind.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }
@@ -1337,7 +1337,7 @@ void AddTimeData(const CNetAddr& ip, int64 nTime)
                 if (!fMatch)
                 {
                     fDone = true;
-                    string strMessage = _("Warning: Please check that your computer's date and time are correct! If your clock is wrong Zetacoin will not work properly.");
+                    string strMessage = _("Warning: Please check that your computer's date and time are correct! If your clock is wrong Myriadcoin will not work properly.");
                     strMiscWarning = strMessage;
                     printf("*** %s\n", strMessage.c_str());
                     uiInterface.ThreadSafeMessageBox(strMessage, "", CClientUIInterface::MSG_WARNING);

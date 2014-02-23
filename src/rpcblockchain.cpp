@@ -5,28 +5,39 @@
 
 #include "main.h"
 #include "bitcoinrpc.h"
+#include "core.h"
 
 using namespace json_spirit;
 using namespace std;
 
 void ScriptPubKeyToJSON(const CScript& scriptPubKey, Object& out);
 
-double GetDifficulty(const CBlockIndex* blockindex)
+double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
+    unsigned int nBits;
+    
     // Floating point number that is a multiple of the minimum difficulty,
     // minimum difficulty = 1.0.
     if (blockindex == NULL)
     {
         if (pindexBest == NULL)
-            return 1.0;
+            nBits = Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
         else
-            blockindex = pindexBest;
+        {
+            blockindex = GetLastBlockIndexForAlgo(pindexBest, algo);
+            if (blockindex == NULL)
+                nBits = Params().ProofOfWorkLimit(algo).GetCompact();
+            else
+                nBits = blockindex->nBits;
+        }
     }
+    else
+        nBits = blockindex->nBits;
 
-    int nShift = (blockindex->nBits >> 24) & 0xff;
+    int nShift = (nBits >> 24) & 0xff;
 
     double dDiff =
-        (double)0x0000ffff / (double)(blockindex->nBits & 0x00ffffff);
+        (double)0x0000ffff / (double)(nBits & 0x00ffffff);
 
     while (nShift < 29)
     {
@@ -53,6 +64,10 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex)
     result.push_back(Pair("size", (int)::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION)));
     result.push_back(Pair("height", blockindex->nHeight));
     result.push_back(Pair("version", block.nVersion));
+    int algo = block.GetAlgo();
+    result.push_back(Pair("pow_algo_id", algo));
+    result.push_back(Pair("pow_algo", GetAlgoName(algo)));
+    result.push_back(Pair("pow_hash", block.GetPoWHash(algo).GetHex()));
     result.push_back(Pair("merkleroot", block.hashMerkleRoot.GetHex()));
     Array txs;
     BOOST_FOREACH(const CTransaction&tx, block.vtx)
@@ -61,7 +76,7 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex)
     result.push_back(Pair("time", (boost::int64_t)block.GetBlockTime()));
     result.push_back(Pair("nonce", (boost::uint64_t)block.nNonce));
     result.push_back(Pair("bits", HexBits(block.nBits)));
-    result.push_back(Pair("difficulty", GetDifficulty(blockindex)));
+    result.push_back(Pair("difficulty", GetDifficulty(blockindex, miningAlgo)));
 
     if (blockindex->pprev)
         result.push_back(Pair("previousblockhash", blockindex->pprev->GetBlockHash().GetHex()));
@@ -99,7 +114,7 @@ Value getdifficulty(const Array& params, bool fHelp)
             "getdifficulty\n"
             "Returns the proof-of-work difficulty as a multiple of the minimum difficulty.");
 
-    return GetDifficulty();
+    return GetDifficulty(NULL, miningAlgo);
 }
 
 

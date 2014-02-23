@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Zetacoin</source>
-        <translation>Apie Zetacoin</translation>
+        <source>About Myriadcoin</source>
+        <translation>Apie Myriadcoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Zetacoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Zetacoin&lt;/b&gt; versija</translation>
+        <source>&lt;b&gt;Myriadcoin&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Myriadcoin&lt;/b&gt; versija</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -33,7 +33,7 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="+0"/>
-        <source>The Zetacoin developers</source>
+        <source>The Myriadcoin developers</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -66,8 +66,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Zetacoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Tai yra jūsų Zetacoin adresai mokėjimų gavimui. Galite duoti skirtingus adresus atskiriems siuntėjams, kad galėtumėte sekti, kas jums moka.</translation>
+        <source>These are your Myriadcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Tai yra jūsų Myriadcoin adresai mokėjimų gavimui. Galite duoti skirtingus adresus atskiriems siuntėjams, kad galėtumėte sekti, kas jums moka.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -81,8 +81,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Zetacoin address</source>
-        <translation>Pasirašykite žinutę, kad įrodytume, jog esate Zetacoin adreso savininkas</translation>
+        <source>Sign a message to prove you own a Myriadcoin address</source>
+        <translation>Pasirašykite žinutę, kad įrodytume, jog esate Myriadcoin adreso savininkas</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -106,8 +106,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Zetacoin address</source>
-        <translation>Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Zetacoin adresas</translation>
+        <source>Verify a message to ensure it was signed with a specified Myriadcoin address</source>
+        <translation>Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Myriadcoin adresas</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -121,7 +121,7 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Zetacoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -247,8 +247,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ZETACOINS&lt;/b&gt;!</source>
-        <translation>Dėmesio: jei užšifruosite savo piniginę ir pamesite slaptafrazę, jūs&lt;b&gt;PRARASITE VISUS SAVO ZETACOINUS&lt;/b&gt;! </translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
+        <translation>Dėmesio: jei užšifruosite savo piniginę ir pamesite slaptafrazę, jūs&lt;b&gt;PRARASITE VISUS SAVO MYRIADCOINUS&lt;/b&gt;! </translation>
     </message>
     <message>
         <location line="+0"/>
@@ -274,8 +274,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="-56"/>
-        <source>Zetacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your zetacoins from being stolen by malware infecting your computer.</source>
-        <translation>Zetacoin dabar užsidarys šifravimo proceso pabaigai. Atminkite, kad piniginės šifravimas negali pilnai apsaugoti zetacoinų vagysčių kai tinkle esančios kenkėjiškos programos patenka į jūsų kompiuterį.</translation>
+        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Myriadcoin dabar užsidarys šifravimo proceso pabaigai. Atminkite, kad piniginės šifravimas negali pilnai apsaugoti myriadcoinų vagysčių kai tinkle esančios kenkėjiškos programos patenka į jūsų kompiuterį.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -373,8 +373,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Zetacoin</source>
-        <translation>Rodyti informaciją apie Zetacoin</translation>
+        <source>Show information about Myriadcoin</source>
+        <translation>Rodyti informaciją apie Myriadcoin</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -418,13 +418,13 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Zetacoin address</source>
-        <translation>Siųsti monetas Zetacoin adresui</translation>
+        <source>Send coins to a Myriadcoin address</source>
+        <translation>Siųsti monetas Myriadcoin adresui</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Zetacoin</source>
-        <translation>Keisti zetacoin konfigūracijos galimybes</translation>
+        <source>Modify configuration options for Myriadcoin</source>
+        <translation>Keisti myriadcoin konfigūracijos galimybes</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -454,8 +454,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Zetacoin</source>
-        <translation>Zetacoin</translation>
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -479,8 +479,8 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Zetacoin</source>
-        <translation>&amp;Apie Zetacoin</translation>
+        <source>&amp;About Myriadcoin</source>
+        <translation>&amp;Apie Myriadcoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -499,12 +499,12 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Zetacoin addresses to prove you own them</source>
+        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Zetacoin addresses</source>
+        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -535,13 +535,13 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
     </message>
     <message>
         <location line="+47"/>
-        <source>Zetacoin client</source>
-        <translation>Zetacoin klientas</translation>
+        <source>Myriadcoin client</source>
+        <translation>Myriadcoin klientas</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Zetacoin network</source>
-        <translation><numerusform>%n Zetacoin tinklo aktyvus ryšys</numerusform><numerusform>%n Zetacoin tinklo aktyvūs ryšiai</numerusform><numerusform>%n Zetacoin tinklo aktyvūs ryšiai</numerusform></translation>
+        <source>%n active connection(s) to Myriadcoin network</source>
+        <translation><numerusform>%n Myriadcoin tinklo aktyvus ryšys</numerusform><numerusform>%n Myriadcoin tinklo aktyvūs ryšiai</numerusform><numerusform>%n Myriadcoin tinklo aktyvūs ryšiai</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -654,7 +654,7 @@ Adresas: %4</translation>
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Zetacoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -669,7 +669,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Zetacoin can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -735,8 +735,8 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Zetacoin address.</source>
-        <translation>Įvestas adresas „%1“ nėra galiojantis Zetacoin adresas.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
+        <translation>Įvestas adresas „%1“ nėra galiojantis Myriadcoin adresas.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -754,8 +754,8 @@ Adresas: %4</translation>
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Zetacoin-Qt</source>
-        <translation>Zetacoin-Qt</translation>
+        <source>Myriadcoin-Qt</source>
+        <translation>Myriadcoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -817,13 +817,13 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Zetacoin after logging in to the system.</source>
+        <source>Automatically start Myriadcoin after logging in to the system.</source>
         <translation>Automatiškai paleisti Bitkoin programą įjungus sistemą.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Zetacoin on system login</source>
-        <translation>&amp;Paleisti Zetacoin programą su window sistemos paleidimu</translation>
+        <source>&amp;Start Myriadcoin on system login</source>
+        <translation>&amp;Paleisti Myriadcoin programą su window sistemos paleidimu</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -842,8 +842,8 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Zetacoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatiškai atidaryti Zetacoin kliento prievadą maršrutizatoriuje. Tai veikia tik tada, kai jūsų maršrutizatorius palaiko UPnP ir ji įjungta.</translation>
+        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatiškai atidaryti Myriadcoin kliento prievadą maršrutizatoriuje. Tai veikia tik tada, kai jūsų maršrutizatorius palaiko UPnP ir ji įjungta.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -852,7 +852,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Zetacoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <source>Connect to the Myriadcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
         <translation>Jungtis į Bitkoin tinklą per  socks proxy (pvz. jungiantis per Tor)</translation>
     </message>
     <message>
@@ -927,8 +927,8 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Zetacoin.</source>
-        <translation>Čia gali būti nustatyta naudotojo sąsajos kalba. Šis nustatymas įsigalios iš naujo paleidus Zetacoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
+        <translation>Čia gali būti nustatyta naudotojo sąsajos kalba. Šis nustatymas įsigalios iš naujo paleidus Myriadcoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -942,7 +942,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Zetacoin addresses in the transaction list or not.</source>
+        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -994,7 +994,7 @@ Adresas: %4</translation>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Zetacoin.</source>
+        <source>This setting will take effect after restarting Myriadcoin.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1013,7 +1013,7 @@ Adresas: %4</translation>
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Zetacoin network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1067,7 +1067,7 @@ Adresas: %4</translation>
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start zetacoin: click-to-pay handler</source>
+        <source>Cannot start myriadcoin: click-to-pay handler</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1217,7 +1217,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Zetacoin-Qt help message to get a list with possible Zetacoin command-line options.</source>
+        <source>Show the Myriadcoin-Qt help message to get a list with possible Myriadcoin command-line options.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1237,13 +1237,13 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>Zetacoin - Debug window</source>
-        <translation>Zetacoin - Derinimo langas</translation>
+        <source>Myriadcoin - Debug window</source>
+        <translation>Myriadcoin - Derinimo langas</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Zetacoin Core</source>
-        <translation>Zetacoin branduolys</translation>
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin branduolys</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1252,7 +1252,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Zetacoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1262,7 +1262,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Zetacoin RPC console.</source>
+        <source>Welcome to the Myriadcoin RPC console.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1446,7 +1446,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Zetacoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Įveskite bitkoinų adresą (pvz. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
@@ -1511,7 +1511,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Zetacoin address</source>
+        <source>Sign the message to prove you own this Myriadcoin address</source>
         <translation>Registruotis žinute įrodymuii, kad turite šį adresą</translation>
     </message>
     <message>
@@ -1547,8 +1547,8 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Zetacoin address</source>
-        <translation>Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Zetacoin adresas</translation>
+        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
+        <translation>Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Myriadcoin adresas</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1563,7 +1563,7 @@ Adresas: %4</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Zetacoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Įveskite bitkoinų adresą (pvz. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
@@ -1573,8 +1573,8 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Zetacoin signature</source>
-        <translation>Įveskite Zetacoin parašą</translation>
+        <source>Enter Myriadcoin signature</source>
+        <translation>Įveskite Myriadcoin parašą</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1647,7 +1647,7 @@ Adresas: %4</translation>
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+25"/>
-        <source>The Zetacoin developers</source>
+        <source>The Myriadcoin developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2185,8 +2185,8 @@ Adresas: %4</translation>
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Zetacoin version</source>
-        <translation>Zetacoin versija</translation>
+        <source>Myriadcoin version</source>
+        <translation>Myriadcoin versija</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2195,8 +2195,8 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or zetacoind</source>
-        <translation>Siųsti komandą serveriui arba zetacoind</translation>
+        <source>Send command to -server or myriadcoind</source>
+        <translation>Siųsti komandą serveriui arba myriadcoind</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2215,13 +2215,13 @@ Adresas: %4</translation>
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: zetacoin.conf)</source>
-        <translation>Nurodyti konfigūracijos failą (pagal nutylėjimąt: zetacoin.conf)</translation>
+        <source>Specify configuration file (default: myriadcoin.conf)</source>
+        <translation>Nurodyti konfigūracijos failą (pagal nutylėjimąt: myriadcoin.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: zetacoind.pid)</source>
-        <translation>Nurodyti pid failą (pagal nutylėjimą: zetacoind.pid)</translation>
+        <source>Specify pid file (default: myriadcoind.pid)</source>
+        <translation>Nurodyti pid failą (pagal nutylėjimą: myriadcoind.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2298,13 +2298,13 @@ Adresas: %4</translation>
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=zetacoinrpc
+rpcuser=myriadcoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Zetacoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"/>
     </message>
@@ -2320,7 +2320,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Zetacoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Zetacoin is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s. Myriadcoin is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2365,8 +2365,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Zetacoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Zetacoin will not work properly.</source>
-        <translation>Įspėjimas: Patikrinkite, kad kompiuterio data ir laikas yra teisingi.Jei Jūsų laikrodis neteisingai nustatytas Zetacoin, veiks netinkamai.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
+        <translation>Įspėjimas: Patikrinkite, kad kompiuterio data ir laikas yra teisingi.Jei Jūsų laikrodis neteisingai nustatytas Myriadcoin, veiks netinkamai.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2615,8 +2615,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Zetacoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Zetacoin Wiki for SSL setup instructions)</source>
-        <translation>SSL opcijos (žr.e Zetacoin Wiki for SSL setup instructions)</translation>
+        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>SSL opcijos (žr.e Myriadcoin Wiki for SSL setup instructions)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2805,13 +2805,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Zetacoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Zetacoin</source>
-        <translation> wallet.dat pakrovimo klaida,  wallet.dat reikalauja naujasnės Zetacoin versijos</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
+        <translation> wallet.dat pakrovimo klaida,  wallet.dat reikalauja naujasnės Myriadcoin versijos</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Zetacoin to complete</source>
-        <translation>Piniginė turi būti prrašyta: įvykdymui perkraukite Zetacoin</translation>
+        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
+        <translation>Piniginė turi būti prrašyta: įvykdymui perkraukite Myriadcoin</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2870,8 +2870,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Zetacoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Zetacoin is probably already running.</source>
-        <translation>Nepavyko susieti šiame kompiuteryje prievado %s. Zetacoin tikriausiai jau veikia.</translation>
+        <source>Unable to bind to %s on this computer. Myriadcoin is probably already running.</source>
+        <translation>Nepavyko susieti šiame kompiuteryje prievado %s. Myriadcoin tikriausiai jau veikia.</translation>
     </message>
     <message>
         <location line="+64"/>

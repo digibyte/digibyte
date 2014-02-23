@@ -166,8 +166,8 @@ std::string HelpMessage()
 {
     string strUsage = _("Options:") + "\n";
     strUsage += "  -?                     " + _("This help message") + "\n";
-    strUsage += "  -conf=<file>           " + _("Specify configuration file (default: zetacoin.conf)") + "\n";
-    strUsage += "  -pid=<file>            " + _("Specify pid file (default: zetacoind.pid)") + "\n";
+    strUsage += "  -conf=<file>           " + _("Specify configuration file (default: myriadcoin.conf)") + "\n";
+    strUsage += "  -pid=<file>            " + _("Specify pid file (default: myriadcoind.pid)") + "\n";
     strUsage += "  -gen                   " + _("Generate coins (default: 0)") + "\n";
     strUsage += "  -datadir=<dir>         " + _("Specify data directory") + "\n";
     strUsage += "  -wallet=<file>         " + _("Specify wallet file (within data directory)") + "\n";
@@ -238,7 +238,7 @@ std::string HelpMessage()
     strUsage += "  -loadblock=<file>      " + _("Imports blocks from external blk000??.dat file") + "\n";
     strUsage += "  -reindex               " + _("Rebuild block chain index from current blk000??.dat files") + "\n";
     strUsage += "  -par=<n>               " + _("Set the number of script verification threads (up to 16, 0 = auto, <0 = leave that many cores free, default: 0)") + "\n";
-
+    strUsage += "  -algo=<algo>           " + _("Mining algorithm: sha256d, scrypt, groestl, skein, qubit") + "\n";
     strUsage += "\n" + _("Block creation options:") + "\n";
     strUsage += "  -blockminsize=<n>      "   + _("Set minimum block size in bytes (default: 0)") + "\n";
     strUsage += "  -blockmaxsize=<n>      "   + _("Set maximum block size in bytes (default: 250000)") + "\n";
@@ -409,6 +409,22 @@ bool AppInit2(boost::thread_group& threadGroup)
         SoftSetBoolArg("-rescan", true);
     }
 
+    // Algo
+    std::string strAlgo = GetArg("-algo", "sha256d");
+    transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
+    if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
+        miningAlgo = ALGO_SHA256D;
+    else if (strAlgo == "scrypt")
+        miningAlgo = ALGO_SCRYPT;
+    else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
+        miningAlgo = ALGO_GROESTL;
+    else if (strAlgo == "skein" || strAlgo == "skeinsha2")
+        miningAlgo = ALGO_SKEIN;
+    else if (strAlgo == "q2c" || strAlgo == "qubit")
+        miningAlgo = ALGO_QUBIT;
+    else
+        miningAlgo = ALGO_SHA256D;
+    
     // Make sure enough file descriptors are available
     int nBind = std::max((int)mapArgs.count("-bind"), 1);
     nMaxConnections = GetArg("-maxconnections", 125);
@@ -511,12 +527,12 @@ bool AppInit2(boost::thread_group& threadGroup)
     if (file) fclose(file);
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
     if (!lock.try_lock())
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Zetacoin is probably already running."), strDataDir.c_str()));
+        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Myriadcoin is probably already running."), strDataDir.c_str()));
 
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("Zetacoin version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    printf("Myriadcoin version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     if (!fLogTimestamps)
         printf("Startup time: %s\n", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", GetTime()).c_str());
@@ -526,7 +542,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "Zetacoin server starting\n");
+        fprintf(stdout, "Myriadcoin server starting\n");
 
     if (nScriptCheckThreads) {
         printf("Using %u threads for script verification\n", nScriptCheckThreads);
@@ -860,10 +876,10 @@ bool AppInit2(boost::thread_group& threadGroup)
             InitWarning(msg);
         }
         else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Zetacoin") << "\n";
+            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Myriadcoin") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE)
         {
-            strErrors << _("Wallet needed to be rewritten: restart Zetacoin to complete") << "\n";
+            strErrors << _("Wallet needed to be rewritten: restart Myriadcoin to complete") << "\n";
             printf("%s", strErrors.str().c_str());
             return InitError(strErrors.str());
         }
