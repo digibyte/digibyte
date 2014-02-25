@@ -1,7 +1,7 @@
 Technical Specifications
 ========================
 
- - Srypt proof-of-work algorithm
+ - Scrypt proof-of-work algorithm
  - 60 second block time target
  - ~21 billion total coins
  - 8000 coins per block, reduces by 0.5% each week starting 2/28/14
