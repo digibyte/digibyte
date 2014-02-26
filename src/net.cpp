@@ -1533,7 +1533,7 @@ void ThreadMessageHandler()
                 pnode->Release();
         }
 
-        MilliSleep(100);
+        MilliSleep(20);
     }
 }
 
