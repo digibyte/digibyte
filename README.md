@@ -15,7 +15,7 @@ out collectively by the network. Myriadcoin is also the name of the open source
 software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
-the Myriadcoin client sofware, see https://bitcointalk.org/index.php?topic=267545.0
+the Myriadcoin client sofware, see https://bitcointalk.org/index.php?topic=483515.0
 
 License
 -------
