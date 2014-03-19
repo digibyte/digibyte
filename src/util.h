@@ -580,4 +580,6 @@ template <typename Callable> void TraceThread(const char* name,  Callable func)
     }
 }
 
+bool NewThread(void(*pfn)(void*), void* parg);
+
 #endif
