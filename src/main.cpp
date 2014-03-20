@@ -1015,7 +1015,6 @@ bool WriteBlockToDisk(CBlock& block, CDiskBlockPos& pos)
     if (!IsInitialBlockDownload())
         FileCommit(fileout);
     
-    LogPrintf("\n\nMade it WriteBlockToDisk\n\n");
     return true;
 }
 
@@ -1092,13 +1091,6 @@ void static PruneOrphanBlocks()
     mapOrphanBlocks.erase(hash);
 }
 
-static const int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
-static const int64_t nTargetSpacing = 60; // 60 seconds
-static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
-static const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
-static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
-static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
-
 static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 
@@ -1120,6 +1112,7 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
    if(nHeight < nDiffChangeTarget) {
       //this is pre-patch, reward is 8000.
       nSubsidy = 8000 * COIN;
+      
       if(nHeight < 1440)  //1440
       {
         nSubsidy = 72000 * COIN;
@@ -1130,7 +1123,7 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
       }
       
    } else {
-      //patch takes effect after 68,250 blocks solved
+      //patch takes effect after 67,200 blocks solved
       nSubsidy = GetDGBSubsidy(nHeight);
    }
 
@@ -1141,6 +1134,15 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
 
    return nSubsidy + nFees;
 }
+
+
+static const int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+static const int64_t nTargetSpacing = 60; // 60 seconds
+static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
+static const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
+static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
+static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
+
 
 
 //
@@ -1158,11 +1160,18 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
     CBigNum bnResult;
     bnResult.SetCompact(nBase);
     while (nTime > 0 && bnResult < bnLimit)
-    {
+    { 
+	if(chainActive.Height()<nDiffChangeTarget){
+            // Maximum 400% adjustment...
+            bnResult *= 4;
+            // ... in best-case exactly 4-times-normal target time
+            nTime -= nTargetTimespan*4;
+        } else {
             // Maximum 10% adjustment...
             bnResult = (bnResult * 110) / 100;
             // ... in best-case exactly 4-times-normal target time
             nTime -= nTargetTimespanRe*4;
+        }
     }
     if (bnResult > bnLimit)
         bnResult = bnLimit;
@@ -1183,11 +1192,11 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     int64_t retargetInterval = nInterval;
 	
     // Genesis block
-    if (pindexLast == NULL)
-        return nProofOfWorkLimit;
+    if (pindexLast == NULL) return nProofOfWorkLimit;
 		
 	//if v2.0 changes are in effect for block num, alter retarget values 
    if(fNewDifficultyProtocol) {
+      LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
       retargetTimespan = nTargetTimespanRe;
       retargetSpacing = nTargetSpacingRe;
       retargetInterval = nIntervalRe;
@@ -1229,13 +1238,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
   // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     LogPrintf("nActualTimespan = %d  before bounds\n", nActualTimespan);
-
-    CBigNum bnNew;
-    bnNew.SetCompact(pindexLast->nBits);
 	
 	// thanks to RealSolid & WDC for this code
 		if(fNewDifficultyProtocol) {
-		  
+			LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
 			if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
 			if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
 		}
@@ -1244,8 +1250,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 			if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
 		}	
 
+    CBigNum bnNew;
+    bnNew.SetCompact(pindexLast->nBits);
     bnNew *= nActualTimespan;
-    bnNew /= nTargetTimespan;
+    bnNew /= retargetTimespan;
 
     if (bnNew > Params().ProofOfWorkLimit())
         bnNew = Params().ProofOfWorkLimit();
@@ -1701,9 +1709,12 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
         return false;
 
     // verify that the view's current state corresponds to the previous block
-    //uint256 hashPrevBlock = pindex->pprev == NULL ? uint256(0) : pindex->pprev->GetBlockHash();
-    assert(pindex->pprev->GetBlockHash() == view.GetBestBlock());
-
+    
+    uint256 hashPrevBlock = pindex->pprev == NULL ? uint256(0) : pindex->pprev->GetBlockHash();
+    assert(hashPrevBlock == view.GetBestBlock());
+   
+    //LogPrintf("\n\nconnectBlock1L  %s\n\n", block.GetHash().ToString().c_str());
+    
     // Special case for the genesis block, skipping connection of its transactions
     // (its coinbase is unspendable)
     if (block.GetHash() == Params().HashGenesisBlock()) {
@@ -1725,9 +1736,7 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
     // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
     // two in the chain that violate it. This prevents exploiting the issue against nodes in their
     // initial block download.
-    bool fEnforceBIP30 = (!pindex->phashBlock) || // Enforce on CreateNewBlock invocations which don't have a hash.
-                          !((pindex->nHeight==91842 && pindex->GetBlockHash() == uint256("0x00000000000a4d0a398161ffc163c503763b1f4360639393e0e4c8e300e0caec")) ||
-                           (pindex->nHeight==91880 && pindex->GetBlockHash() == uint256("0x00000000000743f190a18c5577a3c2d2a1f610ae9601ac046a38084ccb7cd721")));
+    bool fEnforceBIP30 = (!pindex->phashBlock);
     if (fEnforceBIP30) {
         for (unsigned int i = 0; i < block.vtx.size(); i++) {
             uint256 hash = block.GetTxHash(i);
@@ -1963,7 +1972,7 @@ bool static ConnectTip(CValidationState &state, CBlockIndex *pindexNew) {
         return state.Abort(_("Failed to read block"));
     // Apply the block atomically to the chain state.
     int64_t nStart = GetTimeMicros();
-    {
+    {	
         CCoinsViewCache view(*pcoinsTip, true);
         CInv inv(MSG_BLOCK, pindexNew->GetBlockHash());
         if (!ConnectBlock(block, state, pindexNew, view)) {
@@ -2122,7 +2131,6 @@ bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos
     mapAlreadyAskedFor.erase(CInv(MSG_BLOCK, hash));
     map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.insert(make_pair(hash, pindexNew)).first;
     pindexNew->phashBlock = &((*mi).first);
-    pindexNew->print();
     map<uint256, CBlockIndex*>::iterator miPrev = mapBlockIndex.find(block.hashPrevBlock);
     if (miPrev != mapBlockIndex.end())
     {
@@ -2153,7 +2161,6 @@ bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos
     
     if (pindexNew == chainActive.Tip())
     {
-	LogPrintf("\n\nMade it AddToBlockIndex9\n\n");
         // Clear fork warning if its no longer applicable
         CheckForkWarningConditions();
         // Notify UI to display prev block's coinbase if it was ours
@@ -2161,7 +2168,6 @@ bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos
         g_signals.UpdatedTransaction(hashPrevBestCoinBase);
         hashPrevBestCoinBase = block.GetTxHash(0);
     } else {
-	LogPrintf("\n\nMade it AddToBlockIndex10\n\n");
         CheckForkWarningConditionsOnNewFork(pindexNew);
     }
 
@@ -2170,8 +2176,6 @@ bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos
     
     
     uiInterface.NotifyBlocksChanged();
-    
-    LogPrintf("\n\nMade it AddToBlockIndex Final\n\n");
     return true;
 }
 
@@ -2227,7 +2231,6 @@ bool FindBlockPos(CValidationState &state, CDiskBlockPos &pos, unsigned int nAdd
     if (fUpdatedLast)
         pblocktree->WriteLastBlockFile(nLastBlockFile);
     
-    LogPrintf("\n\nMade it to PoSBlockfind\n\n");
     return true;
 }
 
@@ -2823,11 +2826,9 @@ bool static LoadBlockIndexDB()
         pindex->nChainWork = (pindex->pprev ? pindex->pprev->nChainWork : 0) + pindex->GetBlockWork().getuint256();
         pindex->nChainTx = (pindex->pprev ? pindex->pprev->nChainTx : 0) + pindex->nTx;
         if ((pindex->nStatus & BLOCK_VALID_MASK) >= BLOCK_VALID_TRANSACTIONS && !(pindex->nStatus & BLOCK_FAILED_MASK)) {
-	    LogPrintf("setBlockIndexValid");
             setBlockIndexValid.insert(pindex);
 	}
         if (pindex->nStatus & BLOCK_FAILED_MASK && (!pindexBestInvalid || pindex->nChainWork > pindexBestInvalid->nChainWork)) {
-	    LogPrintf("pindexBestInvalid");
             pindexBestInvalid = pindex;
 	}
     }
@@ -2979,7 +2980,6 @@ bool InitBlockIndex() {
             return error("LoadBlockIndex() : failed to initialize block database: %s", e.what());
         }
     }
-    LogPrintf("\n\nMade it here somehow\n\n");
     return true;
 }
 
@@ -3798,7 +3798,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         vRecv >> block;
 
         LogPrint("net", "received block %s\n", block.GetHash().ToString());
-        // block.print();
 
         CInv inv(MSG_BLOCK, block.GetHash());
         pfrom->AddInventoryKnown(inv);

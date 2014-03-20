@@ -386,9 +386,9 @@ public:
     }
 
     uint256 GetHash() const
-	{
-	    return Hash(BEGIN(nVersion), END(nNonce));
-	}
+    {
+	return Hash(BEGIN(nVersion), END(nNonce));
+    }
 
     int64_t GetBlockTime() const
     {
