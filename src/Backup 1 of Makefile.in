@@ -92,7 +92,7 @@ libdigibyte_common_a_LIBADD =
 am_libdigibyte_common_a_OBJECTS = allocators.$(OBJEXT) \
 	chainparams.$(OBJEXT) core.$(OBJEXT) hash.$(OBJEXT) \
 	key.$(OBJEXT) netbase.$(OBJEXT) protocol.$(OBJEXT) \
-	rpcprotocol.$(OBJEXT) script.$(OBJEXT) scrypt.$(OBJEXT) sync.$(OBJEXT) \
+	rpcprotocol.$(OBJEXT) script.$(OBJEXT) sync.$(OBJEXT) \
 	util.$(OBJEXT) version.$(OBJEXT) $(am__objects_1)
 nodist_libdigibyte_common_a_OBJECTS =
 libdigibyte_common_a_OBJECTS = $(am_libdigibyte_common_a_OBJECTS) \
@@ -446,7 +446,6 @@ DIGIBYTE_CORE_H = \
   rpcprotocol.h \
   rpcserver.h \
   script.h \
-  scrypt.h \
   serialize.h \
   sync.h \
   threadsafety.h \
@@ -515,7 +514,6 @@ libdigibyte_common_a_SOURCES = \
   protocol.cpp \
   rpcprotocol.cpp \
   script.cpp \
-  scrypt.cpp \
   sync.cpp \
   util.cpp \
   version.cpp \
