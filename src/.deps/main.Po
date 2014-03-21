@@ -1,4 +1,4 @@
-main.o: main.cpp main.h bitcoin-config.h bignum.h serialize.h \
+main.o: main.cpp main.h digibyte-config.h bignum.h serialize.h \
  allocators.h /usr/include/c++/4.6/map \
  /usr/include/c++/4.6/bits/stl_tree.h \
  /usr/include/c++/4.6/bits/stl_algobase.h \
@@ -897,7 +897,7 @@ main.o: main.cpp main.h bitcoin-config.h bignum.h serialize.h \
 
 main.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 bignum.h:
 

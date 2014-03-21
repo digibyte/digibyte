@@ -1218,7 +1218,7 @@ rpcprotocol.o: rpcprotocol.cpp rpcprotocol.h /usr/include/c++/4.6/list \
  /usr/include/boost/spirit/home/classic/iterator/position_iterator_fwd.hpp \
  /usr/include/boost/spirit/home/classic/iterator/impl/position_iterator.ipp \
  json/json_spirit_utils.h json/json_spirit_writer_template.h \
- /usr/include/c++/4.6/iomanip util.h bitcoin-config.h compat.h \
+ /usr/include/c++/4.6/iomanip util.h digibyte-config.h compat.h \
  /usr/include/ifaddrs.h /usr/include/x86_64-linux-gnu/sys/fcntl.h \
  /usr/include/x86_64-linux-gnu/sys/mman.h \
  /usr/include/x86_64-linux-gnu/bits/mman.h serialize.h allocators.h \
@@ -4125,7 +4125,7 @@ json/json_spirit_writer_template.h:
 
 util.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 compat.h:
 

@@ -41,9 +41,9 @@ DIST_COMMON = README $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 @EMBEDDED_LEVELDB_TRUE@	-I$(top_srcdir)/src/leveldb/helpers/memenv
 @EMBEDDED_LEVELDB_TRUE@am__append_2 = $(top_builddir)/src/leveldb/libleveldb.a
 @EMBEDDED_LEVELDB_TRUE@am__append_3 = $(top_builddir)/src/leveldb/libmemenv.a
-bin_PROGRAMS = test_bitcoin$(EXEEXT)
-TESTS = test_bitcoin$(EXEEXT)
-@ENABLE_WALLET_TRUE@am__append_4 = $(LIBBITCOIN_WALLET)
+bin_PROGRAMS = test_digibyte$(EXEEXT)
+TESTS = test_digibyte$(EXEEXT)
+@ENABLE_WALLET_TRUE@am__append_4 = $(LIBDIGIBYTE_WALLET)
 @ENABLE_WALLET_TRUE@am__append_5 = \
 @ENABLE_WALLET_TRUE@   accounting_tests.cpp \
 @ENABLE_WALLET_TRUE@   wallet_tests.cpp \
@@ -62,19 +62,19 @@ am__aclocal_m4_deps = $(top_srcdir)/src/m4/ax_boost_base.m4 \
 	$(top_srcdir)/src/m4/ax_check_link_flag.m4 \
 	$(top_srcdir)/src/m4/ax_check_preproc_flag.m4 \
 	$(top_srcdir)/src/m4/ax_pthread.m4 \
-	$(top_srcdir)/src/m4/bitcoin_find_bdb48.m4 \
-	$(top_srcdir)/src/m4/bitcoin_qt.m4 \
-	$(top_srcdir)/src/m4/bitcoin_subdir_to_include.m4 \
+	$(top_srcdir)/src/m4/digibyte_find_bdb48.m4 \
+	$(top_srcdir)/src/m4/digibyte_qt.m4 \
+	$(top_srcdir)/src/m4/digibyte_subdir_to_include.m4 \
 	$(top_srcdir)/pkg.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/src/bitcoin-config.h
+CONFIG_HEADER = $(top_builddir)/src/digibyte-config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am__test_bitcoin_SOURCES_DIST = alert_tests.cpp allocator_tests.cpp \
+am__test_digibyte_SOURCES_DIST = alert_tests.cpp allocator_tests.cpp \
 	base32_tests.cpp base58_tests.cpp base64_tests.cpp \
 	bignum_tests.cpp bloom_tests.cpp canonical_tests.cpp \
 	checkblock_tests.cpp Checkpoints_tests.cpp compress_tests.cpp \
@@ -82,7 +82,7 @@ am__test_bitcoin_SOURCES_DIST = alert_tests.cpp allocator_tests.cpp \
 	miner_tests.cpp mruset_tests.cpp multisig_tests.cpp \
 	netbase_tests.cpp pmt_tests.cpp rpc_tests.cpp \
 	script_P2SH_tests.cpp script_tests.cpp serialize_tests.cpp \
-	sigopcount_tests.cpp test_bitcoin.cpp transaction_tests.cpp \
+	sigopcount_tests.cpp test_digibyte.cpp transaction_tests.cpp \
 	uint256_tests.cpp util_tests.cpp sighash_tests.cpp \
 	data/script_valid.json data/base58_keys_valid.json \
 	data/sig_canonical.json data/sig_noncanonical.json \
@@ -92,49 +92,49 @@ am__test_bitcoin_SOURCES_DIST = alert_tests.cpp allocator_tests.cpp \
 	wallet_tests.cpp rpc_wallet_tests.cpp
 am__objects_1 =
 @ENABLE_WALLET_TRUE@am__objects_2 =  \
-@ENABLE_WALLET_TRUE@	test_bitcoin-accounting_tests.$(OBJEXT) \
-@ENABLE_WALLET_TRUE@	test_bitcoin-wallet_tests.$(OBJEXT) \
-@ENABLE_WALLET_TRUE@	test_bitcoin-rpc_wallet_tests.$(OBJEXT)
-am_test_bitcoin_OBJECTS = test_bitcoin-alert_tests.$(OBJEXT) \
-	test_bitcoin-allocator_tests.$(OBJEXT) \
-	test_bitcoin-base32_tests.$(OBJEXT) \
-	test_bitcoin-base58_tests.$(OBJEXT) \
-	test_bitcoin-base64_tests.$(OBJEXT) \
-	test_bitcoin-bignum_tests.$(OBJEXT) \
-	test_bitcoin-bloom_tests.$(OBJEXT) \
-	test_bitcoin-canonical_tests.$(OBJEXT) \
-	test_bitcoin-checkblock_tests.$(OBJEXT) \
-	test_bitcoin-Checkpoints_tests.$(OBJEXT) \
-	test_bitcoin-compress_tests.$(OBJEXT) \
-	test_bitcoin-DoS_tests.$(OBJEXT) \
-	test_bitcoin-getarg_tests.$(OBJEXT) \
-	test_bitcoin-key_tests.$(OBJEXT) \
-	test_bitcoin-main_tests.$(OBJEXT) \
-	test_bitcoin-miner_tests.$(OBJEXT) \
-	test_bitcoin-mruset_tests.$(OBJEXT) \
-	test_bitcoin-multisig_tests.$(OBJEXT) \
-	test_bitcoin-netbase_tests.$(OBJEXT) \
-	test_bitcoin-pmt_tests.$(OBJEXT) \
-	test_bitcoin-rpc_tests.$(OBJEXT) \
-	test_bitcoin-script_P2SH_tests.$(OBJEXT) \
-	test_bitcoin-script_tests.$(OBJEXT) \
-	test_bitcoin-serialize_tests.$(OBJEXT) \
-	test_bitcoin-sigopcount_tests.$(OBJEXT) \
-	test_bitcoin-test_bitcoin.$(OBJEXT) \
-	test_bitcoin-transaction_tests.$(OBJEXT) \
-	test_bitcoin-uint256_tests.$(OBJEXT) \
-	test_bitcoin-util_tests.$(OBJEXT) \
-	test_bitcoin-sighash_tests.$(OBJEXT) $(am__objects_1) \
+@ENABLE_WALLET_TRUE@	test_digibyte-accounting_tests.$(OBJEXT) \
+@ENABLE_WALLET_TRUE@	test_digibyte-wallet_tests.$(OBJEXT) \
+@ENABLE_WALLET_TRUE@	test_digibyte-rpc_wallet_tests.$(OBJEXT)
+am_test_digibyte_OBJECTS = test_digibyte-alert_tests.$(OBJEXT) \
+	test_digibyte-allocator_tests.$(OBJEXT) \
+	test_digibyte-base32_tests.$(OBJEXT) \
+	test_digibyte-base58_tests.$(OBJEXT) \
+	test_digibyte-base64_tests.$(OBJEXT) \
+	test_digibyte-bignum_tests.$(OBJEXT) \
+	test_digibyte-bloom_tests.$(OBJEXT) \
+	test_digibyte-canonical_tests.$(OBJEXT) \
+	test_digibyte-checkblock_tests.$(OBJEXT) \
+	test_digibyte-Checkpoints_tests.$(OBJEXT) \
+	test_digibyte-compress_tests.$(OBJEXT) \
+	test_digibyte-DoS_tests.$(OBJEXT) \
+	test_digibyte-getarg_tests.$(OBJEXT) \
+	test_digibyte-key_tests.$(OBJEXT) \
+	test_digibyte-main_tests.$(OBJEXT) \
+	test_digibyte-miner_tests.$(OBJEXT) \
+	test_digibyte-mruset_tests.$(OBJEXT) \
+	test_digibyte-multisig_tests.$(OBJEXT) \
+	test_digibyte-netbase_tests.$(OBJEXT) \
+	test_digibyte-pmt_tests.$(OBJEXT) \
+	test_digibyte-rpc_tests.$(OBJEXT) \
+	test_digibyte-script_P2SH_tests.$(OBJEXT) \
+	test_digibyte-script_tests.$(OBJEXT) \
+	test_digibyte-serialize_tests.$(OBJEXT) \
+	test_digibyte-sigopcount_tests.$(OBJEXT) \
+	test_digibyte-test_digibyte.$(OBJEXT) \
+	test_digibyte-transaction_tests.$(OBJEXT) \
+	test_digibyte-uint256_tests.$(OBJEXT) \
+	test_digibyte-util_tests.$(OBJEXT) \
+	test_digibyte-sighash_tests.$(OBJEXT) $(am__objects_1) \
 	$(am__objects_1) $(am__objects_2)
 am__objects_3 = $(am__objects_1) $(am__objects_1)
-nodist_test_bitcoin_OBJECTS = $(am__objects_3)
-test_bitcoin_OBJECTS = $(am_test_bitcoin_OBJECTS) \
-	$(nodist_test_bitcoin_OBJECTS)
+nodist_test_digibyte_OBJECTS = $(am__objects_3)
+test_digibyte_OBJECTS = $(am_test_digibyte_OBJECTS) \
+	$(nodist_test_digibyte_OBJECTS)
 am__DEPENDENCIES_1 = $(am__append_2)
 am__DEPENDENCIES_2 = $(am__append_3)
 am__DEPENDENCIES_3 =
-test_bitcoin_DEPENDENCIES = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_CLI) \
-	$(LIBBITCOIN_COMMON) $(am__DEPENDENCIES_1) \
+test_digibyte_DEPENDENCIES = $(LIBDIGIBYTE_SERVER) $(LIBDIGIBYTE_CLI) \
+	$(LIBDIGIBYTE_COMMON) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3) \
 	$(am__DEPENDENCIES_3) $(am__append_4) $(am__DEPENDENCIES_3)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/src
@@ -171,8 +171,8 @@ am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_@AM_V@)
 am__v_GEN_ = $(am__v_GEN_@AM_DEFAULT_V@)
 am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = $(test_bitcoin_SOURCES) $(nodist_test_bitcoin_SOURCES)
-DIST_SOURCES = $(am__test_bitcoin_SOURCES_DIST)
+SOURCES = $(test_digibyte_SOURCES) $(nodist_test_digibyte_SOURCES)
+DIST_SOURCES = $(am__test_digibyte_SOURCES_DIST)
 ETAGS = etags
 CTAGS = ctags
 am__tty_colors = \
@@ -370,11 +370,11 @@ AM_CPPFLAGS = $(INCLUDES) -I$(top_builddir)/src/obj $(BDB_CPPFLAGS) \
 	$(BOOST_CPPFLAGS) $(BOOST_INCLUDES) $(LEVELDB_CPPFLAGS) \
 	-I$(top_srcdir)/src
 AM_LDFLAGS = $(PTHREAD_CFLAGS)
-LIBBITCOIN_SERVER = $(top_builddir)/src/libbitcoin_server.a
-LIBBITCOIN_WALLET = $(top_builddir)/src/libbitcoin_wallet.a
-LIBBITCOIN_COMMON = $(top_builddir)/src/libbitcoin_common.a
-LIBBITCOIN_CLI = $(top_builddir)/src/libbitcoin_cli.a
-LIBBITCOINQT = $(top_builddir)/src/qt/libbitcoinqt.a
+LIBDIGIBYTE_SERVER = $(top_builddir)/src/libdigibyte_server.a
+LIBDIGIBYTE_WALLET = $(top_builddir)/src/libdigibyte_wallet.a
+LIBDIGIBYTE_COMMON = $(top_builddir)/src/libdigibyte_common.a
+LIBDIGIBYTE_CLI = $(top_builddir)/src/libdigibyte_cli.a
+LIBDIGIBYTEQT = $(top_builddir)/src/qt/libdigibyteqt.a
 JSON_TEST_FILES = \
   data/script_valid.json \
   data/base58_keys_valid.json \
@@ -389,12 +389,12 @@ JSON_TEST_FILES = \
 RAW_TEST_FILES = data/alertTests.raw
 BUILT_SOURCES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
 
-# test_bitcoin binary #
-test_bitcoin_CPPFLAGS = $(AM_CPPFLAGS) $(TESTDEFS)
-test_bitcoin_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_CLI) \
-	$(LIBBITCOIN_COMMON) $(LIBLEVELDB) $(LIBMEMENV) $(BOOST_LIBS) \
+# test_digibyte binary #
+test_digibyte_CPPFLAGS = $(AM_CPPFLAGS) $(TESTDEFS)
+test_digibyte_LDADD = $(LIBDIGIBYTE_SERVER) $(LIBDIGIBYTE_CLI) \
+	$(LIBDIGIBYTE_COMMON) $(LIBLEVELDB) $(LIBMEMENV) $(BOOST_LIBS) \
 	$(BOOST_UNIT_TEST_FRAMEWORK_LIB) $(am__append_4) $(BDB_LIBS)
-test_bitcoin_SOURCES = alert_tests.cpp allocator_tests.cpp \
+test_digibyte_SOURCES = alert_tests.cpp allocator_tests.cpp \
 	base32_tests.cpp base58_tests.cpp base64_tests.cpp \
 	bignum_tests.cpp bloom_tests.cpp canonical_tests.cpp \
 	checkblock_tests.cpp Checkpoints_tests.cpp compress_tests.cpp \
@@ -402,10 +402,10 @@ test_bitcoin_SOURCES = alert_tests.cpp allocator_tests.cpp \
 	miner_tests.cpp mruset_tests.cpp multisig_tests.cpp \
 	netbase_tests.cpp pmt_tests.cpp rpc_tests.cpp \
 	script_P2SH_tests.cpp script_tests.cpp serialize_tests.cpp \
-	sigopcount_tests.cpp test_bitcoin.cpp transaction_tests.cpp \
+	sigopcount_tests.cpp test_digibyte.cpp transaction_tests.cpp \
 	uint256_tests.cpp util_tests.cpp sighash_tests.cpp \
 	$(JSON_TEST_FILES) $(RAW_TEST_FILES) $(am__append_5)
-nodist_test_bitcoin_SOURCES = $(BUILT_SOURCES)
+nodist_test_digibyte_SOURCES = $(BUILT_SOURCES)
 CLEANFILES = *.gcda *.gcno $(BUILT_SOURCES)
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -480,9 +480,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-test_bitcoin$(EXEEXT): $(test_bitcoin_OBJECTS) $(test_bitcoin_DEPENDENCIES) $(EXTRA_test_bitcoin_DEPENDENCIES) 
-	@rm -f test_bitcoin$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_bitcoin_OBJECTS) $(test_bitcoin_LDADD) $(LIBS)
+test_digibyte$(EXEEXT): $(test_digibyte_OBJECTS) $(test_digibyte_DEPENDENCIES) $(EXTRA_test_digibyte_DEPENDENCIES) 
+	@rm -f test_digibyte$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_digibyte_OBJECTS) $(test_digibyte_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -490,39 +490,39 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-Checkpoints_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-DoS_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-accounting_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-alert_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-allocator_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-base32_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-base58_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-base64_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-bignum_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-bloom_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-canonical_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-checkblock_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-compress_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-getarg_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-key_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-main_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-miner_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-mruset_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-multisig_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-netbase_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-pmt_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-rpc_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-rpc_wallet_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-script_P2SH_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-script_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-serialize_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-sighash_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-sigopcount_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-test_bitcoin.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-transaction_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-uint256_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-util_tests.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_bitcoin-wallet_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-Checkpoints_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-DoS_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-accounting_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-alert_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-allocator_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-base32_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-base58_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-base64_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-bignum_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-bloom_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-canonical_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-checkblock_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-compress_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-getarg_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-key_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-main_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-miner_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-mruset_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-multisig_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-netbase_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-pmt_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-rpc_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-rpc_wallet_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-script_P2SH_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-script_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-serialize_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-sighash_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-sigopcount_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-test_digibyte.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-transaction_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-uint256_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-util_tests.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_digibyte-wallet_tests.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -540,467 +540,467 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-test_bitcoin-alert_tests.o: alert_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-alert_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-alert_tests.Tpo -c -o test_bitcoin-alert_tests.o `test -f 'alert_tests.cpp' || echo '$(srcdir)/'`alert_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-alert_tests.Tpo $(DEPDIR)/test_bitcoin-alert_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='alert_tests.cpp' object='test_bitcoin-alert_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-alert_tests.o: alert_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-alert_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-alert_tests.Tpo -c -o test_digibyte-alert_tests.o `test -f 'alert_tests.cpp' || echo '$(srcdir)/'`alert_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-alert_tests.Tpo $(DEPDIR)/test_digibyte-alert_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='alert_tests.cpp' object='test_digibyte-alert_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-alert_tests.o `test -f 'alert_tests.cpp' || echo '$(srcdir)/'`alert_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-alert_tests.o `test -f 'alert_tests.cpp' || echo '$(srcdir)/'`alert_tests.cpp
 
-test_bitcoin-alert_tests.obj: alert_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-alert_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-alert_tests.Tpo -c -o test_bitcoin-alert_tests.obj `if test -f 'alert_tests.cpp'; then $(CYGPATH_W) 'alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/alert_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-alert_tests.Tpo $(DEPDIR)/test_bitcoin-alert_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='alert_tests.cpp' object='test_bitcoin-alert_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-alert_tests.obj: alert_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-alert_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-alert_tests.Tpo -c -o test_digibyte-alert_tests.obj `if test -f 'alert_tests.cpp'; then $(CYGPATH_W) 'alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/alert_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-alert_tests.Tpo $(DEPDIR)/test_digibyte-alert_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='alert_tests.cpp' object='test_digibyte-alert_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-alert_tests.obj `if test -f 'alert_tests.cpp'; then $(CYGPATH_W) 'alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/alert_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-alert_tests.obj `if test -f 'alert_tests.cpp'; then $(CYGPATH_W) 'alert_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/alert_tests.cpp'; fi`
 
-test_bitcoin-allocator_tests.o: allocator_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-allocator_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-allocator_tests.Tpo -c -o test_bitcoin-allocator_tests.o `test -f 'allocator_tests.cpp' || echo '$(srcdir)/'`allocator_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-allocator_tests.Tpo $(DEPDIR)/test_bitcoin-allocator_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='allocator_tests.cpp' object='test_bitcoin-allocator_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-allocator_tests.o: allocator_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-allocator_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-allocator_tests.Tpo -c -o test_digibyte-allocator_tests.o `test -f 'allocator_tests.cpp' || echo '$(srcdir)/'`allocator_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-allocator_tests.Tpo $(DEPDIR)/test_digibyte-allocator_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='allocator_tests.cpp' object='test_digibyte-allocator_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-allocator_tests.o `test -f 'allocator_tests.cpp' || echo '$(srcdir)/'`allocator_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-allocator_tests.o `test -f 'allocator_tests.cpp' || echo '$(srcdir)/'`allocator_tests.cpp
 
-test_bitcoin-allocator_tests.obj: allocator_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-allocator_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-allocator_tests.Tpo -c -o test_bitcoin-allocator_tests.obj `if test -f 'allocator_tests.cpp'; then $(CYGPATH_W) 'allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/allocator_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-allocator_tests.Tpo $(DEPDIR)/test_bitcoin-allocator_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='allocator_tests.cpp' object='test_bitcoin-allocator_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-allocator_tests.obj: allocator_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-allocator_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-allocator_tests.Tpo -c -o test_digibyte-allocator_tests.obj `if test -f 'allocator_tests.cpp'; then $(CYGPATH_W) 'allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/allocator_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-allocator_tests.Tpo $(DEPDIR)/test_digibyte-allocator_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='allocator_tests.cpp' object='test_digibyte-allocator_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-allocator_tests.obj `if test -f 'allocator_tests.cpp'; then $(CYGPATH_W) 'allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/allocator_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-allocator_tests.obj `if test -f 'allocator_tests.cpp'; then $(CYGPATH_W) 'allocator_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/allocator_tests.cpp'; fi`
 
-test_bitcoin-base32_tests.o: base32_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-base32_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-base32_tests.Tpo -c -o test_bitcoin-base32_tests.o `test -f 'base32_tests.cpp' || echo '$(srcdir)/'`base32_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-base32_tests.Tpo $(DEPDIR)/test_bitcoin-base32_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base32_tests.cpp' object='test_bitcoin-base32_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-base32_tests.o: base32_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-base32_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-base32_tests.Tpo -c -o test_digibyte-base32_tests.o `test -f 'base32_tests.cpp' || echo '$(srcdir)/'`base32_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-base32_tests.Tpo $(DEPDIR)/test_digibyte-base32_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base32_tests.cpp' object='test_digibyte-base32_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-base32_tests.o `test -f 'base32_tests.cpp' || echo '$(srcdir)/'`base32_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-base32_tests.o `test -f 'base32_tests.cpp' || echo '$(srcdir)/'`base32_tests.cpp
 
-test_bitcoin-base32_tests.obj: base32_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-base32_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-base32_tests.Tpo -c -o test_bitcoin-base32_tests.obj `if test -f 'base32_tests.cpp'; then $(CYGPATH_W) 'base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base32_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-base32_tests.Tpo $(DEPDIR)/test_bitcoin-base32_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base32_tests.cpp' object='test_bitcoin-base32_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-base32_tests.obj: base32_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-base32_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-base32_tests.Tpo -c -o test_digibyte-base32_tests.obj `if test -f 'base32_tests.cpp'; then $(CYGPATH_W) 'base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base32_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-base32_tests.Tpo $(DEPDIR)/test_digibyte-base32_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base32_tests.cpp' object='test_digibyte-base32_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-base32_tests.obj `if test -f 'base32_tests.cpp'; then $(CYGPATH_W) 'base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base32_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-base32_tests.obj `if test -f 'base32_tests.cpp'; then $(CYGPATH_W) 'base32_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base32_tests.cpp'; fi`
 
-test_bitcoin-base58_tests.o: base58_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-base58_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-base58_tests.Tpo -c -o test_bitcoin-base58_tests.o `test -f 'base58_tests.cpp' || echo '$(srcdir)/'`base58_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-base58_tests.Tpo $(DEPDIR)/test_bitcoin-base58_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base58_tests.cpp' object='test_bitcoin-base58_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-base58_tests.o: base58_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-base58_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-base58_tests.Tpo -c -o test_digibyte-base58_tests.o `test -f 'base58_tests.cpp' || echo '$(srcdir)/'`base58_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-base58_tests.Tpo $(DEPDIR)/test_digibyte-base58_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base58_tests.cpp' object='test_digibyte-base58_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-base58_tests.o `test -f 'base58_tests.cpp' || echo '$(srcdir)/'`base58_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-base58_tests.o `test -f 'base58_tests.cpp' || echo '$(srcdir)/'`base58_tests.cpp
 
-test_bitcoin-base58_tests.obj: base58_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-base58_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-base58_tests.Tpo -c -o test_bitcoin-base58_tests.obj `if test -f 'base58_tests.cpp'; then $(CYGPATH_W) 'base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base58_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-base58_tests.Tpo $(DEPDIR)/test_bitcoin-base58_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base58_tests.cpp' object='test_bitcoin-base58_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-base58_tests.obj: base58_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-base58_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-base58_tests.Tpo -c -o test_digibyte-base58_tests.obj `if test -f 'base58_tests.cpp'; then $(CYGPATH_W) 'base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base58_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-base58_tests.Tpo $(DEPDIR)/test_digibyte-base58_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base58_tests.cpp' object='test_digibyte-base58_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-base58_tests.obj `if test -f 'base58_tests.cpp'; then $(CYGPATH_W) 'base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base58_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-base58_tests.obj `if test -f 'base58_tests.cpp'; then $(CYGPATH_W) 'base58_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base58_tests.cpp'; fi`
 
-test_bitcoin-base64_tests.o: base64_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-base64_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-base64_tests.Tpo -c -o test_bitcoin-base64_tests.o `test -f 'base64_tests.cpp' || echo '$(srcdir)/'`base64_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-base64_tests.Tpo $(DEPDIR)/test_bitcoin-base64_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base64_tests.cpp' object='test_bitcoin-base64_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-base64_tests.o: base64_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-base64_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-base64_tests.Tpo -c -o test_digibyte-base64_tests.o `test -f 'base64_tests.cpp' || echo '$(srcdir)/'`base64_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-base64_tests.Tpo $(DEPDIR)/test_digibyte-base64_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base64_tests.cpp' object='test_digibyte-base64_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-base64_tests.o `test -f 'base64_tests.cpp' || echo '$(srcdir)/'`base64_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-base64_tests.o `test -f 'base64_tests.cpp' || echo '$(srcdir)/'`base64_tests.cpp
 
-test_bitcoin-base64_tests.obj: base64_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-base64_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-base64_tests.Tpo -c -o test_bitcoin-base64_tests.obj `if test -f 'base64_tests.cpp'; then $(CYGPATH_W) 'base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base64_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-base64_tests.Tpo $(DEPDIR)/test_bitcoin-base64_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base64_tests.cpp' object='test_bitcoin-base64_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-base64_tests.obj: base64_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-base64_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-base64_tests.Tpo -c -o test_digibyte-base64_tests.obj `if test -f 'base64_tests.cpp'; then $(CYGPATH_W) 'base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base64_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-base64_tests.Tpo $(DEPDIR)/test_digibyte-base64_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='base64_tests.cpp' object='test_digibyte-base64_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-base64_tests.obj `if test -f 'base64_tests.cpp'; then $(CYGPATH_W) 'base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base64_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-base64_tests.obj `if test -f 'base64_tests.cpp'; then $(CYGPATH_W) 'base64_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/base64_tests.cpp'; fi`
 
-test_bitcoin-bignum_tests.o: bignum_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-bignum_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-bignum_tests.Tpo -c -o test_bitcoin-bignum_tests.o `test -f 'bignum_tests.cpp' || echo '$(srcdir)/'`bignum_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-bignum_tests.Tpo $(DEPDIR)/test_bitcoin-bignum_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bignum_tests.cpp' object='test_bitcoin-bignum_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-bignum_tests.o: bignum_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-bignum_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-bignum_tests.Tpo -c -o test_digibyte-bignum_tests.o `test -f 'bignum_tests.cpp' || echo '$(srcdir)/'`bignum_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-bignum_tests.Tpo $(DEPDIR)/test_digibyte-bignum_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bignum_tests.cpp' object='test_digibyte-bignum_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-bignum_tests.o `test -f 'bignum_tests.cpp' || echo '$(srcdir)/'`bignum_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-bignum_tests.o `test -f 'bignum_tests.cpp' || echo '$(srcdir)/'`bignum_tests.cpp
 
-test_bitcoin-bignum_tests.obj: bignum_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-bignum_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-bignum_tests.Tpo -c -o test_bitcoin-bignum_tests.obj `if test -f 'bignum_tests.cpp'; then $(CYGPATH_W) 'bignum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bignum_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-bignum_tests.Tpo $(DEPDIR)/test_bitcoin-bignum_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bignum_tests.cpp' object='test_bitcoin-bignum_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-bignum_tests.obj: bignum_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-bignum_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-bignum_tests.Tpo -c -o test_digibyte-bignum_tests.obj `if test -f 'bignum_tests.cpp'; then $(CYGPATH_W) 'bignum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bignum_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-bignum_tests.Tpo $(DEPDIR)/test_digibyte-bignum_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bignum_tests.cpp' object='test_digibyte-bignum_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-bignum_tests.obj `if test -f 'bignum_tests.cpp'; then $(CYGPATH_W) 'bignum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bignum_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-bignum_tests.obj `if test -f 'bignum_tests.cpp'; then $(CYGPATH_W) 'bignum_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bignum_tests.cpp'; fi`
 
-test_bitcoin-bloom_tests.o: bloom_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-bloom_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-bloom_tests.Tpo -c -o test_bitcoin-bloom_tests.o `test -f 'bloom_tests.cpp' || echo '$(srcdir)/'`bloom_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-bloom_tests.Tpo $(DEPDIR)/test_bitcoin-bloom_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bloom_tests.cpp' object='test_bitcoin-bloom_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-bloom_tests.o: bloom_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-bloom_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-bloom_tests.Tpo -c -o test_digibyte-bloom_tests.o `test -f 'bloom_tests.cpp' || echo '$(srcdir)/'`bloom_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-bloom_tests.Tpo $(DEPDIR)/test_digibyte-bloom_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bloom_tests.cpp' object='test_digibyte-bloom_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-bloom_tests.o `test -f 'bloom_tests.cpp' || echo '$(srcdir)/'`bloom_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-bloom_tests.o `test -f 'bloom_tests.cpp' || echo '$(srcdir)/'`bloom_tests.cpp
 
-test_bitcoin-bloom_tests.obj: bloom_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-bloom_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-bloom_tests.Tpo -c -o test_bitcoin-bloom_tests.obj `if test -f 'bloom_tests.cpp'; then $(CYGPATH_W) 'bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bloom_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-bloom_tests.Tpo $(DEPDIR)/test_bitcoin-bloom_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bloom_tests.cpp' object='test_bitcoin-bloom_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-bloom_tests.obj: bloom_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-bloom_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-bloom_tests.Tpo -c -o test_digibyte-bloom_tests.obj `if test -f 'bloom_tests.cpp'; then $(CYGPATH_W) 'bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bloom_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-bloom_tests.Tpo $(DEPDIR)/test_digibyte-bloom_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='bloom_tests.cpp' object='test_digibyte-bloom_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-bloom_tests.obj `if test -f 'bloom_tests.cpp'; then $(CYGPATH_W) 'bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bloom_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-bloom_tests.obj `if test -f 'bloom_tests.cpp'; then $(CYGPATH_W) 'bloom_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/bloom_tests.cpp'; fi`
 
-test_bitcoin-canonical_tests.o: canonical_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-canonical_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-canonical_tests.Tpo -c -o test_bitcoin-canonical_tests.o `test -f 'canonical_tests.cpp' || echo '$(srcdir)/'`canonical_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-canonical_tests.Tpo $(DEPDIR)/test_bitcoin-canonical_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='canonical_tests.cpp' object='test_bitcoin-canonical_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-canonical_tests.o: canonical_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-canonical_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-canonical_tests.Tpo -c -o test_digibyte-canonical_tests.o `test -f 'canonical_tests.cpp' || echo '$(srcdir)/'`canonical_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-canonical_tests.Tpo $(DEPDIR)/test_digibyte-canonical_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='canonical_tests.cpp' object='test_digibyte-canonical_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-canonical_tests.o `test -f 'canonical_tests.cpp' || echo '$(srcdir)/'`canonical_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-canonical_tests.o `test -f 'canonical_tests.cpp' || echo '$(srcdir)/'`canonical_tests.cpp
 
-test_bitcoin-canonical_tests.obj: canonical_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-canonical_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-canonical_tests.Tpo -c -o test_bitcoin-canonical_tests.obj `if test -f 'canonical_tests.cpp'; then $(CYGPATH_W) 'canonical_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/canonical_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-canonical_tests.Tpo $(DEPDIR)/test_bitcoin-canonical_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='canonical_tests.cpp' object='test_bitcoin-canonical_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-canonical_tests.obj: canonical_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-canonical_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-canonical_tests.Tpo -c -o test_digibyte-canonical_tests.obj `if test -f 'canonical_tests.cpp'; then $(CYGPATH_W) 'canonical_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/canonical_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-canonical_tests.Tpo $(DEPDIR)/test_digibyte-canonical_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='canonical_tests.cpp' object='test_digibyte-canonical_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-canonical_tests.obj `if test -f 'canonical_tests.cpp'; then $(CYGPATH_W) 'canonical_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/canonical_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-canonical_tests.obj `if test -f 'canonical_tests.cpp'; then $(CYGPATH_W) 'canonical_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/canonical_tests.cpp'; fi`
 
-test_bitcoin-checkblock_tests.o: checkblock_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-checkblock_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-checkblock_tests.Tpo -c -o test_bitcoin-checkblock_tests.o `test -f 'checkblock_tests.cpp' || echo '$(srcdir)/'`checkblock_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-checkblock_tests.Tpo $(DEPDIR)/test_bitcoin-checkblock_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='checkblock_tests.cpp' object='test_bitcoin-checkblock_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-checkblock_tests.o: checkblock_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-checkblock_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-checkblock_tests.Tpo -c -o test_digibyte-checkblock_tests.o `test -f 'checkblock_tests.cpp' || echo '$(srcdir)/'`checkblock_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-checkblock_tests.Tpo $(DEPDIR)/test_digibyte-checkblock_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='checkblock_tests.cpp' object='test_digibyte-checkblock_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-checkblock_tests.o `test -f 'checkblock_tests.cpp' || echo '$(srcdir)/'`checkblock_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-checkblock_tests.o `test -f 'checkblock_tests.cpp' || echo '$(srcdir)/'`checkblock_tests.cpp
 
-test_bitcoin-checkblock_tests.obj: checkblock_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-checkblock_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-checkblock_tests.Tpo -c -o test_bitcoin-checkblock_tests.obj `if test -f 'checkblock_tests.cpp'; then $(CYGPATH_W) 'checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/checkblock_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-checkblock_tests.Tpo $(DEPDIR)/test_bitcoin-checkblock_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='checkblock_tests.cpp' object='test_bitcoin-checkblock_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-checkblock_tests.obj: checkblock_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-checkblock_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-checkblock_tests.Tpo -c -o test_digibyte-checkblock_tests.obj `if test -f 'checkblock_tests.cpp'; then $(CYGPATH_W) 'checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/checkblock_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-checkblock_tests.Tpo $(DEPDIR)/test_digibyte-checkblock_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='checkblock_tests.cpp' object='test_digibyte-checkblock_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-checkblock_tests.obj `if test -f 'checkblock_tests.cpp'; then $(CYGPATH_W) 'checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/checkblock_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-checkblock_tests.obj `if test -f 'checkblock_tests.cpp'; then $(CYGPATH_W) 'checkblock_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/checkblock_tests.cpp'; fi`
 
-test_bitcoin-Checkpoints_tests.o: Checkpoints_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-Checkpoints_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-Checkpoints_tests.Tpo -c -o test_bitcoin-Checkpoints_tests.o `test -f 'Checkpoints_tests.cpp' || echo '$(srcdir)/'`Checkpoints_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-Checkpoints_tests.Tpo $(DEPDIR)/test_bitcoin-Checkpoints_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Checkpoints_tests.cpp' object='test_bitcoin-Checkpoints_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-Checkpoints_tests.o: Checkpoints_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-Checkpoints_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-Checkpoints_tests.Tpo -c -o test_digibyte-Checkpoints_tests.o `test -f 'Checkpoints_tests.cpp' || echo '$(srcdir)/'`Checkpoints_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-Checkpoints_tests.Tpo $(DEPDIR)/test_digibyte-Checkpoints_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Checkpoints_tests.cpp' object='test_digibyte-Checkpoints_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-Checkpoints_tests.o `test -f 'Checkpoints_tests.cpp' || echo '$(srcdir)/'`Checkpoints_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-Checkpoints_tests.o `test -f 'Checkpoints_tests.cpp' || echo '$(srcdir)/'`Checkpoints_tests.cpp
 
-test_bitcoin-Checkpoints_tests.obj: Checkpoints_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-Checkpoints_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-Checkpoints_tests.Tpo -c -o test_bitcoin-Checkpoints_tests.obj `if test -f 'Checkpoints_tests.cpp'; then $(CYGPATH_W) 'Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/Checkpoints_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-Checkpoints_tests.Tpo $(DEPDIR)/test_bitcoin-Checkpoints_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Checkpoints_tests.cpp' object='test_bitcoin-Checkpoints_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-Checkpoints_tests.obj: Checkpoints_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-Checkpoints_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-Checkpoints_tests.Tpo -c -o test_digibyte-Checkpoints_tests.obj `if test -f 'Checkpoints_tests.cpp'; then $(CYGPATH_W) 'Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/Checkpoints_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-Checkpoints_tests.Tpo $(DEPDIR)/test_digibyte-Checkpoints_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Checkpoints_tests.cpp' object='test_digibyte-Checkpoints_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-Checkpoints_tests.obj `if test -f 'Checkpoints_tests.cpp'; then $(CYGPATH_W) 'Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/Checkpoints_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-Checkpoints_tests.obj `if test -f 'Checkpoints_tests.cpp'; then $(CYGPATH_W) 'Checkpoints_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/Checkpoints_tests.cpp'; fi`
 
-test_bitcoin-compress_tests.o: compress_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-compress_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-compress_tests.Tpo -c -o test_bitcoin-compress_tests.o `test -f 'compress_tests.cpp' || echo '$(srcdir)/'`compress_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-compress_tests.Tpo $(DEPDIR)/test_bitcoin-compress_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='compress_tests.cpp' object='test_bitcoin-compress_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-compress_tests.o: compress_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-compress_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-compress_tests.Tpo -c -o test_digibyte-compress_tests.o `test -f 'compress_tests.cpp' || echo '$(srcdir)/'`compress_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-compress_tests.Tpo $(DEPDIR)/test_digibyte-compress_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='compress_tests.cpp' object='test_digibyte-compress_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-compress_tests.o `test -f 'compress_tests.cpp' || echo '$(srcdir)/'`compress_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-compress_tests.o `test -f 'compress_tests.cpp' || echo '$(srcdir)/'`compress_tests.cpp
 
-test_bitcoin-compress_tests.obj: compress_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-compress_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-compress_tests.Tpo -c -o test_bitcoin-compress_tests.obj `if test -f 'compress_tests.cpp'; then $(CYGPATH_W) 'compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/compress_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-compress_tests.Tpo $(DEPDIR)/test_bitcoin-compress_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='compress_tests.cpp' object='test_bitcoin-compress_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-compress_tests.obj: compress_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-compress_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-compress_tests.Tpo -c -o test_digibyte-compress_tests.obj `if test -f 'compress_tests.cpp'; then $(CYGPATH_W) 'compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/compress_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-compress_tests.Tpo $(DEPDIR)/test_digibyte-compress_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='compress_tests.cpp' object='test_digibyte-compress_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-compress_tests.obj `if test -f 'compress_tests.cpp'; then $(CYGPATH_W) 'compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/compress_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-compress_tests.obj `if test -f 'compress_tests.cpp'; then $(CYGPATH_W) 'compress_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/compress_tests.cpp'; fi`
 
-test_bitcoin-DoS_tests.o: DoS_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-DoS_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-DoS_tests.Tpo -c -o test_bitcoin-DoS_tests.o `test -f 'DoS_tests.cpp' || echo '$(srcdir)/'`DoS_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-DoS_tests.Tpo $(DEPDIR)/test_bitcoin-DoS_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='DoS_tests.cpp' object='test_bitcoin-DoS_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-DoS_tests.o: DoS_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-DoS_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-DoS_tests.Tpo -c -o test_digibyte-DoS_tests.o `test -f 'DoS_tests.cpp' || echo '$(srcdir)/'`DoS_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-DoS_tests.Tpo $(DEPDIR)/test_digibyte-DoS_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='DoS_tests.cpp' object='test_digibyte-DoS_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-DoS_tests.o `test -f 'DoS_tests.cpp' || echo '$(srcdir)/'`DoS_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-DoS_tests.o `test -f 'DoS_tests.cpp' || echo '$(srcdir)/'`DoS_tests.cpp
 
-test_bitcoin-DoS_tests.obj: DoS_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-DoS_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-DoS_tests.Tpo -c -o test_bitcoin-DoS_tests.obj `if test -f 'DoS_tests.cpp'; then $(CYGPATH_W) 'DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/DoS_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-DoS_tests.Tpo $(DEPDIR)/test_bitcoin-DoS_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='DoS_tests.cpp' object='test_bitcoin-DoS_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-DoS_tests.obj: DoS_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-DoS_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-DoS_tests.Tpo -c -o test_digibyte-DoS_tests.obj `if test -f 'DoS_tests.cpp'; then $(CYGPATH_W) 'DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/DoS_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-DoS_tests.Tpo $(DEPDIR)/test_digibyte-DoS_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='DoS_tests.cpp' object='test_digibyte-DoS_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-DoS_tests.obj `if test -f 'DoS_tests.cpp'; then $(CYGPATH_W) 'DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/DoS_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-DoS_tests.obj `if test -f 'DoS_tests.cpp'; then $(CYGPATH_W) 'DoS_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/DoS_tests.cpp'; fi`
 
-test_bitcoin-getarg_tests.o: getarg_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-getarg_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-getarg_tests.Tpo -c -o test_bitcoin-getarg_tests.o `test -f 'getarg_tests.cpp' || echo '$(srcdir)/'`getarg_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-getarg_tests.Tpo $(DEPDIR)/test_bitcoin-getarg_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='getarg_tests.cpp' object='test_bitcoin-getarg_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-getarg_tests.o: getarg_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-getarg_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-getarg_tests.Tpo -c -o test_digibyte-getarg_tests.o `test -f 'getarg_tests.cpp' || echo '$(srcdir)/'`getarg_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-getarg_tests.Tpo $(DEPDIR)/test_digibyte-getarg_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='getarg_tests.cpp' object='test_digibyte-getarg_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-getarg_tests.o `test -f 'getarg_tests.cpp' || echo '$(srcdir)/'`getarg_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-getarg_tests.o `test -f 'getarg_tests.cpp' || echo '$(srcdir)/'`getarg_tests.cpp
 
-test_bitcoin-getarg_tests.obj: getarg_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-getarg_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-getarg_tests.Tpo -c -o test_bitcoin-getarg_tests.obj `if test -f 'getarg_tests.cpp'; then $(CYGPATH_W) 'getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/getarg_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-getarg_tests.Tpo $(DEPDIR)/test_bitcoin-getarg_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='getarg_tests.cpp' object='test_bitcoin-getarg_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-getarg_tests.obj: getarg_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-getarg_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-getarg_tests.Tpo -c -o test_digibyte-getarg_tests.obj `if test -f 'getarg_tests.cpp'; then $(CYGPATH_W) 'getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/getarg_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-getarg_tests.Tpo $(DEPDIR)/test_digibyte-getarg_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='getarg_tests.cpp' object='test_digibyte-getarg_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-getarg_tests.obj `if test -f 'getarg_tests.cpp'; then $(CYGPATH_W) 'getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/getarg_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-getarg_tests.obj `if test -f 'getarg_tests.cpp'; then $(CYGPATH_W) 'getarg_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/getarg_tests.cpp'; fi`
 
-test_bitcoin-key_tests.o: key_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-key_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-key_tests.Tpo -c -o test_bitcoin-key_tests.o `test -f 'key_tests.cpp' || echo '$(srcdir)/'`key_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-key_tests.Tpo $(DEPDIR)/test_bitcoin-key_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='key_tests.cpp' object='test_bitcoin-key_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-key_tests.o: key_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-key_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-key_tests.Tpo -c -o test_digibyte-key_tests.o `test -f 'key_tests.cpp' || echo '$(srcdir)/'`key_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-key_tests.Tpo $(DEPDIR)/test_digibyte-key_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='key_tests.cpp' object='test_digibyte-key_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-key_tests.o `test -f 'key_tests.cpp' || echo '$(srcdir)/'`key_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-key_tests.o `test -f 'key_tests.cpp' || echo '$(srcdir)/'`key_tests.cpp
 
-test_bitcoin-key_tests.obj: key_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-key_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-key_tests.Tpo -c -o test_bitcoin-key_tests.obj `if test -f 'key_tests.cpp'; then $(CYGPATH_W) 'key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/key_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-key_tests.Tpo $(DEPDIR)/test_bitcoin-key_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='key_tests.cpp' object='test_bitcoin-key_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-key_tests.obj: key_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-key_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-key_tests.Tpo -c -o test_digibyte-key_tests.obj `if test -f 'key_tests.cpp'; then $(CYGPATH_W) 'key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/key_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-key_tests.Tpo $(DEPDIR)/test_digibyte-key_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='key_tests.cpp' object='test_digibyte-key_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-key_tests.obj `if test -f 'key_tests.cpp'; then $(CYGPATH_W) 'key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/key_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-key_tests.obj `if test -f 'key_tests.cpp'; then $(CYGPATH_W) 'key_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/key_tests.cpp'; fi`
 
-test_bitcoin-main_tests.o: main_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-main_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-main_tests.Tpo -c -o test_bitcoin-main_tests.o `test -f 'main_tests.cpp' || echo '$(srcdir)/'`main_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-main_tests.Tpo $(DEPDIR)/test_bitcoin-main_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main_tests.cpp' object='test_bitcoin-main_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-main_tests.o: main_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-main_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-main_tests.Tpo -c -o test_digibyte-main_tests.o `test -f 'main_tests.cpp' || echo '$(srcdir)/'`main_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-main_tests.Tpo $(DEPDIR)/test_digibyte-main_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main_tests.cpp' object='test_digibyte-main_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-main_tests.o `test -f 'main_tests.cpp' || echo '$(srcdir)/'`main_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-main_tests.o `test -f 'main_tests.cpp' || echo '$(srcdir)/'`main_tests.cpp
 
-test_bitcoin-main_tests.obj: main_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-main_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-main_tests.Tpo -c -o test_bitcoin-main_tests.obj `if test -f 'main_tests.cpp'; then $(CYGPATH_W) 'main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/main_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-main_tests.Tpo $(DEPDIR)/test_bitcoin-main_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main_tests.cpp' object='test_bitcoin-main_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-main_tests.obj: main_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-main_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-main_tests.Tpo -c -o test_digibyte-main_tests.obj `if test -f 'main_tests.cpp'; then $(CYGPATH_W) 'main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/main_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-main_tests.Tpo $(DEPDIR)/test_digibyte-main_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main_tests.cpp' object='test_digibyte-main_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-main_tests.obj `if test -f 'main_tests.cpp'; then $(CYGPATH_W) 'main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/main_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-main_tests.obj `if test -f 'main_tests.cpp'; then $(CYGPATH_W) 'main_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/main_tests.cpp'; fi`
 
-test_bitcoin-miner_tests.o: miner_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-miner_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-miner_tests.Tpo -c -o test_bitcoin-miner_tests.o `test -f 'miner_tests.cpp' || echo '$(srcdir)/'`miner_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-miner_tests.Tpo $(DEPDIR)/test_bitcoin-miner_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='miner_tests.cpp' object='test_bitcoin-miner_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-miner_tests.o: miner_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-miner_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-miner_tests.Tpo -c -o test_digibyte-miner_tests.o `test -f 'miner_tests.cpp' || echo '$(srcdir)/'`miner_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-miner_tests.Tpo $(DEPDIR)/test_digibyte-miner_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='miner_tests.cpp' object='test_digibyte-miner_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-miner_tests.o `test -f 'miner_tests.cpp' || echo '$(srcdir)/'`miner_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-miner_tests.o `test -f 'miner_tests.cpp' || echo '$(srcdir)/'`miner_tests.cpp
 
-test_bitcoin-miner_tests.obj: miner_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-miner_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-miner_tests.Tpo -c -o test_bitcoin-miner_tests.obj `if test -f 'miner_tests.cpp'; then $(CYGPATH_W) 'miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/miner_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-miner_tests.Tpo $(DEPDIR)/test_bitcoin-miner_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='miner_tests.cpp' object='test_bitcoin-miner_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-miner_tests.obj: miner_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-miner_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-miner_tests.Tpo -c -o test_digibyte-miner_tests.obj `if test -f 'miner_tests.cpp'; then $(CYGPATH_W) 'miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/miner_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-miner_tests.Tpo $(DEPDIR)/test_digibyte-miner_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='miner_tests.cpp' object='test_digibyte-miner_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-miner_tests.obj `if test -f 'miner_tests.cpp'; then $(CYGPATH_W) 'miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/miner_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-miner_tests.obj `if test -f 'miner_tests.cpp'; then $(CYGPATH_W) 'miner_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/miner_tests.cpp'; fi`
 
-test_bitcoin-mruset_tests.o: mruset_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-mruset_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-mruset_tests.Tpo -c -o test_bitcoin-mruset_tests.o `test -f 'mruset_tests.cpp' || echo '$(srcdir)/'`mruset_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-mruset_tests.Tpo $(DEPDIR)/test_bitcoin-mruset_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='mruset_tests.cpp' object='test_bitcoin-mruset_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-mruset_tests.o: mruset_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-mruset_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-mruset_tests.Tpo -c -o test_digibyte-mruset_tests.o `test -f 'mruset_tests.cpp' || echo '$(srcdir)/'`mruset_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-mruset_tests.Tpo $(DEPDIR)/test_digibyte-mruset_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='mruset_tests.cpp' object='test_digibyte-mruset_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-mruset_tests.o `test -f 'mruset_tests.cpp' || echo '$(srcdir)/'`mruset_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-mruset_tests.o `test -f 'mruset_tests.cpp' || echo '$(srcdir)/'`mruset_tests.cpp
 
-test_bitcoin-mruset_tests.obj: mruset_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-mruset_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-mruset_tests.Tpo -c -o test_bitcoin-mruset_tests.obj `if test -f 'mruset_tests.cpp'; then $(CYGPATH_W) 'mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/mruset_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-mruset_tests.Tpo $(DEPDIR)/test_bitcoin-mruset_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='mruset_tests.cpp' object='test_bitcoin-mruset_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-mruset_tests.obj: mruset_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-mruset_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-mruset_tests.Tpo -c -o test_digibyte-mruset_tests.obj `if test -f 'mruset_tests.cpp'; then $(CYGPATH_W) 'mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/mruset_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-mruset_tests.Tpo $(DEPDIR)/test_digibyte-mruset_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='mruset_tests.cpp' object='test_digibyte-mruset_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-mruset_tests.obj `if test -f 'mruset_tests.cpp'; then $(CYGPATH_W) 'mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/mruset_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-mruset_tests.obj `if test -f 'mruset_tests.cpp'; then $(CYGPATH_W) 'mruset_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/mruset_tests.cpp'; fi`
 
-test_bitcoin-multisig_tests.o: multisig_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-multisig_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-multisig_tests.Tpo -c -o test_bitcoin-multisig_tests.o `test -f 'multisig_tests.cpp' || echo '$(srcdir)/'`multisig_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-multisig_tests.Tpo $(DEPDIR)/test_bitcoin-multisig_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='multisig_tests.cpp' object='test_bitcoin-multisig_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-multisig_tests.o: multisig_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-multisig_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-multisig_tests.Tpo -c -o test_digibyte-multisig_tests.o `test -f 'multisig_tests.cpp' || echo '$(srcdir)/'`multisig_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-multisig_tests.Tpo $(DEPDIR)/test_digibyte-multisig_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='multisig_tests.cpp' object='test_digibyte-multisig_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-multisig_tests.o `test -f 'multisig_tests.cpp' || echo '$(srcdir)/'`multisig_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-multisig_tests.o `test -f 'multisig_tests.cpp' || echo '$(srcdir)/'`multisig_tests.cpp
 
-test_bitcoin-multisig_tests.obj: multisig_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-multisig_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-multisig_tests.Tpo -c -o test_bitcoin-multisig_tests.obj `if test -f 'multisig_tests.cpp'; then $(CYGPATH_W) 'multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/multisig_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-multisig_tests.Tpo $(DEPDIR)/test_bitcoin-multisig_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='multisig_tests.cpp' object='test_bitcoin-multisig_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-multisig_tests.obj: multisig_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-multisig_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-multisig_tests.Tpo -c -o test_digibyte-multisig_tests.obj `if test -f 'multisig_tests.cpp'; then $(CYGPATH_W) 'multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/multisig_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-multisig_tests.Tpo $(DEPDIR)/test_digibyte-multisig_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='multisig_tests.cpp' object='test_digibyte-multisig_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-multisig_tests.obj `if test -f 'multisig_tests.cpp'; then $(CYGPATH_W) 'multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/multisig_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-multisig_tests.obj `if test -f 'multisig_tests.cpp'; then $(CYGPATH_W) 'multisig_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/multisig_tests.cpp'; fi`
 
-test_bitcoin-netbase_tests.o: netbase_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-netbase_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-netbase_tests.Tpo -c -o test_bitcoin-netbase_tests.o `test -f 'netbase_tests.cpp' || echo '$(srcdir)/'`netbase_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-netbase_tests.Tpo $(DEPDIR)/test_bitcoin-netbase_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='netbase_tests.cpp' object='test_bitcoin-netbase_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-netbase_tests.o: netbase_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-netbase_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-netbase_tests.Tpo -c -o test_digibyte-netbase_tests.o `test -f 'netbase_tests.cpp' || echo '$(srcdir)/'`netbase_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-netbase_tests.Tpo $(DEPDIR)/test_digibyte-netbase_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='netbase_tests.cpp' object='test_digibyte-netbase_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-netbase_tests.o `test -f 'netbase_tests.cpp' || echo '$(srcdir)/'`netbase_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-netbase_tests.o `test -f 'netbase_tests.cpp' || echo '$(srcdir)/'`netbase_tests.cpp
 
-test_bitcoin-netbase_tests.obj: netbase_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-netbase_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-netbase_tests.Tpo -c -o test_bitcoin-netbase_tests.obj `if test -f 'netbase_tests.cpp'; then $(CYGPATH_W) 'netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/netbase_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-netbase_tests.Tpo $(DEPDIR)/test_bitcoin-netbase_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='netbase_tests.cpp' object='test_bitcoin-netbase_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-netbase_tests.obj: netbase_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-netbase_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-netbase_tests.Tpo -c -o test_digibyte-netbase_tests.obj `if test -f 'netbase_tests.cpp'; then $(CYGPATH_W) 'netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/netbase_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-netbase_tests.Tpo $(DEPDIR)/test_digibyte-netbase_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='netbase_tests.cpp' object='test_digibyte-netbase_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-netbase_tests.obj `if test -f 'netbase_tests.cpp'; then $(CYGPATH_W) 'netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/netbase_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-netbase_tests.obj `if test -f 'netbase_tests.cpp'; then $(CYGPATH_W) 'netbase_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/netbase_tests.cpp'; fi`
 
-test_bitcoin-pmt_tests.o: pmt_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-pmt_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-pmt_tests.Tpo -c -o test_bitcoin-pmt_tests.o `test -f 'pmt_tests.cpp' || echo '$(srcdir)/'`pmt_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-pmt_tests.Tpo $(DEPDIR)/test_bitcoin-pmt_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pmt_tests.cpp' object='test_bitcoin-pmt_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-pmt_tests.o: pmt_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-pmt_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-pmt_tests.Tpo -c -o test_digibyte-pmt_tests.o `test -f 'pmt_tests.cpp' || echo '$(srcdir)/'`pmt_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-pmt_tests.Tpo $(DEPDIR)/test_digibyte-pmt_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pmt_tests.cpp' object='test_digibyte-pmt_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-pmt_tests.o `test -f 'pmt_tests.cpp' || echo '$(srcdir)/'`pmt_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-pmt_tests.o `test -f 'pmt_tests.cpp' || echo '$(srcdir)/'`pmt_tests.cpp
 
-test_bitcoin-pmt_tests.obj: pmt_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-pmt_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-pmt_tests.Tpo -c -o test_bitcoin-pmt_tests.obj `if test -f 'pmt_tests.cpp'; then $(CYGPATH_W) 'pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/pmt_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-pmt_tests.Tpo $(DEPDIR)/test_bitcoin-pmt_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pmt_tests.cpp' object='test_bitcoin-pmt_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-pmt_tests.obj: pmt_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-pmt_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-pmt_tests.Tpo -c -o test_digibyte-pmt_tests.obj `if test -f 'pmt_tests.cpp'; then $(CYGPATH_W) 'pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/pmt_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-pmt_tests.Tpo $(DEPDIR)/test_digibyte-pmt_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pmt_tests.cpp' object='test_digibyte-pmt_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-pmt_tests.obj `if test -f 'pmt_tests.cpp'; then $(CYGPATH_W) 'pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/pmt_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-pmt_tests.obj `if test -f 'pmt_tests.cpp'; then $(CYGPATH_W) 'pmt_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/pmt_tests.cpp'; fi`
 
-test_bitcoin-rpc_tests.o: rpc_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-rpc_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-rpc_tests.Tpo -c -o test_bitcoin-rpc_tests.o `test -f 'rpc_tests.cpp' || echo '$(srcdir)/'`rpc_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-rpc_tests.Tpo $(DEPDIR)/test_bitcoin-rpc_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_tests.cpp' object='test_bitcoin-rpc_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-rpc_tests.o: rpc_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-rpc_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-rpc_tests.Tpo -c -o test_digibyte-rpc_tests.o `test -f 'rpc_tests.cpp' || echo '$(srcdir)/'`rpc_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-rpc_tests.Tpo $(DEPDIR)/test_digibyte-rpc_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_tests.cpp' object='test_digibyte-rpc_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-rpc_tests.o `test -f 'rpc_tests.cpp' || echo '$(srcdir)/'`rpc_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-rpc_tests.o `test -f 'rpc_tests.cpp' || echo '$(srcdir)/'`rpc_tests.cpp
 
-test_bitcoin-rpc_tests.obj: rpc_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-rpc_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-rpc_tests.Tpo -c -o test_bitcoin-rpc_tests.obj `if test -f 'rpc_tests.cpp'; then $(CYGPATH_W) 'rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-rpc_tests.Tpo $(DEPDIR)/test_bitcoin-rpc_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_tests.cpp' object='test_bitcoin-rpc_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-rpc_tests.obj: rpc_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-rpc_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-rpc_tests.Tpo -c -o test_digibyte-rpc_tests.obj `if test -f 'rpc_tests.cpp'; then $(CYGPATH_W) 'rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-rpc_tests.Tpo $(DEPDIR)/test_digibyte-rpc_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_tests.cpp' object='test_digibyte-rpc_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-rpc_tests.obj `if test -f 'rpc_tests.cpp'; then $(CYGPATH_W) 'rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-rpc_tests.obj `if test -f 'rpc_tests.cpp'; then $(CYGPATH_W) 'rpc_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_tests.cpp'; fi`
 
-test_bitcoin-script_P2SH_tests.o: script_P2SH_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-script_P2SH_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-script_P2SH_tests.Tpo -c -o test_bitcoin-script_P2SH_tests.o `test -f 'script_P2SH_tests.cpp' || echo '$(srcdir)/'`script_P2SH_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-script_P2SH_tests.Tpo $(DEPDIR)/test_bitcoin-script_P2SH_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_P2SH_tests.cpp' object='test_bitcoin-script_P2SH_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-script_P2SH_tests.o: script_P2SH_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-script_P2SH_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-script_P2SH_tests.Tpo -c -o test_digibyte-script_P2SH_tests.o `test -f 'script_P2SH_tests.cpp' || echo '$(srcdir)/'`script_P2SH_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-script_P2SH_tests.Tpo $(DEPDIR)/test_digibyte-script_P2SH_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_P2SH_tests.cpp' object='test_digibyte-script_P2SH_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-script_P2SH_tests.o `test -f 'script_P2SH_tests.cpp' || echo '$(srcdir)/'`script_P2SH_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-script_P2SH_tests.o `test -f 'script_P2SH_tests.cpp' || echo '$(srcdir)/'`script_P2SH_tests.cpp
 
-test_bitcoin-script_P2SH_tests.obj: script_P2SH_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-script_P2SH_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-script_P2SH_tests.Tpo -c -o test_bitcoin-script_P2SH_tests.obj `if test -f 'script_P2SH_tests.cpp'; then $(CYGPATH_W) 'script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_P2SH_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-script_P2SH_tests.Tpo $(DEPDIR)/test_bitcoin-script_P2SH_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_P2SH_tests.cpp' object='test_bitcoin-script_P2SH_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-script_P2SH_tests.obj: script_P2SH_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-script_P2SH_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-script_P2SH_tests.Tpo -c -o test_digibyte-script_P2SH_tests.obj `if test -f 'script_P2SH_tests.cpp'; then $(CYGPATH_W) 'script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_P2SH_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-script_P2SH_tests.Tpo $(DEPDIR)/test_digibyte-script_P2SH_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_P2SH_tests.cpp' object='test_digibyte-script_P2SH_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-script_P2SH_tests.obj `if test -f 'script_P2SH_tests.cpp'; then $(CYGPATH_W) 'script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_P2SH_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-script_P2SH_tests.obj `if test -f 'script_P2SH_tests.cpp'; then $(CYGPATH_W) 'script_P2SH_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_P2SH_tests.cpp'; fi`
 
-test_bitcoin-script_tests.o: script_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-script_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-script_tests.Tpo -c -o test_bitcoin-script_tests.o `test -f 'script_tests.cpp' || echo '$(srcdir)/'`script_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-script_tests.Tpo $(DEPDIR)/test_bitcoin-script_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_tests.cpp' object='test_bitcoin-script_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-script_tests.o: script_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-script_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-script_tests.Tpo -c -o test_digibyte-script_tests.o `test -f 'script_tests.cpp' || echo '$(srcdir)/'`script_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-script_tests.Tpo $(DEPDIR)/test_digibyte-script_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_tests.cpp' object='test_digibyte-script_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-script_tests.o `test -f 'script_tests.cpp' || echo '$(srcdir)/'`script_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-script_tests.o `test -f 'script_tests.cpp' || echo '$(srcdir)/'`script_tests.cpp
 
-test_bitcoin-script_tests.obj: script_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-script_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-script_tests.Tpo -c -o test_bitcoin-script_tests.obj `if test -f 'script_tests.cpp'; then $(CYGPATH_W) 'script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-script_tests.Tpo $(DEPDIR)/test_bitcoin-script_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_tests.cpp' object='test_bitcoin-script_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-script_tests.obj: script_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-script_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-script_tests.Tpo -c -o test_digibyte-script_tests.obj `if test -f 'script_tests.cpp'; then $(CYGPATH_W) 'script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-script_tests.Tpo $(DEPDIR)/test_digibyte-script_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='script_tests.cpp' object='test_digibyte-script_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-script_tests.obj `if test -f 'script_tests.cpp'; then $(CYGPATH_W) 'script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-script_tests.obj `if test -f 'script_tests.cpp'; then $(CYGPATH_W) 'script_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/script_tests.cpp'; fi`
 
-test_bitcoin-serialize_tests.o: serialize_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-serialize_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-serialize_tests.Tpo -c -o test_bitcoin-serialize_tests.o `test -f 'serialize_tests.cpp' || echo '$(srcdir)/'`serialize_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-serialize_tests.Tpo $(DEPDIR)/test_bitcoin-serialize_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='serialize_tests.cpp' object='test_bitcoin-serialize_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-serialize_tests.o: serialize_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-serialize_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-serialize_tests.Tpo -c -o test_digibyte-serialize_tests.o `test -f 'serialize_tests.cpp' || echo '$(srcdir)/'`serialize_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-serialize_tests.Tpo $(DEPDIR)/test_digibyte-serialize_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='serialize_tests.cpp' object='test_digibyte-serialize_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-serialize_tests.o `test -f 'serialize_tests.cpp' || echo '$(srcdir)/'`serialize_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-serialize_tests.o `test -f 'serialize_tests.cpp' || echo '$(srcdir)/'`serialize_tests.cpp
 
-test_bitcoin-serialize_tests.obj: serialize_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-serialize_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-serialize_tests.Tpo -c -o test_bitcoin-serialize_tests.obj `if test -f 'serialize_tests.cpp'; then $(CYGPATH_W) 'serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/serialize_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-serialize_tests.Tpo $(DEPDIR)/test_bitcoin-serialize_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='serialize_tests.cpp' object='test_bitcoin-serialize_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-serialize_tests.obj: serialize_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-serialize_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-serialize_tests.Tpo -c -o test_digibyte-serialize_tests.obj `if test -f 'serialize_tests.cpp'; then $(CYGPATH_W) 'serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/serialize_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-serialize_tests.Tpo $(DEPDIR)/test_digibyte-serialize_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='serialize_tests.cpp' object='test_digibyte-serialize_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-serialize_tests.obj `if test -f 'serialize_tests.cpp'; then $(CYGPATH_W) 'serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/serialize_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-serialize_tests.obj `if test -f 'serialize_tests.cpp'; then $(CYGPATH_W) 'serialize_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/serialize_tests.cpp'; fi`
 
-test_bitcoin-sigopcount_tests.o: sigopcount_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-sigopcount_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-sigopcount_tests.Tpo -c -o test_bitcoin-sigopcount_tests.o `test -f 'sigopcount_tests.cpp' || echo '$(srcdir)/'`sigopcount_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-sigopcount_tests.Tpo $(DEPDIR)/test_bitcoin-sigopcount_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sigopcount_tests.cpp' object='test_bitcoin-sigopcount_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-sigopcount_tests.o: sigopcount_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-sigopcount_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-sigopcount_tests.Tpo -c -o test_digibyte-sigopcount_tests.o `test -f 'sigopcount_tests.cpp' || echo '$(srcdir)/'`sigopcount_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-sigopcount_tests.Tpo $(DEPDIR)/test_digibyte-sigopcount_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sigopcount_tests.cpp' object='test_digibyte-sigopcount_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-sigopcount_tests.o `test -f 'sigopcount_tests.cpp' || echo '$(srcdir)/'`sigopcount_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-sigopcount_tests.o `test -f 'sigopcount_tests.cpp' || echo '$(srcdir)/'`sigopcount_tests.cpp
 
-test_bitcoin-sigopcount_tests.obj: sigopcount_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-sigopcount_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-sigopcount_tests.Tpo -c -o test_bitcoin-sigopcount_tests.obj `if test -f 'sigopcount_tests.cpp'; then $(CYGPATH_W) 'sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sigopcount_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-sigopcount_tests.Tpo $(DEPDIR)/test_bitcoin-sigopcount_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sigopcount_tests.cpp' object='test_bitcoin-sigopcount_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-sigopcount_tests.obj: sigopcount_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-sigopcount_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-sigopcount_tests.Tpo -c -o test_digibyte-sigopcount_tests.obj `if test -f 'sigopcount_tests.cpp'; then $(CYGPATH_W) 'sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sigopcount_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-sigopcount_tests.Tpo $(DEPDIR)/test_digibyte-sigopcount_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sigopcount_tests.cpp' object='test_digibyte-sigopcount_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-sigopcount_tests.obj `if test -f 'sigopcount_tests.cpp'; then $(CYGPATH_W) 'sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sigopcount_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-sigopcount_tests.obj `if test -f 'sigopcount_tests.cpp'; then $(CYGPATH_W) 'sigopcount_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sigopcount_tests.cpp'; fi`
 
-test_bitcoin-test_bitcoin.o: test_bitcoin.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-test_bitcoin.o -MD -MP -MF $(DEPDIR)/test_bitcoin-test_bitcoin.Tpo -c -o test_bitcoin-test_bitcoin.o `test -f 'test_bitcoin.cpp' || echo '$(srcdir)/'`test_bitcoin.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-test_bitcoin.Tpo $(DEPDIR)/test_bitcoin-test_bitcoin.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test_bitcoin.cpp' object='test_bitcoin-test_bitcoin.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-test_digibyte.o: test_digibyte.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-test_digibyte.o -MD -MP -MF $(DEPDIR)/test_digibyte-test_digibyte.Tpo -c -o test_digibyte-test_digibyte.o `test -f 'test_digibyte.cpp' || echo '$(srcdir)/'`test_digibyte.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-test_digibyte.Tpo $(DEPDIR)/test_digibyte-test_digibyte.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test_digibyte.cpp' object='test_digibyte-test_digibyte.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-test_bitcoin.o `test -f 'test_bitcoin.cpp' || echo '$(srcdir)/'`test_bitcoin.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-test_digibyte.o `test -f 'test_digibyte.cpp' || echo '$(srcdir)/'`test_digibyte.cpp
 
-test_bitcoin-test_bitcoin.obj: test_bitcoin.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-test_bitcoin.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-test_bitcoin.Tpo -c -o test_bitcoin-test_bitcoin.obj `if test -f 'test_bitcoin.cpp'; then $(CYGPATH_W) 'test_bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/test_bitcoin.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-test_bitcoin.Tpo $(DEPDIR)/test_bitcoin-test_bitcoin.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test_bitcoin.cpp' object='test_bitcoin-test_bitcoin.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-test_digibyte.obj: test_digibyte.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-test_digibyte.obj -MD -MP -MF $(DEPDIR)/test_digibyte-test_digibyte.Tpo -c -o test_digibyte-test_digibyte.obj `if test -f 'test_digibyte.cpp'; then $(CYGPATH_W) 'test_digibyte.cpp'; else $(CYGPATH_W) '$(srcdir)/test_digibyte.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-test_digibyte.Tpo $(DEPDIR)/test_digibyte-test_digibyte.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test_digibyte.cpp' object='test_digibyte-test_digibyte.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-test_bitcoin.obj `if test -f 'test_bitcoin.cpp'; then $(CYGPATH_W) 'test_bitcoin.cpp'; else $(CYGPATH_W) '$(srcdir)/test_bitcoin.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-test_digibyte.obj `if test -f 'test_digibyte.cpp'; then $(CYGPATH_W) 'test_digibyte.cpp'; else $(CYGPATH_W) '$(srcdir)/test_digibyte.cpp'; fi`
 
-test_bitcoin-transaction_tests.o: transaction_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-transaction_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-transaction_tests.Tpo -c -o test_bitcoin-transaction_tests.o `test -f 'transaction_tests.cpp' || echo '$(srcdir)/'`transaction_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-transaction_tests.Tpo $(DEPDIR)/test_bitcoin-transaction_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='transaction_tests.cpp' object='test_bitcoin-transaction_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-transaction_tests.o: transaction_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-transaction_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-transaction_tests.Tpo -c -o test_digibyte-transaction_tests.o `test -f 'transaction_tests.cpp' || echo '$(srcdir)/'`transaction_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-transaction_tests.Tpo $(DEPDIR)/test_digibyte-transaction_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='transaction_tests.cpp' object='test_digibyte-transaction_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-transaction_tests.o `test -f 'transaction_tests.cpp' || echo '$(srcdir)/'`transaction_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-transaction_tests.o `test -f 'transaction_tests.cpp' || echo '$(srcdir)/'`transaction_tests.cpp
 
-test_bitcoin-transaction_tests.obj: transaction_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-transaction_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-transaction_tests.Tpo -c -o test_bitcoin-transaction_tests.obj `if test -f 'transaction_tests.cpp'; then $(CYGPATH_W) 'transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/transaction_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-transaction_tests.Tpo $(DEPDIR)/test_bitcoin-transaction_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='transaction_tests.cpp' object='test_bitcoin-transaction_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-transaction_tests.obj: transaction_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-transaction_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-transaction_tests.Tpo -c -o test_digibyte-transaction_tests.obj `if test -f 'transaction_tests.cpp'; then $(CYGPATH_W) 'transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/transaction_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-transaction_tests.Tpo $(DEPDIR)/test_digibyte-transaction_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='transaction_tests.cpp' object='test_digibyte-transaction_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-transaction_tests.obj `if test -f 'transaction_tests.cpp'; then $(CYGPATH_W) 'transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/transaction_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-transaction_tests.obj `if test -f 'transaction_tests.cpp'; then $(CYGPATH_W) 'transaction_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/transaction_tests.cpp'; fi`
 
-test_bitcoin-uint256_tests.o: uint256_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-uint256_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-uint256_tests.Tpo -c -o test_bitcoin-uint256_tests.o `test -f 'uint256_tests.cpp' || echo '$(srcdir)/'`uint256_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-uint256_tests.Tpo $(DEPDIR)/test_bitcoin-uint256_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='uint256_tests.cpp' object='test_bitcoin-uint256_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-uint256_tests.o: uint256_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-uint256_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-uint256_tests.Tpo -c -o test_digibyte-uint256_tests.o `test -f 'uint256_tests.cpp' || echo '$(srcdir)/'`uint256_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-uint256_tests.Tpo $(DEPDIR)/test_digibyte-uint256_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='uint256_tests.cpp' object='test_digibyte-uint256_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-uint256_tests.o `test -f 'uint256_tests.cpp' || echo '$(srcdir)/'`uint256_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-uint256_tests.o `test -f 'uint256_tests.cpp' || echo '$(srcdir)/'`uint256_tests.cpp
 
-test_bitcoin-uint256_tests.obj: uint256_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-uint256_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-uint256_tests.Tpo -c -o test_bitcoin-uint256_tests.obj `if test -f 'uint256_tests.cpp'; then $(CYGPATH_W) 'uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/uint256_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-uint256_tests.Tpo $(DEPDIR)/test_bitcoin-uint256_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='uint256_tests.cpp' object='test_bitcoin-uint256_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-uint256_tests.obj: uint256_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-uint256_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-uint256_tests.Tpo -c -o test_digibyte-uint256_tests.obj `if test -f 'uint256_tests.cpp'; then $(CYGPATH_W) 'uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/uint256_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-uint256_tests.Tpo $(DEPDIR)/test_digibyte-uint256_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='uint256_tests.cpp' object='test_digibyte-uint256_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-uint256_tests.obj `if test -f 'uint256_tests.cpp'; then $(CYGPATH_W) 'uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/uint256_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-uint256_tests.obj `if test -f 'uint256_tests.cpp'; then $(CYGPATH_W) 'uint256_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/uint256_tests.cpp'; fi`
 
-test_bitcoin-util_tests.o: util_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-util_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-util_tests.Tpo -c -o test_bitcoin-util_tests.o `test -f 'util_tests.cpp' || echo '$(srcdir)/'`util_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-util_tests.Tpo $(DEPDIR)/test_bitcoin-util_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='util_tests.cpp' object='test_bitcoin-util_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-util_tests.o: util_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-util_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-util_tests.Tpo -c -o test_digibyte-util_tests.o `test -f 'util_tests.cpp' || echo '$(srcdir)/'`util_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-util_tests.Tpo $(DEPDIR)/test_digibyte-util_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='util_tests.cpp' object='test_digibyte-util_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-util_tests.o `test -f 'util_tests.cpp' || echo '$(srcdir)/'`util_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-util_tests.o `test -f 'util_tests.cpp' || echo '$(srcdir)/'`util_tests.cpp
 
-test_bitcoin-util_tests.obj: util_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-util_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-util_tests.Tpo -c -o test_bitcoin-util_tests.obj `if test -f 'util_tests.cpp'; then $(CYGPATH_W) 'util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/util_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-util_tests.Tpo $(DEPDIR)/test_bitcoin-util_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='util_tests.cpp' object='test_bitcoin-util_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-util_tests.obj: util_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-util_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-util_tests.Tpo -c -o test_digibyte-util_tests.obj `if test -f 'util_tests.cpp'; then $(CYGPATH_W) 'util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/util_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-util_tests.Tpo $(DEPDIR)/test_digibyte-util_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='util_tests.cpp' object='test_digibyte-util_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-util_tests.obj `if test -f 'util_tests.cpp'; then $(CYGPATH_W) 'util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/util_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-util_tests.obj `if test -f 'util_tests.cpp'; then $(CYGPATH_W) 'util_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/util_tests.cpp'; fi`
 
-test_bitcoin-sighash_tests.o: sighash_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-sighash_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-sighash_tests.Tpo -c -o test_bitcoin-sighash_tests.o `test -f 'sighash_tests.cpp' || echo '$(srcdir)/'`sighash_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-sighash_tests.Tpo $(DEPDIR)/test_bitcoin-sighash_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sighash_tests.cpp' object='test_bitcoin-sighash_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-sighash_tests.o: sighash_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-sighash_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-sighash_tests.Tpo -c -o test_digibyte-sighash_tests.o `test -f 'sighash_tests.cpp' || echo '$(srcdir)/'`sighash_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-sighash_tests.Tpo $(DEPDIR)/test_digibyte-sighash_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sighash_tests.cpp' object='test_digibyte-sighash_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-sighash_tests.o `test -f 'sighash_tests.cpp' || echo '$(srcdir)/'`sighash_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-sighash_tests.o `test -f 'sighash_tests.cpp' || echo '$(srcdir)/'`sighash_tests.cpp
 
-test_bitcoin-sighash_tests.obj: sighash_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-sighash_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-sighash_tests.Tpo -c -o test_bitcoin-sighash_tests.obj `if test -f 'sighash_tests.cpp'; then $(CYGPATH_W) 'sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sighash_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-sighash_tests.Tpo $(DEPDIR)/test_bitcoin-sighash_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sighash_tests.cpp' object='test_bitcoin-sighash_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-sighash_tests.obj: sighash_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-sighash_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-sighash_tests.Tpo -c -o test_digibyte-sighash_tests.obj `if test -f 'sighash_tests.cpp'; then $(CYGPATH_W) 'sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sighash_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-sighash_tests.Tpo $(DEPDIR)/test_digibyte-sighash_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sighash_tests.cpp' object='test_digibyte-sighash_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-sighash_tests.obj `if test -f 'sighash_tests.cpp'; then $(CYGPATH_W) 'sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sighash_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-sighash_tests.obj `if test -f 'sighash_tests.cpp'; then $(CYGPATH_W) 'sighash_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/sighash_tests.cpp'; fi`
 
-test_bitcoin-accounting_tests.o: accounting_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-accounting_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-accounting_tests.Tpo -c -o test_bitcoin-accounting_tests.o `test -f 'accounting_tests.cpp' || echo '$(srcdir)/'`accounting_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-accounting_tests.Tpo $(DEPDIR)/test_bitcoin-accounting_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='accounting_tests.cpp' object='test_bitcoin-accounting_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-accounting_tests.o: accounting_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-accounting_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-accounting_tests.Tpo -c -o test_digibyte-accounting_tests.o `test -f 'accounting_tests.cpp' || echo '$(srcdir)/'`accounting_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-accounting_tests.Tpo $(DEPDIR)/test_digibyte-accounting_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='accounting_tests.cpp' object='test_digibyte-accounting_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-accounting_tests.o `test -f 'accounting_tests.cpp' || echo '$(srcdir)/'`accounting_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-accounting_tests.o `test -f 'accounting_tests.cpp' || echo '$(srcdir)/'`accounting_tests.cpp
 
-test_bitcoin-accounting_tests.obj: accounting_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-accounting_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-accounting_tests.Tpo -c -o test_bitcoin-accounting_tests.obj `if test -f 'accounting_tests.cpp'; then $(CYGPATH_W) 'accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/accounting_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-accounting_tests.Tpo $(DEPDIR)/test_bitcoin-accounting_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='accounting_tests.cpp' object='test_bitcoin-accounting_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-accounting_tests.obj: accounting_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-accounting_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-accounting_tests.Tpo -c -o test_digibyte-accounting_tests.obj `if test -f 'accounting_tests.cpp'; then $(CYGPATH_W) 'accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/accounting_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-accounting_tests.Tpo $(DEPDIR)/test_digibyte-accounting_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='accounting_tests.cpp' object='test_digibyte-accounting_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-accounting_tests.obj `if test -f 'accounting_tests.cpp'; then $(CYGPATH_W) 'accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/accounting_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-accounting_tests.obj `if test -f 'accounting_tests.cpp'; then $(CYGPATH_W) 'accounting_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/accounting_tests.cpp'; fi`
 
-test_bitcoin-wallet_tests.o: wallet_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-wallet_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-wallet_tests.Tpo -c -o test_bitcoin-wallet_tests.o `test -f 'wallet_tests.cpp' || echo '$(srcdir)/'`wallet_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-wallet_tests.Tpo $(DEPDIR)/test_bitcoin-wallet_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='wallet_tests.cpp' object='test_bitcoin-wallet_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-wallet_tests.o: wallet_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-wallet_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-wallet_tests.Tpo -c -o test_digibyte-wallet_tests.o `test -f 'wallet_tests.cpp' || echo '$(srcdir)/'`wallet_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-wallet_tests.Tpo $(DEPDIR)/test_digibyte-wallet_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='wallet_tests.cpp' object='test_digibyte-wallet_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-wallet_tests.o `test -f 'wallet_tests.cpp' || echo '$(srcdir)/'`wallet_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-wallet_tests.o `test -f 'wallet_tests.cpp' || echo '$(srcdir)/'`wallet_tests.cpp
 
-test_bitcoin-wallet_tests.obj: wallet_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-wallet_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-wallet_tests.Tpo -c -o test_bitcoin-wallet_tests.obj `if test -f 'wallet_tests.cpp'; then $(CYGPATH_W) 'wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/wallet_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-wallet_tests.Tpo $(DEPDIR)/test_bitcoin-wallet_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='wallet_tests.cpp' object='test_bitcoin-wallet_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-wallet_tests.obj: wallet_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-wallet_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-wallet_tests.Tpo -c -o test_digibyte-wallet_tests.obj `if test -f 'wallet_tests.cpp'; then $(CYGPATH_W) 'wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/wallet_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-wallet_tests.Tpo $(DEPDIR)/test_digibyte-wallet_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='wallet_tests.cpp' object='test_digibyte-wallet_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-wallet_tests.obj `if test -f 'wallet_tests.cpp'; then $(CYGPATH_W) 'wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/wallet_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-wallet_tests.obj `if test -f 'wallet_tests.cpp'; then $(CYGPATH_W) 'wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/wallet_tests.cpp'; fi`
 
-test_bitcoin-rpc_wallet_tests.o: rpc_wallet_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-rpc_wallet_tests.o -MD -MP -MF $(DEPDIR)/test_bitcoin-rpc_wallet_tests.Tpo -c -o test_bitcoin-rpc_wallet_tests.o `test -f 'rpc_wallet_tests.cpp' || echo '$(srcdir)/'`rpc_wallet_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-rpc_wallet_tests.Tpo $(DEPDIR)/test_bitcoin-rpc_wallet_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_wallet_tests.cpp' object='test_bitcoin-rpc_wallet_tests.o' libtool=no @AMDEPBACKSLASH@
+test_digibyte-rpc_wallet_tests.o: rpc_wallet_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-rpc_wallet_tests.o -MD -MP -MF $(DEPDIR)/test_digibyte-rpc_wallet_tests.Tpo -c -o test_digibyte-rpc_wallet_tests.o `test -f 'rpc_wallet_tests.cpp' || echo '$(srcdir)/'`rpc_wallet_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-rpc_wallet_tests.Tpo $(DEPDIR)/test_digibyte-rpc_wallet_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_wallet_tests.cpp' object='test_digibyte-rpc_wallet_tests.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-rpc_wallet_tests.o `test -f 'rpc_wallet_tests.cpp' || echo '$(srcdir)/'`rpc_wallet_tests.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-rpc_wallet_tests.o `test -f 'rpc_wallet_tests.cpp' || echo '$(srcdir)/'`rpc_wallet_tests.cpp
 
-test_bitcoin-rpc_wallet_tests.obj: rpc_wallet_tests.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_bitcoin-rpc_wallet_tests.obj -MD -MP -MF $(DEPDIR)/test_bitcoin-rpc_wallet_tests.Tpo -c -o test_bitcoin-rpc_wallet_tests.obj `if test -f 'rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_wallet_tests.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_bitcoin-rpc_wallet_tests.Tpo $(DEPDIR)/test_bitcoin-rpc_wallet_tests.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_wallet_tests.cpp' object='test_bitcoin-rpc_wallet_tests.obj' libtool=no @AMDEPBACKSLASH@
+test_digibyte-rpc_wallet_tests.obj: rpc_wallet_tests.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT test_digibyte-rpc_wallet_tests.obj -MD -MP -MF $(DEPDIR)/test_digibyte-rpc_wallet_tests.Tpo -c -o test_digibyte-rpc_wallet_tests.obj `if test -f 'rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_wallet_tests.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_digibyte-rpc_wallet_tests.Tpo $(DEPDIR)/test_digibyte-rpc_wallet_tests.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='rpc_wallet_tests.cpp' object='test_digibyte-rpc_wallet_tests.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_bitcoin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_bitcoin-rpc_wallet_tests.obj `if test -f 'rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_wallet_tests.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_digibyte_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o test_digibyte-rpc_wallet_tests.obj `if test -f 'rpc_wallet_tests.cpp'; then $(CYGPATH_W) 'rpc_wallet_tests.cpp'; else $(CYGPATH_W) '$(srcdir)/rpc_wallet_tests.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -1304,13 +1304,13 @@ uninstall-am: uninstall-binPROGRAMS
 	tags uninstall uninstall-am uninstall-binPROGRAMS
 
 
-$(LIBBITCOIN):
+$(LIBDIGIBYTE):
 	$(MAKE) -C $(top_builddir)/src $(@F)
 
 @EMBEDDED_LEVELDB_TRUE@$(LIBLEVELDB) $(LIBMEMENV):
 @EMBEDDED_LEVELDB_TRUE@	$(MAKE) -C $(top_builddir)/src leveldb/$(@F)
 
-$(LIBBITCOINQT):
+$(LIBDIGIBYTEQT):
 	$(MAKE) -C $(top_builddir)/src/qt $(@F)
 
 .mm.o:

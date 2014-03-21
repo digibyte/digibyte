@@ -1230,7 +1230,7 @@ rpcmining.o: rpcmining.cpp rpcserver.h uint256.h \
  /usr/include/boost/type_traits/remove_volatile.hpp \
  /usr/include/boost/type_traits/function_traits.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp version.h \
- clientversion.h bitcoin-config.h init.h net.h bloom.h compat.h \
+ clientversion.h digibyte-config.h init.h net.h bloom.h compat.h \
  /usr/include/ifaddrs.h /usr/include/x86_64-linux-gnu/sys/fcntl.h \
  /usr/include/x86_64-linux-gnu/sys/mman.h \
  /usr/include/x86_64-linux-gnu/bits/mman.h hash.h \
@@ -4088,7 +4088,7 @@ version.h:
 
 clientversion.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 init.h:
 

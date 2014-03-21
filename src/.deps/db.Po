@@ -437,7 +437,7 @@ db.o: db.cpp db.h serialize.h allocators.h /usr/include/c++/4.6/map \
  /usr/include/boost/thread/pthread/condition_variable_fwd.hpp \
  /usr/include/boost/thread/recursive_mutex.hpp \
  /usr/include/boost/thread/pthread/recursive_mutex.hpp version.h \
- clientversion.h bitcoin-config.h /usr/include/boost/filesystem/path.hpp \
+ clientversion.h digibyte-config.h /usr/include/boost/filesystem/path.hpp \
  /usr/include/boost/filesystem/v3/path.hpp \
  /usr/include/boost/filesystem/v3/config.hpp \
  /usr/include/boost/system/api_config.hpp \
@@ -1700,7 +1700,7 @@ version.h:
 
 clientversion.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 /usr/include/boost/filesystem/path.hpp:
 

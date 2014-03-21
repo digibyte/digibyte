@@ -381,7 +381,7 @@ crypter.o: crypter.cpp crypter.h allocators.h /usr/include/c++/4.6/map \
  /usr/include/boost/type_traits/remove_reference.hpp \
  /usr/include/boost/utility/swap.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp keystore.h key.h \
- hash.h uint256.h version.h clientversion.h bitcoin-config.h \
+ hash.h uint256.h version.h clientversion.h digibyte-config.h \
  /usr/include/openssl/ripemd.h /usr/include/openssl/sha.h sync.h \
  threadsafety.h /usr/include/boost/thread/condition_variable.hpp \
  /usr/include/boost/thread/pthread/condition_variable.hpp \
@@ -1778,7 +1778,7 @@ version.h:
 
 clientversion.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 /usr/include/openssl/ripemd.h:
 

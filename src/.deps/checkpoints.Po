@@ -27,7 +27,7 @@ checkpoints.o: checkpoints.cpp checkpoints.h /usr/include/c++/4.6/map \
  /usr/include/c++/4.6/bits/stl_map.h \
  /usr/include/c++/4.6/initializer_list \
  /usr/include/c++/4.6/bits/stl_multimap.h \
- /usr/include/c++/4.6/bits/range_access.h main.h bitcoin-config.h \
+ /usr/include/c++/4.6/bits/range_access.h main.h digibyte-config.h \
  bignum.h serialize.h allocators.h /usr/include/c++/4.6/string \
  /usr/include/c++/4.6/bits/stringfwd.h \
  /usr/include/c++/4.6/bits/char_traits.h \
@@ -952,7 +952,7 @@ checkpoints.h:
 
 main.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 bignum.h:
 

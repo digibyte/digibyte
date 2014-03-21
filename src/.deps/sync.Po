@@ -408,7 +408,7 @@ sync.o: sync.cpp sync.h threadsafety.h \
  /usr/include/boost/thread/pthread/condition_variable_fwd.hpp \
  /usr/include/boost/thread/recursive_mutex.hpp \
  /usr/include/boost/thread/pthread/recursive_mutex.hpp util.h \
- bitcoin-config.h compat.h /usr/include/arpa/inet.h \
+ digibyte-config.h compat.h /usr/include/arpa/inet.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/sys/uio.h \
  /usr/include/x86_64-linux-gnu/bits/uio.h \
@@ -1607,7 +1607,7 @@ threadsafety.h:
 
 util.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 compat.h:
 

@@ -381,7 +381,7 @@ key.o: key.cpp key.h allocators.h /usr/include/c++/4.6/map \
  /usr/include/boost/type_traits/remove_reference.hpp \
  /usr/include/boost/utility/swap.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp uint256.h version.h \
- clientversion.h bitcoin-config.h /usr/include/openssl/ripemd.h \
+ clientversion.h digibyte-config.h /usr/include/openssl/ripemd.h \
  /usr/include/openssl/sha.h /usr/include/openssl/bn.h \
  /usr/include/openssl/ecdsa.h /usr/include/openssl/ec.h \
  /usr/include/openssl/asn1.h /usr/include/openssl/bio.h \
@@ -1285,7 +1285,7 @@ version.h:
 
 clientversion.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 /usr/include/openssl/ripemd.h:
 

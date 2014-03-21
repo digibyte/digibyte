@@ -1217,7 +1217,7 @@ rpcclient.o: rpcclient.cpp rpcclient.h json/json_spirit_reader_template.h \
  /usr/include/boost/asio/ssl/detail/read_op.hpp \
  /usr/include/boost/asio/ssl/detail/shutdown_op.hpp \
  /usr/include/boost/asio/ssl/detail/write_op.hpp \
- /usr/include/boost/asio/ssl/stream_service.hpp util.h bitcoin-config.h \
+ /usr/include/boost/asio/ssl/stream_service.hpp util.h digibyte-config.h \
  compat.h /usr/include/ifaddrs.h \
  /usr/include/x86_64-linux-gnu/sys/fcntl.h \
  /usr/include/x86_64-linux-gnu/sys/mman.h \
@@ -4173,7 +4173,7 @@ rpcprotocol.h:
 
 util.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 compat.h:
 

@@ -1,4 +1,4 @@
-init.o: init.cpp bitcoin-config.h init.h /usr/include/c++/4.6/string \
+init.o: init.cpp digibyte-config.h init.h /usr/include/c++/4.6/string \
  /usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++config.h \
  /usr/include/c++/4.6/x86_64-linux-gnu/./bits/os_defines.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
@@ -1378,7 +1378,7 @@ init.o: init.cpp bitcoin-config.h init.h /usr/include/c++/4.6/string \
  /usr/include/boost/interprocess/detail/move.hpp \
  /usr/include/boost/move/move.hpp
 
-bitcoin-config.h:
+digibyte-config.h:
 
 init.h:
 

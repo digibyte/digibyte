@@ -437,7 +437,7 @@ alert.o: alert.cpp alert.h serialize.h allocators.h \
  /usr/include/boost/thread/pthread/condition_variable_fwd.hpp \
  /usr/include/boost/thread/recursive_mutex.hpp \
  /usr/include/boost/thread/pthread/recursive_mutex.hpp key.h hash.h \
- uint256.h version.h clientversion.h bitcoin-config.h \
+ uint256.h version.h clientversion.h digibyte-config.h \
  /usr/include/openssl/ripemd.h /usr/include/openssl/sha.h net.h bloom.h \
  compat.h /usr/include/arpa/inet.h /usr/include/netinet/in.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
@@ -1892,7 +1892,7 @@ version.h:
 
 clientversion.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 /usr/include/openssl/ripemd.h:
 

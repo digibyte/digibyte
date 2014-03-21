@@ -20,7 +20,7 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QStackedWidget>
 #include <QtGui/QToolButton>
-#include "bitcoinamountfield.h"
+#include "digibyteamountfield.h"
 #include "qvalidatedlineedit.h"
 
 QT_BEGIN_NAMESPACE
@@ -39,7 +39,7 @@ public:
     QLabel *labellLabel;
     QLineEdit *addAsLabel;
     QLabel *amountLabel;
-    BitcoinAmountField *payAmount;
+    DigiByteAmountField *payAmount;
     QLabel *messageLabel;
     QLabel *messageTextLabel;
     QFrame *SendCoins_InsecurePaymentRequest;
@@ -51,7 +51,7 @@ public:
     QLabel *memoLabel_is;
     QLabel *memoTextLabel_is;
     QLabel *amountLabel_is;
-    BitcoinAmountField *payAmount_is;
+    DigiByteAmountField *payAmount_is;
     QFrame *SendCoins_SecurePaymentRequest;
     QGridLayout *gridLayout_s;
     QLabel *payToLabel_s;
@@ -61,7 +61,7 @@ public:
     QLabel *memoLabel_s;
     QLabel *memoTextLabel_s;
     QLabel *amountLabel_s;
-    BitcoinAmountField *payAmount_s;
+    DigiByteAmountField *payAmount_s;
 
     void setupUi(QStackedWidget *SendCoinsEntry)
     {
@@ -135,7 +135,7 @@ public:
 
         gridLayout->addWidget(amountLabel, 2, 0, 1, 1);
 
-        payAmount = new BitcoinAmountField(SendCoins);
+        payAmount = new DigiByteAmountField(SendCoins);
         payAmount->setObjectName(QString::fromUtf8("payAmount"));
 
         gridLayout->addWidget(payAmount, 2, 1, 1, 1);
@@ -263,7 +263,7 @@ public:
 
         gridLayout_is->addWidget(amountLabel_is, 2, 0, 1, 1);
 
-        payAmount_is = new BitcoinAmountField(SendCoins_InsecurePaymentRequest);
+        payAmount_is = new DigiByteAmountField(SendCoins_InsecurePaymentRequest);
         payAmount_is->setObjectName(QString::fromUtf8("payAmount_is"));
         payAmount_is->setAcceptDrops(false);
 
@@ -388,7 +388,7 @@ public:
 
         gridLayout_s->addWidget(amountLabel_s, 2, 0, 1, 1);
 
-        payAmount_s = new BitcoinAmountField(SendCoins_SecurePaymentRequest);
+        payAmount_s = new DigiByteAmountField(SendCoins_SecurePaymentRequest);
         payAmount_s->setObjectName(QString::fromUtf8("payAmount_s"));
         payAmount_s->setAcceptDrops(false);
 
@@ -447,7 +447,7 @@ public:
         amountLabel->setText(QApplication::translate("SendCoinsEntry", "A&mount:", 0, QApplication::UnicodeUTF8));
         messageLabel->setText(QApplication::translate("SendCoinsEntry", "Message:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        messageTextLabel->setToolTip(QApplication::translate("SendCoinsEntry", "A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.", 0, QApplication::UnicodeUTF8));
+        messageTextLabel->setToolTip(QApplication::translate("SendCoinsEntry", "A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
         SendCoins_InsecurePaymentRequest->setToolTip(QApplication::translate("SendCoinsEntry", "This is an unverified payment request.", 0, QApplication::UnicodeUTF8));

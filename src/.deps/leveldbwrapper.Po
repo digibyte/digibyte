@@ -382,7 +382,7 @@ leveldbwrapper.o: leveldbwrapper.cpp leveldbwrapper.h serialize.h \
  /usr/include/boost/type_traits/remove_reference.hpp \
  /usr/include/boost/utility/swap.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp util.h \
- bitcoin-config.h compat.h /usr/include/arpa/inet.h \
+ digibyte-config.h compat.h /usr/include/arpa/inet.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/sys/uio.h \
  /usr/include/x86_64-linux-gnu/bits/uio.h \
@@ -1583,7 +1583,7 @@ allocators.h:
 
 util.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 compat.h:
 

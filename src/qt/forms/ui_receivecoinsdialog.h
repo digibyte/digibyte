@@ -24,7 +24,7 @@
 #include <QtGui/QTableView>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
-#include "bitcoinamountfield.h"
+#include "digibyteamountfield.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -43,7 +43,7 @@ public:
     QLabel *label_5;
     QLabel *label_2;
     QLabel *label;
-    BitcoinAmountField *reqAmount;
+    DigiByteAmountField *reqAmount;
     QHBoxLayout *horizontalLayout;
     QPushButton *receiveButton;
     QPushButton *clearButton;
@@ -122,7 +122,7 @@ public:
 
         gridLayout->addWidget(label, 5, 0, 1, 1);
 
-        reqAmount = new BitcoinAmountField(frame2);
+        reqAmount = new DigiByteAmountField(frame2);
         reqAmount->setObjectName(QString::fromUtf8("reqAmount"));
         reqAmount->setMinimumSize(QSize(80, 0));
 
@@ -255,14 +255,14 @@ public:
         reuseAddress->setText(QApplication::translate("ReceiveCoinsDialog", "R&euse an existing receiving address (not recommended)", 0, QApplication::UnicodeUTF8));
         label_4->setText(QString());
 #ifndef QT_NO_TOOLTIP
-        label_3->setToolTip(QApplication::translate("ReceiveCoinsDialog", "An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.", 0, QApplication::UnicodeUTF8));
+        label_3->setToolTip(QApplication::translate("ReceiveCoinsDialog", "An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         label_3->setText(QApplication::translate("ReceiveCoinsDialog", "&Message:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         reqLabel->setToolTip(QApplication::translate("ReceiveCoinsDialog", "An optional label to associate with the new receiving address.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
-        reqMessage->setToolTip(QApplication::translate("ReceiveCoinsDialog", "An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.", 0, QApplication::UnicodeUTF8));
+        reqMessage->setToolTip(QApplication::translate("ReceiveCoinsDialog", "An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         label_5->setText(QApplication::translate("ReceiveCoinsDialog", "Use this form to request payments. All fields are <b>optional</b>.", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP

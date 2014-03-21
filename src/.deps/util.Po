@@ -1,4 +1,4 @@
-util.o: util.cpp util.h bitcoin-config.h compat.h \
+util.o: util.cpp util.h digibyte-config.h compat.h \
  /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/bits/predefs.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -1003,7 +1003,7 @@ util.o: util.cpp util.h bitcoin-config.h compat.h \
 
 util.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 compat.h:
 

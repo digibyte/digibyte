@@ -1218,7 +1218,7 @@ rpcblockchain.o: rpcblockchain.cpp rpcserver.h uint256.h \
  /usr/include/boost/spirit/home/classic/iterator/position_iterator_fwd.hpp \
  /usr/include/boost/spirit/home/classic/iterator/impl/position_iterator.ipp \
  json/json_spirit_utils.h json/json_spirit_writer_template.h \
- /usr/include/c++/4.6/iomanip main.h bitcoin-config.h bignum.h \
+ /usr/include/c++/4.6/iomanip main.h digibyte-config.h bignum.h \
  serialize.h allocators.h /usr/include/c++/4.6/set \
  /usr/include/c++/4.6/bits/stl_set.h \
  /usr/include/c++/4.6/bits/stl_multiset.h \
@@ -4053,7 +4053,7 @@ json/json_spirit_writer_template.h:
 
 main.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 bignum.h:
 

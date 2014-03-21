@@ -181,9 +181,9 @@ public:
     void retranslateUi(QDialog *Intro)
     {
         Intro->setWindowTitle(QApplication::translate("Intro", "Welcome", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("Intro", "Welcome to Bitcoin Core.", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("Intro", "As this is the first time the program is launched, you can choose where Bitcoin Core will store its data.", 0, QApplication::UnicodeUTF8));
-        sizeWarningLabel->setText(QApplication::translate("Intro", "Bitcoin Core will download and store a copy of the Bitcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("Intro", "Welcome to DigiByte Core.", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("Intro", "As this is the first time the program is launched, you can choose where DigiByte Core will store its data.", 0, QApplication::UnicodeUTF8));
+        sizeWarningLabel->setText(QApplication::translate("Intro", "DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.", 0, QApplication::UnicodeUTF8));
         dataDirDefault->setText(QApplication::translate("Intro", "Use the default data directory", 0, QApplication::UnicodeUTF8));
         dataDirCustom->setText(QApplication::translate("Intro", "Use a custom data directory:", 0, QApplication::UnicodeUTF8));
         freeSpace->setText(QString());

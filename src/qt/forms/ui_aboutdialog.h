@@ -89,7 +89,7 @@ public:
         copyrightLabel = new QLabel(AboutDialog);
         copyrightLabel->setObjectName(QString::fromUtf8("copyrightLabel"));
         copyrightLabel->setCursor(QCursor(Qt::IBeamCursor));
-        copyrightLabel->setText(QString::fromUtf8("Copyright &copy; 2009-YYYY The Bitcoin Core developers"));
+        copyrightLabel->setText(QString::fromUtf8("Copyright &copy; 2009-YYYY The DigiByte Core developers"));
         copyrightLabel->setTextFormat(Qt::RichText);
         copyrightLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
@@ -127,8 +127,8 @@ public:
 
     void retranslateUi(QDialog *AboutDialog)
     {
-        AboutDialog->setWindowTitle(QApplication::translate("AboutDialog", "About Bitcoin Core", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("AboutDialog", "<b>Bitcoin Core</b> version", 0, QApplication::UnicodeUTF8));
+        AboutDialog->setWindowTitle(QApplication::translate("AboutDialog", "About DigiByte Core", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("AboutDialog", "<b>DigiByte Core</b> version", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("AboutDialog", "\n"
 "This is experimental software.\n"
 "\n"

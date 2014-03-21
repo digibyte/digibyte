@@ -1,4 +1,4 @@
-net.o: net.cpp bitcoin-config.h net.h bloom.h serialize.h allocators.h \
+net.o: net.cpp digibyte-config.h net.h bloom.h serialize.h allocators.h \
  /usr/include/c++/4.6/map /usr/include/c++/4.6/bits/stl_tree.h \
  /usr/include/c++/4.6/bits/stl_algobase.h \
  /usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++config.h \
@@ -884,7 +884,7 @@ net.o: net.cpp bitcoin-config.h net.h bloom.h serialize.h allocators.h \
  /usr/include/miniupnpc/miniupnpctypes.h \
  /usr/include/miniupnpc/upnperrors.h
 
-bitcoin-config.h:
+digibyte-config.h:
 
 net.h:
 

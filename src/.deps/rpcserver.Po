@@ -1229,7 +1229,7 @@ rpcserver.o: rpcserver.cpp rpcserver.h uint256.h \
  /usr/include/boost/type_traits/remove_volatile.hpp \
  /usr/include/boost/type_traits/function_traits.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp version.h \
- clientversion.h bitcoin-config.h chainparams.h hash.h \
+ clientversion.h digibyte-config.h chainparams.h hash.h \
  /usr/include/openssl/ripemd.h key.h script.h util.h compat.h \
  /usr/include/ifaddrs.h /usr/include/x86_64-linux-gnu/sys/fcntl.h \
  /usr/include/x86_64-linux-gnu/sys/mman.h \
@@ -4212,7 +4212,7 @@ version.h:
 
 clientversion.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 chainparams.h:
 

@@ -382,7 +382,7 @@ chainparams.o: chainparams.cpp chainparams.h bignum.h serialize.h \
  /usr/include/boost/type_traits/remove_reference.hpp \
  /usr/include/boost/utility/swap.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp uint256.h version.h \
- clientversion.h bitcoin-config.h /usr/include/openssl/bn.h core.h \
+ clientversion.h digibyte-config.h /usr/include/openssl/bn.h core.h \
  script.h key.h hash.h /usr/include/openssl/ripemd.h \
  /usr/include/openssl/sha.h util.h compat.h /usr/include/arpa/inet.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/sys/socket.h \
@@ -1726,7 +1726,7 @@ version.h:
 
 clientversion.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 /usr/include/openssl/bn.h:
 

@@ -623,7 +623,7 @@ noui.o: noui.cpp noui.h ui_interface.h \
  /usr/include/boost/preprocessor/iteration/local.hpp \
  /usr/include/boost/preprocessor/iteration/self.hpp \
  /usr/include/boost/signals2/detail/signal_template.hpp util.h \
- bitcoin-config.h compat.h /usr/include/arpa/inet.h \
+ digibyte-config.h compat.h /usr/include/arpa/inet.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/sys/uio.h \
  /usr/include/x86_64-linux-gnu/bits/uio.h \
@@ -2259,7 +2259,7 @@ ui_interface.h:
 
 util.h:
 
-bitcoin-config.h:
+digibyte-config.h:
 
 compat.h:
 

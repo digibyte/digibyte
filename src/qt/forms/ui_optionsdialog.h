@@ -25,7 +25,7 @@
 #include <QtGui/QTabWidget>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
-#include "bitcoinamountfield.h"
+#include "digibyteamountfield.h"
 #include "qvalidatedlineedit.h"
 #include "qvaluecombobox.h"
 
@@ -38,7 +38,7 @@ public:
     QTabWidget *tabWidget;
     QWidget *tabMain;
     QVBoxLayout *verticalLayout_Main;
-    QCheckBox *bitcoinAtStartup;
+    QCheckBox *digibyteAtStartup;
     QHBoxLayout *horizontalLayout_2_Main;
     QLabel *databaseCacheLabel;
     QSpinBox *databaseCache;
@@ -54,7 +54,7 @@ public:
     QLabel *transactionFeeInfoLabel;
     QHBoxLayout *horizontalLayout_1_Wallet;
     QLabel *transactionFeeLabel;
-    BitcoinAmountField *transactionFee;
+    DigiByteAmountField *transactionFee;
     QSpacerItem *horizontalSpacer_1_Wallet;
     QLabel *spendZeroConfChangeInfoLabel;
     QCheckBox *spendZeroConfChange;
@@ -116,10 +116,10 @@ public:
         tabMain->setObjectName(QString::fromUtf8("tabMain"));
         verticalLayout_Main = new QVBoxLayout(tabMain);
         verticalLayout_Main->setObjectName(QString::fromUtf8("verticalLayout_Main"));
-        bitcoinAtStartup = new QCheckBox(tabMain);
-        bitcoinAtStartup->setObjectName(QString::fromUtf8("bitcoinAtStartup"));
+        digibyteAtStartup = new QCheckBox(tabMain);
+        digibyteAtStartup->setObjectName(QString::fromUtf8("digibyteAtStartup"));
 
-        verticalLayout_Main->addWidget(bitcoinAtStartup);
+        verticalLayout_Main->addWidget(digibyteAtStartup);
 
         horizontalLayout_2_Main = new QHBoxLayout();
         horizontalLayout_2_Main->setObjectName(QString::fromUtf8("horizontalLayout_2_Main"));
@@ -193,7 +193,7 @@ public:
 
         horizontalLayout_1_Wallet->addWidget(transactionFeeLabel);
 
-        transactionFee = new BitcoinAmountField(tabWallet);
+        transactionFee = new DigiByteAmountField(tabWallet);
         transactionFee->setObjectName(QString::fromUtf8("transactionFee"));
 
         horizontalLayout_1_Wallet->addWidget(transactionFee);
@@ -454,9 +454,9 @@ public:
     {
         OptionsDialog->setWindowTitle(QApplication::translate("OptionsDialog", "Options", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        bitcoinAtStartup->setToolTip(QApplication::translate("OptionsDialog", "Automatically start Bitcoin after logging in to the system.", 0, QApplication::UnicodeUTF8));
+        digibyteAtStartup->setToolTip(QApplication::translate("OptionsDialog", "Automatically start DigiByte after logging in to the system.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        bitcoinAtStartup->setText(QApplication::translate("OptionsDialog", "&Start Bitcoin on system login", 0, QApplication::UnicodeUTF8));
+        digibyteAtStartup->setText(QApplication::translate("OptionsDialog", "&Start DigiByte on system login", 0, QApplication::UnicodeUTF8));
         databaseCacheLabel->setText(QApplication::translate("OptionsDialog", "Size of &database cache", 0, QApplication::UnicodeUTF8));
         databaseCacheUnitLabel->setText(QApplication::translate("OptionsDialog", "MB", 0, QApplication::UnicodeUTF8));
         threadsScriptVerifLabel->setText(QApplication::translate("OptionsDialog", "Number of script &verification threads", 0, QApplication::UnicodeUTF8));
@@ -470,11 +470,11 @@ public:
         spendZeroConfChange->setText(QApplication::translate("OptionsDialog", "&Spend unconfirmed change (experts only)", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tabWallet), QApplication::translate("OptionsDialog", "W&allet", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        mapPortUpnp->setToolTip(QApplication::translate("OptionsDialog", "Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.", 0, QApplication::UnicodeUTF8));
+        mapPortUpnp->setToolTip(QApplication::translate("OptionsDialog", "Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         mapPortUpnp->setText(QApplication::translate("OptionsDialog", "Map port using &UPnP", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        connectSocks->setToolTip(QApplication::translate("OptionsDialog", "Connect to the Bitcoin network through a SOCKS proxy.", 0, QApplication::UnicodeUTF8));
+        connectSocks->setToolTip(QApplication::translate("OptionsDialog", "Connect to the DigiByte network through a SOCKS proxy.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         connectSocks->setText(QApplication::translate("OptionsDialog", "&Connect through SOCKS proxy (default proxy):", 0, QApplication::UnicodeUTF8));
         proxyIpLabel->setText(QApplication::translate("OptionsDialog", "Proxy &IP:", 0, QApplication::UnicodeUTF8));
@@ -501,14 +501,14 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tabWindow), QApplication::translate("OptionsDialog", "&Window", 0, QApplication::UnicodeUTF8));
         langLabel->setText(QApplication::translate("OptionsDialog", "User Interface &language:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        lang->setToolTip(QApplication::translate("OptionsDialog", "The user interface language can be set here. This setting will take effect after restarting Bitcoin.", 0, QApplication::UnicodeUTF8));
+        lang->setToolTip(QApplication::translate("OptionsDialog", "The user interface language can be set here. This setting will take effect after restarting DigiByte.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         unitLabel->setText(QApplication::translate("OptionsDialog", "&Unit to show amounts in:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         unit->setToolTip(QApplication::translate("OptionsDialog", "Choose the default subdivision unit to show in the interface and when sending coins.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
-        displayAddresses->setToolTip(QApplication::translate("OptionsDialog", "Whether to show Bitcoin addresses in the transaction list or not.", 0, QApplication::UnicodeUTF8));
+        displayAddresses->setToolTip(QApplication::translate("OptionsDialog", "Whether to show DigiByte addresses in the transaction list or not.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         displayAddresses->setText(QApplication::translate("OptionsDialog", "&Display addresses in transaction list", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP

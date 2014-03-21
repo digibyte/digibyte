@@ -102,7 +102,7 @@ public:
 
     void retranslateUi(QDialog *HelpMessageDialog)
     {
-        HelpMessageDialog->setWindowTitle(QApplication::translate("HelpMessageDialog", "Bitcoin Core - Command-line options", 0, QApplication::UnicodeUTF8));
+        HelpMessageDialog->setWindowTitle(QApplication::translate("HelpMessageDialog", "DigiByte Core - Command-line options", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

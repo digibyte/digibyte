@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2014 The Bitcoin developers
+// Copyright (c) 2011-2014 The DigiByte developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,7 +6,7 @@
 #include "ui_receivecoinsdialog.h"
 
 #include "walletmodel.h"
-#include "bitcoinunits.h"
+#include "digibyteunits.h"
 #include "addressbookpage.h"
 #include "optionsmodel.h"
 #include "guiutil.h"

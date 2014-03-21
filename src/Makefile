@@ -17,10 +17,10 @@
 
 
 
-pkgdatadir = $(datadir)/bitcoin
-pkgincludedir = $(includedir)/bitcoin
-pkglibdir = $(libdir)/bitcoin
-pkglibexecdir = $(libexecdir)/bitcoin
+pkgdatadir = $(datadir)/digibyte
+pkgincludedir = $(includedir)/digibyte
+pkglibdir = $(libdir)/digibyte
+pkglibexecdir = $(libexecdir)/digibyte
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -36,21 +36,21 @@ POST_UNINSTALL = :
 build_triplet = x86_64-unknown-linux-gnu
 host_triplet = x86_64-unknown-linux-gnu
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/Makefile.include $(srcdir)/bitcoin-config.h.in
+	$(srcdir)/Makefile.include $(srcdir)/digibyte-config.h.in
 am__append_1 =  \
 	-I$(top_srcdir)/src/leveldb/include \
 	-I$(top_srcdir)/src/leveldb/helpers/memenv
 am__append_2 = $(top_builddir)/src/leveldb/libleveldb.a
 am__append_3 = $(top_builddir)/src/leveldb/libmemenv.a
-am__append_4 = libbitcoin_wallet.a
+am__append_4 = libdigibyte_wallet.a
 bin_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2)
-am__append_5 = bitcoind
-am__append_6 = bitcoin-cli
-am__append_7 = libbitcoin_wallet.a
+am__append_5 = digibyted
+am__append_6 = digibyte-cli
+am__append_7 = libdigibyte_wallet.a
 #
-#am__append_8 = bitcoind-res.rc
+#am__append_8 = digibyted-res.rc
 #
-#am__append_9 = bitcoin-cli-res.rc
+#am__append_9 = digibyte-cli-res.rc
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/src/m4/ax_boost_base.m4 \
@@ -64,14 +64,14 @@ am__aclocal_m4_deps = $(top_srcdir)/src/m4/ax_boost_base.m4 \
 	$(top_srcdir)/src/m4/ax_check_link_flag.m4 \
 	$(top_srcdir)/src/m4/ax_check_preproc_flag.m4 \
 	$(top_srcdir)/src/m4/ax_pthread.m4 \
-	$(top_srcdir)/src/m4/bitcoin_find_bdb48.m4 \
-	$(top_srcdir)/src/m4/bitcoin_qt.m4 \
-	$(top_srcdir)/src/m4/bitcoin_subdir_to_include.m4 \
+	$(top_srcdir)/src/m4/digibyte_find_bdb48.m4 \
+	$(top_srcdir)/src/m4/digibyte_qt.m4 \
+	$(top_srcdir)/src/m4/digibyte_subdir_to_include.m4 \
 	$(top_srcdir)/pkg.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = bitcoin-config.h
+CONFIG_HEADER = digibyte-config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LIBRARIES = $(noinst_LIBRARIES)
@@ -82,24 +82,24 @@ am__v_AR_0 = @echo "  AR    " $@;
 AM_V_at = $(am__v_at_$(V))
 am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
-libbitcoin_cli_a_AR = $(AR) $(ARFLAGS)
-libbitcoin_cli_a_LIBADD =
+libdigibyte_cli_a_AR = $(AR) $(ARFLAGS)
+libdigibyte_cli_a_LIBADD =
 am__objects_1 =
-am_libbitcoin_cli_a_OBJECTS = rpcclient.$(OBJEXT) $(am__objects_1)
-libbitcoin_cli_a_OBJECTS = $(am_libbitcoin_cli_a_OBJECTS)
-libbitcoin_common_a_AR = $(AR) $(ARFLAGS)
-libbitcoin_common_a_LIBADD =
-am_libbitcoin_common_a_OBJECTS = allocators.$(OBJEXT) \
+am_libdigibyte_cli_a_OBJECTS = rpcclient.$(OBJEXT) $(am__objects_1)
+libdigibyte_cli_a_OBJECTS = $(am_libdigibyte_cli_a_OBJECTS)
+libdigibyte_common_a_AR = $(AR) $(ARFLAGS)
+libdigibyte_common_a_LIBADD =
+am_libdigibyte_common_a_OBJECTS = allocators.$(OBJEXT) \
 	chainparams.$(OBJEXT) core.$(OBJEXT) hash.$(OBJEXT) \
 	key.$(OBJEXT) netbase.$(OBJEXT) protocol.$(OBJEXT) \
 	rpcprotocol.$(OBJEXT) script.$(OBJEXT) scrypt.$(OBJEXT) sync.$(OBJEXT) \
 	util.$(OBJEXT) version.$(OBJEXT) $(am__objects_1)
-nodist_libbitcoin_common_a_OBJECTS =
-libbitcoin_common_a_OBJECTS = $(am_libbitcoin_common_a_OBJECTS) \
-	$(nodist_libbitcoin_common_a_OBJECTS)
-libbitcoin_server_a_AR = $(AR) $(ARFLAGS)
-libbitcoin_server_a_LIBADD =
-am_libbitcoin_server_a_OBJECTS = addrman.$(OBJEXT) alert.$(OBJEXT) \
+nodist_libdigibyte_common_a_OBJECTS =
+libdigibyte_common_a_OBJECTS = $(am_libdigibyte_common_a_OBJECTS) \
+	$(nodist_libdigibyte_common_a_OBJECTS)
+libdigibyte_server_a_AR = $(AR) $(ARFLAGS)
+libdigibyte_server_a_LIBADD =
+am_libdigibyte_server_a_OBJECTS = addrman.$(OBJEXT) alert.$(OBJEXT) \
 	rpcserver.$(OBJEXT) bloom.$(OBJEXT) chainparams.$(OBJEXT) \
 	checkpoints.$(OBJEXT) coins.$(OBJEXT) init.$(OBJEXT) \
 	keystore.$(OBJEXT) leveldbwrapper.$(OBJEXT) main.$(OBJEXT) \
@@ -107,32 +107,32 @@ am_libbitcoin_server_a_OBJECTS = addrman.$(OBJEXT) alert.$(OBJEXT) \
 	rpcblockchain.$(OBJEXT) rpcmining.$(OBJEXT) rpcmisc.$(OBJEXT) \
 	rpcnet.$(OBJEXT) rpcrawtransaction.$(OBJEXT) txdb.$(OBJEXT) \
 	txmempool.$(OBJEXT) $(am__objects_1) $(am__objects_1)
-libbitcoin_server_a_OBJECTS = $(am_libbitcoin_server_a_OBJECTS)
-libbitcoin_wallet_a_AR = $(AR) $(ARFLAGS)
-libbitcoin_wallet_a_LIBADD =
-am_libbitcoin_wallet_a_OBJECTS = db.$(OBJEXT) crypter.$(OBJEXT) \
+libdigibyte_server_a_OBJECTS = $(am_libdigibyte_server_a_OBJECTS)
+libdigibyte_wallet_a_AR = $(AR) $(ARFLAGS)
+libdigibyte_wallet_a_LIBADD =
+am_libdigibyte_wallet_a_OBJECTS = db.$(OBJEXT) crypter.$(OBJEXT) \
 	rpcdump.$(OBJEXT) rpcwallet.$(OBJEXT) wallet.$(OBJEXT) \
 	walletdb.$(OBJEXT) $(am__objects_1)
-libbitcoin_wallet_a_OBJECTS = $(am_libbitcoin_wallet_a_OBJECTS)
-am__EXEEXT_1 = bitcoind$(EXEEXT)
-am__EXEEXT_2 = bitcoin-cli$(EXEEXT)
+libdigibyte_wallet_a_OBJECTS = $(am_libdigibyte_wallet_a_OBJECTS)
+am__EXEEXT_1 = digibyted$(EXEEXT)
+am__EXEEXT_2 = digibyte-cli$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am__bitcoin_cli_SOURCES_DIST = bitcoin-cli.cpp bitcoin-cli-res.rc
-#am__objects_2 = bitcoin-cli-res.$(OBJEXT)
-am_bitcoin_cli_OBJECTS = bitcoin-cli.$(OBJEXT) $(am__objects_2)
-bitcoin_cli_OBJECTS = $(am_bitcoin_cli_OBJECTS)
+am__digibyte_cli_SOURCES_DIST = digibyte-cli.cpp digibyte-cli-res.rc
+#am__objects_2 = digibyte-cli-res.$(OBJEXT)
+am_digibyte_cli_OBJECTS = digibyte-cli.$(OBJEXT) $(am__objects_2)
+digibyte_cli_OBJECTS = $(am_digibyte_cli_OBJECTS)
 am__DEPENDENCIES_1 =
-bitcoin_cli_DEPENDENCIES = libbitcoin_cli.a libbitcoin_common.a \
+digibyte_cli_DEPENDENCIES = libdigibyte_cli.a libdigibyte_common.a \
 	$(am__DEPENDENCIES_1)
-am__bitcoind_SOURCES_DIST = bitcoind.cpp bitcoind-res.rc
-#am__objects_3 = bitcoind-res.$(OBJEXT)
-am_bitcoind_OBJECTS = bitcoind.$(OBJEXT) $(am__objects_3)
-bitcoind_OBJECTS = $(am_bitcoind_OBJECTS)
+am__digibyted_SOURCES_DIST = digibyted.cpp digibyted-res.rc
+#am__objects_3 = digibyted-res.$(OBJEXT)
+am_digibyted_OBJECTS = digibyted.$(OBJEXT) $(am__objects_3)
+digibyted_OBJECTS = $(am_digibyted_OBJECTS)
 am__DEPENDENCIES_2 = $(am__append_2)
 am__DEPENDENCIES_3 = $(am__append_3)
-bitcoind_DEPENDENCIES = libbitcoin_server.a libbitcoin_cli.a \
-	libbitcoin_common.a $(am__DEPENDENCIES_2) \
+digibyted_DEPENDENCIES = libdigibyte_server.a libdigibyte_cli.a \
+	libdigibyte_common.a $(am__DEPENDENCIES_2) \
 	$(am__DEPENDENCIES_3) $(am__append_7) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I.
@@ -163,14 +163,14 @@ am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = $(libbitcoin_cli_a_SOURCES) $(libbitcoin_common_a_SOURCES) \
-	$(nodist_libbitcoin_common_a_SOURCES) \
-	$(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) \
-	$(bitcoin_cli_SOURCES) $(bitcoind_SOURCES)
-DIST_SOURCES = $(libbitcoin_cli_a_SOURCES) \
-	$(libbitcoin_common_a_SOURCES) $(libbitcoin_server_a_SOURCES) \
-	$(libbitcoin_wallet_a_SOURCES) $(am__bitcoin_cli_SOURCES_DIST) \
-	$(am__bitcoind_SOURCES_DIST)
+SOURCES = $(libdigibyte_cli_a_SOURCES) $(libdigibyte_common_a_SOURCES) \
+	$(nodist_libdigibyte_common_a_SOURCES) \
+	$(libdigibyte_server_a_SOURCES) $(libdigibyte_wallet_a_SOURCES) \
+	$(digibyte_cli_SOURCES) $(digibyted_SOURCES)
+DIST_SOURCES = $(libdigibyte_cli_a_SOURCES) \
+	$(libdigibyte_common_a_SOURCES) $(libdigibyte_server_a_SOURCES) \
+	$(libdigibyte_wallet_a_SOURCES) $(am__digibyte_cli_SOURCES_DIST) \
+	$(am__digibyted_SOURCES_DIST)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -211,13 +211,13 @@ am__relativize = \
     dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
   done; \
   reldir="$$dir2"
-ACLOCAL = ${SHELL} /home/scott/Desktop/bitcoin/src/build-aux/missing --run aclocal-1.11
+ACLOCAL = ${SHELL} /home/scott/Desktop/digibyte/src/build-aux/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = /usr/bin/ar
-AUTOCONF = ${SHELL} /home/scott/Desktop/bitcoin/src/build-aux/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/scott/Desktop/bitcoin/src/build-aux/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/scott/Desktop/bitcoin/src/build-aux/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/scott/Desktop/digibyte/src/build-aux/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/scott/Desktop/digibyte/src/build-aux/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/scott/Desktop/digibyte/src/build-aux/missing --run automake-1.11
 AWK = mawk
 BDB_CPPFLAGS = 
 BDB_LIBS = -ldb_cxx-4.8
@@ -286,7 +286,7 @@ LRELEASE = /usr/bin/lrelease-qt4
 LTLIBOBJS = 
 LUPDATE = /usr/bin/lupdate-qt4
 MAINT = 
-MAKEINFO = ${SHELL} /home/scott/Desktop/bitcoin/src/build-aux/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/scott/Desktop/digibyte/src/build-aux/missing --run makeinfo
 MAKENSIS = 
 MKDIR_P = /bin/mkdir -p
 MOC = /usr/bin/moc-qt4
@@ -297,11 +297,11 @@ OBJCFLAGS =
 OBJCXX = g++
 OBJCXXFLAGS = -g -O2 -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter  -Wstack-protector -fstack-protector-all -fPIE
 OBJEXT = o
-PACKAGE = bitcoin
-PACKAGE_BUGREPORT = info@bitcoin.org
-PACKAGE_NAME = Bitcoin Core
-PACKAGE_STRING = Bitcoin Core 0.9.0
-PACKAGE_TARNAME = bitcoin
+PACKAGE = digibyte
+PACKAGE_BUGREPORT = support@digibyte.co
+PACKAGE_NAME = DigiByte Core
+PACKAGE_STRING = DigiByte Core 0.9.0
+PACKAGE_TARNAME = digibyte
 PACKAGE_URL = 
 PACKAGE_VERSION = 0.9.0
 PATH_SEPARATOR = :
@@ -345,10 +345,10 @@ VERSION = 0.9.0
 WINDOWS_BITS = 
 WINDRES = 
 XGETTEXT = 
-abs_builddir = /home/scott/Desktop/bitcoin/src
-abs_srcdir = /home/scott/Desktop/bitcoin/src
-abs_top_builddir = /home/scott/Desktop/bitcoin
-abs_top_srcdir = /home/scott/Desktop/bitcoin
+abs_builddir = /home/scott/Desktop/digibyte/src
+abs_srcdir = /home/scott/Desktop/digibyte/src
+abs_top_builddir = /home/scott/Desktop/digibyte
+abs_top_srcdir = /home/scott/Desktop/digibyte
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_OBJC = gcc
@@ -379,7 +379,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/scott/Desktop/bitcoin/src/build-aux/install-sh
+install_sh = ${SHELL} /home/scott/Desktop/digibyte/src/build-aux/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -403,17 +403,17 @@ AM_CPPFLAGS = $(INCLUDES) -I$(top_builddir)/src/obj $(BDB_CPPFLAGS) \
 	$(BOOST_CPPFLAGS) $(BOOST_INCLUDES) $(LEVELDB_CPPFLAGS) \
 	-I$(builddir) $(BDB_CPPFLAGS)
 AM_LDFLAGS = $(PTHREAD_CFLAGS)
-LIBBITCOIN_SERVER = $(top_builddir)/src/libbitcoin_server.a
-LIBBITCOIN_WALLET = $(top_builddir)/src/libbitcoin_wallet.a
-LIBBITCOIN_COMMON = $(top_builddir)/src/libbitcoin_common.a
-LIBBITCOIN_CLI = $(top_builddir)/src/libbitcoin_cli.a
-LIBBITCOINQT = $(top_builddir)/src/qt/libbitcoinqt.a
-noinst_LIBRARIES = libbitcoin_server.a libbitcoin_common.a \
-	libbitcoin_cli.a $(am__append_4)
+LIBDIGIBYTE_SERVER = $(top_builddir)/src/libdigibyte_server.a
+LIBDIGIBYTE_WALLET = $(top_builddir)/src/libdigibyte_wallet.a
+LIBDIGIBYTE_COMMON = $(top_builddir)/src/libdigibyte_common.a
+LIBDIGIBYTE_CLI = $(top_builddir)/src/libdigibyte_cli.a
+LIBDIGIBYTEQT = $(top_builddir)/src/qt/libdigibyteqt.a
+noinst_LIBRARIES = libdigibyte_server.a libdigibyte_common.a \
+	libdigibyte_cli.a $(am__append_4)
 SUBDIRS = . $(BUILD_QT) $(BUILD_TEST)
 DIST_SUBDIRS = . qt test
-# bitcoin core #
-BITCOIN_CORE_H = \
+# digibyte core #
+DIGIBYTE_CORE_H = \
   addrman.h \
   alert.h \
   allocators.h \
@@ -471,7 +471,7 @@ JSON_H = \
   json/json_spirit_writer.h \
   json/json_spirit_writer_template.h
 
-libbitcoin_server_a_SOURCES = \
+libdigibyte_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
   rpcserver.cpp \
@@ -494,18 +494,18 @@ libbitcoin_server_a_SOURCES = \
   txdb.cpp \
   txmempool.cpp \
   $(JSON_H) \
-  $(BITCOIN_CORE_H)
+  $(DIGIBYTE_CORE_H)
 
-libbitcoin_wallet_a_SOURCES = \
+libdigibyte_wallet_a_SOURCES = \
   db.cpp \
   crypter.cpp \
   rpcdump.cpp \
   rpcwallet.cpp \
   wallet.cpp \
   walletdb.cpp \
-  $(BITCOIN_CORE_H)
+  $(DIGIBYTE_CORE_H)
 
-libbitcoin_common_a_SOURCES = \
+libdigibyte_common_a_SOURCES = \
   allocators.cpp \
   chainparams.cpp \
   core.cpp \
@@ -519,32 +519,32 @@ libbitcoin_common_a_SOURCES = \
   sync.cpp \
   util.cpp \
   version.cpp \
-  $(BITCOIN_CORE_H)
+  $(DIGIBYTE_CORE_H)
 
-libbitcoin_cli_a_SOURCES = \
+libdigibyte_cli_a_SOURCES = \
   rpcclient.cpp \
-  $(BITCOIN_CORE_H)
+  $(DIGIBYTE_CORE_H)
 
-nodist_libbitcoin_common_a_SOURCES = $(top_srcdir)/src/obj/build.h
+nodist_libdigibyte_common_a_SOURCES = $(top_srcdir)/src/obj/build.h
 #
 
-# bitcoind binary #
-bitcoind_LDADD = libbitcoin_server.a libbitcoin_cli.a \
-	libbitcoin_common.a $(LIBLEVELDB) $(LIBMEMENV) $(am__append_7) \
+# digibyted binary #
+digibyted_LDADD = libdigibyte_server.a libdigibyte_cli.a \
+	libdigibyte_common.a $(LIBLEVELDB) $(LIBMEMENV) $(am__append_7) \
 	$(BOOST_LIBS) $(BDB_LIBS)
-bitcoind_SOURCES = bitcoind.cpp $(am__append_8)
+digibyted_SOURCES = digibyted.cpp $(am__append_8)
 
-# bitcoin-cli binary #
-bitcoin_cli_LDADD = \
-  libbitcoin_cli.a \
-  libbitcoin_common.a \
+# digibyte-cli binary #
+digibyte_cli_LDADD = \
+  libdigibyte_cli.a \
+  libdigibyte_common.a \
   $(BOOST_LIBS)
 
-bitcoin_cli_SOURCES = bitcoin-cli.cpp $(am__append_9)
+digibyte_cli_SOURCES = digibyte-cli.cpp $(am__append_9)
 CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a *.gcda *.gcno
 DISTCLEANFILES = obj/build.h
 EXTRA_DIST = leveldb Makefile.include
-all: bitcoin-config.h
+all: digibyte-config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
@@ -581,39 +581,39 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-bitcoin-config.h: stamp-h1
+digibyte-config.h: stamp-h1
 	@if test ! -f $@; then rm -f stamp-h1; else :; fi
 	@if test ! -f $@; then $(MAKE) $(AM_MAKEFLAGS) stamp-h1; else :; fi
 
-stamp-h1: $(srcdir)/bitcoin-config.h.in $(top_builddir)/config.status
+stamp-h1: $(srcdir)/digibyte-config.h.in $(top_builddir)/config.status
 	@rm -f stamp-h1
-	cd $(top_builddir) && $(SHELL) ./config.status src/bitcoin-config.h
-$(srcdir)/bitcoin-config.h.in:  $(am__configure_deps) 
+	cd $(top_builddir) && $(SHELL) ./config.status src/digibyte-config.h
+$(srcdir)/digibyte-config.h.in:  $(am__configure_deps) 
 	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
 	rm -f stamp-h1
 	touch $@
 
 distclean-hdr:
-	-rm -f bitcoin-config.h stamp-h1
+	-rm -f digibyte-config.h stamp-h1
 
 clean-noinstLIBRARIES:
 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
-libbitcoin_cli.a: $(libbitcoin_cli_a_OBJECTS) $(libbitcoin_cli_a_DEPENDENCIES) $(EXTRA_libbitcoin_cli_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libbitcoin_cli.a
-	$(AM_V_AR)$(libbitcoin_cli_a_AR) libbitcoin_cli.a $(libbitcoin_cli_a_OBJECTS) $(libbitcoin_cli_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libbitcoin_cli.a
-libbitcoin_common.a: $(libbitcoin_common_a_OBJECTS) $(libbitcoin_common_a_DEPENDENCIES) $(EXTRA_libbitcoin_common_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libbitcoin_common.a
-	$(AM_V_AR)$(libbitcoin_common_a_AR) libbitcoin_common.a $(libbitcoin_common_a_OBJECTS) $(libbitcoin_common_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libbitcoin_common.a
-libbitcoin_server.a: $(libbitcoin_server_a_OBJECTS) $(libbitcoin_server_a_DEPENDENCIES) $(EXTRA_libbitcoin_server_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libbitcoin_server.a
-	$(AM_V_AR)$(libbitcoin_server_a_AR) libbitcoin_server.a $(libbitcoin_server_a_OBJECTS) $(libbitcoin_server_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libbitcoin_server.a
-libbitcoin_wallet.a: $(libbitcoin_wallet_a_OBJECTS) $(libbitcoin_wallet_a_DEPENDENCIES) $(EXTRA_libbitcoin_wallet_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libbitcoin_wallet.a
-	$(AM_V_AR)$(libbitcoin_wallet_a_AR) libbitcoin_wallet.a $(libbitcoin_wallet_a_OBJECTS) $(libbitcoin_wallet_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libbitcoin_wallet.a
+libdigibyte_cli.a: $(libdigibyte_cli_a_OBJECTS) $(libdigibyte_cli_a_DEPENDENCIES) $(EXTRA_libdigibyte_cli_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libdigibyte_cli.a
+	$(AM_V_AR)$(libdigibyte_cli_a_AR) libdigibyte_cli.a $(libdigibyte_cli_a_OBJECTS) $(libdigibyte_cli_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libdigibyte_cli.a
+libdigibyte_common.a: $(libdigibyte_common_a_OBJECTS) $(libdigibyte_common_a_DEPENDENCIES) $(EXTRA_libdigibyte_common_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libdigibyte_common.a
+	$(AM_V_AR)$(libdigibyte_common_a_AR) libdigibyte_common.a $(libdigibyte_common_a_OBJECTS) $(libdigibyte_common_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libdigibyte_common.a
+libdigibyte_server.a: $(libdigibyte_server_a_OBJECTS) $(libdigibyte_server_a_DEPENDENCIES) $(EXTRA_libdigibyte_server_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libdigibyte_server.a
+	$(AM_V_AR)$(libdigibyte_server_a_AR) libdigibyte_server.a $(libdigibyte_server_a_OBJECTS) $(libdigibyte_server_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libdigibyte_server.a
+libdigibyte_wallet.a: $(libdigibyte_wallet_a_OBJECTS) $(libdigibyte_wallet_a_DEPENDENCIES) $(EXTRA_libdigibyte_wallet_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libdigibyte_wallet.a
+	$(AM_V_AR)$(libdigibyte_wallet_a_AR) libdigibyte_wallet.a $(libdigibyte_wallet_a_OBJECTS) $(libdigibyte_wallet_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libdigibyte_wallet.a
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	test -z "$(bindir)" || $(MKDIR_P) "$(DESTDIR)$(bindir)"
@@ -651,12 +651,12 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-bitcoin-cli$(EXEEXT): $(bitcoin_cli_OBJECTS) $(bitcoin_cli_DEPENDENCIES) $(EXTRA_bitcoin_cli_DEPENDENCIES) 
-	@rm -f bitcoin-cli$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(bitcoin_cli_OBJECTS) $(bitcoin_cli_LDADD) $(LIBS)
-bitcoind$(EXEEXT): $(bitcoind_OBJECTS) $(bitcoind_DEPENDENCIES) $(EXTRA_bitcoind_DEPENDENCIES) 
-	@rm -f bitcoind$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(bitcoind_OBJECTS) $(bitcoind_LDADD) $(LIBS)
+digibyte-cli$(EXEEXT): $(digibyte_cli_OBJECTS) $(digibyte_cli_DEPENDENCIES) $(EXTRA_digibyte_cli_DEPENDENCIES) 
+	@rm -f digibyte-cli$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(digibyte_cli_OBJECTS) $(digibyte_cli_LDADD) $(LIBS)
+digibyted$(EXEEXT): $(digibyted_OBJECTS) $(digibyted_DEPENDENCIES) $(EXTRA_digibyted_DEPENDENCIES) 
+	@rm -f digibyted$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(digibyted_OBJECTS) $(digibyted_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -667,8 +667,8 @@ distclean-compile:
 include ./$(DEPDIR)/addrman.Po
 include ./$(DEPDIR)/alert.Po
 include ./$(DEPDIR)/allocators.Po
-include ./$(DEPDIR)/bitcoin-cli.Po
-include ./$(DEPDIR)/bitcoind.Po
+include ./$(DEPDIR)/digibyte-cli.Po
+include ./$(DEPDIR)/digibyted.Po
 include ./$(DEPDIR)/bloom.Po
 include ./$(DEPDIR)/chainparams.Po
 include ./$(DEPDIR)/checkpoints.Po
@@ -802,7 +802,7 @@ ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	mkid -fID $$unique
 tags: TAGS
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES) bitcoin-config.h.in $(TAGS_DEPENDENCIES) \
+TAGS: tags-recursive $(HEADERS) $(SOURCES) digibyte-config.h.in $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	set x; \
 	here=`pwd`; \
@@ -819,7 +819,7 @@ TAGS: tags-recursive $(HEADERS) $(SOURCES) bitcoin-config.h.in $(TAGS_DEPENDENCI
 	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
 	  fi; \
 	done; \
-	list='$(SOURCES) $(HEADERS) bitcoin-config.h.in $(LISP) $(TAGS_FILES)'; \
+	list='$(SOURCES) $(HEADERS) digibyte-config.h.in $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
 	  done | \
@@ -837,9 +837,9 @@ TAGS: tags-recursive $(HEADERS) $(SOURCES) bitcoin-config.h.in $(TAGS_DEPENDENCI
 	  fi; \
 	fi
 ctags: CTAGS
-CTAGS: ctags-recursive $(HEADERS) $(SOURCES) bitcoin-config.h.in $(TAGS_DEPENDENCIES) \
+CTAGS: ctags-recursive $(HEADERS) $(SOURCES) digibyte-config.h.in $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
-	list='$(SOURCES) $(HEADERS) bitcoin-config.h.in $(LISP) $(TAGS_FILES)'; \
+	list='$(SOURCES) $(HEADERS) digibyte-config.h.in $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
 	  done | \
@@ -917,7 +917,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LIBRARIES) $(PROGRAMS) bitcoin-config.h
+all-am: Makefile $(LIBRARIES) $(PROGRAMS) digibyte-config.h
 installdirs: installdirs-recursive
 installdirs-am:
 	for dir in "$(DESTDIR)$(bindir)"; do \
@@ -1045,13 +1045,13 @@ uninstall-am: uninstall-binPROGRAMS
 	uninstall-binPROGRAMS
 
 
-$(LIBBITCOIN):
+$(LIBDIGIBYTE):
 	$(MAKE) -C $(top_builddir)/src $(@F)
 
 $(LIBLEVELDB) $(LIBMEMENV):
 	$(MAKE) -C $(top_builddir)/src leveldb/$(@F)
 
-$(LIBBITCOINQT):
+$(LIBDIGIBYTEQT):
 	$(MAKE) -C $(top_builddir)/src/qt $(@F)
 
 .mm.o:
@@ -1118,7 +1118,7 @@ leveldb/%.a:
 	  CC="$(CC)" PLATFORM=$(TARGET_OS) AR="$(AR)" $(LEVELDB_TARGET_FLAGS) \
 	  OPT="$(CXXFLAGS) $(CPPFLAGS)"
 
-qt/bitcoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_cli_a_SOURCES)
+qt/digibytestrings.cpp: $(libdigibyte_server_a_SOURCES) $(libdigibyte_common_a_SOURCES) $(libdigibyte_cli_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	@cd $(top_srcdir); XGETTEXT=$(XGETTEXT) share/qt/extract_strings_qt.py
 
