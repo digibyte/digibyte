@@ -72,12 +72,12 @@ MSYS shell:
 	mkdir miniupnpc
 	cp *.h miniupnpc/
 
-Bitcoin
+DigiByte
 -------
 MSYS shell:
 
-	cd \bitcoin
+	cd \digibyte
 	sh autogen.sh
 	sh configure
 	mingw32-make
-	strip bitcoind.exe
+	strip digibyted.exe

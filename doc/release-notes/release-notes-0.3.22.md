@@ -7,7 +7,7 @@ Notable changes:
 * Non-standard transactions accepted on testnet
 * Source code tree reorganized (prep for autotools build)
 * Remove "Generate Coins" option from GUI, and remove 4way SSE miner.  Internal reference CPU miner remains available, but users are directed to external miners for best hash production.
-* IRC is overflowing.  Client now bootstraps to channels #bitcoin00 - #bitcoin99
+* IRC is overflowing.  Client now bootstraps to channels #digibyte00 - #digibyte99
 * DNS names now may be used with -addnode, -connect (requires -dns to enable)
 
 RPC changes:

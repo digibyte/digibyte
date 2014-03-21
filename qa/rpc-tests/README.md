@@ -1,8 +1,8 @@
 Regression tests of RPC interface
 =================================
 
-python-bitcoinrpc: git subtree of https://github.com/jgarzik/python-bitcoinrpc
-Changes to python-bitcoinrpc should be made upstream, and then
+python-digibyterpc: git subtree of https://github.com/jgarzik/python-digibyterpc
+Changes to python-digibyterpc should be made upstream, and then
 pulled here using git subtree
 
 skeleton.py : Copy this to create new regression tests.
@@ -33,4 +33,4 @@ test state.
 If you get into a bad state, you should be able
 to recover with:
   rm -rf cache
-  killall bitcoind
+  killall digibyted

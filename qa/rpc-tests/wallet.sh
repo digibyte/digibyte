@@ -10,8 +10,8 @@ fi
 
 set -f
 
-BITCOIND=${1}/bitcoind
-CLI=${1}/bitcoin-cli
+BITCOIND=${1}/digibyted
+CLI=${1}/digibyte-cli
 
 DIR="${BASH_SOURCE%/*}"
 SENDANDWAIT="${DIR}/send.sh"

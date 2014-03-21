@@ -1,5 +1,5 @@
 ---
-name: "bitcoin-deps"
+name: "digibyte-deps"
 suites:
 - "precise"
 architectures:
@@ -124,5 +124,5 @@ script: |
     done
     #
     cd $INSTALLPREFIX
-    find include lib | sort | zip -X@ $OUTDIR/bitcoin-deps-win$BITS-gitian-r10.zip
+    find include lib | sort | zip -X@ $OUTDIR/digibyte-deps-win$BITS-gitian-r10.zip
   done # for BITS in

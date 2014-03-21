@@ -54,13 +54,13 @@ make -j$JOBS
 if [ -d "$OUT_DIR" -a -w "$OUT_DIR" ]; then
   set +e
   # Windows:
-  cp @abs_top_srcdir@/win32-build/src/bitcoind.exe $OUT_DIR/bitcoind.exe
-  cp @abs_top_srcdir@/win32-build/src/test/test_bitcoin.exe $OUT_DIR/test_bitcoin.exe
-  cp @abs_top_srcdir@/win32-build/src/qt/bitcoind-qt.exe $OUT_DIR/bitcoin-qt.exe
+  cp @abs_top_srcdir@/win32-build/src/digibyted.exe $OUT_DIR/digibyted.exe
+  cp @abs_top_srcdir@/win32-build/src/test/test_digibyte.exe $OUT_DIR/test_digibyte.exe
+  cp @abs_top_srcdir@/win32-build/src/qt/digibyted-qt.exe $OUT_DIR/digibyte-qt.exe
   # Linux:
-  cp @abs_top_srcdir@/linux-build/src/bitcoind $OUT_DIR/bitcoind
-  cp @abs_top_srcdir@/linux-build/src/test/test_bitcoin $OUT_DIR/test_bitcoin
-  cp @abs_top_srcdir@/linux-build/src/qt/bitcoind-qt $OUT_DIR/bitcoin-qt
+  cp @abs_top_srcdir@/linux-build/src/digibyted $OUT_DIR/digibyted
+  cp @abs_top_srcdir@/linux-build/src/test/test_digibyte $OUT_DIR/test_digibyte
+  cp @abs_top_srcdir@/linux-build/src/qt/digibyted-qt $OUT_DIR/digibyte-qt
   set -e
 fi
 

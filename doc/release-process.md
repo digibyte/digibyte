@@ -9,7 +9,7 @@ Release Process
 ###update (commit) version in sources
 
 
-	bitcoin-qt.pro
+	digibyte-qt.pro
 	contrib/verifysfbinaries/verify.sh
 	doc/README*
 	share/setup.nsi
@@ -27,11 +27,11 @@ Release Process
 
 ##perform gitian builds
 
- From a directory containing the bitcoin source, gitian-builder and gitian.sigs
+ From a directory containing the digibyte source, gitian-builder and gitian.sigs
   
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
 	export VERSION=(new version, e.g. 0.8.0)
-	pushd ./bitcoin
+	pushd ./digibyte
 	git checkout v${VERSION}
 	popd
 	pushd ./gitian-builder
@@ -51,55 +51,55 @@ Release Process
 	wget 'https://download.qt-project.org/official_releases/qt/5.2/5.2.0/single/qt-everywhere-opensource-src-5.2.0.tar.gz'
 	wget 'https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.bz2'
 	cd ..
-	./bin/gbuild ../bitcoin/contrib/gitian-descriptors/boost-linux.yml
+	./bin/gbuild ../digibyte/contrib/gitian-descriptors/boost-linux.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../bitcoin/contrib/gitian-descriptors/deps-linux.yml
-	mv build/out/bitcoin-deps-*.zip inputs/
-	./bin/gbuild ../bitcoin/contrib/gitian-descriptors/boost-win.yml
+	./bin/gbuild ../digibyte/contrib/gitian-descriptors/deps-linux.yml
+	mv build/out/digibyte-deps-*.zip inputs/
+	./bin/gbuild ../digibyte/contrib/gitian-descriptors/boost-win.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../bitcoin/contrib/gitian-descriptors/deps-win.yml
-	mv build/out/bitcoin-deps-*.zip inputs/
-	./bin/gbuild ../bitcoin/contrib/gitian-descriptors/qt-win.yml
+	./bin/gbuild ../digibyte/contrib/gitian-descriptors/deps-win.yml
+	mv build/out/digibyte-deps-*.zip inputs/
+	./bin/gbuild ../digibyte/contrib/gitian-descriptors/qt-win.yml
 	mv build/out/qt-*.zip inputs/
-	./bin/gbuild ../bitcoin/contrib/gitian-descriptors/protobuf-win.yml
+	./bin/gbuild ../digibyte/contrib/gitian-descriptors/protobuf-win.yml
 	mv build/out/protobuf-*.zip inputs/
 
- Build bitcoind and bitcoin-qt on Linux32, Linux64, and Win32:
+ Build digibyted and digibyte-qt on Linux32, Linux64, and Win32:
   
-	./bin/gbuild --commit bitcoin=v${VERSION} ../bitcoin/contrib/gitian-descriptors/gitian-linux.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../bitcoin/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gbuild --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
 	pushd build/out
-	zip -r bitcoin-${VERSION}-linux-gitian.zip *
-	mv bitcoin-${VERSION}-linux-gitian.zip ../../../
+	zip -r digibyte-${VERSION}-linux-gitian.zip *
+	mv digibyte-${VERSION}-linux-gitian.zip ../../../
 	popd
-	./bin/gbuild --commit bitcoin=v${VERSION} ../bitcoin/contrib/gitian-descriptors/gitian-win.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../bitcoin/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gbuild --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
 	pushd build/out
-	zip -r bitcoin-${VERSION}-win-gitian.zip *
-	mv bitcoin-${VERSION}-win-gitian.zip ../../../
+	zip -r digibyte-${VERSION}-win-gitian.zip *
+	mv digibyte-${VERSION}-win-gitian.zip ../../../
 	popd
 	popd
 
   Build output expected:
 
-  1. linux 32-bit and 64-bit binaries + source (bitcoin-${VERSION}-linux-gitian.zip)
-  2. windows 32-bit and 64-bit binaries + installer + source (bitcoin-${VERSION}-win-gitian.zip)
+  1. linux 32-bit and 64-bit binaries + source (digibyte-${VERSION}-linux-gitian.zip)
+  2. windows 32-bit and 64-bit binaries + installer + source (digibyte-${VERSION}-win-gitian.zip)
   3. Gitian signatures (in gitian.sigs/${VERSION}[-win]/(your gitian key)/
 
 repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 **Linux .tar.gz:**
 
-	unzip bitcoin-${VERSION}-linux-gitian.zip -d bitcoin-${VERSION}-linux
-	tar czvf bitcoin-${VERSION}-linux.tar.gz bitcoin-${VERSION}-linux
-	rm -rf bitcoin-${VERSION}-linux
+	unzip digibyte-${VERSION}-linux-gitian.zip -d digibyte-${VERSION}-linux
+	tar czvf digibyte-${VERSION}-linux.tar.gz digibyte-${VERSION}-linux
+	rm -rf digibyte-${VERSION}-linux
 
 **Windows .zip and setup.exe:**
 
-	unzip bitcoin-${VERSION}-win-gitian.zip -d bitcoin-${VERSION}-win
-	mv bitcoin-${VERSION}-win/bitcoin-*-setup.exe .
-	zip -r bitcoin-${VERSION}-win.zip bitcoin-${VERSION}-win
-	rm -rf bitcoin-${VERSION}-win
+	unzip digibyte-${VERSION}-win-gitian.zip -d digibyte-${VERSION}-win
+	mv digibyte-${VERSION}-win/digibyte-*-setup.exe .
+	zip -r digibyte-${VERSION}-win.zip digibyte-${VERSION}-win
+	rm -rf digibyte-${VERSION}-win
 
 **Perform Mac build:**
 
@@ -112,9 +112,9 @@ repackage gitian builds for release as stand-alone zip/tar/installer exe
 	export QTDIR=/opt/local/share/qt4  # needed to find translations/qt_*.qm files
 	T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
         export CODESIGNARGS='--keychain ...path_to_keychain --sign "Developer ID Application: BITCOIN FOUNDATION, INC., THE"'
-	python2.7 contrib/macdeploy/macdeployqtplus Bitcoin-Qt.app -sign -add-qt-tr $T -dmg -fancy contrib/macdeploy/fancy.plist
+	python2.7 contrib/macdeploy/macdeployqtplus DigiByte-Qt.app -sign -add-qt-tr $T -dmg -fancy contrib/macdeploy/fancy.plist
 
- Build output expected: Bitcoin-Qt.dmg
+ Build output expected: DigiByte-Qt.dmg
 
 ###Next steps:
 
@@ -149,44 +149,44 @@ Commit your signature to gitian.sigs:
 
 ### After 3 or more people have gitian-built, repackage gitian-signed zips:
 
-From a directory containing bitcoin source, gitian.sigs and gitian zips
+From a directory containing digibyte source, gitian.sigs and gitian zips
 
 	export VERSION=(new version, e.g. 0.8.0)
-	mkdir bitcoin-${VERSION}-linux-gitian
-	pushd bitcoin-${VERSION}-linux-gitian
-	unzip ../bitcoin-${VERSION}-linux-gitian.zip
+	mkdir digibyte-${VERSION}-linux-gitian
+	pushd digibyte-${VERSION}-linux-gitian
+	unzip ../digibyte-${VERSION}-linux-gitian.zip
 	mkdir gitian
-	cp ../bitcoin/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../digibyte/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}/); do
-	 cp ../gitian.sigs/${VERSION}/${signer}/bitcoin-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}/${signer}/bitcoin-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}/${signer}/digibyte-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}/${signer}/digibyte-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r bitcoin-${VERSION}-linux-gitian.zip *
-	cp bitcoin-${VERSION}-linux-gitian.zip ../
+	zip -r digibyte-${VERSION}-linux-gitian.zip *
+	cp digibyte-${VERSION}-linux-gitian.zip ../
 	popd
-	mkdir bitcoin-${VERSION}-win-gitian
-	pushd bitcoin-${VERSION}-win-gitian
-	unzip ../bitcoin-${VERSION}-win-gitian.zip
+	mkdir digibyte-${VERSION}-win-gitian
+	pushd digibyte-${VERSION}-win-gitian
+	unzip ../digibyte-${VERSION}-win-gitian.zip
 	mkdir gitian
-	cp ../bitcoin/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../digibyte/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}-win/); do
-	 cp ../gitian.sigs/${VERSION}-win/${signer}/bitcoin-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}-win/${signer}/bitcoin-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}-win/${signer}/digibyte-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}-win/${signer}/digibyte-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r bitcoin-${VERSION}-win-gitian.zip *
-	cp bitcoin-${VERSION}-win-gitian.zip ../
+	zip -r digibyte-${VERSION}-win-gitian.zip *
+	cp digibyte-${VERSION}-win-gitian.zip ../
 	popd
 
 - Upload gitian zips to SourceForge
 
 - Announce the release:
 
-  - Add the release to bitcoin.org: https://github.com/bitcoin/bitcoin.org/tree/master/_releases
+  - Add the release to bitcoin.org: https://github.com/digibyte/bitcoin.org/tree/master/_releases
 
-  - Release sticky on bitcointalk: https://bitcointalk.org/index.php?board=1.0
+  - Release sticky on digibytetalk: https://bitcointalk.org/index.php?board=1.0
 
-  - Bitcoin-development mailing list
+  - DigiByte-development mailing list
 
-  - Optionally reddit /r/Bitcoin, ...
+  - Optionally reddit /r/DigiByte, ...
 
 - Celebrate 

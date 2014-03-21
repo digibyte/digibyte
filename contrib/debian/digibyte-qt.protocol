@@ -1,6 +1,6 @@
 [Protocol]
-exec=bitcoin-qt '%u'
-protocol=bitcoin
+exec=digibyte-qt '%u'
+protocol=digibyte
 input=none
 output=none
 helper=true

@@ -1,4 +1,4 @@
-Source: bitcoin
+Source: digibyte
 Section: utils
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk>
@@ -20,14 +20,14 @@ Build-Depends: debhelper,
  libqrencode-dev
 Standards-Version: 3.9.2
 Homepage: http://www.bitcoin.org/
-Vcs-Git: git://github.com/bitcoin/bitcoin.git
+Vcs-Git: git://github.com/digibyte/DigiByteProject.git
 Vcs-Browser: http://github.com/bitcoin/bitcoin
 
-Package: bitcoind
+Package: digibyted
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- Bitcoin is a free open source peer-to-peer electronic cash system that
+ DigiByte is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -36,14 +36,14 @@ Description: peer-to-peer network based digital currency - daemon
  Full transaction history is stored locally at each client.  This
  requires 2+ GB of space, slowly growing.
  .
- This package provides bitcoind, a combined daemon and CLI tool to
+ This package provides digibyted, a combined daemon and CLI tool to
  interact with the daemon.
 
-Package: bitcoin-qt
+Package: digibyte-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- Bitcoin is a free open source peer-to-peer electronic cash system that
+ DigiByte is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -52,4 +52,4 @@ Description: peer-to-peer network based digital currency - Qt GUI
  Full transaction history is stored locally at each client.  This
  requires 2+ GB of space, slowly growing.
  .
- This package provides Bitcoin-Qt, a GUI for Bitcoin based on Qt.
+ This package provides DigiByte-Qt, a GUI for DigiByte based on Qt.

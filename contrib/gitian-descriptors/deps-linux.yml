@@ -1,5 +1,5 @@
 ---
-name: "bitcoin"
+name: "digibyte"
 suites:
 - "precise"
 architectures:
@@ -95,4 +95,4 @@ script: |
   done
   #
   cd $STAGING
-  find include lib bin host | sort | zip -X@ $OUTDIR/bitcoin-deps-linux${GBUILD_BITS}-gitian-r3.zip
+  find include lib bin host | sort | zip -X@ $OUTDIR/digibyte-deps-linux${GBUILD_BITS}-gitian-r3.zip

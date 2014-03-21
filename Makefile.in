@@ -37,7 +37,7 @@ subdir = .
 DIST_COMMON = $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/configure \
 	$(top_srcdir)/qa/pull-tester/build-tests.sh.in \
-	$(top_srcdir)/qa/pull-tester/run-bitcoind-for-test.sh.in \
+	$(top_srcdir)/qa/pull-tester/run-digibyted-for-test.sh.in \
 	$(top_srcdir)/share/qt/Info.plist.in \
 	$(top_srcdir)/share/setup.nsi.in COPYING INSTALL \
 	src/build-aux/config.guess src/build-aux/config.sub \
@@ -55,18 +55,18 @@ am__aclocal_m4_deps = $(top_srcdir)/src/m4/ax_boost_base.m4 \
 	$(top_srcdir)/src/m4/ax_check_link_flag.m4 \
 	$(top_srcdir)/src/m4/ax_check_preproc_flag.m4 \
 	$(top_srcdir)/src/m4/ax_pthread.m4 \
-	$(top_srcdir)/src/m4/bitcoin_find_bdb48.m4 \
-	$(top_srcdir)/src/m4/bitcoin_qt.m4 \
-	$(top_srcdir)/src/m4/bitcoin_subdir_to_include.m4 \
+	$(top_srcdir)/src/m4/digibyte_find_bdb48.m4 \
+	$(top_srcdir)/src/m4/digibyte_qt.m4 \
+	$(top_srcdir)/src/m4/digibyte_subdir_to_include.m4 \
 	$(top_srcdir)/pkg.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/src/bitcoin-config.h
+CONFIG_HEADER = $(top_builddir)/src/digibyte-config.h
 CONFIG_CLEAN_FILES = share/setup.nsi share/qt/Info.plist \
-	qa/pull-tester/run-bitcoind-for-test.sh \
+	qa/pull-tester/run-digibyted-for-test.sh \
 	qa/pull-tester/build-tests.sh
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_GEN = $(am__v_GEN_@AM_V@)
@@ -322,18 +322,18 @@ top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I src/m4
 SUBDIRS = src
 GZIP_ENV = "-9n"
-BITCOIND_BIN = $(top_builddir)/src/bitcoind$(EXEEXT)
-BITCOIN_QT_BIN = $(top_builddir)/src/qt/bitcoin-qt$(EXEEXT)
-BITCOIN_CLI_BIN = $(top_builddir)/src/bitcoin-cli$(EXEEXT)
+BITCOIND_BIN = $(top_builddir)/src/digibyted$(EXEEXT)
+BITCOIN_QT_BIN = $(top_builddir)/src/qt/digibyte-qt$(EXEEXT)
+BITCOIN_CLI_BIN = $(top_builddir)/src/digibyte-cli$(EXEEXT)
 BITCOIN_WIN_INSTALLER = $(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
-OSX_APP = Bitcoin-Qt.app
-OSX_DMG = Bitcoin-Qt.dmg
+OSX_APP = DigiByte-Qt.app
+OSX_DMG = DigiByte-Qt.dmg
 OSX_DEPLOY_SCRIPT = $(top_srcdir)/contrib/macdeploy/macdeployqtplus
 OSX_FANCY_PLIST = $(top_srcdir)/contrib/macdeploy/fancy.plist
-OSX_INSTALLER_ICONS = $(top_srcdir)/src/qt/res/icons/bitcoin.icns
+OSX_INSTALLER_ICONS = $(top_srcdir)/src/qt/res/icons/digibyte.icns
 OSX_PLIST = $(top_srcdir)/share/qt/Info.plist #not installed
 DIST_DOCS = $(wildcard doc/*.md) $(wildcard doc/release-notes/*.md)
-WINDOWS_PACKAGING = $(top_srcdir)/share/pixmaps/bitcoin.ico \
+WINDOWS_PACKAGING = $(top_srcdir)/share/pixmaps/digibyte.ico \
   $(top_srcdir)/share/pixmaps/nsis-header.bmp \
   $(top_srcdir)/share/pixmaps/nsis-wizard.bmp \
   $(top_srcdir)/doc/README_windows.txt
@@ -342,13 +342,13 @@ OSX_PACKAGING = $(OSX_DEPLOY_SCRIPT) $(OSX_FANCY_PLIST) $(OSX_INSTALLER_ICONS) \
   $(top_srcdir)/contrib/macdeploy/background.png
 
 COVERAGE_INFO = baseline_filtered_combined.info baseline.info block_test.info \
-  leveldb_baseline.info test_bitcoin_filtered.info total_coverage.info \
+  leveldb_baseline.info test_digibyte_filtered.info total_coverage.info \
   baseline_filtered.info block_test_filtered.info \
-  leveldb_baseline_filtered.info test_bitcoin_coverage.info test_bitcoin.info
+  leveldb_baseline_filtered.info test_digibyte_coverage.info test_digibyte.info
 
 OSX_APP_BUILT = $(OSX_APP)/Contents/PkgInfo $(OSX_APP)/Contents/Resources/empty.lproj \
-  $(OSX_APP)/Contents/Resources/bitcoin.icns $(OSX_APP)/Contents/Info.plist \
-  $(OSX_APP)/Contents/MacOS/Bitcoin-Qt
+  $(OSX_APP)/Contents/Resources/digibyte.icns $(OSX_APP)/Contents/Info.plist \
+  $(OSX_APP)/Contents/MacOS/DigiByte-Qt
 
 EXTRA_DIST = $(top_srcdir)/share/genbuild.sh qa/pull-tester/pull-tester.sh $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING)
 CLEANFILES = $(OSX_DMG) $(OSX_APP) $(BITCOIN_WIN_INSTALLER)
@@ -393,7 +393,7 @@ share/setup.nsi: $(top_builddir)/config.status $(top_srcdir)/share/setup.nsi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 share/qt/Info.plist: $(top_builddir)/config.status $(top_srcdir)/share/qt/Info.plist.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-qa/pull-tester/run-bitcoind-for-test.sh: $(top_builddir)/config.status $(top_srcdir)/qa/pull-tester/run-bitcoind-for-test.sh.in
+qa/pull-tester/run-digibyted-for-test.sh: $(top_builddir)/config.status $(top_srcdir)/qa/pull-tester/run-digibyted-for-test.sh.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 qa/pull-tester/build-tests.sh: $(top_builddir)/config.status $(top_srcdir)/qa/pull-tester/build-tests.sh.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
@@ -881,11 +881,11 @@ $(OSX_APP)/Contents/Info.plist: $(OSX_PLIST)
 	$(MKDIR_P) $(@D)
 	$(INSTALL) $< $@
 
-$(OSX_APP)/Contents/Resources/bitcoin.icns: $(OSX_INSTALLER_ICONS)
+$(OSX_APP)/Contents/Resources/digibyte.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL) $< $@
 
-$(OSX_APP)/Contents/MacOS/Bitcoin-Qt: $(BITCOIN_QT_BIN)
+$(OSX_APP)/Contents/MacOS/DigiByte-Qt: $(BITCOIN_QT_BIN)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_STRIP_PROGRAM)  $< $@
 
@@ -911,32 +911,32 @@ $(OSX_DMG): $(OSX_APP_BUILT) $(OSX_PACKAGING)
 @USE_LCOV_TRUE@baseline_filtered_combined.info: leveldb_baseline_filtered.info baseline_filtered.info
 @USE_LCOV_TRUE@	$(LCOV) -a leveldb_baseline_filtered.info -a baseline_filtered.info -o $@
 
-@USE_LCOV_TRUE@test_bitcoin.info: baseline_filtered_combined.info
+@USE_LCOV_TRUE@test_digibyte.info: baseline_filtered_combined.info
 @USE_LCOV_TRUE@	$(MAKE) -C src/ check
-@USE_LCOV_TRUE@	$(LCOV) -c -d $(abs_builddir)/src -t test_bitcoin -o $@
+@USE_LCOV_TRUE@	$(LCOV) -c -d $(abs_builddir)/src -t test_digibyte -o $@
 @USE_LCOV_TRUE@	$(LCOV) -z -d $(abs_builddir)/src
 @USE_LCOV_TRUE@	$(LCOV) -z -d $(abs_builddir)/src/leveldb
 
-@USE_LCOV_TRUE@test_bitcoin_filtered.info: test_bitcoin.info
+@USE_LCOV_TRUE@test_digibyte_filtered.info: test_digibyte.info
 @USE_LCOV_TRUE@	$(LCOV) -r $< "/usr/include/*" -o $@
 
-@USE_LCOV_TRUE@block_test.info: test_bitcoin_filtered.info
+@USE_LCOV_TRUE@block_test.info: test_digibyte_filtered.info
 @USE_LCOV_TRUE@	$(MKDIR_P) qa/tmp
-@USE_LCOV_TRUE@	-@TIMEOUT=15 qa/pull-tester/run-bitcoind-for-test.sh $(JAVA) -jar $(JAVA_COMPARISON_TOOL) qa/tmp/compTool 0
-@USE_LCOV_TRUE@	$(LCOV) -c -d $(abs_builddir)/src --t BitcoinJBlockTest -o $@
+@USE_LCOV_TRUE@	-@TIMEOUT=15 qa/pull-tester/run-digibyted-for-test.sh $(JAVA) -jar $(JAVA_COMPARISON_TOOL) qa/tmp/compTool 0
+@USE_LCOV_TRUE@	$(LCOV) -c -d $(abs_builddir)/src --t DigiByteJBlockTest -o $@
 @USE_LCOV_TRUE@	$(LCOV) -z -d $(abs_builddir)/src
 @USE_LCOV_TRUE@	$(LCOV) -z -d $(abs_builddir)/src/leveldb
 
 @USE_LCOV_TRUE@block_test_filtered.info: block_test.info
 @USE_LCOV_TRUE@	$(LCOV) -r $< "/usr/include/*" -o $@
 
-@USE_LCOV_TRUE@test_bitcoin_coverage.info: baseline_filtered_combined.info test_bitcoin_filtered.info
-@USE_LCOV_TRUE@	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_bitcoin_filtered.info -o $@
+@USE_LCOV_TRUE@test_digibyte_coverage.info: baseline_filtered_combined.info test_digibyte_filtered.info
+@USE_LCOV_TRUE@	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_digibyte_filtered.info -o $@
 
-@USE_LCOV_TRUE@total_coverage.info:  baseline_filtered_combined.info test_bitcoin_filtered.info block_test_filtered.info
-@USE_LCOV_TRUE@	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_bitcoin_filtered.info -a block_test_filtered.info -o $@ | $(GREP) "\%" | $(AWK) '{ print substr($$3,2,50) "/" $$5 }' > coverage_percent.txt
+@USE_LCOV_TRUE@total_coverage.info:  baseline_filtered_combined.info test_digibyte_filtered.info block_test_filtered.info
+@USE_LCOV_TRUE@	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_digibyte_filtered.info -a block_test_filtered.info -o $@ | $(GREP) "\%" | $(AWK) '{ print substr($$3,2,50) "/" $$5 }' > coverage_percent.txt
 
-@USE_LCOV_TRUE@test_bitcoin.coverage/.dirstamp:  test_bitcoin_coverage.info
+@USE_LCOV_TRUE@test_digibyte.coverage/.dirstamp:  test_digibyte_coverage.info
 @USE_LCOV_TRUE@	$(GENHTML) -s $< -o $(@D)
 @USE_LCOV_TRUE@	@touch $@
 
@@ -944,16 +944,16 @@ $(OSX_DMG): $(OSX_APP_BUILT) $(OSX_PACKAGING)
 @USE_LCOV_TRUE@	$(GENHTML) -s $< -o $(@D)
 @USE_LCOV_TRUE@	@touch $@
 
-@USE_LCOV_TRUE@cov: test_bitcoin.coverage/.dirstamp total.coverage/.dirstamp
+@USE_LCOV_TRUE@cov: test_digibyte.coverage/.dirstamp total.coverage/.dirstamp
 
 @USE_COMPARISON_TOOL_TRUE@check-local:
 @USE_COMPARISON_TOOL_TRUE@	$(MKDIR_P) qa/tmp
-@USE_COMPARISON_TOOL_TRUE@	@qa/pull-tester/run-bitcoind-for-test.sh $(JAVA) -jar $(JAVA_COMPARISON_TOOL) qa/tmp/compTool $(COMPARISON_TOOL_REORG_TESTS)
+@USE_COMPARISON_TOOL_TRUE@	@qa/pull-tester/run-digibyted-for-test.sh $(JAVA) -jar $(JAVA_COMPARISON_TOOL) qa/tmp/compTool $(COMPARISON_TOOL_REORG_TESTS)
 
 .INTERMEDIATE: $(COVERAGE_INFO)
 
 clean-local:
-	rm -rf test_bitcoin.coverage/ total.coverage/
+	rm -rf test_digibyte.coverage/ total.coverage/
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
