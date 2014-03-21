@@ -4,10 +4,10 @@ SUBDIRS = src
 
 GZIP_ENV="-9n"
 
-BITCOIND_BIN=$(top_builddir)/src/digibyted$(EXEEXT)
-BITCOIN_QT_BIN=$(top_builddir)/src/qt/digibyte-qt$(EXEEXT)
-BITCOIN_CLI_BIN=$(top_builddir)/src/digibyte-cli$(EXEEXT)
-BITCOIN_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
+DIGIBYTED_BIN=$(top_builddir)/src/digibyted$(EXEEXT)
+DIGIBYTE_QT_BIN=$(top_builddir)/src/qt/digibyte-qt$(EXEEXT)
+DIGIBYTE_CLI_BIN=$(top_builddir)/src/digibyte-cli$(EXEEXT)
+DIGIBYTE_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
 
 OSX_APP=DigiByte-Qt.app
 OSX_DMG=DigiByte-Qt.dmg
@@ -43,15 +43,15 @@ distcheck-hook:
 distcleancheck:
 	@:
 
-$(BITCOIN_WIN_INSTALLER): $(BITCOIND_BIN) $(BITCOIN_QT_BIN) $(BITCOIN_CLI_BIN)
+$(DIGIBYTE_WIN_INSTALLER): $(DIGIBYTED_BIN) $(DIGIBYTE_QT_BIN) $(DIGIBYTE_CLI_BIN)
 	$(MKDIR_P) $(top_builddir)/release
-	$(INSTALL_STRIP_PROGRAM) $(BITCOIND_BIN) $(top_builddir)/release
-	$(INSTALL_STRIP_PROGRAM) $(BITCOIN_QT_BIN) $(top_builddir)/release
-	$(INSTALL_STRIP_PROGRAM) $(BITCOIN_CLI_BIN) $(top_builddir)/release
+	$(INSTALL_STRIP_PROGRAM) $(DIGIBYTED_BIN) $(top_builddir)/release
+	$(INSTALL_STRIP_PROGRAM) $(DIGIBYTE_QT_BIN) $(top_builddir)/release
+	$(INSTALL_STRIP_PROGRAM) $(DIGIBYTE_CLI_BIN) $(top_builddir)/release
 	@test -f $(MAKENSIS) && $(MAKENSIS) $(top_builddir)/share/setup.nsi || \
 	  echo error: could not build $@
 
-$(BITCOIND_BIN) $(BITCOIN_QT_BIN) $(BITCOIN_CLI_BIN):
+$(DIGIBYTED_BIN) $(DIGIBYTE_QT_BIN) $(DIGIBYTE_CLI_BIN):
 	make -C $(dir $@) $(notdir $@)
 
 $(OSX_APP)/Contents/PkgInfo:
@@ -70,7 +70,7 @@ $(OSX_APP)/Contents/Resources/digibyte.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL) $< $@
 
-$(OSX_APP)/Contents/MacOS/DigiByte-Qt: $(BITCOIN_QT_BIN)
+$(OSX_APP)/Contents/MacOS/DigiByte-Qt: $(DIGIBYTE_QT_BIN)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_STRIP_PROGRAM)  $< $@
 
@@ -87,7 +87,7 @@ appbundle: $(OSX_APP_BUILT)
 deploy: $(OSX_DMG)
 endif
 if TARGET_WINDOWS
-deploy: $(BITCOIN_WIN_INSTALLER)
+deploy: $(DIGIBYTE_WIN_INSTALLER)
 endif
 
 if USE_LCOV
@@ -152,7 +152,7 @@ endif
 
 EXTRA_DIST = $(top_srcdir)/share/genbuild.sh qa/pull-tester/pull-tester.sh $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING)
 
-CLEANFILES = $(OSX_DMG) $(OSX_APP) $(BITCOIN_WIN_INSTALLER)
+CLEANFILES = $(OSX_DMG) $(OSX_APP) $(DIGIBYTEDIGIBYTE_WIN_INSTALLER)
 
 .INTERMEDIATE: $(COVERAGE_INFO)
 
