@@ -17,10 +17,10 @@ packages:
 - "pkg-config"
 - "bsdmainutils"
 
-reference_datetime: "2013-06-01 00:00:00"
+reference_datetime: "2014-03-14 00:00:00"
 remotes:
 - "url": "https://github.com/digibyte/DigiByteProject.git"
-  "dir": "digibyte-0.9.0"
+  "dir": "DigiByteProject"
 files:
 - "qt-win32-5.2.0-gitian-r2.zip"
 - "qt-win64-5.2.0-gitian-r2.zip"
