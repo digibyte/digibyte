@@ -1,4 +1,4 @@
-DigiByte 0.9.0rc1 BETA
+DigiByte 2.9.0
 =====================
 
 Copyright (c) 2009-2014 DigiByte Developers

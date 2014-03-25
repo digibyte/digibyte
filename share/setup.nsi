@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 0.9.0
+!define VERSION 2.9.0
 !define COMPANY "DigiByte Core project"
 !define URL http://www.bitcoin.org/
 
