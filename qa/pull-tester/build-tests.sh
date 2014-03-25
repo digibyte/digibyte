@@ -18,7 +18,7 @@ if [ $# -lt 2 ]; then
   exit 1
 fi
 
-DISTDIR=digibyte-0.9.0
+DISTDIR=digibyte-2.9.0
 
 # Cross-compile for windows first (breaking the mingw/windows build is most common)
 cd /home/scott/Desktop/digibyte
