@@ -19,7 +19,7 @@ packages:
 reference_datetime: "2013-06-01 00:00:00"
 remotes:
 - "url": "https://github.com/digibyte/DigiByteProject.git"
-  "dir": "DigiByteProject"
+  "dir": "digibyte"
 files:
 - "digibyte-deps-linux32-gitian-r3.zip"
 - "digibyte-deps-linux64-gitian-r3.zip"
@@ -40,7 +40,7 @@ script: |
   unzip ../build/boost-linux${GBUILD_BITS}-1.55.0-gitian-r1.zip
   cd ../build
   #
-  cd DigiByteProject
+  cd digibyte
   ./autogen.sh
   ./configure --prefix=$STAGING --bindir=$BINDIR --with-protoc-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --disable-dependency-tracking PKG_CONFIG_PATH="$STAGING/lib/pkgconfig" CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=digibyte ${OPTFLAGS}" BOOST_CHRONO_EXTRALIBS="-lrt"
   make dist
