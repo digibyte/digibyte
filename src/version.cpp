@@ -9,10 +9,10 @@
 // Name of client reported in the 'version' message. Report the same name
 // for both digibyted and digibyte-qt, to make it harder for attackers to
 // target servers or GUI users specifically.
-const std::string CLIENT_NAME("Satoshi");
+const std::string CLIENT_NAME("DigiByte");
 
 // Client version number
-#define CLIENT_VERSION_SUFFIX   ""
+#define CLIENT_VERSION_SUFFIX   "DigiSheild"
 
 
 // The following part of the code determines the CLIENT_BUILD variable.
