@@ -40,7 +40,7 @@ script: |
   unzip ../build/boost-linux${GBUILD_BITS}-1.55.0-gitian-r1.zip
   cd ../build
   #
-  cd digibyte
+  cd DigiByteProject
   ./autogen.sh
   ./configure --prefix=$STAGING --bindir=$BINDIR --with-protoc-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --disable-dependency-tracking PKG_CONFIG_PATH="$STAGING/lib/pkgconfig" CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=digibyte ${OPTFLAGS}" BOOST_CHRONO_EXTRALIBS="-lrt"
   make dist
