@@ -25,13 +25,23 @@ Release Process
 
 * * *
 
+###setup gitian builds
+
+ 	git clone git://github.com/digibyte/DigiByteProject.git
+    	git clone git://github.com/devrandom/gitian-builder.git
+ 	
+ 	cd gitian-builder
+    	bin/make-base-vm --suite precise --arch i386
+    	bin/make-base-vm --suite precise --arch amd64
+    	cd ..
+
 ##perform gitian builds
 
  From a directory containing the digibyte source, gitian-builder and gitian.sigs
   
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
 	export VERSION=(new version, e.g. 0.8.0)
-	pushd ./digibyte
+	pushd ./DigiByteProject
 	git checkout v${VERSION}
 	popd
 	pushd ./gitian-builder
