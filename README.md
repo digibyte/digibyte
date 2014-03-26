@@ -1,7 +1,7 @@
 DigiByte Core integration/staging tree
 =====================================
 
-http://www.bitcoin.org
+http://www.digibyte.co
 
 Copyright (c) 2009-2013 DigiByte Core Developers
 
@@ -15,7 +15,7 @@ out collectively by the network. DigiByte Core is the name of open source
 software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
-the DigiByte Core software, see http://www.bitcoin.org/en/download.
+the DigiByte Core software, see http://www.digibyte.co.
 
 License
 -------
@@ -63,9 +63,3 @@ and unit and sanity tests are automatically run. The binaries produced may be
 used for manual QA testing — a link to them will appear in a comment on the
 pull request posted by [DigiBytePullTester](https://github.com/DigiBytePullTester). See https://github.com/TheBlueMatt/test-scripts
 for the build/test scripts.
-
-### Manual Quality Assurance (QA) Testing
-
-Large changes should have a test plan, and should be tested by somebody other
-than the developer who wrote the code.
-See https://github.com/digibyte/QA/ for how to create a test plan.
