@@ -687,6 +687,8 @@ enum BlockStatus {
     BLOCK_FAILED_MASK        =   96
 };
 
+const int64 nBlockAlgoWeightStart = 1000000;
+
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
  * candidates to be the next block. A blockindex may have multiple pprev pointing
@@ -775,7 +777,7 @@ public:
     }
     
     int GetAlgo() const { return ::GetAlgo(nVersion); }
-
+    
     CDiskBlockPos GetBlockPos() const {
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_DATA) {
@@ -826,6 +828,36 @@ public:
         return (CBigNum(1)<<256) / (bnTarget+1);
     }
 
+    int GetAlgoWorkFactor() const 
+    {
+        if (nHeight < nBlockAlgoWeightStart)
+        {
+            return 1;
+        }
+        switch (GetAlgo())
+        {
+            case ALGO_SHA256D:
+                return 1; 
+            case ALGO_SCRYPT:
+                return 1;
+            case ALGO_GROESTL:
+                return 1;
+            case ALGO_SKEIN:
+                return 1;
+            case ALGO_QUBIT:
+                return 1;
+            default:
+                return 1;
+        }
+    }
+
+    CBigNum GetBlockWorkAdjusted() const
+    {
+        CBigNum bnRes;
+        bnRes = GetBlockWork() * GetAlgoWorkFactor();
+        return bnRes;
+    }
+    
     bool IsInMainChain() const
     {
         return nHeight < (int)vBlockIndexByHeight.size() && vBlockIndexByHeight[nHeight] == this;
