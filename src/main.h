@@ -687,7 +687,7 @@ enum BlockStatus {
     BLOCK_FAILED_MASK        =   96
 };
 
-const int64 nBlockAlgoWeightStart = 1000000;
+const int64 nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
@@ -830,7 +830,11 @@ public:
 
     int GetAlgoWorkFactor() const 
     {
-        if (nHeight < nBlockAlgoWeightStart)
+        if (!TestNet() && (nHeight < nBlockAlgoWorkWeightStart))
+        {
+            return 1;
+        }
+        if (TestNet() && (nHeight < 100))
         {
             return 1;
         }
@@ -838,14 +842,15 @@ public:
         {
             case ALGO_SHA256D:
                 return 1; 
+            // work factor = absolute work ratio * optimisation factor
             case ALGO_SCRYPT:
-                return 1;
+                return 1024 * 4;
             case ALGO_GROESTL:
-                return 1;
+                return 64 * 8;
             case ALGO_SKEIN:
-                return 1;
+                return 4 * 6;
             case ALGO_QUBIT:
-                return 1;
+                return 128 * 8;
             default:
                 return 1;
         }
