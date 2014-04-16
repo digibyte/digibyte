@@ -198,7 +198,7 @@
 #define PACKAGE_NAME "DigiByte Core"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "DigiByte Core 2.9.0"
+#define PACKAGE_STRING "DigiByte Core 2.9.1"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "digibyte"
@@ -207,7 +207,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.9.0"
+#define PACKAGE_VERSION "2.9.1"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
