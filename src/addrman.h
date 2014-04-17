@@ -1,20 +1,21 @@
 // Copyright (c) 2012 Pieter Wuille
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef _BITCOIN_ADDRMAN
-#define _BITCOIN_ADDRMAN 1
+
+#ifndef _DIGIBYTE_ADDRMAN
+#define _DIGIBYTE_ADDRMAN 1
 
 #include "netbase.h"
 #include "protocol.h"
-#include "util.h"
 #include "sync.h"
-
+#include "util.h"
 
 #include <map>
+#include <set>
+#include <stdint.h>
 #include <vector>
 
 #include <openssl/rand.h>
-
 
 /** Extended statistics about a CAddress */
 class CAddrInfo : public CAddress
@@ -24,10 +25,10 @@ private:
     CNetAddr source;
 
     // last successful connection by us
-    int64 nLastSuccess;
+    int64_t nLastSuccess;
 
     // last try whatsoever by us:
-    // int64 CAddress::nLastTry
+    // int64_t CAddress::nLastTry
 
     // connection attempts since last successful attempt
     int nAttempts;
@@ -86,10 +87,10 @@ public:
     }
 
     // Determine whether the statistics about this entry are bad enough so that it can just be deleted
-    bool IsTerrible(int64 nNow = GetAdjustedTime()) const;
+    bool IsTerrible(int64_t nNow = GetAdjustedTime()) const;
 
     // Calculate the relative chance this entry should be given when selecting nodes to connect to
-    double GetChance(int64 nNow = GetAdjustedTime()) const;
+    double GetChance(int64_t nNow = GetAdjustedTime()) const;
 
 };
 
@@ -117,7 +118,7 @@ public:
 //    * Bucket selection is based on cryptographic hashing, using a randomly-generated 256-bit key, which should not
 //      be observable by adversaries.
 //    * Several indexes are kept for high performance. Defining DEBUG_ADDRMAN will introduce frequent (and expensive)
-//      consistency checks for the entire datastructure.
+//      consistency checks for the entire data structure.
 
 // total number of buckets for tried addresses
 #define ADDRMAN_TRIED_BUCKET_COUNT 64
@@ -174,13 +175,13 @@ private:
     // last used nId
     int nIdCount;
 
-    // table with information about all nId's
+    // table with information about all nIds
     std::map<int, CAddrInfo> mapInfo;
 
     // find an nId based on its network address
     std::map<CNetAddr, int> mapAddr;
 
-    // randomly-ordered vector of all nId's
+    // randomly-ordered vector of all nIds
     std::vector<int> vRandom;
 
     // number of "tried" entries
@@ -214,19 +215,19 @@ protected:
     // This is the only place where actual deletes occur.
     // They are never deleted while in the "tried" table, only possibly evicted back to the "new" table.
     int ShrinkNew(int nUBucket);
- 
+
     // Move an entry from the "new" table(s) to the "tried" table
     // @pre vvUnkown[nOrigin].count(nId) != 0
     void MakeTried(CAddrInfo& info, int nId, int nOrigin);
 
     // Mark an entry "good", possibly moving it from "new" to "tried".
-    void Good_(const CService &addr, int64 nTime);
+    void Good_(const CService &addr, int64_t nTime);
 
     // Add an entry to the "new" table.
-    bool Add_(const CAddress &addr, const CNetAddr& source, int64 nTimePenalty);
+    bool Add_(const CAddress &addr, const CNetAddr& source, int64_t nTimePenalty);
 
     // Mark an entry as attempted to connect.
-    void Attempt_(const CService &addr, int64 nTime);
+    void Attempt_(const CService &addr, int64_t nTime);
 
     // Select an address to connect to.
     // nUnkBias determines how much to favor new addresses over tried ones (min=0, max=100)
@@ -241,7 +242,7 @@ protected:
     void GetAddr_(std::vector<CAddress> &vAddr);
 
     // Mark an entry as currently-connected-to.
-    void Connected_(const CService &addr, int64 nTime);
+    void Connected_(const CService &addr, int64_t nTime);
 
 public:
 
@@ -253,8 +254,8 @@ public:
         // * nNew
         // * nTried
         // * number of "new" buckets
-        // * all nNew addrinfo's in vvNew
-        // * all nTried addrinfo's in vvTried
+        // * all nNew addrinfos in vvNew
+        // * all nTried addrinfos in vvTried
         // * for each bucket:
         //   * number of elements
         //   * for each element: index
@@ -403,13 +404,13 @@ public:
             LOCK(cs);
             int err;
             if ((err=Check_()))
-                printf("ADDRMAN CONSISTENCY CHECK FAILED!!! err=%i\n", err);
+                LogPrintf("ADDRMAN CONSISTENCY CHECK FAILED!!! err=%i\n", err);
         }
 #endif
     }
 
     // Add a single address.
-    bool Add(const CAddress &addr, const CNetAddr& source, int64 nTimePenalty = 0)
+    bool Add(const CAddress &addr, const CNetAddr& source, int64_t nTimePenalty = 0)
     {
         bool fRet = false;
         {
@@ -419,12 +420,12 @@ public:
             Check();
         }
         if (fRet)
-            printf("Added %s from %s: %i tried, %i new\n", addr.ToStringIPPort().c_str(), source.ToString().c_str(), nTried, nNew);
+            LogPrint("addrman", "Added %s from %s: %i tried, %i new\n", addr.ToStringIPPort().c_str(), source.ToString().c_str(), nTried, nNew);
         return fRet;
     }
 
     // Add multiple addresses.
-    bool Add(const std::vector<CAddress> &vAddr, const CNetAddr& source, int64 nTimePenalty = 0)
+    bool Add(const std::vector<CAddress> &vAddr, const CNetAddr& source, int64_t nTimePenalty = 0)
     {
         int nAdd = 0;
         {
@@ -435,12 +436,12 @@ public:
             Check();
         }
         if (nAdd)
-            printf("Added %i addresses from %s: %i tried, %i new\n", nAdd, source.ToString().c_str(), nTried, nNew);
+            LogPrint("addrman", "Added %i addresses from %s: %i tried, %i new\n", nAdd, source.ToString().c_str(), nTried, nNew);
         return nAdd > 0;
     }
 
     // Mark an entry as accessible.
-    void Good(const CService &addr, int64 nTime = GetAdjustedTime())
+    void Good(const CService &addr, int64_t nTime = GetAdjustedTime())
     {
         {
             LOCK(cs);
@@ -451,7 +452,7 @@ public:
     }
 
     // Mark an entry as connection attempted to.
-    void Attempt(const CService &addr, int64 nTime = GetAdjustedTime())
+    void Attempt(const CService &addr, int64_t nTime = GetAdjustedTime())
     {
         {
             LOCK(cs);
@@ -489,7 +490,7 @@ public:
     }
 
     // Mark an entry as currently-connected-to.
-    void Connected(const CService &addr, int64 nTime = GetAdjustedTime())
+    void Connected(const CService &addr, int64_t nTime = GetAdjustedTime())
     {
         {
             LOCK(cs);

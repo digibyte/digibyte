@@ -1,19 +1,23 @@
+// Copyright (c) 2011-2013 The DigiByte developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef TRANSACTIONVIEW_H
 #define TRANSACTIONVIEW_H
 
 #include <QWidget>
 
-class WalletModel;
 class TransactionFilterProxy;
+class WalletModel;
 
 QT_BEGIN_NAMESPACE
-class QTableView;
 class QComboBox;
-class QLineEdit;
-class QModelIndex;
-class QMenu;
-class QFrame;
 class QDateTimeEdit;
+class QFrame;
+class QLineEdit;
+class QMenu;
+class QModelIndex;
+class QTableView;
 QT_END_NAMESPACE
 
 /** Widget showing the transaction list for a wallet, including a filter row.
@@ -22,6 +26,7 @@ QT_END_NAMESPACE
 class TransactionView : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit TransactionView(QWidget *parent = 0);
 
@@ -65,9 +70,13 @@ private slots:
     void editLabel();
     void copyLabel();
     void copyAmount();
+    void copyTxID();
 
 signals:
     void doubleClicked(const QModelIndex&);
+
+    /**  Fired when a message should be reported to the user */
+    void message(const QString &title, const QString &message, unsigned int style);
 
 public slots:
     void chooseDate(int idx);

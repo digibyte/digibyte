@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2013 The DigiByte developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef TRANSACTIONDESCDIALOG_H
 #define TRANSACTIONDESCDIALOG_H
 
@@ -6,6 +10,7 @@
 namespace Ui {
     class TransactionDescDialog;
 }
+
 QT_BEGIN_NAMESPACE
 class QModelIndex;
 QT_END_NAMESPACE

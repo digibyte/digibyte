@@ -1,22 +1,29 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2011-2012 Litecoin Developers
-// Copyright (c) 2013 DigiByte Developers
+// Copyright (c) 2009-2013 The DigiByte developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef H_BITCOIN_SCRIPT
-#define H_BITCOIN_SCRIPT
 
+#ifndef H_DIGIBYTE_SCRIPT
+#define H_DIGIBYTE_SCRIPT
+
+#include "bignum.h"
+#include "key.h"
+#include "util.h"
+
+#include <stdexcept>
+#include <stdint.h>
 #include <string>
 #include <vector>
 
 #include <boost/foreach.hpp>
 #include <boost/variant.hpp>
 
-#include "keystore.h"
-#include "bignum.h"
-
+class CCoins;
+class CKeyStore;
 class CTransaction;
+
+static const unsigned int MAX_SCRIPT_ELEMENT_SIZE = 520; // bytes
+static const unsigned int MAX_OP_RETURN_RELAY = 40;      // bytes
 
 /** Signature hash types/flags */
 enum
@@ -27,6 +34,15 @@ enum
     SIGHASH_ANYONECANPAY = 0x80,
 };
 
+/** Script verification flags */
+enum
+{
+    SCRIPT_VERIFY_NONE      = 0,
+    SCRIPT_VERIFY_P2SH      = (1U << 0), // evaluate P2SH (BIP16) subscripts
+    SCRIPT_VERIFY_STRICTENC = (1U << 1), // enforce strict conformance to DER and SEC2 for signatures and pubkeys
+    SCRIPT_VERIFY_EVEN_S    = (1U << 2), // enforce even S values in signatures (depends on STRICTENC)
+    SCRIPT_VERIFY_NOCACHE   = (1U << 3), // do not store results in signature cache (but do query it)
+};
 
 enum txnouttype
 {
@@ -36,6 +52,7 @@ enum txnouttype
     TX_PUBKEYHASH,
     TX_SCRIPTHASH,
     TX_MULTISIG,
+    TX_NULL_DATA,
 };
 
 class CNoDestination {
@@ -48,7 +65,7 @@ public:
  *  * CNoDestination: no destination set
  *  * CKeyID: TX_PUBKEYHASH destination
  *  * CScriptID: TX_SCRIPTHASH destination
- *  A CTxDestination is the internal data type encoded in a CBitcoinAddress
+ *  A CTxDestination is the internal data type encoded in a CDigiByteAddress
  */
 typedef boost::variant<CNoDestination, CKeyID, CScriptID> CTxDestination;
 
@@ -192,6 +209,7 @@ enum opcodetype
 
 
     // template matching params
+    OP_SMALLDATA = 0xf9,
     OP_SMALLINTEGER = 0xfa,
     OP_PUBKEYS = 0xfb,
     OP_PUBKEYHASH = 0xfd,
@@ -235,7 +253,7 @@ inline std::string StackString(const std::vector<std::vector<unsigned char> >& v
 class CScript : public std::vector<unsigned char>
 {
 protected:
-    CScript& push_int64(int64 n)
+    CScript& push_int64(int64_t n)
     {
         if (n == -1 || (n >= 1 && n <= 16))
         {
@@ -249,7 +267,7 @@ protected:
         return *this;
     }
 
-    CScript& push_uint64(uint64 n)
+    CScript& push_uint64(uint64_t n)
     {
         if (n >= 1 && n <= 16)
         {
@@ -286,16 +304,16 @@ public:
 
 
     //explicit CScript(char b) is not portable.  Use 'signed char' or 'unsigned char'.
-    explicit CScript(signed char b)    { operator<<(b); }
-    explicit CScript(short b)          { operator<<(b); }
-    explicit CScript(int b)            { operator<<(b); }
-    explicit CScript(long b)           { operator<<(b); }
-    explicit CScript(int64 b)          { operator<<(b); }
-    explicit CScript(unsigned char b)  { operator<<(b); }
-    explicit CScript(unsigned int b)   { operator<<(b); }
-    explicit CScript(unsigned short b) { operator<<(b); }
-    explicit CScript(unsigned long b)  { operator<<(b); }
-    explicit CScript(uint64 b)         { operator<<(b); }
+    explicit CScript(signed char b)        { operator<<(b); }
+    explicit CScript(short b)              { operator<<(b); }
+    explicit CScript(int b)                { operator<<(b); }
+    explicit CScript(long b)               { operator<<(b); }
+    explicit CScript(long long b)          { operator<<(b); }
+    explicit CScript(unsigned char b)      { operator<<(b); }
+    explicit CScript(unsigned int b)       { operator<<(b); }
+    explicit CScript(unsigned short b)     { operator<<(b); }
+    explicit CScript(unsigned long b)      { operator<<(b); }
+    explicit CScript(unsigned long long b) { operator<<(b); }
 
     explicit CScript(opcodetype b)     { operator<<(b); }
     explicit CScript(const uint256& b) { operator<<(b); }
@@ -304,16 +322,16 @@ public:
 
 
     //CScript& operator<<(char b) is not portable.  Use 'signed char' or 'unsigned char'.
-    CScript& operator<<(signed char b)    { return push_int64(b); }
-    CScript& operator<<(short b)          { return push_int64(b); }
-    CScript& operator<<(int b)            { return push_int64(b); }
-    CScript& operator<<(long b)           { return push_int64(b); }
-    CScript& operator<<(int64 b)          { return push_int64(b); }
-    CScript& operator<<(unsigned char b)  { return push_uint64(b); }
-    CScript& operator<<(unsigned int b)   { return push_uint64(b); }
-    CScript& operator<<(unsigned short b) { return push_uint64(b); }
-    CScript& operator<<(unsigned long b)  { return push_uint64(b); }
-    CScript& operator<<(uint64 b)         { return push_uint64(b); }
+    CScript& operator<<(signed char b)        { return push_int64(b); }
+    CScript& operator<<(short b)              { return push_int64(b); }
+    CScript& operator<<(int b)                { return push_int64(b); }
+    CScript& operator<<(long b)               { return push_int64(b); }
+    CScript& operator<<(long long b)          { return push_int64(b); }
+    CScript& operator<<(unsigned char b)      { return push_uint64(b); }
+    CScript& operator<<(unsigned int b)       { return push_uint64(b); }
+    CScript& operator<<(unsigned short b)     { return push_uint64(b); }
+    CScript& operator<<(unsigned long b)      { return push_uint64(b); }
+    CScript& operator<<(unsigned long long b) { return push_uint64(b); }
 
     CScript& operator<<(opcodetype opcode)
     {
@@ -339,8 +357,10 @@ public:
 
     CScript& operator<<(const CPubKey& key)
     {
-        std::vector<unsigned char> vchKey = key.Raw();
-        return (*this) << vchKey;
+        assert(key.size() < OP_PUSHDATA1);
+        insert(end(), (unsigned char)key.size());
+        insert(end(), key.begin(), key.end());
+        return *this;
     }
 
     CScript& operator<<(const CBigNum& b)
@@ -380,7 +400,7 @@ public:
     {
         // I'm not sure if this should push the script or concatenate scripts.
         // If there's ever a use for pushing a script onto a script, delete this member fn
-        assert(!"warning: pushing a CScript onto a CScript with << is probably not intended, use + to concatenate");
+        assert(!"Warning: Pushing a CScript onto a CScript with << is probably not intended, use + to concatenate!");
         return *this;
     }
 
@@ -428,7 +448,7 @@ public:
         // Immediate operand
         if (opcode <= OP_PUSHDATA4)
         {
-            unsigned int nSize;
+            unsigned int nSize = 0;
             if (opcode < OP_PUSHDATA1)
             {
                 nSize = opcode;
@@ -509,7 +529,7 @@ public:
         return nFound;
     }
 
-    // Pre-version-0.6, Bitcoin always counted CHECKMULTISIGs
+    // Pre-version-0.6, DigiByte always counted CHECKMULTISIGs
     // as 20 sigops. With pay-to-script-hash, that changed:
     // CHECKMULTISIGs serialized in scriptSigs are
     // counted more accurately, assuming they are of the form
@@ -522,29 +542,27 @@ public:
 
     bool IsPayToScriptHash() const;
 
-    // Called by CTransaction::IsStandard
-    bool IsPushOnly() const
+    // Called by IsStandardTx and P2SH VerifyScript (which makes it consensus-critical).
+    bool IsPushOnly() const;
+
+    // Called by IsStandardTx.
+    bool HasCanonicalPushes() const;
+
+    // Returns whether the script is guaranteed to fail at execution,
+    // regardless of the initial stack. This allows outputs to be pruned
+    // instantly when entering the UTXO set.
+    bool IsUnspendable() const
     {
-        const_iterator pc = begin();
-        while (pc < end())
-        {
-            opcodetype opcode;
-            if (!GetOp(pc, opcode))
-                return false;
-            if (opcode > OP_16)
-                return false;
-        }
-        return true;
+        return (size() > 0 && *begin() == OP_RETURN);
     }
 
-
     void SetDestination(const CTxDestination& address);
-    void SetMultisig(int nRequired, const std::vector<CKey>& keys);
+    void SetMultisig(int nRequired, const std::vector<CPubKey>& keys);
 
 
     void PrintHex() const
     {
-        printf("CScript(%s)\n", HexStr(begin(), end(), true).c_str());
+        LogPrintf("CScript(%s)\n", HexStr(begin(), end(), true).c_str());
     }
 
     std::string ToString() const
@@ -572,7 +590,7 @@ public:
 
     void print() const
     {
-        printf("%s\n", ToString().c_str());
+        LogPrintf("%s\n", ToString().c_str());
     }
 
     CScriptID GetID() const
@@ -581,24 +599,94 @@ public:
     }
 };
 
+/** Compact serializer for scripts.
+ *
+ *  It detects common cases and encodes them much more efficiently.
+ *  3 special cases are defined:
+ *  * Pay to pubkey hash (encoded as 21 bytes)
+ *  * Pay to script hash (encoded as 21 bytes)
+ *  * Pay to pubkey starting with 0x02, 0x03 or 0x04 (encoded as 33 bytes)
+ *
+ *  Other scripts up to 121 bytes require 1 byte + script length. Above
+ *  that, scripts up to 16505 bytes require 2 bytes + script length.
+ */
+class CScriptCompressor
+{
+private:
+    // make this static for now (there are only 6 special scripts defined)
+    // this can potentially be extended together with a new nVersion for
+    // transactions, in which case this value becomes dependent on nVersion
+    // and nHeight of the enclosing transaction.
+    static const unsigned int nSpecialScripts = 6;
 
+    CScript &script;
+protected:
+    // These check for scripts for which a special case with a shorter encoding is defined.
+    // They are implemented separately from the CScript test, as these test for exact byte
+    // sequence correspondences, and are more strict. For example, IsToPubKey also verifies
+    // whether the public key is valid (as invalid ones cannot be represented in compressed
+    // form).
+    bool IsToKeyID(CKeyID &hash) const;
+    bool IsToScriptID(CScriptID &hash) const;
+    bool IsToPubKey(CPubKey &pubkey) const;
 
+    bool Compress(std::vector<unsigned char> &out) const;
+    unsigned int GetSpecialSize(unsigned int nSize) const;
+    bool Decompress(unsigned int nSize, const std::vector<unsigned char> &out);
+public:
+    CScriptCompressor(CScript &scriptIn) : script(scriptIn) { }
 
+    unsigned int GetSerializeSize(int nType, int nVersion) const {
+        std::vector<unsigned char> compr;
+        if (Compress(compr))
+            return compr.size();
+        unsigned int nSize = script.size() + nSpecialScripts;
+        return script.size() + VARINT(nSize).GetSerializeSize(nType, nVersion);
+    }
 
-bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& script, const CTransaction& txTo, unsigned int nIn, int nHashType);
+    template<typename Stream>
+    void Serialize(Stream &s, int nType, int nVersion) const {
+        std::vector<unsigned char> compr;
+        if (Compress(compr)) {
+            s << CFlatData(&compr[0], &compr[compr.size()]);
+            return;
+        }
+        unsigned int nSize = script.size() + nSpecialScripts;
+        s << VARINT(nSize);
+        s << CFlatData(&script[0], &script[script.size()]);
+    }
+
+    template<typename Stream>
+    void Unserialize(Stream &s, int nType, int nVersion) {
+        unsigned int nSize = 0;
+        s >> VARINT(nSize);
+        if (nSize < nSpecialScripts) {
+            std::vector<unsigned char> vch(GetSpecialSize(nSize), 0x00);
+            s >> REF(CFlatData(&vch[0], &vch[vch.size()]));
+            Decompress(nSize, vch);
+            return;
+        }
+        nSize -= nSpecialScripts;
+        script.resize(nSize);
+        s >> REF(CFlatData(&script[0], &script[script.size()]));
+    }
+};
+
+bool IsCanonicalPubKey(const std::vector<unsigned char> &vchPubKey, unsigned int flags);
+bool IsCanonicalSignature(const std::vector<unsigned char> &vchSig, unsigned int flags);
+
+bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& script, const CTransaction& txTo, unsigned int nIn, unsigned int flags, int nHashType);
 bool Solver(const CScript& scriptPubKey, txnouttype& typeRet, std::vector<std::vector<unsigned char> >& vSolutionsRet);
 int ScriptSigArgsExpected(txnouttype t, const std::vector<std::vector<unsigned char> >& vSolutions);
-bool IsStandard(const CScript& scriptPubKey);
+bool IsStandard(const CScript& scriptPubKey, txnouttype& whichType);
 bool IsMine(const CKeyStore& keystore, const CScript& scriptPubKey);
 bool IsMine(const CKeyStore& keystore, const CTxDestination &dest);
+void ExtractAffectedKeys(const CKeyStore &keystore, const CScript& scriptPubKey, std::vector<CKeyID> &vKeys);
 bool ExtractDestination(const CScript& scriptPubKey, CTxDestination& addressRet);
 bool ExtractDestinations(const CScript& scriptPubKey, txnouttype& typeRet, std::vector<CTxDestination>& addressRet, int& nRequiredRet);
 bool SignSignature(const CKeyStore& keystore, const CScript& fromPubKey, CTransaction& txTo, unsigned int nIn, int nHashType=SIGHASH_ALL);
 bool SignSignature(const CKeyStore& keystore, const CTransaction& txFrom, CTransaction& txTo, unsigned int nIn, int nHashType=SIGHASH_ALL);
-bool VerifyScript(const CScript& scriptSig, const CScript& scriptPubKey, const CTransaction& txTo, unsigned int nIn,
-                  bool fValidatePayToScriptHash, int nHashType);
-bool VerifySignature(const CTransaction& txFrom, const CTransaction& txTo, unsigned int nIn, bool fValidatePayToScriptHash, int nHashType);
-
+bool VerifyScript(const CScript& scriptSig, const CScript& scriptPubKey, const CTransaction& txTo, unsigned int nIn, unsigned int flags, int nHashType);
 // Given two sets of signatures for scriptPubKey, possibly with OP_0 placeholders,
 // combine them intelligently and return the result.
 CScript CombineSignatures(CScript scriptPubKey, const CTransaction& txTo, unsigned int nIn, const CScript& scriptSig1, const CScript& scriptSig2);

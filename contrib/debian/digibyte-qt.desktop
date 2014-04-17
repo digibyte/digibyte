@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=DigiByte
+Comment=DigiByte P2P Cryptocurrency
+Comment[fr]=DigiByte, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=DigiByte, eşten eşe kriptografik sanal para birimi
+Exec=digibyte-qt %u
+Terminal=false
+Type=Application
+Icon=digibyte128
+MimeType=x-scheme-handler/digibyte;
+Categories=Office;Finance;

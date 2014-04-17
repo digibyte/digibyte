@@ -1,13 +1,18 @@
+// Copyright (c) 2011-2013 The DigiByte developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef TRANSACTIONFILTERPROXY_H
 #define TRANSACTIONFILTERPROXY_H
 
-#include <QSortFilterProxyModel>
 #include <QDateTime>
+#include <QSortFilterProxyModel>
 
 /** Filter the transaction list according to pre-specified rules. */
 class TransactionFilterProxy : public QSortFilterProxyModel
 {
     Q_OBJECT
+
 public:
     explicit TransactionFilterProxy(QObject *parent = 0);
 
@@ -23,7 +28,7 @@ public:
     void setDateRange(const QDateTime &from, const QDateTime &to);
     void setAddressPrefix(const QString &addrPrefix);
     /**
-      @note Type filter takes a bitfield created with TYPE() or ALL_TYPES
+      @note Type filter takes a bit field created with TYPE() or ALL_TYPES
      */
     void setTypeFilter(quint32 modes);
     void setMinAmount(qint64 minimum);
@@ -31,7 +36,11 @@ public:
     /** Set maximum number of rows returned, -1 if unlimited. */
     void setLimit(int limit);
 
+    /** Set whether to show conflicted transactions. */
+    void setShowInactive(bool showInactive);
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
+
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex & source_parent) const;
 
@@ -42,11 +51,7 @@ private:
     quint32 typeFilter;
     qint64 minAmount;
     int limitRows;
-
-signals:
-
-public slots:
-
+    bool showInactive;
 };
 
 #endif // TRANSACTIONFILTERPROXY_H

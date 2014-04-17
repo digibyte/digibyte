@@ -1,14 +1,15 @@
 Format: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?rev=174
-Upstream-Name: Bitcoin
+Upstream-Name: DigiByte
 Upstream-Contact: Satoshi Nakamoto <satoshin@gmx.com>
- irc://#bitcoin@freenode.net
+ irc://#digibyte@freenode.net
+>>>>>>> 2.9.0
 Source: http://sourceforge.net/projects/bitcoin/files/
  https://github.com/bitcoin/bitcoin
 
 Files: *
-Copyright: 2009-2012, Bitcoin Developers
+Copyright: 2009-2012, DigiByte Core Developers
 License: Expat
-Comment: The Bitcoin Developers encompasses the current developers listed on bitcoin.org,
+Comment: The DigiByte Core Developers encompasses the current developers listed on bitcoin.org,
          as well as the numerous contributors to the project.
 
 Files: src/json/*
@@ -55,8 +56,7 @@ Comment: Icon Pack: Human-O2
 
 Files: src/qt/res/icons/transaction*.png
 Copyright: md2k7
-License: You are free to do with these icons as you wish, including selling,
- copying, modifying etc.
+License: Expat
 Comment: Site: https://bitcointalk.org/index.php?topic=15276.0
 
 Files: src/qt/res/icons/configure.png, src/qt/res/icons/quit.png,
@@ -67,12 +67,12 @@ Copyright: http://www.everaldo.com
 License: LGPL
 Comment: Icon Pack: Crystal SVG
 
-Files: src/qt/res/icons/bitcoin.png, src/qt/res/icons/toolbar.png
+Files: src/qt/res/icons/digibyte.png, src/qt/res/icons/toolbar.png
 Copyright: Bitboy (optimized for 16x16 by Wladimir van der Laan)
 License: PUB-DOM
 Comment: Site: https://bitcointalk.org/?topic=1756.0
 
-Files:  scripts/img/reload.xcf, src/qt/res/movies/update_spinner.mng
+Files:  scripts/img/reload.xcf, src/qt/res/movies/*.png
 Copyright: Everaldo (Everaldo Coelho)
 License: GPL-3+
 Comment: Icon Pack: Kids

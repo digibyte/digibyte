@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2013 The DigiByte developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef MONITOREDDATAMAPPER_H
 #define MONITOREDDATAMAPPER_H
 
@@ -13,19 +17,18 @@ QT_END_NAMESPACE
 class MonitoredDataMapper : public QDataWidgetMapper
 {
     Q_OBJECT
+
 public:
     explicit MonitoredDataMapper(QObject *parent=0);
 
     void addMapping(QWidget *widget, int section);
     void addMapping(QWidget *widget, int section, const QByteArray &propertyName);
+
 private:
     void addChangeMonitor(QWidget *widget);
 
 signals:
     void viewModified();
-
 };
-
-
 
 #endif // MONITOREDDATAMAPPER_H
