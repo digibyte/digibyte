@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-
-
 =======
 DigiByte Core integration/staging tree
 =====================================
@@ -89,4 +85,3 @@ lots of money.
 
 Developers are strongly encouraged to write unit tests for new code, and to
 submit new unit tests for old code. Unit tests can be compiled and run (assuming they weren't disabled in configure) with: `make check`
->>>>>>> 2.9.0
