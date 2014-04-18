@@ -220,5 +220,4 @@ BOOST_AUTO_TEST_CASE(bignum_SetHex)
     BOOST_CHECK_EQUAL(num.GetHex(), hexStr);
 }
 
->>>>>>> 2.9.0
 BOOST_AUTO_TEST_SUITE_END()
