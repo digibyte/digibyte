@@ -128,6 +128,7 @@ public:
 
     bool fFileBacked;
     std::string strWalletFile;
+
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
 
@@ -410,7 +411,6 @@ public:
 
     void ReturnKey();
     bool GetReservedKey(CPubKey &pubkey);
->>>>>>> 2.9.0
     void KeepKey();
 };
 
@@ -520,6 +520,7 @@ public:
         if (!fRead)
         {
             pthis->mapValue["fromaccount"] = pthis->strFromAccount;
+
             WriteOrderPos(pthis->nOrderPos, pthis->mapValue);
 
             if (nTimeSmart)
@@ -539,7 +540,9 @@ public:
         if (fRead)
         {
             pthis->strFromAccount = pthis->mapValue["fromaccount"];
+
             ReadOrderPos(pthis->nOrderPos, pthis->mapValue);
+
             pthis->nTimeSmart = mapValue.count("timesmart") ? (unsigned int)atoi64(pthis->mapValue["timesmart"]) : 0;
         }
 
@@ -653,7 +656,7 @@ public:
     {
         return (GetDebit() > 0);
     }
-    
+
     bool IsTrusted() const
     {
         // Quick answer in most cases
