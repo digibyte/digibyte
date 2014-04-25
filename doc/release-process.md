@@ -17,7 +17,7 @@ Release Process
 
 ###tag version in git
 
-	git tag -s v(new version, e.g. 0.8.0)
+	git tag -s v(new version, e.g. 2.9.1)
 
 ###write release notes. git shortlog helps a lot, for example:
 
@@ -40,7 +40,7 @@ Release Process
  From a directory containing the digibyte source, gitian-builder and gitian.sigs
   
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
-	export VERSION=(new version, e.g. 0.8.0)
+	export VERSION=(new version, e.g. 2.9.1)
 	pushd ./DigiByteProject
 	git checkout v${VERSION}
 	popd
