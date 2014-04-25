@@ -61,17 +61,17 @@ Release Process
 	wget 'https://download.qt-project.org/official_releases/qt/5.2/5.2.0/single/qt-everywhere-opensource-src-5.2.0.tar.gz'
 	wget 'https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.bz2'
 	cd ..
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/boost-linux.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/boost-linux.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/deps-linux.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/deps-linux.yml
 	mv build/out/digibyte-deps-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/boost-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/boost-win.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/deps-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/deps-win.yml
 	mv build/out/digibyte-deps-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/qt-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/qt-win.yml
 	mv build/out/qt-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/protobuf-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/protobuf-win.yml
 	mv build/out/protobuf-*.zip inputs/
 
  Build digibyted and digibyte-qt on Linux32, Linux64, and Win32:
