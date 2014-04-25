@@ -49,7 +49,7 @@ Release Process
  Fetch and build inputs: (first time, or when dependency versions change)
 
 	mkdir -p inputs; cd inputs/
-	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.tar.gz' -O miniupnpc-1.8.tar.gz
+	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.tar.gz' -O miniupnpc-1.9.tar.gz
 	wget 'https://www.openssl.org/source/openssl-1.0.1g.tar.gz'
 	wget 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
 	wget 'http://zlib.net/zlib-1.2.8.tar.gz'
@@ -76,14 +76,14 @@ Release Process
 
  Build digibyted and digibyte-qt on Linux32, Linux64, and Win32:
   
-	./bin/gbuild --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gbuild --commit digibyte=v${VERSION} ../DigiByteProject/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../DigiByteProject/contrib/gitian-descriptors/gitian-linux.yml
 	pushd build/out
 	zip -r digibyte-${VERSION}-linux-gitian.zip *
 	mv digibyte-${VERSION}-linux-gitian.zip ../../../
 	popd
-	./bin/gbuild --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gbuild --commit digibyte=v${VERSION} ../DigiByteProject/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../DigiByteProject/contrib/gitian-descriptors/gitian-win.yml
 	pushd build/out
 	zip -r digibyte-${VERSION}-win-gitian.zip *
 	mv digibyte-${VERSION}-win-gitian.zip ../../../
