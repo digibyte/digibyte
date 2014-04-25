@@ -35,20 +35,20 @@ Once you've got the right hardware and software:
     cd ..
 
     # Build Linux release:
-    cd digibyte
+    cd DigiByteProject
     git pull
     cd ../gitian-builder
     git pull
     ./bin/gbuild --commit digibyte=HEAD ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
 
     # Build Win32 dependencies: (only needs to be done once, or when dependency versions change)
-    ./bin/gbuild --commit digibyte=HEAD ../digibyte/contrib/gitian-descriptors/boost-win32.yml
-    ./bin/gbuild --commit digibyte=HEAD ../digibyte/contrib/gitian-descriptors/deps-win32.yml
-    ./bin/gbuild --commit digibyte=HEAD ../digibyte/contrib/gitian-descriptors/qt-win32.yml
-    ./bin/gbuild --commit digibyte=HEAD ../digibyte/contrib/gitian-descriptors/protobuf-win32.yml
+    ./bin/gbuild --commit digibyte=HEAD ../DigiByteProject/contrib/gitian-descriptors/boost-win32.yml
+    ./bin/gbuild --commit digibyte=HEAD ../DigiByteProject/contrib/gitian-descriptors/deps-win32.yml
+    ./bin/gbuild --commit digibyte=HEAD ../DigiByteProject/contrib/gitian-descriptors/qt-win32.yml
+    ./bin/gbuild --commit digibyte=HEAD ../DigiByteProject/contrib/gitian-descriptors/protobuf-win32.yml
 
     # Build Win32 release:
-    ./bin/gbuild --commit digibyte=HEAD ../digibyte/contrib/gitian-descriptors/gitian-win32.yml
+    ./bin/gbuild --commit digibyte=HEAD ../DigiByteProject/contrib/gitian-descriptors/gitian-win32.yml
 
 ---------------------
 
