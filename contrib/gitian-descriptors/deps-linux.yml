@@ -17,7 +17,7 @@ reference_datetime: "2013-06-01 00:00:00"
 remotes: []
 files:
 - "openssl-1.0.1g.tar.gz"
-- "miniupnpc-1.8.tar.gz"
+- "miniupnpc-1.9.tar.gz"
 - "qrencode-3.4.3.tar.bz2"
 - "protobuf-2.5.0.tar.bz2"
 - "db-4.8.30.NC.tar.gz"
