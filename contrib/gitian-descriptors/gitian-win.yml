@@ -20,7 +20,7 @@ packages:
 reference_datetime: "2014-03-14 00:00:00"
 remotes:
 - "url": "https://github.com/digibyte/DigiByteProject.git"
-  "dir": "DigiByteProject"
+  "dir": "digibyte"
 files:
 - "qt-win32-5.2.0-gitian-r2.zip"
 - "qt-win64-5.2.0-gitian-r2.zip"
