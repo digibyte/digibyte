@@ -17,7 +17,7 @@ Release Process
 
 ###tag version in git
 
-	git tag -s v(new version, e.g. 0.8.0)
+	git tag -s v(new version, e.g. 2.9.1)
 
 ###write release notes. git shortlog helps a lot, for example:
 
@@ -40,7 +40,7 @@ Release Process
  From a directory containing the digibyte source, gitian-builder and gitian.sigs
   
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
-	export VERSION=(new version, e.g. 0.8.0)
+	export VERSION=(new version, e.g. 2.9.1)
 	pushd ./DigiByteProject
 	git checkout v${VERSION}
 	popd
@@ -49,7 +49,7 @@ Release Process
  Fetch and build inputs: (first time, or when dependency versions change)
 
 	mkdir -p inputs; cd inputs/
-	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.tar.gz' -O miniupnpc-1.8.tar.gz
+	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.tar.gz' -O miniupnpc-1.9.tar.gz
 	wget 'https://www.openssl.org/source/openssl-1.0.1g.tar.gz'
 	wget 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
 	wget 'http://zlib.net/zlib-1.2.8.tar.gz'
@@ -61,29 +61,29 @@ Release Process
 	wget 'https://download.qt-project.org/official_releases/qt/5.2/5.2.0/single/qt-everywhere-opensource-src-5.2.0.tar.gz'
 	wget 'https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.bz2'
 	cd ..
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/boost-linux.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/boost-linux.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/deps-linux.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/deps-linux.yml
 	mv build/out/digibyte-deps-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/boost-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/boost-win.yml
 	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/deps-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/deps-win.yml
 	mv build/out/digibyte-deps-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/qt-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/qt-win.yml
 	mv build/out/qt-*.zip inputs/
-	./bin/gbuild ../digibyte/contrib/gitian-descriptors/protobuf-win.yml
+	./bin/gbuild ../DigiByteProject/contrib/gitian-descriptors/protobuf-win.yml
 	mv build/out/protobuf-*.zip inputs/
 
  Build digibyted and digibyte-qt on Linux32, Linux64, and Win32:
   
-	./bin/gbuild --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gbuild --commit digibyte=v${VERSION} ../DigiByteProject/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../DigiByteProject/contrib/gitian-descriptors/gitian-linux.yml
 	pushd build/out
 	zip -r digibyte-${VERSION}-linux-gitian.zip *
 	mv digibyte-${VERSION}-linux-gitian.zip ../../../
 	popd
-	./bin/gbuild --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gbuild --commit digibyte=v${VERSION} ../DigiByteProject/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../DigiByteProject/contrib/gitian-descriptors/gitian-win.yml
 	pushd build/out
 	zip -r digibyte-${VERSION}-win-gitian.zip *
 	mv digibyte-${VERSION}-win-gitian.zip ../../../
