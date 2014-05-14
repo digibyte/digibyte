@@ -24,7 +24,7 @@ files:
 
 script: |
 
-  echo "a2ccf2299de4e0bb88bd17a3355f02b747575b97492c7c2f5b789a64ccc4cbd6  MacOSX10.6.pkg" | sha256sum -c
+  echo "651fd203283914986722f4cb2f1ae71e03148c55982d8d6e96f5155979daf170  MacOSX10.6.pkg" | sha256sum -c
 
   HOST=x86_64-apple-darwin11
   PREFIX=`pwd`/osx-cross-depends/prefix
