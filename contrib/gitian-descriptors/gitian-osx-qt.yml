@@ -21,7 +21,7 @@ files:
 script: |
 
   echo "84e924181d4ad6db00239d87250cc89868484a14841f77fb85ab1f1dbdcd7da1  qt-everywhere-opensource-src-5.2.1.tar.gz" | sha256sum -c
-  echo "a2ccf2299de4e0bb88bd17a3355f02b747575b97492c7c2f5b789a64ccc4cbd6  MacOSX10.6.pkg" | sha256sum -c
+  echo "651fd203283914986722f4cb2f1ae71e03148c55982d8d6e96f5155979daf170  MacOSX10.6.pkg" | sha256sum -c
 
   REVISION=r2
   export SOURCES_PATH=`pwd`
