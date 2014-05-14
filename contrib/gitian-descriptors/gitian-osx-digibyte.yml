@@ -1,5 +1,5 @@
 ---
-name: "bitcoin"
+name: "digibyte"
 suites:
 - "precise"
 architectures:
@@ -14,8 +14,8 @@ packages:
 
 reference_datetime: "2013-06-01 00:00:00"
 remotes:
-- "url": "https://github.com/bitcoin/bitcoin.git"
-  "dir": "bitcoin"
+- "url": "https://github.com/digibyte/DigiByteProject.git"
+  "dir": "digibyte"
 files:
 - "osx-native-depends-r2.tar.gz"
 - "osx-depends-r2.tar.gz"
