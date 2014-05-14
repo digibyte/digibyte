@@ -84,9 +84,8 @@ script: |
   export PATH=`pwd`/native-prefix/bin:$PATH
   tar xf /home/ubuntu/build/osx-depends-r2.tar.gz
 
-  SOURCE_FILE=${SOURCES_PATH}/qt-everywhere-opensource-src-5.2.1.tar.gz
-  BUILD_DIR=${BUILD_BASE}/qt-everywhere-opensource-src-5.2.1
-
+  SOURCE_FILE=${SOURCES_PATH}/qt-everywhere-opensource-src-5.2.0.tar.gz
+  BUILD_DIR=${BUILD_BASE}/qt-everywhere-opensource-src-5.2.0
 
   tar -C ${BUILD_BASE} -xf ${SOURCE_FILE}
 
@@ -190,6 +189,6 @@ script: |
   find ${PREFIX}/lib -name "*.prl" -delete
 
   export GZIP="-9n"
-  find native-prefix prefix | sort | tar --no-recursion -czf osx-depends-qt-5.2.1-${REVISION}.tar.gz -T -
+  find native-prefix prefix | sort | tar --no-recursion -czf osx-depends-qt-5.2.0-${REVISION}.tar.gz -T -
 
-  mv osx-depends-qt-5.2.1-${REVISION}.tar.gz $OUTDIR
+  mv osx-depends-qt-5.2.0-${REVISION}.tar.gz $OUTDIR
