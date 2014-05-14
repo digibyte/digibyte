@@ -27,7 +27,7 @@ WINDOWS_PACKAGING = $(top_srcdir)/share/pixmaps/digibyte.ico \
 OSX_PACKAGING = $(OSX_DEPLOY_SCRIPT) $(OSX_FANCY_PLIST) $(OSX_INSTALLER_ICONS) \
   $(top_srcdir)/contrib/macdeploy/background.png \
   $(top_srcdir)/contrib/macdeploy/DS_Store
-
+  
 COVERAGE_INFO = baseline_filtered_combined.info baseline.info block_test.info \
   leveldb_baseline.info test_digibyte_filtered.info total_coverage.info \
   baseline_filtered.info block_test_filtered.info \
@@ -66,19 +66,20 @@ $(OSX_APP)/Contents/Resources/empty.lproj:
 
 $(OSX_APP)/Contents/Info.plist: $(OSX_PLIST)
 	$(MKDIR_P) $(@D)
-	$(INSTALL_DATA) $< $@
+	$(INSTALL) $< $@
 
 $(OSX_APP)/Contents/Resources/digibyte.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
-	$(INSTALL_DATA) $< $@
+	$(INSTALL) $< $@
 
 $(OSX_APP)/Contents/MacOS/DigiByte-Qt: $(DIGIBYTE_QT_BIN)
 	$(MKDIR_P) $(@D)
 	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $< $@
-
+	
 OSX_APP_BUILT=$(OSX_APP)/Contents/PkgInfo $(OSX_APP)/Contents/Resources/empty.lproj \
   $(OSX_APP)/Contents/Resources/digibyte.icns $(OSX_APP)/Contents/Info.plist \
   $(OSX_APP)/Contents/MacOS/DigiByte-Qt
+
 
 if BUILD_DARWIN
 $(OSX_DMG): $(OSX_APP_BUILT) $(OSX_PACKAGING)
@@ -162,11 +163,11 @@ check-local:
 	@qa/pull-tester/run-digibyted-for-test.sh $(JAVA) -jar $(JAVA_COMPARISON_TOOL) qa/tmp/compTool $(COMPARISON_TOOL_REORG_TESTS)
 endif
 
-EXTRA_DIST = $(top_srcdir)/share/genbuild.sh qa/pull-tester/pull-tester.sh qa/rpc-tests $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING)
+EXTRA_DIST = $(top_srcdir)/share/genbuild.sh qa/pull-tester/pull-tester.sh $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING)
 
-CLEANFILES = $(OSX_DMG) $(DIGIBYTE_WIN_INSTALLER)
+CLEANFILES = $(OSX_DMG) $(OSX_APP) $(DIGIBYTEDIGIBYTE_WIN_INSTALLER)
 
 .INTERMEDIATE: $(COVERAGE_INFO)
 
 clean-local:
-	rm -rf test_digibyte.coverage/ total.coverage/ $(OSX_APP)
+	rm -rf test_digibyte.coverage/ total.coverage/
