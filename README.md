@@ -17,6 +17,10 @@ software which enables the use of this currency.
 For more information, as well as an immediately useable, binary version of
 the Myriadcoin client sofware, see https://bitcointalk.org/index.php?topic=267545.0
 
+Pull Tester
+-----------
+All Builds and Pull Request will be automatically tested thanks to ahmed_bodi from @CryptoPools
+
 License
 -------
 
