@@ -164,7 +164,7 @@ void Intro::pickDataDirectory()
                 fs::create_directory(dataDir.toStdString());
                 break;
             } catch(fs::filesystem_error &e) {
-                QMessageBox::critical(0, QObject::tr("Myriadcoin"),
+                QMessageBox::critical(0, QObject::tr("DigiByte"),
                                       QObject::tr("Error: Specified data directory \"%1\" can not be created.").arg(dataDir));
                 /* fall through, back to choosing screen */
             }

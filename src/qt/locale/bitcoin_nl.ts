@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Myriadcoin</source>
-        <translation>Over Myriadcoin</translation>
+        <source>About DigiByte</source>
+        <translation>Over DigiByte</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Myriadcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Myriadcoin&lt;/b&gt; versie</translation>
+        <source>&lt;b&gt;DigiByte&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;DigiByte&lt;/b&gt; versie</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+0"/>
-        <source>The Myriadcoin developers</source>
-        <translation>De Myriadcoin-ontwikkelaars</translation>
+        <source>The DigiByte developers</source>
+        <translation>De DigiByte-ontwikkelaars</translation>
     </message>
 </context>
 <context>
@@ -67,8 +67,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Myriadcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Dit zijn uw Myriadcoinadressen om betalingen mee te ontvangen. U kunt er voor kiezen om een uniek adres aan te maken voor elke afzender. Op deze manier kunt u bijhouden wie al aan u betaald heeft.</translation>
+        <source>These are your DigiByte addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Dit zijn uw DigiByteadressen om betalingen mee te ontvangen. U kunt er voor kiezen om een uniek adres aan te maken voor elke afzender. Op deze manier kunt u bijhouden wie al aan u betaald heeft.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -82,8 +82,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Myriadcoin address</source>
-        <translation>Onderteken een bericht om te bewijzen dat u een bepaald Myriadcoinadres bezit</translation>
+        <source>Sign a message to prove you own a DigiByte address</source>
+        <translation>Onderteken een bericht om te bewijzen dat u een bepaald DigiByteadres bezit</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Myriadcoin address</source>
-        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde Myriadcoinadres het bericht heeft ondertekend.</translation>
+        <source>Verify a message to ensure it was signed with a specified DigiByte address</source>
+        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde DigiByteadres het bericht heeft ondertekend.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,8 +122,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dit zijn uw Myriadcoinadressen om betalingen mee te verzenden. Check altijd het bedrag en het ontvangende adres voordat u uw myriadcoins verzendt.</translation>
+        <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Dit zijn uw DigiByteadressen om betalingen mee te verzenden. Check altijd het bedrag en het ontvangende adres voordat u uw digibytes verzendt.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -248,8 +248,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
-        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW MYRIADCOINS VERLIEZEN&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
+        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW DIGIBYTES VERLIEZEN&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -275,8 +275,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="-56"/>
-        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
-        <translation>Myriadcoin zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen: Malware kan uw computer infecteren en uw myriadcoins stelen.</translation>
+        <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
+        <translation>DigiByte zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen: Malware kan uw computer infecteren en uw digibytes stelen.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Myriadcoin</source>
-        <translation>Laat informatie zien over Myriadcoin</translation>
+        <source>Show information about DigiByte</source>
+        <translation>Laat informatie zien over DigiByte</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Myriadcoin address</source>
-        <translation>Verstuur munten naar een Myriadcoinadres</translation>
+        <source>Send coins to a DigiByte address</source>
+        <translation>Verstuur munten naar een DigiByteadres</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Myriadcoin</source>
-        <translation>Wijzig instellingen van Myriadcoin</translation>
+        <source>Modify configuration options for DigiByte</source>
+        <translation>Wijzig instellingen van DigiByte</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Myriadcoin</source>
-        <translation>Myriadcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Myriadcoin</source>
-        <translation>&amp;Over Myriadcoin</translation>
+        <source>&amp;About DigiByte</source>
+        <translation>&amp;Over DigiByte</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
-        <translation>Onderteken berichten met uw Myriadcoinadressen om te bewijzen dat u deze adressen bezit</translation>
+        <source>Sign messages with your DigiByte addresses to prove you own them</source>
+        <translation>Onderteken berichten met uw DigiByteadressen om te bewijzen dat u deze adressen bezit</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
-        <translation>Verifiëer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Myriadcoinadressen</translation>
+        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
+        <translation>Verifiëer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde DigiByteadressen</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,13 +536,13 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+47"/>
-        <source>Myriadcoin client</source>
-        <translation>Myriadcoin client</translation>
+        <source>DigiByte client</source>
+        <translation>DigiByte client</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Myriadcoin network</source>
-        <translation><numerusform>%n actieve connectie naar Myriadcoinnetwerk</numerusform><numerusform>%n actieve connecties naar Myriadcoinnetwerk</numerusform></translation>
+        <source>%n active connection(s) to DigiByte network</source>
+        <translation><numerusform>%n actieve connectie naar DigiBytenetwerk</numerusform><numerusform>%n actieve connecties naar DigiBytenetwerk</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -607,7 +607,7 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     <message>
         <location line="+70"/>
         <source>This transaction is over the size limit. You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network. Do you want to pay the fee?</source>
-        <translation>Deze transactie overschrijdt de groottelimiet. Om de transactie alsnog te versturen kunt u transactiekosten betalen van %1. Deze transactiekosten gaan naar de nodes die uw transactie verwerken en het helpt op deze manier bij het ondersteunen van het Myriadcoinnetwerk. Wilt u de transactiekosten betalen?</translation>
+        <translation>Deze transactie overschrijdt de groottelimiet. Om de transactie alsnog te versturen kunt u transactiekosten betalen van %1. Deze transactiekosten gaan naar de nodes die uw transactie verwerken en het helpt op deze manier bij het ondersteunen van het DigiBytenetwerk. Wilt u de transactiekosten betalen?</translation>
     </message>
     <message>
         <location line="-140"/>
@@ -656,8 +656,8 @@ Adres: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
-        <translation>URI kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig Myriadcoinadres of misvormde URI-parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
+        <translation>URI kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig DigiByteadres of misvormde URI-parameters.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -671,8 +671,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
-        <translation>Er is een fatale fout opgetreden. Myriadcoin kan niet meer veilig doorgaan en zal nu afgesloten worden.</translation>
+        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
+        <translation>Er is een fatale fout opgetreden. DigiByte kan niet meer veilig doorgaan en zal nu afgesloten worden.</translation>
     </message>
 </context>
 <context>
@@ -737,8 +737,8 @@ Adres: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
-        <translation>Het opgegeven adres &quot;%1&quot; is een ongeldig Myriadcoinadres</translation>
+        <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
+        <translation>Het opgegeven adres &quot;%1&quot; is een ongeldig DigiByteadres</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -756,8 +756,8 @@ Adres: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Myriadcoin-Qt</source>
-        <translation>Myriadcoin-Qt</translation>
+        <source>DigiByte-Qt</source>
+        <translation>DigiByte-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -819,13 +819,13 @@ Adres: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Myriadcoin after logging in to the system.</source>
-        <translation>Start Myriadcoin automatisch na inloggen in het systeem</translation>
+        <source>Automatically start DigiByte after logging in to the system.</source>
+        <translation>Start DigiByte automatisch na inloggen in het systeem</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Myriadcoin on system login</source>
-        <translation>Start &amp;Myriadcoin bij het inloggen in het systeem</translation>
+        <source>&amp;Start DigiByte on system login</source>
+        <translation>Start &amp;DigiByte bij het inloggen in het systeem</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -844,8 +844,8 @@ Adres: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Open de Myriadcoin-poort automatisch op de router. Dit werkt alleen als de router UPnP ondersteunt en het aanstaat.</translation>
+        <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Open de DigiByte-poort automatisch op de router. Dit werkt alleen als de router UPnP ondersteunt en het aanstaat.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -854,8 +854,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Myriadcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Verbind met het Myriadcoin-netwerk via een SOCKS-proxy (bijv. wanneer u via Tor wilt verbinden)</translation>
+        <source>Connect to the DigiByte network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Verbind met het DigiByte-netwerk via een SOCKS-proxy (bijv. wanneer u via Tor wilt verbinden)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -929,8 +929,8 @@ Adres: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
-        <translation>De taal van de gebruikersinterface kan hier ingesteld worden. Deze instelling zal pas van kracht worden nadat Myriadcoin herstart wordt.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
+        <translation>De taal van de gebruikersinterface kan hier ingesteld worden. Deze instelling zal pas van kracht worden nadat DigiByte herstart wordt.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -944,8 +944,8 @@ Adres: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
-        <translation>Of Myriadcoinadressen getoond worden in de transactielijst</translation>
+        <source>Whether to show DigiByte addresses in the transaction list or not.</source>
+        <translation>Of DigiByteadressen getoond worden in de transactielijst</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -996,8 +996,8 @@ Adres: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Myriadcoin.</source>
-        <translation>Deze instelling zal pas van kracht worden na het herstarten van Myriadcoin.</translation>
+        <source>This setting will take effect after restarting DigiByte.</source>
+        <translation>Deze instelling zal pas van kracht worden na het herstarten van DigiByte.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1015,8 +1015,8 @@ Adres: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>De weergegeven informatie kan verouderd zijn. Uw portemonnee synchroniseert automaticsh met het Myriadcoinnetwerk nadat een verbinding is gelegd, maar dit proces is nog niet voltooid.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
+        <translation>De weergegeven informatie kan verouderd zijn. Uw portemonnee synchroniseert automaticsh met het DigiBytenetwerk nadat een verbinding is gelegd, maar dit proces is nog niet voltooid.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1069,8 +1069,8 @@ Adres: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start myriadcoin: click-to-pay handler</source>
-        <translation>Kan myriadcoin niet starten: click-to-pay handler</translation>
+        <source>Cannot start digibyte: click-to-pay handler</source>
+        <translation>Kan digibyte niet starten: click-to-pay handler</translation>
     </message>
 </context>
 <context>
@@ -1219,8 +1219,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Myriadcoin-Qt help message to get a list with possible Myriadcoin command-line options.</source>
-        <translation>Toon het MyriadcoinQt-hulpbericht voor een lijst met mogelijke Myriadcoin commandoregel-opties.</translation>
+        <source>Show the DigiByte-Qt help message to get a list with possible DigiByte command-line options.</source>
+        <translation>Toon het DigiByteQt-hulpbericht voor een lijst met mogelijke DigiByte commandoregel-opties.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1239,13 +1239,13 @@ Adres: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Myriadcoin - Debug window</source>
-        <translation>Myriadcoin-debugscherm</translation>
+        <source>DigiByte - Debug window</source>
+        <translation>DigiByte-debugscherm</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Myriadcoin Core</source>
-        <translation>Myriadcoin Kern</translation>
+        <source>DigiByte Core</source>
+        <translation>DigiByte Kern</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1254,8 +1254,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open het Myriadcoindebug-logbestand van de huidige datamap. Dit kan een aantal seconden duren voor grote logbestanden.</translation>
+        <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open het DigiBytedebug-logbestand van de huidige datamap. Dit kan een aantal seconden duren voor grote logbestanden.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1264,8 +1264,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Myriadcoin RPC console.</source>
-        <translation>Welkom bij de Myriadcoin RPC-console.</translation>
+        <source>Welcome to the DigiByte RPC console.</source>
+        <translation>Welkom bij de DigiByte RPC-console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1448,8 +1448,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Vul een Myriadcoinadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a DigiByte address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Vul een DigiByteadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1513,8 +1513,8 @@ Adres: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Myriadcoin address</source>
-        <translation>Onderteken een bericht om te bewijzen dat u een bepaald Myriadcoinadres bezit</translation>
+        <source>Sign the message to prove you own this DigiByte address</source>
+        <translation>Onderteken een bericht om te bewijzen dat u een bepaald DigiByteadres bezit</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1549,8 +1549,8 @@ Adres: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
-        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde Myriadcoinadres het bericht heeft ondertekend.</translation>
+        <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
+        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde DigiByteadres het bericht heeft ondertekend.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1565,8 +1565,8 @@ Adres: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Vul een Myriadcoinadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a DigiByte address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Vul een DigiByteadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,8 +1575,8 @@ Adres: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Myriadcoin signature</source>
-        <translation>Voer Myriadcoin-handtekening in</translation>
+        <source>Enter DigiByte signature</source>
+        <translation>Voer DigiByte-handtekening in</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1649,8 +1649,8 @@ Adres: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+25"/>
-        <source>The Myriadcoin developers</source>
-        <translation>De Myriadcoin-ontwikkelaars</translation>
+        <source>The DigiByte developers</source>
+        <translation>De DigiByte-ontwikkelaars</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2187,8 +2187,8 @@ Adres: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Myriadcoin version</source>
-        <translation>Myriadcoinversie</translation>
+        <source>DigiByte version</source>
+        <translation>DigiByteversie</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2197,8 +2197,8 @@ Adres: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or myriadcoind</source>
-        <translation>Stuur commando naar -server of myriadcoind</translation>
+        <source>Send command to -server or digibyted</source>
+        <translation>Stuur commando naar -server of digibyted</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2217,14 +2217,14 @@ Adres: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: myriadcoin.conf)</source>
-        <translation>Specificeer configuratiebestand (standaard: myriadcoin.conf)
+        <source>Specify configuration file (default: digibyte.conf)</source>
+        <translation>Specificeer configuratiebestand (standaard: digibyte.conf)
 </translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: myriadcoind.pid)</source>
-        <translation>Specificeer pid-bestand (standaard: myriadcoind.pid)
+        <source>Specify pid file (default: digibyted.pid)</source>
+        <translation>Specificeer pid-bestand (standaard: digibyted.pid)
 </translation>
     </message>
     <message>
@@ -2302,23 +2302,23 @@ Adres: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=myriadcoinrpc
+rpcuser=digibyterpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
 </source>
         <translation>%s, u moet een RPC-wachtwoord instellen in het configuratiebestand: %s
 U wordt aangeraden het volgende willekeurige wachtwoord te gebruiken:
-rpcuser=myriadcoinrpc
+rpcuser=digibyterpc
 rpcpassword=%s
 (u hoeft dit wachtwoord niet te onthouden)
 De gebruikersnaam en wachtwoord mogen niet hetzelfde zijn.
 Als het bestand niet bestaat, make hem dan aan met leesrechten voor enkel de eigenaar.
 Het is ook aan te bevelen &quot;alertnotify&quot; in te stellen zodat u op de hoogte gesteld wordt van problemen;
-for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com</translation>
+for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2332,8 +2332,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Myriadcoin is probably already running.</source>
-        <translation>Kan geen lock op de datamap %s verkrijgen. Myriadcoin draait vermoedelijk reeds.</translation>
+        <source>Cannot obtain a lock on data directory %s. DigiByte is probably already running.</source>
+        <translation>Kan geen lock op de datamap %s verkrijgen. DigiByte draait vermoedelijk reeds.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2377,8 +2377,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
-        <translation>Waarschuwing: Controleer dat de datum en tijd op uw computer correct zijn ingesteld. Als uw klok fout staat zal Myriadcoin niet correct werken.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
+        <translation>Waarschuwing: Controleer dat de datum en tijd op uw computer correct zijn ingesteld. Als uw klok fout staat zal DigiByte niet correct werken.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2627,8 +2627,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
-        <translation>SSL-opties: (zie de Myriadcoin wiki voor SSL-instructies)</translation>
+        <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
+        <translation>SSL-opties: (zie de DigiByte wiki voor SSL-instructies)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2817,13 +2817,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
-        <translation>Fout bij laden wallet.dat: Portemonnee vereist een nieuwere versie van Myriadcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
+        <translation>Fout bij laden wallet.dat: Portemonnee vereist een nieuwere versie van DigiByte</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
-        <translation>Portemonnee moest herschreven worden: Herstart Myriadcoin om te voltooien</translation>
+        <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
+        <translation>Portemonnee moest herschreven worden: Herstart DigiByte om te voltooien</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2882,8 +2882,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Myriadcoin is probably already running.</source>
-        <translation>Niet in staat om aan %s te binden op deze computer. Myriadcoin draait vermoedelijk reeds.</translation>
+        <source>Unable to bind to %s on this computer. DigiByte is probably already running.</source>
+        <translation>Niet in staat om aan %s te binden op deze computer. DigiByte draait vermoedelijk reeds.</translation>
     </message>
     <message>
         <location line="+64"/>

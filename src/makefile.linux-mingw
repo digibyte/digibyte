@@ -109,7 +109,7 @@ OBJS= \
     obj/cubehash.o \
     obj/shavite.o
 
-all: myriadcoind.exe
+all: digibyted.exe
 
 DEFS += -I"$(CURDIR)/leveldb/include"
 DEFS += -I"$(CURDIR)/leveldb/helpers"
@@ -127,7 +127,7 @@ obj/%.o: %.cpp $(HEADERS)
 obj/%.o: %.c $(HEADERS)
 	$(CXX) -c $(xCXXFLAGS) -fpermissive -o $@ $<
 
-myriadcoind.exe: $(OBJS:obj/%=obj/%)
+digibyted.exe: $(OBJS:obj/%=obj/%)
 	$(CXX) $(xCXXFLAGS) $(xLDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -135,15 +135,15 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 obj-test/%.o: test/%.cpp $(HEADERS)
 	$(CXX) -c $(TESTDEFS) $(xCXXFLAGS) -o $@ $<
 
-test_myriadcoin.exe: $(TESTOBJS) $(filter-out obj/init.o obj/myriadcoind.o,$(OBJS:obj/%=obj/%))
+test_digibyte.exe: $(TESTOBJS) $(filter-out obj/init.o obj/digibyted.o,$(OBJS:obj/%=obj/%))
 	$(CXX) $(xCXXFLAGS) $(xLDFLAGS) -o $@ $(LIBPATHS) $^ -lboost_unit_test_framework-mt-s $(LIBS)
 
 
 clean:
 	-rm -f obj/*.o
-	-rm -f myriadcoind.exe
+	-rm -f digibyted.exe
 	-rm -f obj-test/*.o
-	-rm -f test_myriadcoin.exe
+	-rm -f test_digibyte.exe
 	-rm -f obj/build.h
 	cd leveldb && TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) clean && cd ..
 

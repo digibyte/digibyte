@@ -118,10 +118,10 @@ OBJS= \
     obj/shavite.o
 
 
-all: myriadcoind.exe
+all: digibyted.exe
 
-test check: test_myriadcoin.exe FORCE
-	test_myriadcoin.exe
+test check: test_digibyte.exe FORCE
+	test_digibyte.exe
 
 #
 # LevelDB support
@@ -138,7 +138,7 @@ obj/%.o: %.cpp $(HEADERS)
 obj/%.o: %.c $(HEADERS)
 	$(CXX) -c $(CFLAGS) -fpermissive -o $@ $<
 
-myriadcoind.exe: $(OBJS:obj/%=obj/%)
+digibyted.exe: $(OBJS:obj/%=obj/%)
 	$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -146,11 +146,11 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 obj-test/%.o: test/%.cpp $(HEADERS)
 	$(CXX) -c $(TESTDEFS) $(CFLAGS) -o $@ $<
 
-test_myriadcoin.exe: $(TESTOBJS) $(filter-out obj/init.o obj/myriadcoind.o,$(OBJS:obj/%=obj/%))
+test_digibyte.exe: $(TESTOBJS) $(filter-out obj/init.o obj/digibyted.o,$(OBJS:obj/%=obj/%))
 	$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ -lboost_unit_test_framework$(BOOST_SUFFIX) $(LIBS)
 
 clean:
-	rm -f myriadcoind.exe test_myriadcoin.exe
+	rm -f digibyted.exe test_digibyte.exe
 	rm -f obj/*
 	rm -f obj-test/*
 	cd leveldb && $(MAKE) TARGET_OS=NATIVE_WINDOWS clean && cd ..

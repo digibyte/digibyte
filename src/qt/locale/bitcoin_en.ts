@@ -6,13 +6,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Myriadcoin</source>
-        <translation>About Myriadcoin</translation>
+        <source>About DigiByte</source>
+        <translation>About DigiByte</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Myriadcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Myriadcoin&lt;/b&gt; version</translation>
+        <source>&lt;b&gt;DigiByte&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;DigiByte&lt;/b&gt; version</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -36,8 +36,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Myriadcoin developers</source>
-        <translation>The Myriadcoin developers</translation>
+        <source>The DigiByte developers</source>
+        <translation>The DigiByte developers</translation>
     </message>
 </context>
 <context>
@@ -69,8 +69,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Myriadcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>These are your Myriadcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
+        <source>These are your DigiByte addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>These are your DigiByte addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -84,8 +84,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Myriadcoin address</source>
-        <translation>Sign a message to prove you own a Myriadcoin address</translation>
+        <source>Sign a message to prove you own a DigiByte address</source>
+        <translation>Sign a message to prove you own a DigiByte address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -109,8 +109,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Myriadcoin address</source>
-        <translation>Verify a message to ensure it was signed with a specified Myriadcoin address</translation>
+        <source>Verify a message to ensure it was signed with a specified DigiByte address</source>
+        <translation>Verify a message to ensure it was signed with a specified DigiByte address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -124,8 +124,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
+        <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -250,8 +250,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
-        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
+        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -277,8 +277,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
-        <translation>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</translation>
+        <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
+        <translation>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -376,8 +376,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Show information about Myriadcoin</source>
-        <translation>Show information about Myriadcoin</translation>
+        <source>Show information about DigiByte</source>
+        <translation>Show information about DigiByte</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -421,13 +421,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-341"/>
-        <source>Send coins to a Myriadcoin address</source>
-        <translation>Send coins to a Myriadcoin address</translation>
+        <source>Send coins to a DigiByte address</source>
+        <translation>Send coins to a DigiByte address</translation>
     </message>
     <message>
         <location line="+52"/>
-        <source>Modify configuration options for Myriadcoin</source>
-        <translation>Modify configuration options for Myriadcoin</translation>
+        <source>Modify configuration options for DigiByte</source>
+        <translation>Modify configuration options for DigiByte</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -458,8 +458,8 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="-183"/>
         <location line="+6"/>
         <location line="+530"/>
-        <source>Myriadcoin</source>
-        <translation>Myriadcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <location line="-536"/>
@@ -485,8 +485,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+23"/>
         <location line="+2"/>
-        <source>&amp;About Myriadcoin</source>
-        <translation>&amp;About Myriadcoin</translation>
+        <source>&amp;About DigiByte</source>
+        <translation>&amp;About DigiByte</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -506,13 +506,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
-        <translation>Sign messages with your Myriadcoin addresses to prove you own them</translation>
+        <source>Sign messages with your DigiByte addresses to prove you own them</source>
+        <translation>Sign messages with your DigiByte addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
-        <translation>Verify messages to ensure they were signed with specified Myriadcoin addresses</translation>
+        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
+        <translation>Verify messages to ensure they were signed with specified DigiByte addresses</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -543,15 +543,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-5"/>
         <location line="+5"/>
-        <source>Myriadcoin client</source>
-        <translation>Myriadcoin client</translation>
+        <source>DigiByte client</source>
+        <translation>DigiByte client</translation>
     </message>
     <message numerus="yes">
         <location line="+143"/>
-        <source>%n active connection(s) to Myriadcoin network</source>
+        <source>%n active connection(s) to DigiByte network</source>
         <translation>
-            <numerusform>%n active connection to Myriadcoin network</numerusform>
-            <numerusform>%n active connections to Myriadcoin network</numerusform>
+            <numerusform>%n active connection to DigiByte network</numerusform>
+            <numerusform>%n active connections to DigiByte network</numerusform>
         </translation>
     </message>
     <message>
@@ -675,8 +675,8 @@ Address: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
-        <translation>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
+        <translation>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -690,8 +690,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
-        <translation>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</translation>
+        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
+        <translation>A fatal error occurred. DigiByte can no longer continue safely and will quit.</translation>
     </message>
 </context>
 <context>
@@ -756,8 +756,8 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
+        <translation>The entered address &quot;%1&quot; is not a valid DigiByte address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -775,8 +775,8 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+493"/>
         <location line="+12"/>
-        <source>Myriadcoin-Qt</source>
-        <translation>Myriadcoin-Qt</translation>
+        <source>DigiByte-Qt</source>
+        <translation>DigiByte-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -838,13 +838,13 @@ Address: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Myriadcoin after logging in to the system.</source>
-        <translation>Automatically start Myriadcoin after logging in to the system.</translation>
+        <source>Automatically start DigiByte after logging in to the system.</source>
+        <translation>Automatically start DigiByte after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Myriadcoin on system login</source>
-        <translation>&amp;Start Myriadcoin on system login</translation>
+        <source>&amp;Start DigiByte on system login</source>
+        <translation>&amp;Start DigiByte on system login</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -863,8 +863,8 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -873,8 +873,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Myriadcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connect to the Myriadcoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
+        <source>Connect to the DigiByte network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connect to the DigiByte network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -948,8 +948,8 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting DigiByte.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -963,8 +963,8 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
-        <translation>Whether to show Myriadcoin addresses in the transaction list or not.</translation>
+        <source>Whether to show DigiByte addresses in the transaction list or not.</source>
+        <translation>Whether to show DigiByte addresses in the transaction list or not.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1015,8 +1015,8 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Myriadcoin.</source>
-        <translation>This setting will take effect after restarting Myriadcoin.</translation>
+        <source>This setting will take effect after restarting DigiByte.</source>
+        <translation>This setting will take effect after restarting DigiByte.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1034,8 +1034,8 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+202"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -1098,8 +1098,8 @@ Address: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+109"/>
-        <source>Cannot start myriadcoin: click-to-pay handler</source>
-        <translation>Cannot start myriadcoin: click-to-pay handler</translation>
+        <source>Cannot start digibyte: click-to-pay handler</source>
+        <translation>Cannot start digibyte: click-to-pay handler</translation>
     </message>
 </context>
 <context>
@@ -1248,8 +1248,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Myriadcoin-Qt help message to get a list with possible Myriadcoin command-line options.</source>
-        <translation>Show the Myriadcoin-Qt help message to get a list with possible Myriadcoin command-line options.</translation>
+        <source>Show the DigiByte-Qt help message to get a list with possible DigiByte command-line options.</source>
+        <translation>Show the DigiByte-Qt help message to get a list with possible DigiByte command-line options.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1268,13 +1268,13 @@ Address: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Myriadcoin - Debug window</source>
-        <translation>Myriadcoin - Debug window</translation>
+        <source>DigiByte - Debug window</source>
+        <translation>DigiByte - Debug window</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Myriadcoin Core</source>
-        <translation>Myriadcoin Core</translation>
+        <source>DigiByte Core</source>
+        <translation>DigiByte Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1283,8 +1283,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1293,8 +1293,8 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Myriadcoin RPC console.</source>
-        <translation>Welcome to the Myriadcoin RPC console.</translation>
+        <source>Welcome to the DigiByte RPC console.</source>
+        <translation>Welcome to the DigiByte RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1478,8 +1478,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a DigiByte address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Enter a DigiByte address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1543,8 +1543,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Myriadcoin address</source>
-        <translation>Sign the message to prove you own this Myriadcoin address</translation>
+        <source>Sign the message to prove you own this DigiByte address</source>
+        <translation>Sign the message to prove you own this DigiByte address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1579,8 +1579,8 @@ Address: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified Myriadcoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
+        <translation>Verify the message to ensure it was signed with the specified DigiByte address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1595,8 +1595,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a DigiByte address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Enter a DigiByte address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1605,8 +1605,8 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Myriadcoin signature</source>
-        <translation>Enter Myriadcoin signature</translation>
+        <source>Enter DigiByte signature</source>
+        <translation>Enter DigiByte signature</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1679,8 +1679,8 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+25"/>
-        <source>The Myriadcoin developers</source>
-        <translation>The Myriadcoin developers</translation>
+        <source>The DigiByte developers</source>
+        <translation>The DigiByte developers</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2232,8 +2232,8 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+98"/>
-        <source>Myriadcoin version</source>
-        <translation>Myriadcoin version</translation>
+        <source>DigiByte version</source>
+        <translation>DigiByte version</translation>
     </message>
     <message>
         <location line="+103"/>
@@ -2242,8 +2242,8 @@ Address: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or myriadcoind</source>
-        <translation>Send command to -server or myriadcoind</translation>
+        <source>Send command to -server or digibyted</source>
+        <translation>Send command to -server or digibyted</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2262,13 +2262,13 @@ Address: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: myriadcoin.conf)</source>
-        <translation>Specify configuration file (default: myriadcoin.conf)</translation>
+        <source>Specify configuration file (default: digibyte.conf)</source>
+        <translation>Specify configuration file (default: digibyte.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: myriadcoind.pid)</source>
-        <translation>Specify pid file (default: myriadcoind.pid)</translation>
+        <source>Specify pid file (default: digibyted.pid)</source>
+        <translation>Specify pid file (default: digibyted.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2345,24 +2345,24 @@ Address: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=myriadcoinrpc
+rpcuser=digibyterpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
 </source>
         <translation>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=myriadcoinrpc
+rpcuser=digibyterpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2377,8 +2377,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Myriadcoin is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s. Myriadcoin is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s. DigiByte is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s. DigiByte is probably already running.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2427,8 +2427,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2872,13 +2872,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of DigiByte</translation>
     </message>
     <message>
         <location line="+94"/>
-        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
-        <translation>Wallet needed to be rewritten: restart Myriadcoin to complete</translation>
+        <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
+        <translation>Wallet needed to be rewritten: restart DigiByte to complete</translation>
     </message>
     <message>
         <location line="-96"/>
@@ -2937,8 +2937,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@f
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Myriadcoin is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. Myriadcoin is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. DigiByte is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. DigiByte is probably already running.</translation>
     </message>
     <message>
         <location line="+64"/>

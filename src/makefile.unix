@@ -159,10 +159,10 @@ OBJS= \
     obj/cubehash.o \
     obj/shavite.o
 
-all: myriadcoind
+all: digibyted
 
-test check: test_myriadcoin FORCE
-	./test_myriadcoin
+test check: test_digibyte FORCE
+	./test_digibyte
 
 #
 # LevelDB support
@@ -197,7 +197,7 @@ obj/%.o: %.c
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
       
-myriadcoind: $(OBJS:obj/%=obj/%)
+digibyted: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -209,11 +209,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_myriadcoin: $(TESTOBJS) $(filter-out obj/init.o obj/myriadcoind.o,$(OBJS:obj/%=obj/%))
+test_digibyte: $(TESTOBJS) $(filter-out obj/init.o obj/digibyted.o,$(OBJS:obj/%=obj/%))
 	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(TESTLIBS) $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f myriadcoind test_myriadcoin
+	-rm -f digibyted test_digibyte
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P

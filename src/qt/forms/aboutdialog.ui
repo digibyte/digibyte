@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About Myriadcoin</string>
+   <string>About DigiByte</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
@@ -50,7 +50,7 @@
           <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="text">
-          <string>&lt;b&gt;Myriadcoin&lt;/b&gt; version</string>
+          <string>&lt;b&gt;DigiByte&lt;/b&gt; version</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -107,7 +107,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string notr="true">Copyright &amp;copy; 2013 The Myriadcoin developers</string>
+        <string notr="true">Copyright &amp;copy; 2013 The DigiByte developers</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
