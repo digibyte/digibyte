@@ -1,6 +1,0 @@
-digibyte-qt usr/bin
-share/pixmaps/digibyte32.xpm usr/share/pixmaps
-share/pixmaps/digibyte16.xpm usr/share/pixmaps
-share/pixmaps/digibyte128.png usr/share/pixmaps
-debian/digibyte-qt.desktop usr/share/applications
-debian/digibyte-qt.protocol usr/share/kde4/services/
