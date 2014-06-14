@@ -58,6 +58,8 @@ int64 CTransaction::nMinTxFee = 10000;  // Override with -mintxfee
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
 int64 CTransaction::nMinRelayTxFee = 10000;
 
+static const int64 multiAlgoDiffChangeTarget = 150000; // Patch effective @ block 67200
+
 CMedianFilter<int> cPeerBlockCounts(8, 0); // Amount of blocks that other nodes claim to have
 
 map<uint256, CBlock*> mapOrphanBlocks;
@@ -1271,13 +1273,12 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
-static const int64_t multiAlgoDiffChangeTarget = 150000; // Patch effective @ block 67200
-static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
+static const int64 nDiffChangeTarget = 67200; // Patch effective @ block 67200
+static const int64 patchBlockRewardDuration = 10080; // 10080 blocks main net change
 
-int64_t GetDGBSubsidy(int nHeight) {
+int64 GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
-   int64_t qSubsidy = 8000*COIN;
+   int64 qSubsidy = 8000*COIN;
    int blocks = nHeight - nDiffChangeTarget;
    int weeks = (blocks / patchBlockRewardDuration)+1;
    //decrease reward by 0.5% every week
@@ -1286,9 +1287,9 @@ int64_t GetDGBSubsidy(int nHeight) {
 
 }
 
-int64_t GetBlockValue(int nHeight, int64_t nFees)
+int64 GetBlockValue(int nHeight, int64 nFees)
 {
-   int64_t nSubsidy = COIN;
+   int64 nSubsidy = COIN;
    
    if(nHeight < nDiffChangeTarget) {
       //this is pre-patch, reward is 8000.
@@ -1316,25 +1317,25 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
    return nSubsidy + nFees;
 }
 
-static const int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
-static const int64_t nTargetSpacing = 60; // 60 seconds
-static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
-static const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
-static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
-static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
+static const int64 nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+static const int64 nTargetSpacing = 60; // 60 seconds
+static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+static const int64 nTargetTimespanRe = 1*60; // 60 Seconds
+static const int64 nTargetSpacingRe = 1*60; // 60 seconds
+static const int64 nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
 
 
-static const int64_t multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64_t multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64_t multiAlgoInterval = 1; // retargets every blocks
+static const int64 multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64 multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64 multiAlgoInterval = 1; // retargets every blocks
 
-static const int64_t nAveragingInterval = 10; // 10 blocks
-static const int64_t nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
+static const int64 nAveragingInterval = 10; // 10 blocks
+static const int64 nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
 
-static const int64_t nMaxAdjustDown = 4; // 4% adjustment down
-static const int64_t nMaxAdjustUp = 2; // 2% adjustment up
+static const int64 nMaxAdjustDown = 4; // 4% adjustment down
+static const int64 nMaxAdjustUp = 2; // 2% adjustment up
 
-static const int64_t nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64 nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 //
 // minimum amount of work that could possibly be required nTime after
@@ -1379,15 +1380,15 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
     int blockstogoback = 0;
     
     //set default to pre-v2.0 values
-    int64_t retargetTimespan = nTargetTimespan;
-    int64_t retargetInterval = nInterval;
+    int64 retargetTimespan = nTargetTimespan;
+    int64 retargetInterval = nInterval;
     
     // Genesis block
     if (pindexLast == NULL) return nProofOfWorkLimit;
         
     //if v2.0 changes are in effect for block num, alter retarget values 
    if(fNewDifficultyProtocol) {
-      LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
+      printf("GetNextWorkRequired nActualTimespan Limiting\n");
       retargetTimespan = nTargetTimespanRe;
       retargetInterval = nIntervalRe;
     }
@@ -1425,13 +1426,13 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
         pindexFirst = pindexFirst->pprev;
     assert(pindexFirst);
 
-      // Limit adjustment step
-    int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
-    LogPrintf("nActualTimespan = %d  before bounds\n", nActualTimespan);
+    // Limit adjustment step
+    int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+    printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
     
     // thanks to RealSolid & WDC for this code
         if(fNewDifficultyProtocol ) {
-            LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
+            printf("GetNextWorkRequired nActualTimespan Limiting\n");
             if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
             if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
         }
@@ -1451,10 +1452,10 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
         bnNew = Params().ProofOfWorkLimit(algo);
 
     /// debug print
-    LogPrintf("GetNextWorkRequired RETARGET\n");
-    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", retargetTimespan, nActualTimespan);
-    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
-    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
+    printf("GetNextWorkRequired RETARGET\n");
+    printf("nTargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", retargetTimespan, nActualTimespan);
+    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
+    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
 
     return bnNew.GetCompact();
 }
@@ -1766,14 +1767,10 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, CCoinsViewCach
             if (coins.IsCoinBase()) {
                 if (coins.nHeight < multiAlgoDiffChangeTarget) {
                     if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
-                        return state.Invalid(
-                            error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight),
-                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+			return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
                 }
                 if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2)
-                        return state.Invalid(
-                            error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight),
-                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+			return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
             }
 
             // Check for negative or overflow input values
