@@ -1070,7 +1070,9 @@ int CMerkleTx::GetBlocksToMaturity() const
 {
     if (!IsCoinBase())
         return 0;
-    return max(0, (COINBASE_MATURITY+20) - GetDepthInMainChain());
+    if ( pindexBest->nHeight < multiAlgoDiffChangeTarget ) 
+        return max(0, (COINBASE_MATURITY+1) - GetDepthInMainChain());
+    return max(0, (COINBASE_MATURITY_2+1) - GetDepthInMainChain());
 }
 
 
@@ -1269,38 +1271,70 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-static const int64 nStartSubsidy = 1000 * COIN;
-static const int64 nMinSubsidy = 1 * COIN;
+static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
+static const int64_t multiAlgoDiffChangeTarget = 150000; // Patch effective @ block 67200
+static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 
-int64 static GetBlockValue(int nHeight, int64 nFees)
-{
-    int64 nSubsidy = nStartSubsidy;
+int64_t GetDGBSubsidy(int nHeight) {
+   // thanks to RealSolid & WDC for helping out with this code
+   int64_t qSubsidy = 8000*COIN;
+   int blocks = nHeight - nDiffChangeTarget;
+   int weeks = (blocks / patchBlockRewardDuration)+1;
+   //decrease reward by 0.5% every week
+   for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);  
+   return qSubsidy;
 
-    // Mining phase: Subsidy is cut in half every SubsidyHalvingInterval
-    nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
-    
-    // Inflation phase: Subsidy reaches minimum subsidy
-    // Network is rewarded for transaction processing with transaction fees and 
-    // the inflationary subsidy
-    if (nSubsidy < nMinSubsidy)
-    {
-        nSubsidy = nMinSubsidy;
-    }
-
-    return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64 nTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64 nInterval = 1; // retargets every blocks
+int64_t GetBlockValue(int nHeight, int64_t nFees)
+{
+   int64_t nSubsidy = COIN;
+   
+   if(nHeight < nDiffChangeTarget) {
+      //this is pre-patch, reward is 8000.
+      nSubsidy = 8000 * COIN;
+      
+      if(nHeight < 1440)  //1440
+      {
+        nSubsidy = 72000 * COIN;
+      }
+      else if(nHeight < 5760)  //5760
+      {
+        nSubsidy = 16000 * COIN;
+      }
+      
+   } else {
+      //patch takes effect after 67,200 blocks solved
+      nSubsidy = GetDGBSubsidy(nHeight);
+   }
 
-static const int64 nAveragingInterval = 10; // 10 blocks
-static const int64 nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
+   //make sure the reward is at least 1 DGB
+   if(nSubsidy < COIN) {
+      nSubsidy = COIN;
+   }
 
-static const int64 nMaxAdjustDown = 4; // 4% adjustment down
-static const int64 nMaxAdjustUp = 2; // 2% adjustment up
+   return nSubsidy + nFees;
+}
 
-static const int64 nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+static const int64_t nTargetSpacing = 60; // 60 seconds
+static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
+static const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
+static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
+static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
+
+
+static const int64_t multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t multiAlgoInterval = 1; // retargets every blocks
+
+static const int64_t nAveragingInterval = 10; // 10 blocks
+static const int64_t nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
+
+static const int64_t nMaxAdjustDown = 4; // 4% adjustment down
+static const int64_t nMaxAdjustUp = 2; // 2% adjustment up
+
+static const int64_t nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 //
 // minimum amount of work that could possibly be required nTime after
@@ -1334,8 +1368,99 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 
 static const int64 nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
 static const int64 nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+
+static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+{
+
+     unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
     
-unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+    int nHeight = pindexLast->nHeight + 1;
+    bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget);
+    int blockstogoback = 0;
+    
+    //set default to pre-v2.0 values
+    int64_t retargetTimespan = nTargetTimespan;
+    int64_t retargetInterval = nInterval;
+    
+    // Genesis block
+    if (pindexLast == NULL) return nProofOfWorkLimit;
+        
+    //if v2.0 changes are in effect for block num, alter retarget values 
+   if(fNewDifficultyProtocol) {
+      LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
+      retargetTimespan = nTargetTimespanRe;
+      retargetInterval = nIntervalRe;
+    }
+
+    // Only change once per interval
+    if ((pindexLast->nHeight+1) % retargetInterval != 0)
+    {
+        if (TestNet())
+        {
+            // Special difficulty rule for testnet:
+            // If the new block's timestamp is more than 2* 10 minutes
+            // then allow mining of a min-difficulty block.
+            if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+                return nProofOfWorkLimit;
+            else
+            {
+                // Return the last non-special-min-difficulty-rules-block
+                const CBlockIndex* pindex = pindexLast;
+                while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+                    pindex = pindex->pprev;
+                return pindex->nBits;
+            }
+        }
+        return pindexLast->nBits;
+    }
+
+    // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
+    // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
+    blockstogoback = retargetInterval-1;
+    if ((pindexLast->nHeight+1) != retargetInterval) blockstogoback = retargetInterval;
+    
+    // Go back by what we want to be 14 days worth of blocks
+    const CBlockIndex* pindexFirst = pindexLast;
+    for (int i = 0; pindexFirst && i < blockstogoback; i++)
+        pindexFirst = pindexFirst->pprev;
+    assert(pindexFirst);
+
+      // Limit adjustment step
+    int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+    LogPrintf("nActualTimespan = %d  before bounds\n", nActualTimespan);
+    
+    // thanks to RealSolid & WDC for this code
+        if(fNewDifficultyProtocol ) {
+            LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
+            if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+            if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
+        }
+        else {
+            if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
+            if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
+        }   
+
+
+    CBigNum bnNew;
+    bnNew.SetCompact(pindexLast->nBits);
+        bnNew *= nActualTimespan;
+        bnNew /= retargetTimespan;
+
+
+    if (bnNew > Params().ProofOfWorkLimit(algo))
+        bnNew = Params().ProofOfWorkLimit(algo);
+
+    /// debug print
+    LogPrintf("GetNextWorkRequired RETARGET\n");
+    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", retargetTimespan, nActualTimespan);
+    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
+    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
+
+    return bnNew.GetCompact();
+}
+
+
+static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
     unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
     
@@ -1399,6 +1524,14 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
 
     return bnNew.GetCompact();
+}
+
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+{
+    if (pindexLast->nHeight < multiAlgoDiffChangeTarget)
+        return GetNextWorkRequiredV1(pindexLast, pblock, algo);
+    else
+        return GetNextWorkRequiredV2(pindexLast, pblock, algo);
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
@@ -1631,8 +1764,16 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, CCoinsViewCach
 
             // If prev is coinbase, check that it's matured
             if (coins.IsCoinBase()) {
-                if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
-                    return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
+                if (coins.nHeight < multiAlgoDiffChangeTarget) {
+                    if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
+                        return state.Invalid(
+                            error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight),
+                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+                }
+                if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2)
+                        return state.Invalid(
+                            error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight),
+                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
             }
 
             // Check for negative or overflow input values
