@@ -138,7 +138,7 @@ public:
         //printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         //genesis.print();
         
-        assert(hashGenesisBlock == uint256("0x0000017ce2a79c8bddafbbe47c004aa92b20678c354b34085f62b762084b9788"));
+        //assert(hashGenesisBlock == uint256("0x0000017ce2a79c8bddafbbe47c004aa92b20678c354b34085f62b762084b9788"));
 
         base58Prefixes[PUBKEY_ADDRESS] = 111;
         base58Prefixes[SCRIPT_ADDRESS] = 196;
