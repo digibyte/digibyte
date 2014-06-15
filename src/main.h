@@ -688,7 +688,7 @@ enum BlockStatus {
     BLOCK_FAILED_MASK        =   96
 };
 
-const int64 nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
+static const int64 multiAlgoDiffChangeTarget = 150000; // Patch effective @ block 67200
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
@@ -831,7 +831,7 @@ public:
 
     int GetAlgoWorkFactor() const 
     {
-        if (!TestNet() && (nHeight < nBlockAlgoWorkWeightStart))
+        if (!TestNet() && (nHeight < multiAlgoDiffChangeTarget))
         {
             return 1;
         }

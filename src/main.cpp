@@ -58,7 +58,7 @@ int64 CTransaction::nMinTxFee = 10000;  // Override with -mintxfee
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
 int64 CTransaction::nMinRelayTxFee = 10000;
 
-static const int64 multiAlgoDiffChangeTarget = 1000; // Patch effective @ block 67200
+//static const int64 multiAlgoDiffChangeTarget = 1000; // Patch effective @ block 67200
 
 CMedianFilter<int> cPeerBlockCounts(8, 0); // Amount of blocks that other nodes claim to have
 
@@ -4492,7 +4492,7 @@ CBlockTemplate* CreateNewBlock(CReserveKey& reservekey, int algo)
             return NULL;
     }
 
-    if (pindexBest->nHeight < mulitAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
+    if (pindexBest->nHeight < multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
 	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %d", pindexBest->nHeight, multiAlgoDiffChangeTarget);
             return NULL;
     }
