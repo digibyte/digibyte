@@ -4491,6 +4491,11 @@ CBlockTemplate* CreateNewBlock(CReserveKey& reservekey, int algo)
             error("CreateNewBlock: bad algo");
             return NULL;
     }
+
+    if (pindexBest->nHeight < mulitAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
+	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %d", pindexBest->nHeight, multiAlgoDiffChangeTarget);
+            return NULL;
+    }
     
     // Create coinbase tx
     CTransaction txNew;

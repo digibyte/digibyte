@@ -876,7 +876,7 @@ public:
     bool CheckIndex() const
     {
         int algo = GetAlgo();
-        if (algo == ALGO_SHA256D)
+        if (algo == ALGO_SCRYPT)
             return CheckProofOfWork(GetBlockHash(), nBits, algo);
         else
             return true;
