@@ -1766,11 +1766,13 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, CCoinsViewCach
             // If prev is coinbase, check that it's matured
             if (coins.IsCoinBase()) {
                 if (coins.nHeight < multiAlgoDiffChangeTarget) {
-                    if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
+                  if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
+			//return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
+			return state.Invalid(error("CheckInputs() : tried coinbase at depth %d %d %d %d", 
+						nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY));
+                } else if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2) {
 			return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
-                }
-                if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2)
-			return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
+		}
             }
 
             // Check for negative or overflow input values
