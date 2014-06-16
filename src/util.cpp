@@ -1023,7 +1023,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Unix: ~/.digibyte
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "DigiByte";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "DigiByte-Test";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -1035,10 +1035,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "DigiByte";
+    return pathRet / "DigiByte-Test";
 #else
     // Unix
-    return pathRet / ".digibyte";
+    return pathRet / ".digibyte-test";
 #endif
 #endif
 }
