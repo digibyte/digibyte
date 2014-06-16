@@ -68,7 +68,7 @@ public:
         //printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         //printf("%x\n", bnProofOfWorkLimit[ALGO_SHA256D].GetCompact());
         //genesis.print();
-        assert(hashGenesisBlock == uint256("0xb5dca8039e300198e5fe7cd23bdd1728e2a444af34c447dbd0916fa3430a68c2");
+        assert(hashGenesisBlock == uint256("0xb5dca8039e300198e5fe7cd23bdd1728e2a444af34c447dbd0916fa3430a68c2"));
         //assert(hashGenesisBlock == uint256("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"));
         assert(genesis.hashMerkleRoot == uint256("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
