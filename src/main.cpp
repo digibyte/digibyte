@@ -2494,6 +2494,10 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
         // Check proof of work
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
             return state.DoS(100, error("AcceptBlock() : incorrect proof of work"));
+        
+	// Check algo to verify only scrypt before switchover
+        if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
+            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block %s", multiAlgoDiffChangeTarget));
 
         // Check timestamp against prev
         if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
