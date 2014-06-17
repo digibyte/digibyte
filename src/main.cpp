@@ -2497,7 +2497,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
         
 	// Check algo to verify only scrypt before switchover
         if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
-            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block %s", multiAlgoDiffChangeTarget));
+            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block %"PRI64d"", multiAlgoDiffChangeTarget));
 
         // Check timestamp against prev
         if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
@@ -4497,7 +4497,7 @@ CBlockTemplate* CreateNewBlock(CReserveKey& reservekey, int algo)
     }
 
     if (pindexBest->nHeight < multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
-	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %d", pindexBest->nHeight, multiAlgoDiffChangeTarget);
+	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %"PRI64d"", pindexBest->nHeight, multiAlgoDiffChangeTarget);
             return NULL;
     }
     
