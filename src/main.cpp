@@ -1273,7 +1273,7 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-static const int64 nDiffChangeTarget = 500; // Patch effective @ block 67200
+static const int64 nDiffChangeTarget = 125; // Patch effective @ block 67200
 static const int64 patchBlockRewardDuration = 10080; // 10080 blocks main net change
 
 int64 GetDGBSubsidy(int nHeight) {
