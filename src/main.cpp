@@ -79,7 +79,7 @@ int64 nHPSTimerStart = 0;
 // Settings
 int64 nTransactionFee = 0;
 
-int miningAlgo = ALGO_SHA256D;
+int miningAlgo = ALGO_SCRYPT;
 
 
 
@@ -1546,7 +1546,8 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
 
     // Check proof of work matches claimed amount
     if (hash > bnTarget.getuint256())
-        return error("CheckProofOfWork(algo=%d) : hash doesn't match nBits", algo);
+        printf("hash %s, target %s", hash.ToString().c_str(), bnTarget.getuint256().ToString().c_str());
+        return error("CheckProofOfWork(algo=%d) : hash doesn't match nBits ", algo);
 
     return true;
 }
@@ -4477,7 +4478,7 @@ CBlockTemplate* CreateNewBlock(CReserveKey& reservekey, int algo)
     pblock->nVersion = BLOCK_VERSION_DEFAULT;
     switch (algo)
     {
-        case ALGO_SCRYPT:
+	case ALGO_SCRYPT:
             break;
         case ALGO_SHA256D:
             pblock->nVersion |= BLOCK_VERSION_SHA256D;

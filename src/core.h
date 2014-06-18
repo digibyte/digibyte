@@ -16,8 +16,8 @@
 #include <stdio.h>
 
 enum { 
-    ALGO_SCRYPT  = 0, 
-    ALGO_SHA256D = 1, 
+    ALGO_SHA256D = 0,
+    ALGO_SCRYPT  = 1, 
     ALGO_GROESTL = 2,
     ALGO_SKEIN   = 3,
     ALGO_QUBIT   = 4,
@@ -26,7 +26,7 @@ enum {
 enum
 {
     // primary version
-    BLOCK_VERSION_DEFAULT        = 2,
+    BLOCK_VERSION_DEFAULT        = 1,
 
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),
@@ -38,21 +38,27 @@ enum
 
 inline int GetAlgo(int nVersion)
 {
-    switch (nVersion & BLOCK_VERSION_ALGO)
+  switch (nVersion & BLOCK_VERSION_ALGO)
     {
-        case 0:
+        case 1:
+	    printf("nVersion %d  BLOCK_VERSION_ALGO %d algo %d", nVersion, BLOCK_VERSION_ALGO, ALGO_SHA256D);
             return ALGO_SCRYPT;
         case BLOCK_VERSION_SHA256D:
+	    printf("nVersion %d  BLOCK_VERSION_ALGO %d both %d algo %d sha ", nVersion, BLOCK_VERSION_ALGO, (nVersion & BLOCK_VERSION_ALGO), ALGO_SCRYPT);
             return ALGO_SHA256D;
         case BLOCK_VERSION_GROESTL:
+	    printf("nVersion %d  BLOCK_VERSION_ALGO %d", nVersion, BLOCK_VERSION_ALGO);
             return ALGO_GROESTL;
         case BLOCK_VERSION_SKEIN:
+	    printf("nVersion %d  BLOCK_VERSION_ALGO %d", nVersion, BLOCK_VERSION_ALGO);
             return ALGO_SKEIN;
         case BLOCK_VERSION_QUBIT:
+	    printf("nVersion %d  BLOCK_VERSION_ALGO %d", nVersion, BLOCK_VERSION_ALGO);
             return ALGO_QUBIT;
     }
-    return ALGO_SHA256D;
+    return ALGO_SCRYPT;
 }
+
 
 inline std::string GetAlgoName(int Algo)
 {
