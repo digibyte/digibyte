@@ -24,10 +24,10 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         // The message start string is designed to be unlikely to occur in normal data.
-        pchMessageStart[0] = 0xfa;
-        pchMessageStart[1] = 0xc3;
-        pchMessageStart[2] = 0xb6;
-        pchMessageStart[3] = 0xda;
+        pchMessageStart[0] = 0xfc;
+        pchMessageStart[1] = 0xc1;
+        pchMessageStart[2] = 0xb7;
+        pchMessageStart[3] = 0xdc;
         vAlertPubKey = ParseHex("04F04441C4757F356290A37C313C3772C5BC5003E898EB2E0CF365795543A7BF690C8BBBFA32EE3A3325477CE2000B7D0453EFBB203329D0F9DF34D5927D022BC9");
         nDefaultPort = 11024;
         nRPCPort = 11022;
@@ -54,9 +54,9 @@ public:
         genesis.nVersion = 1;
         //genesis.nVersion = 1;
        
-	genesis.nTime    = 1389388394;
+	genesis.nTime    = 1392796564;
         genesis.nBits    = 0x1e0ffff0;
-        genesis.nNonce   = 2447652; 
+        genesis.nNonce   = 961533; 
         //// debug print
         hashGenesisBlock = genesis.GetHash();
         //while (hashGenesisBlock > bnProofOfWorkLimit[ALGO_SHA256D].getuint256()){
@@ -68,8 +68,8 @@ public:
         //printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         //printf("%x\n", bnProofOfWorkLimit[ALGO_SCRYPT].GetCompact());
         //genesis.print();
-        //assert(hashGenesisBlock == uint256("0xb5dca8039e300198e5fe7cd23bdd1728e2a444af34c447dbd0916fa3430a68c2"));
-        assert(hashGenesisBlock == uint256("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"));
+        assert(hashGenesisBlock == uint256("0xb5dca8039e300198e5fe7cd23bdd1728e2a444af34c447dbd0916fa3430a68c2"));
+        //assert(hashGenesisBlock == uint256("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"));
         assert(genesis.hashMerkleRoot == uint256("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         //vSeeds.push_back(CDNSSeedData("digibyte.co seed #1", "seed1.digibyte.co"));

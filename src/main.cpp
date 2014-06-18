@@ -1545,9 +1545,10 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
         return error("CheckProofOfWork(algo=%d) : nBits below minimum work", algo);
 
     // Check proof of work matches claimed amount
-    if (hash > bnTarget.getuint256())
+    if (hash > bnTarget.getuint256()) {
         printf("hash %s, target %s", hash.ToString().c_str(), bnTarget.getuint256().ToString().c_str());
         return error("CheckProofOfWork(algo=%d) : hash doesn't match nBits ", algo);
+    }
 
     return true;
 }
