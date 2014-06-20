@@ -688,7 +688,7 @@ enum BlockStatus {
     BLOCK_FAILED_MASK        =   96
 };
 
-static const int64 multiAlgoDiffChangeTarget = 200; // Patch effective @ block 67200
+static const int64 multiAlgoDiffChangeTarget = 100; // Patch effective @ block 67200
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple

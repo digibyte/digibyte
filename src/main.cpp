@@ -1273,7 +1273,7 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-static const int64 nDiffChangeTarget = 125; // Patch effective @ block 67200
+static const int64 nDiffChangeTarget = 75; // Patch effective @ block 67200
 static const int64 patchBlockRewardDuration = 10080; // 10080 blocks main net change
 
 int64 GetDGBSubsidy(int nHeight) {
@@ -1330,12 +1330,12 @@ static const int64 multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 
 static const int64 multiAlgoInterval = 1; // retargets every blocks
 
 static const int64 nAveragingInterval = 10; // 10 blocks
-static const int64 nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
+//static const int64 nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
 
-static const int64 nMaxAdjustDown = 4; // 4% adjustment down
-static const int64 nMaxAdjustUp = 2; // 2% adjustment up
+//static const int64 nMaxAdjustDown = 4; // 4% adjustment down
+//static const int64 nMaxAdjustUp = 2; // 2% adjustment up
 
-static const int64 nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
+//static const int64 nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 //
 // minimum amount of work that could possibly be required nTime after
@@ -1367,8 +1367,8 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
     return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
 }
 
-static const int64 nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
-static const int64 nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+//static const int64 nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
+//static const int64 nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -1464,6 +1464,9 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
 static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
     unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
+      
+    retargetTimespan = multiAlgoTargetTimespan;
+    retargetInterval = multiAlgoInterval;
     
     // Genesis block
     if (pindexLast == NULL)
@@ -1487,33 +1490,35 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
         }
     }
 
-    // find previous block with same algo
-    const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
-    
-    // find first block in averaging interval
-    // Go back by what we want to be nAveragingInterval blocks
+    int blockstogoback = retargetInterval-1;
+    if ((pindexLast->nHeight+1) != retargetInterval)
+        blockstogoback = retargetInterval;
+
     const CBlockIndex* pindexFirst = pindexPrev;
-    for (int i = 0; pindexFirst && i < nAveragingInterval - 1; i++)
+    for (int i = 0; pindexFirst && i < blockstogoback; i++)
     {
         pindexFirst = pindexFirst->pprev;
-        pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
+	pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
     }
+    
     if (pindexFirst == NULL)
         return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
 
     // Limit adjustment step
     int64 nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nMinActualTimespan)
-        nActualTimespan = nMinActualTimespan;
-    if (nActualTimespan > nMaxActualTimespan)
-        nActualTimespan = nMaxActualTimespan;
+    // amplitude filter - thanks to daft27 for this code
+    nActualTimespan = retargetTimespan + (nActualTimespan - retargetTimespan)/8;
+
+    if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+    if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));    
+
 
     // Retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
     bnNew *= nActualTimespan;
-    bnNew /= nAveragingTargetTimespan;
+    bnNew /= retargetTimespan; 
 
     if (bnNew > Params().ProofOfWorkLimit(algo))
         bnNew = Params().ProofOfWorkLimit(algo);
