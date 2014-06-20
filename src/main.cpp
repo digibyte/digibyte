@@ -1494,7 +1494,7 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
     if ((pindexLast->nHeight+1) != retargetInterval)
         blockstogoback = retargetInterval;
 
-    const CBlockIndex* pindexFirst = pindexPrev;
+    const CBlockIndex* pindexFirst = pindexLast;
     for (int i = 0; pindexFirst && i < blockstogoback; i++)
     {
         pindexFirst = pindexFirst->pprev;
@@ -1505,7 +1505,7 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
         return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
 
     // Limit adjustment step
-    int64 nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
+    int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
     // amplitude filter - thanks to daft27 for this code
     nActualTimespan = retargetTimespan + (nActualTimespan - retargetTimespan)/8;
@@ -1516,7 +1516,7 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
 
     // Retarget
     CBigNum bnNew;
-    bnNew.SetCompact(pindexPrev->nBits);
+    bnNew.SetCompact(pindexLast->nBits);
     bnNew *= nActualTimespan;
     bnNew /= retargetTimespan; 
 
@@ -1525,8 +1525,8 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
 
     /// debug print
     printf("GetNextWorkRequired RETARGET\n");
-    printf("nTargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", nAveragingTargetTimespan, nActualTimespan);
-    printf("Before: %08x  %s\n", pindexPrev->nBits, CBigNum().SetCompact(pindexPrev->nBits).getuint256().ToString().c_str());
+    printf("nTargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", retargetTimespan, nActualTimespan);
+    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
     printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
 
     return bnNew.GetCompact();
