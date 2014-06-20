@@ -1465,8 +1465,8 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
 {
     unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
       
-    retargetTimespan = multiAlgoTargetTimespan;
-    retargetInterval = multiAlgoInterval;
+    int64 retargetTimespan = multiAlgoTargetTimespan;
+    int64 retargetInterval = multiAlgoInterval;
     
     // Genesis block
     if (pindexLast == NULL)
