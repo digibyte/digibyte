@@ -1,7 +1,7 @@
 src/*.exe
-src/zetacoin
-src/zetacoind
-src/test_zetacoin
+src/myriadcoin
+src/myriadcoind
+src/test_myriadcoin
 .*.swp
 *.*~*
 *.bak
@@ -9,17 +9,17 @@ src/test_zetacoin
 *.orig
 *.o
 *.patch
-.zetacoin
+.myriadcoin
 
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-zetacoin-qt
-Zetacoin-Qt.app
+myriadcoin-qt
+Myriadcoin-Qt.app
 
 # Unit-tests
 Makefile.test
-zetacoin-qt_test
+myriadcoin-qt_test
 
 # Resources cpp
 qrc_*.cpp
