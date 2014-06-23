@@ -38,9 +38,6 @@ static const int kL0_StopWritesTrigger = 12;
 // space if the same key space is being repeatedly overwritten.
 static const int kMaxMemCompactLevel = 2;
 
-// Approximate gap in bytes between samples of data read during iteration.
-static const int kReadBytesPeriod = 1048576;
-
 }  // namespace config
 
 class InternalKey;
