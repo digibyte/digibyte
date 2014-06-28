@@ -1690,12 +1690,11 @@ std::map<CTxDestination, int64> CWallet::GetAddressBalances()
             if (!IsFinalTx(*pcoin) || !pcoin->IsConfirmed())
                 continue;
 			
-			int nDepth = pcoin->GetDepthInMainChain(pcoin->GetDepthInMainChain());
+	    int nDepth = pcoin->GetDepthInMainChain();
 			
             if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(nDepth) > 0)
                 continue;
 
-            int nDepth = pcoin->GetDepthInMainChain();
             if (nDepth < (pcoin->IsFromMe() ? 0 : 1))
                 continue;
 
