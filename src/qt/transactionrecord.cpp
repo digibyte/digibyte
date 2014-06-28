@@ -171,7 +171,7 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
         }
         else
         {
-            status.status = TracmatnsactionStatus::OpenUntilDate;
+            status.status = TransactionStatus::OpenUntilDate;
             status.open_for = wtx.nLockTime;
         }
     }
