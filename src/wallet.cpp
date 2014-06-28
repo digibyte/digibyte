@@ -1486,7 +1486,7 @@ void CWallet::PrintWallet(const CBlock& block)
         if (mapWallet.count(block.vtx[0].GetHash()))
         {
             CWalletTx& wtx = mapWallet[block.vtx[0].GetHash()];
-            printf("    mine:  %d  %d  %"PRI64d"", wtx.GetDepthInMainChain(), wtx.GetBlocksToMaturity(), wtx.GetCredit());
+            printf("    mine:  %d  %d  %"PRI64d"", wtx.GetDepthInMainChain(), wtx.GetBlocksToMaturity(wtx.GetDepthInMainChain()), wtx.GetCredit());
         }
     }
     printf("\n");
@@ -1690,7 +1690,7 @@ std::map<CTxDestination, int64> CWallet::GetAddressBalances()
             if (!IsFinalTx(*pcoin) || !pcoin->IsConfirmed())
                 continue;
 			
-			int nDepth = pcoin->GetDepthInMainChain();
+			int nDepth = pcoin->GetDepthInMainChain(pcoin->GetDepthInMainChain());
 			
             if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(nDepth) > 0)
                 continue;
