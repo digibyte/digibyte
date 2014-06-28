@@ -1001,7 +1001,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed) const
             if (fOnlyConfirmed && !pcoin->IsConfirmed())
                 continue;
 
-            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity() > 0)
+            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(pcoin->GetDepthInMainChain()) > 0)
                 continue;
 
             for (unsigned int i = 0; i < pcoin->vout.size(); i++) {
@@ -1689,8 +1689,10 @@ std::map<CTxDestination, int64> CWallet::GetAddressBalances()
 
             if (!IsFinalTx(*pcoin) || !pcoin->IsConfirmed())
                 continue;
-
-            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity() > 0)
+			
+			int nDepth = pcoin->GetDepthInMainChain();
+			
+            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(nDepth) > 0)
                 continue;
 
             int nDepth = pcoin->GetDepthInMainChain();

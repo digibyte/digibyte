@@ -1068,11 +1068,11 @@ int CMerkleTx::GetDepthInMainChain(CBlockIndex* &pindexRet) const
 }
 
 
-int CMerkleTx::GetBlocksToMaturity() const
+int CMerkleTx::GetBlocksToMaturity(int nHeight) const
 {
     if (!IsCoinBase())
         return 0;
-    if ( pindexBest->nHeight < multiAlgoDiffChangeTarget ) 
+    if ( nHeight < multiAlgoDiffChangeTarget ) 
         return max(0, (COINBASE_MATURITY+1) - GetDepthInMainChain());
     return max(0, (COINBASE_MATURITY_2+1) - GetDepthInMainChain());
 }

@@ -171,7 +171,7 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
         }
         else
         {
-            status.status = TransactionStatus::OpenUntilDate;
+            status.status = TracmatnsactionStatus::OpenUntilDate;
             status.open_for = wtx.nLockTime;
         }
     }
@@ -201,7 +201,7 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
 
             if (wtx.IsInMainChain())
             {
-                status.matures_in = wtx.GetBlocksToMaturity();
+                status.matures_in = wtx.GetBlocksToMaturity(status.depth);
 
                 // Check if the block was requested by anyone
                 if (GetAdjustedTime() - wtx.nTimeReceived > 2 * 60 && wtx.GetRequestCount() == 0)

@@ -476,7 +476,7 @@ public:
     int GetDepthInMainChain(CBlockIndex* &pindexRet) const;
     int GetDepthInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChain(pindexRet); }
     bool IsInMainChain() const { return GetDepthInMainChain() > 0; }
-    int GetBlocksToMaturity() const;
+    int GetBlocksToMaturity(int nHeight) const;
     bool AcceptToMemoryPool(bool fLimitFree=true);
 };
 
