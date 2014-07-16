@@ -1777,8 +1777,10 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, CCoinsViewCach
 			//return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
 			return state.Invalid(error("CheckInputs() : tried coinbase at depth %d %d %d %d", 
 						nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY));
-                } else if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2) {
-			return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
+                } 
+		if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2) {
+			return state.Invalid(error("CheckInputs() : Maturity v2: tried to spend coinbase at depth %d %d %d %d", 
+						 nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY2));
 		}
             }
 
