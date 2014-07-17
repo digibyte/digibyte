@@ -41,19 +41,14 @@ inline int GetAlgo(int nVersion)
   switch (nVersion & BLOCK_VERSION_ALGO)
     {
         case 1:
-	    printf("nVersion %d  BLOCK_VERSION_ALGO %d algo %d", nVersion, BLOCK_VERSION_ALGO, ALGO_SHA256D);
             return ALGO_SCRYPT;
         case BLOCK_VERSION_SHA256D:
-	    printf("nVersion %d  BLOCK_VERSION_ALGO %d both %d algo %d sha ", nVersion, BLOCK_VERSION_ALGO, (nVersion & BLOCK_VERSION_ALGO), ALGO_SCRYPT);
             return ALGO_SHA256D;
         case BLOCK_VERSION_GROESTL:
-	    printf("nVersion %d  BLOCK_VERSION_ALGO %d", nVersion, BLOCK_VERSION_ALGO);
             return ALGO_GROESTL;
         case BLOCK_VERSION_SKEIN:
-	    printf("nVersion %d  BLOCK_VERSION_ALGO %d", nVersion, BLOCK_VERSION_ALGO);
             return ALGO_SKEIN;
         case BLOCK_VERSION_QUBIT:
-	    printf("nVersion %d  BLOCK_VERSION_ALGO %d", nVersion, BLOCK_VERSION_ALGO);
             return ALGO_QUBIT;
     }
     return ALGO_SCRYPT;
