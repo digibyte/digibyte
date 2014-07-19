@@ -30,7 +30,7 @@ enum
 
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),
-    BLOCK_VERSION_SCRYPT         = (1 << 9),
+    BLOCK_VERSION_SHA256D        = (1 << 9),
     BLOCK_VERSION_GROESTL        = (2 << 9),
     BLOCK_VERSION_SKEIN          = (3 << 9),
     BLOCK_VERSION_QUBIT          = (4 << 9),
@@ -40,10 +40,10 @@ inline int GetAlgo(int nVersion)
 {
   switch (nVersion & BLOCK_VERSION_ALGO)
     {
-        case 0:
-            return ALGO_SHA256D;
-        case BLOCK_VERSION_SCRYPT:
+        case 1:
             return ALGO_SCRYPT;
+        case BLOCK_VERSION_SHA256D:
+            return ALGO_SHA256D;
         case BLOCK_VERSION_GROESTL:
             return ALGO_GROESTL;
         case BLOCK_VERSION_SKEIN:
@@ -51,7 +51,7 @@ inline int GetAlgo(int nVersion)
         case BLOCK_VERSION_QUBIT:
             return ALGO_QUBIT;
     }
-    return ALGO_SHA256D;
+    return ALGO_SCRYPT;
 }
 
 
