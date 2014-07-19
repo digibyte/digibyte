@@ -29,7 +29,7 @@ public:
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
         vAlertPubKey = ParseHex("04F04441C4757F356290A37C313C3772C5BC5003E898EB2E0CF365795543A7BF690C8BBBFA32EE3A3325477CE2000B7D0453EFBB203329D0F9DF34D5927D022BC9");
-        nDefaultPort = 11024;
+        nDefaultPort = 11029;
         nRPCPort = 11022;
         bnProofOfWorkLimit[ALGO_SHA256D] = CBigNum(~uint256(0) >> 20);
         bnProofOfWorkLimit[ALGO_SCRYPT]  = CBigNum(~uint256(0) >> 20);
