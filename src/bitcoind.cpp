@@ -1,23 +1,51 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
+// Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "rpcserver.h"
+#include "rpcclient.h"
 #include "init.h"
-#include "bitcoinrpc.h"
+#include "main.h"
+#include "noui.h"
+#include "ui_interface.h"
+#include "util.h"
+
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/filesystem.hpp>
+
+/* Introduction text for doxygen: */
+
+/*! \mainpage Developer documentation
+ *
+ * \section intro_sec Introduction
+ *
+ * This is the developer documentation of the reference client for an experimental new digital currency called Bitcoin (http://www.bitcoin.org/),
+ * which enables instant payments to anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
+ * with no central authority: managing transactions and issuing money are carried out collectively by the network.
+ *
+ * The software is a community-driven open source project, released under the MIT license.
+ *
+ * \section Navigation
+ * Use the buttons <code>Namespaces</code>, <code>Classes</code> or <code>Files</code> at the top of the page to start navigating the code.
+ */
+
+static bool fDaemon;
 
 void DetectShutdownThread(boost::thread_group* threadGroup)
 {
-    bool shutdown = ShutdownRequested();
+    bool fShutdown = ShutdownRequested();
     // Tell the main threads to shutdown.
-    while (!shutdown)
+    while (!fShutdown)
     {
         MilliSleep(200);
-        shutdown = ShutdownRequested();
+        fShutdown = ShutdownRequested();
     }
     if (threadGroup)
+    {
         threadGroup->interrupt_all();
+        threadGroup->join_all();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -35,49 +63,61 @@ bool AppInit(int argc, char* argv[])
         //
         // Parameters
         //
-        // If Qt is used, parameters/myriadcoin.conf are parsed in qt/bitcoin.cpp's main()
+        // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
         ParseParameters(argc, argv);
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
-            fprintf(stderr, "Error: Specified directory does not exist\n");
-            Shutdown();
+            fprintf(stderr, "Error: Specified data directory \"%s\" does not exist.\n", mapArgs["-datadir"].c_str());
+            return false;
         }
-        ReadConfigFile(mapArgs, mapMultiArgs);
+        try
+        {
+            ReadConfigFile(mapArgs, mapMultiArgs);
+        } catch(std::exception &e) {
+            fprintf(stderr,"Error reading configuration file: %s\n", e.what());
+            return false;
+        }
+        // Check for -testnet or -regtest parameter (TestNet() calls are only valid after this clause)
+        if (!SelectParamsFromCommandLine()) {
+            fprintf(stderr, "Error: Invalid combination of -regtest and -testnet.\n");
+            return false;
+        }
 
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
-            // First part of help message is specific to myriadcoind / RPC client
-            std::string strUsage = _("Myriadcoin version") + " " + FormatFullVersion() + "\n\n" +
+            // First part of help message is specific to bitcoind / RPC client
+            std::string strUsage = _("Myriadcoin Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  myriadcoind [options]                     " + "\n" +
-                  "  myriadcoind [options] <command> [params]  " + _("Send command to -server or myriadcoind") + "\n" +
+                  "  myriadcoind [options]                     " + _("Start Myriadcoin Core Daemon") + "\n" +
+                _("Usage (deprecated, use myriadcoin-cli):") + "\n" +
+                  "  myriadcoind [options] <command> [params]  " + _("Send command to Myriadcoin Core") + "\n" +
                   "  myriadcoind [options] help                " + _("List commands") + "\n" +
                   "  myriadcoind [options] help <command>      " + _("Get help for a command") + "\n";
 
-            strUsage += "\n" + HelpMessage();
+            strUsage += "\n" + HelpMessage(HMM_BITCOIND);
+            strUsage += "\n" + HelpMessageCli(false);
 
             fprintf(stdout, "%s", strUsage.c_str());
             return false;
         }
 
         // Command-line RPC
+        bool fCommandLine = false;
         for (int i = 1; i < argc; i++)
             if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "myriadcoin:"))
                 fCommandLine = true;
 
         if (fCommandLine)
         {
-            if (!SelectParamsFromCommandLine()) {
-                fprintf(stderr, "Error: invalid combination of -regtest and -testnet.\n");
-                return false;
-            }
             int ret = CommandLineRPC(argc, argv);
             exit(ret);
         }
-#if !defined(WIN32)
+#ifndef WIN32
         fDaemon = GetBoolArg("-daemon", false);
         if (fDaemon)
         {
+            fprintf(stdout, "Myriadcoin server starting\n");
+
             // Daemonize
             pid_t pid = fork();
             if (pid < 0)
@@ -97,6 +137,7 @@ bool AppInit(int argc, char* argv[])
                 fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
         }
 #endif
+        SoftSetBoolArg("-server", true);
 
         detectShutdownThread = new boost::thread(boost::bind(&DetectShutdownThread, &threadGroup));
         fRet = AppInit2(threadGroup);
@@ -106,10 +147,16 @@ bool AppInit(int argc, char* argv[])
     } catch (...) {
         PrintExceptionContinue(NULL, "AppInit()");
     }
-    if (!fRet) {
+
+    if (!fRet)
+    {
         if (detectShutdownThread)
             detectShutdownThread->interrupt();
+
         threadGroup.interrupt_all();
+        // threadGroup.join_all(); was left out intentionally here, because we didn't re-test all of
+        // the startup-failure cases to make sure they don't result in a hang due to some
+        // thread-blocking-waiting-for-another-thread-during-startup case
     }
 
     if (detectShutdownThread)
@@ -123,13 +170,13 @@ bool AppInit(int argc, char* argv[])
     return fRet;
 }
 
-extern void noui_connect();
 int main(int argc, char* argv[])
 {
-    bool fRet = false;
-    fHaveGUI = false;
+    SetupEnvironment();
 
-    // Connect myriadcoind signal handlers
+    bool fRet = false;
+
+    // Connect bitcoind signal handlers
     noui_connect();
 
     fRet = AppInit(argc, argv);

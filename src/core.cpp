@@ -1,19 +1,20 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "core.h"
+
 #include "util.h"
 
 std::string COutPoint::ToString() const
 {
-    return strprintf("COutPoint(%s, %u)", hash.ToString().substr(0,10).c_str(), n);
+    return strprintf("COutPoint(%s, %u)", hash.ToString().substr(0,10), n);
 }
 
 void COutPoint::print() const
 {
-    printf("%s\n", ToString().c_str());
+    LogPrintf("%s\n", ToString());
 }
 
 CTxIn::CTxIn(COutPoint prevoutIn, CScript scriptSigIn, unsigned int nSequenceIn)
@@ -36,9 +37,9 @@ std::string CTxIn::ToString() const
     str += "CTxIn(";
     str += prevout.ToString();
     if (prevout.IsNull())
-        str += strprintf(", coinbase %s", HexStr(scriptSig).c_str());
+        str += strprintf(", coinbase %s", HexStr(scriptSig));
     else
-        str += strprintf(", scriptSig=%s", scriptSig.ToString().substr(0,24).c_str());
+        str += strprintf(", scriptSig=%s", scriptSig.ToString().substr(0,24));
     if (nSequence != std::numeric_limits<unsigned int>::max())
         str += strprintf(", nSequence=%u", nSequence);
     str += ")";
@@ -47,10 +48,10 @@ std::string CTxIn::ToString() const
 
 void CTxIn::print() const
 {
-    printf("%s\n", ToString().c_str());
+    LogPrintf("%s\n", ToString());
 }
 
-CTxOut::CTxOut(int64 nValueIn, CScript scriptPubKeyIn)
+CTxOut::CTxOut(int64_t nValueIn, CScript scriptPubKeyIn)
 {
     nValue = nValueIn;
     scriptPubKey = scriptPubKeyIn;
@@ -63,14 +64,12 @@ uint256 CTxOut::GetHash() const
 
 std::string CTxOut::ToString() const
 {
-    if (scriptPubKey.size() < 6)
-        return "CTxOut(error)";
-    return strprintf("CTxOut(nValue=%"PRI64d".%08"PRI64d", scriptPubKey=%s)", nValue / COIN, nValue % COIN, scriptPubKey.ToString().substr(0,30).c_str());
+    return strprintf("CTxOut(nValue=%d.%08d, scriptPubKey=%s)", nValue / COIN, nValue % COIN, scriptPubKey.ToString().substr(0,30));
 }
 
 void CTxOut::print() const
 {
-    printf("%s\n", ToString().c_str());
+    LogPrintf("%s\n", ToString());
 }
 
 uint256 CTransaction::GetHash() const
@@ -107,11 +106,42 @@ bool CTransaction::IsNewerThan(const CTransaction& old) const
     return fNewer;
 }
 
+int64_t CTransaction::GetValueOut() const
+{
+    int64_t nValueOut = 0;
+    BOOST_FOREACH(const CTxOut& txout, vout)
+    {
+        nValueOut += txout.nValue;
+        if (!MoneyRange(txout.nValue) || !MoneyRange(nValueOut))
+            throw std::runtime_error("CTransaction::GetValueOut() : value out of range");
+    }
+    return nValueOut;
+}
+
+double CTransaction::ComputePriority(double dPriorityInputs, unsigned int nTxSize) const
+{
+    // In order to avoid disincentivizing cleaning up the UTXO set we don't count
+    // the constant overhead for each txin and up to 110 bytes of scriptSig (which
+    // is enough to cover a compressed pubkey p2sh redemption) for priority.
+    // Providing any more cleanup incentive than making additional inputs free would
+    // risk encouraging people to create junk outputs to redeem later.
+    if (nTxSize == 0)
+        nTxSize = ::GetSerializeSize(*this, SER_NETWORK, PROTOCOL_VERSION);
+    BOOST_FOREACH(const CTxIn& txin, vin)
+    {
+        unsigned int offset = 41U + std::min(110U, (unsigned int)txin.scriptSig.size());
+        if (nTxSize > offset)
+            nTxSize -= offset;
+    }
+    if (nTxSize == 0) return 0.0;
+    return dPriorityInputs / nTxSize;
+}
+
 std::string CTransaction::ToString() const
 {
     std::string str;
-    str += strprintf("CTransaction(hash=%s, ver=%d, vin.size=%"PRIszu", vout.size=%"PRIszu", nLockTime=%u)\n",
-        GetHash().ToString().substr(0,10).c_str(),
+    str += strprintf("CTransaction(hash=%s, ver=%d, vin.size=%u, vout.size=%u, nLockTime=%u)\n",
+        GetHash().ToString().substr(0,10),
         nVersion,
         vin.size(),
         vout.size(),
@@ -125,7 +155,7 @@ std::string CTransaction::ToString() const
 
 void CTransaction::print() const
 {
-    printf("%s", ToString().c_str());
+    LogPrintf("%s", ToString());
 }
 
 // Amount compression:
@@ -137,7 +167,7 @@ void CTransaction::print() const
 // * if e==9, we only know the resulting number is not zero, so output 1 + 10*(n - 1) + 9
 // (this is decodable, as d is in [1-9] and e is in [0-9])
 
-uint64 CTxOutCompressor::CompressAmount(uint64 n)
+uint64_t CTxOutCompressor::CompressAmount(uint64_t n)
 {
     if (n == 0)
         return 0;
@@ -156,7 +186,7 @@ uint64 CTxOutCompressor::CompressAmount(uint64 n)
     }
 }
 
-uint64 CTxOutCompressor::DecompressAmount(uint64 x)
+uint64_t CTxOutCompressor::DecompressAmount(uint64_t x)
 {
     // x = 0  OR  x = 1+10*(9*n + d - 1) + e  OR  x = 1+10*(n - 1) + 9
     if (x == 0)
@@ -165,7 +195,7 @@ uint64 CTxOutCompressor::DecompressAmount(uint64 x)
     // x = 10*(9*n + d - 1) + e
     int e = x % 10;
     x /= 10;
-    uint64 n = 0;
+    uint64_t n = 0;
     if (e < 9) {
         // x = 9*n + d - 1
         int d = (x % 9) + 1;
@@ -180,49 +210,6 @@ uint64 CTxOutCompressor::DecompressAmount(uint64 x)
         e--;
     }
     return n;
-}
-
-// calculate number of bytes for the bitmask, and its number of non-zero bytes
-// each bit in the bitmask represents the availability of one output, but the
-// availabilities of the first two outputs are encoded separately
-void CCoins::CalcMaskSize(unsigned int &nBytes, unsigned int &nNonzeroBytes) const {
-    unsigned int nLastUsedByte = 0;
-    for (unsigned int b = 0; 2+b*8 < vout.size(); b++) {
-        bool fZero = true;
-        for (unsigned int i = 0; i < 8 && 2+b*8+i < vout.size(); i++) {
-            if (!vout[2+b*8+i].IsNull()) {
-                fZero = false;
-                continue;
-            }
-        }
-        if (!fZero) {
-            nLastUsedByte = b + 1;
-            nNonzeroBytes++;
-        }
-    }
-    nBytes += nLastUsedByte;
-}
-
-bool CCoins::Spend(const COutPoint &out, CTxInUndo &undo) {
-    if (out.n >= vout.size())
-        return false;
-    if (vout[out.n].IsNull())
-        return false;
-    undo = CTxInUndo(vout[out.n]);
-    vout[out.n].SetNull();
-    Cleanup();
-    if (vout.size() == 0) {
-        undo.nHeight = nHeight;
-        undo.fCoinBase = fCoinBase;
-        undo.nVersion = this->nVersion;
-    }
-    return true;
-}
-
-bool CCoins::Spend(int nPos) {
-    CTxInUndo undo;
-    COutPoint out(0, nPos);
-    return Spend(out, undo);
 }
 
 uint256 CBlockHeader::GetHash() const
@@ -282,21 +269,21 @@ uint256 CBlock::CheckMerkleBranch(uint256 hash, const std::vector<uint256>& vMer
 
 void CBlock::print() const
 {
-    printf("CBlock(hash=%s, ver=%d, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%"PRIszu")\n",
-        GetHash().ToString().c_str(),
+    LogPrintf("CBlock(hash=%s, ver=%d, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
+        GetHash().ToString(),
         nVersion, GetAlgo(),
         GetPoWHash(GetAlgo()).ToString().c_str(),
-        hashPrevBlock.ToString().c_str(),
-        hashMerkleRoot.ToString().c_str(),
+        hashPrevBlock.ToString(),
+        hashMerkleRoot.ToString(),
         nTime, nBits, nNonce,
         vtx.size());
     for (unsigned int i = 0; i < vtx.size(); i++)
     {
-        printf("  ");
+        LogPrintf("  ");
         vtx[i].print();
     }
-    printf("  vMerkleTree: ");
+    LogPrintf("  vMerkleTree: ");
     for (unsigned int i = 0; i < vMerkleTree.size(); i++)
-        printf("%s ", vMerkleTree[i].ToString().c_str());
-    printf("\n");
+        LogPrintf("%s ", vMerkleTree[i].ToString());
+    LogPrintf("\n");
 }

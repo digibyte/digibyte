@@ -1,16 +1,26 @@
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+#include "data/tx_invalid.json.h"
+#include "data/tx_valid.json.h"
+
+#include "key.h"
+#include "keystore.h"
+#include "main.h"
+#include "script.h"
+
 #include <map>
 #include <string>
+
 #include <boost/test/unit_test.hpp>
 #include "json/json_spirit_writer_template.h"
-
-#include "main.h"
-#include "wallet.h"
 
 using namespace std;
 using namespace json_spirit;
 
 // In script_tests.cpp
-extern Array read_json(const std::string& filename);
+extern Array read_json(const std::string& jsondata);
 extern CScript ParseScript(string s);
 
 BOOST_AUTO_TEST_SUITE(transaction_tests)
@@ -22,7 +32,7 @@ BOOST_AUTO_TEST_CASE(tx_valid)
     // Inner arrays are either [ "comment" ]
     // or [[[prevout hash, prevout index, prevout scriptPubKey], [input 2], ...],"], serializedTransaction, enforceP2SH
     // ... where all scripts are stringified scripts.
-    Array tests = read_json("tx_valid.json");
+    Array tests = read_json(std::string(json_tests::tx_valid, json_tests::tx_valid + sizeof(json_tests::tx_valid)));
 
     BOOST_FOREACH(Value& tv, tests)
     {
@@ -91,7 +101,7 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
     // Inner arrays are either [ "comment" ]
     // or [[[prevout hash, prevout index, prevout scriptPubKey], [input 2], ...],"], serializedTransaction, enforceP2SH
     // ... where all scripts are stringified scripts.
-    Array tests = read_json("tx_invalid.json");
+    Array tests = read_json(std::string(json_tests::tx_invalid, json_tests::tx_invalid + sizeof(json_tests::tx_invalid)));
 
     BOOST_FOREACH(Value& tv, tests)
     {
@@ -244,6 +254,7 @@ BOOST_AUTO_TEST_CASE(test_Get)
 
 BOOST_AUTO_TEST_CASE(test_IsStandard)
 {
+    LOCK(cs_main);
     CBasicKeyStore keystore;
     CCoinsView coinsDummy;
     CCoinsViewCache coins(coinsDummy);
@@ -263,13 +274,40 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     string reason;
     BOOST_CHECK(IsStandardTx(t, reason));
 
-    t.vout[0].nValue = 5011; // dust
+    t.vout[0].nValue = 501; // dust
     BOOST_CHECK(!IsStandardTx(t, reason));
 
-    t.vout[0].nValue = 6011; // not dust
+    t.vout[0].nValue = 601; // not dust
     BOOST_CHECK(IsStandardTx(t, reason));
 
     t.vout[0].scriptPubKey = CScript() << OP_1;
+    BOOST_CHECK(!IsStandardTx(t, reason));
+
+    // 40-byte TX_NULL_DATA (standard)
+    t.vout[0].scriptPubKey = CScript() << OP_RETURN << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38");
+    BOOST_CHECK(IsStandardTx(t, reason));
+
+    // 41-byte TX_NULL_DATA (non-standard)
+    t.vout[0].scriptPubKey = CScript() << OP_RETURN << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef3800");
+    BOOST_CHECK(!IsStandardTx(t, reason));
+
+    // TX_NULL_DATA w/o PUSHDATA
+    t.vout.resize(1);
+    t.vout[0].scriptPubKey = CScript() << OP_RETURN;
+    BOOST_CHECK(IsStandardTx(t, reason));
+
+    // Only one TX_NULL_DATA permitted in all cases
+    t.vout.resize(2);
+    t.vout[0].scriptPubKey = CScript() << OP_RETURN << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38");
+    t.vout[1].scriptPubKey = CScript() << OP_RETURN << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38");
+    BOOST_CHECK(!IsStandardTx(t, reason));
+
+    t.vout[0].scriptPubKey = CScript() << OP_RETURN << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38");
+    t.vout[1].scriptPubKey = CScript() << OP_RETURN;
+    BOOST_CHECK(!IsStandardTx(t, reason));
+
+    t.vout[0].scriptPubKey = CScript() << OP_RETURN;
+    t.vout[1].scriptPubKey = CScript() << OP_RETURN;
     BOOST_CHECK(!IsStandardTx(t, reason));
 }
 

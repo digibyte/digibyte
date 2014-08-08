@@ -1,19 +1,19 @@
 // Copyright (c) 2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#include <math.h>
-#include <stdlib.h>
 
 #include "bloom.h"
+
 #include "core.h"
 #include "script.h"
+
+#include <math.h>
+#include <stdlib.h>
 
 #define LN2SQUARED 0.4804530139182014246671025263266649717305529515945455
 #define LN2 0.6931471805599453094172321214581765680755001343602552
 
 using namespace std;
-
-static const unsigned char bit_mask[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
 CBloomFilter::CBloomFilter(unsigned int nElements, double nFPRate, unsigned int nTweakIn, unsigned char nFlagsIn) :
 // The ideal size for a bloom filter with a given number of elements and false positive rate is:
@@ -23,6 +23,8 @@ vData(min((unsigned int)(-1  / LN2SQUARED * nElements * log(nFPRate)), MAX_BLOOM
 // The ideal number of hash functions is filter size * ln(2) / number of elements
 // Again, we ignore filter parameters which will create a bloom filter with more hash functions than the protocol limits
 // See http://en.wikipedia.org/wiki/Bloom_filter for an explanation of these formulas
+isFull(false),
+isEmpty(false),
 nHashFuncs(min((unsigned int)(vData.size() * 8 / nElements * LN2), MAX_HASH_FUNCS)),
 nTweak(nTweakIn),
 nFlags(nFlagsIn)
@@ -37,14 +39,15 @@ inline unsigned int CBloomFilter::Hash(unsigned int nHashNum, const std::vector<
 
 void CBloomFilter::insert(const vector<unsigned char>& vKey)
 {
-    if (vData.size() == 1 && vData[0] == 0xff)
+    if (isFull)
         return;
     for (unsigned int i = 0; i < nHashFuncs; i++)
     {
         unsigned int nIndex = Hash(i, vKey);
         // Sets bit nIndex of vData
-        vData[nIndex >> 3] |= bit_mask[7 & nIndex];
+        vData[nIndex >> 3] |= (1 << (7 & nIndex));
     }
+    isEmpty = false;
 }
 
 void CBloomFilter::insert(const COutPoint& outpoint)
@@ -63,13 +66,15 @@ void CBloomFilter::insert(const uint256& hash)
 
 bool CBloomFilter::contains(const vector<unsigned char>& vKey) const
 {
-    if (vData.size() == 1 && vData[0] == 0xff)
+    if (isFull)
         return true;
+    if (isEmpty)
+        return false;
     for (unsigned int i = 0; i < nHashFuncs; i++)
     {
         unsigned int nIndex = Hash(i, vKey);
         // Checks bit nIndex of vData
-        if (!(vData[nIndex >> 3] & bit_mask[7 & nIndex]))
+        if (!(vData[nIndex >> 3] & (1 << (7 & nIndex))))
             return false;
     }
     return true;
@@ -99,6 +104,10 @@ bool CBloomFilter::IsRelevantAndUpdate(const CTransaction& tx, const uint256& ha
     bool fFound = false;
     // Match if the filter contains the hash of tx
     //  for finding tx when they appear in a block
+    if (isFull)
+        return true;
+    if (isEmpty)
+        return false;
     if (contains(hash))
         fFound = true;
 
@@ -157,4 +166,17 @@ bool CBloomFilter::IsRelevantAndUpdate(const CTransaction& tx, const uint256& ha
     }
 
     return false;
+}
+
+void CBloomFilter::UpdateEmptyFull()
+{
+    bool full = true;
+    bool empty = true;
+    for (unsigned int i = 0; i < vData.size(); i++)
+    {
+        full &= vData[i] == 0xff;
+        empty &= vData[i] == 0;
+    }
+    isFull = full;
+    isEmpty = empty;
 }
