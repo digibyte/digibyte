@@ -28,7 +28,7 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>Copyright</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>비트코인코어 개발자들</translation>
     </message>
     <message>
@@ -2131,7 +2131,7 @@ Address: %4
         <translation>비트코인코어</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>비트코인코어 개발자들</translation>
     </message>
     <message>

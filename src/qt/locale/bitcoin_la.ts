@@ -27,7 +27,7 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>Copyright</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2130,7 +2130,7 @@ Inscriptio: %4
         <translation>Myriadcoin Nucleus</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>

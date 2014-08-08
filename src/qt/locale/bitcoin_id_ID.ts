@@ -28,7 +28,7 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Copyright</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Pembangun Myriadcoin Core</translation>
     </message>
     <message>
@@ -2131,7 +2131,7 @@ Alamat: %4
         <translation>Myriadcoin Core</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Pembangun Myriadcoin Core</translation>
     </message>
     <message>

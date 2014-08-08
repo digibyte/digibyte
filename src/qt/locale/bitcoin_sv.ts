@@ -29,7 +29,7 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Copyright</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Myriadcoin Core-utvecklarna</translation>
     </message>
     <message>
@@ -2132,7 +2132,7 @@ Adress: %4
         <translation>Myriadcoin Kärna</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Myriadcoin Core-utvecklarna</translation>
     </message>
     <message>

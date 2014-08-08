@@ -31,7 +31,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
         <translation>Copyright</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Los desarrolladores de Myriadcoin Core</translation>
     </message>
     <message>
@@ -2134,7 +2134,7 @@ Dirección: %4
         <translation>Myriadcoin Core</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Los desarrolladores de Myriadcoin Core</translation>
     </message>
     <message>

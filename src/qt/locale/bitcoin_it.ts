@@ -28,7 +28,7 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Copyright</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Gli sviluppatori del Myriadcoin Core</translation>
     </message>
     <message>
@@ -2133,7 +2133,7 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Myriadcoin Core</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Gli sviluppatori del Myriadcoin Core</translation>
     </message>
     <message>

@@ -27,7 +27,7 @@ Platinama pagal MIT/X11 licenciją, kurią rasite faile COPYING arba http://www.
         <translation>Copyright</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2129,7 +2129,7 @@ Adresas: %4</translation>
         <translation>Myriadcoin branduolys</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>

@@ -28,7 +28,7 @@ Tento výrobok obsahuje sofvér, ktorý vyvynul OpenSSL Project pre použitie v 
         <translation>Autorské práva</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Vývojári jadra Myriadcoin</translation>
     </message>
     <message>
@@ -2130,7 +2130,7 @@ Adresa: %4</translation>
         <translation>Jadro Myriadcoin</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Vývojári jadra Myriadcoin</translation>
     </message>
     <message>

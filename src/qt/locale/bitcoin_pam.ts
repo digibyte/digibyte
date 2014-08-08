@@ -26,7 +26,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation>Karapatan ning Pamangopya</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2129,7 +2129,7 @@ Address: %4
         <translation>Kapilubluban ning Myriadcoin</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>

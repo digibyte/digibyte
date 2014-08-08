@@ -28,7 +28,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Tous droits réservés</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Les développeurs Myriadcoin Core</translation>
     </message>
     <message>
@@ -2131,7 +2131,7 @@ Adresse : %4
         <translation>Myriadcoin Core</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Les développeurs Myriadcoin Core</translation>
     </message>
     <message>

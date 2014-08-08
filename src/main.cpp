@@ -1972,6 +1972,7 @@ void static UpdateTip(CBlockIndex *pindexNew) {
       Checkpoints::GuessVerificationProgress(chainActive.Tip()));
 
     // Check the version of the last 100 blocks to see if we need to upgrade:
+    /*
     if (!fIsInitialDownload)
     {
         int nUpgraded = 0;
@@ -1988,6 +1989,7 @@ void static UpdateTip(CBlockIndex *pindexNew) {
             // strMiscWarning is read by GetWarnings(), called by Qt and the JSON-RPC code to warn the user:
             strMiscWarning = _("Warning: This version is obsolete, upgrade required!");
     }
+    */
 }
 
 // Disconnect chainActive's tip.

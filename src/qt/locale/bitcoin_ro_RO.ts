@@ -28,7 +28,7 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
         <translation>Drepturi de autor</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Dezvoltatorii Myriadcoin Core</translation>
     </message>
     <message>
@@ -2131,7 +2131,7 @@ Adresa: %4
         <translation>Myriadcoin Core</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Dezvoltatorii Myriadcoin Core</translation>
     </message>
     <message>

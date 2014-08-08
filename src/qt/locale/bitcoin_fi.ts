@@ -29,7 +29,7 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
         <translation>Tekijänoikeus</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Myriadcoin Core kehittäjät</translation>
     </message>
     <message>
@@ -2131,7 +2131,7 @@ Osoite: %4</translation>
         <translation>Bitcoin-ydin</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Myriadcoin Core kehittäjät</translation>
     </message>
     <message>

@@ -28,7 +28,7 @@ Izplatīta saskaņā ar MIT/X11 programmatūras licenci, skatīt pievienoto datn
         <translation>Autortiesības</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Myriadcoin Core izstrādātāji</translation>
     </message>
     <message>
@@ -2131,7 +2131,7 @@ Adrese: %4
         <translation>Myriadcoin Core</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>Myriadcoin Core izstrādātāji</translation>
     </message>
     <message>

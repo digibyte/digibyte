@@ -30,7 +30,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>版權</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>位元幣核心開發人員</translation>
     </message>
     <message>
@@ -2133,7 +2133,7 @@ Address: %4
         <translation>位元幣核心</translation>
     </message>
     <message>
-        <source>The Myriadcoin Core developers</source>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
         <translation>位元幣核心開發人員</translation>
     </message>
     <message>
