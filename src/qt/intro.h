@@ -1,14 +1,19 @@
+// Copyright (c) 2011-2013 The Bitcoin developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef INTRO_H
 #define INTRO_H
 
 #include <QDialog>
-#include <QThread>
 #include <QMutex>
+#include <QThread>
+
+class FreespaceChecker;
 
 namespace Ui {
 class Intro;
 }
-class FreespaceChecker;
 
 /** Introduction screen (pre-GUI startup).
   Allows the user to choose a data directory,
@@ -37,6 +42,7 @@ public:
      * Determine default data directory for operating system.
      */
     static QString getDefaultDataDirectory();
+
 signals:
     void requestCheck();
     void stopThread();

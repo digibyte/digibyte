@@ -2,18 +2,19 @@
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef BITCOIN_CORE_H
 #define BITCOIN_CORE_H
 
-#include "uint256.h"
-#include "serialize.h"
 #include "script.h"
+#include "serialize.h"
+#include "uint256.h"
 #include "scrypt.h"
 #include "hashgroestl.h"
 #include "hashskein.h"
 #include "hashqubit.h"
 
-#include <stdio.h>
+#include <stdint.h>
 
 enum { 
     ALGO_SHA256D = 0, 
@@ -22,7 +23,7 @@ enum {
     ALGO_SKEIN   = 3,
     ALGO_QUBIT   = 4,
     NUM_ALGOS };
-
+    
 enum
 {
     // primary version
@@ -74,6 +75,10 @@ inline std::string GetAlgoName(int Algo)
 
 class CTransaction;
 
+/** No amount larger than this (in satoshi) is valid */
+static const int64_t MAX_MONEY = 21000000 * COIN;
+inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
+
 /** An outpoint - a combination of a transaction hash and an index n into its vout */
 class COutPoint
 {
@@ -110,11 +115,11 @@ public:
 class CInPoint
 {
 public:
-    CTransaction* ptx;
+    const CTransaction* ptx;
     unsigned int n;
 
     CInPoint() { SetNull(); }
-    CInPoint(CTransaction* ptxIn, unsigned int nIn) { ptx = ptxIn; n = nIn; }
+    CInPoint(const CTransaction* ptxIn, unsigned int nIn) { ptx = ptxIn; n = nIn; }
     void SetNull() { ptx = NULL; n = (unsigned int) -1; }
     bool IsNull() const { return (ptx == NULL && n == (unsigned int) -1); }
 };
@@ -175,7 +180,7 @@ public:
 class CTxOut
 {
 public:
-    int64 nValue;
+    int64_t nValue;
     CScript scriptPubKey;
 
     CTxOut()
@@ -183,7 +188,7 @@ public:
         SetNull();
     }
 
-    CTxOut(int64 nValueIn, CScript scriptPubKeyIn);
+    CTxOut(int64_t nValueIn, CScript scriptPubKeyIn);
 
     IMPLEMENT_SERIALIZE
     (
@@ -204,7 +209,7 @@ public:
 
     uint256 GetHash() const;
 
-    bool IsDust(int64 nMinRelayTxFee) const
+    bool IsDust(int64_t nMinRelayTxFee) const
     {
         // "Dust" is defined in terms of CTransaction::nMinRelayTxFee,
         // which has units satoshis-per-kilobyte.
@@ -212,8 +217,8 @@ public:
         // to spend something, then we consider it dust.
         // A typical txout is 34 bytes big, and will
         // need a CTxIn of at least 148 bytes to spend,
-        // so dust is a txout less than 54 uBTC
-        // (5460 satoshis) with default nMinRelayTxFee
+        // so dust is a txout less than 546 satoshis 
+        // with default nMinRelayTxFee.
         return ((nValue*1000)/(3*((int)GetSerializeSize(SER_DISK,0)+148)) < nMinRelayTxFee);
     }
 
@@ -239,8 +244,8 @@ public:
 class CTransaction
 {
 public:
-    static int64 nMinTxFee;
-    static int64 nMinRelayTxFee;
+    static int64_t nMinTxFee;
+    static int64_t nMinRelayTxFee;
     static const int CURRENT_VERSION=1;
     int nVersion;
     std::vector<CTxIn> vin;
@@ -277,6 +282,14 @@ public:
     uint256 GetHash() const;
     bool IsNewerThan(const CTransaction& old) const;
 
+    // Return sum of txouts.
+    int64_t GetValueOut() const;
+    // GetValueIn() is a method on CCoinsViewCache, because
+    // inputs must be known to compute value in.
+
+    // Compute priority, given priority of inputs and (optionally) tx size
+    double ComputePriority(double dPriorityInputs, unsigned int nTxSize=0) const;
+
     bool IsCoinBase() const
     {
         return (vin.size() == 1 && vin[0].prevout.IsNull());
@@ -307,17 +320,17 @@ private:
     CTxOut &txout;
 
 public:
-    static uint64 CompressAmount(uint64 nAmount);
-    static uint64 DecompressAmount(uint64 nAmount);
+    static uint64_t CompressAmount(uint64_t nAmount);
+    static uint64_t DecompressAmount(uint64_t nAmount);
 
     CTxOutCompressor(CTxOut &txoutIn) : txout(txoutIn) { }
 
     IMPLEMENT_SERIALIZE(({
         if (!fRead) {
-            uint64 nVal = CompressAmount(txout.nValue);
+            uint64_t nVal = CompressAmount(txout.nValue);
             READWRITE(VARINT(nVal));
         } else {
-            uint64 nVal = 0;
+            uint64_t nVal = 0;
             READWRITE(VARINT(nVal));
             txout.nValue = DecompressAmount(nVal);
         }
@@ -379,219 +392,6 @@ public:
     IMPLEMENT_SERIALIZE(
         READWRITE(vprevout);
     )
-};
-
-
-/** pruned version of CTransaction: only retains metadata and unspent transaction outputs
- *
- * Serialized format:
- * - VARINT(nVersion)
- * - VARINT(nCode)
- * - unspentness bitvector, for vout[2] and further; least significant byte first
- * - the non-spent CTxOuts (via CTxOutCompressor)
- * - VARINT(nHeight)
- *
- * The nCode value consists of:
- * - bit 1: IsCoinBase()
- * - bit 2: vout[0] is not spent
- * - bit 4: vout[1] is not spent
- * - The higher bits encode N, the number of non-zero bytes in the following bitvector.
- *   - In case both bit 2 and bit 4 are unset, they encode N-1, as there must be at
- *     least one non-spent output).
- *
- * Example: 0104835800816115944e077fe7c803cfa57f29b36bf87c1d358bb85e
- *          <><><--------------------------------------------><---->
- *          |  \                  |                             /
- *    version   code             vout[1]                  height
- *
- *    - version = 1
- *    - code = 4 (vout[1] is not spent, and 0 non-zero bytes of bitvector follow)
- *    - unspentness bitvector: as 0 non-zero bytes follow, it has length 0
- *    - vout[1]: 835800816115944e077fe7c803cfa57f29b36bf87c1d35
- *               * 8358: compact amount representation for 60000000000 (600 BTC)
- *               * 00: special txout type pay-to-pubkey-hash
- *               * 816115944e077fe7c803cfa57f29b36bf87c1d35: address uint160
- *    - height = 203998
- *
- *
- * Example: 0109044086ef97d5790061b01caab50f1b8e9c50a5057eb43c2d9563a4eebbd123008c988f1a4a4de2161e0f50aac7f17e7f9555caa486af3b
- *          <><><--><--------------------------------------------------><----------------------------------------------><---->
- *         /  \   \                     |                                                           |                     /
- *  version  code  unspentness       vout[4]                                                     vout[16]           height
- *
- *  - version = 1
- *  - code = 9 (coinbase, neither vout[0] or vout[1] are unspent,
- *                2 (1, +1 because both bit 2 and bit 4 are unset) non-zero bitvector bytes follow)
- *  - unspentness bitvector: bits 2 (0x04) and 14 (0x4000) are set, so vout[2+2] and vout[14+2] are unspent
- *  - vout[4]: 86ef97d5790061b01caab50f1b8e9c50a5057eb43c2d9563a4ee
- *             * 86ef97d579: compact amount representation for 234925952 (2.35 BTC)
- *             * 00: special txout type pay-to-pubkey-hash
- *             * 61b01caab50f1b8e9c50a5057eb43c2d9563a4ee: address uint160
- *  - vout[16]: bbd123008c988f1a4a4de2161e0f50aac7f17e7f9555caa4
- *              * bbd123: compact amount representation for 110397 (0.001 BTC)
- *              * 00: special txout type pay-to-pubkey-hash
- *              * 8c988f1a4a4de2161e0f50aac7f17e7f9555caa4: address uint160
- *  - height = 120891
- */
-class CCoins
-{
-public:
-    // whether transaction is a coinbase
-    bool fCoinBase;
-
-    // unspent transaction outputs; spent outputs are .IsNull(); spent outputs at the end of the array are dropped
-    std::vector<CTxOut> vout;
-
-    // at which height this transaction was included in the active block chain
-    int nHeight;
-
-    // version of the CTransaction; accesses to this value should probably check for nHeight as well,
-    // as new tx version will probably only be introduced at certain heights
-    int nVersion;
-
-    // construct a CCoins from a CTransaction, at a given height
-    CCoins(const CTransaction &tx, int nHeightIn) : fCoinBase(tx.IsCoinBase()), vout(tx.vout), nHeight(nHeightIn), nVersion(tx.nVersion) { }
-
-    // empty constructor
-    CCoins() : fCoinBase(false), vout(0), nHeight(0), nVersion(0) { }
-
-    // remove spent outputs at the end of vout
-    void Cleanup() {
-        while (vout.size() > 0 && vout.back().IsNull())
-            vout.pop_back();
-        if (vout.empty())
-            std::vector<CTxOut>().swap(vout);
-    }
-
-    void swap(CCoins &to) {
-        std::swap(to.fCoinBase, fCoinBase);
-        to.vout.swap(vout);
-        std::swap(to.nHeight, nHeight);
-        std::swap(to.nVersion, nVersion);
-    }
-
-    // equality test
-    friend bool operator==(const CCoins &a, const CCoins &b) {
-         return a.fCoinBase == b.fCoinBase &&
-                a.nHeight == b.nHeight &&
-                a.nVersion == b.nVersion &&
-                a.vout == b.vout;
-    }
-    friend bool operator!=(const CCoins &a, const CCoins &b) {
-        return !(a == b);
-    }
-
-    void CalcMaskSize(unsigned int &nBytes, unsigned int &nNonzeroBytes) const;
-
-    bool IsCoinBase() const {
-        return fCoinBase;
-    }
-
-    unsigned int GetSerializeSize(int nType, int nVersion) const {
-        unsigned int nSize = 0;
-        unsigned int nMaskSize = 0, nMaskCode = 0;
-        CalcMaskSize(nMaskSize, nMaskCode);
-        bool fFirst = vout.size() > 0 && !vout[0].IsNull();
-        bool fSecond = vout.size() > 1 && !vout[1].IsNull();
-        assert(fFirst || fSecond || nMaskCode);
-        unsigned int nCode = 8*(nMaskCode - (fFirst || fSecond ? 0 : 1)) + (fCoinBase ? 1 : 0) + (fFirst ? 2 : 0) + (fSecond ? 4 : 0);
-        // version
-        nSize += ::GetSerializeSize(VARINT(this->nVersion), nType, nVersion);
-        // size of header code
-        nSize += ::GetSerializeSize(VARINT(nCode), nType, nVersion);
-        // spentness bitmask
-        nSize += nMaskSize;
-        // txouts themself
-        for (unsigned int i = 0; i < vout.size(); i++)
-            if (!vout[i].IsNull())
-                nSize += ::GetSerializeSize(CTxOutCompressor(REF(vout[i])), nType, nVersion);
-        // height
-        nSize += ::GetSerializeSize(VARINT(nHeight), nType, nVersion);
-        return nSize;
-    }
-
-    template<typename Stream>
-    void Serialize(Stream &s, int nType, int nVersion) const {
-        unsigned int nMaskSize = 0, nMaskCode = 0;
-        CalcMaskSize(nMaskSize, nMaskCode);
-        bool fFirst = vout.size() > 0 && !vout[0].IsNull();
-        bool fSecond = vout.size() > 1 && !vout[1].IsNull();
-        assert(fFirst || fSecond || nMaskCode);
-        unsigned int nCode = 8*(nMaskCode - (fFirst || fSecond ? 0 : 1)) + (fCoinBase ? 1 : 0) + (fFirst ? 2 : 0) + (fSecond ? 4 : 0);
-        // version
-        ::Serialize(s, VARINT(this->nVersion), nType, nVersion);
-        // header code
-        ::Serialize(s, VARINT(nCode), nType, nVersion);
-        // spentness bitmask
-        for (unsigned int b = 0; b<nMaskSize; b++) {
-            unsigned char chAvail = 0;
-            for (unsigned int i = 0; i < 8 && 2+b*8+i < vout.size(); i++)
-                if (!vout[2+b*8+i].IsNull())
-                    chAvail |= (1 << i);
-            ::Serialize(s, chAvail, nType, nVersion);
-        }
-        // txouts themself
-        for (unsigned int i = 0; i < vout.size(); i++) {
-            if (!vout[i].IsNull())
-                ::Serialize(s, CTxOutCompressor(REF(vout[i])), nType, nVersion);
-        }
-        // coinbase height
-        ::Serialize(s, VARINT(nHeight), nType, nVersion);
-    }
-
-    template<typename Stream>
-    void Unserialize(Stream &s, int nType, int nVersion) {
-        unsigned int nCode = 0;
-        // version
-        ::Unserialize(s, VARINT(this->nVersion), nType, nVersion);
-        // header code
-        ::Unserialize(s, VARINT(nCode), nType, nVersion);
-        fCoinBase = nCode & 1;
-        std::vector<bool> vAvail(2, false);
-        vAvail[0] = nCode & 2;
-        vAvail[1] = nCode & 4;
-        unsigned int nMaskCode = (nCode / 8) + ((nCode & 6) != 0 ? 0 : 1);
-        // spentness bitmask
-        while (nMaskCode > 0) {
-            unsigned char chAvail = 0;
-            ::Unserialize(s, chAvail, nType, nVersion);
-            for (unsigned int p = 0; p < 8; p++) {
-                bool f = (chAvail & (1 << p)) != 0;
-                vAvail.push_back(f);
-            }
-            if (chAvail != 0)
-                nMaskCode--;
-        }
-        // txouts themself
-        vout.assign(vAvail.size(), CTxOut());
-        for (unsigned int i = 0; i < vAvail.size(); i++) {
-            if (vAvail[i])
-                ::Unserialize(s, REF(CTxOutCompressor(vout[i])), nType, nVersion);
-        }
-        // coinbase height
-        ::Unserialize(s, VARINT(nHeight), nType, nVersion);
-        Cleanup();
-    }
-
-    // mark an outpoint spent, and construct undo information
-    bool Spend(const COutPoint &out, CTxInUndo &undo);
-
-    // mark a vout spent
-    bool Spend(int nPos);
-
-    // check whether a particular output is still available
-    bool IsAvailable(unsigned int nPos) const {
-        return (nPos < vout.size() && !vout[nPos].IsNull());
-    }
-
-    // check whether the entire CCoins is spent
-    // note that only !IsPruned() CCoins can be serialized
-    bool IsPruned() const {
-        BOOST_FOREACH(const CTxOut &out, vout)
-            if (!out.IsNull())
-                return false;
-        return true;
-    }
 };
 
 
@@ -674,9 +474,9 @@ public:
         return GetHash();
     }
     
-    int64 GetBlockTime() const
+    int64_t GetBlockTime() const
     {
-        return (int64)nTime;
+        return (int64_t)nTime;
     }
 };
 
@@ -700,7 +500,7 @@ public:
         SetNull();
         *((CBlockHeader*)this) = header;
     }
-    
+
     IMPLEMENT_SERIALIZE
     (
         READWRITE(*(CBlockHeader*)this);
@@ -737,6 +537,40 @@ public:
     std::vector<uint256> GetMerkleBranch(int nIndex) const;
     static uint256 CheckMerkleBranch(uint256 hash, const std::vector<uint256>& vMerkleBranch, int nIndex);
     void print() const;
+};
+
+
+/** Describes a place in the block chain to another node such that if the
+ * other node doesn't have the same branch, it can find a recent common trunk.
+ * The further back it is, the further before the fork it may be.
+ */
+struct CBlockLocator
+{
+    std::vector<uint256> vHave;
+
+    CBlockLocator() {}
+
+    CBlockLocator(const std::vector<uint256>& vHaveIn)
+    {
+        vHave = vHaveIn;
+    }
+
+    IMPLEMENT_SERIALIZE
+    (
+        if (!(nType & SER_GETHASH))
+            READWRITE(nVersion);
+        READWRITE(vHave);
+    )
+
+    void SetNull()
+    {
+        vHave.clear();
+    }
+
+    bool IsNull()
+    {
+        return vHave.empty();
+    }
 };
 
 #endif
