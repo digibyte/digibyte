@@ -167,8 +167,8 @@ libdigibyte_common_a_SOURCES = \
   $(DIGIBYTE_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libbitcoin_common_a_SOURCES += compat/glibc_compat.cpp
-libbitcoin_common_a_SOURCES += compat/glibcxx_compat.cpp
+libdigibyte_common_a_SOURCES += compat/glibc_compat.cpp
+libdigibyte_common_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
 libdigibyte_cli_a_SOURCES = \
