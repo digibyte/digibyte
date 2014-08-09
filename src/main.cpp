@@ -1204,7 +1204,7 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
 
 static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
-static const int64_t mulitAlgoTargetChange = 145000; // 10080 blocks main net change
+//mulitAlgoTargetChange = 145000 located in main.h
 
 int64_t GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
@@ -1256,13 +1256,17 @@ static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
 static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
 
 //MultiAlgo Target updates
-static const int64_t nAveragingInterval = 10; // 10 blocks
-static const int64_t nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
+static const int64 multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64 multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64 multiAlgoInterval = 1; // retargets every blocks
 
-static const int64_t nMaxAdjustDown = 4; // 4% adjustment down
-static const int64_t nMaxAdjustUp = 2; // 2% adjustment up
+static const int64 nAveragingInterval = 10; // 10 blocks
+static const int64 nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
 
-static const int64_t nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64 nMaxAdjustDown = 40; // 4% adjustment down
+static const int64 nMaxAdjustUp = 20; // 2% adjustment up
+
+static const int64 nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 
 
@@ -1275,9 +1279,12 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 		return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
 }
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock)
+static const int64 nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
+static const int64 nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+
+static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
-    unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit().GetCompact();
+     unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
 	
     int nHeight = pindexLast->nHeight + 1;
     bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget);
@@ -1362,6 +1369,78 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 
     return bnNew.GetCompact();
+}
+
+static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+{
+    unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
+
+    // Genesis block
+    if (pindexLast == NULL)
+        return nProofOfWorkLimit;
+
+    if (TestNet())
+    {
+        // Special difficulty rule for testnet:
+        // If the new block's timestamp is more than 2* 10 minutes
+        // then allow mining of a min-difficulty block.
+        if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+            return nProofOfWorkLimit;
+        else
+        {
+            // Return the last non-special-min-difficulty-rules-block
+            const CBlockIndex* pindex = pindexLast;
+            while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+                pindex = pindex->pprev;
+            return pindex->nBits;
+        }
+    }
+
+    // find previous block with same algo
+    const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
+    
+    // find first block in averaging interval
+    // Go back by what we want to be nAveragingInterval blocks
+    const CBlockIndex* pindexFirst = pindexPrev;
+    for (int i = 0; pindexFirst && i < nAveragingInterval - 1; i++)
+    {
+        pindexFirst = pindexFirst->pprev;
+        pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
+    }
+    if (pindexFirst == NULL)
+        return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
+
+    // Limit adjustment step
+    int64_t nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
+    LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
+    if (nActualTimespan < nMinActualTimespan)
+        nActualTimespan = nMinActualTimespan;
+    if (nActualTimespan > nMaxActualTimespan)
+        nActualTimespan = nMaxActualTimespan;
+
+    // Retarget
+    CBigNum bnNew;
+    bnNew.SetCompact(pindexPrev->nBits);
+    bnNew *= nActualTimespan;
+    bnNew /= nAveragingTargetTimespan;
+
+    if (bnNew > Params().ProofOfWorkLimit(algo))
+        bnNew = Params().ProofOfWorkLimit(algo);
+
+    /// debug print
+    LogPrintf("GetNextWorkRequired RETARGET\n");
+    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
+    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
+    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
+
+    return bnNew.GetCompact();
+}
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+{
+    if (pindexLast->nHeight < multiAlgoDiffChangeTarget)
+        return GetNextWorkRequiredV1(pindexLast, pblock, algo);
+    else
+        return GetNextWorkRequiredV2(pindexLast, pblock, algo);
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits)
@@ -2461,6 +2540,10 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
             return state.DoS(100, error("AcceptBlock() : incorrect proof of work"),
                              REJECT_INVALID, "bad-diffbits");
+							 
+		// Check algo to verify only scrypt before switchover
+        if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
+            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block %s", multiAlgoDiffChangeTarget));
 
         // Check timestamp against prev
         if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
