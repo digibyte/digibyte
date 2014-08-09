@@ -396,10 +396,12 @@ public:
 
     friend class uint160;
     friend class uint256;
+		friend class uint512;
 };
 
 typedef base_uint<160> base_uint160;
 typedef base_uint<256> base_uint256;
+typedef base_uint<512> base_uint512;
 
 
 

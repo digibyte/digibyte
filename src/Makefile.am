@@ -57,7 +57,6 @@ DIGIBYTE_CORE_H = \
   rpcprotocol.h \
   rpcserver.h \
   script.h \
-  scrypt.h \
   serialize.h \
   sync.h \
   threadsafety.h \
@@ -69,7 +68,23 @@ DIGIBYTE_CORE_H = \
   util.h \
   version.h \
   walletdb.h \
-  wallet.h
+  wallet.h \
+  scrypt.h \
+  sph_blake.h \
+  sph_groestl.h \
+  sph_keccak.h \
+  sph_bmw.h \
+  sph_jh.h \
+  sph_skein.h \
+  sph_types.h \
+  sph_echo.h \
+  sph_luffa.h \
+  sph_simd.h \
+  sph_cubehash.h \
+  sph_shavite.h \
+  hashgroestl.h \
+  hashskein.h \
+  hashqubit.h
 
 JSON_H = \
   json/json_spirit.h \
@@ -91,9 +106,7 @@ version.o: obj/build.h
 libdigibyte_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
-  rpcserver.cpp \
   bloom.cpp \
-  chainparams.cpp \
   checkpoints.cpp \
   coins.cpp \
   init.cpp \
@@ -108,6 +121,7 @@ libdigibyte_server_a_SOURCES = \
   rpcmisc.cpp \
   rpcnet.cpp \
   rpcrawtransaction.cpp \
+  rpcserver.cpp \
   txdb.cpp \
   txmempool.cpp \
   $(JSON_H) \
@@ -123,6 +137,7 @@ libdigibyte_wallet_a_SOURCES = \
   $(DIGIBYTE_CORE_H)
 
 libdigibyte_common_a_SOURCES = \
+	base58.cpp \
   allocators.cpp \
   chainparams.cpp \
   core.cpp \
@@ -132,11 +147,29 @@ libdigibyte_common_a_SOURCES = \
   protocol.cpp \
   rpcprotocol.cpp \
   script.cpp \
-  scrypt.cpp \
   sync.cpp \
   util.cpp \
   version.cpp \
+  scrypt.cpp \
+  scrypt-sse2.cpp \
+  blake.c \
+  bmw.c \
+  groestl.c \
+  jh.c \
+  keccak.c \
+  skein.c \
+  aes_helper.c \
+  echo.c \
+  luffa.c \
+  simd.c \
+  cubehash.c \
+  shavite.c \
   $(DIGIBYTE_CORE_H)
+
+if GLIBC_BACK_COMPAT
+libbitcoin_common_a_SOURCES += compat/glibc_compat.cpp
+libbitcoin_common_a_SOURCES += compat/glibcxx_compat.cpp
+endif
 
 libdigibyte_cli_a_SOURCES = \
   rpcclient.cpp \
