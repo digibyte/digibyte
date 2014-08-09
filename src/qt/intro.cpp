@@ -5,6 +5,8 @@
 #include "intro.h"
 #include "ui_intro.h"
 
+#include "guiutil.h"
+
 #include "util.h"
 
 #include <boost/filesystem.hpp>
@@ -59,7 +61,7 @@ void FreespaceChecker::check()
 {
     namespace fs = boost::filesystem;
     QString dataDirStr = intro->getPathToCheck();
-    fs::path dataDir = fs::path(dataDirStr.toStdString());
+    fs::path dataDir = GUIUtil::qstringToBoostPath(dataDirStr);
     uint64_t freeBytesAvailable = 0;
     int replyStatus = ST_OK;
     QString replyMessage = tr("A new data directory will be created.");
@@ -143,7 +145,7 @@ void Intro::setDataDirectory(const QString &dataDir)
 
 QString Intro::getDefaultDataDirectory()
 {
-    return QString::fromStdString(GetDefaultDataDir().string());
+    return GUIUtil::boostPathToQString(GetDefaultDataDir());
 }
 
 void Intro::pickDataDirectory()
@@ -159,7 +161,7 @@ void Intro::pickDataDirectory()
     /* 2) Allow QSettings to override default dir */
     dataDir = settings.value("strDataDir", dataDir).toString();
 
-    if(!fs::exists(dataDir.toStdString()) || GetBoolArg("-choosedatadir", false))
+    if(!fs::exists(GUIUtil::qstringToBoostPath(dataDir)) || GetBoolArg("-choosedatadir", false))
     {
         /* If current default data directory does not exist, let the user choose one */
         Intro intro;
@@ -186,7 +188,12 @@ void Intro::pickDataDirectory()
 
         settings.setValue("strDataDir", dataDir);
     }
-    SoftSetArg("-datadir", dataDir.toStdString());
+        /* Only override -datadir if different from the default, to make it possible to
+     * override -datadir in the bitcoin.conf file in the default data directory
+     * (to be consistent with bitcoind behavior)
+     */
+    if(dataDir != getDefaultDataDirectory())
+        SoftSetArg("-datadir", GUIUtil::qstringToBoostPath(dataDir).string()); // use OS locale for path setting
 }
 
 void Intro::setStatus(int status, const QString &message, quint64 bytesAvailable)
