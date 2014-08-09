@@ -75,6 +75,9 @@ public:
 
         vSeeds.push_back(CDNSSeedData("digibyte.co seed #1", "seed1.digibyte.co"));
         vSeeds.push_back(CDNSSeedData("hashdragon.com seed #2", "seed2.hashdragon.com"));
+        vSeeds.push_back(CDNSSeedData("digihash.co seed #1", "seed1.digihash.co"));
+        vSeeds.push_back(CDNSSeedData("love2hash.com seed #2", "seed2.love2hash.com"));
+        vSeeds.push_back(CDNSSeedData("digiexplorer.info seed #1", "seed1.digiexplorer.info"));
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(30);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
