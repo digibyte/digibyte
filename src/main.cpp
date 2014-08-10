@@ -74,7 +74,7 @@ CScript COINBASE_FLAGS;
 const string strMessageMagic = "DigiByte Signed Message:\n";
 
 // Settings
-int miningAlgo = ALGO_SHA256D;
+int miningAlgo = ALGO_SCRYPT;
 
 // Internal stuff
 namespace {
@@ -436,8 +436,8 @@ bool AddOrphanTx(const CTransaction& tx)
     BOOST_FOREACH(const CTxIn& txin, tx.vin)
         mapOrphanTransactionsByPrev[txin.prevout.hash].insert(hash);
 
-    LogPrint("mempool", "stored orphan tx %s (mapsz %"PRIszu")\n", hash.ToString(),
-        mapOrphanTransactions.size());
+    LogPrint("mempool", "stored orphan tx %s (mapsz %u)\n", hash.ToString(),
+		mapOrphanTransactions.size());
     return true;
 }
 
@@ -1124,11 +1124,11 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos)
         filein >> block;
     }
     catch (std::exception &e) {
-        eturn error("%s : Deserialize or I/O error - %s", __func__, e.what());
+        return error("%s : Deserialize or I/O error - %s", __func__, e.what());
     }
 
     // Check the header
-    f (!CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
+    if (!CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
         return error("ReadBlockFromDisk : Errors in block header");
 
     return true;
@@ -1256,17 +1256,17 @@ static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
 static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
 
 //MultiAlgo Target updates
-static const int64 multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64 multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64 multiAlgoInterval = 1; // retargets every blocks
+static const int64_t multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t multiAlgoInterval = 1; // retargets every blocks
 
-static const int64 nAveragingInterval = 10; // 10 blocks
-static const int64 nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
+static const int64_t nAveragingInterval = 10; // 10 blocks
+static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
 
-static const int64 nMaxAdjustDown = 40; // 4% adjustment down
-static const int64 nMaxAdjustUp = 20; // 2% adjustment up
+static const int64_t nMaxAdjustDown = 40; // 4% adjustment down
+static const int64_t nMaxAdjustUp = 20; // 2% adjustment up
 
-static const int64 nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 
 
@@ -1276,11 +1276,11 @@ static const int64 nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMa
 //
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 {
-		return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
+ return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact(); 
 }
 
-static const int64 nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
-static const int64 nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
+static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -1359,8 +1359,8 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
     bnNew *= nActualTimespan;
     bnNew /= retargetTimespan;
 
-    if (bnNew > Params().ProofOfWorkLimit())
-        bnNew = Params().ProofOfWorkLimit();
+    if (bnNew > Params().ProofOfWorkLimit(algo))
+        bnNew = Params().ProofOfWorkLimit(algo);
 
     /// debug print
     LogPrintf("GetNextWorkRequired RETARGET\n");
@@ -1443,7 +1443,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         return GetNextWorkRequiredV2(pindexLast, pblock, algo);
 }
 
-bool CheckProofOfWork(uint256 hash, unsigned int nBits)
+bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
 {
     CBigNum bnTarget;
     bnTarget.SetCompact(nBits);
@@ -1628,7 +1628,7 @@ void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev)
 
     // Updating time can change work required on testnet:
     if (TestNet())
-        lock.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo());
+        block.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo());
 }
 
 
@@ -1913,7 +1913,7 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
     // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
     // two in the chain that violate it. This prevents exploiting the issue against nodes in their
     // initial block download.
-    bool fEnforceBIP30 = (!pindex->phashBlock)
+    bool fEnforceBIP30 = (!pindex->phashBlock);
     if (fEnforceBIP30) {
         for (unsigned int i = 0; i < block.vtx.size(); i++) {
             uint256 hash = block.GetTxHash(i);
@@ -3212,7 +3212,7 @@ void PrintBlockTree()
         // print item
         CBlock block;
         ReadBlockFromDisk(block, pindex);
-        LogPrintf("%d (blk%05u.dat:0x%x)  %s  tx %"PRIszu"",
+	LogPrintf("%d (blk%05u.dat:0x%x)  %s  tx %u\n",
             pindex->nHeight,
             pindex->GetBlockPos().nFile, pindex->GetBlockPos().nPos,
             DateTimeStrFormat("%Y-%m-%d %H:%M:%S", block.GetBlockTime()),
@@ -3535,7 +3535,7 @@ void static ProcessGetData(CNode* pfrom)
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 {
     RandAddSeedPerfmon();
-    LogPrint("net", "received: %s (%"PRIszu" bytes)\n", strCommand, vRecv.size());
+    LogPrint("net", "received: %s (%u bytes)\n", strCommand, vRecv.size());
     if (mapArgs.count("-dropmessagestest") && GetRand(atoi(mapArgs["-dropmessagestest"])) == 0)
     {
         LogPrintf("dropmessagestest DROPPING RECV MESSAGE\n");
@@ -3681,7 +3681,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (vAddr.size() > 1000)
         {
             Misbehaving(pfrom->GetId(), 20);
-            return error("message addr size() = %"PRIszu"", vAddr.size());
+           return error("message addr size() = %u", vAddr.size());
         }
 
         // Store the new addresses
@@ -3744,7 +3744,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (vInv.size() > MAX_INV_SZ)
         {
             Misbehaving(pfrom->GetId(), 20);
-            return error("message inv size() = %"PRIszu"", vInv.size());
+	    return error("message inv size() = %u", vInv.size());
         }
 
         LOCK(cs_main);
@@ -3783,11 +3783,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (vInv.size() > MAX_INV_SZ)
         {
             Misbehaving(pfrom->GetId(), 20);
-            return error("message getdata size() = %"PRIszu"", vInv.size());
+	    return error("message getdata size() = %u", vInv.size());
         }
 
         if (fDebug || (vInv.size() != 1))
-            LogPrint("net", "received getdata (%"PRIszu" invsz)\n", vInv.size());
+	    LogPrint("net", "received getdata (%u invsz)\n", vInv.size());
 
         if ((fDebug && vInv.size() > 0) || (vInv.size() == 1))
             LogPrint("net", "received getdata for: %s\n", vInv[0].ToString());
@@ -3895,7 +3895,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             vEraseQueue.push_back(inv.hash);
 
 
-            LogPrint("mempool", "AcceptToMemoryPool: %s %s : accepted %s (poolsz %"PRIszu")\n",
+	    LogPrint("mempool", "AcceptToMemoryPool: %s %s : accepted %s (poolsz %u)\n",
                 pfrom->addr.ToString(), pfrom->cleanSubVer,
                 tx.GetHash().ToString(),
                 mempool.mapTx.size());
@@ -4079,7 +4079,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         }
 
         if (!(sProblem.empty())) {
-            LogPrint("net", "pong %s %s: %s, %x expected, %x received, %"PRIszu" bytes\n",
+	    LogPrint("net", "pong %s %s: %s, %x expected, %x received, %u bytes\n",
                 pfrom->addr.ToString(),
                 pfrom->cleanSubVer,
                 sProblem,

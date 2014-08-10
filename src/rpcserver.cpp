@@ -601,7 +601,7 @@ void StartRPCThreads()
 
             RPCListen(acceptor, *rpc_ssl_context, fUseSSL);
 
-						rpc_acceptors.push_back(acceptor);r);
+						rpc_acceptors.push_back(acceptor);
             fListening = true;
         }
     }

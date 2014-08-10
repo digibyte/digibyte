@@ -79,7 +79,6 @@ protected:
     int nDefaultPort;
     int nRPCPort;
     CBigNum bnProofOfWorkLimit[NUM_ALGOS];
-    CBigNum bnProofOfWorkLimit;
     //int nSubsidyHalvingInterval;
     string strDataDir;
     vector<CDNSSeedData> vSeeds;

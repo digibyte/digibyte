@@ -43,7 +43,7 @@ inline int GetAlgo(int nVersion)
     {
         case 1:
             return ALGO_SCRYPT;
-        case BLOCK_VERSION_SHA256:
+        case BLOCK_VERSION_SHA256D:
             return ALGO_SHA256D;
         case BLOCK_VERSION_GROESTL:
             return ALGO_GROESTL;

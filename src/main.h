@@ -823,7 +823,7 @@ public:
 
     int GetAlgoWorkFactor() const 
     {
-        if (!TestNet() && (nHeight < nBlockAlgoWorkWeightStart))
+        if (!TestNet() && (nHeight < multiAlgoDiffChangeTarget))
         {
             return 1;
         }
