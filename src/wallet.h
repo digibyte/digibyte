@@ -148,6 +148,9 @@ public:
     CWallet(std::string strWalletFileIn)
     {
 				SetNull();
+
+        strWalletFile = strWalletFileIn;
+        fFileBacked = true;
     }
     void SetNull()
     {
@@ -625,7 +628,7 @@ public:
             return nAvailableCreditCached;
 
         int64_t nCredit = 0;
-uint256 hashTx = GetHash();
+				uint256 hashTx = GetHash();
         for (unsigned int i = 0; i < vout.size(); i++)
         {
             if (!pwallet->IsSpent(hashTx, i))
