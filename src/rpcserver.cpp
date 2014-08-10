@@ -303,7 +303,7 @@ static const CRPCCommand vRPCCommands[] =
     { "sendmany",               &sendmany,               false,     false,      true },
     { "sendtoaddress",          &sendtoaddress,          false,     false,      true },
     { "setaccount",             &setaccount,             true,      false,      true },
-    { "settxfee",               &settxfee,               false,     false,      true },
+    { "settxfee",               &settxfee,                false,     false,      true },
     { "signmessage",            &signmessage,            false,     false,      true },
     { "walletlock",             &walletlock,             true,      false,      true },
     { "walletpassphrasechange", &walletpassphrasechange, false,     false,      true },

@@ -70,7 +70,13 @@ bool AppInit(int argc, char* argv[])
             fprintf(stderr, "Error: Specified data directory \"%s\" does not exist.\n", mapArgs["-datadir"].c_str());
             return false;
         }
-        ReadConfigFile(mapArgs, mapMultiArgs);
+        try
+        {
+            ReadConfigFile(mapArgs, mapMultiArgs);
+        } catch(std::exception &e) {
+            fprintf(stderr,"Error reading configuration file: %s\n", e.what());
+            return false;
+        }
         // Check for -testnet or -regtest parameter (TestNet() calls are only valid after this clause)
         if (!SelectParamsFromCommandLine()) {
             fprintf(stderr, "Error: Invalid combination of -regtest and -testnet.\n");
@@ -79,14 +85,14 @@ bool AppInit(int argc, char* argv[])
 
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
-            // First part of help message is specific to digibyted / RPC client
+            // First part of help message is specific to bitcoind / RPC client
             std::string strUsage = _("DigiByte Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  digibyted [options]                     " + _("Start DigiByte server") + "\n" +
-                _("Usage (deprecated, use digibyte-cli):") + "\n" +
-                  "  digibyted [options] <command> [params]  " + _("Send command to DigiByte server") + "\n" +
-                  "  digibyted [options] help                " + _("List commands") + "\n" +
-                  "  digibyted [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  myriadcoind [options]                     " + _("Start DigiByte Core Daemon") + "\n" +
+                _("Usage (deprecated, use myriadcoin-cli):") + "\n" +
+                  "  myriadcoind [options] <command> [params]  " + _("Send command to DigiByte Core") + "\n" +
+                  "  myriadcoind [options] help                " + _("List commands") + "\n" +
+                  "  myriadcoind [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage(HMM_DIGIBYTED);
             strUsage += "\n" + HelpMessageCli(false);

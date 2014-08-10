@@ -959,7 +959,7 @@ boost::filesystem::path GetDefaultDataDir()
 #ifdef MAC_OSX
     // Mac
     pathRet /= "Library/Application Support";
-    fs::create_directory(pathRet);
+    TryCreateDirectory(pathRet);
     return pathRet / "DigiByte";
 #else
     // Unix
