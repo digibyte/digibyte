@@ -104,7 +104,7 @@ public:
     }
 };
 
-CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
+CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
 {
     // Create new block
     auto_ptr<CBlockTemplate> pblocktemplate(new CBlockTemplate());
@@ -116,10 +116,10 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
     pblock->nVersion = BLOCK_VERSION_DEFAULT;
     switch (algo)
     {
-        case ALGO_SHA256D:
-            break;
         case ALGO_SCRYPT:
-            pblock->nVersion |= BLOCK_VERSION_SCRYPT;
+            break;
+        case ALGO_SHA256D:
+            pblock->nVersion |= BLOCK_VERSION_SHA256D;
             break;
         case ALGO_GROESTL:
             pblock->nVersion |= BLOCK_VERSION_GROESTL;
