@@ -8,6 +8,8 @@
 
 #include "bignum.h"
 #include "uint256.h"
+#include "util.h"
+#include "core.h"
 
 #include <vector>
 
@@ -57,7 +59,7 @@ public:
     const MessageStartChars& MessageStart() const { return pchMessageStart; }
     const vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
     int GetDefaultPort() const { return nDefaultPort; }
-    const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }
+    const CBigNum& ProofOfWorkLimit(int algo) const { return bnProofOfWorkLimit[algo]; }
     virtual const CBlock& GenesisBlock() const = 0;
     virtual bool RequireRPCPassword() const { return true; }
     const string& DataDir() const { return strDataDir; }
@@ -76,6 +78,7 @@ protected:
     vector<unsigned char> vAlertPubKey;
     int nDefaultPort;
     int nRPCPort;
+    CBigNum bnProofOfWorkLimit[NUM_ALGOS];
     CBigNum bnProofOfWorkLimit;
     //int nSubsidyHalvingInterval;
     string strDataDir;
