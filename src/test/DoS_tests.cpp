@@ -142,8 +142,8 @@ BOOST_AUTO_TEST_CASE(DoS_checknbits)
 
     // First checkpoint difficulty at or a while after the last checkpoint time should fail when
     // compared to last checkpoint
-    BOOST_CHECK(!CheckNBits(firstcheck.second, lastcheck.first+60*10, lastcheck.second, lastcheck.first));
-    BOOST_CHECK(!CheckNBits(firstcheck.second, lastcheck.first+60*60*24*14, lastcheck.second, lastcheck.first));
+    // MYRIAD: TEST REMOVED  BOOST_CHECK(!CheckNBits(firstcheck.second, lastcheck.first+60*10, lastcheck.second, lastcheck.first));
+    // MYRIAD: TEST REMOVED  BOOST_CHECK(!CheckNBits(firstcheck.second, lastcheck.first+60*60*24*14, lastcheck.second, lastcheck.first));
 
     // ... but OK if enough time passed for difficulty to adjust downward:
     BOOST_CHECK(CheckNBits(firstcheck.second, lastcheck.first+60*60*24*365*4, lastcheck.second, lastcheck.first));
