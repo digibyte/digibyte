@@ -1,4 +1,8 @@
 #!/bin/bash
+# Copyright (c) 2013 The Bitcoin Core developers
+# Distributed under the MIT/X11 software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+#
 # Param1: The prefix to mingw staging
 # Param2: Path to java comparison tool
 # Param3: Number of make jobs. Defaults to 1.
@@ -18,10 +22,10 @@ if [ $# -lt 2 ]; then
   exit 1
 fi
 
-DISTDIR=digibyte-2.9.0
+DISTDIR=bitcoin-0.9.2
 
 # Cross-compile for windows first (breaking the mingw/windows build is most common)
-cd /home/scott/Desktop/digibyte
+cd /home/scott/digibyte/myrupdate
 make distdir
 mkdir -p win32-build
 rsync -av $DISTDIR/ win32-build/
@@ -36,7 +40,7 @@ fi
 make -j$JOBS
 
 # And compile for Linux:
-cd /home/scott/Desktop/digibyte
+cd /home/scott/digibyte/myrupdate
 make distdir
 mkdir -p linux-build
 rsync -av $DISTDIR/ linux-build/
@@ -54,38 +58,41 @@ make -j$JOBS
 if [ -d "$OUT_DIR" -a -w "$OUT_DIR" ]; then
   set +e
   # Windows:
-  cp /home/scott/Desktop/digibyte/win32-build/src/digibyted.exe $OUT_DIR/digibyted.exe
-  cp /home/scott/Desktop/digibyte/win32-build/src/test/test_digibyte.exe $OUT_DIR/test_digibyte.exe
-  cp /home/scott/Desktop/digibyte/win32-build/src/qt/digibyted-qt.exe $OUT_DIR/digibyte-qt.exe
+  cp /home/scott/digibyte/myrupdate/win32-build/src/bitcoind.exe $OUT_DIR/bitcoind.exe
+  cp /home/scott/digibyte/myrupdate/win32-build/src/test/test_bitcoin.exe $OUT_DIR/test_bitcoin.exe
+  cp /home/scott/digibyte/myrupdate/win32-build/src/qt/bitcoind-qt.exe $OUT_DIR/bitcoin-qt.exe
   # Linux:
-  cp /home/scott/Desktop/digibyte/linux-build/src/digibyted $OUT_DIR/digibyted
-  cp /home/scott/Desktop/digibyte/linux-build/src/test/test_digibyte $OUT_DIR/test_digibyte
-  cp /home/scott/Desktop/digibyte/linux-build/src/qt/digibyted-qt $OUT_DIR/digibyte-qt
+  cp /home/scott/digibyte/myrupdate/linux-build/src/bitcoind $OUT_DIR/bitcoind
+  cp /home/scott/digibyte/myrupdate/linux-build/src/test/test_bitcoin $OUT_DIR/test_bitcoin
+  cp /home/scott/digibyte/myrupdate/linux-build/src/qt/bitcoind-qt $OUT_DIR/bitcoin-qt
   set -e
 fi
 
 # Run unit tests and blockchain-tester on Linux:
-cd /home/scott/Desktop/digibyte/linux-build
+cd /home/scott/digibyte/myrupdate/linux-build
 make check
 
 # Run RPC integration test on Linux:
-/home/scott/Desktop/digibyte/qa/rpc-tests/wallet.sh /home/scott/Desktop/digibyte/linux-build/src
+/home/scott/digibyte/myrupdate/qa/rpc-tests/wallet.sh /home/scott/digibyte/myrupdate/linux-build/src
+/home/scott/digibyte/myrupdate/qa/rpc-tests/listtransactions.py --srcdir /home/scott/digibyte/myrupdate/linux-build/src
+# Clean up cache/ directory that the python regression tests create
+rm -rf cache
 
 if [ $RUN_EXPENSIVE_TESTS = 1 ]; then
   # Run unit tests and blockchain-tester on Windows:
-  cd /home/scott/Desktop/digibyte/win32-build
+  cd /home/scott/digibyte/myrupdate/win32-build
   make check
 fi
 
 # Clean up builds (pull-tester machine doesn't have infinite disk space)
-cd /home/scott/Desktop/digibyte/linux-build
+cd /home/scott/digibyte/myrupdate/linux-build
 make clean
-cd /home/scott/Desktop/digibyte/win32-build
+cd /home/scott/digibyte/myrupdate/win32-build
 make clean
 
 # TODO: Fix code coverage builds on pull-tester machine
 # # Test code coverage
-# cd /home/scott/Desktop/digibyte
+# cd /home/scott/digibyte/myrupdate
 # make distdir
 # mv $DISTDIR linux-coverage-build
 # cd linux-coverage-build

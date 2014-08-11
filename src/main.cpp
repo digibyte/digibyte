@@ -999,11 +999,13 @@ int CMerkleTx::GetDepthInMainChain(CBlockIndex* &pindexRet) const
     return nResult;
 }
 
-int CMerkleTx::GetBlocksToMaturity() const
+int CMerkleTx::GetBlocksToMaturity(int nHeight) const
 {
     if (!IsCoinBase())
         return 0;
-    return max(0, (COINBASE_MATURITY+1) - GetDepthInMainChain());
+    if ( nHeight < multiAlgoDiffChangeTarget ) 
+        return max(0, (COINBASE_MATURITY+1) - GetDepthInMainChain());
+    return max(0, (COINBASE_MATURITY_2+1) - GetDepthInMainChain());
 }
 
 
@@ -1699,10 +1701,17 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, CCoinsViewCach
 
             // If prev is coinbase, check that it's matured
             if (coins.IsCoinBase()) {
-                if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
-                    return state.Invalid(
-                        error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight),
-                        REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+		if (coins.nHeight < multiAlgoDiffChangeTarget) {
+                  if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
+			//return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
+			return state.Invalid(error("CheckInputs() : tried coinbase at depth %d %d %d %d", 
+						nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY));
+                } else { 
+			if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2) {
+				return state.Invalid(error("CheckInputs() : Maturity v2: tried to spend coinbase at depth %d %d %d %d", 
+						 nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY_2));
+			}
+		}
             }
 
             // Check for negative or overflow input values

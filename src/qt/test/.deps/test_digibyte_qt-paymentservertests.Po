@@ -117,7 +117,8 @@ test_digibyte_qt-paymentservertests.o: paymentservertests.cpp \
  /usr/include/google/protobuf/generated_message_reflection.h \
  /usr/include/google/protobuf/message.h \
  /usr/include/google/protobuf/unknown_field_set.h ../../../src/base58.h \
- ../../../src/bignum.h ../../../src/serialize.h ../../../src/allocators.h \
+ ../../../src/chainparams.h ../../../src/bignum.h \
+ ../../../src/serialize.h ../../../src/allocators.h \
  /usr/include/boost/thread/mutex.hpp \
  /usr/include/boost/thread/detail/platform.hpp \
  /usr/include/boost/config.hpp /usr/include/boost/config/user.hpp \
@@ -403,31 +404,28 @@ test_digibyte_qt-paymentservertests.o: paymentservertests.cpp \
  /usr/include/boost/utility/swap.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp ../../../src/uint256.h \
  ../../../src/version.h ../../../src/clientversion.h \
- ../../../src/digibyte-config.h /usr/include/openssl/bn.h \
- ../../../src/chainparams.h ../../../src/hash.h \
- /usr/include/openssl/ripemd.h /usr/include/openssl/sha.h \
- ../../../src/key.h ../../../src/script.h ../../../src/util.h \
- ../../../src/compat.h /usr/include/arpa/inet.h /usr/include/netinet/in.h \
+ ../../../src/bitcoin-config.h /usr/include/openssl/bn.h \
+ ../../../src/util.h ../../../src/compat.h \
+ /usr/include/x86_64-linux-gnu/sys/fcntl.h /usr/include/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/uio.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/fcntl2.h \
+ /usr/include/x86_64-linux-gnu/sys/mman.h \
+ /usr/include/x86_64-linux-gnu/bits/mman.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/sys/uio.h \
- /usr/include/x86_64-linux-gnu/bits/uio.h \
  /usr/include/x86_64-linux-gnu/bits/socket.h \
  /usr/include/x86_64-linux-gnu/bits/sockaddr.h \
  /usr/include/x86_64-linux-gnu/asm/socket.h \
  /usr/include/asm-generic/socket.h \
  /usr/include/x86_64-linux-gnu/asm/sockios.h \
  /usr/include/asm-generic/sockios.h \
- /usr/include/x86_64-linux-gnu/bits/socket2.h \
- /usr/include/x86_64-linux-gnu/bits/in.h /usr/include/ifaddrs.h \
- /usr/include/net/if.h /usr/include/netdb.h /usr/include/rpc/netdb.h \
- /usr/include/x86_64-linux-gnu/bits/siginfo.h \
- /usr/include/x86_64-linux-gnu/bits/netdb.h \
- /usr/include/x86_64-linux-gnu/sys/fcntl.h /usr/include/fcntl.h \
- /usr/include/x86_64-linux-gnu/bits/fcntl.h \
- /usr/include/x86_64-linux-gnu/bits/stat.h \
- /usr/include/x86_64-linux-gnu/bits/fcntl2.h \
- /usr/include/x86_64-linux-gnu/sys/mman.h \
- /usr/include/x86_64-linux-gnu/bits/mman.h ../../../src/tinyformat.h \
+ /usr/include/x86_64-linux-gnu/bits/socket2.h /usr/include/net/if.h \
+ /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
+ /usr/include/arpa/inet.h /usr/include/ifaddrs.h /usr/include/netdb.h \
+ /usr/include/rpc/netdb.h /usr/include/x86_64-linux-gnu/bits/siginfo.h \
+ /usr/include/x86_64-linux-gnu/bits/netdb.h ../../../src/tinyformat.h \
  /usr/include/c++/4.6/cassert /usr/include/c++/4.6/cstdio \
  /usr/include/x86_64-linux-gnu/sys/resource.h \
  /usr/include/x86_64-linux-gnu/bits/resource.h \
@@ -691,7 +689,9 @@ test_digibyte_qt-paymentservertests.o: paymentservertests.cpp \
  /usr/include/boost/function/function_template.hpp \
  /usr/include/boost/detail/no_exceptions_support.hpp \
  /usr/include/boost/scoped_array.hpp \
- /usr/include/boost/smart_ptr/scoped_array.hpp \
+ /usr/include/boost/smart_ptr/scoped_array.hpp ../../../src/core.h \
+ ../../../src/script.h ../../../src/key.h ../../../src/hash.h \
+ /usr/include/openssl/ripemd.h /usr/include/openssl/sha.h \
  /usr/include/boost/foreach.hpp /usr/include/boost/foreach_fwd.hpp \
  /usr/include/boost/aligned_storage.hpp /usr/include/boost/variant.hpp \
  /usr/include/boost/variant/variant.hpp \
@@ -838,10 +838,16 @@ test_digibyte_qt-paymentservertests.o: paymentservertests.cpp \
  /usr/include/boost/variant/detail/apply_visitor_binary.hpp \
  /usr/include/boost/variant/detail/apply_visitor_delayed.hpp \
  /usr/include/boost/variant/visitor_ptr.hpp \
- /usr/include/boost/variant/bad_visit.hpp \
- /usr/include/qt4/QtCore/QByteArray /usr/include/qt4/QtCore/qbytearray.h \
- /usr/include/qt4/QtCore/qatomic.h /usr/include/qt4/QtCore/qglobal.h \
- /usr/include/qt4/QtCore/qconfig.h /usr/include/qt4/QtCore/qfeatures.h \
+ /usr/include/boost/variant/bad_visit.hpp ../../../src/scrypt.h \
+ ../../../src/hashgroestl.h ../../../src/sph_groestl.h \
+ ../../../src/sph_types.h ../../../src/hashskein.h \
+ ../../../src/sph_skein.h ../../../src/hashqubit.h \
+ ../../../src/sph_luffa.h ../../../src/sph_cubehash.h \
+ ../../../src/sph_shavite.h ../../../src/sph_simd.h \
+ ../../../src/sph_echo.h /usr/include/qt4/QtCore/QByteArray \
+ /usr/include/qt4/QtCore/qbytearray.h /usr/include/qt4/QtCore/qatomic.h \
+ /usr/include/qt4/QtCore/qglobal.h /usr/include/qt4/QtCore/qconfig.h \
+ /usr/include/qt4/QtCore/qfeatures.h \
  /usr/include/qt4/QtCore/qbasicatomic.h \
  /usr/include/qt4/QtCore/qatomic_arch.h \
  /usr/include/qt4/QtCore/qatomic_x86_64.h \
@@ -1203,6 +1209,8 @@ paymentservertests.h:
 /usr/include/google/protobuf/unknown_field_set.h:
 
 ../../../src/base58.h:
+
+../../../src/chainparams.h:
 
 ../../../src/bignum.h:
 
@@ -1842,35 +1850,33 @@ paymentservertests.h:
 
 ../../../src/clientversion.h:
 
-../../../src/digibyte-config.h:
+../../../src/bitcoin-config.h:
 
 /usr/include/openssl/bn.h:
-
-../../../src/chainparams.h:
-
-../../../src/hash.h:
-
-/usr/include/openssl/ripemd.h:
-
-/usr/include/openssl/sha.h:
-
-../../../src/key.h:
-
-../../../src/script.h:
 
 ../../../src/util.h:
 
 ../../../src/compat.h:
 
-/usr/include/arpa/inet.h:
+/usr/include/x86_64-linux-gnu/sys/fcntl.h:
 
-/usr/include/netinet/in.h:
+/usr/include/fcntl.h:
+
+/usr/include/x86_64-linux-gnu/bits/fcntl.h:
+
+/usr/include/x86_64-linux-gnu/bits/uio.h:
+
+/usr/include/x86_64-linux-gnu/bits/stat.h:
+
+/usr/include/x86_64-linux-gnu/bits/fcntl2.h:
+
+/usr/include/x86_64-linux-gnu/sys/mman.h:
+
+/usr/include/x86_64-linux-gnu/bits/mman.h:
 
 /usr/include/x86_64-linux-gnu/sys/socket.h:
 
 /usr/include/x86_64-linux-gnu/sys/uio.h:
-
-/usr/include/x86_64-linux-gnu/bits/uio.h:
 
 /usr/include/x86_64-linux-gnu/bits/socket.h:
 
@@ -1886,11 +1892,15 @@ paymentservertests.h:
 
 /usr/include/x86_64-linux-gnu/bits/socket2.h:
 
+/usr/include/net/if.h:
+
+/usr/include/netinet/in.h:
+
 /usr/include/x86_64-linux-gnu/bits/in.h:
 
-/usr/include/ifaddrs.h:
+/usr/include/arpa/inet.h:
 
-/usr/include/net/if.h:
+/usr/include/ifaddrs.h:
 
 /usr/include/netdb.h:
 
@@ -1899,20 +1909,6 @@ paymentservertests.h:
 /usr/include/x86_64-linux-gnu/bits/siginfo.h:
 
 /usr/include/x86_64-linux-gnu/bits/netdb.h:
-
-/usr/include/x86_64-linux-gnu/sys/fcntl.h:
-
-/usr/include/fcntl.h:
-
-/usr/include/x86_64-linux-gnu/bits/fcntl.h:
-
-/usr/include/x86_64-linux-gnu/bits/stat.h:
-
-/usr/include/x86_64-linux-gnu/bits/fcntl2.h:
-
-/usr/include/x86_64-linux-gnu/sys/mman.h:
-
-/usr/include/x86_64-linux-gnu/bits/mman.h:
 
 ../../../src/tinyformat.h:
 
@@ -2498,6 +2494,18 @@ paymentservertests.h:
 
 /usr/include/boost/smart_ptr/scoped_array.hpp:
 
+../../../src/core.h:
+
+../../../src/script.h:
+
+../../../src/key.h:
+
+../../../src/hash.h:
+
+/usr/include/openssl/ripemd.h:
+
+/usr/include/openssl/sha.h:
+
 /usr/include/boost/foreach.hpp:
 
 /usr/include/boost/foreach_fwd.hpp:
@@ -2811,6 +2819,30 @@ paymentservertests.h:
 /usr/include/boost/variant/visitor_ptr.hpp:
 
 /usr/include/boost/variant/bad_visit.hpp:
+
+../../../src/scrypt.h:
+
+../../../src/hashgroestl.h:
+
+../../../src/sph_groestl.h:
+
+../../../src/sph_types.h:
+
+../../../src/hashskein.h:
+
+../../../src/sph_skein.h:
+
+../../../src/hashqubit.h:
+
+../../../src/sph_luffa.h:
+
+../../../src/sph_cubehash.h:
+
+../../../src/sph_shavite.h:
+
+../../../src/sph_simd.h:
+
+../../../src/sph_echo.h:
 
 /usr/include/qt4/QtCore/QByteArray:
 

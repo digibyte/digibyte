@@ -1024,7 +1024,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
             if (fOnlyConfirmed && !pcoin->IsTrusted())
                 continue;
 
-            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity() > 0)
+            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(pcoin->GetDepthInMainChain()) > 0)
                 continue;
 
             int nDepth = pcoin->GetDepthInMainChain();
@@ -1746,14 +1746,14 @@ std::map<CTxDestination, int64_t> CWallet::GetAddressBalances()
         BOOST_FOREACH(PAIRTYPE(uint256, CWalletTx) walletEntry, mapWallet)
         {
             CWalletTx *pcoin = &walletEntry.second;
+            int nDepth = pcoin->GetDepthInMainChain();
 
             if (!IsFinalTx(*pcoin) || !pcoin->IsTrusted())
                 continue;
 
-            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity() > 0)
+            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(chainActive.Height() - nDepth) > 0)
                 continue;
 
-            int nDepth = pcoin->GetDepthInMainChain();
             if (nDepth < (pcoin->IsFromMe() ? 0 : 1))
                 continue;
 
