@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 //
 // Unit tests for denial-of-service detection/prevention code
 //
@@ -21,7 +25,6 @@
 // Tests this internal-to-main.cpp method:
 extern bool AddOrphanTx(const CTransaction& tx);
 extern unsigned int LimitOrphanTxSize(unsigned int nMaxOrphans);
-extern void Misbehaving(NodeId nodeid, int howmuch);
 extern std::map<uint256, CTransaction> mapOrphanTransactions;
 extern std::map<uint256, std::set<uint256> > mapOrphanTransactionsByPrev;
 
@@ -114,7 +117,7 @@ BOOST_AUTO_TEST_CASE(DoS_checknbits)
 {
     using namespace boost::assign; // for 'map_list_of()'
 
-    // Timestamps,nBits from the digibyte block chain.
+    // Timestamps,nBits from the bitcoin block chain.
     // These are the block-chain checkpoint blocks
     typedef std::map<int64_t, unsigned int> BlockData;
     BlockData chainData =

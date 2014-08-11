@@ -15,18 +15,19 @@ JSON_TEST_FILES = \
   data/base58_keys_invalid.json \
   data/script_invalid.json \
   data/tx_invalid.json \
-  data/tx_valid.json
+  data/tx_valid.json \
+  data/sighash.json
 
 RAW_TEST_FILES = data/alertTests.raw
 
 BUILT_SOURCES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
 
-# test_digibyte binary #
+# test_bitcoin binary #
 test_digibyte_CPPFLAGS = $(AM_CPPFLAGS) $(TESTDEFS)
-test_digibyte_LDADD = $(LIBDIGIBYTE_SERVER) $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBLEVELDB) $(LIBMEMENV) \
+test_digibyte_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 if ENABLE_WALLET
-test_digibyte_LDADD += $(LIBDIGIBYTE_WALLET)
+test_digibyte_LDADD += $(LIBBITCOIN_WALLET)
 endif
 test_digibyte_LDADD += $(BDB_LIBS)
 
@@ -56,7 +57,7 @@ test_digibyte_SOURCES = \
   script_tests.cpp \
   serialize_tests.cpp \
   sigopcount_tests.cpp \
-  test_digibyte.cpp \
+  test_bitcoin.cpp \
   transaction_tests.cpp \
   uint256_tests.cpp \
   util_tests.cpp \
