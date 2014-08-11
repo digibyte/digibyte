@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2014 The DigiByte developers
+// Copyright (c) 2011-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +13,7 @@ namespace Ui {
     class RPCConsole;
 }
 
-/** Local DigiByte RPC console. */
+/** Local Bitcoin RPC console. */
 class RPCConsole: public QDialog
 {
     Q_OBJECT
@@ -47,6 +47,7 @@ private slots:
 
 public slots:
     void clear();
+    void reject();
     void message(int category, const QString &message, bool html = false);
     /** Set number of connections shown in the UI */
     void setNumConnections(int count);

@@ -1,10 +1,10 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The DigiByte developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DIGIBYTERPC_PROTOCOL_H_
-#define _DIGIBYTERPC_PROTOCOL_H_ 1
+#ifndef _BITCOINRPC_PROTOCOL_H_
+#define _BITCOINRPC_PROTOCOL_H_ 1
 
 #include <list>
 #include <map>
@@ -30,7 +30,7 @@ enum HTTPStatusCode
     HTTP_INTERNAL_SERVER_ERROR = 500,
 };
 
-// DigiByte RPC error codes
+// Bitcoin RPC error codes
 enum RPCErrorCode
 {
     // Standard JSON-RPC 2.0 errors
@@ -49,9 +49,12 @@ enum RPCErrorCode
     RPC_INVALID_PARAMETER           = -8,  // Invalid, missing or duplicate parameter
     RPC_DATABASE_ERROR              = -20, // Database error
     RPC_DESERIALIZATION_ERROR       = -22, // Error parsing or validating structure in raw format
+    RPC_TRANSACTION_ERROR           = -25, // General error during transaction submission
+    RPC_TRANSACTION_REJECTED        = -26, // Transaction was rejected by network rules
+    RPC_TRANSACTION_ALREADY_IN_CHAIN= -27, // Transaction already in chain
 
     // P2P client errors
-    RPC_CLIENT_NOT_CONNECTED        = -9,  // DigiByte is not connected
+    RPC_CLIENT_NOT_CONNECTED        = -9,  // Bitcoin is not connected
     RPC_CLIENT_IN_INITIAL_DOWNLOAD  = -10, // Still downloading initial blocks
     RPC_CLIENT_NODE_ALREADY_ADDED   = -23, // Node is already added
     RPC_CLIENT_NODE_NOT_ADDED       = -24, // Node has not been added before

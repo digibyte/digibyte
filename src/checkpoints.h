@@ -1,9 +1,9 @@
-// Copyright (c) 2009-2013 The DigiByte developers
+// Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_CHECKPOINT_H
-#define DIGIBYTE_CHECKPOINT_H
+#ifndef BITCOIN_CHECKPOINT_H
+#define BITCOIN_CHECKPOINT_H
 
 #include <map>
 
@@ -24,7 +24,7 @@ namespace Checkpoints
     // Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex);
 
-    double GuessVerificationProgress(CBlockIndex *pindex);
+    double GuessVerificationProgress(CBlockIndex *pindex, bool fSigchecks = true);
 
     extern bool fEnabled;
 }

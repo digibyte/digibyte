@@ -1,13 +1,15 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The DigiByte developers
+// Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_CHAIN_PARAMS_H
-#define DIGIBYTE_CHAIN_PARAMS_H
+#ifndef BITCOIN_CHAIN_PARAMS_H
+#define BITCOIN_CHAIN_PARAMS_H
 
 #include "bignum.h"
 #include "uint256.h"
+#include "util.h"
+#include "core.h"
 
 #include <vector>
 
@@ -26,7 +28,7 @@ struct CDNSSeedData {
 
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
- * DigiByte system. There are three: the main network on which people trade goods
+ * Bitcoin system. There are three: the main network on which people trade goods
  * and services, the public test network which gets reset from time to time and
  * a regression test mode which is intended for private networks only. It has
  * minimal difficulty to ensure that blocks can be found instantly.
@@ -53,11 +55,11 @@ public:
     };
 
     const uint256& HashGenesisBlock() const { return hashGenesisBlock; }
-    const uint256& HashGenesisBlockPoW() const { return hashGenesisBlockPoW; }
     const MessageStartChars& MessageStart() const { return pchMessageStart; }
     const vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
     int GetDefaultPort() const { return nDefaultPort; }
-    const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }
+    const CBigNum& ProofOfWorkLimit(int algo) const { return bnProofOfWorkLimit[algo]; }
+    int SubsidyHalvingInterval() const { return nSubsidyHalvingInterval; }
     virtual const CBlock& GenesisBlock() const = 0;
     virtual bool RequireRPCPassword() const { return true; }
     const string& DataDir() const { return strDataDir; }
@@ -70,14 +72,13 @@ protected:
     CChainParams() {}
 
     uint256 hashGenesisBlock;
-    uint256 hashGenesisBlockPoW;
     MessageStartChars pchMessageStart;
     // Raw pub key bytes for the broadcast alert signing key.
     vector<unsigned char> vAlertPubKey;
     int nDefaultPort;
     int nRPCPort;
-    CBigNum bnProofOfWorkLimit;
-    //int nSubsidyHalvingInterval;
+    CBigNum bnProofOfWorkLimit[NUM_ALGOS];
+    int nSubsidyHalvingInterval;
     string strDataDir;
     vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];

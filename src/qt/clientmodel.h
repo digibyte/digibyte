@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2013 The DigiByte developers
+// Copyright (c) 2011-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,7 +25,14 @@ enum BlockSource {
     BLOCK_SOURCE_NETWORK
 };
 
-/** Model for DigiByte network client. */
+enum NumConnections {
+    CONNECTIONS_NONE = 0,
+    CONNECTIONS_IN   = (1U << 0),
+    CONNECTIONS_OUT  = (1U << 1),
+    CONNECTIONS_ALL  = (CONNECTIONS_IN | CONNECTIONS_OUT),
+};
+
+/** Model for Bitcoin network client. */
 class ClientModel : public QObject
 {
     Q_OBJECT
@@ -36,7 +43,8 @@ public:
 
     OptionsModel *getOptionsModel();
 
-    int getNumConnections() const;
+    //! Return number of connections, default is in- and outbound (total)
+    int getNumConnections(unsigned int flags = CONNECTIONS_ALL) const;
     int getNumBlocks() const;
     int getNumBlocksAtStartup();
 

@@ -34,11 +34,11 @@ endif
 
 nodist_test_digibyte_qt_SOURCES = $(TEST_QT_MOC_CPP)
 
-test_digibyte_qt_LDADD = $(LIBDIGIBYTEQT) $(LIBDIGIBYTE_SERVER)
+test_digibyte_qt_LDADD = $(LIBBITCOINQT) $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-test_digibyte_qt_LDADD += $(LIBDIGIBYTE_WALLET)
+test_digibyte_qt_LDADD += $(LIBBITCOIN_WALLET)
 endif
-test_digibyte_qt_LDADD += $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBLEVELDB) \
+test_digibyte_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBLEVELDB) \
   $(LIBMEMENV) $(BOOST_LIBS) $(QT_DBUS_LIBS) $(QT_TEST_LIBS) $(QT_LIBS) \
   $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS)
 test_digibyte_qt_LDFLAGS = $(QT_LDFLAGS)

@@ -115,7 +115,7 @@
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="DigiByteAmountField" name="reqAmount">
+      <widget class="BitcoinAmountField" name="reqAmount">
        <property name="minimumSize">
         <size>
          <width>80</width>
@@ -141,7 +141,7 @@
         <string>&amp;Request payment</string>
        </property>
        <property name="icon">
-        <iconset resource="../digibyte.qrc">
+        <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/receiving_addresses</normaloff>:/icons/receiving_addresses</iconset>
        </property>
       </widget>
@@ -161,7 +161,7 @@
         <string>Clear</string>
        </property>
        <property name="icon">
-        <iconset resource="../digibyte.qrc">
+        <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
        </property>
        <property name="autoRepeatDelay">
@@ -263,8 +263,11 @@
           <property name="text">
            <string>Show</string>
           </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="icon">
-           <iconset resource="../digibyte.qrc">
+           <iconset resource="../bitcoin.qrc">
             <normaloff>:/icons/edit</normaloff>:/icons/edit</iconset>
           </property>
          </widget>
@@ -277,8 +280,11 @@
           <property name="text">
            <string>Remove</string>
           </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="icon">
-           <iconset resource="../digibyte.qrc">
+           <iconset resource="../bitcoin.qrc">
             <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
           </property>
          </widget>
@@ -305,9 +311,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>DigiByteAmountField</class>
+   <class>BitcoinAmountField</class>
    <extends>QLineEdit</extends>
-   <header>digibyteamountfield.h</header>
+   <header>bitcoinamountfield.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -322,7 +328,7 @@
   <tabstop>removeRequestButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../digibyte.qrc"/>
+  <include location="../bitcoin.qrc"/>
  </resources>
  <connections/>
 </ui>

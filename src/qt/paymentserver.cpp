@@ -1,10 +1,10 @@
-// Copyright (c) 2011-2013 The DigiByte developers
+// Copyright (c) 2011-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "paymentserver.h"
 
-#include "digibyteunits.h"
+#include "bitcoinunits.h"
 #include "guiconstants.h"
 #include "guiutil.h"
 #include "optionsmodel.h"
@@ -46,11 +46,11 @@
 
 using namespace boost;
 
-const int DIGIBYTE_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
-const QString DIGIBYTE_IPC_PREFIX("digibyte:");
-const char* DIGIBYTE_REQUEST_MIMETYPE = "application/digibyte-paymentrequest";
-const char* DIGIBYTE_PAYMENTACK_MIMETYPE = "application/digibyte-paymentack";
-const char* DIGIBYTE_PAYMENTACK_CONTENTTYPE = "application/digibyte-payment";
+const int BITCOIN_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
+const QString BITCOIN_IPC_PREFIX("digibyte:");
+const char* BITCOIN_REQUEST_MIMETYPE = "application/digibyte-paymentrequest";
+const char* BITCOIN_PAYMENTACK_MIMETYPE = "application/digibyte-paymentack";
+const char* BITCOIN_PAYMENTACK_CONTENTTYPE = "application/digibyte-payment";
 
 X509_STORE* PaymentServer::certStore = NULL;
 void PaymentServer::freeCertStore()
@@ -186,14 +186,14 @@ bool PaymentServer::ipcParseCommandLine(int argc, char* argv[])
         if (arg.startsWith("-"))
             continue;
 
-        if (arg.startsWith(DIGIBYTE_IPC_PREFIX, Qt::CaseInsensitive)) // digibyte: URI
+        if (arg.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // bitcoin: URI
         {
             savedPaymentRequests.append(arg);
 
             SendCoinsRecipient r;
-            if (GUIUtil::parseDigiByteURI(arg, &r))
+            if (GUIUtil::parseBitcoinURI(arg, &r))
             {
-                CDigiByteAddress address(r.address.toStdString());
+                CBitcoinAddress address(r.address.toStdString());
 
                 SelectParams(CChainParams::MAIN);
                 if (!address.IsValid())
@@ -238,7 +238,7 @@ bool PaymentServer::ipcSendCommandLine()
     {
         QLocalSocket* socket = new QLocalSocket();
         socket->connectToServer(ipcServerName(), QIODevice::WriteOnly);
-        if (!socket->waitForConnected(DIGIBYTE_IPC_CONNECT_TIMEOUT))
+        if (!socket->waitForConnected(BITCOIN_IPC_CONNECT_TIMEOUT))
         {
             delete socket;
             return false;
@@ -252,7 +252,7 @@ bool PaymentServer::ipcSendCommandLine()
         socket->write(block);
         socket->flush();
 
-        socket->waitForBytesWritten(DIGIBYTE_IPC_CONNECT_TIMEOUT);
+        socket->waitForBytesWritten(BITCOIN_IPC_CONNECT_TIMEOUT);
         socket->disconnectFromServer();
         delete socket;
         fResult = true;
@@ -273,7 +273,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer) :
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
     // Install global event filter to catch QFileOpenEvents
-    // on Mac: sent when you click digibyte: links
+    // on Mac: sent when you click bitcoin: links
     // other OSes: helpful when dealing with payment request files (in the future)
     if (parent)
         parent->installEventFilter(this);
@@ -305,12 +305,12 @@ PaymentServer::~PaymentServer()
 }
 
 //
-// OSX-specific way of handling digibyte: URIs and
+// OSX-specific way of handling bitcoin: URIs and
 // PaymentRequest mime types
 //
 bool PaymentServer::eventFilter(QObject *object, QEvent *event)
 {
-    // clicking on digibyte: URIs creates FileOpen events on the Mac
+    // clicking on bitcoin: URIs creates FileOpen events on the Mac
     if (event->type() == QEvent::FileOpen)
     {
         QFileOpenEvent *fileEvent = static_cast<QFileOpenEvent*>(event);
@@ -332,7 +332,7 @@ void PaymentServer::initNetManager()
     if (netManager != NULL)
         delete netManager;
 
-    // netManager is used to fetch paymentrequests given in digibyte: URIs
+    // netManager is used to fetch paymentrequests given in bitcoin: URIs
     netManager = new QNetworkAccessManager(this);
 
     QNetworkProxy proxy;
@@ -378,7 +378,7 @@ void PaymentServer::handleURIOrFile(const QString& s)
         return;
     }
 
-    if (s.startsWith(DIGIBYTE_IPC_PREFIX, Qt::CaseInsensitive)) // digibyte: URI
+    if (s.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // bitcoin: URI
     {
 #if QT_VERSION < 0x050000
         QUrl uri(s);
@@ -410,7 +410,7 @@ void PaymentServer::handleURIOrFile(const QString& s)
         else // normal URI
         {
             SendCoinsRecipient recipient;
-            if (GUIUtil::parseDigiByteURI(s, &recipient))
+            if (GUIUtil::parseBitcoinURI(s, &recipient))
                 emit receivedPaymentRequest(recipient);
             else
                 emit message(tr("URI handling"),
@@ -495,10 +495,10 @@ bool PaymentServer::processPaymentRequest(PaymentRequestPlus& request, SendCoins
         CTxDestination dest;
         if (ExtractDestination(sendingTo.first, dest)) {
             // Append destination address
-            addresses.append(QString::fromStdString(CDigiByteAddress(dest).ToString()));
+            addresses.append(QString::fromStdString(CBitcoinAddress(dest).ToString()));
         }
         else if (!recipient.authenticatedMerchant.isEmpty()){
-            // Insecure payments to custom digibyte addresses are not supported
+            // Insecure payments to custom bitcoin addresses are not supported
             // (there is no good way to tell the user where they are paying in a way
             // they'd have a chance of understanding).
             emit message(tr("Payment request error"),
@@ -511,7 +511,7 @@ bool PaymentServer::processPaymentRequest(PaymentRequestPlus& request, SendCoins
         CTxOut txOut(sendingTo.second, sendingTo.first);
         if (txOut.IsDust(CTransaction::nMinRelayTxFee)) {
             QString msg = tr("Requested payment amount of %1 is too small (considered dust).")
-                .arg(DigiByteUnits::formatWithUnit(optionsModel->getDisplayUnit(), sendingTo.second));
+                .arg(BitcoinUnits::formatWithUnit(optionsModel->getDisplayUnit(), sendingTo.second));
 
             qDebug() << "PaymentServer::processPaymentRequest : " << msg;
             emit message(tr("Payment request error"), msg, CClientUIInterface::MSG_ERROR);
@@ -539,7 +539,7 @@ void PaymentServer::fetchRequest(const QUrl& url)
     netRequest.setAttribute(QNetworkRequest::User, "PaymentRequest");
     netRequest.setUrl(url);
     netRequest.setRawHeader("User-Agent", CLIENT_NAME.c_str());
-    netRequest.setRawHeader("Accept", DIGIBYTE_REQUEST_MIMETYPE);
+    netRequest.setRawHeader("Accept", BITCOIN_REQUEST_MIMETYPE);
     netManager->get(netRequest);
 }
 
@@ -552,9 +552,9 @@ void PaymentServer::fetchPaymentACK(CWallet* wallet, SendCoinsRecipient recipien
     QNetworkRequest netRequest;
     netRequest.setAttribute(QNetworkRequest::User, "PaymentACK");
     netRequest.setUrl(QString::fromStdString(details.payment_url()));
-    netRequest.setHeader(QNetworkRequest::ContentTypeHeader, DIGIBYTE_PAYMENTACK_CONTENTTYPE);
+    netRequest.setHeader(QNetworkRequest::ContentTypeHeader, BITCOIN_PAYMENTACK_CONTENTTYPE);
     netRequest.setRawHeader("User-Agent", CLIENT_NAME.c_str());
-    netRequest.setRawHeader("Accept", DIGIBYTE_PAYMENTACK_MIMETYPE);
+    netRequest.setRawHeader("Accept", BITCOIN_PAYMENTACK_MIMETYPE);
 
     payments::Payment payment;
     payment.set_merchant_data(details.merchant_data());

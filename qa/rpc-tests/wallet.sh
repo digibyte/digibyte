@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright (c) 2013-2014 The Bitcoin Core developers
+# Distributed under the MIT/X11 software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 # Test block generation and basic wallet sending
 
@@ -10,8 +13,8 @@ fi
 
 set -f
 
-DIGIBYTED=${1}/digibyted
-CLI=${1}/digibyte-cli
+BITCOIND=${1}/bitcoind
+CLI=${1}/bitcoin-cli
 
 DIR="${BASH_SOURCE%/*}"
 SENDANDWAIT="${DIR}/send.sh"
@@ -23,19 +26,19 @@ D=$(mktemp -d test.XXXXX)
 D1=${D}/node1
 CreateDataDir "$D1" port=11000 rpcport=11001
 B1ARGS="-datadir=$D1"
-$DIGIBYTED $B1ARGS &
+$BITCOIND $B1ARGS &
 B1PID=$!
 
 D2=${D}/node2
 CreateDataDir "$D2" port=11010 rpcport=11011 connect=127.0.0.1:11000
 B2ARGS="-datadir=$D2"
-$DIGIBYTED $B2ARGS &
+$BITCOIND $B2ARGS &
 B2PID=$!
 
 D3=${D}/node3
 CreateDataDir "$D3" port=11020 rpcport=11021 connect=127.0.0.1:11000
 B3ARGS="-datadir=$D3"
-$DIGIBYTED $DIGIBYTEDARGS $B3ARGS &
+$BITCOIND $BITCOINDARGS $B3ARGS &
 B3PID=$!
 
 # Wait until all three nodes are at the same block number

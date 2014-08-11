@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2014 The DigiByte developers
+// Copyright (c) 2011-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "transactiontablemodel.h"
 
 #include "addresstablemodel.h"
-#include "digibyteunits.h"
+#include "bitcoinunits.h"
 #include "guiconstants.h"
 #include "guiutil.h"
 #include "optionsmodel.h"
@@ -24,7 +24,6 @@
 #include <QDebug>
 #include <QIcon>
 #include <QList>
-#include <QTimer>
 
 // Amount column is right-aligned it contains numbers
 static int column_alignments[] = {
@@ -78,7 +77,7 @@ public:
         qDebug() << "TransactionTablePriv::refreshWallet";
         cachedWallet.clear();
         {
-            LOCK(wallet->cs_wallet);
+            LOCK2(cs_main, wallet->cs_wallet);
             for(std::map<uint256, CWalletTx>::iterator it = wallet->mapWallet.begin(); it != wallet->mapWallet.end(); ++it)
             {
                 if(TransactionRecord::showTransaction(it->second))
@@ -96,7 +95,7 @@ public:
     {
         qDebug() << "TransactionTablePriv::updateWallet : " + QString::fromStdString(hash.ToString()) + " " + QString::number(status);
         {
-            LOCK(wallet->cs_wallet);
+            LOCK2(cs_main, wallet->cs_wallet);
 
             // Find transaction in wallet
             std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(hash);
@@ -187,13 +186,19 @@ public:
         {
             TransactionRecord *rec = &cachedWallet[idx];
 
+            // Get required locks upfront. This avoids the GUI from getting
+            // stuck if the core is holding the locks for a longer time - for
+            // example, during a wallet rescan.
+            //
             // If a status update is needed (blocks came in since last check),
             //  update the status of this transaction from the wallet. Otherwise,
             // simply re-use the cached status.
-            if(rec->statusUpdateNeeded())
+            TRY_LOCK(cs_main, lockMain);
+            if(lockMain)
             {
+                TRY_LOCK(wallet->cs_wallet, lockWallet);
+                if(lockWallet && rec->statusUpdateNeeded())
                 {
-                    LOCK(wallet->cs_wallet);
                     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
 
                     if(mi != wallet->mapWallet.end())
@@ -213,7 +218,7 @@ public:
     QString describe(TransactionRecord *rec, int unit)
     {
         {
-            LOCK(wallet->cs_wallet);
+            LOCK2(cs_main, wallet->cs_wallet);
             std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
             if(mi != wallet->mapWallet.end())
             {
@@ -222,23 +227,17 @@ public:
         }
         return QString("");
     }
-
 };
 
 TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel *parent):
         QAbstractTableModel(parent),
         wallet(wallet),
         walletModel(parent),
-        priv(new TransactionTablePriv(wallet, this)),
-        cachedNumBlocks(0)
+        priv(new TransactionTablePriv(wallet, this))
 {
     columns << QString() << tr("Date") << tr("Type") << tr("Address") << tr("Amount");
 
     priv->refreshWallet();
-
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateConfirmations()));
-    timer->start(MODEL_UPDATE_DELAY);
 
     connect(walletModel->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
 }
@@ -258,16 +257,12 @@ void TransactionTableModel::updateTransaction(const QString &hash, int status)
 
 void TransactionTableModel::updateConfirmations()
 {
-    if(chainActive.Height() != cachedNumBlocks)
-    {
-        cachedNumBlocks = chainActive.Height();
-        // Blocks came in since last poll.
-        // Invalidate status (number of confirmations) and (possibly) description
-        //  for all rows. Qt is smart enough to only actually request the data for the
-        //  visible rows.
-        emit dataChanged(index(0, Status), index(priv->size()-1, Status));
-        emit dataChanged(index(0, ToAddress), index(priv->size()-1, ToAddress));
-    }
+    // Blocks came in since last poll.
+    // Invalidate status (number of confirmations) and (possibly) description
+    //  for all rows. Qt is smart enough to only actually request the data for the
+    //  visible rows.
+    emit dataChanged(index(0, Status), index(priv->size()-1, Status));
+    emit dataChanged(index(0, ToAddress), index(priv->size()-1, ToAddress));
 }
 
 int TransactionTableModel::rowCount(const QModelIndex &parent) const
@@ -432,7 +427,7 @@ QVariant TransactionTableModel::addressColor(const TransactionRecord *wtx) const
 
 QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool showUnconfirmed) const
 {
-    QString str = DigiByteUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
+    QString str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
     if(showUnconfirmed)
     {
         if(!wtx->status.countsForBalance)
@@ -569,6 +564,8 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         return rec->credit + rec->debit;
     case TxIDRole:
         return rec->getTxID();
+    case TxHashRole:
+        return QString::fromStdString(rec->hash.ToString());
     case ConfirmedRole:
         return rec->status.countsForBalance;
     case FormattedAmountRole:

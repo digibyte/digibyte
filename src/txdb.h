@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The DigiByte developers
+// Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_TXDB_LEVELDB_H
-#define DIGIBYTE_TXDB_LEVELDB_H
+#ifndef BITCOIN_TXDB_LEVELDB_H
+#define BITCOIN_TXDB_LEVELDB_H
 
 #include "leveldbwrapper.h"
 #include "main.h"
@@ -66,4 +66,4 @@ public:
     bool LoadBlockIndexGuts();
 };
 
-#endif // DIGIBYTE_TXDB_LEVELDB_H
+#endif // BITCOIN_TXDB_LEVELDB_H

@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2013 The DigiByte developers
+// Copyright (c) 2011-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +7,7 @@
 
 #include <QStackedWidget>
 
-class DigiByteGUI;
+class BitcoinGUI;
 class ClientModel;
 class OverviewPage;
 class ReceiveCoinsDialog;
@@ -18,6 +18,7 @@ class WalletModel;
 
 QT_BEGIN_NAMESPACE
 class QModelIndex;
+class QProgressDialog;
 QT_END_NAMESPACE
 
 /*
@@ -34,13 +35,13 @@ public:
     explicit WalletView(QWidget *parent);
     ~WalletView();
 
-    void setDigiByteGUI(DigiByteGUI *gui);
+    void setBitcoinGUI(BitcoinGUI *gui);
     /** Set the client model.
         The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
     */
     void setClientModel(ClientModel *clientModel);
     /** Set the wallet model.
-        The wallet model represents a digibyte wallet, and offers access to the list of transactions, address book and sending
+        The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
     void setWalletModel(WalletModel *walletModel);
@@ -59,6 +60,8 @@ private:
     SendCoinsDialog *sendCoinsPage;
 
     TransactionView *transactionView;
+
+    QProgressDialog *progressDialog;
 
 public slots:
     /** Switch to overview (home) page */
@@ -96,6 +99,9 @@ public slots:
 
     /** Re-emit encryption status signal */
     void updateEncryptionStatus();
+
+    /** Show progress dialog e.g. for rescan */
+    void showProgress(const QString &title, int nProgress);
 
 signals:
     /** Signal that we want to show the main window */

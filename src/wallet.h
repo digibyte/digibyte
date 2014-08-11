@@ -1,9 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The DigiByte developers
+// Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef DIGIBYTE_WALLET_H
-#define DIGIBYTE_WALLET_H
+#ifndef BITCOIN_WALLET_H
+#define BITCOIN_WALLET_H
 
 #include "core.h"
 #include "crypter.h"
@@ -26,6 +26,11 @@
 // Settings
 extern int64_t nTransactionFee;
 extern bool bSpendZeroConfChange;
+
+// -paytxfee default
+static const int64_t DEFAULT_TRANSACTION_FEE = 0;
+// -paytxfee will warn if called with a higher fee than this amount (in satoshis) per KB
+static const int nHighTransactionFeeWarning = 0.01 * COIN;
 
 class CAccountingEntry;
 class CCoinControl;
@@ -138,6 +143,17 @@ public:
 
     CWallet()
     {
+        SetNull();
+    }
+    CWallet(std::string strWalletFileIn)
+    {
+        SetNull();
+
+        strWalletFile = strWalletFileIn;
+        fFileBacked = true;
+    }
+    void SetNull()
+    {
         nWalletVersion = FEATURE_BASE;
         nWalletMaxVersion = FEATURE_BASE;
         fFileBacked = false;
@@ -146,18 +162,7 @@ public:
         nOrderPosNext = 0;
         nNextResend = 0;
         nLastResend = 0;
-    }
-    CWallet(std::string strWalletFileIn)
-    {
-        nWalletVersion = FEATURE_BASE;
-        nWalletMaxVersion = FEATURE_BASE;
-        strWalletFile = strWalletFileIn;
-        fFileBacked = true;
-        nMasterKeyMaxID = 0;
-        pwalletdbEncryption = NULL;
-        nOrderPosNext = 0;
-        nNextResend = 0;
-        nLastResend = 0;
+        nTimeFirstKey = 0;
     }
 
     std::map<uint256, CWalletTx> mapWallet;
@@ -388,6 +393,9 @@ public:
      */
     boost::signals2::signal<void (CWallet *wallet, const uint256 &hashTx,
             ChangeType status)> NotifyTransactionChanged;
+
+    /** Show progress e.g. for rescan */
+    boost::signals2::signal<void (const std::string &title, int nProgress)> ShowProgress;
 };
 
 /** A key allocated from the key pool. */
@@ -582,7 +590,7 @@ public:
     int64_t GetCredit(bool fUseCache=true) const
     {
         // Must wait until coinbase is safely deep enough in the chain before valuing it
-        if (IsCoinBase() && GetBlocksToMaturity() > 0)
+        if (IsCoinBase() && GetBlocksToMaturity(chainActive.Height() - GetDepthInMainChain()) > 0)
             return 0;
 
         // GetBalance can assume transactions in mapWallet won't change
@@ -595,7 +603,7 @@ public:
 
     int64_t GetImmatureCredit(bool fUseCache=true) const
     {
-        if (IsCoinBase() && GetBlocksToMaturity() > 0 && IsInMainChain())
+        if (IsCoinBase() && GetBlocksToMaturity(chainActive.Height() - GetDepthInMainChain()) > 0 && IsInMainChain())
         {
             if (fUseCache && fImmatureCreditCached)
                 return nImmatureCreditCached;
@@ -613,16 +621,17 @@ public:
             return 0;
 
         // Must wait until coinbase is safely deep enough in the chain before valuing it
-        if (IsCoinBase() && GetBlocksToMaturity() > 0)
+        if (IsCoinBase() && GetBlocksToMaturity((chainActive.Height() - GetDepthInMainChain()) > 0 ))
             return 0;
 
         if (fUseCache && fAvailableCreditCached)
             return nAvailableCreditCached;
 
         int64_t nCredit = 0;
+        uint256 hashTx = GetHash();
         for (unsigned int i = 0; i < vout.size(); i++)
         {
-            if (!pwallet->IsSpent(GetHash(), i))
+            if (!pwallet->IsSpent(hashTx, i))
             {
                 const CTxOut &txout = vout[i];
                 nCredit += pwallet->GetCredit(txout);

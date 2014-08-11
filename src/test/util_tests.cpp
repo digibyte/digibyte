@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "util.h"
 
 #include "sync.h"
@@ -104,13 +108,11 @@ BOOST_AUTO_TEST_CASE(util_HexStr)
 
 BOOST_AUTO_TEST_CASE(util_DateTimeStrFormat)
 {
-/*These are platform-dependant and thus removed to avoid useless test failures
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M:%S", 0), "1970-01-01 00:00:00");
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M:%S", 0x7FFFFFFF), "2038-01-19 03:14:07");
-    // Formats used within DigiByte
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M:%S", 1317425777), "2011-09-30 23:36:17");
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M", 1317425777), "2011-09-30 23:36");
-*/
+    BOOST_CHECK_EQUAL(DateTimeStrFormat("%a, %d %b %Y %H:%M:%S +0000", 1317425777), "Fri, 30 Sep 2011 23:36:17 +0000");
 }
 
 BOOST_AUTO_TEST_CASE(util_ParseParameters)
@@ -317,15 +319,15 @@ BOOST_AUTO_TEST_CASE(strprintf_numbers)
 
     size_t st = 12345678; /* unsigned size_t test value */
     ssize_t sst = -12345678; /* signed size_t test value */
-    BOOST_CHECK(strprintf("%s %"PRIszd" %s", B, sst, E) == B" -12345678 "E);
-    BOOST_CHECK(strprintf("%s %"PRIszu" %s", B, st, E) == B" 12345678 "E);
-    BOOST_CHECK(strprintf("%s %"PRIszx" %s", B, st, E) == B" bc614e "E);
+    BOOST_CHECK(strprintf("%s %d %s", B, sst, E) == B" -12345678 "E);
+    BOOST_CHECK(strprintf("%s %u %s", B, st, E) == B" 12345678 "E);
+    BOOST_CHECK(strprintf("%s %x %s", B, st, E) == B" bc614e "E);
 
     ptrdiff_t pt = 87654321; /* positive ptrdiff_t test value */
     ptrdiff_t spt = -87654321; /* negative ptrdiff_t test value */
-    BOOST_CHECK(strprintf("%s %"PRIpdd" %s", B, spt, E) == B" -87654321 "E);
-    BOOST_CHECK(strprintf("%s %"PRIpdu" %s", B, pt, E) == B" 87654321 "E);
-    BOOST_CHECK(strprintf("%s %"PRIpdx" %s", B, pt, E) == B" 5397fb1 "E);
+    BOOST_CHECK(strprintf("%s %d %s", B, spt, E) == B" -87654321 "E);
+    BOOST_CHECK(strprintf("%s %u %s", B, pt, E) == B" 87654321 "E);
+    BOOST_CHECK(strprintf("%s %x %s", B, pt, E) == B" 5397fb1 "E);
 }
 #undef B
 #undef E

@@ -1,13 +1,13 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The DigiByte developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_MAIN_H
-#define DIGIBYTE_MAIN_H
+#ifndef BITCOIN_MAIN_H
+#define BITCOIN_MAIN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "digibyte-config.h"
+#include "bitcoin-config.h"
 #endif
 
 #include "bignum.h"
@@ -17,7 +17,6 @@
 #include "net.h"
 #include "script.h"
 #include "sync.h"
-#include "scrypt.h"
 #include "txmempool.h"
 #include "uint256.h"
 
@@ -57,10 +56,18 @@ static const unsigned int BLOCKFILE_CHUNK_SIZE = 0x1000000; // 16 MiB
 static const unsigned int UNDOFILE_CHUNK_SIZE = 0x100000; // 1 MiB
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
 static const int COINBASE_MATURITY = 8;
+static const int COINBASE_MATURITY_2 = 100;
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 /** Maximum number of script-checking threads allowed */
 static const int MAX_SCRIPTCHECK_THREADS = 16;
+/** -par default (number of script-checking threads, 0 = auto) */
+static const int DEFAULT_SCRIPTCHECK_THREADS = 0;
+/** Number of blocks that can be requested at any given time from a single peer. */
+static const int MAX_BLOCKS_IN_TRANSIT_PER_PEER = 128;
+/** Timeout in seconds before considering a block download peer unresponsive. */
+static const unsigned int BLOCK_DOWNLOAD_TIMEOUT = 60;
+
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
 #else
@@ -92,6 +99,8 @@ extern bool fBenchmark;
 extern int nScriptCheckThreads;
 extern bool fTxIndex;
 extern unsigned int nCoinCacheSize;
+extern int miningAlgo;
+
 
 // Minimum disk space required - used in CheckDiskSpace()
 static const uint64_t nMinDiskSpace = 52428800;
@@ -151,7 +160,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle);
 /** Run an instance of the script checking thread */
 void ThreadScriptCheck();
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
-bool CheckProofOfWork(uint256 hash, unsigned int nBits);
+bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo);
 /** Calculate the minimum amount of work a received block needs, without knowing its direct parent */
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime);
 /** Get the number of active peers */
@@ -165,7 +174,7 @@ bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock, b
 /** Find the best known block, and make it the tip of the block chain */
 bool ActivateBestChain(CValidationState &state);
 int64_t GetBlockValue(int nHeight, int64_t nFees);
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock);
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo);
 
 void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev);
 
@@ -177,10 +186,19 @@ bool VerifySignature(const CCoins& txFrom, const CTransaction& txTo, unsigned in
 bool AbortNode(const std::string &msg);
 /** Get statistics from node state */
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
+/** Increase a node's misbehavior score. */
+void Misbehaving(NodeId nodeid, int howmuch);
+
 
 /** (try to) add transaction to memory pool **/
 bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransaction &tx, bool fLimitFree,
                         bool* pfMissingInputs, bool fRejectInsaneFee=false);
+
+
+
+
+
+
 
 
 struct CNodeStateStats {
@@ -262,10 +280,10 @@ int64_t GetMinFee(const CTransaction& tx, unsigned int nBytes, bool fAllowFree, 
 //   DUP CHECKSIG DROP ... repeated 100 times... OP_1
 //
 
-    /** Check for standard transaction types
-        @param[in] mapInputs    Map of previous transactions that have outputs we're spending
-        @return True if all inputs (scriptSigs) use only standard transaction forms
-    */
+/** Check for standard transaction types
+    @param[in] mapInputs    Map of previous transactions that have outputs we're spending
+    @return True if all inputs (scriptSigs) use only standard transaction forms
+*/
 bool AreInputsStandard(const CTransaction& tx, CCoinsViewCache& mapInputs);
 
 /** Count ECDSA signature operations the old-fashioned (pre-0.6) way
@@ -366,7 +384,7 @@ public:
             filein >> hashChecksum;
         }
         catch (std::exception &e) {
-            return error("%s : Deserialize or I/O error - %s", __PRETTY_FUNCTION__, e.what());
+            return error("%s : Deserialize or I/O error - %s", __func__, e.what());
         }
 
         // Verify checksum
@@ -414,6 +432,7 @@ class CMerkleTx : public CTransaction
 {
 private:
     int GetDepthInMainChainINTERNAL(CBlockIndex* &pindexRet) const;
+
 public:
     uint256 hashBlock;
     std::vector<uint256> vMerkleBranch;
@@ -460,7 +479,7 @@ public:
     int GetDepthInMainChain(CBlockIndex* &pindexRet) const;
     int GetDepthInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChain(pindexRet); }
     bool IsInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChainINTERNAL(pindexRet) > 0; }
-    int GetBlocksToMaturity() const;
+    int GetBlocksToMaturity(int nHeight) const;
     bool AcceptToMemoryPool(bool fLimitFree=true);
 };
 
@@ -666,6 +685,8 @@ enum BlockStatus {
     BLOCK_FAILED_MASK        =   96
 };
 
+const int64_t multiAlgoDiffChangeTarget = 145000; // block where algo work weighting starts
+
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
  * candidates to be the next block. A blockindex may have multiple pprev pointing
@@ -757,6 +778,8 @@ public:
         nNonce         = block.nNonce;
     }
 
+    int GetAlgo() const { return ::GetAlgo(nVersion); }
+    
     CDiskBlockPos GetBlockPos() const {
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_DATA) {
@@ -807,9 +830,48 @@ public:
         return (CBigNum(1)<<256) / (bnTarget+1);
     }
 
+    int GetAlgoWorkFactor() const 
+    {
+        if (!TestNet() && (nHeight < multiAlgoDiffChangeTarget))
+        {
+            return 1;
+        }
+        if (TestNet() && (nHeight < 100))
+        {
+            return 1;
+        }
+        switch (GetAlgo())
+        {
+            case ALGO_SHA256D:
+                return 1; 
+            // work factor = absolute work ratio * optimisation factor
+            case ALGO_SCRYPT:
+                return 1024 * 4;
+            case ALGO_GROESTL:
+                return 64 * 8;
+            case ALGO_SKEIN:
+                return 4 * 6;
+            case ALGO_QUBIT:
+                return 128 * 8;
+            default:
+                return 1;
+        }
+    }
+
+    CBigNum GetBlockWorkAdjusted() const
+    {
+        CBigNum bnRes;
+        bnRes = GetBlockWork() * GetAlgoWorkFactor();
+        return bnRes;
+    }
+    
     bool CheckIndex() const
     {
-        return true;//CheckProofOfWork(GetBlockHash(), nBits);
+        int algo = GetAlgo();
+        if (algo == ALGO_SHA256D)
+            return CheckProofOfWork(GetBlockHash(), nBits, algo);
+        else
+            return true;
     }
 
     enum { nMedianTimeSpan=11 };
@@ -851,7 +913,8 @@ public:
     }
 };
 
-
+const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, int algo);
+const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo);
 
 /** Used to marshal pointers into hashes for db storage. */
 class CDiskBlockIndex : public CBlockIndex
@@ -1106,4 +1169,3 @@ protected:
 };
 
 #endif
-// 

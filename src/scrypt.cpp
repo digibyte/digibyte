@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Colin Percival, 2011 ArtForz
+ * Copyright 2009 Colin Percival, 2011 ArtForz, 2012-2013 pooler
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@
  */
 
 #include "scrypt.h"
+#include "util.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
@@ -48,23 +49,6 @@ static inline void be32enc(void *pp, uint32_t x)
 	p[1] = (x >> 16) & 0xff;
 	p[0] = (x >> 24) & 0xff;
 }
-
-static inline uint32_t le32dec(const void *pp)
-{
-	const uint8_t *p = (uint8_t const *)pp;
-	return ((uint32_t)(p[0]) + ((uint32_t)(p[1]) << 8) +
-	    ((uint32_t)(p[2]) << 16) + ((uint32_t)(p[3]) << 24));
-}
-
-static inline void le32enc(void *pp, uint32_t x)
-{
-	uint8_t *p = (uint8_t *)pp;
-	p[0] = x & 0xff;
-	p[1] = (x >> 8) & 0xff;
-	p[2] = (x >> 16) & 0xff;
-	p[3] = (x >> 24) & 0xff;
-}
-
 
 typedef struct HMAC_SHA256Context {
 	SHA256_CTX ictx;
@@ -139,7 +123,7 @@ HMAC_SHA256_Final(unsigned char digest[32], HMAC_SHA256_CTX *ctx)
  * Compute PBKDF2(passwd, salt, c, dkLen) using HMAC-SHA256 as the PRF, and
  * write the output to buf.  The value dkLen must be at most 32 * (2^32 - 1).
  */
-static void
+void
 PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
     size_t saltlen, uint64_t c, uint8_t *buf, size_t dkLen)
 {
@@ -190,7 +174,6 @@ PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
 	/* Clean PShctx, since we never called _Final on it. */
 	memset(&PShctx, 0, sizeof(HMAC_SHA256_CTX));
 }
-
 
 #define ROTL(a, b) (((a) << (b)) | ((a) >> (32 - (b))))
 
@@ -260,7 +243,7 @@ static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 	B[15] += x15;
 }
 
-void scrypt_1024_1_1_256_sp(const char *input, char *output, char *scratchpad)
+void scrypt_1024_1_1_256_sp_generic(const char *input, char *output, char *scratchpad)
 {
 	uint8_t B[128];
 	uint32_t X[32];
@@ -293,9 +276,48 @@ void scrypt_1024_1_1_256_sp(const char *input, char *output, char *scratchpad)
 	PBKDF2_SHA256((const uint8_t *)input, 80, B, 128, 1, (uint8_t *)output, 32);
 }
 
+#if defined(USE_SSE2)
+#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
+/* Always SSE2 */
+void scrypt_detect_sse2(unsigned int cpuid_edx)
+{
+    printf("scrypt: using scrypt-sse2 as built.\n");
+}
+#else
+/* Detect SSE2 */
+void (*scrypt_1024_1_1_256_sp)(const char *input, char *output, char *scratchpad);
+
+void scrypt_detect_sse2(unsigned int cpuid_edx)
+{
+    if (cpuid_edx & 1<<26)
+    {
+        scrypt_1024_1_1_256_sp = &scrypt_1024_1_1_256_sp_sse2;
+        printf("scrypt: using scrypt-sse2 as detected.\n");
+    }
+    else
+    {
+        scrypt_1024_1_1_256_sp = &scrypt_1024_1_1_256_sp_generic;
+        printf("scrypt: using scrypt-generic, SSE2 unavailable.\n");
+    }
+}
+#endif
+#endif
+
 void scrypt_1024_1_1_256(const char *input, char *output)
 {
 	char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
-	scrypt_1024_1_1_256_sp(input, output, scratchpad);
+#if defined(USE_SSE2)
+        // Detection would work, but in cases where we KNOW it always has SSE2,
+        // it is faster to use directly than to use a function pointer or conditional.
+#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
+        // Always SSE2: x86_64 or Intel MacOS X
+        scrypt_1024_1_1_256_sp_sse2(input, output, scratchpad);
+#else
+        // Detect SSE2: 32bit x86 Linux or Windows
+        scrypt_1024_1_1_256_sp(input, output, scratchpad);
+#endif
+#else
+        // Generic scrypt
+        scrypt_1024_1_1_256_sp_generic(input, output, scratchpad);
+#endif
 }
-

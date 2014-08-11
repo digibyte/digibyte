@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The DigiByte developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,8 +20,7 @@ using namespace boost::assign;
 
 unsigned int pnSeed[] =
 {
-            0x797DFAD8, 0xA0E6D04A, 0xCACC704A, 0xDC20042E, 0x586D1BC6,
-           0x2124CC36, 0x8CB829C6, 0xB65E4C90, 0xBC32555F, 0x46F09FA2,
+    0x12345678
 };
 
 class CMainParams : public CChainParams {
@@ -37,20 +36,15 @@ public:
         vAlertPubKey = ParseHex("04F04441C4757F356290A37C313C3772C5BC5003E898EB2E0CF365795543A7BF690C8BBBFA32EE3A3325477CE2000B7D0453EFBB203329D0F9DF34D5927D022BC9");
         nDefaultPort = 12024;
         nRPCPort = 14022;
-	
-	//static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20);
-        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
-        //nSubsidyHalvingInterval = 210000;
+
+        bnProofOfWorkLimit[ALGO_SHA256D] = CBigNum(~uint256(0) >> 20);
+        bnProofOfWorkLimit[ALGO_SCRYPT]  = CBigNum(~uint256(0) >> 20);
+        bnProofOfWorkLimit[ALGO_GROESTL] = CBigNum(~uint256(0) >> 20);
+        bnProofOfWorkLimit[ALGO_SKEIN]   = CBigNum(~uint256(0) >> 20);
+        bnProofOfWorkLimit[ALGO_QUBIT]   = CBigNum(~uint256(0) >> 20);
 
         // Build the genesis block. Note that the output of the genesis coinbase cannot
         // be spent as it did not originally exist in the database.
-        //
-        // CBlock(hash=7497ea1b465eb3, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=72ddd9, nTime=1389388394, nBits=1e0ffff0, nNonce=2447652, vtx=1)
-        //   CTransaction(hash=4a5e1e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
-        //     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73)
-        //     CTxOut(nValue=50.00000000, scriptPubKey=0x5F1DF16B2B704C8A578D0B)
-        //   vMerkleTree: 4a5e1e
-	//ParseHex("
         const char* pszTimestamp = "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M customers";
         CTransaction txNew;
         txNew.vin.resize(1);
@@ -65,21 +59,23 @@ public:
         genesis.nTime    = 1389388394;
         genesis.nBits    = 0x1e0ffff0;
         genesis.nNonce   = 2447652;
-	
-		hashGenesisBlock = genesis.GetHash();
+    
+        hashGenesisBlock = genesis.GetHash();
 
         assert(hashGenesisBlock == uint256("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"));
         assert(genesis.hashMerkleRoot == uint256("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         vSeeds.push_back(CDNSSeedData("digibyte.co seed #1", "seed1.digibyte.co"));
         vSeeds.push_back(CDNSSeedData("hashdragon.com seed #2", "seed2.hashdragon.com"));
+        vSeeds.push_back(CDNSSeedData("digihash.co seed #3", "seed3.digihash.co"));
+        vSeeds.push_back(CDNSSeedData("love2hash.com seed #4", "seed4.love2hash.com"));
+        vSeeds.push_back(CDNSSeedData("digiexplorer.info seed #5", "seed5.digiexplorer.info"));
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(30);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
         base58Prefixes[SECRET_KEY] =     list_of(128);
         base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xB2)(0x1E);
         base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xAD)(0xE4);
-
         // Convert the pnSeeds array into usable address objects.
         for (unsigned int i = 0; i < ARRAYLEN(pnSeed); i++)
         {
@@ -107,6 +103,7 @@ protected:
     vector<CAddress> vFixedSeeds;
 };
 static CMainParams mainParams;
+
 
 
 //
@@ -160,7 +157,7 @@ public:
         pchMessageStart[2] = 0xb2;
         pchMessageStart[3] = 0xdb;
         //nSubsidyHalvingInterval = 150;
-        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 1);
+       // bnProofOfWorkLimit = CBigNum();
         genesis.nTime = 1392796564;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 961533;

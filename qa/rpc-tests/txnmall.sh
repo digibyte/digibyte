@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright (c) 2014 The Bitcoin Core developers
+# Distributed under the MIT/X11 software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 # Test proper accounting with malleable transactions
 
@@ -10,8 +13,8 @@ fi
 
 set -f
 
-DIGIBYTED=${1}/digibyted
-CLI=${1}/digibyte-cli
+BITCOIND=${1}/bitcoind
+CLI=${1}/bitcoin-cli
 
 DIR="${BASH_SOURCE%/*}"
 SENDANDWAIT="${DIR}/send.sh"
@@ -26,13 +29,13 @@ D=$(mktemp -d test.XXXXX)
 D1=${D}/node1
 CreateDataDir $D1 port=11000 rpcport=11001
 B1ARGS="-datadir=$D1"
-$DIGIBYTED $B1ARGS &
+$BITCOIND $B1ARGS &
 B1PID=$!
 
 D2=${D}/node2
 CreateDataDir $D2 port=11010 rpcport=11011
 B2ARGS="-datadir=$D2"
-$DIGIBYTED $B2ARGS &
+$BITCOIND $B2ARGS &
 B2PID=$!
 
 # Wait until both nodes are at the same block number
@@ -82,14 +85,14 @@ CheckBalance "$B2ARGS" 0
 # restart B2 with no connection
 $CLI $B2ARGS stop > /dev/null 2>&1
 wait $B2PID
-$DIGIBYTED $B2ARGS &
+$BITCOIND $B2ARGS &
 B2PID=$!
 
 B2ADDRESS=$( $CLI $B2ARGS getaccountaddress "from1" )
 
 # Have B1 create two transactions; second will
 # spend change from first, since B1 starts with only a single
-# 50 digibyte output:
+# 50 bitcoin output:
 $CLI $B1ARGS move "" "foo" 10.0 > /dev/null
 $CLI $B1ARGS move "" "bar" 10.0 > /dev/null
 TXID1=$( $CLI $B1ARGS sendfrom foo $B2ADDRESS 1.0 0)
