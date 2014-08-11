@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2014 The DigiByte developers
+// Copyright (c) 2011-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -92,7 +92,7 @@ public:
     )
 };
 
-/** Interface to DigiByte wallet from Qt view code. */
+/** Interface to Bitcoin wallet from Qt view code. */
 class WalletModel : public QObject
 {
     Q_OBJECT
@@ -239,7 +239,6 @@ signals:
 
     // Show progress dialog e.g. for rescan
     void showProgress(const QString &title, int nProgress);
-
 
 public slots:
     /* Wallet status might have changed */

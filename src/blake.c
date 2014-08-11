@@ -1118,4 +1118,3 @@ sph_blake512_addbits_and_close(void *cc, unsigned ub, unsigned n, void *dst)
 #ifdef __cplusplus
 }
 #endif
-

@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The DigiByte developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -303,7 +303,7 @@ static const CRPCCommand vRPCCommands[] =
     { "sendmany",               &sendmany,               false,     false,      true },
     { "sendtoaddress",          &sendtoaddress,          false,     false,      true },
     { "setaccount",             &setaccount,             true,      false,      true },
-    { "settxfee",               &settxfee,                false,     false,      true },
+    { "settxfee",               &settxfee,               false,     false,      true },
     { "signmessage",            &signmessage,            false,     false,      true },
     { "walletlock",             &walletlock,             true,      false,      true },
     { "walletpassphrasechange", &walletpassphrasechange, false,     false,      true },
@@ -478,7 +478,6 @@ static void RPCAcceptHandler(boost::shared_ptr< basic_socket_acceptor<Protocol, 
 
     AcceptedConnectionImpl<ip::tcp>* tcp_conn = dynamic_cast< AcceptedConnectionImpl<ip::tcp>* >(conn.get());
 
-    // TODO: Actually handle errors
     if (error)
     {
         // TODO: Actually handle errors
@@ -566,7 +565,7 @@ void StartRPCThreads()
     std::string strerr;
     try
     {
-				boost::shared_ptr<ip::tcp::acceptor> acceptor(new ip::tcp::acceptor(*rpc_io_service));
+        boost::shared_ptr<ip::tcp::acceptor> acceptor(new ip::tcp::acceptor(*rpc_io_service));
         acceptor->open(endpoint.protocol());
         acceptor->set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
 
@@ -577,15 +576,14 @@ void StartRPCThreads()
         acceptor->listen(socket_base::max_connections);
 
         RPCListen(acceptor, *rpc_ssl_context, fUseSSL);
-			
-				rpc_acceptors.push_back(acceptor);
+
+        rpc_acceptors.push_back(acceptor);
         fListening = true;
     }
     catch(boost::system::system_error &e)
     {
         strerr = strprintf(_("An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s"), endpoint.port(), e.what());
     }
-
     try {
         // If dual IPv6/IPv4 failed (or we're opening loopback interfaces only), open IPv4 separately
         if (!fListening || loopback || v6_only_error)
@@ -601,7 +599,7 @@ void StartRPCThreads()
 
             RPCListen(acceptor, *rpc_ssl_context, fUseSSL);
 
-						rpc_acceptors.push_back(acceptor);
+            rpc_acceptors.push_back(acceptor);
             fListening = true;
         }
     }
@@ -638,7 +636,6 @@ void StopRPCThreads()
 {
     if (rpc_io_service == NULL) return;
 
-
     // First, cancel all timers and acceptors
     // This is not done automatically by ->stop(), and in some cases the destructor of
     // asio::io_service can hang if this is skipped.
@@ -656,8 +653,8 @@ void StopRPCThreads()
         if (ec)
             LogPrintf("%s: Warning: %s when cancelling timer", __func__, ec.message());
     }
-
     deadlineTimers.clear();
+
     rpc_io_service->stop();
     if (rpc_worker_group != NULL)
         rpc_worker_group->join_all();

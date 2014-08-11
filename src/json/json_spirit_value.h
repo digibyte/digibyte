@@ -65,8 +65,8 @@ namespace json_spirit
         const Array&       get_array()  const;
         bool               get_bool()   const;
         int                get_int()    const;
-        int64_t     			 get_int64()  const;
-        uint64_t           get_uint64() const;
+        int64_t     get_int64()  const;
+        uint64_t    get_uint64() const;
         double             get_real()   const;
 
         Object& get_obj();
@@ -342,7 +342,7 @@ namespace json_spirit
         {
             std::ostringstream os;
 
-            ///// DigiByte: Tell the types by name instead of by number
+            ///// Bitcoin: Tell the types by name instead of by number
             os << "value is type " << Value_type_name[type()] << ", expected " << Value_type_name[vtype];
 
             throw std::runtime_error( os.str() );

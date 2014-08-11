@@ -33,7 +33,7 @@
 
 namespace json_spirit
 {
-		const spirit_namespace::int_parser < int64_t >  int64_p  = spirit_namespace::int_parser < int64_t  >();
+    const spirit_namespace::int_parser < int64_t >  int64_p  = spirit_namespace::int_parser < int64_t  >();
     const spirit_namespace::uint_parser< uint64_t > uint64_p = spirit_namespace::uint_parser< uint64_t >();
 
     template< class Iter_type >

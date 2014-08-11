@@ -3,28 +3,28 @@ include Makefile.include
 AM_CPPFLAGS += -I$(builddir)
 
 noinst_LIBRARIES = \
-  libdigibyte_server.a \
-  libdigibyte_common.a \
-  libdigibyte_cli.a
+  libbitcoin_server.a \
+  libbitcoin_common.a \
+  libbitcoin_cli.a
 if ENABLE_WALLET
-noinst_LIBRARIES += libdigibyte_wallet.a
+noinst_LIBRARIES += libbitcoin_wallet.a
 endif
 
 bin_PROGRAMS =
 
-if BUILD_DIGIBYTED
+if BUILD_BITCOIND
   bin_PROGRAMS += digibyted
 endif
 
-if BUILD_DIGIBYTE_CLI
+if BUILD_BITCOIN_CLI
   bin_PROGRAMS += digibyte-cli
 endif
 
 SUBDIRS = . $(BUILD_QT) $(BUILD_TEST)
 DIST_SUBDIRS = . qt test
 .PHONY: FORCE
-# digibyte core #
-DIGIBYTE_CORE_H = \
+# bitcoin core #
+BITCOIN_CORE_H = \
   addrman.h \
   alert.h \
   allocators.h \
@@ -103,7 +103,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 version.o: obj/build.h
 
-libdigibyte_server_a_SOURCES = \
+libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
   bloom.cpp \
@@ -125,19 +125,19 @@ libdigibyte_server_a_SOURCES = \
   txdb.cpp \
   txmempool.cpp \
   $(JSON_H) \
-  $(DIGIBYTE_CORE_H)
+  $(BITCOIN_CORE_H)
 
-libdigibyte_wallet_a_SOURCES = \
+libbitcoin_wallet_a_SOURCES = \
   db.cpp \
   crypter.cpp \
   rpcdump.cpp \
   rpcwallet.cpp \
   wallet.cpp \
   walletdb.cpp \
-  $(DIGIBYTE_CORE_H)
+  $(BITCOIN_CORE_H)
 
-libdigibyte_common_a_SOURCES = \
-	base58.cpp \
+libbitcoin_common_a_SOURCES = \
+  base58.cpp \
   allocators.cpp \
   chainparams.cpp \
   core.cpp \
@@ -164,50 +164,50 @@ libdigibyte_common_a_SOURCES = \
   simd.c \
   cubehash.c \
   shavite.c \
-  $(DIGIBYTE_CORE_H)
+  $(BITCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libdigibyte_common_a_SOURCES += compat/glibc_compat.cpp
-libdigibyte_common_a_SOURCES += compat/glibcxx_compat.cpp
+libbitcoin_common_a_SOURCES += compat/glibc_compat.cpp
+libbitcoin_common_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-libdigibyte_cli_a_SOURCES = \
+libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
-  $(DIGIBYTE_CORE_H)
+  $(BITCOIN_CORE_H)
 
-nodist_libdigibyte_common_a_SOURCES = $(top_srcdir)/src/obj/build.h
+nodist_libbitcoin_common_a_SOURCES = $(top_srcdir)/src/obj/build.h
 #
 
-# digibyted binary #
+# bitcoind binary #
 digibyted_LDADD = \
-  libdigibyte_server.a \
-  libdigibyte_cli.a \
-  libdigibyte_common.a \
+  libbitcoin_server.a \
+  libbitcoin_cli.a \
+  libbitcoin_common.a \
   $(LIBLEVELDB) \
   $(LIBMEMENV)
 if ENABLE_WALLET
-digibyted_LDADD += libdigibyte_wallet.a
+digibyted_LDADD += libbitcoin_wallet.a
 endif
-digibyted_SOURCES = digibyted.cpp
+digibyted_SOURCES = bitcoind.cpp
 #
 
 if TARGET_WINDOWS
-digibyted_SOURCES += digibyted-res.rc
+digibyted_SOURCES += bitcoind-res.rc
 endif
 
 AM_CPPFLAGS += $(BDB_CPPFLAGS)
 digibyted_LDADD += $(BOOST_LIBS) $(BDB_LIBS)
 
-# digibyte-cli binary #
+# bitcoin-cli binary #
 digibyte_cli_LDADD = \
-  libdigibyte_cli.a \
-  libdigibyte_common.a \
+  libbitcoin_cli.a \
+  libbitcoin_common.a \
   $(BOOST_LIBS)
-digibyte_cli_SOURCES = digibyte-cli.cpp
+digibyte_cli_SOURCES = bitcoin-cli.cpp
 #
 
 if TARGET_WINDOWS
-digibyte_cli_SOURCES += digibyte-cli-res.rc
+digibyte_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
 # NOTE: This dependency is not strictly necessary, but without it make may try to build both in parallel, which breaks the LevelDB build system in a race
@@ -218,7 +218,7 @@ leveldb/%.a:
 	  CC="$(CC)" PLATFORM=$(TARGET_OS) AR="$(AR)" $(LEVELDB_TARGET_FLAGS) \
 	  OPT="$(CXXFLAGS) $(CPPFLAGS)"
 
-qt/digibytestrings.cpp: $(libdigibyte_server_a_SOURCES) $(libdigibyte_common_a_SOURCES) $(libdigibyte_cli_a_SOURCES)
+qt/bitcoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_cli_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	@cd $(top_srcdir); XGETTEXT=$(XGETTEXT) share/qt/extract_strings_qt.py
 

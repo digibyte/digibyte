@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2014 The DigiByte developers
+// Copyright (c) 2011-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +7,7 @@
 #include "ui_aboutdialog.h"
 #include "ui_helpmessagedialog.h"
 
-#include "digibytegui.h"
+#include "bitcoingui.h"
 #include "clientmodel.h"
 #include "guiutil.h"
 
@@ -26,7 +26,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->setupUi(this);
 
     // Set current copyright year
-    ui->copyrightLabel->setText(tr("Copyright") + QString(" &copy; 2009-%1 ").arg(COPYRIGHT_YEAR) + tr("The DigiByte Core developers"));
+    ui->copyrightLabel->setText(tr("Copyright") + QString(" &copy; 2009-%1 ").arg(COPYRIGHT_YEAR) + tr("The Bitcoin and DigiByte Core developers"));
 }
 
 void AboutDialog::setModel(ClientModel *model)
@@ -38,9 +38,9 @@ void AboutDialog::setModel(ClientModel *model)
          * 32 and 64 bit builds. On other architectures, 32/64 bit may be more ambigious.
          */
 #if defined(__x86_64__)
-        version += tr(" (%1-bit)").arg(64);
+        version += " " + tr("(%1-bit)").arg(64);
 #elif defined(__i386__ )
-        version += tr(" (%1-bit)").arg(32);
+        version += " " + tr("(%1-bit)").arg(32);
 #endif
         ui->versionLabel->setText(version);
     }
@@ -69,15 +69,16 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent) :
         tr("Usage:") + "\n" +
         "  digibyte-qt [" + tr("command-line options") + "]                     " + "\n";
 
-    coreOptions = QString::fromStdString(HelpMessage(HMM_DIGIBYTE_QT));
+    coreOptions = QString::fromStdString(HelpMessage(HMM_BITCOIN_QT));
 
     uiOptions = tr("UI options") + ":\n" +
-        "  -lang=<lang>           " + tr("Set language, for example \"de_DE\" (default: system locale)") + "\n" +
-        "  -min                   " + tr("Start minimized") + "\n" +
-        "  -splash                " + tr("Show splash screen on startup (default: 1)") + "\n" +
-        "  -choosedatadir         " + tr("Choose data directory on startup (default: 0)");
+        "  -choosedatadir            " + tr("Choose data directory on startup (default: 0)") + "\n" +
+        "  -lang=<lang>              " + tr("Set language, for example \"de_DE\" (default: system locale)") + "\n" +
+        "  -min                      " + tr("Start minimized") + "\n" +
+        "  -rootcertificates=<file>  " + tr("Set SSL root certificates for payment request (default: -system-)") + "\n" +
+        "  -splash                   " + tr("Show splash screen on startup (default: 1)");
 
-    ui->helpMessageLabel->setFont(GUIUtil::digibyteAddressFont());
+    ui->helpMessageLabel->setFont(GUIUtil::bitcoinAddressFont());
 
     // Set help message text
     ui->helpMessageLabel->setText(header + "\n" + coreOptions + "\n" + uiOptions);
@@ -114,7 +115,7 @@ void HelpMessageDialog::on_okButton_accepted()
 
 
 /** "Shutdown" window */
-void ShutdownWindow::showShutdownWindow(DigiByteGUI *window)
+void ShutdownWindow::showShutdownWindow(BitcoinGUI *window)
 {
     if (!window)
         return;

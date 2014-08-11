@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The DigiByte developers
+// Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_CORE_H
-#define DIGIBYTE_CORE_H
+#ifndef BITCOIN_CORE_H
+#define BITCOIN_CORE_H
 
 #include "script.h"
 #include "serialize.h"
@@ -419,8 +419,8 @@ public:
         SetNull();
     }
 
-		int GetAlgo() const { return ::GetAlgo(nVersion); }
-
+    int GetAlgo() const { return ::GetAlgo(nVersion); }
+    
     IMPLEMENT_SERIALIZE
     (
         READWRITE(this->nVersion);
@@ -449,7 +449,7 @@ public:
 
     uint256 GetHash() const;
 
-   // Note: we use explicitly provided algo instead of the one returned by GetAlgo(), because this can be a block
+    // Note: we use explicitly provided algo instead of the one returned by GetAlgo(), because this can be a block
     // from foreign chain (parent block in merged mining) which does not encode algo in its nVersion field.
     uint256 GetPoWHash(int algo) const
     {
@@ -473,7 +473,7 @@ public:
         }
         return GetHash();
     }
-
+    
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;

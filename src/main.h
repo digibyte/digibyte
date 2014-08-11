@@ -1,13 +1,13 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The DigiByte developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_MAIN_H
-#define DIGIBYTE_MAIN_H
+#ifndef BITCOIN_MAIN_H
+#define BITCOIN_MAIN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "digibyte-config.h"
+#include "bitcoin-config.h"
 #endif
 
 #include "bignum.h"
@@ -17,7 +17,6 @@
 #include "net.h"
 #include "script.h"
 #include "sync.h"
-#include "scrypt.h"
 #include "txmempool.h"
 #include "uint256.h"
 
@@ -100,6 +99,7 @@ extern int nScriptCheckThreads;
 extern bool fTxIndex;
 extern unsigned int nCoinCacheSize;
 extern int miningAlgo;
+
 
 // Minimum disk space required - used in CheckDiskSpace()
 static const uint64_t nMinDiskSpace = 52428800;
@@ -188,9 +188,16 @@ bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
 /** Increase a node's misbehavior score. */
 void Misbehaving(NodeId nodeid, int howmuch);
 
+
 /** (try to) add transaction to memory pool **/
 bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransaction &tx, bool fLimitFree,
                         bool* pfMissingInputs, bool fRejectInsaneFee=false);
+
+
+
+
+
+
 
 
 struct CNodeStateStats {
@@ -272,10 +279,10 @@ int64_t GetMinFee(const CTransaction& tx, unsigned int nBytes, bool fAllowFree, 
 //   DUP CHECKSIG DROP ... repeated 100 times... OP_1
 //
 
-    /** Check for standard transaction types
-        @param[in] mapInputs    Map of previous transactions that have outputs we're spending
-        @return True if all inputs (scriptSigs) use only standard transaction forms
-    */
+/** Check for standard transaction types
+    @param[in] mapInputs    Map of previous transactions that have outputs we're spending
+    @return True if all inputs (scriptSigs) use only standard transaction forms
+*/
 bool AreInputsStandard(const CTransaction& tx, CCoinsViewCache& mapInputs);
 
 /** Count ECDSA signature operations the old-fashioned (pre-0.6) way
@@ -424,6 +431,7 @@ class CMerkleTx : public CTransaction
 {
 private:
     int GetDepthInMainChainINTERNAL(CBlockIndex* &pindexRet) const;
+
 public:
     uint256 hashBlock;
     std::vector<uint256> vMerkleBranch;
@@ -769,8 +777,8 @@ public:
         nNonce         = block.nNonce;
     }
 
-		int GetAlgo() const { return ::GetAlgo(nVersion); }
-
+    int GetAlgo() const { return ::GetAlgo(nVersion); }
+    
     CDiskBlockPos GetBlockPos() const {
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_DATA) {
@@ -855,7 +863,7 @@ public:
         bnRes = GetBlockWork() * GetAlgoWorkFactor();
         return bnRes;
     }
-
+    
     bool CheckIndex() const
     {
         int algo = GetAlgo();
@@ -1160,4 +1168,3 @@ protected:
 };
 
 #endif
-// 

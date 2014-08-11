@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2013 The DigiByte developers
+// Copyright (c) 2011-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -66,7 +66,7 @@ private:
     QLineEdit *amountWidget;
 
     QMenu *contextMenu;
-		QSignalMapper *mapperThirdPartyTxUrls;
+    QSignalMapper *mapperThirdPartyTxUrls;
 
     QFrame *dateRangeWidget;
     QDateTimeEdit *dateFrom;
@@ -87,7 +87,7 @@ private slots:
     void copyLabel();
     void copyAmount();
     void copyTxID();
-		void openThirdPartyTxUrl(QString url);
+    void openThirdPartyTxUrl(QString url);
 
 signals:
     void doubleClicked(const QModelIndex&);

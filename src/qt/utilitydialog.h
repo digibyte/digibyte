@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2014 The DigiByte developers
+// Copyright (c) 2011-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,7 @@
 #include <QDialog>
 #include <QObject>
 
-class DigiByteGUI;
+class BitcoinGUI;
 class ClientModel;
 
 namespace Ui {
@@ -63,7 +63,7 @@ class ShutdownWindow : public QObject
     Q_OBJECT
 
 public:
-    static void showShutdownWindow(DigiByteGUI *window);
+    static void showShutdownWindow(BitcoinGUI *window);
 };
 
 #endif // UTILITYDIALOG_H

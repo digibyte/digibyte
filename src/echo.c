@@ -1029,4 +1029,3 @@ sph_echo512_addbits_and_close(void *cc, unsigned ub, unsigned n, void *dst)
 #ifdef __cplusplus
 }
 #endif
-

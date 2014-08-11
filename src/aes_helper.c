@@ -390,4 +390,3 @@ static const sph_u32 AES3[256] = {
 #ifdef __cplusplus
 }
 #endif
-

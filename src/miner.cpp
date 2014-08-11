@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The DigiByte developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +13,7 @@
 #endif
 //////////////////////////////////////////////////////////////////////////////
 //
-// DigiByteMiner
+// BitcoinMiner
 //
 
 int static FormatHashBlocks(void* pbuffer, unsigned int len)
@@ -112,14 +112,14 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
         return NULL;
     CBlock *pblock = &pblocktemplate->block; // pointer for convenience
 
-   // Set block version
+    // Set block version
     pblock->nVersion = BLOCK_VERSION_DEFAULT;
     switch (algo)
     {
-        case ALGO_SCRYPT:
-            break;
         case ALGO_SHA256D:
-            pblock->nVersion |= BLOCK_VERSION_SHA256D;
+            break;
+        case ALGO_SCRYPT:
+            pblock->nVersion |= BLOCK_VERSION_SCRYPT;
             break;
         case ALGO_GROESTL:
             pblock->nVersion |= BLOCK_VERSION_GROESTL;
@@ -134,7 +134,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             error("CreateNewBlock: bad algo");
             return NULL;
     }
-
+    
     // Create coinbase tx
     CTransaction txNew;
     txNew.vin.resize(1);
@@ -485,18 +485,18 @@ CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey, int algo)
 
 bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 {
-	  int algo = pblock->GetAlgo();
+    int algo = pblock->GetAlgo();
     uint256 hashPoW = pblock->GetPoWHash(algo);
     uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
 
     if (hashPoW > hashTarget)
         return false;
 
-		uint256 hashBlock = pblock->GetHash();		
-
+    uint256 hashBlock = pblock->GetHash();
+    
     //// debug print
     LogPrintf("DigiByteMiner:\n");
-        LogPrintf("proof-of-work found  \n  block-hash: %s\n  pow-hash: %s\ntarget: %s\n", 
+    LogPrintf("proof-of-work found  \n  block-hash: %s\n  pow-hash: %s\ntarget: %s\n", 
         hashBlock.GetHex(), 
         hashPoW.GetHex(), 
         hashTarget.GetHex());
@@ -909,7 +909,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
 
 void static ThreadBitcoinMiner(CWallet *pwallet)
 {
-    LogPrintf("Myriadcoin miner started\n");
+    LogPrintf("DigiByte miner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitcoin-miner");
     
@@ -936,7 +936,7 @@ void static ThreadBitcoinMiner(CWallet *pwallet)
     }
     catch (boost::thread_interrupted)
     {
-        LogPrintf("Myriadcoin miner terminated\n");
+        LogPrintf("DigiByte miner terminated\n");
         throw;
     }
 }

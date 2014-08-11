@@ -1,9 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The DigiByte developers
+// Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef DIGIBYTE_WALLET_H
-#define DIGIBYTE_WALLET_H
+#ifndef BITCOIN_WALLET_H
+#define BITCOIN_WALLET_H
 
 #include "core.h"
 #include "crypter.h"
@@ -143,11 +143,11 @@ public:
 
     CWallet()
     {
-				SetNull();
+        SetNull();
     }
     CWallet(std::string strWalletFileIn)
     {
-				SetNull();
+        SetNull();
 
         strWalletFile = strWalletFileIn;
         fFileBacked = true;
@@ -628,7 +628,7 @@ public:
             return nAvailableCreditCached;
 
         int64_t nCredit = 0;
-				uint256 hashTx = GetHash();
+        uint256 hashTx = GetHash();
         for (unsigned int i = 0; i < vout.size(); i++)
         {
             if (!pwallet->IsSpent(hashTx, i))

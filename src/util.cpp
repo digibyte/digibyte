@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The DigiByte developers
+// Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -304,7 +304,6 @@ int LogPrintStr(const std::string &str)
 
     return ret;
 }
-
 
 string FormatMoney(int64_t n, bool fPlus)
 {
@@ -1022,14 +1021,14 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good())
-        return; // No digibyte.conf file is OK
+        return; // No bitcoin.conf file is OK
 
     set<string> setOptions;
     setOptions.insert("*");
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
     {
-        // Don't overwrite existing settings so command line settings override digibyte.conf
+        // Don't overwrite existing settings so command line settings override bitcoin.conf
         string strKey = string("-") + it->string_key;
         if (mapSettingsRet.count(strKey) == 0)
         {
@@ -1073,6 +1072,7 @@ bool RenameOver(boost::filesystem::path src, boost::filesystem::path dest)
 #endif /* WIN32 */
 }
 
+
 // Ignores exceptions thrown by boost's create_directory if the requested directory exists.
 //   Specifically handles case where path p exists, but it wasn't possible for the user to write to the parent directory.
 bool TryCreateDirectory(const boost::filesystem::path& p)
@@ -1105,7 +1105,6 @@ void FileCommit(FILE *fileout)
     #endif
 #endif
 }
-
 
 bool TruncateFile(FILE *file, unsigned int length) {
 #if defined(WIN32)
@@ -1203,13 +1202,6 @@ void ShrinkDebugFile()
     else if (file != NULL)
         fclose(file);
 }
-
-
-
-
-
-
-
 
 //
 // "Never go to sea with two chronometers; take one or three."
@@ -1443,5 +1435,3 @@ std::string DateTimeStrFormat(const char* pszFormat, int64_t nTime)
     ss << boost::posix_time::from_time_t(nTime);
     return ss.str();
 }
-
-
