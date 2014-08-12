@@ -1,5 +1,5 @@
 ---
-name: "digibyte"
+name: "bitcoin"
 suites:
 - "precise"
 architectures:
