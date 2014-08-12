@@ -83,7 +83,7 @@ script: |
     make $MAKEOPTS
     make deploy
     make install-strip
-    cp -f digibyte-*setup*.exe $BINDIR/
+    cp -f bitcoind-*setup*.exe $BINDIR/
     unset LD_PRELOAD
     unset FAKETIME
   done # for BITS in
