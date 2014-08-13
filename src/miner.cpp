@@ -135,6 +135,11 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             return NULL;
     }
     
+      if (pindexBest->nHeight < multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
+	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %"PRI64d"", pindexBest->nHeight, multiAlgoDiffChangeTarget);
+            return NULL;
+    }
+    
     // Create coinbase tx
     CTransaction txNew;
     txNew.vin.resize(1);
