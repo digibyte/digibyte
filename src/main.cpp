@@ -74,7 +74,7 @@ CScript COINBASE_FLAGS;
 const string strMessageMagic = "DigiByte Signed Message:\n";
 
 // Settings
-int miningAlgo = ALGO_SHA256D;
+int miningAlgo = ALGO_SCRYPT;
 
 // Internal stuff
 namespace {
@@ -2546,6 +2546,10 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
             return state.DoS(100, error("AcceptBlock() : incorrect proof of work"),
                              REJECT_INVALID, "bad-diffbits");
+
+	 if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
+            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"), 
+			    REJECT_INVALID, "bad-hashalgo");
 
         // Check timestamp against prev
         if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())

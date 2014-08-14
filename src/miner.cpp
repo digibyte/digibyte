@@ -114,6 +114,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
 
     // Set block version
     pblock->nVersion = BLOCK_VERSION_DEFAULT;
+    CBlockIndex* pindexPrev = chainActive.Tip();
+
     switch (algo)
     {
         case ALGO_SCRYPT:
@@ -134,8 +136,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             error("CreateNewBlock: bad algo");
             return NULL;
     }
-    if (pindexBest->nHeight < multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
-	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %"PRI64d"", pindexBest->nHeight, multiAlgoDiffChangeTarget);
+    if (pindexPrev->nHeight < multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
+	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %d", pindexPrev->nHeight, multiAlgoDiffChangeTarget);
             return NULL;
     }
     
