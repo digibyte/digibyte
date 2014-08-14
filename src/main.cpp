@@ -1266,8 +1266,8 @@ static const int64_t multiAlgoInterval = 1; // retargets every blocks
 static const int64_t nAveragingInterval = 10; // 10 blocks
 static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
 
-static const int64_t nMaxAdjustDown = 40; // 4% adjustment down
-static const int64_t nMaxAdjustUp = 20; // 2% adjustment up
+static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
+static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
 
 static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
