@@ -20,7 +20,7 @@ using namespace boost::assign;
 
 unsigned int pnSeed[] =
 {
-   // 0x12345678
+    0x12345678
 };
 
 class CMainParams : public CChainParams {
@@ -65,11 +65,11 @@ public:
         assert(hashGenesisBlock == uint256("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"));
         assert(genesis.hashMerkleRoot == uint256("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
-        //vSeeds.push_back(CDNSSeedData("digibyte.co seed #1", "seed1.digibyte.co"));
-        //vSeeds.push_back(CDNSSeedData("hashdragon.com seed #2", "seed2.hashdragon.com"));
-        //vSeeds.push_back(CDNSSeedData("digihash.co seed #3", "seed3.digihash.co"));
-        //vSeeds.push_back(CDNSSeedData("love2hash.com seed #4", "seed4.love2hash.com"));
-        //vSeeds.push_back(CDNSSeedData("digiexplorer.info seed #5", "seed5.digiexplorer.info"));
+        vSeeds.push_back(CDNSSeedData("digibyte.co seed #1", "seed1.digibyte.co"));
+        vSeeds.push_back(CDNSSeedData("hashdragon.com seed #2", "seed2.hashdragon.com"));
+        vSeeds.push_back(CDNSSeedData("digihash.co seed #3", "seed3.digihash.co"));
+        vSeeds.push_back(CDNSSeedData("love2hash.com seed #4", "seed4.love2hash.com"));
+        vSeeds.push_back(CDNSSeedData("digiexplorer.info seed #5", "seed5.digiexplorer.info"));
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(30);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
