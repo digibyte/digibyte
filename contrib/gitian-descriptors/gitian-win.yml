@@ -65,25 +65,25 @@ script: |
     unzip $INDIR/protobuf-win${BITS}-2.5.0-gitian-r4.zip
     if [ "$NEEDDIST" == "1" ]; then
       # Make source code archive which is architecture independent so it only needs to be done once
-      cd $HOME/build/bitcoin
+      cd $HOME/build/digibyte
       ./autogen.sh
       ./configure --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=digibyte -msse2 ${OPTFLAGS}"
       make dist
-      DISTNAME=`echo bitcoin-*.tar.gz`
+      DISTNAME=`echo digibyte-*.tar.gz`
       NEEDDIST=0
     fi
     # Build platform-dependent executables from source archive
     cd $BUILDDIR
     mkdir -p distsrc
     cd distsrc
-    tar --strip-components=1 -xf $HOME/build/bitcoin/$DISTNAME
+    tar --strip-components=1 -xf $HOME/build/digibyte/$DISTNAME
     ./configure --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=digibyte -msse2 ${OPTFLAGS}" 
     export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
     make $MAKEOPTS
     make deploy
     make install-strip
-    cp -f bitcoin-*setup*.exe $BINDIR/
+    cp -f digibyte-*setup*.exe $BINDIR/
     unset LD_PRELOAD
     unset FAKETIME
   done # for BITS in
@@ -93,5 +93,5 @@ script: |
   rm -rf $TEMPDIR
   mkdir -p $TEMPDIR
   cd $TEMPDIR
-  tar -xvf $HOME/build/bitcoin/$DISTNAME | sort | tar --no-recursion -cT /dev/stdin --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" | gzip -n > $OUTDIR/src/$DISTNAME
+  tar -xvf $HOME/build/digibyte/$DISTNAME | sort | tar --no-recursion -cT /dev/stdin --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" | gzip -n > $OUTDIR/src/$DISTNAME
 
