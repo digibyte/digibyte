@@ -1205,7 +1205,7 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-static const int64_t nDiffChangeTarget = 10; // Patch effective @ block 67200
+static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 //mulitAlgoTargetChange = 145000 located in main.h
 
