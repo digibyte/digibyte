@@ -1,3 +1,6 @@
+git clone git://github.com/digibyte/DigiByteProject.git
+
+
 =======
 DigiByte Core integration/staging tree
 =====================================
