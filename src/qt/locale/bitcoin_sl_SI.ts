@@ -3,11 +3,11 @@
     <name>AboutDialog</name>
     <message>
         <source>About DigiByte Core</source>
-        <translation>O jedru Bitcoina</translation>
+        <translation>O jedru DigiBytea</translation>
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Jedro Bitcoina&lt;/b&gt; različica</translation>
+        <translation>&lt;b&gt;Jedro DigiBytea&lt;/b&gt; različica</translation>
     </message>
     <message>
         <source>
@@ -253,7 +253,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Podpiši &amp;sporočilo ...</translation>
@@ -292,7 +292,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>Pokaži informacije o Bitcoinu</translation>
+        <translation>Pokaži informacije o DigiByteu</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -424,7 +424,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>DigiByte Core</source>
-        <translation>Jedro Bitcoina</translation>
+        <translation>Jedro DigiBytea</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
@@ -432,7 +432,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>&amp;About DigiByte Core</source>
-        <translation>&amp;O jedru Bitcoina</translation>
+        <translation>&amp;O jedru DigiBytea</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -444,7 +444,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Open a digibyte: URI or payment request</source>
-        <translation>Odpri Bitcoin: URI ali zahteva o plačilu</translation>
+        <translation>Odpri DigiByte: URI ali zahteva o plačilu</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -883,7 +883,7 @@ Naslov: %4
     </message>
     <message>
         <source>DigiByte Core</source>
-        <translation>Jedro Bitcoina</translation>
+        <translation>Jedro DigiBytea</translation>
     </message>
     <message>
         <source>version</source>
@@ -930,7 +930,7 @@ Naslov: %4
     </message>
     <message>
         <source>Welcome to DigiByte Core.</source>
-        <translation>Dobrodošli v jedru Bitcoina</translation>
+        <translation>Dobrodošli v jedru DigiBytea</translation>
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where DigiByte Core will store its data.</source>
@@ -2123,7 +2123,7 @@ Naslov: %4
     <name>SplashScreen</name>
     <message>
         <source>DigiByte Core</source>
-        <translation>Jedro Bitcoina</translation>
+        <translation>Jedro DigiBytea</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
@@ -3284,7 +3284,7 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
-        <translation>Napaka pri nalaganju wallet.dat: denarnica zahteva novejšo različico Bitcoina</translation>
+        <translation>Napaka pri nalaganju wallet.dat: denarnica zahteva novejšo različico DigiBytea</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>

@@ -104,11 +104,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>ეს არის თქვენი Bitcoin-მისამართები გადახდების შესასრულებლად. მონეტების გაგზავნამდე ყოველთვის შეამოწმეთ თანხა და მიმღების მისამართი.</translation>
+        <translation>ეს არის თქვენი DigiByte-მისამართები გადახდების შესასრულებლად. მონეტების გაგზავნამდე ყოველთვის შეამოწმეთ თანხა და მიმღების მისამართი.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>ეს არის თქვენი Bitcoin-მისამართები გადახდების მისაღებად. რეკომენდებულია ყოველი ტრანსაქციისათვის ახალი მიღების მისამართის გამოყენება.</translation>
+        <translation>ეს არის თქვენი DigiByte-მისამართები გადახდების მისაღებად. რეკომენდებულია ყოველი ტრანსაქციისათვის ახალი მიღების მისამართის გამოყენება.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -258,7 +258,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>ხელ&amp;მოწერა</translation>
@@ -297,7 +297,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>ინფორმაცია Bitcoin-ის შესახებ</translation>
+        <translation>ინფორმაცია DigiByte-ის შესახებ</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -345,11 +345,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
-        <translation>მონეტების გაგზავნა Bitcoin-მისამართზე</translation>
+        <translation>მონეტების გაგზავნა DigiByte-მისამართზე</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
-        <translation>Bitcoin-ის საკონფიგურაციო პარამეტრების ცვლილება</translation>
+        <translation>DigiByte-ის საკონფიგურაციო პარამეტრების ცვლილება</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -401,11 +401,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-        <translation>მესიჯებზე ხელმოწერა თქვენი Bitcoin-მისამართებით იმის დასტურად, რომ ის თქვენია</translation>
+        <translation>მესიჯებზე ხელმოწერა თქვენი DigiByte-მისამართებით იმის დასტურად, რომ ის თქვენია</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>შეამოწმეთ, რომ მესიჯები ხელმოწერილია მითითებული Bitcoin-მისამართით</translation>
+        <translation>შეამოწმეთ, რომ მესიჯები ხელმოწერილია მითითებული DigiByte-მისამართით</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -457,11 +457,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
-        <translation>DigiByte Core-ს დახმარების ჩვენება Bitcoin-ის საკომანდო სტრიქონის დასაშვები ოპციების სანახავად</translation>
+        <translation>DigiByte Core-ს დახმარების ჩვენება DigiByte-ის საკომანდო სტრიქონის დასაშვები ოპციების სანახავად</translation>
     </message>
     <message>
         <source>DigiByte client</source>
-        <translation>Bitcoin-კლიენტი</translation>
+        <translation>DigiByte-კლიენტი</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
@@ -846,7 +846,7 @@ Address: %4
     </message>
     <message>
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
-        <translation>შეყვანილი მისამართი &quot;%1&quot; არ არის ვალიდური Bitcoin-მისამართი.</translation>
+        <translation>შეყვანილი მისამართი &quot;%1&quot; არ არის ვალიდური DigiByte-მისამართი.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -943,7 +943,7 @@ Address: %4
     </message>
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>DigiByte Core გადმოტვირთავს და შეინახავს Bitcoin-ის ბლოკთა ჯაჭვს. მითითებულ კატალოგში დაგროვდება სულ ცოტა 1 გბ მონაცემები, და მომავალში უფრო გაიზრდება. საფულეც ამავე კატალოგში შეინახება.</translation>
+        <translation>DigiByte Core გადმოტვირთავს და შეინახავს DigiByte-ის ბლოკთა ჯაჭვს. მითითებულ კატალოგში დაგროვდება სულ ცოტა 1 გბ მონაცემები, და მომავალში უფრო გაიზრდება. საფულეც ამავე კატალოგში შეინახება.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1017,7 +1017,7 @@ Address: %4
     </message>
     <message>
         <source>Automatically start DigiByte after logging in to the system.</source>
-        <translation>სისტემაში შესვლის შემდეგ Bitcoin-ის ავტომატური გაშვება.</translation>
+        <translation>სისტემაში შესვლის შემდეგ DigiByte-ის ავტომატური გაშვება.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
@@ -1037,7 +1037,7 @@ Address: %4
     </message>
     <message>
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
-        <translation>Bitcoin-ქსელზე მიერთება SOCKS-პროქსით.</translation>
+        <translation>DigiByte-ქსელზე მიერთება SOCKS-პროქსით.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1097,7 +1097,7 @@ Address: %4
     </message>
     <message>
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>როუტერში Bitcoin-კლიენტის პორტის ავტომატური გახსნა. მუშაობს, თუ თქვენს როუტერს ჩართული აქვს UPnP.</translation>
+        <translation>როუტერში DigiByte-კლიენტის პორტის ავტომატური გახსნა. მუშაობს, თუ თქვენს როუტერს ჩართული აქვს UPnP.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1153,7 +1153,7 @@ Address: %4
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
-        <translation>აქ შეგიძლიათ აირჩიოთ სამომხმარებლო ენა. ძალაში შევა Bitcoin-ის რესტარტის შემდეგ.</translation>
+        <translation>აქ შეგიძლიათ აირჩიოთ სამომხმარებლო ენა. ძალაში შევა DigiByte-ის რესტარტის შემდეგ.</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1165,7 +1165,7 @@ Address: %4
     </message>
     <message>
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
-        <translation>ტრანსაქციების სიაში იყოს თუ არა ნაჩვენები Bitcoin-მისამართები.</translation>
+        <translation>ტრანსაქციების სიაში იყოს თუ არა ნაჩვენები DigiByte-მისამართები.</translation>
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1220,7 +1220,7 @@ Address: %4
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-        <translation>ნაჩვენები ინფორმაცია შეიძლება მოძველებული იყოს. თქვენი საფულე ავტომატურად სინქრონიზდება Bitcoin-ის ქსელთან კავშირის დამყარების შემდეგ, ეს პროცესი ჯერ არ არის დასრულებული.</translation>
+        <translation>ნაჩვენები ინფორმაცია შეიძლება მოძველებული იყოს. თქვენი საფულე ავტომატურად სინქრონიზდება DigiByte-ის ქსელთან კავშირის დამყარების შემდეგ, ეს პროცესი ჯერ არ არის დასრულებული.</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -1275,7 +1275,7 @@ Address: %4
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI-ის დამუშავება ვერ მოხერხდა. შესაძლოა არასწორია Bitcoin-მისამართი ან  URI-ის პარამეტრები.</translation>
+        <translation>URI-ის დამუშავება ვერ მოხერხდა. შესაძლოა არასწორია DigiByte-მისამართი ან  URI-ის პარამეტრები.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1484,7 +1484,7 @@ Address: %4
     </message>
     <message>
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>გახსენით Bitcoin-ის დახვეწის ლოგ-ფაილი მიმდინარე კატალოგიდან. დიდი ლოგ-ფაილის შემთხვევაში ამას შეიძლება რამდენიმე წამი მოუნდეს.</translation>
+        <translation>გახსენით DigiByte-ის დახვეწის ლოგ-ფაილი მიმდინარე კატალოგიდან. დიდი ლოგ-ფაილის შემთხვევაში ამას შეიძლება რამდენიმე წამი მოუნდეს.</translation>
     </message>
     <message>
         <source>Clear console</source>
@@ -1492,7 +1492,7 @@ Address: %4
     </message>
     <message>
         <source>Welcome to the DigiByte RPC console.</source>
-        <translation>მოგესალმებათ Bitcoin-ის RPC კონსოლი.</translation>
+        <translation>მოგესალმებათ DigiByte-ის RPC კონსოლი.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1868,7 +1868,7 @@ Address: %4
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
-        <translation>ყურადღება: არასწორია Bitcoin-მისამართი</translation>
+        <translation>ყურადღება: არასწორია DigiByte-მისამართი</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -2057,7 +2057,7 @@ Address: %4
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>შეამოწმეთ, რომ მესიჯი ხელმოწერილია მითითებული Bitcoin-მისამართით</translation>
+        <translation>შეამოწმეთ, რომ მესიჯი ხელმოწერილია მითითებული DigiByte-მისამართით</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3299,7 +3299,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
-        <translation>არ იტვირთება wallet.dat: საფულეს სჭირდება Bitcoin-ის ახალი ვერსია</translation>
+        <translation>არ იტვირთება wallet.dat: საფულეს სჭირდება DigiByte-ის ახალი ვერსია</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>

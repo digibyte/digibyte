@@ -104,7 +104,7 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Need on sinu Bitcoini aadressid maksete saatmiseks. Müntide saatmisel kontrolli alati summat ning saaja aadressi.</translation>
+        <translation>Need on sinu DigiBytei aadressid maksete saatmiseks. Müntide saatmisel kontrolli alati summat ning saaja aadressi.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
@@ -258,7 +258,7 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Signeeri &amp;sõnum</translation>
@@ -297,7 +297,7 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>Kuva info Bitcoini kohta</translation>
+        <translation>Kuva info DigiBytei kohta</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -345,11 +345,11 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
-        <translation>Saada münte Bitcoini aadressile</translation>
+        <translation>Saada münte DigiBytei aadressile</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
-        <translation>Muuda Bitcoini seadeid</translation>
+        <translation>Muuda DigiBytei seadeid</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -401,11 +401,11 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-        <translation>Omandi tõestamiseks allkirjasta sõnumid oma Bitcoini aadressiga</translation>
+        <translation>Omandi tõestamiseks allkirjasta sõnumid oma DigiBytei aadressiga</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>Kinnita sõnumid kindlustamaks et need allkirjastati määratud Bitcoini aadressiga</translation>
+        <translation>Kinnita sõnumid kindlustamaks et need allkirjastati määratud DigiBytei aadressiga</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -429,7 +429,7 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <source>DigiByte Core</source>
-        <translation>Bitcoini tuumik</translation>
+        <translation>DigiBytei tuumik</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
@@ -461,11 +461,11 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <source>DigiByte client</source>
-        <translation>Bitcoini klient</translation>
+        <translation>DigiBytei klient</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-        <translation><numerusform>%n aktiivne ühendus Bitcoini võrku</numerusform><numerusform>%n aktiivset ühendust Bitcoini võrku</numerusform></translation>
+        <translation><numerusform>%n aktiivne ühendus DigiBytei võrku</numerusform><numerusform>%n aktiivset ühendust DigiBytei võrku</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -845,7 +845,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
-        <translation>Sisestatud aadress &quot;%1&quot; ei ole Bitcoinis kehtiv.</translation>
+        <translation>Sisestatud aadress &quot;%1&quot; ei ole DigiByteis kehtiv.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -887,7 +887,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>DigiByte Core</source>
-        <translation>Bitcoini tuumik</translation>
+        <translation>DigiBytei tuumik</translation>
     </message>
     <message>
         <source>version</source>
@@ -1096,7 +1096,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Bitcoini kliendi pordi automaatne avamine ruuteris. Toimib, kui sinu ruuter aktsepteerib UPnP ühendust.</translation>
+        <translation>DigiBytei kliendi pordi automaatne avamine ruuteris. Toimib, kui sinu ruuter aktsepteerib UPnP ühendust.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1152,7 +1152,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
-        <translation>Kasutajaliidese keele valimise koht. Valik rakendub Bitcoini käivitamisel.</translation>
+        <translation>Kasutajaliidese keele valimise koht. Valik rakendub DigiBytei käivitamisel.</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1164,7 +1164,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
-        <translation>Kuvada Bitcoini aadress tehingute loetelus või mitte.</translation>
+        <translation>Kuvada DigiBytei aadress tehingute loetelus või mitte.</translation>
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1274,7 +1274,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI ei suudeta parsida. Põhjuseks võib olla kehtetu Bitcoini aadress või vigased URI parameetrid.</translation>
+        <translation>URI ei suudeta parsida. Põhjuseks võib olla kehtetu DigiBytei aadress või vigased URI parameetrid.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1361,7 +1361,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Sisesta Bitcoini aadress (nt: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Sisesta DigiBytei aadress (nt: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1483,7 +1483,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Ava Bitcoini logifail praegusest andmekaustast. Toiminguks võib kuluda kuni mõni sekund.</translation>
+        <translation>Ava DigiBytei logifail praegusest andmekaustast. Toiminguks võib kuluda kuni mõni sekund.</translation>
     </message>
     <message>
         <source>Clear console</source>
@@ -1491,7 +1491,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Welcome to the DigiByte RPC console.</source>
-        <translation>Teretulemast Bitcoini RPC konsooli.</translation>
+        <translation>Teretulemast DigiBytei RPC konsooli.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -2028,7 +2028,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-        <translation>Allkirjasta sõnum Bitcoini aadressi sulle kuulumise tõestamiseks</translation>
+        <translation>Allkirjasta sõnum DigiBytei aadressi sulle kuulumise tõestamiseks</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2056,7 +2056,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud Bitcoini aadressiga.</translation>
+        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud DigiBytei aadressiga.</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2068,7 +2068,7 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Sisesta Bitcoini aadress (nt: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Sisesta DigiBytei aadress (nt: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2127,7 +2127,7 @@ Aadress: %4⏎</translation>
     <name>SplashScreen</name>
     <message>
         <source>DigiByte Core</source>
-        <translation>Bitcoini tuumik</translation>
+        <translation>DigiBytei tuumik</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
@@ -3142,7 +3142,7 @@ nt: alertnotify=echo %%s | email -s &quot;DigiByte Alert&quot; admin@foo.com
     </message>
     <message>
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
-        <translation>SSL valikud: (vaata Bitcoini Wikist või SSL sätete juhendist)</translation>
+        <translation>SSL valikud: (vaata DigiBytei Wikist või SSL sätete juhendist)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
@@ -3298,7 +3298,7 @@ nt: alertnotify=echo %%s | email -s &quot;DigiByte Alert&quot; admin@foo.com
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
-        <translation>Viga wallet.dat käivitamisel: Rahakott nõuab Bitcoini uusimat versiooni</translation>
+        <translation>Viga wallet.dat käivitamisel: Rahakott nõuab DigiBytei uusimat versiooni</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>

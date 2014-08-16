@@ -258,7 +258,7 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>メッセージの署名... (&amp;m)</translation>
@@ -297,7 +297,7 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>Bitcoinに関する情報を見る</translation>
+        <translation>DigiByteに関する情報を見る</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -560,7 +560,7 @@ Address: %4
     </message>
     <message>
         <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>致命的なエラーが発生しました。Bitcoin は安全に継続することができず終了するでしょう。
+        <translation>致命的なエラーが発生しました。DigiByte は安全に継続することができず終了するでしょう。
 </translation>
     </message>
 </context>

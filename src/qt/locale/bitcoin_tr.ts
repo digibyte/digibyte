@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Bitcoin Çekirdek&lt;/b&gt; sürümü</translation>
+        <translation>&lt;b&gt;DigiByte Çekirdek&lt;/b&gt; sürümü</translation>
     </message>
     <message>
         <source>
@@ -226,7 +226,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>Şifreleme işlemini tamamlamak için DigiByte şimdi kapanacaktır. Cüzdanınızı şifrelemenin, Bitcoinlerinizin bilgisayara bulaşan kötücül bir yazılım tarafından çalınmaya karşı tamamen koruyamayacağını unutmayınız.</translation>
+        <translation>Şifreleme işlemini tamamlamak için DigiByte şimdi kapanacaktır. Cüzdanınızı şifrelemenin, DigiBytelerinizin bilgisayara bulaşan kötücül bir yazılım tarafından çalınmaya karşı tamamen koruyamayacağını unutmayınız.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -258,7 +258,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;Mesaj imzala...</translation>
@@ -1017,11 +1017,11 @@ Adres: %4
     </message>
     <message>
         <source>Automatically start DigiByte after logging in to the system.</source>
-        <translation>Sistemde oturum açıldığında Bitcoin&apos;i otomatik olarak başlat.</translation>
+        <translation>Sistemde oturum açıldığında DigiByte&apos;i otomatik olarak başlat.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
-        <translation>Bitcoin&apos;i sistem oturumuyla &amp;başlat</translation>
+        <translation>DigiByte&apos;i sistem oturumuyla &amp;başlat</translation>
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1955,7 +1955,7 @@ Adres: %4
     </message>
     <message>
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-        <translation>Bitcoin: URI&apos;siyle ilişkili ve bilginiz için muameleyle saklanacak bir mesaj. Not: Bu mesaj DigiByte şebekesi üzerinden gönderilmeyecektir.</translation>
+        <translation>DigiByte: URI&apos;siyle ilişkili ve bilginiz için muameleyle saklanacak bir mesaj. Not: Bu mesaj DigiByte şebekesi üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -3303,7 +3303,7 @@ mesela: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
-        <translation>Cüzdanın tekrar yazılması gerekiyordu: işlemi tamamlamak için Bitcoin&apos;i yeniden başlatınız</translation>
+        <translation>Cüzdanın tekrar yazılması gerekiyordu: işlemi tamamlamak için DigiByte&apos;i yeniden başlatınız</translation>
     </message>
     <message>
         <source>Error loading wallet.dat</source>

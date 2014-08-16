@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Bitcoin core&lt;/b&gt; versión</translation>
+        <translation>&lt;b&gt;DigiByte core&lt;/b&gt; versión</translation>
     </message>
     <message>
         <source>
@@ -258,7 +258,7 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;Asinar mensaxe...</translation>

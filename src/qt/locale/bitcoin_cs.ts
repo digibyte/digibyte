@@ -104,11 +104,11 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Tohle jsou tvé Bitcoinové adresy pro posílání plateb. Před odesláním mincí si vždy zkontroluj částku a cílovou adresu.</translation>
+        <translation>Tohle jsou tvé DigiByteové adresy pro posílání plateb. Před odesláním mincí si vždy zkontroluj částku a cílovou adresu.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Tohle jsou tvé Bitcoinové adresy pro příjem plateb. Je doporučené používat pokaždé novou adresu pro každou transakci.</translation>
+        <translation>Tohle jsou tvé DigiByteové adresy pro příjem plateb. Je doporučené používat pokaždé novou adresu pro každou transakci.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -258,7 +258,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Po&amp;depiš zprávu...</translation>
@@ -297,7 +297,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>Zobraz informace o Bitcoinu</translation>
+        <translation>Zobraz informace o DigiByteu</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -345,11 +345,11 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
-        <translation>Pošli mince na Bitcoinovou adresu</translation>
+        <translation>Pošli mince na DigiByteovou adresu</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
-        <translation>Uprav nastavení Bitcoinu</translation>
+        <translation>Uprav nastavení DigiByteu</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -401,11 +401,11 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-        <translation>Podepiš zprávy svými Bitcoinovými adresami, čímž prokážeš, že jsi jejich vlastníkem</translation>
+        <translation>Podepiš zprávy svými DigiByteovými adresami, čímž prokážeš, že jsi jejich vlastníkem</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>Ověř zprávy, aby ses ujistil, že byly podepsány danými Bitcoinovými adresami</translation>
+        <translation>Ověř zprávy, aby ses ujistil, že byly podepsány danými DigiByteovými adresami</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -457,7 +457,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
-        <translation>Seznam argumentů Bitcoinu pro příkazovou řádku získáš v nápovědě Bitcoinu Core</translation>
+        <translation>Seznam argumentů DigiByteu pro příkazovou řádku získáš v nápovědě DigiByteu Core</translation>
     </message>
     <message>
         <source>DigiByte client</source>
@@ -465,7 +465,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-        <translation><numerusform>%n aktivní spojení do Bitcoinové sítě</numerusform><numerusform>%n aktivní spojení do Bitcoinové sítě</numerusform><numerusform>%n aktivních spojení do Bitcoinové sítě</numerusform></translation>
+        <translation><numerusform>%n aktivní spojení do DigiByteové sítě</numerusform><numerusform>%n aktivní spojení do DigiByteové sítě</numerusform><numerusform>%n aktivních spojení do DigiByteové sítě</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -846,7 +846,7 @@ Adresa: %4
     </message>
     <message>
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
-        <translation>Zadaná adresa &quot;%1&quot; není platná Bitcoinová adresa.</translation>
+        <translation>Zadaná adresa &quot;%1&quot; není platná DigiByteová adresa.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1037,7 +1037,7 @@ Adresa: %4
     </message>
     <message>
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
-        <translation>Připojí se do Bitcoinové sítě přes SOCKS proxy.</translation>
+        <translation>Připojí se do DigiByteové sítě přes SOCKS proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1153,7 +1153,7 @@ Adresa: %4
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
-        <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování Bitcoinu.</translation>
+        <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování DigiByteu.</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1220,7 +1220,7 @@ Adresa: %4
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-        <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s Bitcoinovou sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
+        <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s DigiByteovou sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -1275,7 +1275,7 @@ Adresa: %4
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>Nepodařilo se analyzovat URI! Důvodem může být neplatná Bitcoinová adresa nebo poškozené parametry URI.</translation>
+        <translation>Nepodařilo se analyzovat URI! Důvodem může být neplatná DigiByteová adresa nebo poškozené parametry URI.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1362,7 +1362,7 @@ Adresa: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Zadej Bitcoinovou adresu (např. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Zadej DigiByteovou adresu (např. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1484,7 +1484,7 @@ Adresa: %4
     </message>
     <message>
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Otevři soubor s ladicími záznamy Bitcoinu z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
+        <translation>Otevři soubor s ladicími záznamy DigiByteu z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
     </message>
     <message>
         <source>Clear console</source>
@@ -1492,7 +1492,7 @@ Adresa: %4
     </message>
     <message>
         <source>Welcome to the DigiByte RPC console.</source>
-        <translation>Vítej v Bitcoinové RPC konzoli.</translation>
+        <translation>Vítej v DigiByteové RPC konzoli.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1868,7 +1868,7 @@ Adresa: %4
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
-        <translation>Upozornění: Neplatná Bitcoinová adresa</translation>
+        <translation>Upozornění: Neplatná DigiByteová adresa</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -2029,7 +2029,7 @@ Adresa: %4
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-        <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této Bitcoinové adresy</translation>
+        <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této DigiByteové adresy</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2057,7 +2057,7 @@ Adresa: %4
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou Bitcoinovou adresou</translation>
+        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou DigiByteovou adresou</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2069,7 +2069,7 @@ Adresa: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Zadej Bitcoinovou adresu (např. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Zadej DigiByteovou adresu (např. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -3299,11 +3299,11 @@ například: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
-        <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi Bitcoinu</translation>
+        <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi DigiByteu</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
-        <translation>Soubor s peněženkou potřeboval přepsat: restartuj Bitcoin, aby se operace dokončila</translation>
+        <translation>Soubor s peněženkou potřeboval přepsat: restartuj DigiByte, aby se operace dokončila</translation>
     </message>
     <message>
         <source>Error loading wallet.dat</source>

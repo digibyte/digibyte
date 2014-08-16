@@ -104,11 +104,11 @@ Dette produktet inneholder programvare utviklet av OpenSSL Project for bruk i Op
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dette er dine Bitcoin-adresser for å sende betalinger. Alltid sjekk beløp og mottakeradresse før sending av mynter.</translation>
+        <translation>Dette er dine DigiByte-adresser for å sende betalinger. Alltid sjekk beløp og mottakeradresse før sending av mynter.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dette er dine Bitcoin-adresser for å sende betalinger. Det er anbefalt å bruk en ny mottaksadresse for hver transaksjon.</translation>
+        <translation>Dette er dine DigiByte-adresser for å sende betalinger. Det er anbefalt å bruk en ny mottaksadresse for hver transaksjon.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -258,7 +258,7 @@ Dette produktet inneholder programvare utviklet av OpenSSL Project for bruk i Op
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Signer &amp;melding...</translation>
@@ -345,7 +345,7 @@ Dette produktet inneholder programvare utviklet av OpenSSL Project for bruk i Op
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
-        <translation>Send til en Bitcoin-adresse</translation>
+        <translation>Send til en DigiByte-adresse</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
@@ -401,11 +401,11 @@ Dette produktet inneholder programvare utviklet av OpenSSL Project for bruk i Op
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-        <translation>Signer en melding med Bitcoin-adressene dine for å bevise at du eier dem</translation>
+        <translation>Signer en melding med DigiByte-adressene dine for å bevise at du eier dem</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>Bekreft meldinger for å være sikker på at de ble signert av en angitt Bitcoin-adresse</translation>
+        <translation>Bekreft meldinger for å være sikker på at de ble signert av en angitt DigiByte-adresse</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -449,7 +449,7 @@ Dette produktet inneholder programvare utviklet av OpenSSL Project for bruk i Op
     </message>
     <message>
         <source>Open a digibyte: URI or payment request</source>
-        <translation>Åpne en Bitcoin: URI eller betalingsetterspørring</translation>
+        <translation>Åpne en DigiByte: URI eller betalingsetterspørring</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -461,11 +461,11 @@ Dette produktet inneholder programvare utviklet av OpenSSL Project for bruk i Op
     </message>
     <message>
         <source>DigiByte client</source>
-        <translation>Bitcoin-klienten</translation>
+        <translation>DigiByte-klienten</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-        <translation><numerusform>%n aktiv forbindelse til Bitcoin-nettverket</numerusform><numerusform>%n aktive forbindelser til Bitcoin-nettverket</numerusform></translation>
+        <translation><numerusform>%n aktiv forbindelse til DigiByte-nettverket</numerusform><numerusform>%n aktive forbindelser til DigiByte-nettverket</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -846,7 +846,7 @@ Adresse: %4
     </message>
     <message>
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
-        <translation>Den angitte adressed &quot;%1&quot; er ikke en gyldig Bitcoin-adresse.</translation>
+        <translation>Den angitte adressed &quot;%1&quot; er ikke en gyldig DigiByte-adresse.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1037,7 +1037,7 @@ Adresse: %4
     </message>
     <message>
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
-        <translation>Koble til Bitcoin-nettverket gjennom en SOCKS proxy.</translation>
+        <translation>Koble til DigiByte-nettverket gjennom en SOCKS proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1165,7 +1165,7 @@ Adresse: %4
     </message>
     <message>
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
-        <translation>Om Bitcoin-adresser skal vises i transaksjonslisten eller ikke.</translation>
+        <translation>Om DigiByte-adresser skal vises i transaksjonslisten eller ikke.</translation>
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1220,7 +1220,7 @@ Adresse: %4
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-        <translation>Informasjonen som vises kan være foreldet. Din lommebok synkroniseres automatisk med Bitcoin-nettverket etter at tilkobling er opprettet, men denne prosessen er ikke ferdig enda.</translation>
+        <translation>Informasjonen som vises kan være foreldet. Din lommebok synkroniseres automatisk med DigiByte-nettverket etter at tilkobling er opprettet, men denne prosessen er ikke ferdig enda.</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -1275,7 +1275,7 @@ Adresse: %4
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kunne ikke tolkes! Dette kan forårsakes av en ugyldig Bitcoin-adresse eller feil i URI-parametere.</translation>
+        <translation>URI kunne ikke tolkes! Dette kan forårsakes av en ugyldig DigiByte-adresse eller feil i URI-parametere.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1287,7 +1287,7 @@ Adresse: %4
     </message>
     <message>
         <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Kan ikke starte Bitcoin: klikk-og-betal håndterer</translation>
+        <translation>Kan ikke starte DigiByte: klikk-og-betal håndterer</translation>
     </message>
     <message>
         <source>Net manager warning</source>
@@ -1362,7 +1362,7 @@ Adresse: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Skriv inn en Bitcoin-adresse (f.eks. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Skriv inn en DigiByte-adresse (f.eks. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1555,7 +1555,7 @@ Adresse: %4
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
-        <translation>En valgfri melding å tilknytte betalingsforespørselen, som vil bli vist når forespørselen er åpnet. Meldingen vil ikke bli sendt med betalingen over Bitcoin-nettverket.</translation>
+        <translation>En valgfri melding å tilknytte betalingsforespørselen, som vil bli vist når forespørselen er åpnet. Meldingen vil ikke bli sendt med betalingen over DigiByte-nettverket.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1704,7 +1704,7 @@ Adresse: %4
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Send Bitcoins</translation>
+        <translation>Send DigiBytes</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1868,7 +1868,7 @@ Adresse: %4
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
-        <translation>Advarsel: Ugyldig Bitcoin-adresse</translation>
+        <translation>Advarsel: Ugyldig DigiByte-adresse</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1955,7 +1955,7 @@ Adresse: %4
     </message>
     <message>
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-        <translation>En melding som var tilknyttet bitcoinen: URI vil bli lagret med transaksjonen for din oversikt. Denne meldingen vil ikke bli sendt over Bitcoin-nettverket.</translation>
+        <translation>En melding som var tilknyttet bitcoinen: URI vil bli lagret med transaksjonen for din oversikt. Denne meldingen vil ikke bli sendt over DigiByte-nettverket.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -2029,7 +2029,7 @@ Adresse: %4
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-        <translation>Signer meldingen for å bevise at du eier denne Bitcoin-adressen</translation>
+        <translation>Signer meldingen for å bevise at du eier denne DigiByte-adressen</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2057,7 +2057,7 @@ Adresse: %4
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>Verifiser meldingen for å være sikker på at den ble signert av den angitte Bitcoin-adressen</translation>
+        <translation>Verifiser meldingen for å være sikker på at den ble signert av den angitte DigiByte-adressen</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2069,7 +2069,7 @@ Adresse: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Skriv inn en Bitcoin-adresse (f.eks. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Skriv inn en DigiByte-adresse (f.eks. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2553,7 +2553,7 @@ Adresse: %4
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Send Bitcoins</translation>
+        <translation>Send DigiBytes</translation>
     </message>
 </context>
 <context>

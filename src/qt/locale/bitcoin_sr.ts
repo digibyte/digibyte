@@ -253,7 +253,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation type="unfinished"/>
@@ -292,7 +292,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>Прегледајте информације о Bitcoin-у</translation>
+        <translation>Прегледајте информације о DigiByte-у</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -3281,7 +3281,7 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
-        <translation>Грешка током учитавања wallet.dat: Новчанику је неопходна нова верзија Bitcoin-a.</translation>
+        <translation>Грешка током учитавања wallet.dat: Новчанику је неопходна нова верзија DigiByte-a.</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>

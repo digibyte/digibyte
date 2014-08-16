@@ -258,7 +258,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;Підписати повідомлення...</translation>
@@ -401,11 +401,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-        <translation>Підтвердіть, що Ви є власником повідомлення підписавши його Вашою Bitcoin-адресою </translation>
+        <translation>Підтвердіть, що Ви є власником повідомлення підписавши його Вашою DigiByte-адресою </translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>Перевірте повідомлення для впевненості, що воно підписано вказаною Bitcoin-адресою</translation>
+        <translation>Перевірте повідомлення для впевненості, що воно підписано вказаною DigiByte-адресою</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -461,7 +461,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>DigiByte client</source>
-        <translation>Bitcoin-клієнт</translation>
+        <translation>DigiByte-клієнт</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
@@ -1275,7 +1275,7 @@ Address: %4
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>Неможливо обробити URI! Це може бути викликано неправильною Bitcoin-адресою, чи невірними параметрами URI.</translation>
+        <translation>Неможливо обробити URI! Це може бути викликано неправильною DigiByte-адресою, чи невірними параметрами URI.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -2057,7 +2057,7 @@ Address: %4
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>Перевірте повідомлення для впевненості, що воно підписано вказаною Bitcoin-адресою</translation>
+        <translation>Перевірте повідомлення для впевненості, що воно підписано вказаною DigiByte-адресою</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>

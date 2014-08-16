@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
-        <translation>Versión del &lt;b&gt;Núcleo de Bitcoin&lt;b&gt;</translation>
+        <translation>Versión del &lt;b&gt;Núcleo de DigiByte&lt;b&gt;</translation>
     </message>
     <message>
         <source>
@@ -261,7 +261,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Firmar &amp;mensaje...</translation>
@@ -436,7 +436,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>Solicitar pagos (genera codigo QR y URL&apos;s de Bitcoin)</translation>
+        <translation>Solicitar pagos (genera codigo QR y URL&apos;s de DigiByte)</translation>
     </message>
     <message>
         <source>&amp;About DigiByte Core</source>
@@ -942,11 +942,11 @@ Dirección: %4
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where DigiByte Core will store its data.</source>
-        <translation>Al ser la primera vez que se ejecuta el programa, puede elegir dónde almacenará sus datos Bitcoin-Qt.</translation>
+        <translation>Al ser la primera vez que se ejecuta el programa, puede elegir dónde almacenará sus datos DigiByte-Qt.</translation>
     </message>
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Bitcoin-Qt va a descargar y guardar una copia de la cadena de bloques de DigiByte. Se almacenará al menos %1GB de datos en este directorio, que irá creciendo con el tiempo. El monedero se guardará también en este directorio.</translation>
+        <translation>DigiByte-Qt va a descargar y guardar una copia de la cadena de bloques de DigiByte. Se almacenará al menos %1GB de datos en este directorio, que irá creciendo con el tiempo. El monedero se guardará también en este directorio.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -2826,7 +2826,7 @@ Por ejemplo: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
     </message>
     <message>
         <source>DigiByte Core Daemon</source>
-        <translation>Proceso Bitcoin-QT</translation>
+        <translation>Proceso DigiByte-QT</translation>
     </message>
     <message>
         <source>Block creation options:</source>

@@ -258,7 +258,7 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Semnează &amp;mesaj...</translation>
@@ -2694,7 +2694,7 @@ parola rpc=%s
 Numele de utilizator si parola NU trebuie sa fie la fel.
 Daca fisierul nu exista, creaza-l cu fisier de citit permis doar proprietarului.
 Este de asemenea recomandat sa setezi alerta de notificare ca sa primesti notificari ale problemelor;
-spre exemplu: alertnotify=echo %%s | mail -s &quot;Alerta Bitcoin&quot; admin@foo.com
+spre exemplu: alertnotify=echo %%s | mail -s &quot;Alerta DigiByte&quot; admin@foo.com
 
 </translation>
     </message>

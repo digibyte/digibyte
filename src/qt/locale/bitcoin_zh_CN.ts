@@ -258,7 +258,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>消息签名(&amp;M)...</translation>
@@ -3154,7 +3154,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
-        <translation>SSL选项：(参见Bitcoin Wiki关于SSL设置栏目)</translation>
+        <translation>SSL选项：(参见DigiByte Wiki关于SSL设置栏目)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
@@ -3315,11 +3315,11 @@ rpcpassword=%s
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
-        <translation>wallet.dat 钱包文件加载错误：请升级到最新版Bitcoin客户端</translation>
+        <translation>wallet.dat 钱包文件加载错误：请升级到最新版DigiByte客户端</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
-        <translation>钱包文件需要被重写：请退出并重新启动Bitcoin客户端</translation>
+        <translation>钱包文件需要被重写：请退出并重新启动DigiByte客户端</translation>
     </message>
     <message>
         <source>Error loading wallet.dat</source>

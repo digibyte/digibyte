@@ -109,7 +109,7 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Nämä ovat sinun Bitcoin-osoitteesi suoritusten vastaanottamiseen. Suositellaan että annat uuden osoitteen kullekin rahansiirrolle</translation>
+        <translation>Nämä ovat sinun DigiByte-osoitteesi suoritusten vastaanottamiseen. Suositellaan että annat uuden osoitteen kullekin rahansiirrolle</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -259,7 +259,7 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;Allekirjoita viesti...</translation>
@@ -298,7 +298,7 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>Näytä tietoa Bitcoin-projektista</translation>
+        <translation>Näytä tietoa DigiByte-projektista</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -346,11 +346,11 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
-        <translation>Lähetä kolikoita Bitcoin-osoitteeseen</translation>
+        <translation>Lähetä kolikoita DigiByte-osoitteeseen</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
-        <translation>Muuta Bitcoinin konfiguraatioasetuksia</translation>
+        <translation>Muuta DigiBytein konfiguraatioasetuksia</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -394,7 +394,7 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
     </message>
     <message>
         <source>Show or hide the main Window</source>
-        <translation>Näytä tai piilota Bitcoin-ikkuna</translation>
+        <translation>Näytä tai piilota DigiByte-ikkuna</translation>
     </message>
     <message>
         <source>Encrypt the private keys that belong to your wallet</source>
@@ -430,7 +430,7 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
     </message>
     <message>
         <source>DigiByte Core</source>
-        <translation>Bitcoin-ydin</translation>
+        <translation>DigiByte-ydin</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
@@ -458,15 +458,15 @@ Tämä ohjelma sisältää OpenSSL projektin OpenSSL työkalupakin (http://www.o
     </message>
     <message>
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
-        <translation>Näytä DigiByte Core ohjeet saadaksesi listan mahdollisista Bitcoinin komentorivivalinnoista</translation>
+        <translation>Näytä DigiByte Core ohjeet saadaksesi listan mahdollisista DigiBytein komentorivivalinnoista</translation>
     </message>
     <message>
         <source>DigiByte client</source>
-        <translation>Bitcoin-asiakas</translation>
+        <translation>DigiByte-asiakas</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-        <translation><numerusform>%n aktiivinen yhteys Bitcoin-verkkoon</numerusform><numerusform>%n aktiivista yhteyttä Bitcoin-verkkoon</numerusform></translation>
+        <translation><numerusform>%n aktiivinen yhteys DigiByte-verkkoon</numerusform><numerusform>%n aktiivista yhteyttä DigiByte-verkkoon</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -846,7 +846,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
-        <translation>Antamasi osoite &quot;%1&quot; ei ole validi Bitcoin-osoite.</translation>
+        <translation>Antamasi osoite &quot;%1&quot; ei ole validi DigiByte-osoite.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -888,7 +888,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>DigiByte Core</source>
-        <translation>Bitcoin-ydin</translation>
+        <translation>DigiByte-ydin</translation>
     </message>
     <message>
         <source>version</source>
@@ -943,7 +943,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>DigiByte Core lataa ja tallentaa kopion Bitcoinin lohkoketjusta. Vähintään %1GB dataa tullaan tallentamaan tähän hakemistoon ja tarve kasvaa ajan myötä. Lomakko tullaan myös tallentamaan tähän hakemistoon.</translation>
+        <translation>DigiByte Core lataa ja tallentaa kopion DigiBytein lohkoketjusta. Vähintään %1GB dataa tullaan tallentamaan tähän hakemistoon ja tarve kasvaa ajan myötä. Lomakko tullaan myös tallentamaan tähän hakemistoon.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1037,7 +1037,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
-        <translation>Yhdistä Bitcoin-verkkoon SOCKS proxyn kautta.</translation>
+        <translation>Yhdistä DigiByte-verkkoon SOCKS proxyn kautta.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1097,7 +1097,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Avaa Bitcoin-asiakasohjelman portti reitittimellä automaattisesti. Tämä toimii vain, jos reitittimesi tukee UPnP:tä ja se on käytössä.</translation>
+        <translation>Avaa DigiByte-asiakasohjelman portti reitittimellä automaattisesti. Tämä toimii vain, jos reitittimesi tukee UPnP:tä ja se on käytössä.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1137,7 +1137,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
-        <translation>Ikkunaa suljettaessa vain pienentää Bitcoin-ohjelman ikkunan lopettamatta itse ohjelmaa. Kun tämä asetus on valittuna, ohjelman voi sulkea vain valitsemalla Lopeta ohjelman valikosta.</translation>
+        <translation>Ikkunaa suljettaessa vain pienentää DigiByte-ohjelman ikkunan lopettamatta itse ohjelmaa. Kun tämä asetus on valittuna, ohjelman voi sulkea vain valitsemalla Lopeta ohjelman valikosta.</translation>
     </message>
     <message>
         <source>M&amp;inimize on close</source>
@@ -1165,7 +1165,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
-        <translation>Näytetäänkö Bitcoin-osoitteet rahansiirrot listassa vai ei.</translation>
+        <translation>Näytetäänkö DigiByte-osoitteet rahansiirrot listassa vai ei.</translation>
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1220,7 +1220,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-        <translation>Näytetyt tiedot eivät välttämättä ole ajantasalla. Lompakkosi synkronoituu Bitcoin-verkon kanssa automaattisesti yhteyden muodostamisen jälkeen, mutta synkronointi on vielä meneillään.</translation>
+        <translation>Näytetyt tiedot eivät välttämättä ole ajantasalla. Lompakkosi synkronoituu DigiByte-verkon kanssa automaattisesti yhteyden muodostamisen jälkeen, mutta synkronointi on vielä meneillään.</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -1256,7 +1256,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Your current total balance</source>
-        <translation>Tililläsi tällä hetkellä olevien Bitcoinien määrä</translation>
+        <translation>Tililläsi tällä hetkellä olevien DigiByteien määrä</translation>
     </message>
     <message>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
@@ -1275,7 +1275,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URIa ei voitu jäsentää! Tämä voi johtua kelvottomasta Bitcoin-osoitteesta tai virheellisistä URI parametreista.</translation>
+        <translation>URIa ei voitu jäsentää! Tämä voi johtua kelvottomasta DigiByte-osoitteesta tai virheellisistä URI parametreista.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1362,7 +1362,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Anna Bitcoin-osoite (esim. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Anna DigiByte-osoite (esim. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1555,7 +1555,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
-        <translation>Valinnainen viesti liitetään maksupyyntöön ja näytetään avattaessa. Viestiä ei lähetetä Bitcoin-verkkoon.</translation>
+        <translation>Valinnainen viesti liitetään maksupyyntöön ja näytetään avattaessa. Viestiä ei lähetetä DigiByte-verkkoon.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1704,7 +1704,7 @@ Osoite: %4</translation>
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Lähetä Bitcoineja</translation>
+        <translation>Lähetä DigiByteeja</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1792,7 +1792,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation>Hyväksy Bitcoinien lähettäminen</translation>
+        <translation>Hyväksy DigiByteien lähettäminen</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -1844,7 +1844,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>The amount to pay must be larger than 0.</source>
-        <translation>Maksettavan summan tulee olla suurempi kuin 0 Bitcoinia.</translation>
+        <translation>Maksettavan summan tulee olla suurempi kuin 0 DigiByteia.</translation>
     </message>
     <message>
         <source>The amount exceeds your balance.</source>
@@ -1907,7 +1907,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Osoite, johon Bitcoinit lähetetään  (esim. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Osoite, johon DigiByteit lähetetään  (esim. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1955,7 +1955,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-        <translation>Viesti joka liitettiin digibyte: URI:iin tallennetaan rahansiirtoon viitteeksi. Tätä viestiä ei lähetetä Bitcoin-verkkoon.</translation>
+        <translation>Viesti joka liitettiin digibyte: URI:iin tallennetaan rahansiirtoon viitteeksi. Tätä viestiä ei lähetetä DigiByte-verkkoon.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -2029,7 +2029,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän Bitcoin-osoitteen</translation>
+        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän DigiByte-osoitteen</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2057,7 +2057,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>Tarkista viestin allekirjoitus varmistaaksesi, että se allekirjoitettiin tietyllä Bitcoin-osoitteella</translation>
+        <translation>Tarkista viestin allekirjoitus varmistaaksesi, että se allekirjoitettiin tietyllä DigiByte-osoitteella</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2069,7 +2069,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Anna Bitcoin-osoite (esim. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Anna DigiByte-osoite (esim. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2128,7 +2128,7 @@ Osoite: %4</translation>
     <name>SplashScreen</name>
     <message>
         <source>DigiByte Core</source>
-        <translation>Bitcoin-ydin</translation>
+        <translation>DigiByte-ydin</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
@@ -2392,7 +2392,7 @@ Osoite: %4</translation>
     </message>
     <message>
         <source>Destination address of transaction.</source>
-        <translation>Rahansiirron kohteen Bitcoin-osoite</translation>
+        <translation>Rahansiirron kohteen DigiByte-osoite</translation>
     </message>
     <message>
         <source>Amount removed from or added to balance.</source>
@@ -2553,7 +2553,7 @@ Osoite: %4</translation>
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Lähetä Bitcoineja</translation>
+        <translation>Lähetä DigiByteeja</translation>
     </message>
 </context>
 <context>
@@ -3299,7 +3299,7 @@ esimerkiksi: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
-        <translation>Virhe ladattaessa wallet.dat-tiedostoa: Tarvitset uudemman version Bitcoinista</translation>
+        <translation>Virhe ladattaessa wallet.dat-tiedostoa: Tarvitset uudemman version DigiByteista</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>

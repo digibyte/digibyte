@@ -258,7 +258,7 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Firma il &amp;messaggio...</translation>
@@ -2696,7 +2696,7 @@ rpcpassword=%s
 Il nome utente e la password NON DEVONO essere uguali.
 Se il file non esiste, crealo concedendo permessi di lettura al solo proprietario del file.
 Si raccomanda anche di impostare alertnotify così sarai avvisato di eventuali problemi;
-ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme Bitcoin&quot; admin@foo.com
+ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@foo.com
 </translation>
     </message>
     <message>

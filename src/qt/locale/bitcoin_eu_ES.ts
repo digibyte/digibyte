@@ -253,7 +253,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation type="unfinished"/>
@@ -292,7 +292,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Show information about DigiByte</source>
-        <translation>Erakutsi Bitcoin-i buruzko informazioa</translation>
+        <translation>Erakutsi DigiByte-i buruzko informazioa</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -300,7 +300,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <source>Show information about Qt</source>
-        <translation>Erakutsi Bitcoin-i buruzko informazioa</translation>
+        <translation>Erakutsi DigiByte-i buruzko informazioa</translation>
     </message>
     <message>
         <source>&amp;Options...</source>
@@ -460,7 +460,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-        <translation><numerusform>Konexio aktibo %n Bitcoin-en sarera</numerusform><numerusform>%n konexio aktibo Bitcoin-en sarera</numerusform></translation>
+        <translation><numerusform>Konexio aktibo %n DigiByte-en sarera</numerusform><numerusform>%n konexio aktibo DigiByte-en sarera</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>

@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
-        <translation>Verzia &lt;b&gt;Bitcoin jadra&lt;/b&gt;</translation>
+        <translation>Verzia &lt;b&gt;DigiByte jadra&lt;/b&gt;</translation>
     </message>
     <message>
         <source>
@@ -258,7 +258,7 @@ Tento výrobok obsahuje sofvér, ktorý vyvynul OpenSSL Project pre použitie v 
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Podpísať &amp;správu...</translation>
@@ -1703,7 +1703,7 @@ Adresa: %4</translation>
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Poslať Bitcoins</translation>
+        <translation>Poslať DigiBytes</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -2552,7 +2552,7 @@ Adresa: %4</translation>
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Poslať Bitcoins</translation>
+        <translation>Poslať DigiBytes</translation>
     </message>
 </context>
 <context>

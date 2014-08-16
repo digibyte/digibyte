@@ -258,7 +258,7 @@ Izplatīta saskaņā ar MIT/X11 programmatūras licenci, skatīt pievienoto datn
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Parakstīt &amp;ziņojumu...</translation>
@@ -1287,7 +1287,7 @@ Adrese: %4
     </message>
     <message>
         <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Nevar palaist Bitcoin: nospied-lai-maksātu apstrādātāju</translation>
+        <translation>Nevar palaist DigiByte: nospied-lai-maksātu apstrādātāju</translation>
     </message>
     <message>
         <source>Net manager warning</source>

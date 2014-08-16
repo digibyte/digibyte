@@ -258,7 +258,7 @@ Ce produit comprend des logiciels développés par le projet OpenSSL pour être 
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation type="unfinished"/>

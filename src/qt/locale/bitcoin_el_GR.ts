@@ -259,7 +259,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Υπογραφή &amp;Μηνύματος...</translation>
@@ -1289,7 +1289,7 @@ Address: %4
     </message>
     <message>
         <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Δεν είναι δυνατή η εκκίνηση του Bitcoin: click-to-pay handler</translation>
+        <translation>Δεν είναι δυνατή η εκκίνηση του DigiByte: click-to-pay handler</translation>
     </message>
     <message>
         <source>Net manager warning</source>
