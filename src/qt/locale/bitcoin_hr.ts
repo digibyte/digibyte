@@ -1357,7 +1357,7 @@ Adresa:%4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite DigiByte adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Unesite DigiByte adresu (npr. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1901,7 +1901,7 @@ Adresa:%4
         <translation>&amp;Primatelj plaćanja:</translation>
     </message>
     <message>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1991,8 +1991,8 @@ Adresa:%4
         <translation>Možete potpisati poruke sa svojom adresom kako bi dokazali da ih posjedujete. Budite oprezni da ne potpisujete ništa mutno, jer bi vas phishing napadi mogli na prevaru natjerati da prepišete svoj identitet njima. Potpisujte samo detaljno objašnjene izjave sa kojima se slažete.</translation>
     </message>
     <message>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite DigiByte adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Unesite DigiByte adresu (npr. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2047,8 +2047,8 @@ Adresa:%4
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite DigiByte adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Unesite DigiByte adresu (npr. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -2064,7 +2064,7 @@ Adresa:%4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite DigiByte adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Unesite DigiByte adresu (npr. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>

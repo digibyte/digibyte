@@ -1356,7 +1356,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>یک آدرس digibyte وارد کنید (مثال 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>یک آدرس digibyte وارد کنید (مثال DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1900,7 +1900,7 @@ Address: %4
         <translation>پرداخت و به چه کسی</translation>
     </message>
     <message>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1990,8 +1990,8 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>یک آدرس digibyte وارد کنید (مثال 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>یک آدرس digibyte وارد کنید (مثال DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2046,8 +2046,8 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>یک آدرس digibyte وارد کنید (مثال 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>یک آدرس digibyte وارد کنید (مثال DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -2063,7 +2063,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>یک آدرس digibyte وارد کنید (مثال 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>یک آدرس digibyte وارد کنید (مثال DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>

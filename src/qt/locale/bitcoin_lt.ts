@@ -1360,7 +1360,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Įveskite bitkoinų adresą (pvz. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Įveskite bitkoinų adresą (pvz. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1904,7 +1904,7 @@ Adresas: %4</translation>
         <translation>Mokėti &amp;gavėjui:</translation>
     </message>
     <message>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1994,8 +1994,8 @@ Adresas: %4</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Įveskite bitkoinų adresą (pvz. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Įveskite bitkoinų adresą (pvz. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2050,8 +2050,8 @@ Adresas: %4</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Įveskite bitkoinų adresą (pvz. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Įveskite bitkoinų adresą (pvz. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -2067,7 +2067,7 @@ Adresas: %4</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Įveskite bitkoinų adresą (pvz. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Įveskite bitkoinų adresą (pvz. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>

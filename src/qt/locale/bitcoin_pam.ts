@@ -1360,7 +1360,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Magpalub kang DigiByte address(e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Magpalub kang DigiByte address(e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1904,8 +1904,8 @@ Address: %4
         <translation>Ibayad &amp;kang:</translation>
     </message>
     <message>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Ing address nung nokarin ipadala ya ing kabayaran (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ing address nung nokarin ipadala ya ing kabayaran (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1994,8 +1994,8 @@ Address: %4
         <translation>Maliari kang mamirmang mensayi king kekang address bilang patune na keka ya ini. Mimingat mu king pamag-pirmang  e malino uling mapalyari kang mabiktimang phishing attack a manloku keka na pirman me ing sarili mu para king karela. Only sign fully-detailed statements you agree to.</translation>
     </message>
     <message>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Ing address ban a -pirman ya ing mensayi kayabe ning (e.g.1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ing address ban a -pirman ya ing mensayi kayabe ning (e.g.DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2050,8 +2050,8 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Ing address na ning mensayi nung nokarin me pirma ya ini (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ing address na ning mensayi nung nokarin me pirma ya ini (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -2067,7 +2067,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Magpalub kang DigiByte address(e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Magpalub kang DigiByte address(e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>

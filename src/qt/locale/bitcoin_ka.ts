@@ -1362,7 +1362,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>შეიყვანეთ ბიტკოინ-მისამართი (მაგ. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>შეიყვანეთ ბიტკოინ-მისამართი (მაგ. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1906,8 +1906,8 @@ Address: %4
         <translation>ადრესა&amp;ტი:</translation>
     </message>
     <message>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>მისამართი, რომლითაც ასრულებთ გადახდას (მაგ.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>მისამართი, რომლითაც ასრულებთ გადახდას (მაგ.: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1996,8 +1996,8 @@ Address: %4
         <translation>ხელმოწერით თქვენ ადასტურებთ, რომ მესიჯი თქვენია. ფრთხილად - არ მოაწეროთ ხელი რაიმე საეჭვოს: ფიშინგური ხრიკებით შეიძლება ის თქვენს მესიჯად გაასაღონ. მოაწერეთ ხელი მხოლოდ იმას, რასაც ყველა წვრილმანში ეთანხმებით.</translation>
     </message>
     <message>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>მისამართი, რომლითაც ხელს აწერთ (მაგ.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>მისამართი, რომლითაც ხელს აწერთ (მაგ.: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2052,8 +2052,8 @@ Address: %4
         <translation>შეიყვანეთ ხელმოწერის მისამართი, მესიჯი (დაუკვირდით, რომ ზუსტად იყოს კოპირებული სტრიქონის გადატანები, ჰარები, ტაბულაციები და სხვ) და ხელმოწერა მესიჯის ვერიფიკაციისათვის. მიაქციეთ ყურადღება, რომ რაიმე ზედმეტი არ გაგყვეთ კოპირებისას, რათა არ გახდეთ &quot;man-in-the-middle&quot; შეტევის ობიექტი.</translation>
     </message>
     <message>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>მისამართი, რომლითაც ხელმოწერილია მესიჯი (მაგ.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>მისამართი, რომლითაც ხელმოწერილია მესიჯი (მაგ.: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -2069,7 +2069,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>შეიყვანეთ ბიტკოინ-მისამართი (მაგ. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>შეიყვანეთ ბიტკოინ-მისამართი (მაგ. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>

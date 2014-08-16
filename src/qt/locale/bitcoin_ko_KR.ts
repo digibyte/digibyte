@@ -1362,7 +1362,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>비트코인 주소를 입력하기 (예 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>비트코인 주소를 입력하기 (예 DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1906,8 +1906,8 @@ Address: %4
         <translation>지급&amp;수신:</translation>
     </message>
     <message>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>비트코인을 송금할 지갑 주소 입력하기 (예 : 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>비트코인을 송금할 지갑 주소 입력하기 (예 : DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1996,8 +1996,8 @@ Address: %4
         <translation>여러분 자신을 증명하기 위해 주소를 첨가하고 섬여할 수 있습니다. 피싱 공격으로 말미암아 여러분의 서명을 통해 속아 넘어가게 할 수 있으므로, 서명하지 않은 어떤 모호한 요소든 주의하십시오. 동의하는 완전 무결한 조항에만 서명하십시오.</translation>
     </message>
     <message>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>메시지를 서명할 주소 (예: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>메시지를 서명할 주소 (예: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2052,8 +2052,8 @@ Address: %4
         <translation>메시지를 검증하기 위해 아래 칸에 각각 지갑 주소와 메시지, 전자서명을 입력하세요. (메시지 원본의 띄어쓰기, 들여쓰기, 행 나눔 등이 정확하게 입력되어야 하므로 원본을 복사해서 입력하세요) 이 기능은 메시지 검증이 주 목적이며, 네트워크 침입자에 의해 변조되지 않도록 전자서명 해독에 불필요한 시간을 소모하지 마세요. </translation>
     </message>
     <message>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>서명한 메시지의 주소입니다 (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>서명한 메시지의 주소입니다 (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -2069,7 +2069,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>비트코인 주소를 입력하기 (예 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>비트코인 주소를 입력하기 (예 DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
