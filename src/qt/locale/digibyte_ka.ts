@@ -414,8 +414,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>&amp;URI-ის გახსნა...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>&amp;URL-ის გახსნა...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -541,7 +541,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
         <translation>გადახდის მოთხოვნა (შეიქმნება QR-კოდები და digibyte: ბმულები)</translation>
     </message>
     <message>
@@ -562,8 +562,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>digibyte: URI-ის ან გადახდის მოთხოვნის გახსნა</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>digibyte: URL-ის ან გადახდის მოთხოვნის გახსნა</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1203,21 +1203,21 @@ Address: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>URI-ის გახსნა</translation>
+        <source>Open URL</source>
+        <translation>URL-ის გახსნა</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>გადახდის მოთხოვნის შექმნა URI-იდან ან ფაილიდან</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>გადახდის მოთხოვნის შექმნა URL-იდან ან ფაილიდან</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1549,13 +1549,13 @@ Address: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>URI-ების დამუშავება</translation>
+        <source>URL handling</source>
+        <translation>URL-ების დამუშავება</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI-ის დამუშავება ვერ მოხერხდა. შესაძლოა არასწორია DigiByte-მისამართი ან  URI-ის პარამეტრები.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>URL-ის დამუშავება ვერ მოხერხდა. შესაძლოა არასწორია DigiByte-მისამართი ან  URL-ის პარამეტრები.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1993,8 +1993,8 @@ Address: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>&amp;URI-ის კოპირება</translation>
+        <source>Copy &amp;URL</source>
+        <translation>&amp;URL-ის კოპირება</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2018,8 +2018,8 @@ Address: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2043,13 +2043,13 @@ Address: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI ძალიან გრძელი გამოდის, შეამოკლეთ ნიშნულის/მესიჯის ტექსტი.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>URL ძალიან გრძელი გამოდის, შეამოკლეთ ნიშნულის/მესიჯის ტექსტი.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>შედომა URI-ის QR-კოდში გადაყვანისას.</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>შედომა URL-ის QR-კოდში გადაყვანისას.</translation>
     </message>
 </context>
 <context>
@@ -2416,8 +2416,8 @@ Address: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-        <translation>მესიჯი, რომელიც თან ერთვის მონეტებს:  URI, რომელიც შეინახება ტრანსაქციასთან ერთად თქვენთვის. შენიშვნა: მესიჯი არ გაყვება გადახდას ბითქოინის ქსელში.</translation>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <translation>მესიჯი, რომელიც თან ერთვის მონეტებს:  URL, რომელიც შეინახება ტრანსაქციასთან ერთად თქვენთვის. შენიშვნა: მესიჯი არ გაყვება გადახდას ბითქოინის ქსელში.</translation>
     </message>
     <message>
         <location line="+426"/>

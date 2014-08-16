@@ -414,7 +414,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
+        <source>Open &amp;URL...</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -541,8 +541,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>请求支付（生成二维码和 digibyte: URI）</translation>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
+        <translation>请求支付（生成二维码和 digibyte: URL）</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -562,8 +562,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>打开一个比特币：URI 或支付请求</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>打开一个比特币：URL 或支付请求</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1204,20 +1204,20 @@ Address: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
+        <source>Open URL</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
+        <source>Open payment request from URL or file</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
+        <source>URL:</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1550,13 +1550,13 @@ Address: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>URI 处理</translation>
+        <source>URL handling</source>
+        <translation>URL 处理</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI无法解析！原因可能是比特币地址不正确，或者URI参数错误。</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>URL无法解析！原因可能是比特币地址不正确，或者URL参数错误。</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1971,8 +1971,8 @@ Address: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>复制 URI(&amp;U)</translation>
+        <source>Copy &amp;URL</source>
+        <translation>复制 URL(&amp;U)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1996,8 +1996,8 @@ Address: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2021,13 +2021,13 @@ Address: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI 太长，请试着精简标签或消息文本。</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>URL 太长，请试着精简标签或消息文本。</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>将 URI 转为二维码失败。</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>将 URL 转为二维码失败。</translation>
     </message>
 </context>
 <context>
@@ -2384,7 +2384,7 @@ Address: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>A message that was attached to the DigiByte URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the DigiByte URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation type="unfinished"/>
     </message>
     <message>

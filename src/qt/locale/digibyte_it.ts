@@ -414,8 +414,8 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>Apri &amp;URI...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>Apri &amp;URL...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -541,8 +541,8 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>Richiedi pagamenti (genera codici QR e digibyte: URI)</translation>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
+        <translation>Richiedi pagamenti (genera codici QR e digibyte: URL)</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -562,8 +562,8 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Apri un digibyte: URI o richiesta di pagamento</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>Apri un digibyte: URL o richiesta di pagamento</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1204,21 +1204,21 @@ Indirizzo: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>Apri URI</translation>
+        <source>Open URL</source>
+        <translation>Apri URL</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>Apri richiesta di pagamento da URI o file</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>Apri richiesta di pagamento da URL o file</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1550,13 +1550,13 @@ Indirizzo: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>Gestione URI</translation>
+        <source>URL handling</source>
+        <translation>Gestione URL</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>Impossibile interpretare l&apos;URI! Ciò può essere causato da un indirizzo DigiByte invalido o da parametri URI non corretti.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>Impossibile interpretare l&apos;URL! Ciò può essere causato da un indirizzo DigiByte invalido o da parametri URL non corretti.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1971,8 +1971,8 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>Copia &amp;URI</translation>
+        <source>Copy &amp;URL</source>
+        <translation>Copia &amp;URL</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1996,8 +1996,8 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2021,13 +2021,13 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>L&apos;URI risulta troppo lungo, prova a ridurre il testo nell&apos;etichetta / messaggio.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>L&apos;URL risulta troppo lungo, prova a ridurre il testo nell&apos;etichetta / messaggio.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>Errore nella codifica URI nel codice QR</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>Errore nella codifica URL nel codice QR</translation>
     </message>
 </context>
 <context>
@@ -2384,8 +2384,8 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>A message that was attached to the DigiByte URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-        <translation>Messaggio che era incluso nel DigiByte URI che sarà memorizzato con la transazione per vostro riferimento. Nota: Questo messaggio non sarà inviato attraverso la rete DigiByte.</translation>
+        <source>A message that was attached to the DigiByte URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <translation>Messaggio che era incluso nel DigiByte URL che sarà memorizzato con la transazione per vostro riferimento. Nota: Questo messaggio non sarà inviato attraverso la rete DigiByte.</translation>
     </message>
     <message>
         <location line="+958"/>

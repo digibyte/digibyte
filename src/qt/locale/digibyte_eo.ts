@@ -414,8 +414,8 @@ Tiu ĉi produkto enhavas erojn kreitajn de la &quot;OpenSSL Project&quot; por uz
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>Malfermi &amp;URI-on...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>Malfermi &amp;URL-on...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -541,8 +541,8 @@ Tiu ĉi produkto enhavas erojn kreitajn de la &quot;OpenSSL Project&quot; por uz
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>Peti pagon (kreas QR-kodojn kaj URI-ojn kun prefikso digibyte:)</translation>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
+        <translation>Peti pagon (kreas QR-kodojn kaj URL-ojn kun prefikso digibyte:)</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -562,8 +562,8 @@ Tiu ĉi produkto enhavas erojn kreitajn de la &quot;OpenSSL Project&quot; por uz
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Malfermi digibyte:-URI-on aŭ pagpeton</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>Malfermi digibyte:-URL-on aŭ pagpeton</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1203,21 +1203,21 @@ Adreso: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>Malfermi URI-on</translation>
+        <source>Open URL</source>
+        <translation>Malfermi URL-on</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>Malfermi pagpeton el URI aŭ dosiero</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>Malfermi pagpeton el URL aŭ dosiero</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1549,13 +1549,13 @@ Adreso: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>Traktado de URI-oj</translation>
+        <source>URL handling</source>
+        <translation>Traktado de URL-oj</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>Fiaskis la analizon de la URI! Eble la Bitmon-adreso estas nevalida, aŭ povus esti problemo kun la parametroj de la URI.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>Fiaskis la analizon de la URL! Eble la Bitmon-adreso estas nevalida, aŭ povus esti problemo kun la parametroj de la URL.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1970,8 +1970,8 @@ Adreso: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>Kopii &amp;URI</translation>
+        <source>Copy &amp;URL</source>
+        <translation>Kopii &amp;URL</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1995,8 +1995,8 @@ Adreso: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2020,13 +2020,13 @@ Adreso: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>La rezultanta URI estas tro longa. Provu malplilongigi la tekston de la etikedo / mesaĝo.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>La rezultanta URL estas tro longa. Provu malplilongigi la tekston de la etikedo / mesaĝo.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>Eraro de kodigo de URI en la QR-kodon.</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>Eraro de kodigo de URL en la QR-kodon.</translation>
     </message>
 </context>
 <context>
@@ -2383,7 +2383,7 @@ Adreso: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>A message that was attached to the DigiByte URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the DigiByte URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation type="unfinished"/>
     </message>
     <message>

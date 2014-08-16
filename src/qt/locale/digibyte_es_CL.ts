@@ -417,7 +417,7 @@ Eric Young (eay@cryptsoft.com) y UPnP software escrito por Thomas Bernard.</tran
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
+        <source>Open &amp;URL...</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -544,7 +544,7 @@ Eric Young (eay@cryptsoft.com) y UPnP software escrito por Thomas Bernard.</tran
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -565,7 +565,7 @@ Eric Young (eay@cryptsoft.com) y UPnP software escrito por Thomas Bernard.</tran
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
+        <source>Open a digibyte: URL or payment request</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1206,20 +1206,20 @@ Dirección: %4</translation>
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
+        <source>Open URL</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
+        <source>Open payment request from URL or file</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
+        <source>URL:</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1552,12 +1552,12 @@ Dirección: %4</translation>
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
+        <source>URL handling</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1996,7 +1996,7 @@ Dirección: %4</translation>
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
+        <source>Copy &amp;URL</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2021,7 +2021,7 @@ Dirección: %4</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
+        <source>URL</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2046,12 +2046,12 @@ Dirección: %4</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
+        <source>Error encoding URL into QR Code.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2419,7 +2419,7 @@ Dirección: %4</translation>
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation type="unfinished"/>
     </message>
     <message>

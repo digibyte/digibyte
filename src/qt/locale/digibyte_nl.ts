@@ -414,8 +414,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>Open &amp;URI...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>Open &amp;URL...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -541,8 +541,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>Vraag betaling aan (genereert QR codes en digibyte: URIs)</translation>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
+        <translation>Vraag betaling aan (genereert QR codes en digibyte: URLs)</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -562,8 +562,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Open een digibyte: URI of betalingsverzoek</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>Open een digibyte: URL of betalingsverzoek</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1203,21 +1203,21 @@ Adres: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>Open URI</translation>
+        <source>Open URL</source>
+        <translation>Open URL</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>Open betalingsverzoek via URI of bestand</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>Open betalingsverzoek via URL of bestand</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1549,13 +1549,13 @@ Adres: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>URI-behandeling</translation>
+        <source>URL handling</source>
+        <translation>URL-behandeling</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig DigiByteadres of misvormde URI-parameters.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>URL kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig DigiByteadres of misvormde URL-parameters.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1993,8 +1993,8 @@ Adres: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>Kopieer &amp;URI</translation>
+        <source>Copy &amp;URL</source>
+        <translation>Kopieer &amp;URL</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2018,8 +2018,8 @@ Adres: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2043,13 +2043,13 @@ Adres: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>Resulterende URI te lang, probeer de tekst korter te maken voor het label/bericht.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>Resulterende URL te lang, probeer de tekst korter te maken voor het label/bericht.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>Fout tijdens encoderen URI in QR-code</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>Fout tijdens encoderen URL in QR-code</translation>
     </message>
 </context>
 <context>
@@ -2416,7 +2416,7 @@ Adres: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation type="unfinished"/>
     </message>
     <message>

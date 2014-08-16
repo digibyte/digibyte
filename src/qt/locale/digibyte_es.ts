@@ -423,8 +423,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>Abrir &amp;URI...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>Abrir &amp;URL...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -550,7 +550,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
         <translation>Solicitar pagos (genera codigo QR y URL&apos;s de DigiByte)</translation>
     </message>
     <message>
@@ -571,8 +571,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Abrir un digibyte: URI o petición de pago</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>Abrir un digibyte: URL o petición de pago</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1212,21 +1212,21 @@ Dirección: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>Abrir URI...</translation>
+        <source>Open URL</source>
+        <translation>Abrir URL...</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>El pago requiere una URI o archivo</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>El pago requiere una URL o archivo</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1568,13 +1568,13 @@ Dirección: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>Gestión de URI</translation>
+        <source>URL handling</source>
+        <translation>Gestión de URL</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>¡No se puede interpretar la URI! Esto puede deberse a una dirección DigiByte inválida o a parámetros de URI mal formados.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>¡No se puede interpretar la URL! Esto puede deberse a una dirección DigiByte inválida o a parámetros de URL mal formados.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -2012,8 +2012,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>Copiar &amp;URI</translation>
+        <source>Copy &amp;URL</source>
+        <translation>Copiar &amp;URL</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2037,8 +2037,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2062,13 +2062,13 @@ Dirección: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI resultante demasiado larga. Intente reducir el texto de la etiqueta / mensaje.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>URL resultante demasiado larga. Intente reducir el texto de la etiqueta / mensaje.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>Error al codificar la URI en el código QR.</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>Error al codificar la URL en el código QR.</translation>
     </message>
 </context>
 <context>
@@ -2435,7 +2435,7 @@ Dirección: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation>Un mensaje que se adjuntó a la digibyte: URL que será almacenada con la transacción para su referencia. Nota: Este mensaje no se envía a través de la red DigiByte.</translation>
     </message>
     <message>

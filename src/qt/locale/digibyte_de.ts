@@ -414,8 +414,8 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>&amp;URI öffnen...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>&amp;URL öffnen...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -541,8 +541,8 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>Zahlungen anfordern (erzeugt QR-Codes und digibyte: URIs)</translation>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
+        <translation>Zahlungen anfordern (erzeugt QR-Codes und digibyte: URLs)</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -562,8 +562,8 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Eine &quot;digibyte:&quot;-URI oder Zahlungsanforderung öffnen</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>Eine &quot;digibyte:&quot;-URL oder Zahlungsanforderung öffnen</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1202,21 +1202,21 @@ Adresse: %4</translation>
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>URI öffnen</translation>
+        <source>Open URL</source>
+        <translation>URL öffnen</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>Zahlungsanforderung über URI oder aus Datei öffnen</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>Zahlungsanforderung über URL oder aus Datei öffnen</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1548,13 +1548,13 @@ Adresse: %4</translation>
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>URI Verarbeitung</translation>
+        <source>URL handling</source>
+        <translation>URL Verarbeitung</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kann nicht analysiert werden! Dies kann durch eine ungültige DigiByte-Adresse oder fehlerhafte URI-Parameter verursacht werden.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>URL kann nicht analysiert werden! Dies kann durch eine ungültige DigiByte-Adresse oder fehlerhafte URL-Parameter verursacht werden.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1992,8 +1992,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>&amp;URI kopieren</translation>
+        <source>Copy &amp;URL</source>
+        <translation>&amp;URL kopieren</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2017,8 +2017,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2042,13 +2042,13 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>Resultierende URI zu lang, bitte den Text für Bezeichnung / Nachricht kürzen.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>Resultierende URL zu lang, bitte den Text für Bezeichnung / Nachricht kürzen.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>Fehler beim Kodieren der URI in den QR-Code.</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>Fehler beim Kodieren der URL in den QR-Code.</translation>
     </message>
 </context>
 <context>
@@ -2415,8 +2415,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-        <translation>Eine an die &quot;digibyte:&quot;-URI angefügte Nachricht, die zusammen mit der Transaktion gespeichert wird. Hinweis: Diese Nachricht wird nicht über das DigiByte-Netzwerk gesendet.</translation>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <translation>Eine an die &quot;digibyte:&quot;-URL angefügte Nachricht, die zusammen mit der Transaktion gespeichert wird. Hinweis: Diese Nachricht wird nicht über das DigiByte-Netzwerk gesendet.</translation>
     </message>
     <message>
         <location line="+426"/>

@@ -420,8 +420,8 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>URI&amp;열기</translation>
+        <source>Open &amp;URL...</source>
+        <translation>URL&amp;열기</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -547,8 +547,8 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>지불 요청하기 (QR코드와 비트코인이 생성됩니다: URIs)</translation>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
+        <translation>지불 요청하기 (QR코드와 비트코인이 생성됩니다: URLs)</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -568,8 +568,8 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>비트코인: URI 또는 지불요청 열기</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>비트코인: URL 또는 지불요청 열기</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1209,21 +1209,21 @@ Address: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>URI 열기</translation>
+        <source>Open URL</source>
+        <translation>URL 열기</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>지급 요청 URI 또는 파일 열기</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>지급 요청 URL 또는 파일 열기</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1565,12 +1565,12 @@ Address: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
+        <source>URL handling</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2009,8 +2009,8 @@ Address: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>URI 복사(&amp;U)</translation>
+        <source>Copy &amp;URL</source>
+        <translation>URL 복사(&amp;U)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2034,8 +2034,8 @@ Address: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2059,12 +2059,12 @@ Address: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI 결과가 너무 길음, 표/메세지의 글을 줄이도록 하세요.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>URL 결과가 너무 길음, 표/메세지의 글을 줄이도록 하세요.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
+        <source>Error encoding URL into QR Code.</source>
         <translation>QR코드 인코딩 오류</translation>
     </message>
 </context>
@@ -2432,7 +2432,7 @@ Address: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation type="unfinished"/>
     </message>
     <message>

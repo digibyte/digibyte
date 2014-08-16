@@ -420,8 +420,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>Vizitaţi &amp;URI...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>Vizitaţi &amp;URL...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -547,7 +547,7 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
         <translation>Cereti plati (genereaza coduri QR si digibyte-uri: URls)</translation>
     </message>
     <message>
@@ -568,8 +568,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Deschideti un digibyte: o adresa URI sau o cerere de plata</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>Deschideti un digibyte: o adresa URL sau o cerere de plata</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1209,21 +1209,21 @@ Adresa: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>Deschideti adresa URI</translation>
+        <source>Open URL</source>
+        <translation>Deschideti adresa URL</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>Deschideţi cerere de plată prin intermediul adresei URI sau a fişierului</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>Deschideţi cerere de plată prin intermediul adresei URL sau a fişierului</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>adresa URI:</translation>
+        <source>URL:</source>
+        <translation>adresa URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1565,13 +1565,13 @@ Adresa: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>Gestionare URI</translation>
+        <source>URL handling</source>
+        <translation>Gestionare URL</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI nu poate fi analizat! Acest lucru poate fi cauzat de o adresa DigiByte invalida sau parametri deformati URI.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>URL nu poate fi analizat! Acest lucru poate fi cauzat de o adresa DigiByte invalida sau parametri deformati URL.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -2009,7 +2009,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
+        <source>Copy &amp;URL</source>
         <translation>Copiati &amp;URl</translation>
     </message>
     <message>
@@ -2034,7 +2034,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
+        <source>URL</source>
         <translation>Identificator uniform de resurse</translation>
     </message>
     <message>
@@ -2059,12 +2059,12 @@ Adresa: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI rezultat este prea lung, încearcă să reduci textul pentru etichetă / mesaj.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>URL rezultat este prea lung, încearcă să reduci textul pentru etichetă / mesaj.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
+        <source>Error encoding URL into QR Code.</source>
         <translation>Eroare la codarea URl-ului în cod QR.</translation>
     </message>
 </context>
@@ -2432,7 +2432,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation type="unfinished"/>
     </message>
     <message>

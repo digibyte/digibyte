@@ -416,8 +416,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>開啓 URI...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>開啓 URL...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -543,8 +543,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
-        <translation>要求付款(產生 QR Code 和位元幣付款協議的 URI)</translation>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
+        <translation>要求付款(產生 QR Code 和位元幣付款協議的 URL)</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -564,8 +564,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>開啓 digibyte 協議的 URI 或付款要求</translation>
+        <source>Open a digibyte: URL or payment request</source>
+        <translation>開啓 digibyte 協議的 URL 或付款要求</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1205,21 +1205,21 @@ Address: %4
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>開啓 URI</translation>
+        <source>Open URL</source>
+        <translation>開啓 URL</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>從 URI 或檔案開啟付款要求</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>從 URL 或檔案開啟付款要求</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1551,13 +1551,13 @@ Address: %4
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>URI 處理</translation>
+        <source>URL handling</source>
+        <translation>URL 處理</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>沒辦法解析 URI 位址！可能是因為位元幣位址無效，或是 URI 參數格式錯誤。</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>沒辦法解析 URL 位址！可能是因為位元幣位址無效，或是 URL 參數格式錯誤。</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1995,8 +1995,8 @@ Address: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>複製 URI</translation>
+        <source>Copy &amp;URL</source>
+        <translation>複製 URL</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2020,8 +2020,8 @@ Address: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2045,13 +2045,13 @@ Address: %4
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>產生的 URI 過長，請試著縮短標記或訊息的文字內容。</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>產生的 URL 過長，請試著縮短標記或訊息的文字內容。</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>把 URI 編碼成 QR Code 時發生錯誤。</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>把 URL 編碼成 QR Code 時發生錯誤。</translation>
     </message>
 </context>
 <context>
@@ -2418,8 +2418,8 @@ Address: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-        <translation>附加在位元幣付款協議 URI 中的訊息，會和交易內容一起存起來，給你自己做參考。注意: 這個訊息不會送到位元幣網路上。</translation>
+        <source>A message that was attached to the digibyte: URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <translation>附加在位元幣付款協議 URL 中的訊息，會和交易內容一起存起來，給你自己做參考。注意: 這個訊息不會送到位元幣網路上。</translation>
     </message>
     <message>
         <location line="+426"/>

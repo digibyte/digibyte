@@ -414,8 +414,8 @@ Este produto inclui software desenvolvido pelo Projecto OpenSSL para uso no Open
     </message>
     <message>
         <location line="+3"/>
-        <source>Open &amp;URI...</source>
-        <translation>Abrir &amp;URI...</translation>
+        <source>Open &amp;URL...</source>
+        <translation>Abrir &amp;URL...</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -541,7 +541,7 @@ Este produto inclui software desenvolvido pelo Projecto OpenSSL para uso no Open
     </message>
     <message>
         <location line="+163"/>
-        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <source>Request payments (generates QR codes and digibyte: URLs)</source>
         <translation>Solicitar pagamentos (gera códigos QR)</translation>
     </message>
     <message>
@@ -562,7 +562,7 @@ Este produto inclui software desenvolvido pelo Projecto OpenSSL para uso no Open
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a digibyte: URI or payment request</source>
+        <source>Open a digibyte: URL or payment request</source>
         <translation>Abrir digibyte: link ou pedido de pagamento</translation>
     </message>
     <message>
@@ -1204,21 +1204,21 @@ A sua &quot;carteira&quot; também irá ser guardada neste directório.</transla
     </message>
 </context>
 <context>
-    <name>OpenURIDialog</name>
+    <name>OpenURLDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open URI</source>
-        <translation>URI Aberto</translation>
+        <source>Open URL</source>
+        <translation>URL Aberto</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Open payment request from URI or file</source>
-        <translation>Pedido de pagamento aberto de um URI or file</translation>
+        <source>Open payment request from URL or file</source>
+        <translation>Pedido de pagamento aberto de um URL or file</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
+        <source>URL:</source>
+        <translation>URL:</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1550,13 +1550,13 @@ A sua &quot;carteira&quot; também irá ser guardada neste directório.</transla
     <message>
         <location filename="../paymentserver.cpp" line="+403"/>
         <location line="+13"/>
-        <source>URI handling</source>
-        <translation>Manuseamento URI</translation>
+        <source>URL handling</source>
+        <translation>Manuseamento URL</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI não foi lido correctamente! Isto pode ser causado por um endereço DigiByte inválido ou por parâmetros URI malformados.</translation>
+        <source>URL can not be parsed! This can be caused by an invalid DigiByte address or malformed URL parameters.</source>
+        <translation>URL não foi lido correctamente! Isto pode ser causado por um endereço DigiByte inválido ou por parâmetros URL malformados.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1971,8 +1971,8 @@ A sua &quot;carteira&quot; também irá ser guardada neste directório.</transla
     </message>
     <message>
         <location line="+46"/>
-        <source>Copy &amp;URI</source>
-        <translation>Copiar &amp;URI</translation>
+        <source>Copy &amp;URL</source>
+        <translation>Copiar &amp;URL</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1996,8 +1996,8 @@ A sua &quot;carteira&quot; também irá ser guardada neste directório.</transla
     </message>
     <message>
         <location line="+1"/>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2021,13 +2021,13 @@ A sua &quot;carteira&quot; também irá ser guardada neste directório.</transla
     </message>
     <message>
         <location line="+10"/>
-        <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI resultante muito longo. Tente reduzir o texto do rótulo / mensagem.</translation>
+        <source>Resulting URL too long, try to reduce the text for label / message.</source>
+        <translation>URL resultante muito longo. Tente reduzir o texto do rótulo / mensagem.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error encoding URI into QR Code.</source>
-        <translation>Erro ao codificar URI em Código QR.</translation>
+        <source>Error encoding URL into QR Code.</source>
+        <translation>Erro ao codificar URL em Código QR.</translation>
     </message>
 </context>
 <context>
@@ -2384,7 +2384,7 @@ A sua &quot;carteira&quot; também irá ser guardada neste directório.</transla
     </message>
     <message>
         <location line="+10"/>
-        <source>A message that was attached to the DigiByte URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <source>A message that was attached to the DigiByte URL which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation type="unfinished"/>
     </message>
     <message>
