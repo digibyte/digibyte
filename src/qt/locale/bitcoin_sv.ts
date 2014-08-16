@@ -402,7 +402,7 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-        <translation>Signera meddelanden med din Bitcoinadress för att bevisa att du äger dem</translation>
+        <translation>Signera meddelanden med din DigiByteadress för att bevisa att du äger dem</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
@@ -1869,7 +1869,7 @@ Adress: %4
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
-        <translation>Varning: Felaktig Bitcoinadress</translation>
+        <translation>Varning: Felaktig DigiByteadress</translation>
     </message>
     <message>
         <source>(no label)</source>

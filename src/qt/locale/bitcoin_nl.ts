@@ -104,7 +104,7 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dit zijn uw Bitcoinadressen om betalingen mee te verzenden. Check altijd het bedrag en het ontvangende adres voordat u uw digibytes verzendt.</translation>
+        <translation>Dit zijn uw DigiByteadressen om betalingen mee te verzenden. Check altijd het bedrag en het ontvangende adres voordat u uw digibytes verzendt.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
@@ -345,7 +345,7 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
-        <translation>Verstuur munten naar een Bitcoinadres</translation>
+        <translation>Verstuur munten naar een DigiByteadres</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
@@ -401,11 +401,11 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-        <translation>Onderteken berichten met uw Bitcoinadressen om te bewijzen dat u deze adressen bezit</translation>
+        <translation>Onderteken berichten met uw DigiByteadressen om te bewijzen dat u deze adressen bezit</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>Verifiëer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Bitcoinadressen</translation>
+        <translation>Verifiëer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde DigiByteadressen</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -465,7 +465,7 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-        <translation><numerusform>%n actieve connectie naar Bitcoinnetwerk</numerusform><numerusform>%n actieve connecties naar Bitcoinnetwerk</numerusform></translation>
+        <translation><numerusform>%n actieve connectie naar DigiBytenetwerk</numerusform><numerusform>%n actieve connecties naar DigiBytenetwerk</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -846,7 +846,7 @@ Adres: %4
     </message>
     <message>
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
-        <translation>Het opgegeven adres &quot;%1&quot; is een ongeldig Bitcoinadres</translation>
+        <translation>Het opgegeven adres &quot;%1&quot; is een ongeldig DigiByteadres</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1165,7 +1165,7 @@ Adres: %4
     </message>
     <message>
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
-        <translation>Of Bitcoinadressen getoond worden in de transactielijst</translation>
+        <translation>Of DigiByteadressen getoond worden in de transactielijst</translation>
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1220,7 +1220,7 @@ Adres: %4
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-        <translation>De weergegeven informatie kan verouderd zijn. Uw portemonnee synchroniseert automaticsh met het Bitcoinnetwerk nadat een verbinding is gelegd, maar dit proces is nog niet voltooid.</translation>
+        <translation>De weergegeven informatie kan verouderd zijn. Uw portemonnee synchroniseert automaticsh met het DigiBytenetwerk nadat een verbinding is gelegd, maar dit proces is nog niet voltooid.</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -1275,7 +1275,7 @@ Adres: %4
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig Bitcoinadres of misvormde URI-parameters.</translation>
+        <translation>URI kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig DigiByteadres of misvormde URI-parameters.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1362,7 +1362,7 @@ Adres: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Vul een Bitcoinadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Vul een DigiByteadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -2029,7 +2029,7 @@ Adres: %4
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-        <translation>Onderteken een bericht om te bewijzen dat u een bepaald Bitcoinadres bezit</translation>
+        <translation>Onderteken een bericht om te bewijzen dat u een bepaald DigiByteadres bezit</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2057,7 +2057,7 @@ Adres: %4
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde Bitcoinadres het bericht heeft ondertekend.</translation>
+        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde DigiByteadres het bericht heeft ondertekend.</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2069,7 +2069,7 @@ Adres: %4
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Vul een Bitcoinadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Vul een DigiByteadres in (bijv. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
