@@ -1,3 +1,11 @@
+=======
+Digibyte Ubuntu Build
+=====================================
+
+sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config libssl-dev
+
+sudo apt-get install libboost-all-dev
+
 git clone git://github.com/digibyte/DigiByteProject.git
 
 cd DigiByteProject
