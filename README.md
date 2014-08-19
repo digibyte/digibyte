@@ -3,8 +3,12 @@ git clone git://github.com/digibyte/DigiByteProject.git
 cd DigiByteProject
 
 ./autogen.sh
+
 ./configure
+
 make
+
+cd src
 
 sudo cp digibyted /usr/bin
 
