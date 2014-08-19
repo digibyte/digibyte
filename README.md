@@ -1,5 +1,11 @@
 git clone git://github.com/digibyte/DigiByteProject.git
 
+cd DigiByteProject/src
+
+make -f makefile.unix USE_UPNP=-
+
+sudo cp digibyted /usr/bin
+
 
 =======
 DigiByte Core integration/staging tree
