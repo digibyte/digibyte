@@ -24,8 +24,8 @@ the DigiByte Core software, see http://www.digibyte.co.
 Technical Specifications
 ---------------------
 
- - MultiAlgo POw (Scrypt, SHA256D, Qubit, Skein and Groestl) algorithm
- - 30 Second block Target (2.5 per Algo)
+ - MultiAlgo POW (Scrypt, SHA256D, Qubit, Skein and Groestl) algorithms
+ - 30 Second block Target (2.5 min per Algo)
  - ~21 billion total coins
  - 8000 coins per block, reduces by 0.5% every 10,080 blocks starting 2/28/14
  - Difficulty retarget every 1 block (2.5 Min) Averaged over previous 10 blocks per algo
