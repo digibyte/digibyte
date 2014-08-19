@@ -1,8 +1,10 @@
 git clone git://github.com/digibyte/DigiByteProject.git
 
-cd DigiByteProject/src
+cd DigiByteProject
 
-make -f makefile.unix USE_UPNP=-
+./autogen.sh
+./configure
+make
 
 sudo cp digibyted /usr/bin
 
