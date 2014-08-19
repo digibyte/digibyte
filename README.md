@@ -7,7 +7,7 @@ DigiByte Core integration/staging tree
 
 http://www.digibyte.co
 
-Copyright (c) 2009-2013 DigiByte Core Developers
+Copyright (c) 2009-2014 DigiByte Core Developers
 
 What is DigiByte?
 ----------------
@@ -24,11 +24,11 @@ the DigiByte Core software, see http://www.digibyte.co.
 Technical Specifications
 ---------------------
 
- - Scrypt proof-of-work algorithm
- - 60 second block time target
+ - MultiAlgo POw (Scrypt, SHA256D, Qubit, Skein and Groestl) algorithm
+ - 30 Second block Target (2.5 per Algo)
  - ~21 billion total coins
- - 8000 coins per block, reduces by 0.5% each week starting 2/28/14
- - Difficulty retarget every 1 block
+ - 8000 coins per block, reduces by 0.5% every 10,080 blocks starting 2/28/14
+ - Difficulty retarget every 1 block (2.5 Min) Averaged over previous 10 blocks per algo
  
 Links
 ------------------------
