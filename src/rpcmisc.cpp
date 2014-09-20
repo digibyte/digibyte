@@ -130,6 +130,14 @@ public:
             obj.push_back(Pair("sigsrequired", nRequired));
         return obj;
     }
+
+    Object operator()(const CStealthAddress &stxAddr) const {
+        Object obj;
+        obj.push_back(Pair("isstealth", true));
+        obj.push_back(Pair("label", stxAddr.label));
+        obj.push_back(Pair("address", stxAddr.Encoded()));
+        return obj;
+    }
 };
 #endif
 

@@ -112,6 +112,31 @@ bool CWalletDB::WriteCScript(const uint160& hash, const CScript& redeemScript)
     return Write(std::make_pair(std::string("cscript"), hash), redeemScript, false);
 }
 
+bool CWalletDB::WriteStealthKeyMeta(const CKeyID& keyId, const CStealthKeyMetadata& sxKeyMeta)
+{
+    nWalletDBUpdated++;
+    return Write(std::make_pair(std::string("sxKeyMeta"), keyId), sxKeyMeta, true);
+}
+
+bool CWalletDB::EraseStealthKeyMeta(const CKeyID& keyId)
+{
+    nWalletDBUpdated++;
+    return Erase(std::make_pair(std::string("sxKeyMeta"), keyId));
+}
+
+bool CWalletDB::WriteStealthAddress(const CStealthAddress& sxAddr)
+{
+    nWalletDBUpdated++;
+
+    return Write(std::make_pair(std::string("sxAddr"), sxAddr.scan_pubkey), sxAddr, true);
+}
+
+bool CWalletDB::ReadStealthAddress(CStealthAddress& sxAddr)
+{
+    // -- set scan_pubkey before reading
+    return Read(std::make_pair(std::string("sxAddr"), sxAddr.scan_pubkey), sxAddr);
+}
+
 bool CWalletDB::WriteBestBlock(const CBlockLocator& locator)
 {
     nWalletDBUpdated++;
@@ -565,6 +590,28 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
                 strErr = "Error reading wallet database: LoadDestData failed";
                 return false;
             }
+        }
+        else if (strType == "sxAddr")
+        {
+            if (fDebug)
+                LogPrintf("WalletDB ReadKeyValue sxAddr\n");
+
+            CStealthAddress sxAddr;
+            ssValue >> sxAddr;
+
+            pwallet->stealthAddresses.insert(sxAddr);
+        }
+        else if (strType == "sxKeyMeta")
+        {
+            if (fDebug)
+                LogPrintf("WalletDB ReadKeyValue sxKeyMeta\n");
+
+            CKeyID keyId;
+            ssKey >> keyId;
+            CStealthKeyMetadata sxKeyMeta;
+            ssValue >> sxKeyMeta;
+
+            pwallet->mapStealthKeyMeta[keyId] = sxKeyMeta;
         }
     } catch (...)
     {

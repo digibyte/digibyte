@@ -11,6 +11,8 @@
 #include "optionsmodel.h"
 #include "walletmodel.h"
 
+#include "stealthaddress.h"
+
 #include <QApplication>
 #include <QClipboard>
 
@@ -147,6 +149,14 @@ SendCoinsRecipient SendCoinsEntry::getValue()
 
     // Normal payment
     recipient.address = ui->payTo->text();
+
+    // address type
+    if (recipient.address.length() > 75
+        && IsStealthAddress(recipient.address.toStdString()))
+        recipient.typeInd = AddressTableModel::AT_Stealth;
+    else
+        recipient.typeInd = AddressTableModel::AT_Normal;
+
     recipient.label = ui->addAsLabel->text();
     recipient.amount = ui->payAmount->value();
     recipient.message = ui->messageTextLabel->text();

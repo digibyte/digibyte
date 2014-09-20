@@ -536,22 +536,31 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
     }
 
     unsigned int nDataOut = 0;
+    unsigned int nTxnOut = 0;
     txnouttype whichType;
-    BOOST_FOREACH(const CTxOut& txout, tx.vout) {
-        if (!::IsStandard(txout.scriptPubKey, whichType)) {
+    BOOST_FOREACH(const CTxOut& txout, tx.vout)
+    {
+        if (!::IsStandard(txout.scriptPubKey, whichType))
+        {
             reason = "scriptpubkey";
             return false;
         }
         if (whichType == TX_NULL_DATA)
             nDataOut++;
-        else if (txout.IsDust(CTransaction::nMinRelayTxFee)) {
-            reason = "dust";
-            return false;
+        else
+        {
+            if (txout.IsDust(CTransaction::nMinRelayTxFee))
+            {
+                reason = "dust";
+                return false;
+            }
+            nTxnOut++;
         }
     }
 
     // only one OP_RETURN txout is permitted
-    if (nDataOut > 1) {
+    if (nDataOut > nTxnOut)
+    {
         reason = "multi-op-return";
         return false;
     }
@@ -1211,9 +1220,9 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
 
     // Mining phase: Subsidy is cut in half every SubsidyHalvingInterval
     nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
-    
+
     // Inflation phase: Subsidy reaches minimum subsidy
-    // Network is rewarded for transaction processing with transaction fees and 
+    // Network is rewarded for transaction processing with transaction fees and
     // the inflationary subsidy
     if (nSubsidy < nMinSubsidy)
     {
@@ -1267,7 +1276,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
 static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
-    
+
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
     unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
@@ -1295,7 +1304,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
-    
+
     // find first block in averaging interval
     // Go back by what we want to be nAveragingInterval blocks
     const CBlockIndex* pindexFirst = pindexPrev;
@@ -2019,7 +2028,7 @@ bool static DisconnectTip(CValidationState &state) {
     BOOST_FOREACH(const CTransaction &tx, block.vtx) {
         // ignore validation errors in resurrected transactions
         list<CTransaction> removed;
-        CValidationState stateDummy; 
+        CValidationState stateDummy;
         if (!tx.IsCoinBase())
             if (!AcceptToMemoryPool(mempool, stateDummy, tx, false, NULL))
                 mempool.remove(tx, removed, true);
@@ -4394,8 +4403,8 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         // in flight for over two minutes, since we first had a chance to
         // process an incoming block.
         int64_t nNow = GetTimeMicros();
-        if (!pto->fDisconnect && state.nBlocksInFlight && 
-            state.nLastBlockReceive < state.nLastBlockProcess - BLOCK_DOWNLOAD_TIMEOUT*1000000 && 
+        if (!pto->fDisconnect && state.nBlocksInFlight &&
+            state.nLastBlockReceive < state.nLastBlockProcess - BLOCK_DOWNLOAD_TIMEOUT*1000000 &&
             state.vBlocksInFlight.front().nTime < state.nLastBlockProcess - 2*BLOCK_DOWNLOAD_TIMEOUT*1000000) {
             LogPrintf("Peer %s is stalling block download, disconnecting\n", state.name.c_str());
             pto->fDisconnect = true;

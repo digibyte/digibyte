@@ -109,6 +109,11 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                     // from a transaction sent back to our own address.
                     continue;
                 }
+                if (txout.IsScriptOpReturn())
+                {
+                    // OP_RETURN txout
+                    continue;
+                }
 
                 CTxDestination address;
                 if (ExtractDestination(txout.scriptPubKey, address))

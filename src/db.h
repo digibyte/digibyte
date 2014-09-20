@@ -211,6 +211,7 @@ protected:
         return (ret == 0);
     }
 
+public:
     Dbc* GetCursor()
     {
         if (!pdb)
@@ -261,7 +262,6 @@ protected:
         return 0;
     }
 
-public:
     bool TxnBegin()
     {
         if (!pdb || activeTxn)

@@ -113,15 +113,14 @@ bool DecryptSecret(const CKeyingMaterial& vMasterKey, const std::vector<unsigned
 class CCryptoKeyStore : public CBasicKeyStore
 {
 private:
-    CryptedKeyMap mapCryptedKeys;
-
-    CKeyingMaterial vMasterKey;
-
     // if fUseCrypto is true, mapKeys must be empty
     // if fUseCrypto is false, vMasterKey must be empty
     bool fUseCrypto;
 
 protected:
+    CryptedKeyMap mapCryptedKeys;
+    CKeyingMaterial vMasterKey;
+
     bool SetCrypted();
 
     // will encrypt previously unencrypted keys

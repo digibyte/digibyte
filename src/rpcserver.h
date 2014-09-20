@@ -190,5 +190,12 @@ extern json_spirit::Value verifychain(const json_spirit::Array& params, bool fHe
 
 extern json_spirit::Value makekeypair(const json_spirit::Array& params, bool fHelp);
 
+extern json_spirit::Value getnewstealthaddress(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value liststealthaddresses(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value importstealthaddress(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value sendtostealthaddress(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value clearwallettransactions(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value scanforalltxns(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value scanforstealthtxns(const json_spirit::Array& params, bool fHelp);
 
 #endif
