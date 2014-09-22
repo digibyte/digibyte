@@ -1414,7 +1414,8 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
         return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
 
     // Limit adjustment step
-    int64_t nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
+    const CBlockIndex* pindexEnd = pindexLast->nHeight < alwaysUpdateDiffChangeTarget ? pindexPrev : pindexLast;
+    int64_t nActualTimespan = pindexEnd->GetBlockTime() - pindexFirst->GetBlockTime();
     LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
