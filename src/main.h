@@ -690,7 +690,7 @@ enum BlockStatus {
 const int64_t nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
 const int64_t nBlockAlgoNormalisedWorkStart = 633800; // block where algo combined weight starts
 const int64_t nBlockSequentialAlgoRuleStart = 633800; // block where sequential algo rule starts
-const int nBlockSequentialAlgoMaxCount = 8; // maximum sequential blocks of same algo
+const int nBlockSequentialAlgoMaxCount = 6; // maximum sequential blocks of same algo
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
