@@ -68,7 +68,7 @@ static const int MAX_BLOCKS_IN_TRANSIT_PER_PEER = 128;
 static const unsigned int BLOCK_DOWNLOAD_TIMEOUT = 60;
 
 /** Stealth addresses */
-static const int BLOCK_STEALTH_START = 633800;
+static const int64_t BLOCK_STEALTH_START = 633800;
 
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
@@ -688,6 +688,9 @@ enum BlockStatus {
 };
 
 const int64_t nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
+const int64_t nBlockAlgoNormalisedWorkStart = 633800; // block where algo combined weight starts
+const int64_t nBlockSequentialAlgoRuleStart = 633800; // block where sequential algo rule starts
+const int nBlockSequentialAlgoMaxCount = 8; // maximum sequential blocks of same algo
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
@@ -823,6 +826,21 @@ public:
         return (int64_t)nTime;
     }
 
+    CBigNum GetPrevWorkForAlgo(int algo) const
+    {
+        CBigNum nWork;
+        CBlockIndex* pindex = this->pprev;
+        while (pindex)
+        {
+            if (pindex->GetAlgo() == algo)
+            {
+                return pindex->GetBlockWork();
+            }
+            pindex = pindex->pprev;
+        }
+        return Params().ProofOfWorkLimit(algo);
+    }
+
     CBigNum GetBlockWork() const
     {
         CBigNum bnTarget;
@@ -863,7 +881,26 @@ public:
     CBigNum GetBlockWorkAdjusted() const
     {
         CBigNum bnRes;
-        bnRes = GetBlockWork() * GetAlgoWorkFactor();
+        if ((TestNet() && (nHeight > 500)) ||
+            (nHeight >= nBlockAlgoNormalisedWorkStart))
+        {
+            // Adjusted block work is the sum of work of this block and the
+            // most recent work of one block of each algo
+            CBigNum nBlockWork = GetBlockWork();
+            int nAlgo = GetAlgo();
+            for (int algo = 0; algo < NUM_ALGOS; algo++)
+            {
+                if (algo != nAlgo)
+                {
+                    nBlockWork += GetPrevWorkForAlgo(algo);
+                }
+            }
+            bnRes = nBlockWork / NUM_ALGOS;
+        }
+        else
+        {
+            bnRes = GetBlockWork() * GetAlgoWorkFactor();
+        }
         return bnRes;
     }
 

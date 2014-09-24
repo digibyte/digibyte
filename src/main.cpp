@@ -559,7 +559,7 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
         }
     }
 
-    if (chainActive.Height() < BLOCK_STEALTH_START)
+    if (!TestNet() && (chainActive.Height() < BLOCK_STEALTH_START))
     {
         // allow one OP_RETURN per transaction
         if (nDataOut > 1)
@@ -2437,12 +2437,35 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
     // Get prev block index
     CBlockIndex* pindexPrev = NULL;
     int nHeight = 0;
-    if (hash != Params().HashGenesisBlock()) {
+    if (hash != Params().HashGenesisBlock())
+    {
+        // Check previous block
         map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(block.hashPrevBlock);
         if (mi == mapBlockIndex.end())
             return state.DoS(10, error("AcceptBlock() : prev block not found"), 0, "bad-prevblk");
         pindexPrev = (*mi).second;
         nHeight = pindexPrev->nHeight+1;
+
+        // Check count of sequence of same algo
+        if ( (TestNet() && (nHeight > 200))
+            || (nHeight > nBlockSequentialAlgoRuleStart) )
+        {
+            int nAlgo = block.GetAlgo();
+            int nAlgoCount = 1;
+            CBlockIndex* piPrev = pindexPrev;
+            while (piPrev && (nAlgoCount < nBlockSequentialAlgoMaxCount))
+            {
+                if (piPrev->GetAlgo() != nAlgo)
+                    break;
+                nAlgoCount++;
+                piPrev = piPrev->pprev;
+            }
+            if (nAlgoCount >= nBlockSequentialAlgoMaxCount)
+            {
+                return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
+                                 REJECT_INVALID, "algo-toomany");
+            }
+        }
 
         // Check proof of work
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
@@ -2481,6 +2504,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
             }
         }
         // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
+        /*
         if (block.nVersion >= 2)
         {
             // if 750 of the last 1,000 blocks are version 2 or greater (51/100 if testnet):
@@ -2494,6 +2518,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
                                      REJECT_INVALID, "bad-cb-height");
             }
         }
+        */
     }
 
     // Write block to history file
