@@ -559,11 +559,23 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
         }
     }
 
-    // allow one OP_RETURN per txout
-    if (nDataOut > nTxnOut)
+    if (chainActive.Height() < BLOCK_STEALTH_START)
     {
-        reason = "multi-op-return";
-        return false;
+        // allow one OP_RETURN per transaction
+        if (nDataOut > 1)
+        {
+            reason = "multi-op-return";
+            return false;
+        }
+    }
+    else
+    {
+        // allow one OP_RETURN per txout
+        if (nDataOut > nTxnOut)
+        {
+            reason = "multi-op-return";
+            return false;
+        }
     }
 
     return true;

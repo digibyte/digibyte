@@ -1834,6 +1834,13 @@ string CWallet::SendStealthMoney(CScript scriptPubKey, int64_t nValue, std::vect
     CReserveKey reservekey(this);
     int64_t nFeeRequired;
 
+    if (chainActive.Height() < BLOCK_STEALTH_START)
+    {
+        string strError = _("Error: Stealth addresses not yet supported");
+        LogPrintf("SendStealthMoney() : %s", strError.c_str());
+        return strError;
+    }
+
     if (IsLocked())
     {
         string strError = _("Error: Wallet locked, unable to create transaction  ");

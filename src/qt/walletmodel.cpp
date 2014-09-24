@@ -227,6 +227,13 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
 
             if (rcp.typeInd == AddressTableModel::AT_Stealth)
             {
+                if (chainActive.Height() < BLOCK_STEALTH_START)
+                {
+                    emit message(tr("Send Coins"), tr("Stealth addresses not yet supported"),
+                         CClientUIInterface::MSG_ERROR);
+                    return InvalidAddress;
+                }
+
                 CStealthAddress sxAddr;
                 if (sxAddr.SetEncoded(sAddr))
                 {
@@ -320,7 +327,7 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
         CWalletTx *newTx = transaction.getTransaction();
         CReserveKey *keyChange = transaction.getPossibleKeyChange();
 
-        int nChangePos = -1;
+        // int nChangePos = -1;
         bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, /*nChangePos,*/ strFailReason, coinControl);
 
         /*
