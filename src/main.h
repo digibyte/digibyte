@@ -778,7 +778,7 @@ public:
     }
 
     int GetAlgo() const { return ::GetAlgo(nVersion); }
-    
+
     CDiskBlockPos GetBlockPos() const {
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_DATA) {
@@ -829,7 +829,7 @@ public:
         return (CBigNum(1)<<256) / (bnTarget+1);
     }
 
-    int GetAlgoWorkFactor() const 
+    int GetAlgoWorkFactor() const
     {
         if (!TestNet() && (nHeight < nBlockAlgoWorkWeightStart))
         {
@@ -842,7 +842,7 @@ public:
         switch (GetAlgo())
         {
             case ALGO_SHA256D:
-                return 1; 
+                return 1;
             // work factor = absolute work ratio * optimisation factor
             case ALGO_SCRYPT:
                 return 1024 * 4;
@@ -863,7 +863,7 @@ public:
         bnRes = GetBlockWork() * GetAlgoWorkFactor();
         return bnRes;
     }
-    
+
     bool CheckIndex() const
     {
         int algo = GetAlgo();

@@ -542,6 +542,7 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
     {
         if (!::IsStandard(txout.scriptPubKey, whichType))
         {
+            LogPrintf("tx-nonstd: %s %s\n", txout.ToString(), whichType);
             reason = "scriptpubkey";
             return false;
         }
@@ -558,7 +559,7 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
         }
     }
 
-    // only one OP_RETURN txout is permitted
+    // allow one OP_RETURN per txout
     if (nDataOut > nTxnOut)
     {
         reason = "multi-op-return";
