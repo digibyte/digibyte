@@ -1834,7 +1834,9 @@ string CWallet::SendStealthMoney(CScript scriptPubKey, int64_t nValue, std::vect
     CReserveKey reservekey(this);
     int64_t nFeeRequired;
 
-    if (chainActive.Height() < BLOCK_STEALTH_START)
+    if (   (!TestNet() && (chainActive.Height() < BLOCK_STEALTH_START))
+        || (TestNet() && (chainActive.Height() < 200))
+        )
     {
         string strError = _("Error: Stealth addresses not yet supported");
         LogPrintf("SendStealthMoney() : %s", strError.c_str());
