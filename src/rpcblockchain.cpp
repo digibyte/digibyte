@@ -20,16 +20,17 @@ void ScriptPubKeyToJSON(const CScript& scriptPubKey, Object& out, bool fIncludeH
 double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
     unsigned int nBits;
-    
+
     // Floating point number that is a multiple of the minimum difficulty,
     // minimum difficulty = 1.0.
     if (blockindex == NULL)
     {
-        if (chainActive.Tip() == NULL)
+        CBlockIndex* tip = chainActive.Tip();
+        if (tip == NULL)
             nBits = Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
         else
         {
-            blockindex = GetLastBlockIndexForAlgo(chainActive.Tip(), algo);
+            blockindex = GetLastBlockIndexForAlgo(tip, algo);
             if (blockindex == NULL)
                 nBits = Params().ProofOfWorkLimit(algo).GetCompact();
             else
@@ -38,11 +39,11 @@ double GetDifficulty(const CBlockIndex* blockindex, int algo)
     }
     else
         nBits = blockindex->nBits;
-    
+
     int nShift = (nBits >> 24) & 0xff;
 
     double dDiff =
-        (double)0x0000ffff / (double)(blockindex->nBits & 0x00ffffff);
+        (double)0x0000ffff / (double)(nBits & 0x00ffffff);
 
     while (nShift < 29)
     {
