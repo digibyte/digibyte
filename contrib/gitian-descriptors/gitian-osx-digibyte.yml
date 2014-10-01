@@ -46,7 +46,7 @@ script: |
   tar -C osx-cross-depends -xf osx-depends-qt-5.2.1-r2.tar.gz
   export PATH=`pwd`/osx-cross-depends/native-prefix/bin:$PATH
 
-  cd bitcoin
+  cd digibyte
 
   export ZERO_AR_DATE=1
   export QT_RCC_TEST=1
