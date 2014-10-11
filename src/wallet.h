@@ -621,7 +621,7 @@ public:
             return 0;
 
         // Must wait until coinbase is safely deep enough in the chain before valuing it
-        if (IsCoinBase() && GetBlocksToMaturity((chainActive.Height() - GetDepthInMainChain()) > 0 ))
+        if (IsCoinBase() && GetBlocksToMaturity(chainActive.Height() - GetDepthInMainChain()) > 0 )
             return 0;
 
         if (fUseCache && fAvailableCreditCached)
