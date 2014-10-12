@@ -1024,7 +1024,11 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
             if (fOnlyConfirmed && !pcoin->IsTrusted())
                 continue;
 
+<<<<<<< HEAD
             if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(pcoin->GetDepthInMainChain()) > 0)
+=======
+            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(chainActive.Height() - pcoin->GetDepthInMainChain()) > 0)
+>>>>>>> 04e81dc4a87319f14f7fef1a1184c4b4691d3081
                 continue;
 
             int nDepth = pcoin->GetDepthInMainChain();
