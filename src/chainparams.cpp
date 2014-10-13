@@ -66,8 +66,9 @@ public:
         assert(genesis.hashMerkleRoot == uint256("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         vSeeds.push_back(CDNSSeedData("digibytewiki.com seed #1", "seed1.digibytewiki.com"));
-        vSeeds.push_back(CDNSSeedData("digihash.co seed #2", "seed2.digihash.co"));
-        vSeeds.push_back(CDNSSeedData("digibyte.co seed #3", "seed3.digibyte.co"));
+        vSeeds.push_back(CDNSSeedData("hashdragon.com seed #1", "seed2.hashdragon.com"));
+        vSeeds.push_back(CDNSSeedData("digihash.co seed #3", "seed3.digihash.co"));
+        vSeeds.push_back(CDNSSeedData("digibyte.co seed #4", "seed4.digibyte.co"));
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(30);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
