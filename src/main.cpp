@@ -1501,13 +1501,8 @@ void CheckForkWarningConditions()
     if (pindexBestForkTip && chainActive.Height() - pindexBestForkTip->nHeight >= 72)
         pindexBestForkTip = NULL;
 
-    if (pindexBestForkTip
-        || (pindexBestInvalid
-            && pindexBestInvalid->nChainWork > chainActive.Tip()->nChainWork + (chainActive.Tip()->GetBlockWorkAdjusted() * 6).getuint256()
-            && (chainActive.Height() > pindexBestInvalid->nHeight + 3 || pindexBestInvalid->nHeight > chainActive.Height() + 3)
-           )
-       )
-    {
+    if (pindexBestForkTip || (pindexBestInvalid && pindexBestInvalid->nChainWork > chainActive.Tip()->nChainWork + (chainActive.Tip()->GetBlockWorkAdjusted() * 20).getuint256()))
+    	{
         if (!fLargeWorkForkFound)
         {
             std::string strCmd = GetArg("-alertnotify", "");
