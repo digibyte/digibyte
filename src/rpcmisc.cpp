@@ -81,6 +81,7 @@ Value getinfo(const Array& params, bool fHelp)
     obj.push_back(Pair("difficulty_skein",   (double)GetDifficulty(NULL, ALGO_SKEIN)));
     obj.push_back(Pair("difficulty_qubit",   (double)GetDifficulty(NULL, ALGO_QUBIT)));
     obj.push_back(Pair("testnet",            TestNet()));
+
 #ifdef ENABLE_WALLET
     if (pwalletMain) {
         obj.push_back(Pair("keypoololdest", pwalletMain->GetOldestKeyPoolTime()));
@@ -92,6 +93,7 @@ Value getinfo(const Array& params, bool fHelp)
 #endif
     obj.push_back(Pair("relayfee",      ValueFromAmount(CTransaction::nMinRelayTxFee)));
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
+
     return obj;
 }
 
@@ -128,6 +130,14 @@ public:
         obj.push_back(Pair("addresses", a));
         if (whichType == TX_MULTISIG)
             obj.push_back(Pair("sigsrequired", nRequired));
+        return obj;
+    }
+
+    Object operator()(const CStealthAddress &stxAddr) const {
+        Object obj;
+        obj.push_back(Pair("isstealth", true));
+        obj.push_back(Pair("label", stxAddr.label));
+        obj.push_back(Pair("address", stxAddr.Encoded()));
         return obj;
     }
 };

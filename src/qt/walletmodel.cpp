@@ -18,6 +18,8 @@
 #include "wallet.h"
 #include "walletdb.h" // for BackupWallet
 
+#include "stealthaddress.h"
+
 #include <stdint.h>
 
 #include <QDebug>
@@ -159,7 +161,15 @@ void WalletModel::updateAddressBook(const QString &address, const QString &label
 
 bool WalletModel::validateAddress(const QString &address)
 {
-    CBitcoinAddress addressParsed(address.toStdString());
+    std::string sAddr = address.toStdString();
+
+    if (sAddr.length() > 75)
+    {
+        if (IsStealthAddress(sAddr))
+            return true;
+    };
+
+    CBitcoinAddress addressParsed(sAddr);
     return addressParsed.IsValid();
 }
 
@@ -212,8 +222,79 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
             setAddress.insert(rcp.address);
             ++nAddresses;
 
+            // stealth
+            std::string sAddr = rcp.address.toStdString();
+
+            if (rcp.typeInd == AddressTableModel::AT_Stealth)
+            {
+                if (   (!TestNet() && (chainActive.Height() < BLOCK_STEALTH_START))
+                    || (TestNet() && (chainActive.Height() < 200)) )
+                {
+                    emit message(tr("Send Coins"), tr("Stealth addresses not yet supported"),
+                         CClientUIInterface::MSG_ERROR);
+                    return InvalidAddress;
+                }
+
+                CStealthAddress sxAddr;
+                if (sxAddr.SetEncoded(sAddr))
+                {
+                    ec_secret ephem_secret;
+                    ec_secret secretShared;
+                    ec_point pkSendTo;
+                    ec_point ephem_pubkey;
+
+
+                    if (GenerateRandomSecret(ephem_secret) != 0)
+                    {
+                        LogPrintf("GenerateRandomSecret failed.\n");
+                        return InvalidAddress;
+                    };
+
+                    if (StealthSecret(ephem_secret, sxAddr.scan_pubkey, sxAddr.spend_pubkey, secretShared, pkSendTo) != 0)
+                    {
+                        LogPrintf("Could not generate receiving public key.\n");
+                        return InvalidAddress;
+                    };
+
+                    CPubKey cpkTo(pkSendTo);
+                    if (!cpkTo.IsValid())
+                    {
+                        LogPrintf("Invalid public key generated.\n");
+                        return InvalidAddress;
+                    };
+
+                    CKeyID ckidTo = cpkTo.GetID();
+
+                    CBitcoinAddress addrTo(ckidTo);
+
+                    if (SecretToPublicKey(ephem_secret, ephem_pubkey) != 0)
+                    {
+                        LogPrintf("Could not generate ephem public key.\n");
+                        return InvalidAddress;
+                    };
+
+                    if (fDebug)
+                    {
+                        LogPrintf("Stealth send to generated pubkey %ui: %s\n", pkSendTo.size(), HexStr(pkSendTo).c_str());
+                        LogPrintf("hash %s\n", addrTo.ToString().c_str());
+                        LogPrintf("ephem_pubkey %ui: %s\n", ephem_pubkey.size(), HexStr(ephem_pubkey).c_str());
+                    };
+
+                    CScript scriptPubKey;
+                    scriptPubKey.SetDestination(addrTo.Get());
+
+                    vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
+
+                    CScript scriptP = CScript() << OP_RETURN << ephem_pubkey;
+
+                    vecSend.push_back(make_pair(scriptP, 0));
+
+                    continue;
+                }; // else drop through to normal
+            }
+
             CScript scriptPubKey;
-            scriptPubKey.SetDestination(CBitcoinAddress(rcp.address.toStdString()).Get());
+            scriptPubKey.SetDestination(CBitcoinAddress(sAddr).Get());
             vecSend.push_back(std::pair<CScript, int64_t>(scriptPubKey, rcp.amount));
 
             total += rcp.amount;
@@ -246,7 +327,28 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
 
         CWalletTx *newTx = transaction.getTransaction();
         CReserveKey *keyChange = transaction.getPossibleKeyChange();
-        bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, strFailReason, coinControl);
+
+        // int nChangePos = -1;
+        bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, /*nChangePos,*/ strFailReason, coinControl);
+
+        /*
+        std::map<int, std::string>::iterator it;
+        for (it = mapStealthNarr.begin(); it != mapStealthNarr.end(); ++it)
+        {
+            int pos = it->first;
+            if (nChangePos > -1 && it->first >= nChangePos)
+                pos++;
+
+            char key[64];
+            if (snprintf(key, sizeof(key), "n_%u", pos) < 1)
+            {
+                printf("CreateStealthTransaction(): Error creating narration key.");
+                continue;
+            };
+            wtx.mapValue[key] = it->second;
+        };
+        */
+
         transaction.setTransactionFee(nFeeRequired);
 
         if(!fCreated)
@@ -309,17 +411,24 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction &tran
             {
                 LOCK(wallet->cs_wallet);
 
-                std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(dest);
+                // stealth
+                if (rcp.typeInd == AddressTableModel::AT_Stealth)
+                {
+                    wallet->UpdateStealthAddress(strAddress, strLabel, true);
+                } else
+                {
+                    std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(dest);
 
-                // Check if we have a new address or an updated label
-                if (mi == wallet->mapAddressBook.end())
-                {
-                    wallet->SetAddressBook(dest, strLabel, "send");
-                }
-                else if (mi->second.name != strLabel)
-                {
-                    wallet->SetAddressBook(dest, strLabel, ""); // "" means don't change purpose
-                }
+                    // Check if we have a new address or an updated label
+                    if (mi == wallet->mapAddressBook.end())
+                    {
+                        wallet->SetAddressBook(dest, strLabel, "send");
+                    }
+                    else if (mi->second.name != strLabel)
+                    {
+                        wallet->SetAddressBook(dest, strLabel, ""); // "" means don't change purpose
+                    }
+                };
             }
         }
         emit coinsSent(wallet, rcp, transaction_array);
@@ -423,13 +532,27 @@ static void NotifyAddressBookChanged(WalletModel *walletmodel, CWallet *wallet,
     QString strLabel = QString::fromStdString(label);
     QString strPurpose = QString::fromStdString(purpose);
 
-    qDebug() << "NotifyAddressBookChanged : " + strAddress + " " + strLabel + " isMine=" + QString::number(isMine) + " purpose=" + strPurpose + " status=" + QString::number(status);
-    QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
-                              Q_ARG(QString, strAddress),
-                              Q_ARG(QString, strLabel),
-                              Q_ARG(bool, isMine),
-                              Q_ARG(QString, strPurpose),
-                              Q_ARG(int, status));
+    if (address.type() == typeid(CStealthAddress))
+    {
+        CStealthAddress sxAddr = boost::get<CStealthAddress>(address);
+        std::string enc = sxAddr.Encoded();
+        qDebug() << "NotifyAddressBookChanged : " + QString::fromStdString(enc) + " " + strLabel + " isMine=" + QString::number(isMine) + " purpose=" + strPurpose + " status=" + QString::number(status);
+        QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
+                                  Q_ARG(QString, QString::fromStdString(enc)),
+                                  Q_ARG(QString, strLabel),
+                                  Q_ARG(bool, isMine),
+                                  Q_ARG(QString, strPurpose),
+                                  Q_ARG(int, status));
+    } else
+    {
+        qDebug() << "NotifyAddressBookChanged : " + strAddress + " " + strLabel + " isMine=" + QString::number(isMine) + " purpose=" + strPurpose + " status=" + QString::number(status);
+        QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
+                                  Q_ARG(QString, strAddress),
+                                  Q_ARG(QString, strLabel),
+                                  Q_ARG(bool, isMine),
+                                  Q_ARG(QString, strPurpose),
+                                  Q_ARG(int, status));
+    }
 }
 
 // queue notifications to show a non freezing progress dialog e.g. for rescan
