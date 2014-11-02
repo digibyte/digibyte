@@ -1317,25 +1317,72 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
+    if (pindexPrev == NULL)
+        return nProofOfWorkLimit;
 
-    // find first block in averaging interval
-    // Go back by what we want to be nAveragingInterval blocks
-    const CBlockIndex* pindexFirst = pindexPrev;
-    for (int i = 0; pindexFirst && i < nAveragingInterval - 1; i++)
+    const CBlockIndex* pindexFirst = NULL;
+    if (pindexLast->nHeight >= nBlockTimeWarpPreventStart)
     {
-        pindexFirst = pindexFirst->pprev;
-        pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
+        // find first block in averaging interval
+        // Go back by what we want to be nAveragingInterval blocks
+        pindexFirst = pindexPrev;
+        for (int i = 0; pindexFirst && i < nAveragingInterval - 1; i++)
+        {
+            pindexFirst = pindexFirst->pprev;
+            pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
+        }
+        if (pindexFirst == NULL)
+            return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
+
+        // check block before first block for time warp
+        const CBlockIndex* pindexFirstPrev = pindexFirst->pprev;
+        if (pindexFirstPrev == NULL)
+            return nProofOfWorkLimit;
+        pindexFirstPrev = GetLastBlockIndexForAlgo(pindexFirstPrev, algo);
+        if (pindexFirstPrev == NULL)
+            return nProofOfWorkLimit;
+        // take previous block if block times are out of order
+        if (pindexFirstPrev->GetBlockTime() > pindexFirst->GetBlockTime())
+        {
+            LogPrintf("  First blocks out of order times, swapping:   %d   %d\n", pindexFirstPrev->GetBlockTime(), pindexFirst->GetBlockTime());
+            pindexFirst = pindexFirstPrev;
+        }
     }
-    if (pindexFirst == NULL)
-        return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
+    else
+    {
+        // find first block in averaging interval
+        // Go back by what we want to be nAveragingInterval blocks
+        pindexFirst = pindexPrev;
+        for (int i = 0; pindexFirst && i < nAveragingInterval - 1; i++)
+        {
+            pindexFirst = pindexFirst->pprev;
+            pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
+        }
+        if (pindexFirst == NULL)
+            return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
+    }
 
     // Limit adjustment step
     int64_t nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
+
     LogPrintf("  nActualTimespan = %d before bounds   %d   %d\n", nActualTimespan, pindexPrev->GetBlockTime(), pindexFirst->GetBlockTime());
+
+    // Time warp mitigation: Don't adjust difficulty if time is negative
+    if (pindexLast->nHeight >= nBlockTimeWarpPreventStart)
+    {
+        if (nActualTimespan < 0)
+        {
+            LogPrintf("  nActualTimespan negative %d\n", nActualTimespan);
+            LogPrintf("  Keeping: %08x  %s\n", pindexPrev->nBits, CBigNum().SetCompact(pindexPrev->nBits).getuint256().ToString());
+            return pindexPrev->nBits;
+        }
+    }
+
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
     if (nActualTimespan > nMaxActualTimespan)
         nActualTimespan = nMaxActualTimespan;
+    LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
 
     // Retarget
     CBigNum bnNew;
@@ -1348,8 +1395,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     /// debug print
     LogPrintf("GetNextWorkRequired RETARGET\n");
-    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
-    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
+    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nAveragingTargetTimespan, nActualTimespan);
+    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexPrev->nBits).getuint256().ToString());
     LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 
     return bnNew.GetCompact();
