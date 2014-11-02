@@ -68,7 +68,7 @@ static const int MAX_BLOCKS_IN_TRANSIT_PER_PEER = 128;
 static const unsigned int BLOCK_DOWNLOAD_TIMEOUT = 60;
 
 /** Stealth addresses */
-static const int64_t BLOCK_STEALTH_START = 633800;
+static const int64_t BLOCK_STEALTH_START = 740000;
 
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
@@ -688,8 +688,8 @@ enum BlockStatus {
 };
 
 const int64_t nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
-const int64_t nBlockAlgoNormalisedWorkStart = 633800; // block where algo combined weight starts
-const int64_t nBlockSequentialAlgoRuleStart = 633800; // block where sequential algo rule starts
+const int64_t nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
+const int64_t nBlockSequentialAlgoRuleStart = 740000; // block where sequential algo rule starts
 const int nBlockSequentialAlgoMaxCount = 6; // maximum sequential blocks of same algo
 
 /** The block chain is a tree shaped structure starting with the
