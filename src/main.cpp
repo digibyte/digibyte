@@ -1268,6 +1268,7 @@ static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTa
 
 static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
+static const int64_t nLocalDifficultyAdjustment = 2; // 2% adjustment in either direction
 
 static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
@@ -1438,12 +1439,97 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
 
     return bnNew.GetCompact();
 }
+
+static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+{
+    unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
+
+    // Genesis block
+    if (pindexLast == NULL)
+        return nProofOfWorkLimit;
+
+    if (TestNet())
+    {
+        // Special difficulty rule for testnet:
+        // If the new block's timestamp is more than 2* 10 minutes
+        // then allow mining of a min-difficulty block.
+        if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+            return nProofOfWorkLimit;
+        else
+        {
+            // Return the last non-special-min-difficulty-rules-block
+            const CBlockIndex* pindex = pindexLast;
+            while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+                pindex = pindex->pprev;
+            return pindex->nBits;
+        }
+    }
+
+    // find first block in averaging interval
+    // Go back by what we want to be nAveragingInterval blocks per algo
+    const CBlockIndex* pindexFirst = pindexLast;
+    for (int i = 0; pindexFirst && i < NUM_ALGOS*nAveragingInterval; i++)
+    {
+        pindexFirst = pindexFirst->pprev;
+    }
+    const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, algo);
+    if (pindexPrevAlgo == NULL || pindexFirst == NULL)
+        return nProofOfWorkLimit; // not enough blocks available
+
+    // Limit adjustment step
+    // Use medians to prevent time-warp attacks
+    int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
+    LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
+    if (nActualTimespan < nMinActualTimespan)
+        nActualTimespan = nMinActualTimespan;
+    if (nActualTimespan > nMaxActualTimespan)
+        nActualTimespan = nMaxActualTimespan;
+
+    // Global retarget
+    CBigNum bnNew;
+    bnNew.SetCompact(pindexPrevAlgo->nBits);
+    bnNew *= nActualTimespan;
+    bnNew /= nAveragingTargetTimespan;
+
+    // Per-algo retarget
+    int nAdjustments = pindexPrevAlgo->nHeight - pindexLast->nHeight + NUM_ALGOS - 1;
+    if (nAdjustments > 0)
+    {
+        for (int i = 0; i < nAdjustments; i++)
+        {
+            bnNew /= 100 + nLocalDifficultyAdjustment;
+            bnNew *= 100;
+        }
+    }
+    if (nAdjustments < 0)
+    {
+        for (int i = 0; i < -nAdjustments; i++)
+        {
+            bnNew *= 100 + nLocalDifficultyAdjustment;
+            bnNew /= 100;
+        }
+    }
+
+    if (bnNew > Params().ProofOfWorkLimit(algo))
+        bnNew = Params().ProofOfWorkLimit(algo);
+
+    /// debug print
+    LogPrintf("GetNextWorkRequired RETARGET\n");
+    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
+    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
+    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
+
+    return bnNew.GetCompact();
+}
+
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
     if (pindexLast->nHeight < multiAlgoDiffChangeTarget)
         return GetNextWorkRequiredV1(pindexLast, pblock, algo);
-    else
+    else if (pindexLast->nHeight < alwaysUpdateDiffChangeTarget)
         return GetNextWorkRequiredV2(pindexLast, pblock, algo);
+    else
+        return GetNextWorkRequiredV3(pindexLast, pblock, algo);
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
