@@ -119,7 +119,11 @@ Value getgenerate(const Array& params, bool fHelp)
         throw runtime_error(
             "getgenerate\n"
             "\nReturn if the server is set to generate coins or not. The default is false.\n"
+<<<<<<< HEAD
             "It is set with the command line argument -gen (or digibyte.conf setting gen)\n"
+=======
+            "It is set with the command line argument -gen (or myriadcoin.conf setting gen)\n"
+>>>>>>> mryiad/master
             "It can also be set with the setgenerate call.\n"
             "\nResult\n"
             "true|false      (boolean) If the server is set to generate coins or not\n"
@@ -306,10 +310,17 @@ Value getwork(const Array& params, bool fHelp)
         );
 
     if (vNodes.empty())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "DigiByte is not connected!");
 
     if (IsInitialBlockDownload())
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "DigiByte is downloading blocks...");
+=======
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Myriadcoin is not connected!");
+
+    if (IsInitialBlockDownload())
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Myriadcoin is downloading blocks...");
+>>>>>>> mryiad/master
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;    // FIXME: thread safety
@@ -488,10 +499,17 @@ Value getblocktemplate(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "DigiByte is not connected!");
 
     if (IsInitialBlockDownload())
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "DigiByte is downloading blocks...");
+=======
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Myriadcoin is not connected!");
+
+    if (IsInitialBlockDownload())
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Myriadcoin is downloading blocks...");
+>>>>>>> mryiad/master
 
     // Update block
     static unsigned int nTransactionsUpdatedLast;

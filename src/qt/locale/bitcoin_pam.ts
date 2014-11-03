@@ -2,11 +2,19 @@
 <context>
     <name>AboutDialog</name>
     <message>
+<<<<<<< HEAD
         <source>About DigiByte Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
+=======
+        <source>About Myriadcoin Core</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;b&gt;Myriadcoin Core&lt;/b&gt; version</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -26,7 +34,11 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation>Karapatan ning Pamangopya</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The Bitcoin and DigiByte Core developers</source>
+=======
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -101,11 +113,19 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Reni reng kekang DigiByte address king pamagpadalang kabayaran. Lawan mulang masalese reng alaga ampo ing address na ning tumanggap bayu ka magpadalang barya.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+=======
+        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Reni reng kekang Myriadcoin address king pamagpadalang kabayaran. Lawan mulang masalese reng alaga ampo ing address na ning tumanggap bayu ka magpadalang barya.</translation>
+    </message>
+    <message>
+        <source>These are your Myriadcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -203,8 +223,13 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation>Kumpirman ya ing wallet encryption</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
         <translation>Kapabaluan: Istung in-encrypt me ing kekang wallet at meala ya ing passphrase na, ma-&lt;b&gt;ALA NO NGAN RING KEKANG DIGIBYTES&lt;/b&gt;</translation>
+=======
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
+        <translation>Kapabaluan: Istung in-encrypt me ing kekang wallet at meala ya ing passphrase na, ma-&lt;b&gt;ALA NO NGAN RING KEKANG MYRIADCOINS&lt;/b&gt;</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -223,8 +248,13 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation>Me-encrypt ne ing wallet</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
         <translation>Ing DigiByte ngeni magsara ya ban ayari ing proseso ning pamag-encrypt. Tandanan yu king pamag-encrypt wallet, ali nala aprotektan king kabuuan reng digibytes yu kareng malware a kasalunsungan atiu kareng computer yu.</translation>
+=======
+        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Ing Myriadcoin ngeni magsara ya ban ayari ing proseso ning pamag-encrypt. Tandanan yu king pamag-encrypt wallet, ali nala aprotektan king kabuuan reng myriadcoins yu kareng malware a kasalunsungan atiu kareng computer yu.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -256,7 +286,11 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
 </context>
 <context>
+<<<<<<< HEAD
     <name>DigiByteGUI</name>
+=======
+    <name>BitcoinGUI</name>
+>>>>>>> mryiad/master
     <message>
         <source>Sign &amp;message...</source>
         <translation>I-sign ing &amp;mensayi</translation>
@@ -294,8 +328,13 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation>Tuknangan ing aplikasyon</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show information about DigiByte</source>
         <translation>Ipakit ing impormasyun tungkul king DigiByte</translation>
+=======
+        <source>Show information about Myriadcoin</source>
+        <translation>Ipakit ing impormasyun tungkul king Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -342,12 +381,21 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Send coins to a DigiByte address</source>
         <translation>Magpadalang barya king DigiByte address</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
         <translation>Alilan ing pipamilian konpigurasion para keng DigiByte</translation>
+=======
+        <source>Send coins to a Myriadcoin address</source>
+        <translation>Magpadalang barya king Myriadcoin address</translation>
+    </message>
+    <message>
+        <source>Modify configuration options for Myriadcoin</source>
+        <translation>Alilan ing pipamilian konpigurasion para keng Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -370,8 +418,13 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation>&amp;Beripikan ing message...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -398,11 +451,19 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
+=======
+        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -426,6 +487,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation>[testnet]</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>Kapilubluban ning DigiByte</translation>
     </message>
@@ -435,6 +497,17 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <source>&amp;About DigiByte Core</source>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Kapilubluban ning Myriadcoin</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and myriadcoin: URIs)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&amp;About Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -446,7 +519,11 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open a digibyte: URI or payment request</source>
+=======
+        <source>Open a myriadcoin: URI or payment request</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -454,6 +531,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
         <translation type="unfinished"/>
     </message>
@@ -464,6 +542,18 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
         <translation><numerusform>%n ya ing aktibong koneksion keng DigiByte network</numerusform><numerusform>%n lareng aktibong koneksion keng DigiByte network</numerusform></translation>
+=======
+        <source>Show the Myriadcoin Core help message to get a list with possible Myriadcoin command-line options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin client</source>
+        <translation>Myriadcoin client</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n active connection(s) to Myriadcoin network</source>
+        <translation><numerusform>%n ya ing aktibong koneksion keng Myriadcoin network</numerusform><numerusform>%n lareng aktibong koneksion keng Myriadcoin network</numerusform></translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>No block source available...</source>
@@ -558,8 +648,13 @@ Address: %4
         <translation>Maka-&lt;b&gt;encrypt&lt;/b&gt; ya ing wallet at kasalukuyan yang maka-&lt;b&gt;locked&lt;/b&gt;</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
         <translation>Atin kamalian a milyari. Ali ne magsilbing sumulung pa ing DigiByte at kailangan na ng tuknang.</translation>
+=======
+        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
+        <translation>Atin kamalian a milyari. Ali ne magsilbing sumulung pa ing Myriadcoin at kailangan na ng tuknang.</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -843,8 +938,13 @@ Address: %4
         <translation>Ing pepalub yung address &quot;%1&quot; ati na yu king aklat dareng address</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
         <translation>Ing pepalub yung address &quot;%1&quot; ali ya katanggap-tanggap a DigiByte address.</translation>
+=======
+        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
+        <translation>Ing pepalub yung address &quot;%1&quot; ali ya katanggap-tanggap a Myriadcoin address.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -881,12 +981,21 @@ Address: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core - Command-line options</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>DigiByte Core</source>
         <translation>Kapilubluban ning DigiByte</translation>
+=======
+        <source>Myriadcoin Core - Command-line options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin Core</source>
+        <translation>Kapilubluban ning Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>version</source>
@@ -932,6 +1041,7 @@ Address: %4
         <translation>Malaus ka</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to DigiByte Core.</source>
         <translation type="unfinished"/>
     </message>
@@ -941,6 +1051,17 @@ Address: %4
     </message>
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+=======
+        <source>Welcome to Myriadcoin Core.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where Myriadcoin Core will store its data.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin Core will download and store a copy of the Myriadcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -952,8 +1073,13 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; can not be created.</source>
@@ -1014,12 +1140,21 @@ Address: %4
         <translation>Mamayad &amp;bayad para king transaksion </translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically start DigiByte after logging in to the system.</source>
         <translation>Umpisan yang antimu ing DigiByte kaibat mekapag-log in king sistema.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
         <translation>&amp;Umpisan ya ing DigiByte king pamag-log-in na ning sistema.</translation>
+=======
+        <source>Automatically start Myriadcoin after logging in to the system.</source>
+        <translation>Umpisan yang antimu ing Myriadcoin kaibat mekapag-log in king sistema.</translation>
+    </message>
+    <message>
+        <source>&amp;Start Myriadcoin on system login</source>
+        <translation>&amp;Umpisan ya ing Myriadcoin king pamag-log-in na ning sistema.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1034,7 +1169,11 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
+=======
+        <source>Connect to the Myriadcoin network through a SOCKS proxy.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1094,8 +1233,13 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Ibuklat yang antimanu ing DigiByte client port king router. Gagana yamu ini istung ing router mu susuporta yang UPnP at magsilbi ya.</translation>
+=======
+        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Ibuklat yang antimanu ing Myriadcoin client port king router. Gagana yamu ini istung ing router mu susuporta yang UPnP at magsilbi ya.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1150,8 +1294,13 @@ Address: %4
         <translation>Amanu na ning user interface:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
         <translation>Ing amanu na ning user interface maliari yang i-ayus o ilage keni. Ing ayus a ini magsilbi yamu istung pesibayuan meng pasibayu ing DigiByte.</translation>
+=======
+        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
+        <translation>Ing amanu na ning user interface maliari yang i-ayus o ilage keni. Ing ayus a ini magsilbi yamu istung pesibayuan meng pasibayu ing Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1162,8 +1311,13 @@ Address: %4
         <translation>Pilinan ing default subdivision unit a ipalto o ipakit king interface at istung magpadala kang barya.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
         <translation>Ipakit man ing DigiByte address king listahan naning transaksion o ali.</translation>
+=======
+        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
+        <translation>Ipakit man ing Myriadcoin address king listahan naning transaksion o ali.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1217,8 +1371,13 @@ Address: %4
         <translation>Form</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
         <translation>Ing makaltong impormasion mapalyaring luma ne. Ing kekang wallet otomatiku yang mag-synchronize keng DigiByte network istung mekakonekta ne king network, oneng ing prosesung ini ali ya pa kumpletu.</translation>
+=======
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Ing makaltong impormasion mapalyaring luma ne. Ing kekang wallet otomatiku yang mag-synchronize keng Myriadcoin network istung mekakonekta ne king network, oneng ing prosesung ini ali ya pa kumpletu.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -1272,7 +1431,11 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
+=======
+        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1284,7 +1447,11 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot start digibyte: click-to-pay handler</source>
+=======
+        <source>Cannot start myriadcoin: click-to-pay handler</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1339,8 +1506,13 @@ Address: %4
 <context>
     <name>QObject</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
@@ -1355,12 +1527,21 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core didn&apos;t yet exit safely...</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Magpalub kang DigiByte address(e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Myriadcoin Core didn&apos;t yet exit safely...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Magpalub kang Myriadcoin address(e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -1481,16 +1662,26 @@ Address: %4
         <translation>Debug log file</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Ibuklat ing DigiByte debug log file menibat king kasalungsungan data directory. Magluat ya ining pilan segundu para kareng mamaragul a log files.</translation>
+=======
+        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Ibuklat ing Myriadcoin debug log file menibat king kasalungsungan data directory. Magluat ya ining pilan segundu para kareng mamaragul a log files.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Clear console</source>
         <translation>I-Clear ing console</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to the DigiByte RPC console.</source>
         <translation>Malaus kayu king DigiByte RPC console.</translation>
+=======
+        <source>Welcome to the Myriadcoin RPC console.</source>
+        <translation>Malaus kayu king Myriadcoin RPC console.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1552,7 +1743,11 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
+=======
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1865,7 +2060,11 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Invalid DigiByte address</source>
+=======
+        <source>Warning: Invalid Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1904,8 +2103,13 @@ Address: %4
         <translation>Ibayad &amp;kang:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Ing address nung nokarin ipadala ya ing kabayaran (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ing address nung nokarin ipadala ya ing kabayaran (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1952,7 +2156,11 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+=======
+        <source>A message that was attached to the myriadcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1971,7 +2179,11 @@ Address: %4
 <context>
     <name>ShutdownWindow</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core is shutting down...</source>
+=======
+        <source>Myriadcoin Core is shutting down...</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1994,8 +2206,13 @@ Address: %4
         <translation>Maliari kang mamirmang mensayi king kekang address bilang patune na keka ya ini. Mimingat mu king pamag-pirmang  e malino uling mapalyari kang mabiktimang phishing attack a manloku keka na pirman me ing sarili mu para king karela. Only sign fully-detailed statements you agree to.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Ing address ban a -pirman ya ing mensayi kayabe ning (e.g.DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ing address ban a -pirman ya ing mensayi kayabe ning (e.g.1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2026,8 +2243,13 @@ Address: %4
         <translation>Kopyan ing kasalungsungan pirma king system clipboard</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign the message to prove you own this DigiByte address</source>
         <translation>Pirman ing mensayi ban patune na keka ya ining DigiByte address</translation>
+=======
+        <source>Sign the message to prove you own this Myriadcoin address</source>
+        <translation>Pirman ing mensayi ban patune na keka ya ining Myriadcoin address</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2050,12 +2272,21 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Ing address na ning mensayi nung nokarin me pirma ya ini (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Beripikan ing mensayi ban asiguradu a me pirma ya ini gamit ing mepiling DigiByte address</translation>
+=======
+        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ing address na ning mensayi nung nokarin me pirma ya ini (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+    </message>
+    <message>
+        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
+        <translation>Beripikan ing mensayi ban asiguradu a me pirma ya ini gamit ing mepiling Myriadcoin address</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2066,8 +2297,13 @@ Address: %4
         <translation>Ibalik king dati reng ngan fields na ning pamag beripikang mensayi</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Magpalub kang DigiByte address(e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Magpalub kang Myriadcoin address(e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2125,11 +2361,19 @@ Address: %4
 <context>
     <name>SplashScreen</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>Kapilubluban ning DigiByte</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Kapilubluban ning Myriadcoin</translation>
+    </message>
+    <message>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2608,12 +2852,21 @@ Address: %4
         <translation>Pipamilian:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Specify configuration file (default: digibyte.conf)</source>
         <translation>Pilinan ing configuration file(default: digibyte.conf)</translation>
     </message>
     <message>
         <source>Specify pid file (default: digibyted.pid)</source>
         <translation>Pilinan ing pid file(default: digibyted.pid)</translation>
+=======
+        <source>Specify configuration file (default: myriadcoin.conf)</source>
+        <translation>Pilinan ing configuration file(default: myriadcoin.conf)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: myriadcoind.pid)</source>
+        <translation>Pilinan ing pid file(default: myriadcoind.pid)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Specify data directory</source>
@@ -2656,7 +2909,11 @@ Address: %4
         <translation>Tumanggap command line at JSON-RPC commands</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core RPC client version</source>
+=======
+        <source>Myriadcoin Core RPC client version</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2675,13 +2932,21 @@ Address: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
+<<<<<<< HEAD
 for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
+=======
+for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+>>>>>>> mryiad/master
 </source>
         <translation type="unfinished"/>
     </message>
@@ -2754,7 +3019,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Unable to bind to %s on this computer. DigiByte Core is probably already running.</source>
+=======
+        <source>Unable to bind to %s on this computer. Myriadcoin Core is probably already running.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2766,8 +3035,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>Kapabaluan: Sobra ya katas ing makalage king -paytxfee. Ini ing maging bayad mu para king bayad na ning transaksion istung pepadala me ing transaksion a ini.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
         <translation>Kapabaluan: Maliaring pakilawe ing oras at aldo a makalage king kekayung kompyuter nung istu la! Istung ing oras yu mali ya ali ya gumanang masalese ing DigiByte.</translation>
+=======
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
+        <translation>Kapabaluan: Maliaring pakilawe ing oras at aldo a makalage king kekayung kompyuter nung istu la! Istung ing oras yu mali ya ali ya gumanang masalese ing Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -2802,7 +3076,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core Daemon</source>
+=======
+        <source>Myriadcoin Core Daemon</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3010,7 +3288,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Usage (deprecated, use digibyte-cli):</source>
+=======
+        <source>Usage (deprecated, use myriadcoin-cli):</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3046,7 +3328,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot obtain a lock on data directory %s. DigiByte Core is probably already running.</source>
+=======
+        <source>Cannot obtain a lock on data directory %s. Myriadcoin Core is probably already running.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3110,7 +3396,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>RPC SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
+=======
+        <source>RPC SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3130,11 +3420,19 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>Pipamilian ning SSL: (lawen ye ing DigiByte Wiki para king SSL setup instructions)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
+=======
+        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>Pipamilian ning SSL: (lawen ye ing Myriadcoin Wiki para king SSL setup instructions)</translation>
+    </message>
+    <message>
+        <source>Send command to Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3170,7 +3468,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Start DigiByte Core Daemon</source>
+=======
+        <source>Start Myriadcoin Core Daemon</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3286,12 +3588,21 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>Me-mali ya ing pamag-load king wallet.dat: Me-corrupt ya ing wallet</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
         <translation>Me-mali ya ing pamag-load na ning wallet.dat: Ing wallet mangailangan yang bayung bersion na ning DigiByte</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
         <translation>Ing wallet mangailangan yang misulat pasibayu: Umpisan yang pasibayu ing DigiByte ban ma-kumpleto ya</translation>
+=======
+        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
+        <translation>Me-mali ya ing pamag-load na ning wallet.dat: Ing wallet mangailangan yang bayung bersion na ning Myriadcoin</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
+        <translation>Ing wallet mangailangan yang misulat pasibayu: Umpisan yang pasibayu ing Myriadcoin ban ma-kumpleto ya</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error loading wallet.dat</source>

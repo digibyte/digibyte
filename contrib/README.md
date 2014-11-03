@@ -1,12 +1,8 @@
-Python Tools
+Wallet Tools
 ---------------------
 
 ### [BitRPC](/contrib/bitrpc) ###
-Allows for sending of all standard DigiByte commands via RPC rather than as command line args.
-
-### [PyMiner](/contrib/pyminer) ###
-
-This is a 'getwork' CPU mining client for DigiByte. It is pure-python, and therefore very, very slow.  The purpose is to provide a reference implementation of a miner, for study.
+Allows for sending of all standard Bitcoin commands via RPC rather than as command line args.
 
 ### [SpendFrom](/contrib/spendfrom) ###
 

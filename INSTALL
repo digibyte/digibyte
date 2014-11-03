@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Building DigiByte
 
 See doc/build-*.md for instructions on building digibyted,
 the intended-for-services, no-graphical-interface, reference
 implementation of DigiByte.
+=======
+Building Myriadcoin
+
+See doc/build-*.md for instructions on building bitcoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of Myriadcoin.
+>>>>>>> mryiad/master

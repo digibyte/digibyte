@@ -2,11 +2,19 @@
 <context>
     <name>AboutDialog</name>
     <message>
+<<<<<<< HEAD
         <source>About DigiByte Core</source>
         <translation>비트코인 코어 소개</translation>
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
+=======
+        <source>About Myriadcoin Core</source>
+        <translation>비트코인 코어 소개</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Myriadcoin Core&lt;/b&gt; version</source>
+>>>>>>> mryiad/master
         <translation>&lt;b&gt;비트코인 코어&lt;/b&gt; 버젼</translation>
     </message>
     <message>
@@ -28,7 +36,11 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>Copyright</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The Bitcoin and DigiByte Core developers</source>
+=======
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+>>>>>>> mryiad/master
         <translation>비트코인코어 개발자들</translation>
     </message>
     <message>
@@ -103,11 +115,19 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>받은 주소들</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>이것이 비트코인 금액을 보내는 주소이다. 항상 코인을 보내기전에 잔고와 받는 주소를 확인하시오</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+=======
+        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>이것이 비트코인 금액을 보내는 주소이다. 항상 코인을 보내기전에 잔고와 받는 주소를 확인하시오</translation>
+    </message>
+    <message>
+        <source>These are your Myriadcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+>>>>>>> mryiad/master
         <translation>비트코인을 받을 수 있는 계좌 주소입니다. 매 거래마다 새로운 주소 사용을 권장합니다. </translation>
     </message>
     <message>
@@ -205,7 +225,11 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>지갑의 암호화를 확정</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
+=======
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
+>>>>>>> mryiad/master
         <translation>경고: 만약 당신의 지갑을 암호화 하고 비밀번호를 잃어 버릴 경우, 당신의 모든 비트코인들을 잃어버릴 수 있습니다!</translation>
     </message>
     <message>
@@ -225,7 +249,11 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>지갑 암호화 완료</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
+=======
+        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+>>>>>>> mryiad/master
         <translation>암호화 처리 과정을 끝내기 위해 비트코인을 닫겠습니다. 지갑 암호화는 컴퓨터로의 멀웨어 감염으로 인한 비트코인 도난을 완전히 막아주지 못함을 기억하십시오.</translation>
     </message>
     <message>
@@ -258,7 +286,11 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
     </message>
 </context>
 <context>
+<<<<<<< HEAD
     <name>DigiByteGUI</name>
+=======
+    <name>BitcoinGUI</name>
+>>>>>>> mryiad/master
     <message>
         <source>Sign &amp;message...</source>
         <translation>메시지 서명&amp;...</translation>
@@ -296,7 +328,11 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>적용 중단</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show information about DigiByte</source>
+=======
+        <source>Show information about Myriadcoin</source>
+>>>>>>> mryiad/master
         <translation>비트코인에 대한 정보를 보여줍니다.</translation>
     </message>
     <message>
@@ -344,11 +380,19 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>디스크에서 블록 다시 색인중...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Send coins to a DigiByte address</source>
         <translation>비트코인 주소로 코인 전송</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
+=======
+        <source>Send coins to a Myriadcoin address</source>
+        <translation>비트코인 주소로 코인 전송</translation>
+    </message>
+    <message>
+        <source>Modify configuration options for Myriadcoin</source>
+>>>>>>> mryiad/master
         <translation>비트코인 설정 옵션 수정</translation>
     </message>
     <message>
@@ -372,7 +416,11 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>메시지 확인&amp;...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
+=======
+        <source>Myriadcoin</source>
+>>>>>>> mryiad/master
         <translation>비트코인</translation>
     </message>
     <message>
@@ -400,11 +448,19 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>소유 지갑 개인키 암호화</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
         <translation>지갑 주소가 자신 소유의 것인지 증명하기 위해 비트코인 주소에 서명할 수 있습니다.</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
+=======
+        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
+        <translation>지갑 주소가 자신 소유의 것인지 증명하기 위해 비트코인 주소에 서명할 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
+>>>>>>> mryiad/master
         <translation>비트코인 주소의 전자 서명 확인을 위해 첨부된 메시지가 있을 경우 이를 검증할 수 있습니다.</translation>
     </message>
     <message>
@@ -428,6 +484,7 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>[테스트넷]</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>비트코인코어</translation>
     </message>
@@ -437,6 +494,17 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
     </message>
     <message>
         <source>&amp;About DigiByte Core</source>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>비트코인코어</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and myriadcoin: URIs)</source>
+        <translation>지불 요청하기 (QR코드와 비트코인이 생성됩니다: URIs)</translation>
+    </message>
+    <message>
+        <source>&amp;About Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation>&amp;비트코인 코어 소개</translation>
     </message>
     <message>
@@ -448,7 +516,11 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>한번 이상 사용된 받는 주소와 주소 제목의 목록을 보여줍니다.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open a digibyte: URI or payment request</source>
+=======
+        <source>Open a myriadcoin: URI or payment request</source>
+>>>>>>> mryiad/master
         <translation>비트코인: URI 또는 지불요청 열기</translation>
     </message>
     <message>
@@ -456,6 +528,7 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
         <translation>명령어-라인 옵션</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
         <translation type="unfinished"/>
     </message>
@@ -465,6 +538,17 @@ MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
+=======
+        <source>Show the Myriadcoin Core help message to get a list with possible Myriadcoin command-line options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin client</source>
+        <translation>비트코인 고객</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n active connection(s) to Myriadcoin network</source>
+>>>>>>> mryiad/master
         <translation><numerusform>비트코인 네트워크와 %n 개의 활성연결</numerusform></translation>
     </message>
     <message>
@@ -560,7 +644,11 @@ Address: %4
         <translation>지갑이 암호화 되었고 현재 잠겨져 있습니다</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
+=======
+        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
+>>>>>>> mryiad/master
         <translation>치명적인 오류가 있습니다. 비트코인을 더이상 안전하게 진행할 수 없어 빠져나갑니다.</translation>
     </message>
 </context>
@@ -845,7 +933,11 @@ Address: %4
         <translation>입력된 주소는&quot;%1&quot; 이미 주소록에 있습니다.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
+=======
+        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
+>>>>>>> mryiad/master
         <translation>입력한 &quot;%1&quot; 주소는 올바른 비트코인 주소가 아닙니다.</translation>
     </message>
     <message>
@@ -883,11 +975,19 @@ Address: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core - Command-line options</source>
         <translation>비트코인 코어 - 명령어-라인 옵션</translation>
     </message>
     <message>
         <source>DigiByte Core</source>
+=======
+        <source>Myriadcoin Core - Command-line options</source>
+        <translation>비트코인 코어 - 명령어-라인 옵션</translation>
+    </message>
+    <message>
+        <source>Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation>비트코인코어</translation>
     </message>
     <message>
@@ -934,6 +1034,7 @@ Address: %4
         <translation>환영합니다</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to DigiByte Core.</source>
         <translation>비트코인 코어에 오신것을 환영합니.</translation>
     </message>
@@ -943,6 +1044,17 @@ Address: %4
     </message>
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+=======
+        <source>Welcome to Myriadcoin Core.</source>
+        <translation>비트코인 코어에 오신것을 환영합니.</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where Myriadcoin Core will store its data.</source>
+        <translation>프로그램이 처음으로 실행되고 있습니다. 비트코인 코어가 어디에 데이터를 저장할지 선택할 수 있습니다. </translation>
+    </message>
+    <message>
+        <source>Myriadcoin Core will download and store a copy of the Myriadcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+>>>>>>> mryiad/master
         <translation>비트코인 코어가 블럭체인의 복사본을 다운로드 저장합니다. 적어도 %1GB의 데이터가 이 폴더에 저장되며 시간이 경과할수록 점차 증가합니다. 그리고 지갑 또한 이 폴더에 저장됩니다. </translation>
     </message>
     <message>
@@ -954,7 +1066,11 @@ Address: %4
         <translation>커스텀 데이터 폴더 사용:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
+=======
+        <source>Myriadcoin</source>
+>>>>>>> mryiad/master
         <translation>비트코인</translation>
     </message>
     <message>
@@ -1016,11 +1132,19 @@ Address: %4
         <translation>송금 수수료(&amp;F)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically start DigiByte after logging in to the system.</source>
         <translation>시스템 로그인후에 비트코인을 자동으로 시작합니다.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
+=======
+        <source>Automatically start Myriadcoin after logging in to the system.</source>
+        <translation>시스템 로그인후에 비트코인을 자동으로 시작합니다.</translation>
+    </message>
+    <message>
+        <source>&amp;Start Myriadcoin on system login</source>
+>>>>>>> mryiad/master
         <translation>시스템 로그인시 비트코인 시작(&amp;S)</translation>
     </message>
     <message>
@@ -1036,7 +1160,11 @@ Address: %4
         <translation>스크립트 인증 쓰레드의 개수</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
+=======
+        <source>Connect to the Myriadcoin network through a SOCKS proxy.</source>
+>>>>>>> mryiad/master
         <translation>SOCKS 프록시를 통해 비트코인 네트워크 연결</translation>
     </message>
     <message>
@@ -1096,7 +1224,11 @@ Address: %4
         <translation>&amp;확인되지 않은 돈을 쓰다</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+=======
+        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+>>>>>>> mryiad/master
         <translation>라우터의 비트코인 클라이언트 포트를 자동으로 엽니다. 라우터에서 UPnP를 지원하고 활성화 했을 경우에만 동작합니다.</translation>
     </message>
     <message>
@@ -1152,7 +1284,11 @@ Address: %4
         <translation>사용자 인터페이스 언어(&amp;L):</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
+=======
+        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
+>>>>>>> mryiad/master
         <translation>사용자 인터페이스 언어를 여기서 설정할 수 있습니다. 이 설정은 비트코인을 다시 시작할때 적용됩니다.</translation>
     </message>
     <message>
@@ -1164,7 +1300,11 @@ Address: %4
         <translation>인터페이스에 표시하고 코인을 보낼때 사용할 기본 최소화 단위를 선택하십시오.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
+=======
+        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
+>>>>>>> mryiad/master
         <translation>송금 목록에 비트코인 주소를 표시할지의 여부입니다.</translation>
     </message>
     <message>
@@ -1219,7 +1359,11 @@ Address: %4
         <translation>유형</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
+=======
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
+>>>>>>> mryiad/master
         <translation>표시한 정보가 오래된 것 같습니다. 비트코인 네트워크에 연결하고 난 다음에 지갑을 자동으로 동기화 하지만, 아직 과정이 끝나지는 않았습니다.</translation>
     </message>
     <message>
@@ -1274,7 +1418,11 @@ Address: %4
         <translation>URI 조작중</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
+=======
+        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
+>>>>>>> mryiad/master
         <translation>URI의 파싱에 문제가 발생했습니다. 잘못된 비트코인 주소나 URI 파라미터 구성에 오류가 존재할 수 있습니다.</translation>
     </message>
     <message>
@@ -1286,7 +1434,11 @@ Address: %4
         <translation>지불 요청 애러</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot start digibyte: click-to-pay handler</source>
+=======
+        <source>Cannot start myriadcoin: click-to-pay handler</source>
+>>>>>>> mryiad/master
         <translation>비트코인을 시작할 수 없습니다: 지급제어기를 클릭하시오</translation>
     </message>
     <message>
@@ -1341,7 +1493,11 @@ Address: %4
 <context>
     <name>QObject</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
+=======
+        <source>Myriadcoin</source>
+>>>>>>> mryiad/master
         <translation>비트코인</translation>
     </message>
     <message>
@@ -1357,12 +1513,21 @@ Address: %4
         <translation>오류: 잘못된 -regtest 와 -testnet의 조합입니다.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core didn&apos;t yet exit safely...</source>
         <translation>비트코인 코어가 아직 안전하게 종료되지 않았습니다.</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>비트코인 주소를 입력하기 (예 DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Myriadcoin Core didn&apos;t yet exit safely...</source>
+        <translation>비트코인 코어가 아직 안전하게 종료되지 않았습니다.</translation>
+    </message>
+    <message>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>비트코인 주소를 입력하기 (예 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -1483,7 +1648,11 @@ Address: %4
         <translation>로그 파일 디버그</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
+=======
+        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+>>>>>>> mryiad/master
         <translation>비트코인 디버그 로그파일을 현재 데이터 폴더에서 여십시요. 용량이 큰 로그 파일들은 몇 초가 걸릴 수 있습니다.</translation>
     </message>
     <message>
@@ -1491,7 +1660,11 @@ Address: %4
         <translation>콘솔 초기화</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to the DigiByte RPC console.</source>
+=======
+        <source>Welcome to the Myriadcoin RPC console.</source>
+>>>>>>> mryiad/master
         <translation>비트코인 RPC 콘솔에 오신걸 환영합니다</translation>
     </message>
     <message>
@@ -1554,7 +1727,11 @@ Address: %4
         <translation>현재의 수취용 주소를 재사용합니다만 권장하지는 않습니다. (R&amp;)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
+=======
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1867,7 +2044,11 @@ Address: %4
         <translation>거래가 거부되었습니다. 몇몇 코인들이 지갑에서 이미 사용된 경우, 예를 들어 코인을 이미 사용한  wallet.dat를 복사해서 사용한 경우 지금 지갑에 기록이 안되있어 이런 일이 생길 수 있습니다.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Invalid DigiByte address</source>
+=======
+        <source>Warning: Invalid Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation>경고: 잘못된 비트코인주소입니다</translation>
     </message>
     <message>
@@ -1906,8 +2087,13 @@ Address: %4
         <translation>지급&amp;수신:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>비트코인을 송금할 지갑 주소 입력하기 (예 : DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>비트코인을 송금할 지갑 주소 입력하기 (예 : 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1954,7 +2140,11 @@ Address: %4
         <translation>사용된 주소 목록에 새 주소를 추가하기 위해 제목을 입력합니다. </translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+=======
+        <source>A message that was attached to the myriadcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1973,7 +2163,11 @@ Address: %4
 <context>
     <name>ShutdownWindow</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core is shutting down...</source>
+=======
+        <source>Myriadcoin Core is shutting down...</source>
+>>>>>>> mryiad/master
         <translation>비트코인코어가 닫아지고 있습니다</translation>
     </message>
     <message>
@@ -1996,8 +2190,13 @@ Address: %4
         <translation>여러분 자신을 증명하기 위해 주소를 첨가하고 섬여할 수 있습니다. 피싱 공격으로 말미암아 여러분의 서명을 통해 속아 넘어가게 할 수 있으므로, 서명하지 않은 어떤 모호한 요소든 주의하십시오. 동의하는 완전 무결한 조항에만 서명하십시오.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>메시지를 서명할 주소 (예: DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>메시지를 서명할 주소 (예: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2028,7 +2227,11 @@ Address: %4
         <translation>현재 서명을 시스템 클립보드에 복사</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign the message to prove you own this DigiByte address</source>
+=======
+        <source>Sign the message to prove you own this Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation>여러분의 비트코인 주소를 증명하려면 메시지 서명하십시오</translation>
     </message>
     <message>
@@ -2052,11 +2255,19 @@ Address: %4
         <translation>메시지를 검증하기 위해 아래 칸에 각각 지갑 주소와 메시지, 전자서명을 입력하세요. (메시지 원본의 띄어쓰기, 들여쓰기, 행 나눔 등이 정확하게 입력되어야 하므로 원본을 복사해서 입력하세요) 이 기능은 메시지 검증이 주 목적이며, 네트워크 침입자에 의해 변조되지 않도록 전자서명 해독에 불필요한 시간을 소모하지 마세요. </translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>서명한 메시지의 주소입니다 (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
+=======
+        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>서명한 메시지의 주소입니다 (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+    </message>
+    <message>
+        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation>정확한 비트코인주소가 입력됬는지 메시지를 확인하시오</translation>
     </message>
     <message>
@@ -2068,8 +2279,13 @@ Address: %4
         <translation>모든 검증 메시지 필드 재설정</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>비트코인 주소를 입력하기 (예 DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>비트코인 주소를 입력하기 (예 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2127,11 +2343,19 @@ Address: %4
 <context>
     <name>SplashScreen</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>비트코인코어</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>비트코인코어</translation>
+    </message>
+    <message>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+>>>>>>> mryiad/master
         <translation>비트코인코어 개발자들</translation>
     </message>
     <message>
@@ -2610,12 +2834,21 @@ Address: %4
         <translation>옵션:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Specify configuration file (default: digibyte.conf)</source>
         <translation>설정파일 지정 (기본값: digibyte.conf)</translation>
     </message>
     <message>
         <source>Specify pid file (default: digibyted.pid)</source>
         <translation>pid 파일 지정 (기본값: digibyted.pid)</translation>
+=======
+        <source>Specify configuration file (default: myriadcoin.conf)</source>
+        <translation>설정파일 지정 (기본값: myriadcoin.conf)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: myriadcoind.pid)</source>
+        <translation>pid 파일 지정 (기본값: myriadcoind.pid)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Specify data directory</source>
@@ -2658,7 +2891,11 @@ Address: %4
         <translation>명령줄과 JSON-RPC 명령 수락</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core RPC client version</source>
+=======
+        <source>Myriadcoin Core RPC client version</source>
+>>>>>>> mryiad/master
         <translation>비트코인 코어 RPC 클라이언트 버전</translation>
     </message>
     <message>
@@ -2677,13 +2914,21 @@ Address: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
+<<<<<<< HEAD
 for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
+=======
+for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+>>>>>>> mryiad/master
 </source>
         <translation type="unfinished"/>
     </message>
@@ -2758,7 +3003,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>이 빌드 버전은 정식 출시 전 테스트의 목적이며, 예기치 않은 위험과 오류가 발생할 수 있습니다. 채굴과 상점용 소프트웨어로 사용하는 것을 권하지 않습니다.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Unable to bind to %s on this computer. DigiByte Core is probably already running.</source>
+=======
+        <source>Unable to bind to %s on this computer. Myriadcoin Core is probably already running.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2770,7 +3019,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>경고: -paytxfee값이 너무 큽니다! 이 값은 송금할때 지불할 송금 수수료입니다.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
+=======
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
+>>>>>>> mryiad/master
         <translation>경고: 컴퓨터의 날짜와 시간이 올바른지 확인하십시오! 시간이 잘못되면 비트코인은 제대로 동작하지 않습니다.</translation>
     </message>
     <message>
@@ -2806,7 +3059,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>손상된 wallet.dat에서 개인키 복원을 시도합니다</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core Daemon</source>
+=======
+        <source>Myriadcoin Core Daemon</source>
+>>>>>>> mryiad/master
         <translation>비트코인 코어 데몬</translation>
     </message>
     <message>
@@ -3014,8 +3271,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Usage (deprecated, use digibyte-cli):</source>
         <translation>사용법 (오래되었습니다. digibyte-cli를 사용하십시오):</translation>
+=======
+        <source>Usage (deprecated, use myriadcoin-cli):</source>
+        <translation>사용법 (오래되었습니다. myriadcoin-cli를 사용하십시오):</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Verifying blocks...</source>
@@ -3050,7 +3312,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>외부 blk000??.dat 파일에서 블록을 가져옵니다.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot obtain a lock on data directory %s. DigiByte Core is probably already running.</source>
+=======
+        <source>Cannot obtain a lock on data directory %s. Myriadcoin Core is probably already running.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3114,7 +3380,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>구동 시 블럭 트리를 출력합니다. (기본값: 0, 비활성화)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>RPC SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
+=======
+        <source>RPC SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+>>>>>>> mryiad/master
         <translation>RPC SSL 옵션: (비트코인 위키의 SSL 설정 설명서 참고)</translation>
     </message>
     <message>
@@ -3134,11 +3404,19 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>SSL 옵션: (SSL 설정 절차를 보혀면 비트코인 위키를 참조하십시오)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
+=======
+        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>SSL 옵션: (SSL 설정 절차를 보혀면 비트코인 위키를 참조하십시오)</translation>
+    </message>
+    <message>
+        <source>Send command to Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation>비트코인 코어로 명령 보내기</translation>
     </message>
     <message>
@@ -3174,7 +3452,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>밀리초 단위로 연결 제한시간을 설정하십시오(기본값: 5000)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Start DigiByte Core Daemon</source>
+=======
+        <source>Start Myriadcoin Core Daemon</source>
+>>>>>>> mryiad/master
         <translation>비트코인 코어의 데몬 프로그램을 실행합니다.</translation>
     </message>
     <message>
@@ -3290,11 +3572,19 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>wallet.dat 불러오기 에러: 지갑 오류</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
         <translation>wallet.dat 불러오기 에러:  지갑은 새버전의 비트코인이 필요합니다.</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
+=======
+        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
+        <translation>wallet.dat 불러오기 에러:  지갑은 새버전의 비트코인이 필요합니다.</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
+>>>>>>> mryiad/master
         <translation>지갑을 새로 써야 합니다.:  완성하기 위하여 비트코인을 다시 시작하십시오.</translation>
     </message>
     <message>

@@ -173,7 +173,6 @@ public:
         if (d2i_ECPrivateKey(&pkey, &pbegin, privkey.size())) {
             if(fSkipCheck)
                 return true;
-            
             // d2i_ECPrivateKey returns true if parsing succeeds.
             // This doesn't necessarily mean the key is valid.
             if (EC_KEY_check_key(pkey))
@@ -420,17 +419,17 @@ bool CKey::Load(CPrivKey &privkey, CPubKey &vchPubKey, bool fSkipCheck=false) {
     CECKey key;
     if (!key.SetPrivKey(privkey, fSkipCheck))
         return false;
-    
+
     key.GetSecretBytes(vch);
     fCompressed = vchPubKey.IsCompressed();
     fValid = true;
-    
+
     if (fSkipCheck)
         return true;
-    
+
     if (GetPubKey() != vchPubKey)
         return false;
-    
+
     return true;
 }
 

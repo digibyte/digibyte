@@ -125,7 +125,6 @@ void ShutdownWindow::showShutdownWindow(BitcoinGUI *window)
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(new QLabel(
         tr("DigiByte Core is shutting down...") + "<br /><br />" +
-        tr("Do not shut down the computer until this window disappears.")));
     shutdownWindow->setLayout(layout);
 
     // Center shutdown window at where main window was

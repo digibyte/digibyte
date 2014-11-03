@@ -2,11 +2,19 @@
 <context>
     <name>AboutDialog</name>
     <message>
+<<<<<<< HEAD
         <source>About DigiByte Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
+=======
+        <source>About Myriadcoin Core</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;b&gt;Myriadcoin Core&lt;/b&gt; version</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -27,7 +35,11 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>Copyright</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The Bitcoin and DigiByte Core developers</source>
+=======
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -102,11 +114,19 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Hae sunt inscriptiones mittendi pensitationes.  Semper inspice quantitatem et inscriptionem accipiendi antequam nummos mittis.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+=======
+        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Hae sunt inscriptiones mittendi pensitationes.  Semper inspice quantitatem et inscriptionem accipiendi antequam nummos mittis.</translation>
+    </message>
+    <message>
+        <source>These are your Myriadcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -204,7 +224,11 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>Confirma cifrationem cassidilis</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
+=======
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
+>>>>>>> mryiad/master
         <translation>Monitio: Si cassidile tuum cifras et tesseram amittis, tu &lt;b&gt;AMITTES OMNES TUOS NUMMOS BITOS&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -224,8 +248,13 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>Cassidile cifratum</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
         <translation>DigiByte iam desinet ut finiat actionem cifrandi.  Memento cassidile cifrare non posse cuncte curare ne tui nummi clepantur ab malis programatibus in tuo computatro.</translation>
+=======
+        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Myriadcoin iam desinet ut finiat actionem cifrandi.  Memento cassidile cifrare non posse cuncte curare ne tui nummi clepantur ab malis programatibus in tuo computatro.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -257,7 +286,11 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
 </context>
 <context>
+<<<<<<< HEAD
     <name>DigiByteGUI</name>
+=======
+    <name>BitcoinGUI</name>
+>>>>>>> mryiad/master
     <message>
         <source>Sign &amp;message...</source>
         <translation>Signa &amp;nuntium...</translation>
@@ -295,8 +328,13 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>Exi applicatione</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show information about DigiByte</source>
         <translation>Monstra informationem de DigiByte</translation>
+=======
+        <source>Show information about Myriadcoin</source>
+        <translation>Monstra informationem de Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -343,12 +381,21 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>Recreans indicem frustorum in disco...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Send coins to a DigiByte address</source>
         <translation>Mitte nummos ad inscriptionem DigiByte</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
         <translation>Muta configurationis optiones pro DigiByte</translation>
+=======
+        <source>Send coins to a Myriadcoin address</source>
+        <translation>Mitte nummos ad inscriptionem Myriadcoin</translation>
+    </message>
+    <message>
+        <source>Modify configuration options for Myriadcoin</source>
+        <translation>Muta configurationis optiones pro Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -371,8 +418,13 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>&amp;Verifica nuntium...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -399,12 +451,21 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>Cifra claves privatas quae cassidili tui sunt</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
         <translation>Signa nuntios cum tuis inscriptionibus DigiByte ut demonstres te eas possidere</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
         <translation>Verifica nuntios ut certus sis eos signatos esse cum specificatis inscriptionibus DigiByte</translation>
+=======
+        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
+        <translation>Signa nuntios cum tuis inscriptionibus Myriadcoin ut demonstres te eas possidere</translation>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
+        <translation>Verifica nuntios ut certus sis eos signatos esse cum specificatis inscriptionibus Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;File</source>
@@ -427,6 +488,7 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation>[testnet]</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Nucleus</translation>
     </message>
@@ -436,6 +498,17 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <source>&amp;About DigiByte Core</source>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Nucleus</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and myriadcoin: URIs)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&amp;About Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -447,7 +520,11 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open a digibyte: URI or payment request</source>
+=======
+        <source>Open a myriadcoin: URI or payment request</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -455,6 +532,7 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
         <translation type="unfinished"/>
     </message>
@@ -465,6 +543,18 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
         <translation><numerusform>%n activa conexio ad rete DigiByte</numerusform><numerusform>%n activae conexiones ad rete DigiByte</numerusform></translation>
+=======
+        <source>Show the Myriadcoin Core help message to get a list with possible Myriadcoin command-line options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin client</source>
+        <translation>Myriadcoin cliens</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n active connection(s) to Myriadcoin network</source>
+        <translation><numerusform>%n activa conexio ad rete Myriadcoin</numerusform><numerusform>%n activae conexiones ad rete Myriadcoin</numerusform></translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>No block source available...</source>
@@ -559,8 +649,13 @@ Inscriptio: %4
         <translation>Cassidile &lt;b&gt;cifratum&lt;/b&gt; est et iam nunc &lt;b&gt;seratum&lt;/b&gt;</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
         <translation>Error fatalis accidit.  DigiByte nondum pergere tute potest, et exibit.</translation>
+=======
+        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
+        <translation>Error fatalis accidit.  Myriadcoin nondum pergere tute potest, et exibit.</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -844,8 +939,13 @@ Inscriptio: %4
         <translation>Inserta inscriptio &quot;%1&quot; iam in libro inscriptionum est.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
         <translation>Inscriptio inserta &quot;%1&quot; non valida inscriptio DigiByte est.</translation>
+=======
+        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
+        <translation>Inscriptio inserta &quot;%1&quot; non valida inscriptio Myriadcoin est.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -882,12 +982,21 @@ Inscriptio: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core - Command-line options</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>DigiByte Core</source>
         <translation>DigiByte Nucleus</translation>
+=======
+        <source>Myriadcoin Core - Command-line options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Nucleus</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>version</source>
@@ -933,6 +1042,7 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to DigiByte Core.</source>
         <translation type="unfinished"/>
     </message>
@@ -942,6 +1052,17 @@ Inscriptio: %4
     </message>
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+=======
+        <source>Welcome to Myriadcoin Core.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where Myriadcoin Core will store its data.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin Core will download and store a copy of the Myriadcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -953,8 +1074,13 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; can not be created.</source>
@@ -1015,12 +1141,21 @@ Inscriptio: %4
         <translation>Solve &amp;mercedem transactionis</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically start DigiByte after logging in to the system.</source>
         <translation>Pelle DigiByte per se postquam in systema inire.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
         <translation>&amp;Pelle DigiByte cum inire systema</translation>
+=======
+        <source>Automatically start Myriadcoin after logging in to the system.</source>
+        <translation>Pelle Myriadcoin per se postquam in systema inire.</translation>
+    </message>
+    <message>
+        <source>&amp;Start Myriadcoin on system login</source>
+        <translation>&amp;Pelle Myriadcoin cum inire systema</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1035,7 +1170,11 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
+=======
+        <source>Connect to the Myriadcoin network through a SOCKS proxy.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1095,8 +1234,13 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Aperi per se portam clientis DigiByte in itineratore.  Hoc tantum effectivum est si itineratrum tuum supportat UPnP et id activum est.</translation>
+=======
+        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Aperi per se portam clientis Myriadcoin in itineratore.  Hoc tantum effectivum est si itineratrum tuum supportat UPnP et id activum est.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1151,8 +1295,13 @@ Inscriptio: %4
         <translation>&amp;Lingua monstranda utenti:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
         <translation>Lingua monstranda utenti hic constitui potest.  Haec configuratio effectiva erit postquam DigiByte iterum initiatum erit.</translation>
+=======
+        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
+        <translation>Lingua monstranda utenti hic constitui potest.  Haec configuratio effectiva erit postquam Myriadcoin iterum initiatum erit.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1163,8 +1312,13 @@ Inscriptio: %4
         <translation>Selige praedefinitam unitam subdivisionis monstrare in interfacie et quando nummos mittere</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
         <translation>Num monstrare inscriptiones DigiByte in enumeratione transactionum.</translation>
+=======
+        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
+        <translation>Num monstrare inscriptiones Myriadcoin in enumeratione transactionum.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1218,8 +1372,13 @@ Inscriptio: %4
         <translation>Schema</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
         <translation>Monstrata informatio fortasse non recentissima est.  Tuum cassidile per se synchronizat cum rete DigiByte postquam conexio constabilita est, sed hoc actio nondum perfecta est.</translation>
+=======
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Monstrata informatio fortasse non recentissima est.  Tuum cassidile per se synchronizat cum rete Myriadcoin postquam conexio constabilita est, sed hoc actio nondum perfecta est.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -1273,8 +1432,13 @@ Inscriptio: %4
         <translation>Tractatio URI</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
         <translation>URI intellegi non posse!  Huius causa possit inscriptionem DigiByte non validam aut URI parametra maleformata.</translation>
+=======
+        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
+        <translation>URI intellegi non posse!  Huius causa possit inscriptionem Myriadcoin non validam aut URI parametra maleformata.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1285,8 +1449,13 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot start digibyte: click-to-pay handler</source>
         <translation>DigiByte incipere non potest: cliccare-ad-pensandum handler</translation>
+=======
+        <source>Cannot start myriadcoin: click-to-pay handler</source>
+        <translation>Myriadcoin incipere non potest: cliccare-ad-pensandum handler</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Net manager warning</source>
@@ -1340,8 +1509,13 @@ Inscriptio: %4
 <context>
     <name>QObject</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
@@ -1356,12 +1530,21 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core didn&apos;t yet exit safely...</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Insere inscriptionem DigiByte (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Myriadcoin Core didn&apos;t yet exit safely...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Insere inscriptionem Myriadcoin (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -1482,16 +1665,26 @@ Inscriptio: %4
         <translation>Debug catalogi plica</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Aperi plicam catalogi de DigiByte debug ex activo indice datorum.  Hoc possit pauca secunda pro plicis magnis catalogi.</translation>
+=======
+        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Aperi plicam catalogi de Myriadcoin debug ex activo indice datorum.  Hoc possit pauca secunda pro plicis magnis catalogi.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Clear console</source>
         <translation>Vacuefac terminale</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to the DigiByte RPC console.</source>
         <translation>Bene ventio in terminale RPC de DigiByte.</translation>
+=======
+        <source>Welcome to the Myriadcoin RPC console.</source>
+        <translation>Bene ventio in terminale RPC de Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1553,7 +1746,11 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
+=======
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1866,7 +2063,11 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Invalid DigiByte address</source>
+=======
+        <source>Warning: Invalid Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1905,8 +2106,13 @@ Inscriptio: %4
         <translation>Pensa &amp;Ad:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Inscriptio cui mittere pensitationem (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Inscriptio cui mittere pensitationem (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1953,7 +2159,11 @@ Inscriptio: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+=======
+        <source>A message that was attached to the myriadcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1972,7 +2182,11 @@ Inscriptio: %4
 <context>
     <name>ShutdownWindow</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core is shutting down...</source>
+=======
+        <source>Myriadcoin Core is shutting down...</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1995,8 +2209,13 @@ Inscriptio: %4
         <translation>Potes nuntios signare inscriptionibus tuis ut demonstres te eas possidere.  Cautus es non amibiguum signare, quia impetus phiscatorum conentur te fallere ut signes identitatem tuam ad eos.  Solas signa sententias cuncte descriptas quibus convenis.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Inscriptio qua signare nuntium (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Inscriptio qua signare nuntium (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2027,8 +2246,13 @@ Inscriptio: %4
         <translation>Copia signationem in latibulum systematis</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign the message to prove you own this DigiByte address</source>
         <translation>Signa nuntium ut demonstres hanc inscriptionem DigiByte a te possessa esse</translation>
+=======
+        <source>Sign the message to prove you own this Myriadcoin address</source>
+        <translation>Signa nuntium ut demonstres hanc inscriptionem Myriadcoin a te possessa esse</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2051,12 +2275,21 @@ Inscriptio: %4
         <translation>Insere inscriptionem signantem, nuntium (cura ut copias intermissiones linearum, spatia, tabs, et cetera exacte) et signationem infra ut nuntium verifices.  Cautus esto ne magis legas in signationem quam in nuntio signato ipso est, ut vites falli ab impetu homo-in-medio.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Inscriptio qua nuntius signatus est (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Verifica nuntium ut cures signatum esse cum specifica inscriptione DigiByte</translation>
+=======
+        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Inscriptio qua nuntius signatus est (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+    </message>
+    <message>
+        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
+        <translation>Verifica nuntium ut cures signatum esse cum specifica inscriptione Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2067,8 +2300,13 @@ Inscriptio: %4
         <translation>Reconstitue omnes campos verificandi nuntii</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Insere inscriptionem DigiByte (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Insere inscriptionem Myriadcoin (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2126,11 +2364,19 @@ Inscriptio: %4
 <context>
     <name>SplashScreen</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Nucleus</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Nucleus</translation>
+    </message>
+    <message>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2609,11 +2855,19 @@ Inscriptio: %4
         <translation>Optiones:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Specify configuration file (default: digibyte.conf)</source>
         <translation>Specifica configurationis plicam (praedefinitum: digibyte.conf)</translation>
     </message>
     <message>
         <source>Specify pid file (default: digibyted.pid)</source>
+=======
+        <source>Specify configuration file (default: myriadcoin.conf)</source>
+        <translation>Specifica configurationis plicam (praedefinitum: myriadcoin.conf)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: myriadcoind.pid)</source>
+>>>>>>> mryiad/master
         <translation>Specifica pid plicam (praedefinitum: bitcoin.pid)</translation>
     </message>
     <message>
@@ -2657,7 +2911,11 @@ Inscriptio: %4
         <translation>Accipe terminalis et JSON-RPC mandata.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core RPC client version</source>
+=======
+        <source>Myriadcoin Core RPC client version</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2676,24 +2934,40 @@ Inscriptio: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
+<<<<<<< HEAD
 for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
+=======
+for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+>>>>>>> mryiad/master
 </source>
         <translation>%s, necesse est te rpcpassword constituere in plica configurationis:
 %s
 Hortatur te hanc fortuitam tesseram uti:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (non est necesse te hanc tesseram meminisse)
 Nomen usoris et tessera eadem esse NON POSSUNT.
 Si plica non existit, eam crea cum permissionibus ut eius dominus tantum sinitur id legere.
 Quoque hortatur alertnotify constituere ut tu notificetur de problematibus;
+<<<<<<< HEAD
 exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; admin@foo.com
+=======
+exempli gratia: alertnotify=echo %%s | mail -s &quot;Myriadcoin Notificatio&quot; admin@foo.com
+>>>>>>> mryiad/master
 </translation>
     </message>
     <message>
@@ -2765,7 +3039,11 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation>Hoc est prae-dimittum experimentala aedes - utere eo periculo tuo proprio - nolite utere fodendo vel applicationibus mercatoriis</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Unable to bind to %s on this computer. DigiByte Core is probably already running.</source>
+=======
+        <source>Unable to bind to %s on this computer. Myriadcoin Core is probably already running.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2777,8 +3055,13 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation>Monitio: -paytxfee constitutum valde magnum!  Hoc est merces transactionis solves si mittis transactionem.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
         <translation>Monitio: Sodes cura ut dies tempusque computatri tui recti sunt!  Si horologium tuum pravum est, DigiByte non proprie fungetur.</translation>
+=======
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
+        <translation>Monitio: Sodes cura ut dies tempusque computatri tui recti sunt!  Si horologium tuum pravum est, Myriadcoin non proprie fungetur.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -2813,7 +3096,11 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation>Conare recipere claves privatas de corrupto wallet.dat</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core Daemon</source>
+=======
+        <source>Myriadcoin Core Daemon</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3021,7 +3308,11 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Usage (deprecated, use digibyte-cli):</source>
+=======
+        <source>Usage (deprecated, use myriadcoin-cli):</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3057,7 +3348,11 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation>Importat frusta ab externa plica blk000??.dat</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot obtain a lock on data directory %s. DigiByte Core is probably already running.</source>
+=======
+        <source>Cannot obtain a lock on data directory %s. Myriadcoin Core is probably already running.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3121,7 +3416,11 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>RPC SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
+=======
+        <source>RPC SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3141,11 +3440,19 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>Optiones SSL: (vide vici de DigiByte pro instructionibus SSL configurationis)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
+=======
+        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>Optiones SSL: (vide vici de Myriadcoin pro instructionibus SSL configurationis)</translation>
+    </message>
+    <message>
+        <source>Send command to Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3181,7 +3488,11 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation>Specifica tempumfati conexionis in millisecundis (praedefinitum: 5000)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Start DigiByte Core Daemon</source>
+=======
+        <source>Start Myriadcoin Core Daemon</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3297,12 +3608,21 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;DigiByte Notificatio&quot; 
         <translation>Error legendi wallet.dat: Cassidile corruptum</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
         <translation>Error legendi wallet.dat: Cassidili necesse est recentior versio DigiByte</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
         <translation>Cassidili necesse erat rescribi: Repelle DigiByte ut compleas</translation>
+=======
+        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
+        <translation>Error legendi wallet.dat: Cassidili necesse est recentior versio Myriadcoin</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
+        <translation>Cassidili necesse erat rescribi: Repelle Myriadcoin ut compleas</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error loading wallet.dat</source>

@@ -2,12 +2,21 @@
 <context>
     <name>AboutDialog</name>
     <message>
+<<<<<<< HEAD
         <source>About DigiByte Core</source>
         <translation>Mengenai DigiByte Core</translation>
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
         <translation>versi &lt;b&gt;DigiByte Core&lt;/b&gt;</translation>
+=======
+        <source>About Myriadcoin Core</source>
+        <translation>Mengenai Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Myriadcoin Core&lt;/b&gt; version</source>
+        <translation>versi &lt;b&gt;Myriadcoin Core&lt;/b&gt;</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>
@@ -28,8 +37,13 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Copyright</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The Bitcoin and DigiByte Core developers</source>
         <translation>Pembangun DigiByte Core</translation>
+=======
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+        <translation>Pembangun Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>(%1-bit)</source>
@@ -103,11 +117,19 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Alamat-alamat menerima</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Alamat-alamat Anda supaya mengirim pembayaran. Periksalah jumlah dan alamat penerima setiap kali Anda mengirim DigiByte.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+=======
+        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Alamat-alamat Anda supaya mengirim pembayaran. Periksalah jumlah dan alamat penerima setiap kali Anda mengirim Myriadcoin.</translation>
+    </message>
+    <message>
+        <source>These are your Myriadcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+>>>>>>> mryiad/master
         <translation>Alamat-alamat Anda supaya menerima pembayaran. Dianjurkan agar Anda menggunakan alamat menerima yang baru untuk setiap transaksi.</translation>
     </message>
     <message>
@@ -205,8 +227,13 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Konfirmasi enkripsi dompet</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
         <translation>Perhatian: Jika anda mengenkripsi dompet anda dan lupa kata kuncinya, anda pasti &lt;b&gt;KEHILANGAN SELURUH DGBIADCOIN ANDA&lt;/B&gt;!</translation>
+=======
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
+        <translation>Perhatian: Jika anda mengenkripsi dompet anda dan lupa kata kuncinya, anda pasti &lt;b&gt;KEHILANGAN SELURUH MYRIADCOIN ANDA&lt;/B&gt;!</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -225,8 +252,13 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Dompet terenkripsi</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
         <translation>DigiByte akan menutup untuk menyelesaikan proses enkripsi. Ingat bahwa dengan mengenkripsi dompet Anda tidak sepenuhnya melindungi digibyte Anda dari perangkat lunak berbahaya yang menginfeksi komputer Anda.</translation>
+=======
+        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Myriadcoin akan menutup untuk menyelesaikan proses enkripsi. Ingat bahwa dengan mengenkripsi dompet Anda tidak sepenuhnya melindungi myriadcoin Anda dari perangkat lunak berbahaya yang menginfeksi komputer Anda.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -258,7 +290,11 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
     </message>
 </context>
 <context>
+<<<<<<< HEAD
     <name>DigiByteGUI</name>
+=======
+    <name>BitcoinGUI</name>
+>>>>>>> mryiad/master
     <message>
         <source>Sign &amp;message...</source>
         <translation>Pesan &amp;penanda...</translation>
@@ -296,8 +332,13 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Keluar dari aplikasi</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show information about DigiByte</source>
         <translation>Tampilkan informasi mengenai DigiByte</translation>
+=======
+        <source>Show information about Myriadcoin</source>
+        <translation>Tampilkan informasi mengenai Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -344,12 +385,21 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Mengindex ulang block di harddisk...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Send coins to a DigiByte address</source>
         <translation>Kirim koin ke alamat DigiByte</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
         <translation>Ubah pilihan konfigurasi untuk DigiByte</translation>
+=======
+        <source>Send coins to a Myriadcoin address</source>
+        <translation>Kirim koin ke alamat Myriadcoin</translation>
+    </message>
+    <message>
+        <source>Modify configuration options for Myriadcoin</source>
+        <translation>Ubah pilihan konfigurasi untuk Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -372,8 +422,13 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>&amp;Verifikasi pesan...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -400,12 +455,21 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Mengenkripsi kunci-kunci pribadi yang dipunyai dompetmu</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
         <translation>Tandalah pesanan dengan alamat-alamat DigiByte Anda supaya membuktikan pesanan itu dikirim oleh Anda</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
         <translation>Periksakan pesan-pesan supaya menjaminkan ditandatangani oleh alamat DigiByte yang terperinci</translation>
+=======
+        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
+        <translation>Tandalah pesanan dengan alamat-alamat Myriadcoin Anda supaya membuktikan pesanan itu dikirim oleh Anda</translation>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
+        <translation>Periksakan pesan-pesan supaya menjaminkan ditandatangani oleh alamat Myriadcoin yang terperinci</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;File</source>
@@ -428,6 +492,7 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>[testnet]</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Core</translation>
     </message>
@@ -438,6 +503,18 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
     <message>
         <source>&amp;About DigiByte Core</source>
         <translation>&amp;Mengenai DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and myriadcoin: URIs)</source>
+        <translation>Permintaan pembayaran (membangkitkan kode QR dan myriadcoin: URIs)</translation>
+    </message>
+    <message>
+        <source>&amp;About Myriadcoin Core</source>
+        <translation>&amp;Mengenai Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -448,14 +525,20 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
         <translation>Tampilkan daftar alamat dan label yang diterima</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open a digibyte: URI or payment request</source>
         <translation>Buka URI digibyte: atau permintaan pembayaran</translation>
+=======
+        <source>Open a myriadcoin: URI or payment request</source>
+        <translation>Buka URI myriadcoin: atau permintaan pembayaran</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;pilihan Perintah-baris</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
         <translation>Tampilkan pesan bantuan DigiByte Core untuk memberikan daftar pilihan perintah-baris yang memungkinkan dalam aplikasi DigiByte</translation>
     </message>
@@ -466,6 +549,18 @@ Produk ini termasuk software yang dibangun oleh Proyek OpenSSL untuk Toolkit Ope
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
         <translation><numerusform>%n hubungan aktif ke jaringan DigiByte</numerusform></translation>
+=======
+        <source>Show the Myriadcoin Core help message to get a list with possible Myriadcoin command-line options</source>
+        <translation>Tampilkan pesan bantuan Myriadcoin Core untuk memberikan daftar pilihan perintah-baris yang memungkinkan dalam aplikasi Myriadcoin</translation>
+    </message>
+    <message>
+        <source>Myriadcoin client</source>
+        <translation>Klien Myriadcoin</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n active connection(s) to Myriadcoin network</source>
+        <translation><numerusform>%n hubungan aktif ke jaringan Myriadcoin</numerusform></translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>No block source available...</source>
@@ -560,8 +655,13 @@ Alamat: %4
         <translation>Dompet saat ini &lt;b&gt;terenkripsi&lt;/b&gt; dan &lt;b&gt;terkunci&lt;/b&gt;</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
         <translation>Terjadi kesalahan fatal. DigiByte tidak bisa lagi meneruskan dengan aman dan akan berhenti.</translation>
+=======
+        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
+        <translation>Terjadi kesalahan fatal. Myriadcoin tidak bisa lagi meneruskan dengan aman dan akan berhenti.</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -845,8 +945,13 @@ Alamat: %4
         <translation>Alamat yang dimasukkan &quot;%1&quot; sudah ada di dalam buku alamat.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
         <translation>Alamat yang dimasukkan &quot;%1&quot; bukan alamat DigiByte yang benar.</translation>
+=======
+        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
+        <translation>Alamat yang dimasukkan &quot;%1&quot; bukan alamat Myriadcoin yang benar.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -883,12 +988,21 @@ Alamat: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core - Command-line options</source>
         <translation>DigiByte Core - pilihan Perintah-baris</translation>
     </message>
     <message>
         <source>DigiByte Core</source>
         <translation>DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core - Command-line options</source>
+        <translation>Myriadcoin Core - pilihan Perintah-baris</translation>
+    </message>
+    <message>
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>version</source>
@@ -934,6 +1048,7 @@ Alamat: %4
         <translation>Selamat Datang</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to DigiByte Core.</source>
         <translation>Selamat Datang ke DigiByte Core</translation>
     </message>
@@ -943,6 +1058,17 @@ Alamat: %4
     </message>
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+=======
+        <source>Welcome to Myriadcoin Core.</source>
+        <translation>Selamat Datang ke Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where Myriadcoin Core will store its data.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Myriadcoin Core will download and store a copy of the Myriadcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -954,8 +1080,13 @@ Alamat: %4
         <translation>Menggunakan direktori data yang dipilih Anda:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; can not be created.</source>
@@ -1016,12 +1147,21 @@ Alamat: %4
         <translation>Bayar &amp;biaya transaksi</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically start DigiByte after logging in to the system.</source>
         <translation>Menyalakan DigiByte secara otomatis setelah masuk ke dalam sistem.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
         <translation>&amp;Menyalakan DigiByte pada login sistem</translation>
+=======
+        <source>Automatically start Myriadcoin after logging in to the system.</source>
+        <translation>Menyalakan Myriadcoin secara otomatis setelah masuk ke dalam sistem.</translation>
+    </message>
+    <message>
+        <source>&amp;Start Myriadcoin on system login</source>
+        <translation>&amp;Menyalakan Myriadcoin pada login sistem</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1036,8 +1176,13 @@ Alamat: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
         <translation>Menghubungkan jaringan DigiByte lewat proxy SOCKS.</translation>
+=======
+        <source>Connect to the Myriadcoin network through a SOCKS proxy.</source>
+        <translation>Menghubungkan jaringan Myriadcoin lewat proxy SOCKS.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1096,8 +1241,13 @@ Alamat: %4
         <translation>&amp;Perubahan saldo untuk transaksi yang belum dikonfirmasi</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Otomatis membuka port client DigiByte di router. Hanya berjalan apabila router anda mendukung UPnP dan di-enable.</translation>
+=======
+        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Otomatis membuka port client Myriadcoin di router. Hanya berjalan apabila router anda mendukung UPnP dan di-enable.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1152,8 +1302,13 @@ Alamat: %4
         <translation>&amp;Bahasa Antarmuka Pengguna:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
         <translation>Tampilan bahasa pengguna dapat diatur disini. Pengaturan ini akan berpengaruh setelah memulai kembali aplikasi DigiByte.</translation>
+=======
+        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
+        <translation>Tampilan bahasa pengguna dapat diatur disini. Pengaturan ini akan berpengaruh setelah memulai kembali aplikasi Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1164,8 +1319,13 @@ Alamat: %4
         <translation>Pilihan standar unit yang ingin ditampilkan pada layar aplikasi dan saat mengirim koin.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
         <translation>Apakah menampilkan alamat-alamat DigiByte dalam daftar transaksi atau tidak.</translation>
+=======
+        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
+        <translation>Apakah menampilkan alamat-alamat Myriadcoin dalam daftar transaksi atau tidak.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1219,8 +1379,13 @@ Alamat: %4
         <translation>Formulir</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
         <translation>Informasi terlampir mungkin sudah kedaluwarsa. Dompet Anda secara otomatis mensinkronisasi dengan jaringan DigiByte ketika sebuah hubungan terbentuk, namun proses ini belum selesai.</translation>
+=======
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Informasi terlampir mungkin sudah kedaluwarsa. Dompet Anda secara otomatis mensinkronisasi dengan jaringan Myriadcoin ketika sebuah hubungan terbentuk, namun proses ini belum selesai.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -1274,8 +1439,13 @@ Alamat: %4
         <translation>Penanganan URI</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
         <translation>URI tidak bisa dimengerti! Biasanya oleh karena alamat DigiByte yang tidak sah atau persoalan tentang parameter-parameter URI.</translation>
+=======
+        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
+        <translation>URI tidak bisa dimengerti! Biasanya oleh karena alamat Myriadcoin yang tidak sah atau persoalan tentang parameter-parameter URI.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1286,7 +1456,11 @@ Alamat: %4
         <translation>Gagalan permintaan pembayaran</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot start digibyte: click-to-pay handler</source>
+=======
+        <source>Cannot start myriadcoin: click-to-pay handler</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1341,8 +1515,13 @@ Alamat: %4
 <context>
     <name>QObject</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
@@ -1357,12 +1536,21 @@ Alamat: %4
         <translation>Gagal: Gabungan -regtest dan -testnet salah</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core didn&apos;t yet exit safely...</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Masukkan alamat DigiByte (cth. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Myriadcoin Core didn&apos;t yet exit safely...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Masukkan alamat Myriadcoin (cth. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -1483,16 +1671,26 @@ Alamat: %4
         <translation>Berkas catatan debug</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Buka berkas catatan debug DigiByte dari direktori data sekarang. Hal ini dapat memakan waktu beberapa detik untuk berkas catatan yang besar.</translation>
+=======
+        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Buka berkas catatan debug Myriadcoin dari direktori data sekarang. Hal ini dapat memakan waktu beberapa detik untuk berkas catatan yang besar.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Clear console</source>
         <translation>Bersihkan konsol</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to the DigiByte RPC console.</source>
         <translation>Selamat datang ke konsol RPC DigiByte.</translation>
+=======
+        <source>Welcome to the Myriadcoin RPC console.</source>
+        <translation>Selamat datang ke konsol RPC Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1554,7 +1752,11 @@ Alamat: %4
         <translation>Gunakan lagi alamat penerima yang ada (tidak disarankan)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
+=======
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1867,8 +2069,13 @@ Alamat: %4
         <translation>Gagal: Transaksi ditolak. Ini mungkin terjadi jika beberapa dari koin dalam dompet Anda telah digunakan, seperti ketika Anda menggunakan salinan wallet.dat dan beberapa koin telah dibelanjakan dalam salinan tersebut tetapi disini tidak tertandai sebagai terpakai.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Invalid DigiByte address</source>
         <translation>Awas: Alamat DigiByte tidak sah</translation>
+=======
+        <source>Warning: Invalid Myriadcoin address</source>
+        <translation>Awas: Alamat Myriadcoin tidak sah</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>(no label)</source>
@@ -1906,8 +2113,13 @@ Alamat: %4
         <translation>Kirim &amp;Ke:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Alamat pembayaran (cth. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Alamat pembayaran (cth. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1954,7 +2166,11 @@ Alamat: %4
         <translation>Masukkan label untuk alamat ini untuk dimasukan dalam daftar alamat yang pernah digunakan</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+=======
+        <source>A message that was attached to the myriadcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriadcoin network.</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1973,8 +2189,13 @@ Alamat: %4
 <context>
     <name>ShutdownWindow</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core is shutting down...</source>
         <translation>DigiByte Core sementara dimatikan...</translation>
+=======
+        <source>Myriadcoin Core is shutting down...</source>
+        <translation>Myriadcoin Core sementara dimatikan...</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -1996,8 +2217,13 @@ Alamat: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Alamat yang akan ditandai pesan (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Alamat yang akan ditandai pesan (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2028,8 +2254,13 @@ Alamat: %4
         <translation>Salin tanda tangan terpilih ke sistem klipboard</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign the message to prove you own this DigiByte address</source>
         <translation>Tandai pesan untuk menyetujui kamu pemiliki alamat DigiByte ini</translation>
+=======
+        <source>Sign the message to prove you own this Myriadcoin address</source>
+        <translation>Tandai pesan untuk menyetujui kamu pemiliki alamat Myriadcoin ini</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2052,11 +2283,19 @@ Alamat: %4
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
+=======
+        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2068,8 +2307,13 @@ Alamat: %4
         <translation>Hapus semua bidang verifikasi pesan</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Masukkan alamat DigiByte (cth. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Masukkan alamat Myriadcoin (cth. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2127,12 +2371,21 @@ Alamat: %4
 <context>
     <name>SplashScreen</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Core</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
         <translation>Pembangun DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+        <translation>Pembangun Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>[testnet]</source>
@@ -2610,12 +2863,21 @@ Alamat: %4
         <translation>Pilihan:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Specify configuration file (default: digibyte.conf)</source>
         <translation>Tentukan berkas konfigurasi (standar: digibyte.conf)</translation>
     </message>
     <message>
         <source>Specify pid file (default: digibyted.pid)</source>
         <translation>Tentukan berkas pid (standar: digibyted.pid)</translation>
+=======
+        <source>Specify configuration file (default: myriadcoin.conf)</source>
+        <translation>Tentukan berkas konfigurasi (standar: myriadcoin.conf)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: myriadcoind.pid)</source>
+        <translation>Tentukan berkas pid (standar: myriadcoind.pid)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Specify data directory</source>
@@ -2658,7 +2920,11 @@ Alamat: %4
         <translation>Menerima perintah baris perintah dan JSON-RPC</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core RPC client version</source>
+=======
+        <source>Myriadcoin Core RPC client version</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2677,13 +2943,21 @@ Alamat: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
+<<<<<<< HEAD
 for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
+=======
+for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+>>>>>>> mryiad/master
 </source>
         <translation>
 </translation>
@@ -2757,8 +3031,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Unable to bind to %s on this computer. DigiByte Core is probably already running.</source>
         <translation>Tidak bisa mengikat dengan %s di computer ini. Kemungkinan DigiByte Core sudah mulai.</translation>
+=======
+        <source>Unable to bind to %s on this computer. Myriadcoin Core is probably already running.</source>
+        <translation>Tidak bisa mengikat dengan %s di computer ini. Kemungkinan Myriadcoin Core sudah mulai.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: -proxy)</source>
@@ -2769,8 +3048,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>Peringatan: -paytxfee sangat besar! Ini adalah biaya pengiriman yang akan dibayar oleh Anda jika transaksi terkirim.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
         <translation>Perhatian: Mohon diperiksa pengaturan tanggal dan waktu komputer anda apakah sudah benar! Jika pengaturan waktu salah aplikasi DigiByte tidak akan berjalan dengan tepat.</translation>
+=======
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
+        <translation>Perhatian: Mohon diperiksa pengaturan tanggal dan waktu komputer anda apakah sudah benar! Jika pengaturan waktu salah aplikasi Myriadcoin tidak akan berjalan dengan tepat.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -2805,8 +3089,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>Coba memulihkan kunci-kunci pribadi dari wallet.dat yang rusak</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core Daemon</source>
         <translation>Daemon DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core Daemon</source>
+        <translation>Daemon Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Block creation options:</source>
@@ -3013,7 +3302,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Usage (deprecated, use digibyte-cli):</source>
+=======
+        <source>Usage (deprecated, use myriadcoin-cli):</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3049,8 +3342,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>Impor blok dari eksternal berkas blk000???.dat</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot obtain a lock on data directory %s. DigiByte Core is probably already running.</source>
         <translation>Tidak bisa mengunci data directory %s. Kemungkinan DigiByte Core sudah mulai.</translation>
+=======
+        <source>Cannot obtain a lock on data directory %s. Myriadcoin Core is probably already running.</source>
+        <translation>Tidak bisa mengunci data directory %s. Kemungkinan Myriadcoin Core sudah mulai.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
@@ -3113,7 +3411,11 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>RPC SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
+=======
+        <source>RPC SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3133,11 +3435,19 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation type="unfinished"/>
     </message>
     <message>
+<<<<<<< HEAD
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>Pilihan SSL: (petunjuk pengaturan SSL lihat dalam DigiByte Wiki)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
+=======
+        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>Pilihan SSL: (petunjuk pengaturan SSL lihat dalam Myriadcoin Wiki)</translation>
+    </message>
+    <message>
+        <source>Send command to Myriadcoin Core</source>
+>>>>>>> mryiad/master
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3173,8 +3483,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>Menetapkan waktu berakhir koneksi di milidetik (biasanya: 5000)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Start DigiByte Core Daemon</source>
         <translation>Memulai DigiByte Core Daemon</translation>
+=======
+        <source>Start Myriadcoin Core Daemon</source>
+        <translation>Memulai Myriadcoin Core Daemon</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>System error: </source>
@@ -3289,12 +3604,21 @@ for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo
         <translation>Gagal memuat wallet.dat: Dompet rusak</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
         <translation>Gagal memuat wallet.dat: Dompet memerlukan versi DigiByte yang terbaru</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
         <translation>Dompet diperlukan untuk disimpan-ulang: nyala-ulangkan DigiByte untuk menyelesaikan</translation>
+=======
+        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
+        <translation>Gagal memuat wallet.dat: Dompet memerlukan versi Myriadcoin yang terbaru</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
+        <translation>Dompet diperlukan untuk disimpan-ulang: nyala-ulangkan Myriadcoin untuk menyelesaikan</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error loading wallet.dat</source>

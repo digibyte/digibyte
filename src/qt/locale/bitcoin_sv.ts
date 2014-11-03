@@ -2,12 +2,21 @@
 <context>
     <name>AboutDialog</name>
     <message>
+<<<<<<< HEAD
         <source>About DigiByte Core</source>
         <translation>Om DigiByte Core</translation>
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
         <translation>&lt;b&gt;DigiByte Core&lt;/b&gt;-version</translation>
+=======
+        <source>About Myriadcoin Core</source>
+        <translation>Om Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Myriadcoin Core&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Myriadcoin Core&lt;/b&gt;-version</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>
@@ -29,8 +38,13 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Copyright</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The Bitcoin and DigiByte Core developers</source>
         <translation>DigiByte Core-utvecklarna</translation>
+=======
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+        <translation>Myriadcoin Core-utvecklarna</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>(%1-bit)</source>
@@ -104,12 +118,21 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Mottagaradresser</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Detta är dina DigiByte adresser för att skicka betalningar. Kolla alltid summan och den mottagande adressen innan du skickar DigiBytes.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>Detta är dina DigiByte adresser för att ta emot betalningar. Det rekommenderas att använda en ny mottagningsadress för varje transaktion.</translation>
+=======
+        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Detta är dina Myriadcoin adresser för att skicka betalningar. Kolla alltid summan och den mottagande adressen innan du skickar Bitcoins.</translation>
+    </message>
+    <message>
+        <source>These are your Myriadcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Detta är dina Myriadcoin adresser för att ta emot betalningar. Det rekommenderas att använda en ny mottagningsadress för varje transaktion.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -206,7 +229,11 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Bekräfta kryptering av plånbok</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
+=======
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
+>>>>>>> mryiad/master
         <translation>VARNING: Om du krypterar din plånbok och glömmer ditt lösenord, kommer du att &lt;b&gt;FÖRLORA ALLA DINA TILLGÅNGAR&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -226,7 +253,11 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Plånboken är krypterad</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
+=======
+        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+>>>>>>> mryiad/master
         <translation>Programmet kommer nu att stänga ner för att färdigställa krypteringen. Tänk på att en krypterad plånbok inte skyddar mot stöld om din dator är infekterad med en keylogger.</translation>
     </message>
     <message>
@@ -259,7 +290,11 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
     </message>
 </context>
 <context>
+<<<<<<< HEAD
     <name>DigiByteGUI</name>
+=======
+    <name>BitcoinGUI</name>
+>>>>>>> mryiad/master
     <message>
         <source>Sign &amp;message...</source>
         <translation>Signera &amp;meddelande...</translation>
@@ -297,8 +332,13 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Avsluta programmet</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show information about DigiByte</source>
         <translation>Visa information om DigiByte</translation>
+=======
+        <source>Show information about Myriadcoin</source>
+        <translation>Visa information om Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -345,12 +385,21 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Återindexerar block på disken...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Send coins to a DigiByte address</source>
         <translation>Skicka mynt till en DigiByte-adress</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
         <translation>Ändra konfigurationsalternativ för DigiByte</translation>
+=======
+        <source>Send coins to a Myriadcoin address</source>
+        <translation>Skicka mynt till en Bitcoin-adress</translation>
+    </message>
+    <message>
+        <source>Modify configuration options for Myriadcoin</source>
+        <translation>Ändra konfigurationsalternativ för Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -373,8 +422,13 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>&amp;Verifiera meddelande...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -401,12 +455,21 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Kryptera de privata nycklar som tillhör din plånbok</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
         <translation>Signera meddelanden med din DigiByte adress för att bevisa att du äger dem</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
         <translation>Verifiera meddelanden för att vara säker på att de var signerade med den specificerade DigiByte-adressen</translation>
+=======
+        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
+        <translation>Signera meddelanden med din Bitcoinadress för att bevisa att du äger dem</translation>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
+        <translation>Verifiera meddelanden för att vara säker på att de var signerade med den specificerade Bitcoin-adressen</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;File</source>
@@ -429,6 +492,7 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>[testnet]</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Kärna</translation>
     </message>
@@ -439,6 +503,18 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
     <message>
         <source>&amp;About DigiByte Core</source>
         <translation>&amp;Om DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Kärna</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and myriadcoin: URIs)</source>
+        <translation>Begär betalning (genererar QR-koder och bitcoin-URI)</translation>
+    </message>
+    <message>
+        <source>&amp;About Myriadcoin Core</source>
+        <translation>&amp;Om Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -449,14 +525,20 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Visa listan av använda mottagningsadresser och etiketter</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open a digibyte: URI or payment request</source>
         <translation>Öppna en digibyte: URI eller betalningsbegäran</translation>
+=======
+        <source>Open a myriadcoin: URI or payment request</source>
+        <translation>Öppna en myriadcoin: URI eller betalningsbegäran</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Kommandoradsalternativ</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
         <translation>Visa DigiByte Core hjälpmeddelande för att få en lista med möjliga DigiByte kommandoradsalternativ.</translation>
     </message>
@@ -467,6 +549,18 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
         <translation><numerusform>%n aktiv anslutning till DigiByte-nätverket</numerusform><numerusform>%n aktiva anslutningar till DigiByte-nätverket</numerusform></translation>
+=======
+        <source>Show the Myriadcoin Core help message to get a list with possible Myriadcoin command-line options</source>
+        <translation>Visa Myriadcoin Core hjälpmeddelande för att få en lista med möjliga Myriadcoin kommandoradsalternativ.</translation>
+    </message>
+    <message>
+        <source>Myriadcoin client</source>
+        <translation>Bitcoin-klient</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n active connection(s) to Myriadcoin network</source>
+        <translation><numerusform>%n aktiv anslutning till Bitcoin-nätverket</numerusform><numerusform>%n aktiva anslutningar till Bitcoin-nätverket</numerusform></translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>No block source available...</source>
@@ -561,8 +655,13 @@ Adress: %4
         <translation>Denna plånbok är &lt;b&gt;krypterad&lt;/b&gt; och för närvarande &lt;b&gt;låst&lt;/b&gt;</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
         <translation>Ett allvarligt fel har uppstått. DigiByte kan inte längre köras säkert och kommer att avslutas.</translation>
+=======
+        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
+        <translation>Ett allvarligt fel har uppstått. Myriadcoin kan inte längre köras säkert och kommer att avslutas.</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -846,8 +945,13 @@ Adress: %4
         <translation>Den angivna adressen &quot;%1&quot; finns redan i adressboken.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
         <translation>Den angivna adressen &quot;%1&quot; är inte en giltig DigiByte-adress.</translation>
+=======
+        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
+        <translation>Den angivna adressen &quot;%1&quot; är inte en giltig Bitcoin-adress.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -884,12 +988,21 @@ Adress: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core - Command-line options</source>
         <translation>DigiByte Core - Kommandoradsalternativ</translation>
     </message>
     <message>
         <source>DigiByte Core</source>
         <translation>DigiByte Kärna</translation>
+=======
+        <source>Myriadcoin Core - Command-line options</source>
+        <translation>Myriadcoin Core - Kommandoradsalternativ</translation>
+    </message>
+    <message>
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Kärna</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>version</source>
@@ -935,6 +1048,7 @@ Adress: %4
         <translation>Välkommen</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to DigiByte Core.</source>
         <translation>Välkommen till DigiByte Core.</translation>
     </message>
@@ -945,6 +1059,18 @@ Adress: %4
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation>DigiByte Core kommer att ladda ner och spara en kopia av DigiByte blockkedjan. Åtminstone %1GB av data kommer att sparas i denna katalog, och den kommer att växa över tiden. Plånboken kommer också att sparas i denna katalog.</translation>
+=======
+        <source>Welcome to Myriadcoin Core.</source>
+        <translation>Välkommen till Myriadcoin Core.</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where Myriadcoin Core will store its data.</source>
+        <translation>Eftersom detta är första gången programmet startas får du välja var Myriadcoin Core skall lagra sitt data.</translation>
+    </message>
+    <message>
+        <source>Myriadcoin Core will download and store a copy of the Myriadcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Myriadcoin Core kommer att ladda ner och spara en kopia av Myriadcoin blockkedjan. Åtminstone %1GB av data kommer att sparas i denna katalog, och den kommer att växa över tiden. Plånboken kommer också att sparas i denna katalog.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -955,8 +1081,13 @@ Adress: %4
         <translation>Använd en anpassad datakatalog:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; can not be created.</source>
@@ -1017,12 +1148,21 @@ Adress: %4
         <translation>Betala överförings&amp;avgift</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically start DigiByte after logging in to the system.</source>
         <translation>Starta DigiByte automatiskt efter inloggning.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
         <translation>&amp;Starta DigiByte vid systemstart</translation>
+=======
+        <source>Automatically start Myriadcoin after logging in to the system.</source>
+        <translation>Starta Myriadcoin automatiskt efter inloggning.</translation>
+    </message>
+    <message>
+        <source>&amp;Start Myriadcoin on system login</source>
+        <translation>&amp;Starta Myriadcoin vid systemstart</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1037,8 +1177,13 @@ Adress: %4
         <translation>Antalet skript &amp; verifikationstrådar</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
         <translation>Anslut till DigiByte-nätverket genom en SOCKS-proxy.</translation>
+=======
+        <source>Connect to the Myriadcoin network through a SOCKS proxy.</source>
+        <translation>Anslut till Bitcoin-nätverket genom en SOCKS-proxy.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1097,8 +1242,13 @@ Adress: %4
         <translation>&amp;Spendera okonfirmerad växel</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Öppna automatiskt DigiByte-klientens port på routern. Detta fungerar endast om din router har UPnP aktiverat.</translation>
+=======
+        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Öppna automatiskt Bitcoin-klientens port på routern. Detta fungerar endast om din router har UPnP aktiverat.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1153,8 +1303,13 @@ Adress: %4
         <translation>Användargränssnittets &amp;språk: </translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
         <translation>Användargränssnittets språk kan ställas in här. Denna inställning träder i kraft efter en omstart av DigiByte.</translation>
+=======
+        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
+        <translation>Användargränssnittets språk kan ställas in här. Denna inställning träder i kraft efter en omstart av Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1165,8 +1320,13 @@ Adress: %4
         <translation>Välj en måttenhet att visa när du skickar mynt.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
         <translation>Anger om DigiByte-adresser skall visas i transaktionslistan.</translation>
+=======
+        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
+        <translation>Anger om Bitcoin-adresser skall visas i transaktionslistan.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
@@ -1220,8 +1380,13 @@ Adress: %4
         <translation>Formulär</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
         <translation>Den visade informationen kan vara inaktuell. Plånboken synkroniseras automatiskt med DigiByte-nätverket efter att anslutningen är upprättad, men denna process har inte slutförts ännu.</translation>
+=======
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Den visade informationen kan vara inaktuell. Plånboken synkroniseras automatiskt med Bitcoin-nätverket efter att anslutningen är upprättad, men denna process har inte slutförts ännu.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -1275,8 +1440,13 @@ Adress: %4
         <translation>URI hantering</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
         <translation>URI går inte att tolkas! Detta kan orsakas av en ogiltig DigiByte-adress eller felaktiga URI parametrar.</translation>
+=======
+        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
+        <translation>URI går inte att tolkas! Detta kan orsakas av en ogiltig Bitcoin-adress eller felaktiga URI parametrar.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1287,8 +1457,13 @@ Adress: %4
         <translation>Fel vid betalningsbegäran</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot start digibyte: click-to-pay handler</source>
         <translation>Kan inte starta digibyte: klicka-och-betala handhavare</translation>
+=======
+        <source>Cannot start myriadcoin: click-to-pay handler</source>
+        <translation>Kan inte starta myriadcoin: klicka-och-betala handhavare</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Net manager warning</source>
@@ -1342,8 +1517,13 @@ Adress: %4
 <context>
     <name>QObject</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
@@ -1358,12 +1538,21 @@ Adress: %4
         <translation>Fel: Felaktig kombination av -regtest och -testnet.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core didn&apos;t yet exit safely...</source>
         <translation>DigiByte Core avslutades inte ännu säkert...</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Ange en DigiByte-adress (t.ex. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Myriadcoin Core didn&apos;t yet exit safely...</source>
+        <translation>Myriadcoin Core avslutades inte ännu säkert...</translation>
+    </message>
+    <message>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ange en Bitcoin-adress (t.ex. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -1484,16 +1673,26 @@ Adress: %4
         <translation>Debugloggfil</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Öppna DigiByte debug-loggfilen som finns i datakatalogen. Detta kan ta några sekunder för stora loggfiler.</translation>
+=======
+        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Öppna Myriadcoin debug-loggfilen som finns i datakatalogen. Detta kan ta några sekunder för stora loggfiler.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Clear console</source>
         <translation>Rensa konsollen</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to the DigiByte RPC console.</source>
         <translation>Välkommen till DigiByte RPC-konsollen.</translation>
+=======
+        <source>Welcome to the Myriadcoin RPC console.</source>
+        <translation>Välkommen till Myriadcoin RPC-konsollen.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1555,8 +1754,13 @@ Adress: %4
         <translation>Åt&amp;eranvänd en existerande mottagningsadress (rekommenderas inte)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
         <translation>Ett frivilligt meddelande att bifoga betalningsbegäran, vilket visas när begäran öppnas. NB: Meddelandet kommer inte att sändas med betalningen över DigiBytenätverket.</translation>
+=======
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriadcoin network.</source>
+        <translation>Ett frivilligt meddelande att bifoga betalningsbegäran, vilket visas när begäran öppnas. NB: Meddelandet kommer inte att sändas med betalningen över Bitcoinnätverket.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1868,8 +2072,13 @@ Adress: %4
         <translation>Transaktionen avslogs! Detta kan hända om några av mynten i plånboken redan spenderats, t.ex om du använt en kopia av wallet.dat och mynt spenderades i kopian men inte markerats som spenderade här.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Invalid DigiByte address</source>
         <translation>Varning: Felaktig DigiByte adress</translation>
+=======
+        <source>Warning: Invalid Myriadcoin address</source>
+        <translation>Varning: Felaktig Bitcoinadress</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>(no label)</source>
@@ -1907,8 +2116,13 @@ Adress: %4
         <translation>Betala &amp;Till:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Adressen som betalningen skall skickas till  (t.ex. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Adressen som betalningen skall skickas till  (t.ex. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1955,8 +2169,13 @@ Adress: %4
         <translation>Ange en etikett för denna adress att adderas till listan över använda adresser</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation>Ett meddelande som bifogades bitcoin-URI, vilket lagras med transaktionen som referens. NB: Meddelandet kommer inte att sändas över DigiBytenätverket.</translation>
+=======
+        <source>A message that was attached to the myriadcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriadcoin network.</source>
+        <translation>Ett meddelande som bifogades bitcoin-URI, vilket lagras med transaktionen som referens. NB: Meddelandet kommer inte att sändas över Bitcoinnätverket.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -1974,8 +2193,13 @@ Adress: %4
 <context>
     <name>ShutdownWindow</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core is shutting down...</source>
         <translation>DigiByte Core stängs av...</translation>
+=======
+        <source>Myriadcoin Core is shutting down...</source>
+        <translation>Myriadcoin Core stängs av...</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -1997,8 +2221,13 @@ Adress: %4
         <translation>Du kan signera meddelanden med dina adresser för att bevisa att du äger dem. Var försiktig med vad du signerar eftersom phising-attacker kan försöka få dig att skriva över din identitet till någon annan. Signera bara väldetaljerade påståenden du kan gå i god för.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Adressen att signera meddelandet med  (t.ex. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Adressen att signera meddelandet med  (t.ex. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2029,7 +2258,11 @@ Adress: %4
         <translation>Kopiera signaturen till systemets Urklipp</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign the message to prove you own this DigiByte address</source>
+=======
+        <source>Sign the message to prove you own this Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation>Signera meddelandet för att bevisa att du äger denna adress</translation>
     </message>
     <message>
@@ -2053,12 +2286,21 @@ Adress: %4
         <translation>Skriv in din adress, meddelande (se till att du kopierar radbrytningar, mellanslag, tabbar, osv. exakt) och signatur nedan för att verifiera meddelandet. Var noga med att inte läsa in mer i signaturen än vad som finns i det signerade meddelandet, för att undvika att luras av en man-in-the-middle attack.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Adressen som meddelandet var signerat med  (t.ex. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Verifiera meddelandet för att vara säker på att den var signerad med den angivna DigiByte-adressen</translation>
+=======
+        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Adressen som meddelandet var signerat med  (t.ex. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+    </message>
+    <message>
+        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
+        <translation>Verifiera meddelandet för att vara säker på att den var signerad med den angivna Bitcoin-adressen</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2069,8 +2311,13 @@ Adress: %4
         <translation>Rensa alla fält</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Ange en DigiByte-adress (t.ex. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Ange en Bitcoin-adress (t.ex. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2128,12 +2375,21 @@ Adress: %4
 <context>
     <name>SplashScreen</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Kärna</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
         <translation>DigiByte Core-utvecklarna</translation>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Kärna</translation>
+    </message>
+    <message>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+        <translation>Myriadcoin Core-utvecklarna</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>[testnet]</source>
@@ -2611,12 +2867,21 @@ Adress: %4
         <translation>Inställningar:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Specify configuration file (default: digibyte.conf)</source>
         <translation>Ange konfigurationsfil (förvalt: digibyte.conf)</translation>
     </message>
     <message>
         <source>Specify pid file (default: digibyted.pid)</source>
         <translation>Ange pid fil (förvalt: digibyted.pid)</translation>
+=======
+        <source>Specify configuration file (default: myriadcoin.conf)</source>
+        <translation>Ange konfigurationsfil (förvalt: myriadcoin.conf)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: myriadcoind.pid)</source>
+        <translation>Ange pid fil (förvalt: myriadcoind.pid)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Specify data directory</source>
@@ -2659,8 +2924,13 @@ Adress: %4
         <translation>Tillåt kommandon från kommandotolken och JSON-RPC-kommandon</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core RPC client version</source>
         <translation>DigiByte Core RPC-klient version</translation>
+=======
+        <source>Myriadcoin Core RPC client version</source>
+        <translation>Myriadcoin Core RPC-klient version</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Run in the background as a daemon and accept commands</source>
@@ -2678,24 +2948,40 @@ Adress: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
+<<<<<<< HEAD
 for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
+=======
+for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+>>>>>>> mryiad/master
 </source>
         <translation>%s, du behöver sätta ett rpclösensord i konfigurationsfilen:
 %s
 Det är rekommenderat att använda följande slumpade lösenord:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (du behöver inte komma ihåg lösenordet)
 Användarnamnet och lösenordet FÅR INTE bara detsamma.
 Om filen inte existerar, skapa den med enbart ägarläsbara filrättigheter.
 Det är också rekommenderat att sätta alertnotify så du meddelas om problem;
+<<<<<<< HEAD
 till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
+=======
+till exempel: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+>>>>>>> mryiad/master
 </translation>
     </message>
     <message>
@@ -2732,7 +3018,11 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
     </message>
     <message>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
+<<<<<<< HEAD
         <translation>Fel: Denna transaktion kräver en transaktionsavgift på minst %s på grund av dess storlek, komplexitet, eller användning av senast mottagna digibytes!</translation>
+=======
+        <translation>Fel: Denna transaktion kräver en transaktionsavgift på minst %s på grund av dess storlek, komplexitet, eller användning av senast mottagna myriadcoins!</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
@@ -2767,8 +3057,13 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Detta är ett förhands testbygge - använd på egen risk - använd inte för mining eller handels applikationer</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Unable to bind to %s on this computer. DigiByte Core is probably already running.</source>
         <translation>Det går inte att binda till %s på den här datorn. DigiByte Core är förmodligen redan igång.</translation>
+=======
+        <source>Unable to bind to %s on this computer. Myriadcoin Core is probably already running.</source>
+        <translation>Det går inte att binda till %s på den här datorn. Myriadcoin Core är förmodligen redan igång.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: -proxy)</source>
@@ -2779,8 +3074,13 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Varning: -paytxfee är satt väldigt hög! Detta är avgiften du kommer betala för varje transaktion.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
         <translation>Varning: Vänligen kolla så att din dators datum och tid är korrekt! Om din klocka går fel kommer DigiByte inte fungera korrekt.</translation>
+=======
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
+        <translation>Varning: Vänligen kolla så att din dators datum och tid är korrekt! Om din klocka går fel kommer Myriadcoin inte fungera korrekt.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -2815,8 +3115,13 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Försök att rädda de privata nycklarna från en korrupt wallet.dat</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core Daemon</source>
         <translation>DigiByte Core tjänsten</translation>
+=======
+        <source>Myriadcoin Core Daemon</source>
+        <translation>Myriadcoin Core tjänsten</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Block creation options:</source>
@@ -3023,8 +3328,13 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Detta är avsett för regressionstestningsverktyg och applikationsutveckling.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Usage (deprecated, use digibyte-cli):</source>
         <translation>Användning (föråldrat, använd digibyte-cli):</translation>
+=======
+        <source>Usage (deprecated, use myriadcoin-cli):</source>
+        <translation>Användning (föråldrat, använd myriadcoin-cli):</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Verifying blocks...</source>
@@ -3059,8 +3369,13 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Importerar block från extern blk000??.dat fil</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot obtain a lock on data directory %s. DigiByte Core is probably already running.</source>
         <translation>Kan inte låsa data-mappen %s. DigiByte Core körs förmodligen redan.</translation>
+=======
+        <source>Cannot obtain a lock on data directory %s. Myriadcoin Core is probably already running.</source>
+        <translation>Kan inte låsa data-mappen %s. Myriadcoin Core körs förmodligen redan.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
@@ -3123,8 +3438,13 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Skriv ut blockträdet vid uppstart (förvalt: 0)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>RPC SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>RPC SSL optioner: (se DigiByte Wiki för SSL inställningsinstruktioner)</translation>
+=======
+        <source>RPC SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>RPC SSL optioner: (se Myriadcoin Wiki för SSL inställningsinstruktioner)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>RPC server options:</source>
@@ -3143,12 +3463,21 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Kör en tråd för att tömma plånboken periodiskt (förvalt: 1)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>SSL-inställningar: (se DigiByte-wikin för SSL-setup instruktioner)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
         <translation>Sänd kommando till DigiByte Core</translation>
+=======
+        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>SSL-inställningar: (se Bitcoin-wikin för SSL-setup instruktioner)</translation>
+    </message>
+    <message>
+        <source>Send command to Myriadcoin Core</source>
+        <translation>Sänd kommando till Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
@@ -3183,8 +3512,13 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Ange timeout för uppkoppling i millisekunder (förvalt: 5000)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Start DigiByte Core Daemon</source>
         <translation>Starta DigiByte Core tjänsten</translation>
+=======
+        <source>Start Myriadcoin Core Daemon</source>
+        <translation>Starta Myriadcoin Core tjänsten</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>System error: </source>
@@ -3299,12 +3633,21 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
         <translation>Fel vid inläsningen av wallet.dat: Plånboken är skadad</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
         <translation>Fel vid inläsningen av wallet.dat: Plånboken kräver en senare version av DigiByte</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
         <translation>Plånboken behöver skrivas om: Starta om DigiByte för att färdigställa</translation>
+=======
+        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
+        <translation>Fel vid inläsningen av wallet.dat: Plånboken kräver en senare version av Myriadcoin</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
+        <translation>Plånboken behöver skrivas om: Starta om Myriadcoin för att färdigställa</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error loading wallet.dat</source>
@@ -3340,7 +3683,11 @@ till exempel: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@fo
     </message>
     <message>
         <source>Insufficient funds</source>
+<<<<<<< HEAD
         <translation>Otillräckligt med digibytes</translation>
+=======
+        <translation>Otillräckligt med myriadcoins</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Loading block index...</source>

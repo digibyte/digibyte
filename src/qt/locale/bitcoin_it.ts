@@ -2,12 +2,21 @@
 <context>
     <name>AboutDialog</name>
     <message>
+<<<<<<< HEAD
         <source>About DigiByte Core</source>
         <translation>Info su DigiByte Core</translation>
     </message>
     <message>
         <source>&lt;b&gt;DigiByte Core&lt;/b&gt; version</source>
         <translation>Versione &lt;b&gt;DigiByte Core&lt;/b&gt;</translation>
+=======
+        <source>About Myriadcoin Core</source>
+        <translation>Info su Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Myriadcoin Core&lt;/b&gt; version</source>
+        <translation>Versione &lt;b&gt;Myriadcoin Core&lt;/b&gt;</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>
@@ -28,8 +37,13 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Copyright</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The Bitcoin and DigiByte Core developers</source>
         <translation>Gli sviluppatori del DigiByte Core</translation>
+=======
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+        <translation>Gli sviluppatori del Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>(%1-bit)</source>
@@ -103,12 +117,21 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Indirizzi di ricezione</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Questo è un elenco di indirizzi digibyte a cui puoi inviare pagamenti. Controlla sempre l&apos;importo e l&apos;indirizzo del beneficiario prima di inviare bitcoin.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>Questi sono i tuoi indirizzi digibyte che puoi usare per ricevere pagamenti. Si raccomanda di generare un nuovo indirizzo per ogni transazione.</translation>
+=======
+        <source>These are your Myriadcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Questo è un elenco di indirizzi myriadcoin a cui puoi inviare pagamenti. Controlla sempre l&apos;importo e l&apos;indirizzo del beneficiario prima di inviare bitcoin.</translation>
+    </message>
+    <message>
+        <source>These are your Myriadcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Questi sono i tuoi indirizzi myriadcoin che puoi usare per ricevere pagamenti. Si raccomanda di generare un nuovo indirizzo per ogni transazione.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -205,8 +228,13 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Conferma la cifratura del portamonete</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
         <translation>Attenzione: se si cifra il portamonete e si perde la passphrase &lt;b&gt;TUTTI I PROPRI DGBIADCOIN ANDRANNO PERSI&lt;/b&gt;!</translation>
+=======
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADCOINS&lt;/b&gt;!</source>
+        <translation>Attenzione: se si cifra il portamonete e si perde la passphrase &lt;b&gt;TUTTI I PROPRI MYRIADCOIN ANDRANNO PERSI&lt;/b&gt;!</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -225,8 +253,13 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Portamonete cifrato</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
         <translation>DigiByte si chiuderà per portare a termine il processo di cifratura. Ricorda che cifrare il tuo portamonete non può fornire una protezione totale contro i furti causati da infezioni malware.</translation>
+=======
+        <source>Myriadcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Myriadcoin si chiuderà per portare a termine il processo di cifratura. Ricorda che cifrare il tuo portamonete non può fornire una protezione totale contro i furti causati da infezioni malware.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -258,7 +291,11 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
 </context>
 <context>
+<<<<<<< HEAD
     <name>DigiByteGUI</name>
+=======
+    <name>BitcoinGUI</name>
+>>>>>>> mryiad/master
     <message>
         <source>Sign &amp;message...</source>
         <translation>Firma il &amp;messaggio...</translation>
@@ -296,8 +333,13 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Chiudi applicazione</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show information about DigiByte</source>
         <translation>Mostra informazioni su DigiByte</translation>
+=======
+        <source>Show information about Myriadcoin</source>
+        <translation>Mostra informazioni su Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -344,11 +386,19 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Re-indicizzazione blocchi su disco...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Send coins to a DigiByte address</source>
         <translation>Invia monete ad un indirizzo bitcoin</translation>
     </message>
     <message>
         <source>Modify configuration options for DigiByte</source>
+=======
+        <source>Send coins to a Myriadcoin address</source>
+        <translation>Invia monete ad un indirizzo bitcoin</translation>
+    </message>
+    <message>
+        <source>Modify configuration options for Myriadcoin</source>
+>>>>>>> mryiad/master
         <translation>Modifica opzioni di configurazione per bitcoin</translation>
     </message>
     <message>
@@ -372,8 +422,13 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>&amp;Verifica messaggio...</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -400,12 +455,21 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Cifra le chiavi private che appartengono al tuo portamonete</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
         <translation>Firma i messaggi con il tuo indirizzo digibyte per dimostrarne il possesso</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
         <translation>Verifica i messaggi per accertare che siano stati firmati con gli indirizzi digibyte specificati</translation>
+=======
+        <source>Sign messages with your Myriadcoin addresses to prove you own them</source>
+        <translation>Firma i messaggi con il tuo indirizzo myriadcoin per dimostrarne il possesso</translation>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified Myriadcoin addresses</source>
+        <translation>Verifica i messaggi per accertare che siano stati firmati con gli indirizzi myriadcoin specificati</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;File</source>
@@ -428,6 +492,7 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>[testnet]</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Core</translation>
     </message>
@@ -438,6 +503,18 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     <message>
         <source>&amp;About DigiByte Core</source>
         <translation>Info su DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and myriadcoin: URIs)</source>
+        <translation>Richiedi pagamenti (genera codici QR e myriadcoin: URI)</translation>
+    </message>
+    <message>
+        <source>&amp;About Myriadcoin Core</source>
+        <translation>Info su Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -448,7 +525,11 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Mostra la lista degli indirizzi di ricezione utilizzati</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open a digibyte: URI or payment request</source>
+=======
+        <source>Open a myriadcoin: URI or payment request</source>
+>>>>>>> mryiad/master
         <translation>Apri un URI o una richiesta di pagamento</translation>
     </message>
     <message>
@@ -456,6 +537,7 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
         <translation>Opzioni riga di &amp;comando</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Show the DigiByte Core help message to get a list with possible DigiByte command-line options</source>
         <translation>Mostra il messaggio di aiuto di DigiByte Core per avere la lista di tutte le opzioni della riga di comando di DigiByte.</translation>
     </message>
@@ -466,6 +548,18 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
         <translation><numerusform>%n connessione attiva alla rete DigiByte</numerusform><numerusform>%n connessioni attive alla rete DigiByte</numerusform></translation>
+=======
+        <source>Show the Myriadcoin Core help message to get a list with possible Myriadcoin command-line options</source>
+        <translation>Mostra il messaggio di aiuto di Myriadcoin Core per avere la lista di tutte le opzioni della riga di comando di Myriadcoin.</translation>
+    </message>
+    <message>
+        <source>Myriadcoin client</source>
+        <translation>Myriadcoin client</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n active connection(s) to Myriadcoin network</source>
+        <translation><numerusform>%n connessione attiva alla rete Myriadcoin</numerusform><numerusform>%n connessioni attive alla rete Myriadcoin</numerusform></translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>No block source available...</source>
@@ -561,8 +655,13 @@ Indirizzo: %4
         <translation>Il portamonete è &lt;b&gt;cifrato&lt;/b&gt; ed attualmente &lt;b&gt;bloccato&lt;/b&gt;</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
         <translation>Riscontrato un errore irreversibile. DigiByte non può più continuare in sicurezza e sarà terminato.</translation>
+=======
+        <source>A fatal error occurred. Myriadcoin can no longer continue safely and will quit.</source>
+        <translation>Riscontrato un errore irreversibile. Myriadcoin non può più continuare in sicurezza e sarà terminato.</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -846,8 +945,13 @@ Indirizzo: %4
         <translation>L&apos;indirizzo inserito &quot;%1&quot; è già in rubrica.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The entered address &quot;%1&quot; is not a valid DigiByte address.</source>
         <translation>L&apos;indirizzo inserito &quot;%1&quot; non è un indirizzo digibyte valido.</translation>
+=======
+        <source>The entered address &quot;%1&quot; is not a valid Myriadcoin address.</source>
+        <translation>L&apos;indirizzo inserito &quot;%1&quot; non è un indirizzo myriadcoin valido.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -884,12 +988,21 @@ Indirizzo: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core - Command-line options</source>
         <translation>DigiByte Core - Opzioni riga di comando</translation>
     </message>
     <message>
         <source>DigiByte Core</source>
         <translation>DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core - Command-line options</source>
+        <translation>Myriadcoin Core - Opzioni riga di comando</translation>
+    </message>
+    <message>
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>version</source>
@@ -935,6 +1048,7 @@ Indirizzo: %4
         <translation>Benvenuto</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to DigiByte Core.</source>
         <translation>Benvenuti su DigiByte Core.</translation>
     </message>
@@ -945,6 +1059,18 @@ Indirizzo: %4
     <message>
         <source>DigiByte Core will download and store a copy of the DigiByte block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation>DigiByte Core scaricherà e salverà una copia del block chain di DigiByte. Almeno %1GB di dati che andranno ad aumentare col tempo saranno salvati in questa cartella. Anche il portamonete sarà salvato in questa cartella.</translation>
+=======
+        <source>Welcome to Myriadcoin Core.</source>
+        <translation>Benvenuti su Myriadcoin Core.</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where Myriadcoin Core will store its data.</source>
+        <translation>Visto che questa è la prima volta che il programma viene lanciato, puoi scegliere dove Myriadcoin Core salverà i propri dati.</translation>
+    </message>
+    <message>
+        <source>Myriadcoin Core will download and store a copy of the Myriadcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Myriadcoin Core scaricherà e salverà una copia del block chain di Myriadcoin. Almeno %1GB di dati che andranno ad aumentare col tempo saranno salvati in questa cartella. Anche il portamonete sarà salvato in questa cartella.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -955,8 +1081,13 @@ Indirizzo: %4
         <translation>Usa una cartella dati personalizzata:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; can not be created.</source>
@@ -1017,12 +1148,21 @@ Indirizzo: %4
         <translation>Paga la &amp;commissione</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically start DigiByte after logging in to the system.</source>
         <translation>Avvia automaticamente DigiByte una volta effettuato l&apos;accesso al sistema.</translation>
     </message>
     <message>
         <source>&amp;Start DigiByte on system login</source>
         <translation>&amp;Avvia DigiByte all&apos;accesso al sistema</translation>
+=======
+        <source>Automatically start Myriadcoin after logging in to the system.</source>
+        <translation>Avvia automaticamente Myriadcoin una volta effettuato l&apos;accesso al sistema.</translation>
+    </message>
+    <message>
+        <source>&amp;Start Myriadcoin on system login</source>
+        <translation>&amp;Avvia Myriadcoin all&apos;accesso al sistema</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1037,8 +1177,13 @@ Indirizzo: %4
         <translation>Numero di thread di &amp;verifica degli script </translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Connect to the DigiByte network through a SOCKS proxy.</source>
         <translation>Connessione alla rete DigiByte attraverso un proxy SOCKS.</translation>
+=======
+        <source>Connect to the Myriadcoin network through a SOCKS proxy.</source>
+        <translation>Connessione alla rete Myriadcoin attraverso un proxy SOCKS.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1098,8 +1243,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>%Spendere resti non confermati</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Apri automaticamente la porta del client DigiByte sul router. Il protocollo UPnP deve essere supportato da parte del router ed attivo.</translation>
+=======
+        <source>Automatically open the Myriadcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Apri automaticamente la porta del client Myriadcoin sul router. Il protocollo UPnP deve essere supportato da parte del router ed attivo.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1154,8 +1304,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>&amp;Lingua Interfaccia Utente:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The user interface language can be set here. This setting will take effect after restarting DigiByte.</source>
         <translation>La lingua dell&apos;interfaccia utente può essere impostata qui. L&apos;impostazione avrà effetto dopo il riavvio di DigiByte.</translation>
+=======
+        <source>The user interface language can be set here. This setting will take effect after restarting Myriadcoin.</source>
+        <translation>La lingua dell&apos;interfaccia utente può essere impostata qui. L&apos;impostazione avrà effetto dopo il riavvio di Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1166,7 +1321,11 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Scegli l&apos;unità di suddivisione predefinita da utilizzare per l&apos;interfaccia e per l&apos;invio di monete.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Whether to show DigiByte addresses in the transaction list or not.</source>
+=======
+        <source>Whether to show Myriadcoin addresses in the transaction list or not.</source>
+>>>>>>> mryiad/master
         <translation>Specifica se gli indirizzi saranno visualizzati nella lista delle transazioni.</translation>
     </message>
     <message>
@@ -1221,8 +1380,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Modulo</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
         <translation>Le informazioni visualizzate potrebbero non essere aggiornate. Il portamonete si sincronizza automaticamente con la rete DigiByte una volta stabilita una connessione, ma questo processo non è ancora stato completato.</translation>
+=======
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriadcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Le informazioni visualizzate potrebbero non essere aggiornate. Il portamonete si sincronizza automaticamente con la rete Myriadcoin una volta stabilita una connessione, ma questo processo non è ancora stato completato.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet</source>
@@ -1276,8 +1440,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Gestione URI</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>URI can not be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
         <translation>Impossibile interpretare l&apos;URI! Ciò può essere provocato da un indirizzo DigiByte non valido o da parametri URI non corretti.</translation>
+=======
+        <source>URI can not be parsed! This can be caused by an invalid Myriadcoin address or malformed URI parameters.</source>
+        <translation>Impossibile interpretare l&apos;URI! Ciò può essere provocato da un indirizzo Myriadcoin non valido o da parametri URI non corretti.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
@@ -1288,8 +1457,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Errore di richiesta di pagamento</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot start digibyte: click-to-pay handler</source>
         <translation>Impossibile avviare digibyte: gestore click-to-pay</translation>
+=======
+        <source>Cannot start myriadcoin: click-to-pay handler</source>
+        <translation>Impossibile avviare myriadcoin: gestore click-to-pay</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Net manager warning</source>
@@ -1343,8 +1517,13 @@ Più URL vengono separati da una barra verticale |.</translation>
 <context>
     <name>QObject</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
+=======
+        <source>Myriadcoin</source>
+        <translation>Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
@@ -1359,12 +1538,21 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Errore: combinazione di -regtest e -testnet non valida.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core didn&apos;t yet exit safely...</source>
         <translation>DigiByte Core non si è ancora chiuso con sicurezza...</translation>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Inserisci un indirizzo DigiByte (ad esempio DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Myriadcoin Core didn&apos;t yet exit safely...</source>
+        <translation>Myriadcoin Core non si è ancora chiuso con sicurezza...</translation>
+    </message>
+    <message>
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Inserisci un indirizzo Myriadcoin (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -1485,16 +1673,26 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>File log del Debug</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Open the DigiByte debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Apri il file di log del debug di DigiByte dalla cartella attuale. Può richiedere alcuni secondi per file di log grandi.</translation>
+=======
+        <source>Open the Myriadcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Apri il file di log del debug di Myriadcoin dalla cartella attuale. Può richiedere alcuni secondi per file di log grandi.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Clear console</source>
         <translation>Cancella console</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Welcome to the DigiByte RPC console.</source>
         <translation>Benvenuto nella console RPC di DigiByte</translation>
+=======
+        <source>Welcome to the Myriadcoin RPC console.</source>
+        <translation>Benvenuto nella console RPC di Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1556,8 +1754,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>R&amp;iusa un indirizzo di ricezione (non raccomandato)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
         <translation>Un messaggio opzionale da allegare alla richiesta di pagamento, il quale sarà mostrato all&apos;apertura della richiesta. Nota: Il messaggio non sarà inviato con il pagamento sulla rete DigiByte.</translation>
+=======
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriadcoin network.</source>
+        <translation>Un messaggio opzionale da allegare alla richiesta di pagamento, il quale sarà mostrato all&apos;apertura della richiesta. Nota: Il messaggio non sarà inviato con il pagamento sulla rete Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1706,7 +1909,11 @@ Più URL vengono separati da una barra verticale |.</translation>
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
+<<<<<<< HEAD
         <translation>Invia DigiByte</translation>
+=======
+        <translation>Invia Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1758,7 +1965,11 @@ Più URL vengono separati da una barra verticale |.</translation>
     </message>
     <message>
         <source>If this is activated, but the change address is empty or invalid, change will be sent to a newly generated address.</source>
+<<<<<<< HEAD
         <translation>Se questo è abilitato e l&apos;indirizzo per il resto è vuoto o invalido, il resto sarà inviato ad un nuovo indirizzo digibyte generato appositamente.</translation>
+=======
+        <translation>Se questo è abilitato e l&apos;indirizzo per il resto è vuoto o invalido, il resto sarà inviato ad un nuovo indirizzo myriadcoin generato appositamente.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Custom change address</source>
@@ -1858,7 +2069,11 @@ Più URL vengono separati da una barra verticale |.</translation>
     </message>
     <message>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
+<<<<<<< HEAD
         <translation>Rilevato un indirizzo duplicato, è possibile inviare digibyte una sola volta agli indirizzi durante un&apos;operazione di invio.</translation>
+=======
+        <translation>Rilevato un indirizzo duplicato, è possibile inviare myriadcoin una sola volta agli indirizzi durante un&apos;operazione di invio.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Transaction creation failed!</source>
@@ -1866,11 +2081,19 @@ Più URL vengono separati da una barra verticale |.</translation>
     </message>
     <message>
         <source>The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+<<<<<<< HEAD
         <translation>La transazione è stata rifiutata! Questo può accadere se alcuni digibyte nel tuo portamonete sono già stati spesi, ad esempio se hai utilizzato una copia del file wallet.dat per spendere digibyte e questi non sono stati considerati spesi dal portamonete corrente.</translation>
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
         <translation>Attenzione: Indirizzo DigiByte non valido</translation>
+=======
+        <translation>La transazione è stata rifiutata! Questo può accadere se alcuni myriadcoin nel tuo portamonete sono già stati spesi, ad esempio se hai utilizzato una copia del file wallet.dat per spendere myriadcoin e questi non sono stati considerati spesi dal portamonete corrente.</translation>
+    </message>
+    <message>
+        <source>Warning: Invalid Myriadcoin address</source>
+        <translation>Attenzione: Indirizzo Myriadcoin non valido</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>(no label)</source>
@@ -1908,8 +2131,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Paga &amp;a:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to send the payment to (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>L&apos;indirizzo del beneficiario a cui inviare il pagamento (ad esempio DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>L&apos;indirizzo del beneficiario a cui inviare il pagamento (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
@@ -1956,8 +2184,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Inserisci un&apos;etichetta per questo indirizzo per aggiungerlo alla lista degli indirizzi utilizzati</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
         <translation>Messaggio incluso nel digibyte URI e che sarà memorizzato con la transazione per vostro riferimento. Nota: Questo messaggio non sarà inviato attraverso la rete DigiByte.</translation>
+=======
+        <source>A message that was attached to the myriadcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriadcoin network.</source>
+        <translation>Messaggio incluso nel myriadcoin URI e che sarà memorizzato con la transazione per vostro riferimento. Nota: Questo messaggio non sarà inviato attraverso la rete Myriadcoin.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -1975,8 +2208,13 @@ Più URL vengono separati da una barra verticale |.</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core is shutting down...</source>
         <translation>Arresto di DigiByte Core in corso...</translation>
+=======
+        <source>Myriadcoin Core is shutting down...</source>
+        <translation>Arresto di Myriadcoin Core in corso...</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -1998,8 +2236,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Puoi firmare messaggi con i tuoi indirizzi in modo da dimostrarne il possesso. Presta attenzione a non firmare dichiarazioni vaghe, attacchi di phishing potrebbero cercare di spingerti ad apporre la tua firma su di esse. Firma solo dichiarazioni completamente dettagliate e delle quali condividi in pieno il contenuto.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address to sign the message with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>L&apos;indirizzo con cui firmare il messaggio (ad esempio DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>L&apos;indirizzo con cui firmare il messaggio (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2030,7 +2273,11 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Copia la firma corrente nella clipboard</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Sign the message to prove you own this DigiByte address</source>
+=======
+        <source>Sign the message to prove you own this Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation>Firma un messaggio per dimostrare di possedere questo indirizzo</translation>
     </message>
     <message>
@@ -2054,11 +2301,19 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Inserisci l&apos;indirizzo del firmatario, il messaggio (assicurati di copiare esattamente anche i ritorni a capo, gli spazi, le tabulazioni, etc..) e la firma qui sotto, per verificare il messaggio. Presta attenzione a non vedere nella firma più di quanto non sia riportato nel messaggio stesso, per evitare di cadere vittima di attacchi di tipo man-in-the-middle.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>The address the message was signed with (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>L&apos;indirizzo con cui è stato firmato il messaggio (ad esempio DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
+=======
+        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>L&apos;indirizzo con cui è stato firmato il messaggio (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+    </message>
+    <message>
+        <source>Verify the message to ensure it was signed with the specified Myriadcoin address</source>
+>>>>>>> mryiad/master
         <translation>Verifica il messaggio per accertare che sia stato firmato con l&apos;indirizzo specificato</translation>
     </message>
     <message>
@@ -2070,8 +2325,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Reimposta tutti i campi della verifica messaggio</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Enter a DigiByte address (e.g. DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
         <translation>Inserisci un indirizzo DigiByte (ad esempio DNS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+=======
+        <source>Enter a Myriadcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Inserisci un indirizzo Myriadcoin (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
@@ -2087,7 +2347,11 @@ Più URL vengono separati da una barra verticale |.</translation>
     </message>
     <message>
         <source>The entered address does not refer to a key.</source>
+<<<<<<< HEAD
         <translation>L&apos;indirizzo digibyte inserito non è associato a nessuna chiave.</translation>
+=======
+        <translation>L&apos;indirizzo myriadcoin inserito non è associato a nessuna chiave.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Wallet unlock was cancelled.</source>
@@ -2129,12 +2393,21 @@ Più URL vengono separati da una barra verticale |.</translation>
 <context>
     <name>SplashScreen</name>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core</source>
         <translation>DigiByte Core</translation>
     </message>
     <message>
         <source>The Bitcoin and DigiByte Core developers</source>
         <translation>Gli sviluppatori del DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core</source>
+        <translation>Myriadcoin Core</translation>
+    </message>
+    <message>
+        <source>The Bitcoin and Myriadcoin Core developers</source>
+        <translation>Gli sviluppatori del Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>[testnet]</source>
@@ -2248,7 +2521,11 @@ Più URL vengono separati da una barra verticale |.</translation>
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
+<<<<<<< HEAD
         <translation>È necessario attendere %1 blocchi prima che i digibyte generati possano essere spesi. Quando è stato generato questo blocco, è stato trasmesso alla rete in modo da poter essere aggiunto alla block chain. Se l&apos;inserimento avrà esito negativo il suo stato sarà modificato in &quot;non accettato&quot; e risulterà non spendibile. Questo può occasionalmente accadere se un altro nodo genera un blocco entro pochi secondi dal tuo.</translation>
+=======
+        <translation>È necessario attendere %1 blocchi prima che i myriadcoin generati possano essere spesi. Quando è stato generato questo blocco, è stato trasmesso alla rete in modo da poter essere aggiunto alla block chain. Se l&apos;inserimento avrà esito negativo il suo stato sarà modificato in &quot;non accettato&quot; e risulterà non spendibile. Questo può occasionalmente accadere se un altro nodo genera un blocco entro pochi secondi dal tuo.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Debug information</source>
@@ -2555,7 +2832,11 @@ Più URL vengono separati da una barra verticale |.</translation>
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
+<<<<<<< HEAD
         <translation>Invia DigiByte</translation>
+=======
+        <translation>Invia Myriadcoin</translation>
+>>>>>>> mryiad/master
     </message>
 </context>
 <context>
@@ -2612,12 +2893,21 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Opzioni:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Specify configuration file (default: digibyte.conf)</source>
         <translation>Specifica il file di configurazione (predefinito: digibyte.conf)</translation>
     </message>
     <message>
         <source>Specify pid file (default: digibyted.pid)</source>
         <translation>Specifica il file pid (predefinito: digibyted.pid)</translation>
+=======
+        <source>Specify configuration file (default: myriadcoin.conf)</source>
+        <translation>Specifica il file di configurazione (predefinito: myriadcoin.conf)</translation>
+    </message>
+    <message>
+        <source>Specify pid file (default: myriadcoind.pid)</source>
+        <translation>Specifica il file pid (predefinito: myriadcoind.pid)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Specify data directory</source>
@@ -2660,8 +2950,13 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Accetta comandi da riga di comando e JSON-RPC</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core RPC client version</source>
         <translation>Versione client RPC di DigiByte Core</translation>
+=======
+        <source>Myriadcoin Core RPC client version</source>
+        <translation>Versione client RPC di Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Run in the background as a daemon and accept commands</source>
@@ -2679,24 +2974,40 @@ Più URL vengono separati da una barra verticale |.</translation>
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
+<<<<<<< HEAD
 for example: alertnotify=echo %%s | mail -s &quot;DigiByte Alert&quot; admin@foo.com
+=======
+for example: alertnotify=echo %%s | mail -s &quot;Myriadcoin Alert&quot; admin@foo.com
+>>>>>>> mryiad/master
 </source>
         <translation>%s, devi impostare una rpcpassword nel file di configurazione:
 %s
 Si raccomanda l&apos;uso della seguente password generata casualmente:
+<<<<<<< HEAD
 rpcuser=digibyterpc
+=======
+rpcuser=myriadcoinrpc
+>>>>>>> mryiad/master
 rpcpassword=%s
 (non serve ricordare questa password)
 Il nome utente e la password NON DEVONO essere uguali.
 Se il file non esiste, crealo concedendo permessi di lettura al solo proprietario del file.
 Si raccomanda anche di impostare alertnotify così sarai avvisato di eventuali problemi;
+<<<<<<< HEAD
 ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@foo.com
+=======
+ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme Bitcoin&quot; admin@foo.com
+>>>>>>> mryiad/master
 </translation>
     </message>
     <message>
@@ -2729,7 +3040,11 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
     </message>
     <message>
         <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+<<<<<<< HEAD
         <translation>Errore: la transazione è stata rifiutata! Questo può accadere se alcuni digibyte nel tuo portamonete sono già stati spesi, ad esempio se hai utilizzato una copia del file wallet.dat per spendere digibyte e questi non sono stati considerati spesi dal portamonete corrente.</translation>
+=======
+        <translation>Errore: la transazione è stata rifiutata! Questo può accadere se alcuni myriadcoin nel tuo portamonete sono già stati spesi, ad esempio se hai utilizzato una copia del file wallet.dat per spendere myriadcoin e questi non sono stati considerati spesi dal portamonete corrente.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
@@ -2768,8 +3083,13 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Questa versione è una compilazione pre-rilascio - usala a tuo rischio - non utilizzarla per la generazione o per applicazioni di commercio</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Unable to bind to %s on this computer. DigiByte Core is probably already running.</source>
         <translation>Impossibile associarsi a %s su questo computer. Probabilmente DigiByte Core è già in esecuzione.</translation>
+=======
+        <source>Unable to bind to %s on this computer. Myriadcoin Core is probably already running.</source>
+        <translation>Impossibile associarsi a %s su questo computer. Probabilmente Myriadcoin Core è già in esecuzione.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: -proxy)</source>
@@ -2780,8 +3100,13 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Attenzione: -paytxfee è molto alta. Questa è la commissione che si paga quando si invia una transazione.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DigiByte will not work properly.</source>
         <translation>Attenzione: si prega di controllare che la data e l&apos;ora del computer siano corrette. Se l&apos;ora di sistema è errata DigiByte non funzionerà correttamente.</translation>
+=======
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Myriadcoin will not work properly.</source>
+        <translation>Attenzione: si prega di controllare che la data e l&apos;ora del computer siano corrette. Se l&apos;ora di sistema è errata Myriadcoin non funzionerà correttamente.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -2816,8 +3141,13 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Tenta di recuperare le chiavi private da un wallet.dat corrotto</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte Core Daemon</source>
         <translation>DigiByte Core Daemon</translation>
+=======
+        <source>Myriadcoin Core Daemon</source>
+        <translation>Myriadcoin Core Daemon</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Block creation options:</source>
@@ -2929,7 +3259,11 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
     </message>
     <message>
         <source>Failed to write to coin database</source>
+<<<<<<< HEAD
         <translation>Scrittura nel database dei digibyte fallita</translation>
+=======
+        <translation>Scrittura nel database dei myriadcoin fallita</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Failed to write transaction index</source>
@@ -2957,7 +3291,11 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
     </message>
     <message>
         <source>Generate coins (default: 0)</source>
+<<<<<<< HEAD
         <translation>Genera DigiByte (predefinito: 0)</translation>
+=======
+        <translation>Genera Myriadcoin (predefinito: 0)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>How many blocks to check at startup (default: 288, 0 = all)</source>
@@ -3024,8 +3362,13 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Questo è previsto per l&apos;uso con test di regressione e per lo sviluppo di applicazioni.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Usage (deprecated, use digibyte-cli):</source>
         <translation>Usage (deprecato, usare digibyte-cli):</translation>
+=======
+        <source>Usage (deprecated, use myriadcoin-cli):</source>
+        <translation>Usage (deprecato, usare myriadcoin-cli):</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Verifying blocks...</source>
@@ -3060,8 +3403,13 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Importa blocchi da un file blk000??.dat esterno</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Cannot obtain a lock on data directory %s. DigiByte Core is probably already running.</source>
         <translation>Non è possibile ottenere un lock sulla cartella %s. Probabilmente DigiByte Core è già in esecuzione.</translation>
+=======
+        <source>Cannot obtain a lock on data directory %s. Myriadcoin Core is probably already running.</source>
+        <translation>Non è possibile ottenere un lock sulla cartella %s. Probabilmente Myriadcoin Core è già in esecuzione.</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
@@ -3124,8 +3472,13 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Stampa l&apos;albero dei blocchi all&apos;avvio (default: 0)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>RPC SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>Opzioni RPC SSL: (consulta la DigiByte Wiki per le istruzioni relative alla configurazione SSL)</translation>
+=======
+        <source>RPC SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>Opzioni RPC SSL: (consulta la Myriadcoin Wiki per le istruzioni relative alla configurazione SSL)</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>RPC server options:</source>
@@ -3144,12 +3497,21 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Mantieni in esecuzione un thread per scaricare periodicamente il portafoglio (predefinito: 1)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>SSL options: (see the DigiByte Wiki for SSL setup instructions)</source>
         <translation>Opzioni SSL: (vedi il wiki di DigiByte per le istruzioni di configurazione SSL)</translation>
     </message>
     <message>
         <source>Send command to DigiByte Core</source>
         <translation>Invia comando a DigiByte Core</translation>
+=======
+        <source>SSL options: (see the Myriadcoin Wiki for SSL setup instructions)</source>
+        <translation>Opzioni SSL: (vedi il wiki di Myriadcoin per le istruzioni di configurazione SSL)</translation>
+    </message>
+    <message>
+        <source>Send command to Myriadcoin Core</source>
+        <translation>Invia comando a Myriadcoin Core</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
@@ -3184,8 +3546,13 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Specifica il timeout di connessione in millisecondi (predefinito: 5000)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Start DigiByte Core Daemon</source>
         <translation>Avvia DigiByte Core Daemon</translation>
+=======
+        <source>Start Myriadcoin Core Daemon</source>
+        <translation>Avvia Myriadcoin Core Daemon</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>System error: </source>
@@ -3306,12 +3673,21 @@ ad esempio: alertnotify=echo %%s | mail -s &quot;Allarme DigiByte&quot; admin@fo
         <translation>Errore caricamento wallet.dat: Portamonete corrotto</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>Error loading wallet.dat: Wallet requires newer version of DigiByte</source>
         <translation>Errore caricamento wallet.dat: il portamonete richiede una versione di DigiByte più recente</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart DigiByte to complete</source>
         <translation>Il portamonete necessitava di essere riscritto: riavviare DigiByte per completare</translation>
+=======
+        <source>Error loading wallet.dat: Wallet requires newer version of Myriadcoin</source>
+        <translation>Errore caricamento wallet.dat: il portamonete richiede una versione di Myriadcoin più recente</translation>
+    </message>
+    <message>
+        <source>Wallet needed to be rewritten: restart Myriadcoin to complete</source>
+        <translation>Il portamonete necessitava di essere riscritto: riavviare Myriadcoin per completare</translation>
+>>>>>>> mryiad/master
     </message>
     <message>
         <source>Error loading wallet.dat</source>

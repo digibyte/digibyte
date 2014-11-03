@@ -1,10 +1,11 @@
-Source: digibyte
+Source: bitcoin
 Section: utils
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk>
 Uploaders: Micah Anderson <micah@debian.org>
 Build-Depends: debhelper,
  devscripts,
+ automake,
  bash-completion,
  libboost-system-dev (>> 1.35) | libboost-system1.35-dev,
  libdb4.8++-dev,
@@ -17,39 +18,40 @@ Build-Depends: debhelper,
  libboost-test-dev (>> 1.35) | libboost-test1.35-dev,
  qt4-qmake,
  libqt4-dev,
- libqrencode-dev
+ libqrencode-dev,
+ libprotobuf-dev, protobuf-compiler
 Standards-Version: 3.9.2
-Homepage: http://www.digibyte.co/
-Vcs-Git: git://github.com/digibyte/DigiByteProject.git
-Vcs-Browser: http://github.com/digibyte/DigiByteProject
+Homepage: http://www.bitcoin.org/
+Vcs-Git: git://github.com/bitcoin/bitcoin.git
+Vcs-Browser: http://github.com/bitcoin/bitcoin
 
-Package: digibyted
+Package: bitcoind
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- DigiByte is a free open source peer-to-peer electronic cash system that
+ Bitcoin is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
  .
  Full transaction history is stored locally at each client.  This
- requires 2+ GB of space, slowly growing.
+ requires 20+ GB of space, slowly growing.
  .
- This package provides digibyted, a combined daemon and CLI tool to
+ This package provides bitcoind, a combined daemon and CLI tool to
  interact with the daemon.
 
-Package: digibyte-qt
+Package: bitcoin-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- DigiByte is a free open source peer-to-peer electronic cash system that
+ Bitcoin is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
  .
  Full transaction history is stored locally at each client.  This
- requires 2+ GB of space, slowly growing.
+ requires 20+ GB of space, slowly growing.
  .
- This package provides DigiByte-Qt, a GUI for DigiByte based on Qt.
+ This package provides Bitcoin-Qt, a GUI for Bitcoin based on Qt.

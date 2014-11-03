@@ -1,11 +1,19 @@
 *.tar.gz
 
 *.exe
+<<<<<<< HEAD
 src/digibyte
 src/digibyted
 src/digibyte-cli
 src/test/test_digibyte
 src/qt/test/test_digibyte-qt
+=======
+src/myriadcoin
+src/myriadcoind
+src/myriadcoin-cli
+src/test/test_myriadcoin
+src/qt/test/test_myriadcoin-qt
+>>>>>>> mryiad/master
 
 Makefile.in
 aclocal.m4
@@ -13,8 +21,13 @@ autom4te.cache/
 config.log
 config.status
 configure
+<<<<<<< HEAD
 src/digibyte-config.h
 src/digibyte-config.h.in
+=======
+src/bitcoin-config.h
+src/bitcoin-config.h.in
+>>>>>>> mryiad/master
 src/build-aux/
 src/stamp-h1
 share/setup.nsi
@@ -36,7 +49,11 @@ src/qt/test/moc*.cpp
 *.o
 *.o-*
 *.patch
+<<<<<<< HEAD
 .digibyte
+=======
+.myriadcoin
+>>>>>>> mryiad/master
 *.a
 *.pb.cc
 *.pb.h
@@ -51,12 +68,21 @@ src/qt/test/moc*.cpp
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
+<<<<<<< HEAD
 digibyte-qt
 DigiByte-Qt.app
 
 # Unit-tests
 Makefile.test
 digibyte-qt_test
+=======
+myriadcoin-qt
+Myriadcoin-Qt.app
+
+# Unit-tests
+Makefile.test
+myriadcoin-qt_test
+>>>>>>> mryiad/master
 
 # Resources cpp
 qrc_*.cpp
@@ -71,7 +97,11 @@ build
 #lcov
 *.gcno
 /*.info
+<<<<<<< HEAD
 test_digibyte.coverage/
+=======
+test_bitcoin.coverage/
+>>>>>>> mryiad/master
 total.coverage/
 coverage_percent.txt
 
@@ -79,7 +109,11 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
+<<<<<<< HEAD
 qa/pull-tester/run-digibyted-for-test.sh
+=======
+qa/pull-tester/run-bitcoind-for-test.sh
+>>>>>>> mryiad/master
 qa/pull-tester/build-tests.sh
 
 !src/leveldb*/Makefile

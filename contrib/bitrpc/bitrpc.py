@@ -1,6 +1,7 @@
 from jsonrpc import ServiceProxy
 import sys
 import string
+import getpass
 
 # ===== BEGIN USER SETTINGS =====
 # if you do not set these you will be prompted for a password for every command
@@ -309,7 +310,7 @@ elif cmd == "walletpassphrase":
 		print "\n---An error occurred---\n"
 
 elif cmd == "walletpassphrasechange":
-	try:
+    try:
 		pwd = raw_input("Enter old wallet passphrase: ")
 		pwd2 = raw_input("Enter new wallet passphrase: ")
 		access.walletpassphrasechange(pwd, pwd2)

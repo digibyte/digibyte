@@ -537,24 +537,46 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
     }
 
     unsigned int nDataOut = 0;
+    unsigned int nTxnOut = 0;
     txnouttype whichType;
-    BOOST_FOREACH(const CTxOut& txout, tx.vout) {
-        if (!::IsStandard(txout.scriptPubKey, whichType)) {
+    BOOST_FOREACH(const CTxOut& txout, tx.vout)
+    {
+        if (!::IsStandard(txout.scriptPubKey, whichType))
+        {
+            LogPrintf("tx-nonstd: %s %s\n", txout.ToString(), whichType);
             reason = "scriptpubkey";
             return false;
         }
         if (whichType == TX_NULL_DATA)
             nDataOut++;
-        else if (txout.IsDust(CTransaction::nMinRelayTxFee)) {
-            reason = "dust";
-            return false;
+        else
+        {
+            if (txout.IsDust(CTransaction::nMinRelayTxFee))
+            {
+                reason = "dust";
+                return false;
+            }
+            nTxnOut++;
         }
     }
 
-    // only one OP_RETURN txout is permitted
-    if (nDataOut > 1) {
-        reason = "multi-op-return";
-        return false;
+    if (!TestNet() && (chainActive.Height() < BLOCK_STEALTH_START))
+    {
+        // allow one OP_RETURN per transaction
+        if (nDataOut > 1)
+        {
+            reason = "multi-op-return";
+            return false;
+        }
+    }
+    else
+    {
+        // allow one OP_RETURN per txout
+        if (nDataOut > nTxnOut)
+        {
+            reason = "multi-op-return";
+            return false;
+        }
     }
 
     return true;
@@ -1279,7 +1301,27 @@ static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + n
 //
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 {
- return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact(); 
+/*
+    const CBigNum &bnLimit = Params().ProofOfWorkLimit();
+    // Testnet has min-difficulty blocks
+    // after nTargetSpacing*2 time between blocks:
+    if (TestNet() && nTime > nTargetSpacing*2)
+        return bnLimit.GetCompact();
+
+    CBigNum bnResult;
+    bnResult.SetCompact(nBase);
+    while (nTime > 0 && bnResult < bnLimit)
+    {
+        // Maximum 400% adjustment...
+        bnResult *= 4;
+        // ... in best-case exactly 4-times-normal target time
+        nTime -= nTargetTimespan*4;
+    }
+    if (bnResult > bnLimit)
+        bnResult = bnLimit;
+    return bnResult.GetCompact();
+*/
+    return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
 }
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
@@ -2139,7 +2181,7 @@ bool static DisconnectTip(CValidationState &state) {
     BOOST_FOREACH(const CTransaction &tx, block.vtx) {
         // ignore validation errors in resurrected transactions
         list<CTransaction> removed;
-        CValidationState stateDummy; 
+        CValidationState stateDummy;
         if (!tx.IsCoinBase())
             if (!AcceptToMemoryPool(mempool, stateDummy, tx, false, NULL))
                 mempool.remove(tx, removed, true);
@@ -2536,11 +2578,35 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
     CBlockIndex* pindexPrev = NULL;
     int nHeight = 0;
     if (hash != Params().HashGenesisBlock()) {
+    if (hash != Params().HashGenesisBlock())
+    {
+        // Check previous block
         map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(block.hashPrevBlock);
         if (mi == mapBlockIndex.end())
             return state.DoS(10, error("AcceptBlock() : prev block not found"), 0, "bad-prevblk");
         pindexPrev = (*mi).second;
         nHeight = pindexPrev->nHeight+1;
+
+        // Check count of sequence of same algo
+        if ( (TestNet() && (nHeight > 200))
+            || (nHeight > nBlockSequentialAlgoRuleStart) )
+        {
+            int nAlgo = block.GetAlgo();
+            int nAlgoCount = 1;
+            CBlockIndex* piPrev = pindexPrev;
+            while (piPrev && (nAlgoCount <= nBlockSequentialAlgoMaxCount))
+            {
+                if (piPrev->GetAlgo() != nAlgo)
+                    break;
+                nAlgoCount++;
+                piPrev = piPrev->pprev;
+            }
+            if (nAlgoCount > nBlockSequentialAlgoMaxCount)
+            {
+                return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
+                                 REJECT_INVALID, "algo-toomany");
+            }
+        }
 
         // Check proof of work
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
@@ -2583,6 +2649,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
             }
         }
         // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
+        /*
         if (block.nVersion >= 2)
         {
             // if 750 of the last 1,000 blocks are version 2 or greater (51/100 if testnet):
@@ -2596,6 +2663,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
                                      REJECT_INVALID, "bad-cb-height");
             }
         }
+        */
     }
 
     // Write block to history file
@@ -4518,8 +4586,8 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         // in flight for over two minutes, since we first had a chance to
         // process an incoming block.
         int64_t nNow = GetTimeMicros();
-        if (!pto->fDisconnect && state.nBlocksInFlight && 
-            state.nLastBlockReceive < state.nLastBlockProcess - BLOCK_DOWNLOAD_TIMEOUT*1000000 && 
+        if (!pto->fDisconnect && state.nBlocksInFlight &&
+            state.nLastBlockReceive < state.nLastBlockProcess - BLOCK_DOWNLOAD_TIMEOUT*1000000 &&
             state.vBlocksInFlight.front().nTime < state.nLastBlockProcess - 2*BLOCK_DOWNLOAD_TIMEOUT*1000000) {
             LogPrintf("Peer %s is stalling block download, disconnecting\n", state.name.c_str());
             pto->fDisconnect = true;

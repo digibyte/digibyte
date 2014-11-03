@@ -23,7 +23,7 @@ enum {
     ALGO_SKEIN   = 3,
     ALGO_QUBIT   = 4,
     NUM_ALGOS };
-    
+
 enum
 {
     // primary version
@@ -70,7 +70,7 @@ inline std::string GetAlgoName(int Algo)
         case ALGO_QUBIT:
             return std::string("qubit");
     }
-    return std::string("unknown");       
+    return std::string("unknown");
 }
 
 class CTransaction;
@@ -217,7 +217,7 @@ public:
         // to spend something, then we consider it dust.
         // A typical txout is 34 bytes big, and will
         // need a CTxIn of at least 148 bytes to spend,
-        // so dust is a txout less than 546 satoshis 
+        // so dust is a txout less than 546 satoshis
         // with default nMinRelayTxFee.
         return ((nValue*1000)/(3*((int)GetSerializeSize(SER_DISK,0)+148)) < nMinRelayTxFee);
     }
@@ -231,6 +231,14 @@ public:
     friend bool operator!=(const CTxOut& a, const CTxOut& b)
     {
         return !(a == b);
+    }
+
+    bool IsScriptOpReturn() const
+    {
+        opcodetype opCode;
+        CScript::const_iterator itTxA = scriptPubKey.begin();
+        return (scriptPubKey.GetOp(itTxA, opCode)
+                && opCode == OP_RETURN);
     }
 
     std::string ToString() const;
@@ -421,6 +429,7 @@ public:
 
     int GetAlgo() const { return ::GetAlgo(nVersion); }
     
+
     IMPLEMENT_SERIALIZE
     (
         READWRITE(this->nVersion);
@@ -473,7 +482,7 @@ public:
         }
         return GetHash();
     }
-    
+
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;

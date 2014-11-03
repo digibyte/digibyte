@@ -109,6 +109,11 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                     // from a transaction sent back to our own address.
                     continue;
                 }
+                if (txout.IsScriptOpReturn())
+                {
+                    // OP_RETURN txout
+                    continue;
+                }
 
                 CTxDestination address;
                 if (ExtractDestination(txout.scriptPubKey, address))
@@ -165,7 +170,7 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
         (wtx.IsCoinBase() ? 1 : 0),
         wtx.nTimeReceived,
         idx);
-    status.countsForBalance = wtx.IsTrusted() && !(wtx.GetBlocksToMaturity(chainActive.Height() - wtx.GetDepthInMainChain()) > 0);
+    status.countsForBalance = wtx.IsTrusted() && !(wtx.GetBlocksToMaturity() > 0);
     status.depth = wtx.GetDepthInMainChain();
     status.cur_num_blocks = chainActive.Height();
 
@@ -185,13 +190,13 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
     // For generated transactions, determine maturity
     else if(type == TransactionRecord::Generated)
     {
-        if (wtx.GetBlocksToMaturity(status.depth) > 0)
+        if (wtx.GetBlocksToMaturity() > 0)
         {
             status.status = TransactionStatus::Immature;
 
             if (wtx.IsInMainChain())
             {
-                status.matures_in = wtx.GetBlocksToMaturity(status.cur_num_blocks - status.depth);
+                status.matures_in = wtx.GetBlocksToMaturity();
 
                 // Check if the block was requested by anyone
                 if (GetAdjustedTime() - wtx.nTimeReceived > 2 * 60 && wtx.GetRequestCount() == 0)

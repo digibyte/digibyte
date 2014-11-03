@@ -7,18 +7,30 @@ handle those translations.
 Files and Folders
 -----------------
 
+<<<<<<< HEAD
 ### digibyte-qt.pro
+=======
+### bitcoin-qt.pro
+>>>>>>> mryiad/master
 
 This file takes care of generating `.qm` files from `.ts` files. It is mostly
 automated.
 
+<<<<<<< HEAD
 ### src/qt/digibyte.qrc
+=======
+### src/qt/bitcoin.qrc
+>>>>>>> mryiad/master
 
 This file must be updated whenever a new translation is added. Please note that
 files must end with `.qm`, not `.ts`.
 
     <qresource prefix="/translations">
+<<<<<<< HEAD
         <file alias="en">locale/digibyte_en.qm</file>
+=======
+        <file alias="en">locale/bitcoin_en.qm</file>
+>>>>>>> mryiad/master
         ...
     </qresource>
 
@@ -26,17 +38,29 @@ files must end with `.qm`, not `.ts`.
 
 This directory contains all translations. Filenames must adhere to this format:
 
+<<<<<<< HEAD
     digibyte_xx_YY.ts or digibyte_xx.ts
 
 #### digibyte_en.ts (Source file)
 
 `src/qt/locale/digibyte_en.ts` is treated in a special way. It is used as the
+=======
+    bitcoin_xx_YY.ts or bitcoin_xx.ts
+
+#### bitcoin_en.ts (Source file)
+
+`src/qt/locale/bitcoin_en.ts` is treated in a special way. It is used as the
+>>>>>>> mryiad/master
 source for all other translations. Whenever a string in the code is changed
 this file must be updated to reflect those changes. A  custom script is used
 to extract strings from the non-Qt parts. This script makes use of `gettext`,
 so make sure that utility is installed (ie, `apt-get install gettext` on 
 Ubuntu/Debian). Once this has been updated, lupdate (included in the Qt SDK)
+<<<<<<< HEAD
 is used to update digibyte_en.ts. This process has been automated, from src/qt,
+=======
+is used to update bitcoin_en.ts. This process has been automated, from src/qt,
+>>>>>>> mryiad/master
 simply run:
     make translate
     
@@ -44,7 +68,11 @@ simply run:
 
 When new plurals are added to the source file, it's important to do the following steps:
 
+<<<<<<< HEAD
 1. Open digibyte_en.ts in Qt Linguist (also included in the Qt SDK)
+=======
+1. Open bitcoin_en.ts in Qt Linguist (also included in the Qt SDK)
+>>>>>>> mryiad/master
 2. Search for `%n`, which will take you to the parts in the translation that use plurals
 3. Look for empty `English Translation (Singular)` and `English Translation (Plural)` fields
 4. Add the appropriate strings for the singular and plural form of the base string
@@ -60,7 +88,11 @@ in Transifex and can be translated.
 
 To create the pull-request you have to do:
 
+<<<<<<< HEAD
     git add src/qt/digibytestrings.cpp src/qt/locale/digibyte_en.ts
+=======
+    git add src/qt/bitcoinstrings.cpp src/qt/locale/bitcoin_en.ts
+>>>>>>> mryiad/master
     git commit
 
 Syncing with Transifex
@@ -68,6 +100,7 @@ Syncing with Transifex
 
 We are using https://transifex.com as a frontend for translating the client.
 
+<<<<<<< HEAD
 https://www.transifex.com/projects/p/digibyte/resource/tx/
 
 The "Transifex client" (see: http://help.transifex.com/features/client/)
@@ -103,4 +136,22 @@ It is also possible to directly download new translations one by one from the Tr
    `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(digibyte_\(.*\)\).ts/<file alias="\2">locale\/\1.qm<\/file>/'`
 3. update `src/qt/Makefile.am` manually or via
    `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(digibyte_\(.*\)\).ts/  locale\/\1.ts \\/'`
+=======
+https://www.transifex.com/projects/p/bitcoin/resource/tx/
+
+The "Transifex client" (see: http://support.transifex.com/customer/portal/topics/440187-transifex-client/articles)
+is used to fetch new translations from Transifex. The configuration for this client (`.tx/config`)
+is part of the repository.
+
+Do not directly download translations one by one from the Transifex website, as we do a few
+postprocessing steps before committing the translations.
+
+### Fetching new translations
+
+1. `python contrib/devtools/update-translations.py`
+2. update `src/qt/bitcoin.qrc` manually or via
+   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(bitcoin_\(.*\)\).ts/<file alias="\2">locale\/\1.qm<\/file>/'`
+3. update `src/qt/Makefile.am` manually or via
+   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(bitcoin_\(.*\)\).ts/  locale\/\1.ts \\/'`
+>>>>>>> mryiad/master
 4. `git add` new translations from `src/qt/locale/`

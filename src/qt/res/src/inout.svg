@@ -15,7 +15,11 @@
    width="120"
    height="120"
    sodipodi:docname="inout3.svg"
+<<<<<<< HEAD
    inkscape:export-filename="/home/orion/projects2/digibyte/tx_mined.png"
+=======
+   inkscape:export-filename="/home/orion/projects2/bitcoin/tx_mined.png"
+>>>>>>> mryiad/master
    inkscape:export-xdpi="12"
    inkscape:export-ydpi="12"
    style="display:inline">

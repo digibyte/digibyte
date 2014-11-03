@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 DigiByte version 0.7.0 is now available for download at:
   http://sourceforge.net/projects/bitcoin/files/Bitcoin/bitcoin-0.7.0/
 
 We recommend that everybody running prior versions of digibyted/DigiByte-Qt
+=======
+Bitcoin version 0.7.0 is now available for download at:
+  http://sourceforge.net/projects/bitcoin/files/Bitcoin/bitcoin-0.7.0/
+
+We recommend that everybody running prior versions of bitcoind/Bitcoin-Qt
+>>>>>>> mryiad/master
 upgrade to this release, except for users running Mac OSX 10.5.
 
 Please report bugs using the issue tracker at github:
@@ -14,11 +21,19 @@ source-only tarballs/zipballs directly from there:
 
 Ubuntu Linux users can use the "Personal Package Archive" (PPA)
 maintained by Matt Corallo to automatically keep 
+<<<<<<< HEAD
 digibyte up-to-date.  Just type
   sudo apt-add-repository ppa:digibyte/digibyte
   sudo apt-get update
 in your terminal, then install the digibyte-qt package:
   sudo apt-get install digibyte-qt
+=======
+bitcoin up-to-date.  Just type
+  sudo apt-add-repository ppa:bitcoin/bitcoin
+  sudo apt-get update
+in your terminal, then install the bitcoin-qt package:
+  sudo apt-get install bitcoin-qt
+>>>>>>> mryiad/master
 
 
 How to Upgrade
@@ -27,10 +42,17 @@ If you are running an older version, shut it down. Wait
 until it has completely shut down (which might take a few minutes for older
 versions), then run the installer (on Windows) or just copy over
 Code:
+<<<<<<< HEAD
 /Applications/DigiByte-Qt
 (on Mac) or
 Code:
 digibyted/digibyte-qt
+=======
+/Applications/Bitcoin-Qt
+(on Mac) or
+Code:
+bitcoind/bitcoin-qt
+>>>>>>> mryiad/master
 (on Linux).
 
 If you were running on Linux with a version that might have been compiled
@@ -45,14 +67,22 @@ Incompatible Changes
   and 'getrawmempool' commands.
 * Remove deprecated RPC 'getblocknumber'
 
+<<<<<<< HEAD
 DigiByte Improvement Proposals implemented
+=======
+Bitcoin Improvement Proposals implemented
+>>>>>>> mryiad/master
 
 BIP 22 - 'getblocktemplate', 'submitblock' RPCs
 BIP 34 - block version 2, height in coinbase
 BIP 35 - 'mempool' message, extended 'getdata' message behavior
 
 
+<<<<<<< HEAD
 Core digibyte handling and blockchain database
+=======
+Core bitcoin handling and blockchain database
+>>>>>>> mryiad/master
 
 * Reduced CPU usage, by eliminating some redundant hash calculations
 * Cache signature verifications, to eliminate redundant signature checks
@@ -109,7 +139,11 @@ Qt GUI
 * Add 2 labels to the overviewpage that display Wallet and Transaction status (obsolete or current)
 * Extend the optionsdialog (e.g. language selection) and re-work it to a tabbed UI
 * Merge sign/verify message into a single window with tabbed UI
+<<<<<<< HEAD
 * Ensure a changed digibyte unit immediately updates all GUI elements that use units
+=======
+* Ensure a changed bitcoin unit immediately updates all GUI elements that use units
+>>>>>>> mryiad/master
 * Update QR Code dialog
 * Improve error reporting at startup
 * Fine-grained UI updates for a much smoother UI during block downloads
@@ -119,8 +153,13 @@ Qt GUI
 * Much better translations
 * Override progress bar design on platforms with segmented progress bars to assist with readability
 * Added 'immature balance' display on the overview page
+<<<<<<< HEAD
 * (Windows only): enable ASLR and DEP for digibyte-qt.exe
 * (Windows only): add meta-data to digibyte-qt.exe (e.g. description)
+=======
+* (Windows only): enable ASLR and DEP for bitcoin-qt.exe
+* (Windows only): add meta-data to bitcoin-qt.exe (e.g. description)
+>>>>>>> mryiad/master
 
 Internal codebase
 
@@ -131,7 +170,11 @@ Internal codebase
 Miscellaneous
 
 * Reopen debug.log upon SIGHUP
+<<<<<<< HEAD
 * Bash programmable completion for digibyted(1)
+=======
+* Bash programmable completion for bitcoind(1)
+>>>>>>> mryiad/master
 * On supported OS's, each thread is given a useful name
 
 

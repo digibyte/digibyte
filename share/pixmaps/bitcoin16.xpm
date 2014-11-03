@@ -1,5 +1,9 @@
 /* XPM */
+<<<<<<< HEAD
 static char *digibyte__[] = {
+=======
+static char *bitcoin__[] = {
+>>>>>>> mryiad/master
 /* columns rows colors chars-per-pixel */
 "16 16 159 2",
 "   c #CA7C1E",

@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 DigiByte version 0.6.0 is now available for download at:
+=======
+Bitcoin version 0.6.0 is now available for download at:
+>>>>>>> mryiad/master
 http://sourceforge.net/projects/bitcoin/files/Bitcoin/bitcoin-0.6.0/test/
 
 This release includes more than 20 language localizations.
 More translations are welcome; join the
 project at Transifex to help:
+<<<<<<< HEAD
 https://www.transifex.net/projects/p/digibyte/
+=======
+https://www.transifex.net/projects/p/bitcoin/
+>>>>>>> mryiad/master
 
 Please report bugs using the issue tracker at github:
 https://github.com/bitcoin/bitcoin/issues
@@ -17,9 +25,15 @@ https://github.com/bitcoin/bitcoin/zipball/v0.6.0  # .zip
 
 For Ubuntu users, there is a ppa maintained by Matt Corallo which
 you can add to your system so that it will automatically keep
+<<<<<<< HEAD
 digibyte up-to-date.  Just type
 sudo apt-add-repository ppa:digibyte/digibyte
 in your terminal, then install the digibyte-qt package.
+=======
+bitcoin up-to-date.  Just type
+sudo apt-add-repository ppa:bitcoin/bitcoin
+in your terminal, then install the bitcoin-qt package.
+>>>>>>> mryiad/master
 
 
 KNOWN ISSUES
@@ -38,30 +52,50 @@ hours).
 
 Backup Wallet menu option.
 
+<<<<<<< HEAD
 DigiByte-Qt can display and save QR codes for sending
+=======
+Bitcoin-Qt can display and save QR codes for sending
+>>>>>>> mryiad/master
 and receiving addresses.
 
 New context menu on addresses to copy/edit/delete them.
 
 New Sign Message dialog that allows you to prove that you
+<<<<<<< HEAD
 own a digibyte address by creating a digital
+=======
+own a bitcoin address by creating a digital
+>>>>>>> mryiad/master
 signature.
 
 New wallets created with this version will
 use 33-byte 'compressed' public keys instead of
 65-byte public keys, resulting in smaller
+<<<<<<< HEAD
 transactions and less traffic on the digibyte
 network. The shorter keys are already supported
 by the network but wallet.dat files containing
 short keys are not compatible with earlier
 versions of DigiByte-Qt/digibyted.
+=======
+transactions and less traffic on the bitcoin
+network. The shorter keys are already supported
+by the network but wallet.dat files containing
+short keys are not compatible with earlier
+versions of Bitcoin-Qt/bitcoind.
+>>>>>>> mryiad/master
 
 New command-line argument -blocknotify=<command>
 that will spawn a shell process to run <command> 
 when a new block is accepted.
 
 New command-line argument -splash=0 to disable
+<<<<<<< HEAD
 DigiByte-Qt's initial splash screen
+=======
+Bitcoin-Qt's initial splash screen
+>>>>>>> mryiad/master
 
 validateaddress JSON-RPC api command output includes
 two new fields for addresses in the wallet:
@@ -104,11 +138,19 @@ attacks were fixed.
 
 NOT YET IMPLEMENTED FEATURES
 
+<<<<<<< HEAD
 Support for clicking on digibyte: URIs and
 opening/launching DigiByte-Qt is available only on Linux,
 and only if you configure your desktop to launch
 DigiByte-Qt. All platforms support dragging and dropping
 digibyte: URIs onto the DigiByte-Qt window to start
+=======
+Support for clicking on bitcoin: URIs and
+opening/launching Bitcoin-Qt is available only on Linux,
+and only if you configure your desktop to launch
+Bitcoin-Qt. All platforms support dragging and dropping
+bitcoin: URIs onto the Bitcoin-Qt window to start
+>>>>>>> mryiad/master
 payment.
 
 
@@ -117,7 +159,11 @@ PRELIMINARY SUPPORT FOR MULTISIGNATURE TRANSACTIONS
 This release has preliminary support for multisignature
 transactions-- transactions that require authorization
 from more than one person or device before they
+<<<<<<< HEAD
 will be accepted by the digibyte network.
+=======
+will be accepted by the bitcoin network.
+>>>>>>> mryiad/master
 
 Prior to this release, multisignature transactions
 were considered 'non-standard' and were ignored;
@@ -125,13 +171,21 @@ with this release multisignature transactions are
 considered standard and will start to be relayed
 and accepted into blocks.
 
+<<<<<<< HEAD
 It is expected that future releases of DigiByte-Qt
+=======
+It is expected that future releases of Bitcoin-Qt
+>>>>>>> mryiad/master
 will support the creation of multisignature transactions,
 once enough of the network has upgraded so relaying
 and validating them is robust.
 
 For this release, creation and testing of multisignature
+<<<<<<< HEAD
 transactions is limited to the digibyte test network using
+=======
+transactions is limited to the bitcoin test network using
+>>>>>>> mryiad/master
 the "addmultisigaddress" JSON-RPC api call.
 
 Short multisignature address support is included in this

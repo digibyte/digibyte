@@ -11,12 +11,17 @@
   </array>
 
   <key>CFBundleIconFile</key>
+<<<<<<< HEAD
   <string>digibyte.icns</string>
+=======
+  <string>bitcoin.icns</string>
+>>>>>>> mryiad/master
 
   <key>CFBundlePackageType</key>
   <string>APPL</string>
 
   <key>CFBundleGetInfoString</key>
+<<<<<<< HEAD
   <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@, Copyright © 2009-@COPYRIGHT_YEAR@ The DigiByte Core developers</string>
 
   <key>CFBundleShortVersionString</key>
@@ -24,15 +29,31 @@
 
   <key>CFBundleVersion</key>
   <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@</string>
+=======
+  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@, Copyright © 2009-@COPYRIGHT_YEAR@ The Bitcoin Core developers</string>
+
+  <key>CFBundleShortVersionString</key>
+  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@</string>
+
+  <key>CFBundleVersion</key>
+  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@</string>
+>>>>>>> mryiad/master
 
   <key>CFBundleSignature</key>
   <string>????</string>
 
   <key>CFBundleExecutable</key>
+<<<<<<< HEAD
   <string>DigiByte-Qt</string>
 
   <key>CFBundleIdentifier</key>
   <string>org.digibytefoundation.DigiByte-Qt</string>
+=======
+  <string>Bitcoin-Qt</string>
+
+  <key>CFBundleIdentifier</key>
+  <string>org.bitcoinfoundation.Bitcoin-Qt</string>
+>>>>>>> mryiad/master
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -40,10 +61,17 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
+<<<<<<< HEAD
       <string>org.digibyte.DigiBytePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>digibyte</string>
+=======
+      <string>org.bitcoin.BitcoinPayment</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>bitcoin</string>
+>>>>>>> mryiad/master
       </array>
     </dict>
   </array>
@@ -52,9 +80,15 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
+<<<<<<< HEAD
       <string>org.digibyte.paymentrequest</string>
       <key>UTTypeDescription</key>
       <string>DigiByte payment request</string>
+=======
+      <string>org.bitcoin.paymentrequest</string>
+      <key>UTTypeDescription</key>
+      <string>Bitcoin payment request</string>
+>>>>>>> mryiad/master
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
@@ -62,10 +96,17 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
+<<<<<<< HEAD
         <string>application/x-digibyte-payment-request</string>
         <key>public.filename-extension</key>
         <array>
           <string>digibytepaymentrequest</string>
+=======
+        <string>application/x-bitcoin-payment-request</string>
+        <key>public.filename-extension</key>
+        <array>
+          <string>bitcoinpaymentrequest</string>
+>>>>>>> mryiad/master
         </array>
       </dict>
     </dict>
@@ -78,7 +119,11 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
+<<<<<<< HEAD
         <string>org.digibyte.paymentrequest</string>
+=======
+        <string>org.bitcoin.paymentrequest</string>
+>>>>>>> mryiad/master
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>
@@ -90,5 +135,11 @@
 
   <key>NSHighResolutionCapable</key>
     <string>True</string>
+<<<<<<< HEAD
+=======
+
+  <key>LSApplicationCategoryType</key>
+    <string>public.app-category.finance</string>
+>>>>>>> mryiad/master
 </dict>
 </plist>
