@@ -46,7 +46,7 @@
         <file alias="about">res/images/about.png</file>
         <file alias="splash">res/images/splash.png</file>
         <file alias="splash_testnet">res/images/splash_testnet.png</file>
-	<file alias="digibyte">res/images/digibyte.png</file>
+	<file alias="wallet_bg">res/images/digibyte.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="spinner-000">res/movies/spinner-000.png</file>
