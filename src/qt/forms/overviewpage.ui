@@ -267,6 +267,8 @@
          </property>
         </spacer>
        </item>
+      </layout>
+     </item>
       <item>
       <widget class="QLabel" name="label_6">
        <property name="text">
@@ -286,7 +288,7 @@
        </property>
       </widget>
      </item>
-     </layout>
+     <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QFrame" name="frame_2">
