@@ -1479,6 +1479,7 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     // Limit adjustment step
     // Use medians to prevent time-warp attacks
     int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
+    nAveragingTargetTimespan = (nActualTimespan + 2*retargetTimespan)/3;
     LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
