@@ -315,7 +315,7 @@ endif
 RES_IMAGES = \
   res/images/about.png \
   res/images/splash.png \
-  res/images/wallet.png \
+  res/images/digibyte.png \
   res/images/splash_testnet.png
 
 RES_MOVIES = $(wildcard res/movies/spinner-*.png)
