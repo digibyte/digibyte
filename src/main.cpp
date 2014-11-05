@@ -1268,7 +1268,10 @@ static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTa
 
 static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
-static const int64_t nLocalDifficultyAdjustment = 2; // 2% adjustment in either direction
+
+static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
+static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
+static const int64_t nLocalDifficultyAdjustment = 4; // 4% down, 16% up
 
 static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
@@ -1285,6 +1288,9 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
 static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+
+static const int64_t nMinActualTimespanV3 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV3) / 100;
+static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nMaxAdjustDownV3) / 100;
 
 static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -1479,12 +1485,12 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     // Limit adjustment step
     // Use medians to prevent time-warp attacks
     int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
-    nActualTimespan = (nActualTimespan + 2*nAveragingTargetTimespan)/3;
+    nActualTimespan = nAveragingTargetTimespan + (nActualTimespan - nAveragingTargetTimespan)/6;
     LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
-    if (nActualTimespan < nMinActualTimespan)
-        nActualTimespan = nMinActualTimespan;
-    if (nActualTimespan > nMaxActualTimespan)
-        nActualTimespan = nMaxActualTimespan;
+    if (nActualTimespan < nMinActualTimespanV3)
+        nActualTimespan = nMinActualTimespanV3;
+    if (nActualTimespan > nMaxActualTimespanV3)
+        nActualTimespan = nMaxActualTimespanV3;
 
     // Global retarget
     CBigNum bnNew;
