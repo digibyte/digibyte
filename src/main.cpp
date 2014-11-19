@@ -1230,7 +1230,6 @@ int64_t GetDGBSubsidy(int nHeight) {
    		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
    	}
    	return qSubsidy;
-   }
 	
 
 }
