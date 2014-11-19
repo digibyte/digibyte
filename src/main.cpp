@@ -1212,10 +1212,10 @@ static const int64_t patchBlockRewardDuration2 = 8; // 80160 blocks main net cha
 
 int64_t GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
-   
-        if (nHeight < alwaysupdateDiffChangTarget)
+	int64_t qSubsidy;
+        if (nHeight < alwaysUpdateDiffChangeTarget)
    	{
-		int64_t qSubsidy = 8000*COIN;
+		qSubsidy = 8000*COIN;
    		int blocks = nHeight - nDiffChangeTarget;
    		int weeks = (blocks / patchBlockRewardDuration)+1;
    		//decrease reward by 0.5% every week
@@ -1223,7 +1223,7 @@ int64_t GetDGBSubsidy(int nHeight) {
    	}
    	else
    	{
-	        int64_t qSubsidy = 2434*COIN;
+	        qSubsidy = 2434*COIN;
    		int blocks = nHeight - nDiffChangeTarget;
    		int weeks = (blocks / patchBlockRewardDuration2)+1;
    		//decrease reward by 0.5% every week
