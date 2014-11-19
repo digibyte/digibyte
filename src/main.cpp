@@ -1206,19 +1206,30 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
 }
 
 static const int64_t nDiffChangeTarget = 5; // Patch effective @ block 67200
-static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
+static const int64_t patchBlockRewardDuration = 4; // 10080 blocks main net change
+static const int64_t patchBlockRewardDuration2 = 8; // 80160 blocks main net change
 //mulitAlgoTargetChange = 145000 located in main.h
 
 int64_t GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
-        int valueDivisor = (alwaysupdateDiffChangTarget < nHeight) ? 1 : 2;
-   	
-	int64_t qSubsidy = 8000*COIN;
-   	int blocks = nHeight - nDiffChangeTarget;
-   	int weeks = (blocks / patchBlockRewardDuration)+1;
-   	//decrease reward by 0.5% every week
-   	for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);  
-   	return qSubsidy/valueDivisor;
+   
+        if (nHeight < alwaysupdateDiffChangTarget)
+   	{
+		int64_t qSubsidy = 8000*COIN;
+   		int blocks = nHeight - nDiffChangeTarget;
+   		int weeks = (blocks / patchBlockRewardDuration)+1;
+   		//decrease reward by 0.5% every week
+   		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);
+   	}
+   	else
+   	{
+	        int64_t qSubsidy = 2434*COIN;
+   		int blocks = nHeight - nDiffChangeTarget;
+   		int weeks = (blocks / patchBlockRewardDuration2)+1;
+   		//decrease reward by 0.5% every week
+   		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
+   	}
+   	return qSubsidy;
    }
 	
 
