@@ -1223,7 +1223,7 @@ int64_t GetDGBSubsidy(int nHeight) {
    	}
    	else
    	{
-	        qSubsidy = 2434*COIN;
+	        qSubsidy = 2459*COIN;
    		int blocks = nHeight - alwaysUpdateDiffChangeTarget;
    		int weeks = (blocks / patchBlockRewardDuration2)+1;
    		//decrease reward by 1% every month
