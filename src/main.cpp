@@ -1207,16 +1207,30 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
 
 static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
+static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
 //mulitAlgoTargetChange = 145000 located in main.h
 
 int64_t GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
-   int64_t qSubsidy = 8000*COIN;
-   int blocks = nHeight - nDiffChangeTarget;
-   int weeks = (blocks / patchBlockRewardDuration)+1;
-   //decrease reward by 0.5% every week
-   for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);  
-   return qSubsidy;
+	int64_t qSubsidy;
+        if (nHeight < alwaysUpdateDiffChangeTarget)
+   	{
+		qSubsidy = 8000*COIN;
+   		int blocks = nHeight - nDiffChangeTarget;
+   		int weeks = (blocks / patchBlockRewardDuration)+1;
+   		//decrease reward by 0.5% every 10080 blocks
+   		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);
+   	}
+   	else
+   	{
+	        qSubsidy = 2459*COIN;
+   		int blocks = nHeight - alwaysUpdateDiffChangeTarget;
+   		int weeks = (blocks / patchBlockRewardDuration2)+1;
+   		//decrease reward by 1% every month
+   		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
+   	}
+   	return qSubsidy;
+	
 
 }
 
@@ -1269,6 +1283,10 @@ static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTa
 static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
 
+static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
+static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
+static const int64_t nLocalDifficultyAdjustment = 4; // 4% down, 16% up
+
 static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 
@@ -1284,6 +1302,9 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
 static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+
+static const int64_t nMinActualTimespanV3 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV3) / 100;
+static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nMaxAdjustDownV3) / 100;
 
 static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -1438,12 +1459,98 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
 
     return bnNew.GetCompact();
 }
+
+static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+{
+    unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
+
+    // Genesis block
+    if (pindexLast == NULL)
+        return nProofOfWorkLimit;
+
+    if (TestNet())
+    {
+        // Special difficulty rule for testnet:
+        // If the new block's timestamp is more than 2* 10 minutes
+        // then allow mining of a min-difficulty block.
+        if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+            return nProofOfWorkLimit;
+        else
+        {
+            // Return the last non-special-min-difficulty-rules-block
+            const CBlockIndex* pindex = pindexLast;
+            while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+                pindex = pindex->pprev;
+            return pindex->nBits;
+        }
+    }
+
+    // find first block in averaging interval
+    // Go back by what we want to be nAveragingInterval blocks per algo
+    const CBlockIndex* pindexFirst = pindexLast;
+    for (int i = 0; pindexFirst && i < NUM_ALGOS*nAveragingInterval; i++)
+    {
+        pindexFirst = pindexFirst->pprev;
+    }
+    const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, algo);
+    if (pindexPrevAlgo == NULL || pindexFirst == NULL)
+        return nProofOfWorkLimit; // not enough blocks available
+
+    // Limit adjustment step
+    // Use medians to prevent time-warp attacks
+    int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
+    nActualTimespan = nAveragingTargetTimespan + (nActualTimespan - nAveragingTargetTimespan)/6;
+    LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
+    if (nActualTimespan < nMinActualTimespanV3)
+        nActualTimespan = nMinActualTimespanV3;
+    if (nActualTimespan > nMaxActualTimespanV3)
+        nActualTimespan = nMaxActualTimespanV3;
+
+    // Global retarget
+    CBigNum bnNew;
+    bnNew.SetCompact(pindexPrevAlgo->nBits);
+    bnNew *= nActualTimespan;
+    bnNew /= nAveragingTargetTimespan;
+
+    // Per-algo retarget
+    int nAdjustments = pindexPrevAlgo->nHeight - pindexLast->nHeight + NUM_ALGOS - 1;
+    if (nAdjustments > 0)
+    {
+        for (int i = 0; i < nAdjustments; i++)
+        {
+            bnNew /= 100 + nLocalDifficultyAdjustment;
+            bnNew *= 100;
+        }
+    }
+    if (nAdjustments < 0)
+    {
+        for (int i = 0; i < -nAdjustments; i++)
+        {
+            bnNew *= 100 + nLocalDifficultyAdjustment;
+            bnNew /= 100;
+        }
+    }
+
+    if (bnNew > Params().ProofOfWorkLimit(algo))
+        bnNew = Params().ProofOfWorkLimit(algo);
+
+    /// debug print
+    LogPrintf("GetNextWorkRequired RETARGET\n");
+    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
+    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
+    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
+
+    return bnNew.GetCompact();
+}
+
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
     if (pindexLast->nHeight < multiAlgoDiffChangeTarget)
         return GetNextWorkRequiredV1(pindexLast, pblock, algo);
-    else
+    else if (pindexLast->nHeight < alwaysUpdateDiffChangeTarget)
         return GetNextWorkRequiredV2(pindexLast, pblock, algo);
+    else
+        return GetNextWorkRequiredV3(pindexLast, pblock, algo);
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
@@ -1554,7 +1661,7 @@ void CheckForkWarningConditionsOnNewFork(CBlockIndex* pindexNewForkTip)
         pfork = pfork->pprev;
     }
 
-    // We define a condition which we should warn the user about as a fork of at least 7 blocks
+    // We define a condition which we should warn the user about as a fork of at least 20 blocks
     // who's tip is within 72 blocks (+/- 12 hours if no one mines it) of ours
     // We use 7 blocks rather arbitrarily as it represents just under 10% of sustained network
     // hash rate operating on the fork.
@@ -1562,7 +1669,7 @@ void CheckForkWarningConditionsOnNewFork(CBlockIndex* pindexNewForkTip)
     // We define it this way because it allows us to only store the highest fork tip (+ base) which meets
     // the 7-block condition and from this always have the most-likely-to-cause-warning fork
     if (pfork && (!pindexBestForkTip || (pindexBestForkTip && pindexNewForkTip->nHeight > pindexBestForkTip->nHeight)) &&
-            pindexNewForkTip->nChainWork - pfork->nChainWork > (pfork->GetBlockWorkAdjusted() * 7).getuint256() &&
+            pindexNewForkTip->nChainWork - pfork->nChainWork > (pfork->GetBlockWorkAdjusted() * 20).getuint256() &&
             chainActive.Height() - pindexNewForkTip->nHeight < 72)
     {
         pindexBestForkTip = pindexNewForkTip;
@@ -3594,10 +3701,27 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (!vRecv.empty())
             vRecv >> addrFrom >> nNonce;
         if (!vRecv.empty()) {
-            vRecv >> pfrom->strSubVer;
+	    vRecv >> pfrom->strSubVer;
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
+
+            if (
+           	 (pfrom->cleanSubVer == "/DigiByte:1.0.0/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:2.0.0/") ||            	
+           	 (pfrom->cleanSubVer == "/DigiByte:2.9.0/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:2.9.1/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:3.0.0/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:3.0.1/")
+               )
+            {
+                // disconnect from peers older than this proto version
+                LogPrintf("partner %s using obsolete sub version %s; disconnecting\n", pfrom->addr.ToString(), pfrom->cleanSubVer);
+                pfrom->PushMessage("reject", strCommand, REJECT_OBSOLETE,
+                    strprintf("Version must be %d or greater", MIN_PEER_PROTO_VERSION));
+                pfrom->fDisconnect = true;
+                return false;
+            }
         }
-        if (!vRecv.empty())
+	if (!vRecv.empty())
             vRecv >> pfrom->nStartingHeight;
         if (!vRecv.empty())
             vRecv >> pfrom->fRelayTxes; // set to true after we get the first filter* message
