@@ -3710,8 +3710,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
            	 (pfrom->cleanSubVer == "/DigiByte:2.9.0/") ||
                  (pfrom->cleanSubVer == "/DigiByte:2.9.1/") ||
                  (pfrom->cleanSubVer == "/DigiByte:3.0.0/") ||
-                 (pfrom->cleanSubVer == "/DigiByte:3.0.1/") ||
-                 (pfrom->cleanSubVer == "/DigiByte:3.0.2/")
+                 (pfrom->cleanSubVer == "/DigiByte:3.0.1/")
                )
             {
                 // disconnect from peers older than this proto version
