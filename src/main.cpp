@@ -1205,9 +1205,9 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-static const int64_t nDiffChangeTarget = 5; // Patch effective @ block 67200
-static const int64_t patchBlockRewardDuration = 5; // 10080 blocks main net change
-static const int64_t patchBlockRewardDuration2 = 10; // 80160 blocks main net change
+static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
+static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
+static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
 //mulitAlgoTargetChange = 145000 located in main.h
 
 int64_t GetDGBSubsidy(int nHeight) {
