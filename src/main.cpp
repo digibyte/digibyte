@@ -3701,15 +3701,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (!vRecv.empty())
             vRecv >> addrFrom >> nNonce;
         if (!vRecv.empty()) {
-
-
 	    vRecv >> pfrom->strSubVer;
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
 
             if (
-                 (pfrom->cleanSubVer == "/DigiByte:version/") ||
-                 (pfrom->cleanSubVer == "/DigByte:version/") ||
-                 (pfrom->cleanSubVer == "/DigiByte:version/")
+           	 (pfrom->cleanSubVer == "/DigiByte:1.0.0/") ||
+                 (pfrom->cleanSubVer == "/DigByte:2.0.0/") ||            	
+           	 (pfrom->cleanSubVer == "/DigiByte:2.9.0/") ||
+                 (pfrom->cleanSubVer == "/DigByte:2.9.1/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:3.0.0/") ||
+                 (pfrom->cleanSubVer == "/DigByte:3.0.1/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:3.0.2/")
                )
             {
                 // disconnect from peers older than this proto version
