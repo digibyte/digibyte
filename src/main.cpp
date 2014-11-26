@@ -3701,10 +3701,26 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (!vRecv.empty())
             vRecv >> addrFrom >> nNonce;
         if (!vRecv.empty()) {
-            vRecv >> pfrom->strSubVer;
+
+
+	    vRecv >> pfrom->strSubVer;
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
+
+            if (
+                 (pfrom->cleanSubVer == "/DigiByte:version/") ||
+                 (pfrom->cleanSubVer == "/DigByte:version/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:version/")
+               )
+            {
+                // disconnect from peers older than this proto version
+                LogPrintf("partner %s using obsolete sub version %s; disconnecting\n", pfrom->addr.ToString(), pfrom->cleanSubVer);
+                pfrom->PushMessage("reject", strCommand, REJECT_OBSOLETE,
+                    strprintf("Version must be %d or greater", MIN_PEER_PROTO_VERSION));
+                pfrom->fDisconnect = true;
+                return false;
+            }
         }
-        if (!vRecv.empty())
+	if (!vRecv.empty())
             vRecv >> pfrom->nStartingHeight;
         if (!vRecv.empty())
             vRecv >> pfrom->fRelayTxes; // set to true after we get the first filter* message
