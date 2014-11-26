@@ -3706,11 +3706,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
             if (
            	 (pfrom->cleanSubVer == "/DigiByte:1.0.0/") ||
-                 (pfrom->cleanSubVer == "/DigByte:2.0.0/") ||            	
+                 (pfrom->cleanSubVer == "/DigiByte:2.0.0/") ||            	
            	 (pfrom->cleanSubVer == "/DigiByte:2.9.0/") ||
-                 (pfrom->cleanSubVer == "/DigByte:2.9.1/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:2.9.1/") ||
                  (pfrom->cleanSubVer == "/DigiByte:3.0.0/") ||
-                 (pfrom->cleanSubVer == "/DigByte:3.0.1/") ||
+                 (pfrom->cleanSubVer == "/DigiByte:3.0.1/") ||
                  (pfrom->cleanSubVer == "/DigiByte:3.0.2/")
                )
             {
