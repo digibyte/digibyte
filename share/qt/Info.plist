@@ -17,13 +17,13 @@
   <string>APPL</string>
 
   <key>CFBundleGetInfoString</key>
-  <string>0.9, Copyright © 2009-2014 The DigiByte Core developers</string>
+  <string>3.0, Copyright © 2009-2014 The DigiByte Core developers</string>
 
   <key>CFBundleShortVersionString</key>
-  <string>0.9</string>
+  <string>3.0</string>
 
   <key>CFBundleVersion</key>
-  <string>0.9</string>
+  <string>3.0</string>
 
   <key>CFBundleSignature</key>
   <string>????</string>
