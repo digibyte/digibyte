@@ -516,6 +516,76 @@ public:
     friend inline const CBigNum operator-(const CBigNum& a, const CBigNum& b);
     friend inline const CBigNum operator/(const CBigNum& a, const CBigNum& b);
     friend inline const CBigNum operator%(const CBigNum& a, const CBigNum& b);
+
+    CBigNum nthRoot(int n) const
+    {
+        assert(n > 1);
+        if (BN_is_zero(this))
+            return 0;
+        assert(!BN_is_negative(this));
+
+        // starting approximation
+        int nRootBits = (BN_num_bits(this) + n - 1) / n;
+        int nStartingBits = std::min(8, nRootBits);
+        CBigNum bnUpper = *this;
+        bnUpper >>= (nRootBits - nStartingBits)*n;
+        CBigNum bnCur = 0;
+        for (int i = nStartingBits - 1; i >= 0; i--)
+        {
+            CBigNum bnNext = bnCur;
+            bnNext += 1 << i;
+            CBigNum bnPower(1);
+            for (int j = 0; j < n; j++)
+                bnPower *= bnNext;
+            if (BN_cmp(&bnPower, &bnUpper) <= 0)
+                bnCur = bnNext;
+        }
+        if (nRootBits == nStartingBits)
+            return bnCur;
+        bnCur <<= nRootBits - nStartingBits;
+
+        // iterate: cur = cur + (*this / cur^^(n-1) - cur)/n
+        CBigNum bnDelta;
+        const CBigNum bnRoot(n);
+        int nTerminate = 0;
+        // this should always converge in fewer steps, but limit just in case
+        for (int it = 0; it < 20; it++)
+        {
+            CBigNum bnDenominator = 1;
+            for (int i = 0; i < n - 1; i++)
+                bnDenominator *= bnCur;
+            bnDelta = *this / bnDenominator - bnCur;
+            if (BN_is_zero(&bnDelta))
+                return bnCur;
+            if (BN_is_negative(&bnDelta))
+            {
+                if (nTerminate == 1)
+                    return bnCur - 1;
+                BN_set_negative(&bnDelta, 0);
+                if (BN_cmp(&bnDelta, &bnRoot) <= 0)
+                {
+                    bnCur -= 1;
+                    nTerminate = -1;
+                    continue;
+                }
+                BN_set_negative(&bnDelta, 1);
+            }
+            else
+            {
+                if (nTerminate == -1)
+                    return bnCur;
+                if (BN_cmp(&bnDelta, &bnRoot) <= 0)
+                {
+                    bnCur += 1;
+                    nTerminate = 1;
+                    continue;
+                }
+            }
+            bnCur += bnDelta / n;
+            nTerminate = 0;
+        }
+        return bnCur;
+    }
 };
 
 

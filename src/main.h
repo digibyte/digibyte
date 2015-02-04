@@ -692,7 +692,7 @@ const int64_t nDiffChangeTarget = 5;
 const int64_t multiAlgoDiffChangeTarget = 10; 
 //const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
 const int64_t alwaysUpdateDiffChangeTarget = 100; 
-const int64_t attack51DiffChangeTarget = 110;
+const int64_t workComputationChangeTarget = 110;
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
@@ -867,9 +867,32 @@ public:
 
     CBigNum GetBlockWorkAdjusted() const
     {
-        CBigNum bnRes;
-        bnRes = GetBlockWork() * GetAlgoWorkFactor();
-        return bnRes;
+        if (nHeight < workComputationChangeTarget)
+        {
+            CBigNum bnRes;
+            bnRes = GetBlockWork() * GetAlgoWorkFactor();
+            return bnRes;
+        }
+        else
+        {
+            CBigNum bnRes = 1;
+            CBlockHeader header = GetBlockHeader();
+            // multiply the difficulties of all algorithms
+            for (int i = 0; i < NUM_ALGOS; i++)
+            {
+                unsigned int nBits = GetNextWorkRequired(pprev, &header, i);
+                CBigNum bnTarget;
+                bnTarget.SetCompact(nBits);
+                if (bnTarget <= 0)
+                    return 0;
+                bnRes *= (CBigNum(1)<<256) / (bnTarget+1);
+            }
+            // Compute the geometric mean
+            bnRes = bnRes.nthRoot(NUM_ALGOS);
+            // Scale to roughly match the old work calculation
+            bnRes <<= 7;
+            return bnRes;
+        }
     }
     
     bool CheckIndex() const
