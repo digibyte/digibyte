@@ -1205,7 +1205,6 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-static const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
 //mulitAlgoTargetChange = 145000 located in main.h
@@ -1316,7 +1315,7 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
     
     //set default to pre-v2.0 values
     int64_t retargetTimespan = nTargetTimespan;
-    int64_t retargetSpacing = nTargetSpacing;
+    //int64_t retargetSpacing = nTargetSpacing;
     int64_t retargetInterval = nInterval;
     
     // Genesis block
@@ -1326,7 +1325,7 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
    if(fNewDifficultyProtocol) {
       LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
       retargetTimespan = nTargetTimespanRe;
-      retargetSpacing = nTargetSpacingRe;
+      //retargetSpacing = nTargetSpacingRe;
       retargetInterval = nIntervalRe;
     }
 
