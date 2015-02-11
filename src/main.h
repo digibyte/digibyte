@@ -691,8 +691,8 @@ const int64_t nDiffChangeTarget = 5;
 //const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000
 const int64_t multiAlgoDiffChangeTarget = 10; 
 //const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
-const int64_t alwaysUpdateDiffChangeTarget = 100; 
-const int64_t workComputationChangeTarget = 110;
+const int64_t alwaysUpdateDiffChangeTarget = 20; 
+const int64_t workComputationChangeTarget = 40;
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
