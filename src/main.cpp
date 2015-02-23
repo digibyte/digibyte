@@ -17,6 +17,7 @@
 #include "ui_interface.h"
 #include "util.h"
 
+
 #include <sstream>
 
 #include <boost/algorithm/string/replace.hpp>
@@ -436,8 +437,8 @@ bool AddOrphanTx(const CTransaction& tx)
     BOOST_FOREACH(const CTxIn& txin, tx.vin)
         mapOrphanTransactionsByPrev[txin.prevout.hash].insert(hash);
 
-    LogPrint("mempool", "stored orphan tx %s (mapsz %u)\n", hash.ToString(),
-        mapOrphanTransactions.size());
+    LogPrint("mempool", "stored orphan tx %s (mapsz %u)\n", hash.ToString(),mapOrphanTransactions.size());
+
     return true;
 }
 
@@ -720,12 +721,6 @@ int CMerkleTx::SetMerkleBranch(const CBlock* pblock)
     return chainActive.Height() - pindex->nHeight + 1;
 }
 
-
-
-
-
-
-
 bool CheckTransaction(const CTransaction& tx, CValidationState &state)
 {
     // Basic checks that don't depend on any context
@@ -735,10 +730,14 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
     if (tx.vout.empty())
         return state.DoS(10, error("CheckTransaction() : vout empty"),
                          REJECT_INVALID, "bad-txns-vout-empty");
+
+    unsigned int maxBlockSize;
+
+    GetMaxBlockSizeByTx(tx.GetHash(),maxBlockSize);
+
     // Size limits
-    if (::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
-        return state.DoS(100, error("CheckTransaction() : size limits failed"),
-                         REJECT_INVALID, "bad-txns-oversize");
+    if (::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > maxBlockSize)
+        return state.DoS(100, error("CheckTransaction() : size limits failed"),REJECT_INVALID, "bad-txns-oversize");
 
     // Check for negative or overflow output values
     int64_t nValueOut = 0;
@@ -1003,7 +1002,7 @@ int CMerkleTx::GetBlocksToMaturity(int nHeight) const
 {
     if (!IsCoinBase())
         return 0;
-    if ( nHeight < multiAlgoDiffChangeTarget ) 
+    if ( nHeight < multiAlgoDiffChangeTarget )
         return max(0, (COINBASE_MATURITY+1) - GetDepthInMainChain());
     return max(0, (COINBASE_MATURITY_2+1) - GetDepthInMainChain());
 }
@@ -1011,9 +1010,77 @@ int CMerkleTx::GetBlocksToMaturity(int nHeight) const
 
 bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree)
 {
-    CValidationState state;
-    return ::AcceptToMemoryPool(mempool, state, *this, fLimitFree, NULL);
+	CValidationState state;
+	return ::AcceptToMemoryPool(mempool, state, *this, fLimitFree, NULL);
 }
+
+//hash ... transaction hash
+void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
+{
+	unsigned int height;
+
+	if(GetBlockHeightByTx(hash,height))
+	{
+		if(height<blockSizeChangeTarget)
+		{
+			maxBlockSize=MAX_BLOCK_SIZE;
+		}
+		else
+		{
+			maxBlockSize=MAX_BLOCK_SIZE_2;
+		}
+	}
+	else
+	{
+		if(chainActive.Height()<blockSizeChangeTarget)
+		{
+			maxBlockSize=MAX_BLOCK_SIZE;
+		}
+		else
+		{
+			maxBlockSize=MAX_BLOCK_SIZE_2;
+		}
+	}
+}
+
+//hash ... transaction hash
+bool GetBlockHeightByTx(const uint256 &hash, unsigned int &height)
+{
+	height = -1;
+
+	if(fTxIndex)
+	{
+		CDiskTxPos postx;
+		if (pblocktree->ReadTxIndex(hash, postx)) {
+			CAutoFile file(OpenBlockFile(postx, true), SER_DISK, CLIENT_VERSION);
+			CBlockHeader header;
+			try {
+				file >> header;
+				//fseek(file, postx.nTxOffset, SEEK_CUR);
+				//file >> txOut;
+			} catch (std::exception &e) {
+				return error("%s : Deserialize or I/O error - %s", __func__, e.what());
+			}
+			//if (txOut.GetHash() != hash)
+			//return error("%s : txid mismatch", __func__);
+			height=mapBlockIndex[header.GetHash()]->nHeight;
+			return true;
+		}
+	}
+
+	// use coin database to locate block that contains transaction, and scan it
+	CCoinsViewCache &view = *pcoinsTip;
+	CCoins coins;
+	if (view.GetCoins(hash, coins))
+	{
+		height = coins.nHeight;
+		return true;
+	}
+
+	return false;
+}
+
+
 
 
 // Return transaction in tx, and if it was found inside a block, its hash is placed in hashBlock
@@ -1203,6 +1270,7 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
             return pindex;
         pindex = pindex->pprev;
     }
+    return NULL;
 }
 
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
@@ -1229,18 +1297,18 @@ int64_t GetDGBSubsidy(int nHeight) {
    		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
    	}
    	return qSubsidy;
-	
+
 
 }
 
 int64_t GetBlockValue(int nHeight, int64_t nFees)
 {
    int64_t nSubsidy = COIN;
-   
+
    if(nHeight < nDiffChangeTarget) {
       //this is pre-patch, reward is 8000.
       nSubsidy = 8000 * COIN;
-      
+
       if(nHeight < 1440)  //1440
       {
         nSubsidy = 72000 * COIN;
@@ -1249,7 +1317,7 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
       {
         nSubsidy = 16000 * COIN;
       }
-      
+
    } else {
       //patch takes effect after 67,200 blocks solved
       nSubsidy = GetDGBSubsidy(nHeight);
@@ -1274,7 +1342,7 @@ static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 bl
 //MultiAlgo Target updates
 static const int64_t multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
 static const int64_t multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64_t multiAlgoInterval = 1; // retargets every blocks
+//static const int64_t multiAlgoInterval = 1; // retargets every blocks
 
 static const int64_t nAveragingInterval = 10; // 10 blocks
 static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
@@ -1286,7 +1354,7 @@ static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
 static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
 static const int64_t nLocalDifficultyAdjustment = 4; // 4% down, 16% up
 
-static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
+//static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 
 
@@ -1296,7 +1364,7 @@ static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + n
 //
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 {
- return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact(); 
+ return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
 }
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
@@ -1308,20 +1376,20 @@ static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nM
 static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
      unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
-    
+
     int nHeight = pindexLast->nHeight + 1;
     bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget);
     int blockstogoback = 0;
-    
+
     //set default to pre-v2.0 values
     int64_t retargetTimespan = nTargetTimespan;
     //int64_t retargetSpacing = nTargetSpacing;
     int64_t retargetInterval = nInterval;
-    
+
     // Genesis block
     if (pindexLast == NULL) return nProofOfWorkLimit;
-        
-    //if v2.0 changes are in effect for block num, alter retarget values 
+
+    //if v2.0 changes are in effect for block num, alter retarget values
    if(fNewDifficultyProtocol) {
       LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
       retargetTimespan = nTargetTimespanRe;
@@ -1355,7 +1423,7 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
     blockstogoback = retargetInterval-1;
     if ((pindexLast->nHeight+1) != retargetInterval) blockstogoback = retargetInterval;
-    
+
     // Go back by what we want to be 14 days worth of blocks
     const CBlockIndex* pindexFirst = pindexLast;
     for (int i = 0; pindexFirst && i < blockstogoback; i++)
@@ -1365,7 +1433,7 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
   // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     LogPrintf("nActualTimespan = %d  before bounds\n", nActualTimespan);
-    
+
     // thanks to RealSolid & WDC for this code
         if(fNewDifficultyProtocol) {
             LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
@@ -1375,7 +1443,7 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
         else {
             if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
             if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
-        }   
+        }
 
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
@@ -1421,7 +1489,7 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
 
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
-    
+
     // find first block in averaging interval
     // Go back by what we want to be nAveragingInterval blocks
     const CBlockIndex* pindexFirst = pindexPrev;
@@ -1815,11 +1883,11 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, CCoinsViewCach
 		if (coins.nHeight < multiAlgoDiffChangeTarget) {
                   if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
 			//return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
-			return state.Invalid(error("CheckInputs() : tried coinbase at depth %d %d %d %d", 
+			return state.Invalid(error("CheckInputs() : tried coinbase at depth %d %d %d %d",
 						nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY));
-                } else { 
+                } else {
 			if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2) {
-				return state.Invalid(error("CheckInputs() : Maturity v2: tried to spend coinbase at depth %d %d %d %d", 
+				return state.Invalid(error("CheckInputs() : Maturity v2: tried to spend coinbase at depth %d %d %d %d",
 						 nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY_2));
 			}
 		}
@@ -2071,7 +2139,13 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 
         nInputs += tx.vin.size();
         nSigOps += GetLegacySigOpCount(tx);
-        if (nSigOps > MAX_BLOCK_SIGOPS)
+
+        unsigned int maxBlockSize;
+        GetMaxBlockSizeByBlock(block,maxBlockSize);
+
+        unsigned int maxBlockSigops=maxBlockSize/50;
+
+        if (nSigOps > maxBlockSigops)
             return state.DoS(100, error("ConnectBlock() : too many sigops"),
                              REJECT_INVALID, "bad-blk-sigops");
 
@@ -2087,7 +2161,7 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
                 // this is to prevent a "rogue miner" from creating
                 // an incredibly-expensive-to-validate block.
                 nSigOps += GetP2SHSigOpCount(tx, view);
-                if (nSigOps > MAX_BLOCK_SIGOPS)
+                if (nSigOps > maxBlockSigops)
                     return state.DoS(100, error("ConnectBlock() : too many sigops"),
                                      REJECT_INVALID, "bad-blk-sigops");
             }
@@ -2250,7 +2324,7 @@ bool static DisconnectTip(CValidationState &state) {
     BOOST_FOREACH(const CTransaction &tx, block.vtx) {
         // ignore validation errors in resurrected transactions
         list<CTransaction> removed;
-        CValidationState stateDummy; 
+        CValidationState stateDummy;
         if (!tx.IsCoinBase())
             if (!AcceptToMemoryPool(mempool, stateDummy, tx, false, NULL))
                 mempool.remove(tx, removed, true);
@@ -2568,14 +2642,44 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
     return true;
 }
 
+void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
+{
+	uint256 hash=block.GetHash();
+	if(mapBlockIndex.count(hash))
+	{
+    	if(mapBlockIndex[hash]->nHeight<blockSizeChangeTarget)
+    	{
+    		maxBlockSize=MAX_BLOCK_SIZE;
+    	}
+    	else
+    	{
+    		maxBlockSize=MAX_BLOCK_SIZE_2;
+    	}
+	}
+	else
+	{
+    	if(chainActive.Height()<blockSizeChangeTarget)
+    	{
+    		maxBlockSize=MAX_BLOCK_SIZE;
+    	}
+    	else
+    	{
+    		maxBlockSize=MAX_BLOCK_SIZE_2;
+    	}
+	}
+}
 
 bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bool fCheckMerkleRoot)
 {
     // These are checks that are independent of context
     // that can be verified before saving an orphan block.
 
-    // Size limits
-    if (block.vtx.empty() || block.vtx.size() > MAX_BLOCK_SIZE || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
+	unsigned int maxBlockSize;
+
+	GetMaxBlockSizeByBlock(block,maxBlockSize);
+
+	// Size limits
+    if (block.vtx.empty() || block.vtx.size() > maxBlockSize || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > maxBlockSize)
         return state.DoS(100, error("CheckBlock() : size limits failed"),
                          REJECT_INVALID, "bad-blk-length");
 
@@ -2623,7 +2727,10 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
     {
         nSigOps += GetLegacySigOpCount(tx);
     }
-    if (nSigOps > MAX_BLOCK_SIGOPS)
+
+    unsigned int maxBlockSigops=maxBlockSize/50;
+
+    if (nSigOps > maxBlockSigops)
         return state.DoS(100, error("CheckBlock() : out-of-bounds SigOpCount"),
                          REJECT_INVALID, "bad-blk-sigops", true);
 
@@ -2659,7 +2766,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
                              REJECT_INVALID, "bad-diffbits");
 
 	 if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
-            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"), 
+            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"),
 			    REJECT_INVALID, "bad-hashalgo");
 
         // Check timestamp against prev
@@ -2872,13 +2979,6 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     return true;
 }
 
-
-
-
-
-
-
-
 CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
 {
     header = block.GetBlockHeader();
@@ -2902,15 +3002,8 @@ CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
         vHashes.push_back(hash);
     }
 
-    txn = CPartialMerkleTree(vHashes, vMatch);
+    txn = CPartialMerkleTree(vHashes, vMatch, block);
 }
-
-
-
-
-
-
-
 
 uint256 CPartialMerkleTree::CalcHash(int height, unsigned int pos, const std::vector<uint256> &vTxid) {
     if (height == 0) {
@@ -2977,8 +3070,11 @@ uint256 CPartialMerkleTree::TraverseAndExtract(int height, unsigned int pos, uns
     }
 }
 
-CPartialMerkleTree::CPartialMerkleTree(const std::vector<uint256> &vTxid, const std::vector<bool> &vMatch) : nTransactions(vTxid.size()), fBad(false) {
-    // reset state
+CPartialMerkleTree::CPartialMerkleTree(const std::vector<uint256> &vTxid, const std::vector<bool> &vMatch, const CBlock &block) : nTransactions(vTxid.size()), fBad(false) {
+
+	this->block=&block;
+
+	// reset state
     vBits.clear();
     vHash.clear();
 
@@ -2991,6 +3087,25 @@ CPartialMerkleTree::CPartialMerkleTree(const std::vector<uint256> &vTxid, const 
     TraverseAndBuild(nHeight, 0, vTxid, vMatch);
 }
 
+CPartialMerkleTree::CPartialMerkleTree(const std::vector<uint256> &vTxid, const std::vector<bool> &vMatch) : nTransactions(vTxid.size()), fBad(false) {
+
+	this->block=0;
+
+	// reset state
+    vBits.clear();
+    vHash.clear();
+
+    // calculate height of tree
+    int nHeight = 0;
+    while (CalcTreeWidth(nHeight) > 1)
+        nHeight++;
+
+    // traverse the partial tree
+    TraverseAndBuild(nHeight, 0, vTxid, vMatch);
+}
+
+
+
 CPartialMerkleTree::CPartialMerkleTree() : nTransactions(0), fBad(true) {}
 
 uint256 CPartialMerkleTree::ExtractMatches(std::vector<uint256> &vMatch) {
@@ -2998,8 +3113,13 @@ uint256 CPartialMerkleTree::ExtractMatches(std::vector<uint256> &vMatch) {
     // An empty set will not work
     if (nTransactions == 0)
         return 0;
+
+    unsigned int maxBlockSize;
+
+    GetMaxBlockSizeByBlock(*block, maxBlockSize);
+
     // check for excessively high numbers of transactions
-    if (nTransactions > MAX_BLOCK_SIZE / 60) // 60 is the lower bound for the size of a serialized CTransaction
+    if (nTransactions > maxBlockSize / 60) // 60 is the lower bound for the size of a serialized CTransaction
         return 0;
     // there can never be more hashes provided than one for every txid
     if (vHash.size() > nTransactions)
@@ -3025,12 +3145,6 @@ uint256 CPartialMerkleTree::ExtractMatches(std::vector<uint256> &vMatch) {
         return 0;
     return hashMerkleRoot;
 }
-
-
-
-
-
-
 
 bool AbortNode(const std::string &strMessage) {
     strMiscWarning = strMessage;
@@ -3125,7 +3239,7 @@ bool static LoadBlockIndexDB()
         pindex->nChainTx = (pindex->pprev ? pindex->pprev->nChainTx : 0) + pindex->nTx;
         if ((pindex->nStatus & BLOCK_VALID_MASK) >= BLOCK_VALID_TRANSACTIONS && !(pindex->nStatus & BLOCK_FAILED_MASK))
             setBlockIndexValid.insert(pindex);
-        if (pindex->nStatus & BLOCK_FAILED_MASK && (!pindexBestInvalid || pindex->nChainWork > pindexBestInvalid->nChainWork))
+        if ((pindex->nStatus & BLOCK_FAILED_MASK) && (!pindexBestInvalid || pindex->nChainWork > pindexBestInvalid->nChainWork))
             pindexBestInvalid = pindex;
     }
 
@@ -3358,7 +3472,10 @@ bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
 
     int nLoaded = 0;
     try {
-        CBufferedFile blkdat(fileIn, 2*MAX_BLOCK_SIZE, MAX_BLOCK_SIZE+8, SER_DISK, CLIENT_VERSION);
+
+    	const unsigned int maxBlockSize=std::max(MAX_BLOCK_SIZE,MAX_BLOCK_SIZE_2);
+
+    	CBufferedFile blkdat(fileIn, 2*maxBlockSize, maxBlockSize+8, SER_DISK, CLIENT_VERSION);
         uint64_t nStartByte = 0;
         if (dbp) {
             // (try to) skip already indexed part
@@ -3386,7 +3503,7 @@ bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
                     continue;
                 // read size
                 blkdat >> nSize;
-                if (nSize < 80 || nSize > MAX_BLOCK_SIZE)
+                if (nSize < 80 || nSize > maxBlockSize)
                     continue;
             } catch (std::exception &e) {
                 // no valid block header found; don't complain
@@ -3567,6 +3684,7 @@ void static ProcessGetData(CNode* pfrom)
                     // Send block from disk
                     CBlock block;
                     ReadBlockFromDisk(block, (*mi).second);
+
                     if (inv.type == MSG_BLOCK)
                         pfrom->PushMessage("block", block);
                     else // MSG_FILTERED_BLOCK)
@@ -3705,7 +3823,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
             if (
            	 (pfrom->cleanSubVer == "/DigiByte:1.0.0/") ||
-                 (pfrom->cleanSubVer == "/DigiByte:2.0.0/") ||            	
+                 (pfrom->cleanSubVer == "/DigiByte:2.0.0/") ||
            	 (pfrom->cleanSubVer == "/DigiByte:2.9.0/") ||
                  (pfrom->cleanSubVer == "/DigiByte:2.9.1/") ||
                  (pfrom->cleanSubVer == "/DigiByte:3.0.0/") ||
@@ -3972,8 +4090,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             }
         }
     }
-
-
     else if (strCommand == "getheaders")
     {
         CBlockLocator locator;
@@ -4035,7 +4151,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             vWorkQueue.push_back(inv.hash);
             vEraseQueue.push_back(inv.hash);
 
-
             LogPrint("mempool", "AcceptToMemoryPool: %s %s : accepted %s (poolsz %u)\n",
                 pfrom->addr.ToString(), pfrom->cleanSubVer,
                 tx.GetHash().ToString(),
@@ -4082,8 +4197,19 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         {
             AddOrphanTx(tx);
 
+            int maxBlockSize;
+
+            if(chainActive.Height()<blockSizeChangeTarget)
+        	{
+        		maxBlockSize=MAX_BLOCK_SIZE;
+        	}
+        	else
+        	{
+        		maxBlockSize=MAX_BLOCK_SIZE_2;
+        	}
+
             // DoS prevention: do not allow mapOrphanTransactions to grow unbounded
-            unsigned int nEvicted = LimitOrphanTxSize(MAX_ORPHAN_TRANSACTIONS);
+            unsigned int nEvicted = LimitOrphanTxSize(maxBlockSize/100);
             if (nEvicted > 0)
                 LogPrint("mempool", "mapOrphan overflow, removed %u tx\n", nEvicted);
         }
@@ -4648,8 +4774,8 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         // in flight for over two minutes, since we first had a chance to
         // process an incoming block.
         int64_t nNow = GetTimeMicros();
-        if (!pto->fDisconnect && state.nBlocksInFlight && 
-            state.nLastBlockReceive < state.nLastBlockProcess - BLOCK_DOWNLOAD_TIMEOUT*1000000 && 
+        if (!pto->fDisconnect && state.nBlocksInFlight &&
+            state.nLastBlockReceive < state.nLastBlockProcess - BLOCK_DOWNLOAD_TIMEOUT*1000000 &&
             state.vBlocksInFlight.front().nTime < state.nLastBlockProcess - 2*BLOCK_DOWNLOAD_TIMEOUT*1000000) {
             LogPrintf("Peer %s is stalling block download, disconnecting\n", state.name.c_str());
             pto->fDisconnect = true;

@@ -153,10 +153,22 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
     pblocktemplate->vTxFees.push_back(-1); // updated at end
     pblocktemplate->vTxSigOps.push_back(-1); // updated at end
 
-    // Largest block you're willing to create:
-    unsigned int nBlockMaxSize = GetArg("-blockmaxsize", DEFAULT_BLOCK_MAX_SIZE);
+
+    int maxBlockSize;
+
+	if(pindexPrev->nHeight+1<blockSizeChangeTarget)
+	{
+		maxBlockSize=MAX_BLOCK_SIZE;
+	}
+	else
+	{
+		maxBlockSize=MAX_BLOCK_SIZE_2;
+	}
+
+	// Largest block you're willing to create:
+    unsigned int nBlockMaxSize = GetArg("-blockmaxsize", maxBlockSize*3/4);
     // Limit to betweeen 1K and MAX_BLOCK_SIZE-1K for sanity:
-    nBlockMaxSize = std::max((unsigned int)1000, std::min((unsigned int)(MAX_BLOCK_SIZE-1000), nBlockMaxSize));
+    nBlockMaxSize = std::max((unsigned int)1000, std::min((unsigned int)(maxBlockSize-1000), nBlockMaxSize));
 
     // How much of the block should be dedicated to high-priority transactions,
     // included regardless of the fees they pay
@@ -277,9 +289,11 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             if (nBlockSize + nTxSize >= nBlockMaxSize)
                 continue;
 
+            unsigned int maxBlockSigops=maxBlockSize/50;
+
             // Legacy limits on sigOps:
             unsigned int nTxSigOps = GetLegacySigOpCount(tx);
-            if (nBlockSigOps + nTxSigOps >= MAX_BLOCK_SIGOPS)
+            if (nBlockSigOps + nTxSigOps >= maxBlockSigops)
                 continue;
 
             // Skip free transactions if we're past the minimum block size:
@@ -302,7 +316,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             int64_t nTxFees = view.GetValueIn(tx)-tx.GetValueOut();
 
             nTxSigOps += GetP2SHSigOpCount(tx, view);
-            if (nBlockSigOps + nTxSigOps >= MAX_BLOCK_SIGOPS)
+            if (nBlockSigOps + nTxSigOps >= maxBlockSigops)
                 continue;
 
             CValidationState state;
