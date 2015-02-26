@@ -17,7 +17,6 @@
 #include "ui_interface.h"
 #include "util.h"
 
-
 #include <sstream>
 
 #include <boost/algorithm/string/replace.hpp>
@@ -34,6 +33,7 @@ using namespace boost;
 //
 // Global state
 //
+
 
 CCriticalSection cs_main;
 
@@ -1047,6 +1047,15 @@ void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
 bool GetBlockHeightByTx(const uint256 &hash, unsigned int &height)
 {
 	height = -1;
+
+    LOCK(cs_main);
+    {
+    	CTransaction tx;
+        if (mempool.lookup(hash, tx))
+        {
+            return false;
+        }
+    }
 
 	if(fTxIndex)
 	{
@@ -2416,7 +2425,8 @@ void static FindMostWorkChain() {
             if (pindexTest->nStatus & BLOCK_FAILED_MASK) {
                 // Candidate has an invalid ancestor, remove entire chain from the set.
                 if (pindexBestInvalid == NULL || pindexNew->nChainWork > pindexBestInvalid->nChainWork)
-                    pindexBestInvalid = pindexNew;                CBlockIndex *pindexFailed = pindexNew;
+                    pindexBestInvalid = pindexNew;
+                CBlockIndex *pindexFailed = pindexNew;
                 while (pindexTest != pindexFailed) {
                     pindexFailed->nStatus |= BLOCK_FAILED_CHILD;
                     setBlockIndexValid.erase(pindexFailed);
@@ -3785,8 +3795,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         LOCK(cs_main);
         State(pfrom->GetId())->nLastBlockProcess = GetTimeMicros();
     }
-
-
 
     if (strCommand == "version")
     {
