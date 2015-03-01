@@ -2657,25 +2657,30 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 	uint256 hash=block.GetHash();
 	if(mapBlockIndex.count(hash))
 	{
-    	if(mapBlockIndex[hash]->nHeight<blockSizeChangeTarget)
-    	{
-    		maxBlockSize=MAX_BLOCK_SIZE;
-    	}
-    	else
-    	{
-    		maxBlockSize=MAX_BLOCK_SIZE_2;
-    	}
+		map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(hash);
+		CBlockIndex* pindex = (*mi).second;
+
+		if(pindex&&chainActive.Contains(pindex))
+		{
+	    	if(pindex->nHeight<blockSizeChangeTarget)
+	    	{
+	    		maxBlockSize=MAX_BLOCK_SIZE;
+	    	}
+	    	else
+	    	{
+	    		maxBlockSize=MAX_BLOCK_SIZE_2;
+	    	}
+	    	return;
+		}
+	}
+
+	if(chainActive.Height()<blockSizeChangeTarget)
+	{
+		maxBlockSize=MAX_BLOCK_SIZE;
 	}
 	else
 	{
-    	if(chainActive.Height()<blockSizeChangeTarget)
-    	{
-    		maxBlockSize=MAX_BLOCK_SIZE;
-    	}
-    	else
-    	{
-    		maxBlockSize=MAX_BLOCK_SIZE_2;
-    	}
+		maxBlockSize=MAX_BLOCK_SIZE_2;
 	}
 }
 

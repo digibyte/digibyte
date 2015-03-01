@@ -153,7 +153,6 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
     pblocktemplate->vTxFees.push_back(-1); // updated at end
     pblocktemplate->vTxSigOps.push_back(-1); // updated at end
 
-
     int maxBlockSize;
 
 	if(pindexPrev->nHeight+1<blockSizeChangeTarget)
