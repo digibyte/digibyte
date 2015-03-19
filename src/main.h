@@ -696,7 +696,9 @@ const int64_t nDiffChangeTarget = 5;
 const int64_t multiAlgoDiffChangeTarget = 10; 
 //const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
 const int64_t alwaysUpdateDiffChangeTarget = 20; 
-const int64_t blockSizeChangeTarget = 40;
+const int64_t workComputationChangeTarget = 40;
+const int64_t blockSizeChangeTarget = 50;
+const int64_t blockTimeChangeTarget = 100;
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
@@ -871,13 +873,12 @@ public:
 
     CBigNum GetBlockWorkAdjusted() const
     {
-        //if (nHeight < workComputationChangeTarget)
+        if (nHeight < workComputationChangeTarget)
         {
             CBigNum bnRes;
             bnRes = GetBlockWork() * GetAlgoWorkFactor();
             return bnRes;
         }
-        /*
         else
         {
             CBigNum bnRes = 1;
@@ -898,7 +899,6 @@ public:
             bnRes <<= 7;
             return bnRes;
         }
-        */
     }
     
     bool CheckIndex() const
@@ -933,7 +933,6 @@ public:
      * in the last nToCheck blocks, starting at pstart and going backwards.
      */
     static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,unsigned int nRequired, unsigned int nToCheck);
-    static bool IsSuperMajorityByMask(int mask, const CBlockIndex* pstart,unsigned int nRequired, unsigned int nToCheck);
 
     std::string ToString() const
     {
@@ -1207,6 +1206,5 @@ protected:
 bool GetBlockHeightByTx(const uint256 &hash, unsigned int &height);
 void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize);
 void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize);
-bool GetBlockIndexByTx(const uint256 &hash, CBlockIndex *index);
 
 #endif

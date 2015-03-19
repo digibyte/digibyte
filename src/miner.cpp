@@ -136,13 +136,6 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             error("CreateNewBlock: bad algo");
             return NULL;
     }
-    if(pindexPrev->nHeight<blockSizeChangeTarget)
-    {
-    }
-    else
-    {
-    	pblock->nVersion|=0x100;
-    }
 
     if (pindexPrev->nHeight < multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
 	    error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %d", pindexPrev->nHeight, multiAlgoDiffChangeTarget);

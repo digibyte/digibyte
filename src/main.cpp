@@ -1017,23 +1017,17 @@ bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree)
 //hash ... transaction hash
 void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
 {
-	CBlockIndex *index=0;
-	if(GetBlockIndexByTx(hash,index))
+	unsigned int height;
+
+	if(GetBlockHeightByTx(hash,height))
 	{
-		if(index->nHeight<blockSizeChangeTarget)
+		if(height<blockSizeChangeTarget)
 		{
 			maxBlockSize=MAX_BLOCK_SIZE;
 		}
 		else
 		{
-			if(index->nVersion & 0x100)
-			{
-				maxBlockSize=MAX_BLOCK_SIZE_2;
-			}
-			else
-			{
-				maxBlockSize=MAX_BLOCK_SIZE;
-			}
+			maxBlockSize=MAX_BLOCK_SIZE_2;
 		}
 	}
 	else
@@ -1044,64 +1038,10 @@ void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
 		}
 		else
 		{
-			if(chainActive.Tip()->nVersion & 0x100)
-			{
-				maxBlockSize=MAX_BLOCK_SIZE_2;
-			}
-			else
-			{
-				maxBlockSize=MAX_BLOCK_SIZE;
-			}
+			maxBlockSize=MAX_BLOCK_SIZE_2;
 		}
 	}
 }
-
-//hash ... transaction hash
-bool GetBlockIndexByTx(const uint256 &hash, CBlockIndex *index)
-{
-	index=0;
-
-	LOCK(cs_main);
-	{
-		CTransaction tx;
-		if (mempool.lookup(hash, tx))
-		{
-			return false;
-		}
-	}
-
-	if(fTxIndex)
-	{
-		CDiskTxPos postx;
-		if (pblocktree->ReadTxIndex(hash, postx)) {
-			CAutoFile file(OpenBlockFile(postx, true), SER_DISK, CLIENT_VERSION);
-			CBlockHeader header;
-			try {
-				file >> header;
-				//fseek(file, postx.nTxOffset, SEEK_CUR);
-				//file >> txOut;
-			} catch (std::exception &e) {
-				return error("%s : Deserialize or I/O error - %s", __func__, e.what());
-			}
-			//if (txOut.GetHash() != hash)
-			//return error("%s : txid mismatch", __func__);
-			index=mapBlockIndex[header.GetHash()];
-			return true;
-		}
-	}
-
-	// use coin database to locate block that contains transaction, and scan it
-	CCoinsViewCache &view = *pcoinsTip;
-	CCoins coins;
-	if (view.GetCoins(hash, coins))
-	{
-		index=chainActive[coins.nHeight];
-		return true;
-	}
-
-	return false;
-}
-
 
 //hash ... transaction hash
 bool GetBlockHeightByTx(const uint256 &hash, unsigned int &height)
@@ -1365,8 +1305,16 @@ int64_t GetDGBSubsidy(int nHeight) {
    		//decrease reward by 1% every month
    		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
    	}
-   	return qSubsidy;
+	
+	if(nHeight<blockTimeChangeTarget)
+	{
+	}
+	else
+	{
+		qSubsidy=qSubsidy*10/25;//divide by 2.5
+	}
 
+	return qSubsidy;
 
 }
 
@@ -1411,10 +1359,11 @@ static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 bl
 //MultiAlgo Target updates
 static const int64_t multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
 static const int64_t multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-//static const int64_t multiAlgoInterval = 1; // retargets every blocks
+static const int64_t multiAlgoTargetSpacingBlockTime = 60; // 1 minutes (NUM_ALGOS * 12 seconds)
 
 static const int64_t nAveragingInterval = 10; // 10 blocks
 static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
+static const int64_t nAveragingTargetTimespanBlockTime = nAveragingInterval * multiAlgoTargetSpacingBlockTime; // 10 minutess
 
 static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
@@ -1441,6 +1390,10 @@ static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMax
 
 static const int64_t nMinActualTimespanV3 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV3) / 100;
 static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nMaxAdjustDownV3) / 100;
+
+
+static const int64_t nMinActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 - nMaxAdjustUpV3) / 100;
+static const int64_t nMaxActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 + nMaxAdjustDownV3) / 100;
 
 static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -1637,16 +1590,37 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
     nActualTimespan = nAveragingTargetTimespan + (nActualTimespan - nAveragingTargetTimespan)/6;
     LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
-    if (nActualTimespan < nMinActualTimespanV3)
-        nActualTimespan = nMinActualTimespanV3;
-    if (nActualTimespan > nMaxActualTimespanV3)
-        nActualTimespan = nMaxActualTimespanV3;
+
+    if(pindexLast->nHeight<blockTimeChangeTarget)
+    {
+        if (nActualTimespan < nMinActualTimespanV3)
+            nActualTimespan = nMinActualTimespanV3;
+        if (nActualTimespan > nMaxActualTimespanV3)
+            nActualTimespan = nMaxActualTimespanV3;
+    }
+    else
+    {
+        if (nActualTimespan < nMinActualTimespanBlockTime)
+            nActualTimespan = nMinActualTimespanBlockTime;
+        if (nActualTimespan > nMaxActualTimespanBlockTime)
+            nActualTimespan = nMaxActualTimespanBlockTime;
+    }
 
     // Global retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrevAlgo->nBits);
     bnNew *= nActualTimespan;
-    bnNew /= nAveragingTargetTimespan;
+
+
+    if(pindexLast->nHeight<blockTimeChangeTarget)
+    {
+        bnNew /= nAveragingTargetTimespan;
+    }
+    else
+    {
+        bnNew /= nAveragingTargetTimespanBlockTime;
+
+    }
 
     // Per-algo retarget
     int nAdjustments = pindexPrevAlgo->nHeight - pindexLast->nHeight + NUM_ALGOS - 1;
@@ -2728,14 +2702,7 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 			}
 			else
 			{
-				if(pindex->nVersion&0x100)
-				{
-					maxBlockSize=MAX_BLOCK_SIZE;
-				}
-				else
-				{
-					maxBlockSize=MAX_BLOCK_SIZE_2;
-				}
+				maxBlockSize=MAX_BLOCK_SIZE_2;
 			}
 			return;
 		}
@@ -2747,14 +2714,7 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 	}
 	else
 	{
-		if(chainActive.Tip()->nVersion&0x100)
-		{
-			maxBlockSize=MAX_BLOCK_SIZE;
-		}
-		else
-		{
-			maxBlockSize=MAX_BLOCK_SIZE_2;
-		}
+		maxBlockSize=MAX_BLOCK_SIZE_2;
 	}
 }
 
@@ -2904,14 +2864,6 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
             }
         }
 
-
-		if (block.nVersion & 0x100)
-		{
-			if (CBlockIndex::IsSuperMajorityByMask(0x100, pindexPrev, 900, 1000))
-			{
-				return state.Invalid(error("AcceptBlock() : rejected nVersion & 0x100 = 0 block"), REJECT_OBSOLETE, "bad-version");
-			}
-		}
     }
 
     // Write block to history file
@@ -2954,18 +2906,6 @@ bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, uns
         pstart = pstart->pprev;
     }
     return (nFound >= nRequired);
-}
-
-bool CBlockIndex::IsSuperMajorityByMask(int mask, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck)
-{
-	unsigned int nFound = 0;
-	for (unsigned int i = 0; i < nToCheck && nFound < nRequired && pstart != NULL; i++)
-	{
-		if (pstart->nVersion & mask)
-			++nFound;
-		pstart = pstart->pprev;
-	}
-	return (nFound >= nRequired);
 }
 
 int64_t CBlockIndex::GetMedianTime() const
