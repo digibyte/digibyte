@@ -1017,17 +1017,23 @@ bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree)
 //hash ... transaction hash
 void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
 {
-	unsigned int height;
-
-	if(GetBlockHeightByTx(hash,height))
+	CBlockIndex *index=0;
+	if(GetBlockIndexByTx(hash,index))
 	{
-		if(height<blockSizeChangeTarget)
+		if(index->nHeight<blockSizeChangeTarget)
 		{
 			maxBlockSize=MAX_BLOCK_SIZE;
 		}
 		else
 		{
-			maxBlockSize=MAX_BLOCK_SIZE_2;
+			if(index->nVersion & 0x100)
+			{
+				maxBlockSize=MAX_BLOCK_SIZE_2;
+			}
+			else
+			{
+				maxBlockSize=MAX_BLOCK_SIZE;
+			}
 		}
 	}
 	else
@@ -1038,10 +1044,64 @@ void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
 		}
 		else
 		{
-			maxBlockSize=MAX_BLOCK_SIZE_2;
+			if(chainActive.Tip()->nVersion & 0x100)
+			{
+				maxBlockSize=MAX_BLOCK_SIZE_2;
+			}
+			else
+			{
+				maxBlockSize=MAX_BLOCK_SIZE;
+			}
 		}
 	}
 }
+
+//hash ... transaction hash
+bool GetBlockIndexByTx(const uint256 &hash, CBlockIndex *index)
+{
+	index=0;
+
+	LOCK(cs_main);
+	{
+		CTransaction tx;
+		if (mempool.lookup(hash, tx))
+		{
+			return false;
+		}
+	}
+
+	if(fTxIndex)
+	{
+		CDiskTxPos postx;
+		if (pblocktree->ReadTxIndex(hash, postx)) {
+			CAutoFile file(OpenBlockFile(postx, true), SER_DISK, CLIENT_VERSION);
+			CBlockHeader header;
+			try {
+				file >> header;
+				//fseek(file, postx.nTxOffset, SEEK_CUR);
+				//file >> txOut;
+			} catch (std::exception &e) {
+				return error("%s : Deserialize or I/O error - %s", __func__, e.what());
+			}
+			//if (txOut.GetHash() != hash)
+			//return error("%s : txid mismatch", __func__);
+			index=mapBlockIndex[header.GetHash()];
+			return true;
+		}
+	}
+
+	// use coin database to locate block that contains transaction, and scan it
+	CCoinsViewCache &view = *pcoinsTip;
+	CCoins coins;
+	if (view.GetCoins(hash, coins))
+	{
+		index=chainActive[coins.nHeight];
+		return true;
+	}
+
+	return false;
+}
+
 
 //hash ... transaction hash
 bool GetBlockHeightByTx(const uint256 &hash, unsigned int &height)
@@ -2662,15 +2722,22 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 
 		if(pindex&&chainActive.Contains(pindex))
 		{
-	    	if(pindex->nHeight<blockSizeChangeTarget)
-	    	{
-	    		maxBlockSize=MAX_BLOCK_SIZE;
-	    	}
-	    	else
-	    	{
-	    		maxBlockSize=MAX_BLOCK_SIZE_2;
-	    	}
-	    	return;
+			if(pindex->nHeight<blockSizeChangeTarget)
+			{
+				maxBlockSize=MAX_BLOCK_SIZE;
+			}
+			else
+			{
+				if(pindex->nVersion&0x100)
+				{
+					maxBlockSize=MAX_BLOCK_SIZE;
+				}
+				else
+				{
+					maxBlockSize=MAX_BLOCK_SIZE_2;
+				}
+			}
+			return;
 		}
 	}
 
@@ -2680,7 +2747,14 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 	}
 	else
 	{
-		maxBlockSize=MAX_BLOCK_SIZE_2;
+		if(chainActive.Tip()->nVersion&0x100)
+		{
+			maxBlockSize=MAX_BLOCK_SIZE;
+		}
+		else
+		{
+			maxBlockSize=MAX_BLOCK_SIZE_2;
+		}
 	}
 }
 
@@ -2829,6 +2903,15 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
                                      REJECT_INVALID, "bad-cb-height");
             }
         }
+
+
+		if (block.nVersion & 0x100)
+		{
+			if (CBlockIndex::IsSuperMajorityByMask(0x100, pindexPrev, 900, 1000))
+			{
+				return state.Invalid(error("AcceptBlock() : rejected nVersion & 0x100 = 0 block"), REJECT_OBSOLETE, "bad-version");
+			}
+		}
     }
 
     // Write block to history file
@@ -2871,6 +2954,18 @@ bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, uns
         pstart = pstart->pprev;
     }
     return (nFound >= nRequired);
+}
+
+bool CBlockIndex::IsSuperMajorityByMask(int mask, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck)
+{
+	unsigned int nFound = 0;
+	for (unsigned int i = 0; i < nToCheck && nFound < nRequired && pstart != NULL; i++)
+	{
+		if (pstart->nVersion & mask)
+			++nFound;
+		pstart = pstart->pprev;
+	}
+	return (nFound >= nRequired);
 }
 
 int64_t CBlockIndex::GetMedianTime() const
@@ -4372,8 +4467,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             pfrom->nPingNonceSent = 0;
         }
     }
-
-
     else if (strCommand == "alert")
     {
         CAlert alert;
