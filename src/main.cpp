@@ -2833,12 +2833,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
 
         // Check proof of work
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
-        {
-            LogPrintf("block.nBits: %ui\n", block.nBits);
-            LogPrintf("GetNextWorkRequired: %ui\n", GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()));
-
         	return state.DoS(100, error("AcceptBlock() : incorrect proof of work"), REJECT_INVALID, "bad-diffbits");
-        }
 
         if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
             return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"),
