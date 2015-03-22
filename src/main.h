@@ -39,10 +39,10 @@ const int64_t nDiffChangeTarget = 5;
 //const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000
 const int64_t multiAlgoDiffChangeTarget = 10;
 //const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
-const int64_t alwaysUpdateDiffChangeTarget = 20;
-const int64_t workComputationChangeTarget = 40;
-const int64_t blockSizeChangeTarget = 50;
-const int64_t blockTimeChangeTarget = 60;
+const int64_t alwaysUpdateDiffChangeTarget = 15;
+const int64_t workComputationChangeTarget = 20;
+const int64_t blockSizeChangeTarget = 30;
+const int64_t blockTimeChangeTarget = 40;
 
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change

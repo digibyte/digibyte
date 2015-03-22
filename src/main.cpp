@@ -1582,7 +1582,7 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     nActualTimespan = nAveragingTargetTimespan + (nActualTimespan - nAveragingTargetTimespan)/6;
     LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
 
-    if(pindexLast->nHeight<blockTimeChangeTarget)
+    if(pindexLast->nHeight<blockTimeChangeTarget-1)
     {
         if (nActualTimespan < nMinActualTimespanV3)
             nActualTimespan = nMinActualTimespanV3;
@@ -1603,14 +1603,13 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     bnNew *= nActualTimespan;
 
 
-    if(pindexLast->nHeight<blockTimeChangeTarget)
+    if(pindexLast->nHeight<blockTimeChangeTarget-1)
     {
         bnNew /= nAveragingTargetTimespan;
     }
     else
     {
         bnNew /= nAveragingTargetTimespanBlockTime;
-
     }
 
     // Per-algo retarget
@@ -2834,10 +2833,14 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
 
         // Check proof of work
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
-            return state.DoS(100, error("AcceptBlock() : incorrect proof of work"),
-                             REJECT_INVALID, "bad-diffbits");
+        {
+            LogPrintf("block.nBits: %ui\n", block.nBits);
+            LogPrintf("GetNextWorkRequired: %ui\n", GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()));
 
-	 if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
+        	return state.DoS(100, error("AcceptBlock() : incorrect proof of work"), REJECT_INVALID, "bad-diffbits");
+        }
+
+        if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
             return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"),
 			    REJECT_INVALID, "bad-hashalgo");
 
