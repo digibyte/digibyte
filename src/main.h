@@ -33,6 +33,21 @@ class CBlockIndex;
 class CBloomFilter;
 class CInv;
 
+//const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
+const int64_t nDiffChangeTarget = 5;
+
+//const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000
+const int64_t multiAlgoDiffChangeTarget = 10;
+//const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
+const int64_t alwaysUpdateDiffChangeTarget = 20;
+const int64_t workComputationChangeTarget = 40;
+const int64_t blockSizeChangeTarget = 50;
+const int64_t blockTimeChangeTarget = 60;
+
+static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
+static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
+//mulitAlgoTargetChange = 145000 located in main.h
+
 /** The maximum allowed size for a serialized block, in bytes (network rule) */
 static const unsigned int MAX_BLOCK_SIZE 	= 1000000;
 static const unsigned int MAX_BLOCK_SIZE_2 	= 10000000;
@@ -609,6 +624,8 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 // Add this block to the block index, and if necessary, switch the active block chain to this
 bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos& pos);
 
+bool CheckBlockOnly(const CBlock& block, CValidationState& state, bool fCheckPOW = true);
+
 // Context-independent validity checks
 bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
 
@@ -689,16 +706,6 @@ enum BlockStatus {
     BLOCK_FAILED_MASK        =   96
 };
 
-//const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
-const int64_t nDiffChangeTarget = 5;
-
-//const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000
-const int64_t multiAlgoDiffChangeTarget = 10; 
-//const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
-const int64_t alwaysUpdateDiffChangeTarget = 20; 
-const int64_t workComputationChangeTarget = 40;
-const int64_t blockSizeChangeTarget = 50;
-const int64_t blockTimeChangeTarget = 100;
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple

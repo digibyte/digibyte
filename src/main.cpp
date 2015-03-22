@@ -1282,14 +1282,10 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     return NULL;
 }
 
-static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
-static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
-//mulitAlgoTargetChange = 145000 located in main.h
-
 int64_t GetDGBSubsidy(int nHeight) {
    // thanks to RealSolid & WDC for helping out with this code
 	int64_t qSubsidy;
-        if (nHeight < alwaysUpdateDiffChangeTarget)
+	if (nHeight < alwaysUpdateDiffChangeTarget)
    	{
 		qSubsidy = 8000*COIN;
    		int blocks = nHeight - nDiffChangeTarget;
@@ -1299,7 +1295,7 @@ int64_t GetDGBSubsidy(int nHeight) {
    	}
    	else
    	{
-	        qSubsidy = 2459*COIN;
+	    qSubsidy = 2459*COIN;
    		int blocks = nHeight - alwaysUpdateDiffChangeTarget;
    		int weeks = (blocks / patchBlockRewardDuration2)+1;
    		//decrease reward by 1% every month
@@ -1311,7 +1307,7 @@ int64_t GetDGBSubsidy(int nHeight) {
 	}
 	else
 	{
-		qSubsidy=qSubsidy*10/25;//divide by 2.5
+		qSubsidy=qSubsidy/2;
 	}
 
 	return qSubsidy;
@@ -1357,13 +1353,12 @@ static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
 static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
 
 //MultiAlgo Target updates
-static const int64_t multiAlgoTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
 static const int64_t multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64_t multiAlgoTargetSpacingBlockTime = 60; // 1 minutes (NUM_ALGOS * 12 seconds)
+static const int64_t multiAlgoTargetSpacingBlockTime = 75; // 1 minutes (NUM_ALGOS * 15 seconds)
 
 static const int64_t nAveragingInterval = 10; // 10 blocks
 static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
-static const int64_t nAveragingTargetTimespanBlockTime = nAveragingInterval * multiAlgoTargetSpacingBlockTime; // 10 minutess
+static const int64_t nAveragingTargetTimespanBlockTime = nAveragingInterval * multiAlgoTargetSpacingBlockTime; // 750s
 
 static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
@@ -1371,19 +1366,6 @@ static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
 static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
 static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
 static const int64_t nLocalDifficultyAdjustment = 4; // 4% down, 16% up
-
-//static const int64_t nTargetTimespanAdjDown = multiAlgoTargetTimespan * (100 + nMaxAdjustDown) / 100;
-
-
-
-//
-// minimum amount of work that could possibly be required nTime after
-// minimum work required was nBase
-//
-unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
-{
- return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
-}
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
 static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
@@ -1394,6 +1376,15 @@ static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nM
 
 static const int64_t nMinActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 - nMaxAdjustUpV3) / 100;
 static const int64_t nMaxActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 + nMaxAdjustDownV3) / 100;
+
+//
+// minimum amount of work that could possibly be required nTime after
+// minimum work required was nBase
+//
+unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
+{
+ return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
+}
 
 static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -2718,6 +2709,61 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 	}
 }
 
+bool CheckBlockOnly(const CBlock& block, CValidationState& state, bool fCheckPOW)
+{
+    // These are checks that are independent of context
+    // that can be verified before saving an orphan block.
+
+	unsigned int maxBlockSize;
+
+	GetMaxBlockSizeByBlock(block,maxBlockSize);
+
+	// Size limits
+    if (block.vtx.empty() || block.vtx.size() > maxBlockSize || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > maxBlockSize)
+        return state.DoS(100, error("CheckBlockOnly() : size limits failed"), REJECT_INVALID, "bad-blk-length");
+
+    // Check proof of work matches claimed amount
+    if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
+        return state.DoS(50, error("CheckBlock() : proof of work failed"), REJECT_INVALID, "high-hash");
+
+    // Check timestamp
+    if (block.GetBlockTime() > GetAdjustedTime() + 2 * 60 * 60)
+        return state.Invalid(error("CheckBlock() : block timestamp too far in the future"), REJECT_INVALID, "time-too-new");
+
+    //===
+
+    AssertLockHeld(cs_main);
+    // Check for duplicate
+    uint256 hash = block.GetHash();
+    if (mapBlockIndex.count(hash))
+        return state.Invalid(error("AcceptBlock() : block already in mapBlockIndex"), 0, "duplicate");
+
+    // Get prev block index
+    CBlockIndex* pindexPrev = NULL;
+    int nHeight = 0;
+    if (hash != Params().HashGenesisBlock()) {
+        map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(block.hashPrevBlock);
+        if (mi == mapBlockIndex.end())
+            return state.DoS(10, error("AcceptBlock() : prev block not found"), 0, "bad-prevblk");
+        pindexPrev = (*mi).second;
+        nHeight = pindexPrev->nHeight+1;
+
+        // Check proof of work
+        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
+            return state.DoS(100, error("AcceptBlock() : incorrect proof of work"), REJECT_INVALID, "bad-diffbits");
+
+        if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
+            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"), REJECT_INVALID, "bad-hashalgo");
+
+        // Check timestamp against prev
+        if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
+            return state.Invalid(error("AcceptBlock() : block's timestamp is too early"), REJECT_INVALID, "time-too-old");
+
+    }
+
+    return true;
+}
+
 bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bool fCheckMerkleRoot)
 {
     // These are checks that are independent of context
@@ -2944,6 +2990,18 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     if (mapOrphanBlocks.count(hash))
         return state.Invalid(error("ProcessBlock() : already have block (orphan) %s", hash.ToString()), 0, "duplicate");
 
+    if (CheckBlockOnly(*pblock, state))
+    {
+        // Relay inventory, but don't relay old inventory during initial block download
+        int nBlockEstimate = Checkpoints::GetTotalBlocksEstimate();
+        LOCK(cs_vNodes);
+        BOOST_FOREACH(CNode* pnode, vNodes)
+        if (chainActive.Height() > (pnode->nStartingHeight != -1 ? pnode->nStartingHeight - 2000 : nBlockEstimate))
+        	pnode->PushInventory(CInv(MSG_BLOCK, hash));
+    }
+    else
+    	return error("ProcessBlock() : CheckBlockOnly FAILED");
+
     // Preliminary checks
     if (!CheckBlock(*pblock, state))
         return error("ProcessBlock() : CheckBlock FAILED");
@@ -2955,8 +3013,7 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
         int64_t deltaTime = pblock->GetBlockTime() - pcheckpoint->nTime;
         if (deltaTime < 0)
         {
-            return state.DoS(100, error("ProcessBlock() : block with timestamp before last checkpoint"),
-                             REJECT_CHECKPOINT, "time-too-old");
+            return state.DoS(100, error("ProcessBlock() : block with timestamp before last checkpoint"), REJECT_CHECKPOINT, "time-too-old");
         }
         CBigNum bnNewBlock;
         bnNewBlock.SetCompact(pblock->nBits);
@@ -2964,11 +3021,9 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
         bnRequired.SetCompact(ComputeMinWork(pcheckpoint->nBits, deltaTime));
         if (bnNewBlock > bnRequired)
         {
-            return state.DoS(100, error("ProcessBlock() : block with too little proof-of-work"),
-                             REJECT_INVALID, "bad-diffbits");
+            return state.DoS(100, error("ProcessBlock() : block with too little proof-of-work"), REJECT_INVALID, "bad-diffbits");
         }
     }
-
 
     // If we don't already have its previous block, shunt it off to holding area until we get it
     if (pblock->hashPrevBlock != 0 && !mapBlockIndex.count(pblock->hashPrevBlock))
