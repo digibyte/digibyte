@@ -2738,29 +2738,6 @@ bool CheckBlockOnly(const CBlock& block, CValidationState& state, bool fCheckPOW
     if (mapBlockIndex.count(hash))
         return state.Invalid(error("AcceptBlock() : block already in mapBlockIndex"), 0, "duplicate");
 
-    // Get prev block index
-    CBlockIndex* pindexPrev = NULL;
-    int nHeight = 0;
-    if (hash != Params().HashGenesisBlock()) {
-        map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(block.hashPrevBlock);
-        if (mi == mapBlockIndex.end())
-            return state.DoS(10, error("AcceptBlock() : prev block not found"), 0, "bad-prevblk");
-        pindexPrev = (*mi).second;
-        nHeight = pindexPrev->nHeight+1;
-
-        // Check proof of work
-        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
-            return state.DoS(100, error("AcceptBlock() : incorrect proof of work"), REJECT_INVALID, "bad-diffbits");
-
-        if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
-            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"), REJECT_INVALID, "bad-hashalgo");
-
-        // Check timestamp against prev
-        if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
-            return state.Invalid(error("AcceptBlock() : block's timestamp is too early"), REJECT_INVALID, "time-too-old");
-
-    }
-
     return true;
 }
 
