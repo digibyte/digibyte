@@ -2965,17 +2965,25 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     if (mapOrphanBlocks.count(hash))
         return state.Invalid(error("ProcessBlock() : already have block (orphan) %s", hash.ToString()), 0, "duplicate");
 
-    if (CheckBlockOnly(*pblock, state))
+    if(pfrom)
     {
-        // Relay inventory, but don't relay old inventory during initial block download
-        int nBlockEstimate = Checkpoints::GetTotalBlocksEstimate();
-        LOCK(cs_vNodes);
-        BOOST_FOREACH(CNode* pnode, vNodes)
-        if (chainActive.Height() > (pnode->nStartingHeight != -1 ? pnode->nStartingHeight - 2000 : nBlockEstimate))
-        	pnode->PushInventory(CInv(MSG_BLOCK, hash));
+        if (CheckBlockOnly(*pblock, state))
+        {
+            LOCK(cs_vNodes);
+            BOOST_FOREACH(CNode* pnode, vNodes)
+            {
+            	if(pnode->id==pfrom->id)
+            	{
+            	}
+            	else
+            	{
+            		pnode->PushInventory(CInv(MSG_BLOCK, hash));
+            	}
+            }
+        }
+        else
+        	return error("ProcessBlock() : CheckBlockOnly FAILED");
     }
-    else
-    	return error("ProcessBlock() : CheckBlockOnly FAILED");
 
     // Preliminary checks
     if (!CheckBlock(*pblock, state))
