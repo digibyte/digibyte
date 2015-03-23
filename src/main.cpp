@@ -2716,7 +2716,6 @@ bool CheckBlockOnly(const CBlock& block, CValidationState& state, bool fCheckPOW
 	unsigned int maxBlockSize;
 
 	GetMaxBlockSizeByBlock(block,maxBlockSize);
-
 	// Size limits
     if (block.vtx.empty() || block.vtx.size() > maxBlockSize || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > maxBlockSize)
         return state.DoS(100, error("CheckBlockOnly() : size limits failed"), REJECT_INVALID, "bad-blk-length");
@@ -2972,7 +2971,7 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
             LOCK(cs_vNodes);
             BOOST_FOREACH(CNode* pnode, vNodes)
             {
-            	if(pnode->id==pfrom->id)
+            	if(pnode->addr==pfrom->addr)
             	{
             	}
             	else
