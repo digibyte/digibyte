@@ -1582,7 +1582,7 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     nActualTimespan = nAveragingTargetTimespan + (nActualTimespan - nAveragingTargetTimespan)/6;
     LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
 
-    if(pindexLast->nHeight<blockTimeChangeTarget)
+    if(pindexLast->nHeight<blockTimeChangeTarget-1)
     {
         if (nActualTimespan < nMinActualTimespanV3)
             nActualTimespan = nMinActualTimespanV3;
@@ -1603,14 +1603,13 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     bnNew *= nActualTimespan;
 
 
-    if(pindexLast->nHeight<blockTimeChangeTarget)
+    if(pindexLast->nHeight<blockTimeChangeTarget-1)
     {
         bnNew /= nAveragingTargetTimespan;
     }
     else
     {
         bnNew /= nAveragingTargetTimespanBlockTime;
-
     }
 
     // Per-algo retarget
@@ -2738,29 +2737,6 @@ bool CheckBlockOnly(const CBlock& block, CValidationState& state, bool fCheckPOW
     if (mapBlockIndex.count(hash))
         return state.Invalid(error("AcceptBlock() : block already in mapBlockIndex"), 0, "duplicate");
 
-    // Get prev block index
-    CBlockIndex* pindexPrev = NULL;
-    int nHeight = 0;
-    if (hash != Params().HashGenesisBlock()) {
-        map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(block.hashPrevBlock);
-        if (mi == mapBlockIndex.end())
-            return state.DoS(10, error("AcceptBlock() : prev block not found"), 0, "bad-prevblk");
-        pindexPrev = (*mi).second;
-        nHeight = pindexPrev->nHeight+1;
-
-        // Check proof of work
-        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
-            return state.DoS(100, error("AcceptBlock() : incorrect proof of work"), REJECT_INVALID, "bad-diffbits");
-
-        if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
-            return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"), REJECT_INVALID, "bad-hashalgo");
-
-        // Check timestamp against prev
-        if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
-            return state.Invalid(error("AcceptBlock() : block's timestamp is too early"), REJECT_INVALID, "time-too-old");
-
-    }
-
     return true;
 }
 
@@ -2857,10 +2833,9 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
 
         // Check proof of work
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
-            return state.DoS(100, error("AcceptBlock() : incorrect proof of work"),
-                             REJECT_INVALID, "bad-diffbits");
+        	return state.DoS(100, error("AcceptBlock() : incorrect proof of work"), REJECT_INVALID, "bad-diffbits");
 
-	 if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
+        if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
             return state.Invalid(error("AcceptBlock() : incorrect hasing algo, only scrypt accepted until block 145000"),
 			    REJECT_INVALID, "bad-hashalgo");
 
@@ -2990,17 +2965,25 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     if (mapOrphanBlocks.count(hash))
         return state.Invalid(error("ProcessBlock() : already have block (orphan) %s", hash.ToString()), 0, "duplicate");
 
-    if (CheckBlockOnly(*pblock, state))
+    if(pfrom)
     {
-        // Relay inventory, but don't relay old inventory during initial block download
-        int nBlockEstimate = Checkpoints::GetTotalBlocksEstimate();
-        LOCK(cs_vNodes);
-        BOOST_FOREACH(CNode* pnode, vNodes)
-        if (chainActive.Height() > (pnode->nStartingHeight != -1 ? pnode->nStartingHeight - 2000 : nBlockEstimate))
-        	pnode->PushInventory(CInv(MSG_BLOCK, hash));
+        if (CheckBlockOnly(*pblock, state))
+        {
+            LOCK(cs_vNodes);
+            BOOST_FOREACH(CNode* pnode, vNodes)
+            {
+            	if(pnode->id==pfrom->id)
+            	{
+            	}
+            	else
+            	{
+            		pnode->PushInventory(CInv(MSG_BLOCK, hash));
+            	}
+            }
+        }
+        else
+        	return error("ProcessBlock() : CheckBlockOnly FAILED");
     }
-    else
-    	return error("ProcessBlock() : CheckBlockOnly FAILED");
 
     // Preliminary checks
     if (!CheckBlock(*pblock, state))
