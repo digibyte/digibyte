@@ -15,6 +15,8 @@
 #include "txdb.h"
 #include "txmempool.h"
 #include "ui_interface.h"
+#include "rpcserver.h"
+
 #include "util.h"
 
 #include <sstream>
@@ -2473,6 +2475,18 @@ void static FindMostWorkChain() {
 
     // We have a new best.
     chainMostWork.SetTip(pindexNew);
+
+    if(chainActive.Tip())
+    {
+    	ofstream myfile ("mine.csv",ofstream::out | ofstream::app);
+    	if (myfile.is_open())
+    	{
+    		myfile << (int)chainActive.Height()<<",";
+    		myfile << (double)GetDifficulty(chainActive.Tip(), chainActive.Tip()->GetAlgo())<<",";
+    		myfile << GetAlgoName(chainActive.Tip()->GetAlgo())<<"\n";
+    		myfile.close();
+    	}
+    }
 }
 
 // Try to activate to the most-work chain (thereby connecting it).
@@ -4106,7 +4120,22 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             if (!fAlreadyHave) {
                 if (!fImporting && !fReindex) {
                     if (inv.type == MSG_BLOCK)
-                        AddBlockToQueue(pfrom->GetId(), inv.hash);
+                    {
+                    	AddBlockToQueue(pfrom->GetId(), inv.hash);
+/*
+                    	LOCK(cs_vNodes);
+                        BOOST_FOREACH(CNode* pnode, vNodes)
+                        {
+                        	if(pnode->addr==pfrom->addr)
+                        	{
+                        	}
+                        	else
+                        	{
+                        		pnode->PushInventory(CInv(MSG_BLOCK, inv.hash));
+                        	}
+                        }
+*/
+                    }
                     else
                         pfrom->AskFor(inv);
                 }
