@@ -36,6 +36,38 @@ using namespace boost;
 // Global state
 //
 
+static const int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+static const int64_t nTargetSpacing = 60; // 60 seconds
+static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
+static const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
+static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
+static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
+
+//MultiAlgo Target updates
+static const int64_t multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
+static const int64_t multiAlgoTargetSpacingBlockTime = 130*5; // NUM_ALGOS * 15 seconds
+
+static const int64_t nAveragingInterval = 10; // 10 blocks
+static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
+static const int64_t nAveragingTargetTimespanBlockTime = nAveragingInterval * multiAlgoTargetSpacingBlockTime; // 10 * NUM_ALGOS * 15
+
+static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
+static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
+static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
+static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
+static const int64_t nMaxAdjustDownV4 = 25;
+static const int64_t nMaxAdjustUpV4 = 25;
+static const int64_t nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
+static const int64_t nLocalTargetAdjustment = 1; //target adjustment per algo
+
+static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
+static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+
+static const int64_t nMinActualTimespanV3 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV3) / 100;
+static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nMaxAdjustDownV3) / 100;
+
+static const int64_t nMinActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 - nMaxAdjustUpV4) / 100;
+static const int64_t nMaxActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 + nMaxAdjustDownV4) / 100;
 
 CCriticalSection cs_main;
 
@@ -886,8 +918,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransa
 
         // are the actual inputs available?
         if (!view.HaveInputs(tx))
-            return state.Invalid(error("AcceptToMemoryPool : inputs already spent"),
-                                 REJECT_DUPLICATE, "bad-txns-inputs-spent");
+            return state.Invalid(error("AcceptToMemoryPool : inputs already spent"),REJECT_DUPLICATE, "bad-txns-inputs-spent");
 
         // Bring the best block into scope
         view.GetBestBlock();
@@ -915,9 +946,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransa
         // Don't accept it if it can't get into a block
         int64_t txMinFee = GetMinFee(tx, nSize, true, GMF_RELAY);
         if (fLimitFree && nFees < txMinFee)
-            return state.DoS(0, error("AcceptToMemoryPool : not enough fees %s, %d < %d",
-                                      hash.ToString(), nFees, txMinFee),
-                             REJECT_INSUFFICIENTFEE, "insufficient fee");
+            return state.DoS(0, error("AcceptToMemoryPool : not enough fees %s, %d < %d", hash.ToString(), nFees, txMinFee), REJECT_INSUFFICIENTFEE, "insufficient fee");
 
         // Continuously rate-limit free transactions
         // This mitigates 'penny-flooding' -- sending thousands of free transactions just to
@@ -937,16 +966,14 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransa
             // -limitfreerelay unit is thousand-bytes-per-minute
             // At default rate it would take over a month to fill 1GB
             if (dFreeCount >= GetArg("-limitfreerelay", 15)*10*1000)
-                return state.DoS(0, error("AcceptToMemoryPool : free transaction rejected by rate limiter"),
-                                 REJECT_INSUFFICIENTFEE, "insufficient priority");
+                return state.DoS(0, error("AcceptToMemoryPool : free transaction rejected by rate limiter"), REJECT_INSUFFICIENTFEE, "insufficient priority");
             LogPrint("mempool", "Rate limit dFreeCount: %g => %g\n", dFreeCount, dFreeCount+nSize);
             dFreeCount += nSize;
         }
 
+
         if (fRejectInsaneFee && nFees > CTransaction::nMinRelayTxFee * 10000)
-            return error("AcceptToMemoryPool: : insane fees %s, %d > %d",
-                         hash.ToString(),
-                         nFees, CTransaction::nMinRelayTxFee * 10000);
+            return error("AcceptToMemoryPool: : insane fees %s, %d > %d", hash.ToString(), nFees, CTransaction::nMinRelayTxFee * 10000);
 
         // Check against previous transactions
         // This is done last to help prevent CPU exhaustion denial-of-service attacks.
@@ -1023,7 +1050,7 @@ void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
 
 	if(GetBlockHeightByTx(hash,height))
 	{
-		if(height<blockSizeChangeTarget)
+		if(height<workComputationChangeTarget)
 		{
 			maxBlockSize=MAX_BLOCK_SIZE;
 		}
@@ -1034,7 +1061,7 @@ void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize)
 	}
 	else
 	{
-		if(chainActive.Height()<blockSizeChangeTarget)
+		if(chainActive.Height()<workComputationChangeTarget)
 		{
 			maxBlockSize=MAX_BLOCK_SIZE;
 		}
@@ -1304,7 +1331,7 @@ int64_t GetDGBSubsidy(int nHeight) {
    		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
    	}
 	
-	if(nHeight<blockTimeChangeTarget)
+	if(nHeight<workComputationChangeTarget)
 	{
 	}
 	else
@@ -1346,39 +1373,6 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
    return nSubsidy + nFees;
 }
 
-
-static const int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
-static const int64_t nTargetSpacing = 60; // 60 seconds
-static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
-static const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
-static const int64_t nTargetSpacingRe = 1*60; // 60 seconds
-static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
-
-//MultiAlgo Target updates
-static const int64_t multiAlgoTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64_t multiAlgoTargetSpacingBlockTime = 75; // 1 minutes (NUM_ALGOS * 15 seconds)
-
-static const int64_t nAveragingInterval = 10; // 10 blocks
-static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 25 minutes
-static const int64_t nAveragingTargetTimespanBlockTime = nAveragingInterval * multiAlgoTargetSpacingBlockTime; // 750s
-
-static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
-static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
-
-static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
-static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
-static const int64_t nLocalDifficultyAdjustment = 4; // 4% down, 16% up
-
-static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
-static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
-
-static const int64_t nMinActualTimespanV3 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV3) / 100;
-static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nMaxAdjustDownV3) / 100;
-
-
-static const int64_t nMinActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 - nMaxAdjustUpV3) / 100;
-static const int64_t nMaxActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 + nMaxAdjustDownV3) / 100;
-
 //
 // minimum amount of work that could possibly be required nTime after
 // minimum work required was nBase
@@ -1402,7 +1396,8 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
     int64_t retargetInterval = nInterval;
 
     // Genesis block
-    if (pindexLast == NULL) return nProofOfWorkLimit;
+    if (pindexLast == NULL)
+    	return nProofOfWorkLimit;
 
     //if v2.0 changes are in effect for block num, alter retarget values
    if(fNewDifficultyProtocol) {
@@ -1437,7 +1432,8 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
     // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
     blockstogoback = retargetInterval-1;
-    if ((pindexLast->nHeight+1) != retargetInterval) blockstogoback = retargetInterval;
+    if ((pindexLast->nHeight+1) != retargetInterval)
+    	blockstogoback = retargetInterval;
 
     // Go back by what we want to be 14 days worth of blocks
     const CBlockIndex* pindexFirst = pindexLast;
@@ -1445,20 +1441,20 @@ static unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const C
         pindexFirst = pindexFirst->pprev;
     assert(pindexFirst);
 
-  // Limit adjustment step
+    // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     LogPrintf("nActualTimespan = %d  before bounds\n", nActualTimespan);
 
     // thanks to RealSolid & WDC for this code
-        if(fNewDifficultyProtocol) {
-            LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
-            if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
-            if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
-        }
-        else {
-            if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
-            if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
-        }
+    if(fNewDifficultyProtocol) {
+    	LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
+    	if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+    	if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
+    }
+    else {
+    	if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
+    	if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
+    }
 
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
@@ -1502,6 +1498,10 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
         }
     }
 
+    LogPrintf("GetNextWorkRequired RETARGET\n");
+    LogPrintf("Algo: %s\n", GetAlgoName(algo));
+    LogPrintf("Height (Before): %s\n", pindexLast->nHeight);
+
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
 
@@ -1513,30 +1513,38 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
         pindexFirst = pindexFirst->pprev;
         pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
     }
+
     if (pindexFirst == NULL)
-        return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
+    {
+        LogPrintf("Use default POW Limit\n");
+        return nProofOfWorkLimit;
+    }
 
     // Limit adjustment step
     int64_t nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
-    LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
+    LogPrintf("nActualTimespan = %d before bounds\n", nActualTimespan);
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
     if (nActualTimespan > nMaxActualTimespan)
         nActualTimespan = nMaxActualTimespan;
 
     // Retarget
+
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
     bnNew *= nActualTimespan;
     bnNew /= nAveragingTargetTimespan;
 
-    if (bnNew > Params().ProofOfWorkLimit(algo))
-        bnNew = Params().ProofOfWorkLimit(algo);
+    LogPrintf("Inter:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 
-    /// debug print
-    LogPrintf("GetNextWorkRequired RETARGET\n");
-    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
-    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
+    if (bnNew > Params().ProofOfWorkLimit(algo))
+    {
+        LogPrintf("bnNew > Params().ProofOfWorkLimit(algo)\n");
+        bnNew = Params().ProofOfWorkLimit(algo);
+    }
+
+    LogPrintf("nAveragingTargetTimespan = %d    nActualTimespan = %d\n", nAveragingTargetTimespan, nActualTimespan);
+    LogPrintf("Before: %08x  %s\n", pindexPrev->nBits, CBigNum().SetCompact(pindexPrev->nBits).getuint256().ToString());
     LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 
     return bnNew.GetCompact();
@@ -1583,36 +1591,16 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
     nActualTimespan = nAveragingTargetTimespan + (nActualTimespan - nAveragingTargetTimespan)/6;
     LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
-
-    if(pindexLast->nHeight<blockTimeChangeTarget-1)
-    {
-        if (nActualTimespan < nMinActualTimespanV3)
-            nActualTimespan = nMinActualTimespanV3;
-        if (nActualTimespan > nMaxActualTimespanV3)
-            nActualTimespan = nMaxActualTimespanV3;
-    }
-    else
-    {
-        if (nActualTimespan < nMinActualTimespanBlockTime)
-            nActualTimespan = nMinActualTimespanBlockTime;
-        if (nActualTimespan > nMaxActualTimespanBlockTime)
-            nActualTimespan = nMaxActualTimespanBlockTime;
-    }
+    if (nActualTimespan < nMinActualTimespanV3)
+        nActualTimespan = nMinActualTimespanV3;
+    if (nActualTimespan > nMaxActualTimespanV3)
+        nActualTimespan = nMaxActualTimespanV3;
 
     // Global retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrevAlgo->nBits);
     bnNew *= nActualTimespan;
-
-
-    if(pindexLast->nHeight<blockTimeChangeTarget-1)
-    {
-        bnNew /= nAveragingTargetTimespan;
-    }
-    else
-    {
-        bnNew /= nAveragingTargetTimespanBlockTime;
-    }
+    bnNew /= nAveragingTargetTimespan;
 
     // Per-algo retarget
     int nAdjustments = pindexPrevAlgo->nHeight - pindexLast->nHeight + NUM_ALGOS - 1;
@@ -1620,8 +1608,8 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     {
         for (int i = 0; i < nAdjustments; i++)
         {
-            bnNew /= 100 + nLocalDifficultyAdjustment;
             bnNew *= 100;
+            bnNew /= 100 + nLocalDifficultyAdjustment;
         }
     }
     if (nAdjustments < 0)
@@ -1639,20 +1627,129 @@ static unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const C
     /// debug print
     LogPrintf("GetNextWorkRequired RETARGET\n");
     LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
-    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString());
+    LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexPrevAlgo->nBits).getuint256().ToString());
     LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 
     return bnNew.GetCompact();
 }
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
+static unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo,bool log)
+{
+    unsigned int nProofOfWorkLimit = Params().ProofOfWorkLimit(algo).GetCompact();
+
+    // Genesis block
+    if (pindexLast == NULL)
+        return nProofOfWorkLimit;
+
+    if (TestNet())
+    {
+        // Special difficulty rule for testnet:
+        // If the new block's timestamp is more than 2* 10 minutes
+        // then allow mining of a min-difficulty block.
+        if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+            return nProofOfWorkLimit;
+        else
+        {
+            // Return the last non-special-min-difficulty-rules-block
+            const CBlockIndex* pindex = pindexLast;
+            while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+                pindex = pindex->pprev;
+            return pindex->nBits;
+        }
+    }
+
+    if(log)
+    {
+        LogPrintf("GetNextWorkRequired RETARGET\n");
+        LogPrintf("Algo: %s\n", GetAlgoName(algo));
+        LogPrintf("Height (Before): %s\n", pindexLast->nHeight);
+    }
+
+    // find first block in averaging interval
+    // Go back by what we want to be nAveragingInterval blocks per algo
+    const CBlockIndex* pindexFirst = pindexLast;
+    for (int i = 0; pindexFirst && i < NUM_ALGOS*nAveragingInterval; i++)
+    {
+        pindexFirst = pindexFirst->pprev;
+    }
+
+    const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, algo);
+    if (pindexPrevAlgo == NULL || pindexFirst == NULL)
+    {
+        if(log)
+        	LogPrintf("Use default POW Limit\n");
+        return nProofOfWorkLimit;
+    }
+
+    // Limit adjustment step
+    // Use medians to prevent time-warp attacks
+    int64_t nActualTimespan = pindexLast-> GetMedianTimePast() - pindexFirst->GetMedianTimePast();
+    nActualTimespan = nAveragingTargetTimespanBlockTime + (nActualTimespan - nAveragingTargetTimespanBlockTime)/4;
+
+    if(log)
+    	LogPrintf("nActualTimespan = %d before bounds\n", nActualTimespan);
+
+    if (nActualTimespan < nMinActualTimespanBlockTime)
+    	nActualTimespan = nMinActualTimespanBlockTime;
+    if (nActualTimespan > nMaxActualTimespanBlockTime)
+    	nActualTimespan = nMaxActualTimespanBlockTime;
+
+    //Global retarget
+    CBigNum bnNew;
+    bnNew.SetCompact(pindexPrevAlgo->nBits);
+
+    bnNew *= nActualTimespan;
+    bnNew /= nAveragingTargetTimespanBlockTime;
+
+    //Per-algo retarget
+    int nAdjustments = pindexPrevAlgo->nHeight + NUM_ALGOS - 1 - pindexLast->nHeight;
+    if (nAdjustments > 0)
+    {
+        for (int i = 0; i < nAdjustments; i++)
+        {
+            bnNew *= 100;
+            bnNew /= (100 + nLocalTargetAdjustment);
+        }
+    }
+    else if (nAdjustments < 0)//make it easier
+    {
+        for (int i = 0; i < -nAdjustments; i++)
+        {
+            bnNew *= (100 + nLocalTargetAdjustment);
+            bnNew /= 100;
+        }
+    }
+
+    if (bnNew > Params().ProofOfWorkLimit(algo))
+    {
+    	if(log)
+    	{
+    		LogPrintf("bnNew > Params().ProofOfWorkLimit(algo)\n");
+    	}
+        bnNew = Params().ProofOfWorkLimit(algo);
+    }
+
+    if(log)
+	{
+	    LogPrintf("nAveragingTargetTimespanBlockTime = %d; nActualTimespan = %d\n", nAveragingTargetTimespanBlockTime, nActualTimespan);
+	    LogPrintf("Before: %08x  %s\n", pindexPrevAlgo->nBits, CBigNum().SetCompact(pindexPrevAlgo->nBits).getuint256().ToString());
+	    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
+	}
+
+    return bnNew.GetCompact();
+}
+
+
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, bool log)
 {
     if (pindexLast->nHeight < multiAlgoDiffChangeTarget)
         return GetNextWorkRequiredV1(pindexLast, pblock, algo);
     else if (pindexLast->nHeight < alwaysUpdateDiffChangeTarget)
         return GetNextWorkRequiredV2(pindexLast, pblock, algo);
-    else
+    else if(pindexLast->nHeight < workComputationChangeTarget)
         return GetNextWorkRequiredV3(pindexLast, pblock, algo);
+    else
+        return GetNextWorkRequiredV4(pindexLast, pblock, algo, log);
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
@@ -1722,8 +1819,7 @@ void CheckForkWarningConditions()
             std::string strCmd = GetArg("-alertnotify", "");
             if (!strCmd.empty())
             {
-                std::string warning = std::string("'Warning: Large-work fork detected, forking after block ") +
-                                      pindexBestForkBase->phashBlock->ToString() + std::string("'");
+                std::string warning = std::string("'Warning: Large-work fork detected, forking after block ") + pindexBestForkBase->phashBlock->ToString() + std::string("'");
                 boost::replace_all(strCmd, "%s", warning);
                 boost::thread t(runCommand, strCmd); // thread runs free
             }
@@ -1846,18 +1942,8 @@ void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev)
 
     // Updating time can change work required on testnet:
     if (TestNet())
-        block.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo());
+        block.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo(),false);
 }
-
-
-
-
-
-
-
-
-
-
 
 void UpdateCoins(const CTransaction& tx, CValidationState &state, CCoinsViewCache &inputs, CTxUndo &txundo, int nHeight, const uint256 &txhash)
 {
@@ -1910,29 +1996,28 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, CCoinsViewCach
         int64_t nFees = 0;
         for (unsigned int i = 0; i < tx.vin.size(); i++)
         {
-            const COutPoint &prevout = tx.vin[i].prevout;
-            const CCoins &coins = inputs.GetCoins(prevout.hash);
+        	const COutPoint &prevout = tx.vin[i].prevout;
+        	const CCoins &coins = inputs.GetCoins(prevout.hash);
 
-            // If prev is coinbase, check that it's matured
-            if (coins.IsCoinBase()) {
-		if (coins.nHeight < multiAlgoDiffChangeTarget) {
-                  if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
-			//return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
-			return state.Invalid(error("CheckInputs() : tried coinbase at depth %d %d %d %d",
-						nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY));
-                } else {
-			if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2) {
-				return state.Invalid(error("CheckInputs() : Maturity v2: tried to spend coinbase at depth %d %d %d %d",
-						 nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY_2));
-			}
-		}
-            }
+        	// If prev is coinbase, check that it's matured
+        	if (coins.IsCoinBase()) {
+        		if (coins.nHeight < multiAlgoDiffChangeTarget) {
+        			if (nSpendHeight - coins.nHeight < COINBASE_MATURITY)
+        				//return state.Invalid(error("CheckInputs() : tried to spend coinbase at depth %d", nSpendHeight - coins.nHeight));
+        				return state.Invalid(error("CheckInputs() : tried coinbase at depth %d %d %d %d",
+        						nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY));
+        		} else {
+        			if (nSpendHeight - coins.nHeight < COINBASE_MATURITY_2) {
+        				return state.Invalid(error("CheckInputs() : Maturity v2: tried to spend coinbase at depth %d %d %d %d",
+        						nSpendHeight - coins.nHeight, nSpendHeight, coins.nHeight, COINBASE_MATURITY_2));
+        			}
+        		}
+        	}
 
-            // Check for negative or overflow input values
-            nValueIn += coins.vout[prevout.n].nValue;
-            if (!MoneyRange(coins.vout[prevout.n].nValue) || !MoneyRange(nValueIn))
-                return state.DoS(100, error("CheckInputs() : txin values out of range"),
-                                 REJECT_INVALID, "bad-txns-inputvalues-outofrange");
+        	// Check for negative or overflow input values
+        	nValueIn += coins.vout[prevout.n].nValue;
+        	if (!MoneyRange(coins.vout[prevout.n].nValue) || !MoneyRange(nValueIn))
+        		return state.DoS(100, error("CheckInputs() : txin values out of range"),REJECT_INVALID, "bad-txns-inputvalues-outofrange");
 
         }
 
@@ -2476,17 +2561,6 @@ void static FindMostWorkChain() {
     // We have a new best.
     chainMostWork.SetTip(pindexNew);
 
-    if(chainActive.Tip())
-    {
-    	ofstream myfile ("mine.csv",ofstream::out | ofstream::app);
-    	if (myfile.is_open())
-    	{
-    		myfile << (int)chainActive.Height()<<",";
-    		myfile << (double)GetDifficulty(chainActive.Tip(), chainActive.Tip()->GetAlgo())<<",";
-    		myfile << GetAlgoName(chainActive.Tip()->GetAlgo())<<"\n";
-    		myfile.close();
-    	}
-    }
 }
 
 // Try to activate to the most-work chain (thereby connecting it).
@@ -2700,7 +2774,7 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 
 		if(pindex&&chainActive.Contains(pindex))
 		{
-			if(pindex->nHeight<blockSizeChangeTarget)
+			if(pindex->nHeight<workComputationChangeTarget)
 			{
 				maxBlockSize=MAX_BLOCK_SIZE;
 			}
@@ -2712,7 +2786,7 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 		}
 	}
 
-	if(chainActive.Height()<blockSizeChangeTarget)
+	if(chainActive.Height()<workComputationChangeTarget)
 	{
 		maxBlockSize=MAX_BLOCK_SIZE;
 	}
@@ -2845,7 +2919,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
         nHeight = pindexPrev->nHeight+1;
 
         // Check proof of work
-        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo()))
+        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, block.GetAlgo(),true))
         	return state.DoS(100, error("AcceptBlock() : incorrect proof of work"), REJECT_INVALID, "bad-diffbits");
 
         if ( nHeight < multiAlgoDiffChangeTarget && block.GetAlgo() != ALGO_SCRYPT )
@@ -2926,6 +3000,20 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
             if (chainActive.Height() > (pnode->nStartingHeight != -1 ? pnode->nStartingHeight - 2000 : nBlockEstimate))
                 pnode->PushInventory(CInv(MSG_BLOCK, hash));
     }
+
+    /*
+    if(chainActive.Tip())
+    {
+    	ofstream myfile ("mine.csv",ofstream::out | ofstream::app);
+    	if (myfile.is_open())
+    	{
+    		myfile << (int)chainActive.Height()<<",";
+    		myfile << (double)GetDifficulty(chainActive.Tip(), chainActive.Tip()->GetAlgo())<<",";
+    		myfile << GetAlgoName(chainActive.Tip()->GetAlgo())<<"\n";
+    		myfile.close();
+    	}
+    }
+    */
 
     return true;
 }
@@ -4313,7 +4401,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
             int maxBlockSize;
 
-            if(chainActive.Height()<blockSizeChangeTarget)
+            if(chainActive.Height()<workComputationChangeTarget)
         	{
         		maxBlockSize=MAX_BLOCK_SIZE;
         	}
@@ -4934,11 +5022,6 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
     }
     return true;
 }
-
-
-
-
-
 
 class CMainCleanup
 {

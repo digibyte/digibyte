@@ -41,8 +41,6 @@ const int64_t multiAlgoDiffChangeTarget = 10;
 //const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
 const int64_t alwaysUpdateDiffChangeTarget = 15;
 const int64_t workComputationChangeTarget = 20;
-const int64_t blockSizeChangeTarget = 30;
-const int64_t blockTimeChangeTarget = 40;
 
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
@@ -72,8 +70,8 @@ static const unsigned int BLOCKFILE_CHUNK_SIZE = 0x1000000; // 16 MiB
 /** The pre-allocation chunk size for rev?????.dat files (since 0.8) */
 static const unsigned int UNDOFILE_CHUNK_SIZE = 0x100000; // 1 MiB
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
-static const int COINBASE_MATURITY = 8;
-static const int COINBASE_MATURITY_2 = 100;
+static const int COINBASE_MATURITY = 8;//8 blocks
+static const int COINBASE_MATURITY_2 = 8;//8 blocks
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 /** Maximum number of script-checking threads allowed */
@@ -190,7 +188,7 @@ bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock, b
 /** Find the best known block, and make it the tip of the block chain */
 bool ActivateBestChain(CValidationState &state);
 int64_t GetBlockValue(int nHeight, int64_t nFees);
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo);
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, bool log);
 
 void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev);
 
@@ -893,7 +891,7 @@ public:
             // multiply the difficulties of all algorithms
             for (int i = 0; i < NUM_ALGOS; i++)
             {
-                unsigned int nBits = GetNextWorkRequired(pprev, &header, i);
+                unsigned int nBits = GetNextWorkRequired(pprev, &header, i,false);
                 CBigNum bnTarget;
                 bnTarget.SetCompact(nBits);
                 if (bnTarget <= 0)

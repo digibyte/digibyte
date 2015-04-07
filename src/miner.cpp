@@ -156,7 +156,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
 
     int maxBlockSize;
 
-	if(pindexPrev->nHeight+1<blockSizeChangeTarget)
+	if(pindexPrev->nHeight+1<workComputationChangeTarget)
 	{
 		maxBlockSize=MAX_BLOCK_SIZE;
 	}
@@ -370,7 +370,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
         // Fill in header
         pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
         UpdateTime(*pblock, pindexPrev);
-        pblock->nBits          = GetNextWorkRequired(pindexPrev, pblock, algo);
+        pblock->nBits          = GetNextWorkRequired(pindexPrev, pblock, algo, true);
         pblock->nNonce         = 0;
         pblock->vtx[0].vin[0].scriptSig = CScript() << OP_0 << OP_0;
         pblocktemplate->vTxSigOps[0] = GetLegacySigOpCount(pblock->vtx[0]);
