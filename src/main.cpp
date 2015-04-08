@@ -55,10 +55,10 @@ static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
 static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
 static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
-static const int64_t nMaxAdjustDownV4 = 25;
-static const int64_t nMaxAdjustUpV4 = 25;
+static const int64_t nMaxAdjustDownV4 = 16;
+static const int64_t nMaxAdjustUpV4 = 8;
 static const int64_t nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
-static const int64_t nLocalTargetAdjustment = 1; //target adjustment per algo
+static const int64_t nLocalTargetAdjustment = 4; //target adjustment per algo
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
 static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
@@ -3000,20 +3000,6 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
             if (chainActive.Height() > (pnode->nStartingHeight != -1 ? pnode->nStartingHeight - 2000 : nBlockEstimate))
                 pnode->PushInventory(CInv(MSG_BLOCK, hash));
     }
-
-    /*
-    if(chainActive.Tip())
-    {
-    	ofstream myfile ("mine.csv",ofstream::out | ofstream::app);
-    	if (myfile.is_open())
-    	{
-    		myfile << (int)chainActive.Height()<<",";
-    		myfile << (double)GetDifficulty(chainActive.Tip(), chainActive.Tip()->GetAlgo())<<",";
-    		myfile << GetAlgoName(chainActive.Tip()->GetAlgo())<<"\n";
-    		myfile.close();
-    	}
-    }
-    */
 
     return true;
 }
