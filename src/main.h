@@ -33,14 +33,13 @@ class CBlockIndex;
 class CBloomFilter;
 class CInv;
 
-//const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200
-const int64_t nDiffChangeTarget = 5;
-
-//const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000
-const int64_t multiAlgoDiffChangeTarget = 10;
-//const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
-const int64_t alwaysUpdateDiffChangeTarget = 15;
-const int64_t workComputationChangeTarget = 20;
+//const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200//for testing
+const int64_t nDiffChangeTarget = 5; //for testing
+//const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000//for testing
+const int64_t multiAlgoDiffChangeTarget = 10; //for testing
+//const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block//for testing
+const int64_t alwaysUpdateDiffChangeTarget = 15; //for testing
+const int64_t workComputationChangeTarget = 20; //for testing
 
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
@@ -70,8 +69,9 @@ static const unsigned int BLOCKFILE_CHUNK_SIZE = 0x1000000; // 16 MiB
 /** The pre-allocation chunk size for rev?????.dat files (since 0.8) */
 static const unsigned int UNDOFILE_CHUNK_SIZE = 0x100000; // 1 MiB
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
-static const int COINBASE_MATURITY = 8;//8 blocks
-static const int COINBASE_MATURITY_2 = 8;//8 blocks
+static const int COINBASE_MATURITY = 8; // 8 blocks
+//static const int COINBASE_MATURITY_2 = 100; // 100 blocks//for testing
+static const int COINBASE_MATURITY_2 = 2;//for testing
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 /** Maximum number of script-checking threads allowed */

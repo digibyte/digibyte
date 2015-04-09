@@ -45,20 +45,23 @@ static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 bl
 
 //MultiAlgo Target updates
 static const int64_t multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-static const int64_t multiAlgoTargetSpacingBlockTime = 130*5; // NUM_ALGOS * 15 seconds
+static const int64_t multiAlgoTargetSpacingV4 = 3*60*5; // NUM_ALGOS * 15 seconds// NUM_ALGOS * 3 mins //for testing
 
 static const int64_t nAveragingInterval = 10; // 10 blocks
 static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
-static const int64_t nAveragingTargetTimespanBlockTime = nAveragingInterval * multiAlgoTargetSpacingBlockTime; // 10 * NUM_ALGOS * 15
+static const int64_t nAveragingTargetTimespanV4 = nAveragingInterval * multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
 
 static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
 static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
 static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
-static const int64_t nMaxAdjustDownV4 = 16;
-static const int64_t nMaxAdjustUpV4 = 8;
+//static const int64_t nMaxAdjustDownV4 = 4; //for testing
+//static const int64_t nMaxAdjustUpV4 = 8; //for testing
+static const int64_t nMaxAdjustDownV4 = 20; //for testing
+static const int64_t nMaxAdjustUpV4 = 20; //for testing
 static const int64_t nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
-static const int64_t nLocalTargetAdjustment = 4; //target adjustment per algo
+//static const int64_t nLocalTargetAdjustment = 4; //target adjustment per algo //for testing
+static const int64_t nLocalTargetAdjustment = 2; //target adjustment per algo //for testing
 
 static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
 static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
@@ -66,8 +69,8 @@ static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMax
 static const int64_t nMinActualTimespanV3 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV3) / 100;
 static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nMaxAdjustDownV3) / 100;
 
-static const int64_t nMinActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 - nMaxAdjustUpV4) / 100;
-static const int64_t nMaxActualTimespanBlockTime = nAveragingTargetTimespanBlockTime * (100 + nMaxAdjustDownV4) / 100;
+static const int64_t nMinActualTimespanV4 = nAveragingTargetTimespanV4 * (100 - nMaxAdjustUpV4) / 100;
+static const int64_t nMaxActualTimespanV4 = nAveragingTargetTimespanV4 * (100 + nMaxAdjustDownV4) / 100;
 
 CCriticalSection cs_main;
 
@@ -869,9 +872,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransa
     // Rather not work on nonstandard transactions (unless -testnet/-regtest)
     string reason;
     if (Params().NetworkID() == CChainParams::MAIN && !IsStandardTx(tx, reason))
-        return state.DoS(0,
-                         error("AcceptToMemoryPool : nonstandard transaction: %s", reason),
-                         REJECT_NONSTANDARD, reason);
+        return state.DoS(0, error("AcceptToMemoryPool : nonstandard transaction: %s", reason), REJECT_NONSTANDARD, reason);
 
     // is it already in the memory pool?
     uint256 hash = tx.GetHash();
@@ -1684,22 +1685,22 @@ static unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const C
     // Limit adjustment step
     // Use medians to prevent time-warp attacks
     int64_t nActualTimespan = pindexLast-> GetMedianTimePast() - pindexFirst->GetMedianTimePast();
-    nActualTimespan = nAveragingTargetTimespanBlockTime + (nActualTimespan - nAveragingTargetTimespanBlockTime)/4;
+    nActualTimespan = nAveragingTargetTimespanV4 + (nActualTimespan - nAveragingTargetTimespanV4)/4;
 
     if(log)
     	LogPrintf("nActualTimespan = %d before bounds\n", nActualTimespan);
 
-    if (nActualTimespan < nMinActualTimespanBlockTime)
-    	nActualTimespan = nMinActualTimespanBlockTime;
-    if (nActualTimespan > nMaxActualTimespanBlockTime)
-    	nActualTimespan = nMaxActualTimespanBlockTime;
+    if (nActualTimespan < nMinActualTimespanV4)
+    	nActualTimespan = nMinActualTimespanV4;
+    if (nActualTimespan > nMaxActualTimespanV4)
+    	nActualTimespan = nMaxActualTimespanV4;
 
     //Global retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrevAlgo->nBits);
 
     bnNew *= nActualTimespan;
-    bnNew /= nAveragingTargetTimespanBlockTime;
+    bnNew /= nAveragingTargetTimespanV4;
 
     //Per-algo retarget
     int nAdjustments = pindexPrevAlgo->nHeight + NUM_ALGOS - 1 - pindexLast->nHeight;
@@ -1731,7 +1732,7 @@ static unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const C
 
     if(log)
 	{
-	    LogPrintf("nAveragingTargetTimespanBlockTime = %d; nActualTimespan = %d\n", nAveragingTargetTimespanBlockTime, nActualTimespan);
+	    LogPrintf("nAveragingTargetTimespanBlockTime = %d; nActualTimespan = %d\n", nAveragingTargetTimespanV4, nActualTimespan);
 	    LogPrintf("Before: %08x  %s\n", pindexPrevAlgo->nBits, CBigNum().SetCompact(pindexPrevAlgo->nBits).getuint256().ToString());
 	    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 	}
