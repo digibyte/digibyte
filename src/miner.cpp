@@ -195,8 +195,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
         // This vector will be sorted into a priority queue:
         vector<TxPriority> vecPriority;
         vecPriority.reserve(mempool.mapTx.size());
-        for (map<uint256, CTxMemPoolEntry>::iterator mi = mempool.mapTx.begin();
-             mi != mempool.mapTx.end(); ++mi)
+        for (map<uint256, CTxMemPoolEntry>::iterator mi = mempool.mapTx.begin();mi != mempool.mapTx.end(); ++mi)
         {
             const CTransaction& tx = mi->second.GetTx();
             if (tx.IsCoinBase() || !IsFinalTx(tx, pindexPrev->nHeight + 1))
@@ -294,11 +293,21 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             // Legacy limits on sigOps:
             unsigned int nTxSigOps = GetLegacySigOpCount(tx);
             if (nBlockSigOps + nTxSigOps >= maxBlockSigops)
+            {
+                LogPrintf("terry: nBlockSigOps + nTxSigOps >= maxBlockSigops\n");//for testing
                 continue;
-
+            }
             // Skip free transactions if we're past the minimum block size:
+
+
+            //for testing
+            /*
             if (fSortedByFee && (dFeePerKb < CTransaction::nMinRelayTxFee) && (nBlockSize + nTxSize >= nBlockMinSize))
+            {
+                LogPrintf("terry: fSortedByFee && (dFeePerKb < CTransaction::nMinRelayTxFee) && (nBlockSize + nTxSize >= nBlockMinSize)\n");//for testing
                 continue;
+            }
+            */
 
             // Prioritize by fee once past the priority size or we run out of high-priority
             // transactions:
@@ -310,17 +319,26 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             }
 
             if (!view.HaveInputs(tx))
+            {
+                LogPrintf("terry: !view.HaveInputs(tx)\n");//for testing
                 continue;
+            }
 
             int64_t nTxFees = view.GetValueIn(tx)-tx.GetValueOut();
 
             nTxSigOps += GetP2SHSigOpCount(tx, view);
             if (nBlockSigOps + nTxSigOps >= maxBlockSigops)
+            {
+                LogPrintf("terry: nBlockSigOps + nTxSigOps >= maxBlockSigops\n");//for testing
                 continue;
+            }
 
             CValidationState state;
             if (!CheckInputs(tx, state, view, true, SCRIPT_VERIFY_P2SH))
+            {
+                LogPrintf("!CheckInputs(tx, state, view, true, SCRIPT_VERIFY_P2SH)\n");
                 continue;
+            }
 
             CTxUndo txundo;
             uint256 hash = tx.GetHash();
@@ -337,8 +355,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
 
             if (fPrintPriority)
             {
-                LogPrintf("priority %.1f feeperkb %.1f txid %s\n",
-                       dPriority, dFeePerKb, tx.GetHash().ToString());
+                LogPrintf("priority %.1f feeperkb %.1f txid %s\n",dPriority, dFeePerKb, tx.GetHash().ToString());
             }
 
             // Add transactions that depend on this one to the priority queue

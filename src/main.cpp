@@ -1540,7 +1540,7 @@ static unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const C
 
     if (bnNew > Params().ProofOfWorkLimit(algo))
     {
-        LogPrintf("bnNew > Params().ProofOfWorkLimit(algo)\n");
+        LogPrintf("terry: bnNew > Params().ProofOfWorkLimit(algo)\n");
         bnNew = Params().ProofOfWorkLimit(algo);
     }
 
@@ -4402,6 +4402,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             if (nEvicted > 0)
                 LogPrint("mempool", "mapOrphan overflow, removed %u tx\n", nEvicted);
         }
+        else//for testing
+        {
+            LogPrintf("terry: AcceptToMemoryPool return false\n");//for testing
+        }
+
         int nDoS = 0;
         if (state.IsInvalid(nDoS))
         {
@@ -4433,7 +4438,14 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         MarkBlockAsReceived(inv.hash, pfrom->GetId());
 
         CValidationState state;
-        ProcessBlock(state, pfrom, &block);
+        //ProcessBlock(state, pfrom, &block);//for testing
+        if(ProcessBlock(state, pfrom, &block))//for testing
+        {
+        }
+        else
+        {
+            LogPrintf("terry: ProcessBlock return false\n");//for testing
+        }
     }
 
 
