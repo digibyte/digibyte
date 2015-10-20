@@ -34,8 +34,8 @@ public:
         pchMessageStart[2] = 0xb6;
         pchMessageStart[3] = 0xda;
         vAlertPubKey = ParseHex("04F04441C4757F356290A37C313C3772C5BC5003E898EB2E0CF365795543A7BF690C8BBBFA32EE3A3325477CE2000B7D0453EFBB203329D0F9DF34D5927D022BC9");
-        nDefaultPort = 13024;
-        nRPCPort = 15022;
+        nDefaultPort = 12025;
+        nRPCPort = 14023;
 
         bnProofOfWorkLimit[ALGO_SHA256D] = CBigNum(~uint256(0) >> 20);
         bnProofOfWorkLimit[ALGO_SCRYPT]  = CBigNum(~uint256(0) >> 20);
@@ -51,7 +51,7 @@ public:
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 8000;
-        txNew.vout[0].scriptPubKey = CScript() << 0x0 << OP_CHECKSIG;          
+        txNew.vout[0].scriptPubKey = CScript() << 0x0 << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
@@ -59,7 +59,7 @@ public:
         genesis.nTime    = 1389388394;
         genesis.nBits    = 0x1e0ffff0;
         genesis.nNonce   = 2447652;
-    
+
         hashGenesisBlock = genesis.GetHash();
 
         assert(hashGenesisBlock == uint256("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"));
@@ -69,7 +69,6 @@ public:
         //vSeeds.push_back(CDNSSeedData("digiexplorer.info seed #1", "seed2.digiexplorer.info"));
         //vSeeds.push_back(CDNSSeedData("digihash.co seed #3", "seed3.digihash.co"));
         //vSeeds.push_back(CDNSSeedData("digibyte.co seed #4", "seed4.digibyte.co"));
-        //vSeeds.push_back(CDNSSeedData("cryptoservices.net seed #5", "dgb.cryptoservices.net"));        
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(30);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
