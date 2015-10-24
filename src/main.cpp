@@ -55,8 +55,8 @@ static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
 static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
 static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
 static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
-static const int64_t nMaxAdjustDownV4 = 20; //for testing
-static const int64_t nMaxAdjustUpV4 = 10; //for testing
+static const int64_t nMaxAdjustDownV4 = 16;
+static const int64_t nMaxAdjustUpV4 = 8;
 static const int64_t nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
 static const int64_t nLocalTargetAdjustment = 4; //target adjustment per algo
 
@@ -4160,8 +4160,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     if (pfrom->fOneShot)
     pfrom->fDisconnect = true;
   }
-
-
   else if (strCommand == "inv")
   {
     vector<CInv> vInv;
@@ -4201,8 +4199,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
       g_signals.Inventory(inv.hash);
     }
   }
-
-
   else if (strCommand == "getdata")
   {
     vector<CInv> vInv;
@@ -4222,8 +4218,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     pfrom->vRecvGetData.insert(pfrom->vRecvGetData.end(), vInv.begin(), vInv.end());
     ProcessGetData(pfrom);
   }
-
-
   else if (strCommand == "getblocks")
   {
     CBlockLocator locator;
@@ -4295,8 +4289,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     }
     pfrom->PushMessage("headers", vHeaders);
   }
-
-
   else if (strCommand == "tx")
   {
     vector<uint256> vWorkQueue;
@@ -4387,8 +4379,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
       Misbehaving(pfrom->GetId(), nDoS);
     }
   }
-
-
   else if (strCommand == "block" && !fImporting && !fReindex) // Ignore blocks received while importing
   {
     CBlock block;
@@ -4408,8 +4398,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     CValidationState state;
     ProcessBlock(state, pfrom, &block);
   }
-
-
   else if (strCommand == "getaddr")
   {
     pfrom->vAddrToSend.clear();
@@ -4417,8 +4405,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     BOOST_FOREACH(const CAddress &addr, vAddr)
     pfrom->PushAddress(addr);
   }
-
-
   else if (strCommand == "mempool")
   {
     LOCK2(cs_main, pfrom->cs_filter);
@@ -4442,8 +4428,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     if (vInv.size() > 0)
     pfrom->PushMessage("inv", vInv);
   }
-
-
   else if (strCommand == "ping")
   {
     if (pfrom->nVersion > BIP0031_VERSION)
@@ -4464,8 +4448,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
       pfrom->PushMessage("pong", nonce);
     }
   }
-
-
   else if (strCommand == "pong")
   {
     int64_t pingUsecEnd = GetTimeMicros();
