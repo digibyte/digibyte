@@ -134,9 +134,21 @@ static unsigned int GetMaxBlockSize(unsigned int height)
 	{
 		return MAX_BLOCK_SIZE_64;
 	}
-	else
+	else if(height<workComputationChangeTarget16)
 	{
 		return MAX_BLOCK_SIZE_128;
+	}
+	else if(height<workComputationChangeTarget18)
+	{
+		return MAX_BLOCK_SIZE_256;
+	}
+	else if(height<workComputationChangeTarget20)
+	{
+		return MAX_BLOCK_SIZE_512;
+	}
+	else
+	{
+		return MAX_BLOCK_SIZE_1024;
 	}
 }
 

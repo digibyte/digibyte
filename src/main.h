@@ -47,6 +47,9 @@ const int64_t workComputationChangeTarget8 = workComputationChangeTarget6+2*365*
 const int64_t workComputationChangeTarget10 = workComputationChangeTarget8+2*365*24*3600/15;//10 years,
 const int64_t workComputationChangeTarget12 = workComputationChangeTarget10+2*365*24*3600/15;//12 years,
 const int64_t workComputationChangeTarget14 = workComputationChangeTarget12+2*365*24*3600/15;//14 years,
+const int64_t workComputationChangeTarget16 = workComputationChangeTarget14+2*365*24*3600/15;//16 years,
+const int64_t workComputationChangeTarget18 = workComputationChangeTarget16+2*365*24*3600/15;//18 years,
+const int64_t workComputationChangeTarget20 = workComputationChangeTarget18+2*365*24*3600/15;//20 years,
 
 static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
 static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
@@ -61,6 +64,9 @@ static const unsigned int MAX_BLOCK_SIZE_16 	= 16000000;
 static const unsigned int MAX_BLOCK_SIZE_32		= 32000000;
 static const unsigned int MAX_BLOCK_SIZE_64		= 64000000;
 static const unsigned int MAX_BLOCK_SIZE_128	= 128000000;
+static const unsigned int MAX_BLOCK_SIZE_256	= 256000000;
+static const unsigned int MAX_BLOCK_SIZE_512	= 512000000;
+static const unsigned int MAX_BLOCK_SIZE_1024	= 1024000000;
 
 /** Default for -blockmaxsize and -blockminsize, which control the range of sizes the mining code will create **/
 static const unsigned int DEFAULT_BLOCK_MAX_SIZE = MAX_BLOCK_SIZE*3/4;
