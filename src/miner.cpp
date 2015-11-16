@@ -106,34 +106,38 @@ public:
 
 static unsigned int GetMaxBlockSize(unsigned int height)
 {
-  if(height<workComputationChangeTarget)
-  {
-    return MAX_BLOCK_SIZE;
-  }
-  // else if(height<workComputationChangeTarget2)
-  // {
-  //   return MAX_BLOCK_SIZE_2;
-  // }
-  // else if(height<workComputationChangeTarget4)
-  // {
-  //   return MAX_BLOCK_SIZE_4;
-  // }
-  // else if(height<workComputationChangeTarget6)
-  // {
-  //   return MAX_BLOCK_SIZE_6;
-  // }
-  // else if(height<workComputationChangeTarget8)
-  // {
-  //   return MAX_BLOCK_SIZE_8;
-  // }
-  // else
-  // {
-  //   return MAX_BLOCK_SIZE_10;
-  // }
-  else
-  {
-    return MAX_BLOCK_SIZE_8;
-  }
+	if(height<workComputationChangeTarget2)
+	{
+		return MAX_BLOCK_SIZE;
+	}
+	else if(height<workComputationChangeTarget4)
+	{
+		return MAX_BLOCK_SIZE_2;
+	}
+	else if(height<workComputationChangeTarget6)
+	{
+		return MAX_BLOCK_SIZE_4;
+	}
+	else if(height<workComputationChangeTarget8)
+	{
+		return MAX_BLOCK_SIZE_8;
+	}
+	else if(height<workComputationChangeTarget10)
+	{
+		return MAX_BLOCK_SIZE_16;
+	}
+	else if(height<workComputationChangeTarget12)
+	{
+		return MAX_BLOCK_SIZE_32;
+	}
+	else if(height<workComputationChangeTarget14)
+	{
+		return MAX_BLOCK_SIZE_64;
+	}
+	else
+	{
+		return MAX_BLOCK_SIZE_128;
+	}
 }
 
 CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
