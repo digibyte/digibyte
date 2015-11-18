@@ -207,7 +207,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
   maxBlockSize=GetMaxBlockSize(pindexPrev->nHeight+1);
 
   // Largest block you're willing to create:
-  unsigned int nBlockMaxSize = GetArg("-blockmaxsize", maxBlockSize*3/4);
+  unsigned int nBlockMaxSize = GetArg("-blockmaxsize", maxBlockSize);
   // Limit to betweeen 1K and MAX_BLOCK_SIZE-1K for sanity:
   nBlockMaxSize = std::max((unsigned int)1000, std::min((unsigned int)(maxBlockSize-1000), nBlockMaxSize));
 

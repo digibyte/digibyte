@@ -40,7 +40,8 @@ const int64_t multiAlgoDiffChangeTarget = 10; //for testing
 //const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block//for testing
 const int64_t alwaysUpdateDiffChangeTarget = 15; //for testing
 const int64_t workComputationChangeTarget = 20; //for testing
-const int64_t workComputationChangeTarget2 = workComputationChangeTarget+2*365*24*3600/15;//2 years,
+//const int64_t workComputationChangeTarget2 = workComputationChangeTarget+2*365*24*3600/15;//2 years,
+const int64_t workComputationChangeTarget2 = workComputationChangeTarget+3600/15;
 const int64_t workComputationChangeTarget4 = workComputationChangeTarget2+2*365*24*3600/15;//4 years,
 const int64_t workComputationChangeTarget6 = workComputationChangeTarget4+2*365*24*3600/15;//6 years,
 const int64_t workComputationChangeTarget8 = workComputationChangeTarget6+2*365*24*3600/15;//8 years,
@@ -69,7 +70,7 @@ static const unsigned int MAX_BLOCK_SIZE_512	= 512000000;
 static const unsigned int MAX_BLOCK_SIZE_1024	= 1024000000;
 
 /** Default for -blockmaxsize and -blockminsize, which control the range of sizes the mining code will create **/
-static const unsigned int DEFAULT_BLOCK_MAX_SIZE = MAX_BLOCK_SIZE*3/4;
+static const unsigned int DEFAULT_BLOCK_MAX_SIZE = MAX_BLOCK_SIZE;
 static const unsigned int DEFAULT_BLOCK_MIN_SIZE = 0;
 /** Default for -blockprioritysize, maximum space for zero/low-fee transactions **/
 static const unsigned int DEFAULT_BLOCK_PRIORITY_SIZE = 50000;
