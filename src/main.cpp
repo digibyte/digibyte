@@ -1347,7 +1347,7 @@ int64_t GetDGBSubsidy(int nHeight) {
 		//decrease reward by 0.5% every 10080 blocks
 		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);
 	}
-	else
+	else if(nHeight<workComputationChangeTarget)
 	{
 		qSubsidy = 2459*COIN;
 		int blocks = nHeight - alwaysUpdateDiffChangeTarget;
@@ -1355,14 +1355,27 @@ int64_t GetDGBSubsidy(int nHeight) {
 		//decrease reward by 1% every month
 		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
 	}
-
-	if(nHeight<workComputationChangeTarget)
-	{
-	}
 	else
 	{
-		qSubsidy=qSubsidy/2;
+		//alwaysUpdateDiffChangeTarget hard fork point: 400000
+		//digispeed hard fork point: 1600000
+		//Subsidy at hard fork: 2114
+		//monthly decay factor: 9888/10000
+		//total coin count: 21000000035
+		//last block number: 41749781
+		//expected years after hard fork: 19.0971
+		
+		qSubsidy = 2114*COIN/2;//if workComputationChangeTarget=1.6M
+		int64_t blocks = nHeight - workComputationChangeTarget;
+		int64_t months = blocks*15/(3600*24*365/12);
+		for(int64_t i = 0; i < months; i++)
+		{
+			qSubsidy*=9888;//if workComputationChangeTarget=1.6M
+			qSubsidy/=10000;//if workComputationChangeTarget=1.6M
+		}
 	}
+
+
 
 	return qSubsidy;
 
