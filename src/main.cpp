@@ -1357,25 +1357,21 @@ int64_t GetDGBSubsidy(int nHeight) {
 	}
 	else
 	{
-		//alwaysUpdateDiffChangeTarget hard fork point: 400000
-		//digispeed hard fork point: 1600000
-		//Subsidy at hard fork: 2114
-		//monthly decay factor: 9888/10000
-		//total coin count: 21000000035
-		//last block number: 41749781
-		//expected years after hard fork: 19.0971
-		
-		qSubsidy = 2114*COIN/2;//if workComputationChangeTarget=1.6M
+		//hard fork point: 1.43M
+		//subsidy at hard fork: 2157
+		//monthly decay factor: 98884/100000
+		//last block number: 41668798
+		//expected years after hard fork: 19.1395
+
+		qSubsidy = 2157*COIN/2;
 		int64_t blocks = nHeight - workComputationChangeTarget;
 		int64_t months = blocks*15/(3600*24*365/12);
 		for(int64_t i = 0; i < months; i++)
 		{
-			qSubsidy*=9888;//if workComputationChangeTarget=1.6M
-			qSubsidy/=10000;//if workComputationChangeTarget=1.6M
+			qSubsidy*=98884;
+			qSubsidy/=100000;
 		}
 	}
-
-
 
 	return qSubsidy;
 
