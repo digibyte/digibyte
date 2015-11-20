@@ -33,15 +33,11 @@ class CBlockIndex;
 class CBloomFilter;
 class CInv;
 
-//const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200//for testing
-const int64_t nDiffChangeTarget = 5; //for testing
-//const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000//for testing
-const int64_t multiAlgoDiffChangeTarget = 10; //for testing
-//const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block//for testing
-const int64_t alwaysUpdateDiffChangeTarget = 15; //for testing
-const int64_t workComputationChangeTarget = 20; //for testing
-//const int64_t workComputationChangeTarget2 = workComputationChangeTarget+2*365*24*3600/15;//2 years,
-const int64_t workComputationChangeTarget2 = workComputationChangeTarget+3600/15;
+const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200//for testing
+const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000//for testing
+const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block//for testing
+const int64_t workComputationChangeTarget = 1430000; //digispeed
+const int64_t workComputationChangeTarget2 = workComputationChangeTarget+2*365*24*3600/15;//2 years,
 const int64_t workComputationChangeTarget4 = workComputationChangeTarget2+2*365*24*3600/15;//4 years,
 const int64_t workComputationChangeTarget6 = workComputationChangeTarget4+2*365*24*3600/15;//6 years,
 const int64_t workComputationChangeTarget8 = workComputationChangeTarget6+2*365*24*3600/15;//8 years,

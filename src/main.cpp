@@ -45,7 +45,7 @@ static const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 bl
 
 //MultiAlgo Target updates
 static const int64_t multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-static const int64_t multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds// NUM_ALGOS * 3 mins //for testing
+static const int64_t multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
 
 static const int64_t nAveragingInterval = 10; // 10 blocks
 static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
