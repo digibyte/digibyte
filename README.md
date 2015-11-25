@@ -1,4 +1,20 @@
 ====================================
+DigiSpeed v4.0.0 Release Notes
+=====================================
+* Changes occur @ block 143,000
+* 15 Second block timing (1 min  15 seconds per algo)
+* Scalability to match Visa TPS by 2021 & continued scaling through 2035 [url=http://www.digibyte.co/system/tdf/DigiByte_Network_Scalability.xlsx?file=1&type=node&id=274](See scalability projections here)[/url]
+* Minimum TX & Relay Fee set to 1 DGB to prevent attacks
+* MultiAlgo Difficulty adjustment code changed to make 51% much, much harder [url=https://github.com/digibyte/digibyte/pull/36](See commit explanation)[/url]
+* Transaction propagation changes based upon Microsoft research
+* Reward adjusted to accommodate faster blocks, still stays the same (21 billion DGB in 21 years)
+* OP_RETURN data increased to 80 bytes to allow embedding more data (like document hashes)
+* Safe mode warning error fixed
+* Check point added
+* Private key compatibility issue fixed ( addresses from the DGB paper wallet address generator now work properly)
+
+
+====================================
 Digibyte Ubuntu Build
 =====================================
 
