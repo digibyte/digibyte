@@ -33,19 +33,49 @@ class CBlockIndex;
 class CBloomFilter;
 class CInv;
 
+const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200//for testing
+const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000//for testing
+const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block//for testing
+const int64_t workComputationChangeTarget = 1430000; //digispeed
+const int64_t workComputationChangeTarget2 = workComputationChangeTarget+2*365*24*3600/15;//2 years,
+const int64_t workComputationChangeTarget4 = workComputationChangeTarget2+2*365*24*3600/15;//4 years,
+const int64_t workComputationChangeTarget6 = workComputationChangeTarget4+2*365*24*3600/15;//6 years,
+const int64_t workComputationChangeTarget8 = workComputationChangeTarget6+2*365*24*3600/15;//8 years,
+const int64_t workComputationChangeTarget10 = workComputationChangeTarget8+2*365*24*3600/15;//10 years,
+const int64_t workComputationChangeTarget12 = workComputationChangeTarget10+2*365*24*3600/15;//12 years,
+const int64_t workComputationChangeTarget14 = workComputationChangeTarget12+2*365*24*3600/15;//14 years,
+const int64_t workComputationChangeTarget16 = workComputationChangeTarget14+2*365*24*3600/15;//16 years,
+const int64_t workComputationChangeTarget18 = workComputationChangeTarget16+2*365*24*3600/15;//18 years,
+const int64_t workComputationChangeTarget20 = workComputationChangeTarget18+2*365*24*3600/15;//20 years,
+
+static const int64_t patchBlockRewardDuration = 10080; // 10080 blocks main net change
+static const int64_t patchBlockRewardDuration2 = 80160; // 80160 blocks main net change
+//mulitAlgoTargetChange = 145000 located in main.h
+
 /** The maximum allowed size for a serialized block, in bytes (network rule) */
-static const unsigned int MAX_BLOCK_SIZE = 1000000;
+static const unsigned int MAX_BLOCK_SIZE 	  	= 1000000;
+static const unsigned int MAX_BLOCK_SIZE_2 		= 2000000;
+static const unsigned int MAX_BLOCK_SIZE_4 		= 4000000;
+static const unsigned int MAX_BLOCK_SIZE_8 		= 8000000;
+static const unsigned int MAX_BLOCK_SIZE_16 	= 16000000;
+static const unsigned int MAX_BLOCK_SIZE_32		= 32000000;
+static const unsigned int MAX_BLOCK_SIZE_64		= 64000000;
+static const unsigned int MAX_BLOCK_SIZE_128	= 128000000;
+static const unsigned int MAX_BLOCK_SIZE_256	= 256000000;
+static const unsigned int MAX_BLOCK_SIZE_512	= 512000000;
+static const unsigned int MAX_BLOCK_SIZE_1024	= 1024000000;
+
 /** Default for -blockmaxsize and -blockminsize, which control the range of sizes the mining code will create **/
-static const unsigned int DEFAULT_BLOCK_MAX_SIZE = 750000;
+static const unsigned int DEFAULT_BLOCK_MAX_SIZE = MAX_BLOCK_SIZE;
 static const unsigned int DEFAULT_BLOCK_MIN_SIZE = 0;
 /** Default for -blockprioritysize, maximum space for zero/low-fee transactions **/
 static const unsigned int DEFAULT_BLOCK_PRIORITY_SIZE = 50000;
 /** The maximum size for transactions we're willing to relay/mine */
 static const unsigned int MAX_STANDARD_TX_SIZE = 100000;
 /** The maximum allowed number of signature check operations in a block (network rule) */
-static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
+//static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 /** The maximum number of orphan transactions kept in memory */
-static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
+//static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 /** The maximum number of orphan blocks kept in memory */
 static const unsigned int MAX_ORPHAN_BLOCKS = 750;
 /** The maximum size of a blk?????.dat file (since 0.8) */
@@ -55,8 +85,8 @@ static const unsigned int BLOCKFILE_CHUNK_SIZE = 0x1000000; // 16 MiB
 /** The pre-allocation chunk size for rev?????.dat files (since 0.8) */
 static const unsigned int UNDOFILE_CHUNK_SIZE = 0x100000; // 1 MiB
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
-static const int COINBASE_MATURITY = 8;
-static const int COINBASE_MATURITY_2 = 100;
+static const int COINBASE_MATURITY = 8; // 8 blocks
+static const int COINBASE_MATURITY_2 = 100;//100 blocks
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 /** Maximum number of script-checking threads allowed */
@@ -83,7 +113,6 @@ static const unsigned char REJECT_NONSTANDARD = 0x40;
 static const unsigned char REJECT_DUST = 0x41;
 static const unsigned char REJECT_INSUFFICIENTFEE = 0x42;
 static const unsigned char REJECT_CHECKPOINT = 0x43;
-
 
 extern CScript COINBASE_FLAGS;
 extern CCriticalSection cs_main;
@@ -174,7 +203,7 @@ bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock, b
 /** Find the best known block, and make it the tip of the block chain */
 bool ActivateBestChain(CValidationState &state);
 int64_t GetBlockValue(int nHeight, int64_t nFees);
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo);
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, bool log);
 
 void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev);
 
@@ -536,6 +565,8 @@ protected:
     // flag set when encountering invalid data
     bool fBad;
 
+    const CBlock *block;
+
     // helper function to efficiently calculate the number of nodes at given height in the merkle tree
     unsigned int CalcTreeWidth(int height) {
         return (nTransactions+(1 << height)-1) >> height;
@@ -574,6 +605,7 @@ public:
     )
 
     // Construct a partial merkle tree from a list of transaction id's, and a mask that selects a subset of them
+	CPartialMerkleTree(const std::vector<uint256> &vTxid, const std::vector<bool> &vMatch, const CBlock &block);
     CPartialMerkleTree(const std::vector<uint256> &vTxid, const std::vector<bool> &vMatch);
 
     CPartialMerkleTree();
@@ -604,6 +636,8 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 
 // Add this block to the block index, and if necessary, switch the active block chain to this
 bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos& pos);
+
+bool CheckBlockOnly(const CBlock& block, CValidationState& state, bool fCheckPOW = true);
 
 // Context-independent validity checks
 bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
@@ -685,8 +719,6 @@ enum BlockStatus {
     BLOCK_FAILED_MASK        =   96
 };
 
-const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000
-const int64_t alwaysUpdateDiffChangeTarget = 400000; // block 400000 after which all difficulties are updated on every block
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
@@ -780,7 +812,7 @@ public:
     }
 
     int GetAlgo() const { return ::GetAlgo(nVersion); }
-    
+
     CDiskBlockPos GetBlockPos() const {
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_DATA) {
@@ -831,7 +863,7 @@ public:
         return (CBigNum(1)<<256) / (bnTarget+1);
     }
 
-    int GetAlgoWorkFactor() const 
+    int GetAlgoWorkFactor() const
     {
         if (!TestNet() && (nHeight < multiAlgoDiffChangeTarget))
         {
@@ -844,7 +876,7 @@ public:
         switch (GetAlgo())
         {
             case ALGO_SHA256D:
-                return 1; 
+                return 1;
             // work factor = absolute work ratio * optimisation factor
             case ALGO_SCRYPT:
                 return 1024 * 4;
@@ -861,11 +893,34 @@ public:
 
     CBigNum GetBlockWorkAdjusted() const
     {
-        CBigNum bnRes;
-        bnRes = GetBlockWork() * GetAlgoWorkFactor();
-        return bnRes;
+        if (nHeight < workComputationChangeTarget)
+        {
+            CBigNum bnRes;
+            bnRes = GetBlockWork() * GetAlgoWorkFactor();
+            return bnRes;
+        }
+        else
+        {
+            CBigNum bnRes = 1;
+            CBlockHeader header = GetBlockHeader();
+            // multiply the difficulties of all algorithms
+            for (int i = 0; i < NUM_ALGOS; i++)
+            {
+                unsigned int nBits = GetNextWorkRequired(pprev, &header, i,false);
+                CBigNum bnTarget;
+                bnTarget.SetCompact(nBits);
+                if (bnTarget <= 0)
+                    return 0;
+                bnRes *= (CBigNum(1)<<256) / (bnTarget+1);
+            }
+            // Compute the geometric mean
+            bnRes = bnRes.nthRoot(NUM_ALGOS);
+            // Scale to roughly match the old work calculation
+            bnRes <<= 7;
+            return bnRes;
+        }
     }
-    
+
     bool CheckIndex() const
     {
         int algo = GetAlgo();
@@ -897,8 +952,7 @@ public:
      * Returns true if there are nRequired or more blocks of minVersion or above
      * in the last nToCheck blocks, starting at pstart and going backwards.
      */
-    static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,
-                                unsigned int nRequired, unsigned int nToCheck);
+    static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,unsigned int nRequired, unsigned int nToCheck);
 
     std::string ToString() const
     {
@@ -1168,5 +1222,9 @@ protected:
     friend void ::UnregisterWallet(CWalletInterface*);
     friend void ::UnregisterAllWallets();
 };
+
+bool GetBlockHeightByTx(const uint256 &hash, unsigned int &height);
+void GetMaxBlockSizeByTx(const uint256 &hash, unsigned int &maxBlockSize);
+void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize);
 
 #endif

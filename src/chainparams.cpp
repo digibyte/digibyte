@@ -51,7 +51,7 @@ public:
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 8000;
-        txNew.vout[0].scriptPubKey = CScript() << 0x0 << OP_CHECKSIG;          
+        txNew.vout[0].scriptPubKey = CScript() << 0x0 << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
@@ -59,7 +59,7 @@ public:
         genesis.nTime    = 1389388394;
         genesis.nBits    = 0x1e0ffff0;
         genesis.nNonce   = 2447652;
-    
+
         hashGenesisBlock = genesis.GetHash();
 
         assert(hashGenesisBlock == uint256("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"));
@@ -120,8 +120,8 @@ public:
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
         vAlertPubKey = ParseHex("b5dca8039e300198e5fe7cd23bdd1728e2a444af34c447dbd0916fa3430a68c2");
-        nDefaultPort = 12025;
-        nRPCPort = 14023;
+        nDefaultPort = 13024;
+        nRPCPort = 15022;
         strDataDir = "testnet3";
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.

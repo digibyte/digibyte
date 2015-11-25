@@ -183,10 +183,6 @@ public:
     int readData(const char *pch, unsigned int nBytes);
 };
 
-
-
-
-
 /** Information about a peer */
 class CNode
 {

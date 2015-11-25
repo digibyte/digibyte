@@ -221,4 +221,44 @@ BOOST_AUTO_TEST_CASE(bignum_SetHex)
     BOOST_CHECK_EQUAL(num.GetHex(), hexStr);
 }
 
+void nthRootHelper(const CBigNum& k, int n)
+{
+    CBigNum r = k.nthRoot(n);
+    CBigNum lo = 1, hi = 1;
+    for (int i = 0; i < n; i++)
+    {
+        lo *= r;
+        hi *= r+1;
+    }
+    BOOST_CHECK(lo <= k && k < hi);
+}
+
+BOOST_AUTO_TEST_CASE(bignum_nthRoot)
+{
+    // small sanity cases
+    for (int i = 0; i < 200; i++)
+    {
+        for (int j = 2; j <= 10; j++)
+        {
+            nthRootHelper(i, j);
+        }
+    }
+    for (int i = 200; i < 5000; i++)
+    {
+        nthRootHelper(i, (rand() % 9) + 2);
+    }
+    // large random cases
+    for (int i = 0; i < 1000; i++)
+    {
+        int nBitLength = (rand() % 200) + 50;
+        uint256 u;
+        for (unsigned char* p = u.begin(); p != u.end(); p++)
+            *p = rand() & 0xff;
+        u &= (uint256(1) << nBitLength) - 1;
+        CBigNum k;
+        k.setuint256(u);
+        nthRootHelper(k, (rand() % 9) + 2);
+    }
+}
+
 BOOST_AUTO_TEST_SUITE_END()

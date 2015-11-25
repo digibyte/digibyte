@@ -52,7 +52,7 @@ void SimulateNextBlock(CBlockIndex*& tip, double* hashRates)
     {
         if (hashRates[i] == 0) continue;
         CBigNum target;
-        unsigned int nBits = GetNextWorkRequired(tip, NULL, i);
+        unsigned int nBits = GetNextWorkRequired(tip, NULL, i, false);
         target.SetCompact(nBits);
         double dtarget = target.getuint256().getdouble()/pow(2,256);
         double mean = 1/(hashRates[i]*dtarget);
@@ -127,7 +127,7 @@ void RunSimulation(boost::function<double(const CBlockIndex*)>* hashRate, int st
 
         double diffsum=0;
         for(int i=0; i<5; i++)
-            diffsum+=BitsToDifficulty(GetNextWorkRequired(tip, NULL, i));
+            diffsum+=BitsToDifficulty(GetNextWorkRequired(tip, NULL, i, false));
         
         printf("height %d algo %7s time %3d diff %8.3f, avg next diff %7.3f\n", 
             tip->nHeight,

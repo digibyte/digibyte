@@ -1288,8 +1288,8 @@ public:
                 Fill();
             unsigned int pos = nReadPos % vchBuf.size();
             size_t nNow = nSize;
-            if (nNow + pos > vchBuf.size())
-                nNow = vchBuf.size() - pos;
+            if (nNow + pos > vchBuf.size())//nSize is larger than buffer size
+                nNow = vchBuf.size() - pos;//nNow = buffer free space size
             if (nNow + nReadPos > nSrcPos)
                 nNow = nSrcPos - nReadPos;
             memcpy(pch, &vchBuf[pos], nNow);

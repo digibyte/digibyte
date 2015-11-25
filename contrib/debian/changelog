@@ -191,11 +191,7 @@ digibyte (0.5.0~rc1-1) experimental; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Fri, 14 Oct 2011 00:16:18 +0200
 
-<<<<<<< HEAD
-bitcoin (0.4.0-1) unstable; urgency=low
-=======
 digibyte (0.4.0-1) unstable; urgency=low
->>>>>>> 2.9.0
 
   * New upstream release.
   * Stop repackaging source tarballs: No DFSG-violating stripping left.
@@ -204,11 +200,7 @@ digibyte (0.4.0-1) unstable; urgency=low
   * Drop dpkg-source local-options hint: Declared options are default
     since dpkg-source 1.16.1.
     + Add irc URL to Upstream-Contact.
-<<<<<<< HEAD
-    + Add comment on Bitcoin Developers to catch-all Files section.
-=======
     + Add comment on DigiByte Developers to catch-all Files section.
->>>>>>> 2.9.0
     + Add Files sections for newly readded src/cryptopp/* (new custom
       BSD-like license), and newly added doc/build-osx.txt and
       src/makefile.osx (Expat).
@@ -227,21 +219,13 @@ digibyte (0.4.0-1) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Wed, 05 Oct 2011 01:48:53 +0200
 
-<<<<<<< HEAD
-bitcoin (0.3.24~dfsg-1) unstable; urgency=low
-=======
 digibyte (0.3.24~dfsg-1) unstable; urgency=low
->>>>>>> 2.9.0
 
   * New upstream release.
 
   [ Jonas Smedegaard ]
   * Improve various usage hints:
-<<<<<<< HEAD
-    + Explicitly mention in long description that bitcoind contains
-=======
     + Explicitly mention in long description that digibyted contains
->>>>>>> 2.9.0
       daemon and command-line interface.
     + Extend README.Debian with section on lack of GUI, and add primary
       headline.
@@ -262,11 +246,7 @@ digibyte (0.3.24~dfsg-1) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 19 Jul 2011 15:08:54 +0200
 
-<<<<<<< HEAD
-bitcoin (0.3.21~dfsg-2) unstable; urgency=low
-=======
 digibyte (0.3.21~dfsg-2) unstable; urgency=low
->>>>>>> 2.9.0
 
   * Enable UPNP support:
     + Drop patch 1006.
@@ -275,11 +255,7 @@ digibyte (0.3.21~dfsg-2) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Sat, 28 May 2011 15:52:44 +0200
 
-<<<<<<< HEAD
-bitcoin (0.3.21~dfsg-1) unstable; urgency=low
-=======
 digibyte (0.3.21~dfsg-1) unstable; urgency=low
->>>>>>> 2.9.0
 
   * New upstream release.
   * Refresh patches.
@@ -292,11 +268,7 @@ digibyte (0.3.21~dfsg-1) unstable; urgency=low
   * Bump policy compliance to standards-version 3.9.2.
   * Shorten Vcs-Browser paragraph in control file.
   * Fix mention daemon (not CLI tools) in short description.
-<<<<<<< HEAD
-  * Stop conflicting with or replace bitcoin-cli: Only transitional, no
-=======
   * Stop conflicting with or replace digibyte-cli: Only transitional, no
->>>>>>> 2.9.0
     longer needed.
   * Link against unversioned berkeleydb. Update NEWS and README.Debian
     accordingly (and improve wording while at it).
@@ -308,11 +280,7 @@ digibyte (0.3.21~dfsg-1) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 17 May 2011 15:31:24 +0200
 
-<<<<<<< HEAD
-bitcoin (0.3.20.2~dfsg-2) unstable; urgency=medium
-=======
 digibyte (0.3.20.2~dfsg-2) unstable; urgency=medium
->>>>>>> 2.9.0
 
   * Fix have wrapper script execute real binary (not loop executing
     itself).
@@ -322,26 +290,15 @@ digibyte (0.3.20.2~dfsg-2) unstable; urgency=medium
 
  -- Jonas Smedegaard <dr@jones.dk>  Wed, 16 Mar 2011 09:11:06 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.20.2~dfsg-1) unstable; urgency=low
-
-  * New upstream release.
-  * Fix provide and replace former package name bitcoin-cli.
-=======
 digibyte (0.3.20.2~dfsg-1) unstable; urgency=low
 
   * New upstream release.
   * Fix provide and replace former package name digibyte-cli.
->>>>>>> 2.9.0
     Closes: bug#618439. Thanks to Shane Wegner.
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 15 Mar 2011 11:41:43 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.20.01~dfsg-1) unstable; urgency=low
-=======
 digibyte (0.3.20.01~dfsg-1) unstable; urgency=low
->>>>>>> 2.9.0
 
   * New upstream release.
 
@@ -349,11 +306,7 @@ digibyte (0.3.20.01~dfsg-1) unstable; urgency=low
   * Add myself as uploader.
 
   [ Jonas Smedegaard ]
-<<<<<<< HEAD
-  * Add wrapper for bitcoind to ease initial startup.
-=======
   * Add wrapper for digibyted to ease initial startup.
->>>>>>> 2.9.0
   * Update patches:
     + Drop patch 2002: Applied upstream.
     + Add patch 1005 to add phtread linker option.
@@ -361,20 +314,12 @@ digibyte (0.3.20.01~dfsg-1) unstable; urgency=low
     + Refresh patches.
   * Extend copyright years in rules file header.
   * Rewrite copyright file using draft svn166 of DEP5 format.
-<<<<<<< HEAD
-  * Rename binary package to bitcoind (from bincoin-cli).
-=======
   * Rename binary package to digibyted (from bincoin-cli).
->>>>>>> 2.9.0
     Closes: bug#614025. Thanks to Luke-Jr.
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 01 Mar 2011 15:55:04 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.19~dfsg-6) unstable; urgency=low
-=======
 digibyte (0.3.19~dfsg-6) unstable; urgency=low
->>>>>>> 2.9.0
 
   * Fix override agressive optimizations.
   * Fix tighten build-dependencies to really fit backporting to Lenny:
@@ -385,11 +330,7 @@ digibyte (0.3.19~dfsg-6) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Mon, 17 Jan 2011 19:48:35 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.19~dfsg-5) unstable; urgency=low
-=======
 digibyte (0.3.19~dfsg-5) unstable; urgency=low
->>>>>>> 2.9.0
 
   * Fix lower Boost fallback-build-dependencies to 1.35, really
     available in Lenny.
@@ -404,19 +345,11 @@ digibyte (0.3.19~dfsg-5) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Mon, 17 Jan 2011 16:04:48 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.19~dfsg-4) unstable; urgency=low
-
-  [ Micah Anderson ]
-  * Provide example bitcoin.conf.
-  * Add bitcoind(1) and bitcoin.conf(5) man pages.
-=======
 digibyte (0.3.19~dfsg-4) unstable; urgency=low
 
   [ Micah Anderson ]
   * Provide example digibyte.conf.
   * Add digibyted(1) and digibyte.conf(5) man pages.
->>>>>>> 2.9.0
 
   [ Jonas Smedegaard ]
   * Ease backporting:
@@ -428,11 +361,7 @@ digibyte (0.3.19~dfsg-4) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Mon, 17 Jan 2011 14:00:48 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.19~dfsg-3) unstable; urgency=low
-=======
 digibyte (0.3.19~dfsg-3) unstable; urgency=low
->>>>>>> 2.9.0
 
   * Document in copyright file files excluded from repackaged source.
   * Update copyright file:
@@ -447,11 +376,7 @@ digibyte (0.3.19~dfsg-3) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Fri, 07 Jan 2011 22:50:57 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.19~dfsg-2) unstable; urgency=low
-=======
 digibyte (0.3.19~dfsg-2) unstable; urgency=low
->>>>>>> 2.9.0
 
   * Adjust build options to use optimized miner only for amd64. Fixes
     FTBFS on i386 (and other archs, if compiling anywhere else at all).
@@ -466,11 +391,7 @@ digibyte (0.3.19~dfsg-2) unstable; urgency=low
 
  -- Jonas Smedegaard <dr@jones.dk>  Wed, 29 Dec 2010 00:27:54 +0100
 
-<<<<<<< HEAD
-bitcoin (0.3.19~dfsg-1) unstable; urgency=low
-=======
 digibyte (0.3.19~dfsg-1) unstable; urgency=low
->>>>>>> 2.9.0
 
   [ Jonas Smedegaard ]
   * Initial release.

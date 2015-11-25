@@ -12,7 +12,7 @@
 const std::string CLIENT_NAME("DigiByte");
 
 // Client version number
-#define CLIENT_VERSION_SUFFIX   "-MultiAlgo"
+#define CLIENT_VERSION_SUFFIX   "-DigiSpeed"
 
 
 // The following part of the code determines the CLIENT_BUILD variable.
