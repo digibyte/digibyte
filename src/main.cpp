@@ -2815,37 +2815,6 @@ void GetMaxBlockSizeByBlock(const CBlock &block,unsigned int &maxBlockSize)
 	maxBlockSize=GetMaxBlockSize(chainActive.Height());
 }
 
-bool CheckBlockOnly(const CBlock& block, CValidationState& state, bool fCheckPOW)
-{
-	// These are checks that are independent of context
-	// that can be verified before saving an orphan block.
-
-	unsigned int maxBlockSize;
-
-	GetMaxBlockSizeByBlock(block,maxBlockSize);
-	// Size limits
-	if (block.vtx.empty() || block.vtx.size() > maxBlockSize || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > maxBlockSize)
-		return state.DoS(100, error("CheckBlockOnly() : size limits failed"), REJECT_INVALID, "bad-blk-length");
-
-	// Check proof of work matches claimed amount
-	if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
-		return state.DoS(50, error("CheckBlock() : proof of work failed"), REJECT_INVALID, "high-hash");
-
-	// Check timestamp
-	if (block.GetBlockTime() > GetAdjustedTime() + 2 * 60 * 60)
-		return state.Invalid(error("CheckBlock() : block timestamp too far in the future"), REJECT_INVALID, "time-too-new");
-
-	//===
-
-	AssertLockHeld(cs_main);
-	// Check for duplicate
-	uint256 hash = block.GetHash();
-	if (mapBlockIndex.count(hash))
-		return state.Invalid(error("AcceptBlock() : block already in mapBlockIndex"), 0, "duplicate");
-
-	return true;
-}
-
 bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bool fCheckMerkleRoot)
 {
 	// These are checks that are independent of context
@@ -3070,26 +3039,6 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
 		return state.Invalid(error("ProcessBlock() : already have block %d %s", mapBlockIndex[hash]->nHeight, hash.ToString()), 0, "duplicate");
 	if (mapOrphanBlocks.count(hash))
 		return state.Invalid(error("ProcessBlock() : already have block (orphan) %s", hash.ToString()), 0, "duplicate");
-
-	if(pfrom)
-	{
-		if (CheckBlockOnly(*pblock, state))
-		{
-			LOCK(cs_vNodes);
-			BOOST_FOREACH(CNode* pnode, vNodes)
-			{
-				if(pnode->addr==pfrom->addr)
-				{
-				}
-				else
-				{
-					pnode->PushInventory(CInv(MSG_BLOCK, hash));
-				}
-			}
-		}
-		else
-			return error("ProcessBlock() : CheckBlockOnly FAILED");
-	}
 
 	// Preliminary checks
 	if (!CheckBlock(*pblock, state))
