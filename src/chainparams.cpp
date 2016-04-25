@@ -71,7 +71,7 @@ public:
         vSeeds.push_back(CDNSSeedData("digibytewiki.com seed #4", "digibytewiki.com"));
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(30);
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
+        base58Prefixes[SCRIPT_ADDRESS] = list_of(49);
         base58Prefixes[SECRET_KEY]     = list_of(128);
         base58Prefixes[SECRET_KEY_OLD] = list_of(158);
         base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xB2)(0x1E);
