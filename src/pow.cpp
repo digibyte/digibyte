@@ -10,6 +10,8 @@
 #include "primitives/block.h"
 #include "uint256.h"
 
+#include "util.h" //just for logs
+
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();

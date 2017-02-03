@@ -7,11 +7,12 @@
 
 #include "uint256.h"
 #include "serialize.h"
-#include "sph_skein.h"
+#include "crypto/sph_skein.h"
 
 #include <openssl/sha.h>
 #include <openssl/ripemd.h>
 #include <vector>
+
 
 template<typename T1>
 inline uint256 HashSkein(const T1 pbegin, const T1 pend)
@@ -26,9 +27,9 @@ inline uint256 HashSkein(const T1 pbegin, const T1 pend)
     sph_skein512_init(&ctx_skein);
     sph_skein512(&ctx_skein, (pbegin == pend ? pblank : static_cast<const void*>(&pbegin[0])), (pend - pbegin) * sizeof(pbegin[0]));
     sph_skein512_close(&ctx_skein, static_cast<void*>(&hash1));
-
+    
     SHA256((unsigned char*)&hash1, 64, (unsigned char*)&hash2);
-
+    
     return hash2;
 }
 
