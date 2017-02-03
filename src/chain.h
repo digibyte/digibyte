@@ -280,6 +280,13 @@ public:
         return *phashBlock;
     }
 
+    uint256 GetBlockPoWHash() const
+    {
+        CBlockHeader block = GetBlockHeader();
+        int algo = block.GetAlgo();
+        return block.GetPoWAlgoHash(algo);
+    }
+
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;

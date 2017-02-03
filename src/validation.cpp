@@ -1167,15 +1167,71 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
 
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
-    int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-    // Force block reward to zero when right shift is undefined.
-    if (halvings >= 64)
-        return 0;
+	CAmount nSubsidy = COIN;
 
-    CAmount nSubsidy = 50 * COIN;
-    // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
-    nSubsidy >>= halvings;
-    return nSubsidy;
+    // Find some place to put these
+    int64_t nDiffChangeTarget = 67200;
+    int64_t alwaysUpdateDiffChangeTarget = 400000;
+    int64_t patchBlockRewardDuration = 10080;
+    int64_t patchBlockRewardDuration2 = 80160;
+    int64_t workComputationChangeTarget = 1430000;
+
+	if(nHeight < nDiffChangeTarget) {
+		//this is pre-patch, reward is 8000.
+		nSubsidy = 8000 * COIN;
+
+		if(nHeight < 1440)  //1440
+		{
+			nSubsidy = 72000 * COIN;
+		}
+		else if(nHeight < 5760)  //5760
+		{
+			nSubsidy = 16000 * COIN;
+		}
+
+	} else {
+		//patch takes effect after 67,200 blocks solved
+        if (nHeight < alwaysUpdateDiffChangeTarget)
+        {
+            nSubsidy = 8000*COIN;
+            int blocks = nHeight - nDiffChangeTarget;
+            int weeks = (blocks / patchBlockRewardDuration)+1;
+            //decrease reward by 0.5% every 10080 blocks
+            for(int i = 0; i < weeks; i++)  nSubsidy -= (nSubsidy/200);
+        }
+        else if(nHeight < workComputationChangeTarget)
+        {
+            nSubsidy = 2459*COIN;
+            int blocks = nHeight - alwaysUpdateDiffChangeTarget;
+            int weeks = (blocks / patchBlockRewardDuration2)+1;
+            //decrease reward by 1% every month
+            for(int i = 0; i < weeks; i++)  nSubsidy -= (nSubsidy/100);
+        }
+        else
+        {
+            //hard fork point: 1.43M
+            //subsidy at hard fork: 2157
+            //monthly decay factor: 98884/100000
+            //last block number: 41668798
+            //expected years after hard fork: 19.1395
+
+            nSubsidy = 2157*COIN/2;
+            int64_t blocks = nHeight - workComputationChangeTarget;
+            int64_t months = blocks*15/(3600*24*365/12);
+            for(int64_t i = 0; i < months; i++)
+            {
+                nSubsidy*=98884;
+                nSubsidy/=100000;
+            }
+        }
+	}
+
+	//make sure the reward is at least 1 DGB
+	if(nSubsidy < COIN) {
+		nSubsidy = COIN;
+	}
+
+	return nSubsidy;
 }
 
 bool IsInitialBlockDownload()
@@ -2978,7 +3034,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
 {
     const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     // Check proof of work
-    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams, block.GetAlgo()))
         return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
     // Check timestamp against prev

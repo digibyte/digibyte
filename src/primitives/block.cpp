@@ -22,7 +22,6 @@ uint256 CBlockHeader::GetHash() const
 
 int CBlockHeader::GetAlgo() const
 {
-    LogPrintf("version is %i",  nVersion);
     switch (nVersion & BLOCK_VERSION_ALGO)
     {
         case 1:

@@ -101,14 +101,14 @@ public:
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000002cb971dd56d1c583c20f90");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0000000000000000030abc968e1bd635736e880b946085c93152969b9a81a6e2"); //447235
+        consensus.defaultAssumeValid = uint256S("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"); //447235
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xfc;
+        pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xc3;
         pchMessageStart[2] = 0xb6;
         pchMessageStart[3] = 0xda;
@@ -121,9 +121,9 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.push_back(CDNSSeedData("digibyte.co", "seed.digibyte.co"));
-        vSeeds.push_back(CDNSSeedData("digiexplorer.info", "digiexplorer.info"));
-        vSeeds.push_back(CDNSSeedData("digihash.co", "digihash.co"));
+        vSeeds.push_back(CDNSSeedData("digibyte.co", "61.68.131.232"));
+        //vSeeds.push_back(CDNSSeedData("digiexplorer.info", "digiexplorer.info"));
+        //vSeeds.push_back(CDNSSeedData("digihash.co", "digihash.co"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);

@@ -12,43 +12,89 @@
 
 #include "util.h" //just for logs
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
+	// Find some place to put these
+    int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+    int64_t nTargetSpacing = 60; // 60 seconds
+    int64_t nInterval = nTargetTimespan / nTargetSpacing;
+    int64_t nDiffChangeTarget = 67200;
+    int64_t nTargetTimespanRe = 1*60; // 60 Seconds
+    int64_t nTargetSpacingRe = 1*60; // 60 seconds
+    int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
+
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+	int nHeight = pindexLast->nHeight + 1;
+	bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget);
+	int blockstogoback = 0;
 
-    // Genesis block
-    if (pindexLast == NULL)
-        return nProofOfWorkLimit;
+	//set default to pre-v2.0 values
+	int64_t retargetTimespan = nTargetTimespan;
+	//int64_t retargetSpacing = nTargetSpacing;
+	int64_t retargetInterval = nInterval;
 
-    // Only change once per difficulty adjustment interval
-    if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
-    {
-        if (params.fPowAllowMinDifficultyBlocks)
-        {
-            // Special difficulty rule for testnet:
-            // If the new block's timestamp is more than 2* 10 minutes
-            // then allow mining of a min-difficulty block.
-            if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
-                return nProofOfWorkLimit;
-            else
-            {
-                // Return the last non-special-min-difficulty-rules-block
-                const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
-                    pindex = pindex->pprev;
-                return pindex->nBits;
-            }
-        }
-        return pindexLast->nBits;
-    }
+	// Genesis block
+	if (pindexLast == NULL)
+		return nProofOfWorkLimit;
 
-    // Go back by what we want to be 14 days worth of blocks
-    int nHeightFirst = pindexLast->nHeight - (params.DifficultyAdjustmentInterval()-1);
-    assert(nHeightFirst >= 0);
-    const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
-    assert(pindexFirst);
+	//if v2.0 changes are in effect for block num, alter retarget values
+	if(fNewDifficultyProtocol) {
+		LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
+		retargetTimespan = nTargetTimespanRe;
+		//retargetSpacing = nTargetSpacingRe;
+		retargetInterval = nIntervalRe;
+	}
 
-    return CalculateNextWorkRequired(pindexLast, pindexFirst->GetBlockTime(), params);
+	// Only change once per interval
+	if ((pindexLast->nHeight+1) % retargetInterval != 0)
+	{
+		return pindexLast->nBits;
+	}
+
+	// DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
+	// Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
+	blockstogoback = retargetInterval-1;
+	if ((pindexLast->nHeight+1) != retargetInterval)
+		blockstogoback = retargetInterval;
+
+	// Go back by what we want to be 14 days worth of blocks
+	const CBlockIndex* pindexFirst = pindexLast;
+	for (int i = 0; pindexFirst && i < blockstogoback; i++)
+		pindexFirst = pindexFirst->pprev;
+	assert(pindexFirst);
+
+	// Limit adjustment step
+	int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+	LogPrintf("nActualTimespan = %d  before bounds\n", nActualTimespan);
+
+	// thanks to RealSolid & WDC for this code
+	if(fNewDifficultyProtocol) {
+		LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
+		if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+		if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
+	}
+	else {
+		if (nActualTimespan < retargetTimespan/4) nActualTimespan = retargetTimespan/4;
+		if (nActualTimespan > retargetTimespan*4) nActualTimespan = retargetTimespan*4;
+	}
+
+	arith_uint256 bnNew;
+	arith_uint256 bnBefore;
+	bnNew.SetCompact(pindexLast->nBits);
+	bnBefore=bnNew;
+	bnNew *= nActualTimespan;
+	bnNew /= retargetTimespan;
+
+	if (bnNew > UintToArith256(params.powLimit))
+		bnNew = UintToArith256(params.powLimit);
+
+	// debug print
+	LogPrintf("GetNextWorkRequired RETARGET\n");
+	LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
+	LogPrintf("Before: %08x  %s\n", pindexLast->nBits, ArithToUint256(bnBefore).ToString());
+	LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), ArithToUint256(bnNew).ToString());
+
+	return bnNew.GetCompact();
 }
 
 unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
