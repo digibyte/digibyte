@@ -7,7 +7,7 @@
 
 #include "uint256.h"
 #include "serialize.h"
-#include "sph_groestl.h"
+#include "crypto/sph_groestl.h"
 
 #include <openssl/sha.h>
 #include <openssl/ripemd.h>

@@ -5,10 +5,6 @@
 
 #include "primitives/block.h"
 
-#include "crypto/scrypt.h"
-#include "crypto/hashgroestl.h"
-#include "crypto/hashskein.h"
-#include "crypto/hashqubit.h"
 #include "hash.h"
 #include "tinyformat.h"
 #include "utilstrencodings.h"
@@ -47,7 +43,6 @@ uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
         case ALGO_SCRYPT:
         {
             uint256 thash;
-            // Caution: scrypt_1024_1_1_256 assumes fixed length of 80 bytes
             scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
             return thash;
         }

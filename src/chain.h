@@ -287,6 +287,12 @@ public:
         return block.GetPoWAlgoHash(algo);
     }
 
+    int GetAlgo() const
+    {
+        CBlockHeader block = GetBlockHeader();
+        return block.GetAlgo();
+    }
+
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;

@@ -1444,10 +1444,17 @@ bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoins
 
             // If prev is coinbase, check that it's matured
             if (coins->IsCoinBase()) {
-                if (nSpendHeight - coins->nHeight < COINBASE_MATURITY)
-                    return state.Invalid(false,
-                        REJECT_INVALID, "bad-txns-premature-spend-of-coinbase",
-                        strprintf("tried to spend coinbase at depth %d", nSpendHeight - coins->nHeight));
+                if (coins->nHeight < multiAlgoDiffChangeTarget) {
+                    if (nSpendHeight - coins->nHeight < COINBASE_MATURITY)
+                        return state.Invalid(false,
+                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase",
+                            strprintf("tried to spend coinbase at depth %d", nSpendHeight - coins->nHeight));
+                } else {
+                    if (nSpendHeight - coins->nHeight < COINBASE_MATURITY_2)
+                        return state.Invalid(false,
+                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase",
+                            strprintf("tried to spend coinbase at depth %d", nSpendHeight - coins->nHeight));
+                }
             }
 
             // Check for negative or overflow input values
@@ -3032,7 +3039,7 @@ std::vector<unsigned char> GenerateCoinbaseCommitment(CBlock& block, const CBloc
 
 bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev, int64_t nAdjustedTime)
 {
-    const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
+    //const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     // Check proof of work
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams, block.GetAlgo()))
         return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
@@ -3047,11 +3054,11 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
 
     // Reject outdated version blocks when 95% (75% on testnet) of the network has upgraded:
     // check for version 2, 3 and 4 upgrades
-    if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
-       (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
-       (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
-            return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
-                                 strprintf("rejected nVersion=0x%08x block", block.nVersion));
+    //if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
+    //   (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
+    //   (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
+    //        return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
+    //                             strprintf("rejected nVersion=0x%08x block", block.nVersion));
 
     return true;
 }

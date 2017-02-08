@@ -33,7 +33,7 @@
 #include <stddef.h>
 #include <string.h>
 
-#include "sph_shavite.h"
+#include "crypto/sph_shavite.h"
 
 #ifdef __cplusplus
 extern "C"{
