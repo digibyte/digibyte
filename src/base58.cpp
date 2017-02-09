@@ -305,7 +305,7 @@ CKey CBitcoinSecret::GetKey()
 bool CBitcoinSecret::IsValid() const
 {
     bool fExpectedFormat = vchData.size() == 32 || (vchData.size() == 33 && vchData[32] == 1);
-    bool fCorrectVersion = vchVersion == Params().Base58Prefix(CChainParams::SECRET_KEY) || Params().Base58Prefix(CChainParams::SECRET_KEY_OLD);
+    bool fCorrectVersion = vchVersion == Params().Base58Prefix(CChainParams::SECRET_KEY) || vchVersion == Params().Base58Prefix(CChainParams::SECRET_KEY_OLD);
     return fExpectedFormat && fCorrectVersion;
 }
 

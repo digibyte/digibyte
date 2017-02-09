@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+#include <openssl/bn.h>
+
 class uint256;
 
 class uint_error : public std::runtime_error {

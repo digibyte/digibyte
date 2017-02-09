@@ -88,6 +88,30 @@ public:
         return (nBits == 0);
     }
 
+    // Set Algo to use
+    inline void SetAlgo(int algo)
+    {
+        switch(algo)
+        {
+            case ALGO_SHA256D:
+                break;
+            case ALGO_SCRYPT:
+                nVersion |= BLOCK_VERSION_SCRYPT;
+                break;
+            case ALGO_GROESTL:
+                nVersion |= BLOCK_VERSION_GROESTL;
+                break;
+            case ALGO_SKEIN:
+                nVersion |= BLOCK_VERSION_SKEIN;
+                break;
+            case ALGO_QUBIT:
+                nVersion |= BLOCK_VERSION_QUBIT;
+                break;
+            default:
+                break;
+        }
+    }
+    
     int GetAlgo() const;
 
     uint256 GetHash() const;

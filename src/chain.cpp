@@ -3,7 +3,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "bignum.h"
 #include "chain.h"
+#include "chainparams.h"
 
 /**
  * CChain implementation
@@ -117,7 +119,33 @@ void CBlockIndex::BuildSkip()
         pskip = pprev->GetAncestor(GetSkipHeight(nHeight));
 }
 
-arith_uint256 GetBlockProof(const CBlockIndex& block)
+int GetAlgoWorkFactor(int nHeight, int algo) 
+{
+    const int64_t multiAlgoDiffChangeTarget = 145000;
+    if (nHeight < multiAlgoDiffChangeTarget)
+    {
+        return 1;
+    }
+
+    switch (algo)
+    {
+        case ALGO_SHA256D:
+            return 1; 
+        // work factor = absolute work ratio * optimisation factor
+        case ALGO_SCRYPT:
+            return 1024 * 4;
+        case ALGO_GROESTL:
+            return 64 * 8;
+        case ALGO_SKEIN:
+            return 4 * 6;
+        case ALGO_QUBIT:
+            return 128 * 8;
+        default:
+            return 1;
+    }
+}
+
+arith_uint256 GetBlockProofBase(const CBlockIndex& block)
 {
     arith_uint256 bnTarget;
     bool fNegative;
@@ -132,9 +160,44 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
     return (~bnTarget / (bnTarget + 1)) + 1;
 }
 
+arith_uint256 GetBlockProof(const CBlockIndex& block)
+{
+    CBlockHeader header = block.GetBlockHeader();
+    int nHeight = block.nHeight;
+    arith_uint256 nBlockWork = GetBlockProofBase(block);
+    arith_uint256 nAlgoWork = GetAlgoWorkFactor(nHeight, header.GetAlgo());
+    CBigNum bnBlockWork = CBigNum(ArithToUint256(nBlockWork));
+    const int64_t workComputationChangeTarget = 1430000;
+
+    if (nHeight < workComputationChangeTarget)
+    {
+        CBigNum bnRes = bnBlockWork *  CBigNum(ArithToUint256(nAlgoWork));
+        return UintToArith256(bnRes.getuint256());
+    }
+    else
+    {
+        CBigNum bnRes = 1;
+        // multiply the difficulties of all algorithms
+        for (int i = 0; i < NUM_ALGOS; i++)
+        {
+            unsigned int nBits = GetNextWorkRequired(block.pprev, &header, Params().GetConsensus(), i);
+            CBigNum bnTarget;
+            bnTarget.SetCompact(nBits);
+            if (bnTarget <= 0)
+                return 0;
+            bnRes *= (CBigNum(1)<<256) / (bnTarget+1);
+        }
+        // Compute the geometric mean
+        bnRes = bnRes.nthRoot(NUM_ALGOS);
+        // Scale to roughly match the old work calculation
+        bnRes <<= 7;
+        return UintToArith256(bnRes.getuint256());
+    }
+}
+
 int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params& params)
 {
-    arith_uint256 r;
+    base_uint<256u> r;
     int sign = 1;
     if (to.nChainWork > from.nChainWork) {
         r = to.nChainWork - from.nChainWork;
@@ -142,9 +205,10 @@ int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& fr
         r = from.nChainWork - to.nChainWork;
         sign = -1;
     }
-    r = r * arith_uint256(params.nPowTargetSpacing) / GetBlockProof(tip);
+    r = r * (params.nPowTargetSpacing) / GetBlockProof(tip);
     if (r.bits() > 63) {
         return sign * std::numeric_limits<int64_t>::max();
     }
-    return sign * r.GetLow64();
+    return 0
+    ;
 }
