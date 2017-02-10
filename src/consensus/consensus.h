@@ -50,7 +50,53 @@ const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
 const int64_t nTargetSpacingRe = 1*60; // 60 seconds
 const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
 
-static const unsigned int MAX_BLOCK_BASE_SIZE = 1000000;
+static unsigned int MAX_BLOCK_BASE_SIZE(unsigned int height)
+{
+	if(height<workComputationChangeTarget2)
+	{
+		return MAX_BLOCK_SIZE;
+	}
+	else if(height<workComputationChangeTarget4)
+	{
+		return MAX_BLOCK_SIZE_2;
+	}
+	else if(height<workComputationChangeTarget6)
+	{
+		return MAX_BLOCK_SIZE_4;
+	}
+	else if(height<workComputationChangeTarget8)
+	{
+		return MAX_BLOCK_SIZE_8;
+	}
+	else if(height<workComputationChangeTarget10)
+	{
+		return MAX_BLOCK_SIZE_16;
+	}
+	else if(height<workComputationChangeTarget12)
+	{
+		return MAX_BLOCK_SIZE_32;
+	}
+	else if(height<workComputationChangeTarget14)
+	{
+		return MAX_BLOCK_SIZE_64;
+	}
+	else if(height<workComputationChangeTarget16)
+	{
+		return MAX_BLOCK_SIZE_128;
+	}
+	else if(height<workComputationChangeTarget18)
+	{
+		return MAX_BLOCK_SIZE_256;
+	}
+	else if(height<workComputationChangeTarget20)
+	{
+		return MAX_BLOCK_SIZE_512;
+	}
+	else
+	{
+		return MAX_BLOCK_SIZE_1024;
+	}    
+}
 /** The maximum allowed number of signature check operations in a block (network rule) */
 static const int64_t MAX_BLOCK_SIGOPS_COST = 80000;
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */

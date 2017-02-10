@@ -8,11 +8,13 @@
 
 #include "base58.h"
 #include "clientversion.h"
+#include "chain.h"
 #include "coins.h"
 #include "consensus/consensus.h"
 #include "core_io.h"
 #include "keystore.h"
 #include "policy/policy.h"
+#include "primitives/block.h"
 #include "primitives/transaction.h"
 #include "script/script.h"
 #include "script/sign.h"
@@ -217,8 +219,9 @@ static void MutateTxAddInput(CMutableTransaction& tx, const std::string& strInpu
         throw std::runtime_error("invalid TX input txid");
     uint256 txid(uint256S(strTxid));
 
+    CBlockIndex pindex;
     static const unsigned int minTxOutSz = 9;
-    static const unsigned int maxVout = MAX_BLOCK_BASE_SIZE / minTxOutSz;
+    static const unsigned int maxVout = MAX_BLOCK_BASE_SIZE(pindex.nHeight) / minTxOutSz;
 
     // extract and validate vout
     std::string strVout = vStrInputParts[1];
