@@ -1,13 +1,13 @@
 *.tar.gz
 
 *.exe
-src/bitcoin
-src/bitcoind
-src/bitcoin-cli
-src/bitcoin-tx
+src/digibyte
+src/digibyted
+src/digibyte-cli
+src/digibyte-tx
 src/test/test_bitcoin
 src/test/test_bitcoin_fuzzy
-src/qt/test/test_bitcoin-qt
+src/qt/test/test_digibyte-qt
 
 # autoreconf
 Makefile.in
@@ -74,12 +74,12 @@ src/qt/test/moc*.cpp
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-bitcoin-qt
-Bitcoin-Qt.app
+digibyte-qt
+digibyte-Qt.app
 
 # Unit-tests
 Makefile.test
-bitcoin-qt_test
+digibyte-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -108,5 +108,5 @@ qa/cache/*
 
 /doc/doxygen/
 
-libbitcoinconsensus.pc
+libdigibyteconsensus.pc
 contrib/devtools/split-debug.sh

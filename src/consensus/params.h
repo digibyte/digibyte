@@ -96,8 +96,7 @@ struct Params {
 
 	int64_t multiAlgoDiffChangeTarget;
 	int64_t alwaysUpdateDiffChangeTarget;
-	int64_t workComputationChangeTarget; 
-
+	int64_t workComputationChangeTarget;
 
 
     uint256 nMinimumChainWork;

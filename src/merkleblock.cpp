@@ -5,6 +5,7 @@
 
 #include "merkleblock.h"
 
+#include "chain.h"
 #include "hash.h"
 #include "consensus/consensus.h"
 #include "utilstrencodings.h"
@@ -163,6 +164,7 @@ uint256 CPartialMerkleTree::ExtractMatches(std::vector<uint256> &vMatch, std::ve
     while (CalcTreeWidth(nHeight) > 1)
         nHeight++;
     // check for excessively high numbers of transactions
+    CBlockIndex pindex;
     if (nTransactions > MAX_BLOCK_BASE_SIZE / 60) // 60 is the lower bound for the size of a serialized CTransaction
         return uint256();
     // traverse the partial tree
