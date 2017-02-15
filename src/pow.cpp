@@ -7,6 +7,7 @@
 
 #include "arith_uint256.h"
 #include "chain.h"
+#include "chainparams.h"
 #include "primitives/block.h"
 #include "uint256.h"
 
@@ -14,24 +15,16 @@
 
 unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
-	// Find some place to put these
-    int64_t nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
-    int64_t nTargetSpacing = 60; // 60 seconds
-    int64_t nInterval = nTargetTimespan / nTargetSpacing;
-    int64_t nDiffChangeTarget = 67200;
-    int64_t nTargetTimespanRe = 1*60; // 60 Seconds
-    int64_t nTargetSpacingRe = 1*60; // 60 seconds
-    int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
 
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 	int nHeight = pindexLast->nHeight + 1;
-	bool fNewDifficultyProtocol = (nHeight >= nDiffChangeTarget);
+	bool fNewDifficultyProtocol = (nHeight >= params.nDiffChangeTarget);
 	int blockstogoback = 0;
 
 	//set default to pre-v2.0 values
-	int64_t retargetTimespan = nTargetTimespan;
+	int64_t retargetTimespan = params.nTargetTimespan;
 	//int64_t retargetSpacing = nTargetSpacing;
-	int64_t retargetInterval = nInterval;
+	int64_t retargetInterval = params.nInterval;
 
 	// Genesis block
 	if (pindexLast == NULL)
@@ -40,14 +33,30 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 	//if v2.0 changes are in effect for block num, alter retarget values
 	if(fNewDifficultyProtocol) {
 		LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
-		retargetTimespan = nTargetTimespanRe;
+		retargetTimespan = params.nTargetTimespanRe;
 		//retargetSpacing = nTargetSpacingRe;
-		retargetInterval = nIntervalRe;
+		retargetInterval = params.nIntervalRe;
 	}
 
 	// Only change once per interval
 	if ((pindexLast->nHeight+1) % retargetInterval != 0)
 	{
+		if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+		{
+			// Special difficulty rule for testnet:
+			// If the new block's timestamp is more than 2* 10 minutes
+			// then allow mining of a min-difficulty block.
+			if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
+				return nProofOfWorkLimit;
+			else
+			{
+				// Return the last non-special-min-difficulty-rules-block
+				const CBlockIndex* pindex = pindexLast;
+				while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+					pindex = pindex->pprev;
+				return pindex->nBits;
+			}
+		}
 		return pindexLast->nBits;
 	}
 
@@ -90,7 +99,7 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 
 	// debug print
 	LogPrintf("GetNextWorkRequired RETARGET\n");
-	LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nTargetTimespan, nActualTimespan);
+	LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", retargetTimespan, nActualTimespan);
 	LogPrintf("Before: %08x  %s\n", pindexLast->nBits, ArithToUint256(bnBefore).ToString());
 	LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), ArithToUint256(bnNew).ToString());
 
@@ -100,19 +109,27 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
 
-	// Find some place to put these
-	static const int64_t nAveragingInterval = 10; // 10 blocks
-	static const int64_t multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-	static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
-	static const int64_t nMaxAdjustDown = 40; // 40% adjustment down
-	static const int64_t nMaxAdjustUp = 20; // 20% adjustment up
-	static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
-	static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
-
 	unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
 	if (pindexLast == NULL)
 		return nProofOfWorkLimit;
+
+	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+	{
+		// Special difficulty rule for testnet:
+		// If the new block's timestamp is more than 2* 10 minutes
+		// then allow mining of a min-difficulty block.
+		if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
+			return nProofOfWorkLimit;
+		else
+		{
+			// Return the last non-special-min-difficulty-rules-block
+			const CBlockIndex* pindex = pindexLast;
+			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+				pindex = pindex->pprev;
+			return pindex->nBits;
+		}
+	}
 
 	LogPrintf("GetNextWorkRequired RETARGET\n");
 	LogPrintf("Height (Before): %s\n", pindexLast->nHeight);
@@ -123,7 +140,7 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 	// find first block in averaging interval
 	// Go back by what we want to be nAveragingInterval blocks
 	const CBlockIndex* pindexFirst = pindexPrev;
-	for (int i = 0; pindexFirst && i < nAveragingInterval - 1; i++)
+	for (int i = 0; pindexFirst && i < params.nAveragingInterval - 1; i++)
 	{
 		pindexFirst = pindexFirst->pprev;
 		pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
@@ -138,17 +155,17 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 	// Limit adjustment step
 	int64_t nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
 	LogPrintf("nActualTimespan = %d before bounds\n", nActualTimespan);
-	if (nActualTimespan < nMinActualTimespan)
-		nActualTimespan = nMinActualTimespan;
-	if (nActualTimespan > nMaxActualTimespan)
-		nActualTimespan = nMaxActualTimespan;
+	if (nActualTimespan < params.nMinActualTimespan)
+		nActualTimespan = params.nMinActualTimespan;
+	if (nActualTimespan > params.nMaxActualTimespan)
+		nActualTimespan = params.nMaxActualTimespan;
 
 	// Retarget
 
 	arith_uint256 bnNew;
 	bnNew.SetCompact(pindexPrev->nBits);
 	bnNew *= nActualTimespan;
-	bnNew /= nAveragingTargetTimespan;
+	bnNew /= params.nAveragingTargetTimespan;
 
 	if (bnNew > UintToArith256(params.powLimit))
 	{
@@ -160,15 +177,6 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 
 unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
-	// Find some place to put these
-	static const int64_t nAveragingInterval = 10; // 10 blocks
-	static const int64_t multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-	static const int64_t nAveragingTargetTimespan = nAveragingInterval * multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
-	static const int64_t nMaxAdjustDownV3 = 16; // 16% adjustment down
-	static const int64_t nMaxAdjustUpV3 = 8; // 8% adjustment up
-	static const int64_t nMinActualTimespanV3 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV3) / 100;
-	static const int64_t nMaxActualTimespanV3 = nAveragingTargetTimespan * (100 + nMaxAdjustDownV3) / 100;
-	static const int64_t nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
 
 	unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
@@ -176,10 +184,27 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 	if (pindexLast == NULL)
 		return nProofOfWorkLimit;
 
+	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+	{
+		// Special difficulty rule for testnet:
+		// If the new block's timestamp is more than 2* 10 minutes
+		// then allow mining of a min-difficulty block.
+		if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
+			return nProofOfWorkLimit;
+		else
+		{
+			// Return the last non-special-min-difficulty-rules-block
+			const CBlockIndex* pindex = pindexLast;
+			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+				pindex = pindex->pprev;
+			return pindex->nBits;
+		}
+	}
+
 	// find first block in averaging interval
 	// Go back by what we want to be nAveragingInterval blocks per algo
 	const CBlockIndex* pindexFirst = pindexLast;
-	for (int i = 0; pindexFirst && i < NUM_ALGOS*nAveragingInterval; i++)
+	for (int i = 0; pindexFirst && i < NUM_ALGOS*params.nAveragingInterval; i++)
 	{
 		pindexFirst = pindexFirst->pprev;
 	}
@@ -190,18 +215,18 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 	// Limit adjustment step
 	// Use medians to prevent time-warp attacks
 	int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
-	nActualTimespan = nAveragingTargetTimespan + (nActualTimespan - nAveragingTargetTimespan)/6;
+	nActualTimespan = params.nAveragingTargetTimespan + (nActualTimespan - params.nAveragingTargetTimespan)/6;
 	LogPrintf("  nActualTimespan = %d before bounds\n", nActualTimespan);
-	if (nActualTimespan < nMinActualTimespanV3)
-		nActualTimespan = nMinActualTimespanV3;
-	if (nActualTimespan > nMaxActualTimespanV3)
-		nActualTimespan = nMaxActualTimespanV3;
+	if (nActualTimespan < params.nMinActualTimespanV3)
+		nActualTimespan = params.nMinActualTimespanV3;
+	if (nActualTimespan > params.nMaxActualTimespanV3)
+		nActualTimespan = params.nMaxActualTimespanV3;
 
 	// Global retarget
 	arith_uint256 bnNew;
 	bnNew.SetCompact(pindexPrevAlgo->nBits);
 	bnNew *= nActualTimespan;
-	bnNew /= nAveragingTargetTimespan;
+	bnNew /= params.nAveragingTargetTimespan;
 
 	// Per-algo retarget
 	int nAdjustments = pindexPrevAlgo->nHeight - pindexLast->nHeight + NUM_ALGOS - 1;
@@ -210,14 +235,14 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 		for (int i = 0; i < nAdjustments; i++)
 		{
 			bnNew *= 100;
-			bnNew /= 100 + nLocalDifficultyAdjustment;
+			bnNew /= 100 + params.nLocalDifficultyAdjustment;
 		}
 	}
 	if (nAdjustments < 0)
 	{
 		for (int i = 0; i < -nAdjustments; i++)
 		{
-			bnNew *= 100 + nLocalDifficultyAdjustment;
+			bnNew *= 100 + params.nLocalDifficultyAdjustment;
 			bnNew /= 100;
 		}
 	}
@@ -230,15 +255,6 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 
 unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
-	// Find some place to put these
-	static const int64_t nAveragingInterval = 10; // 10 blocks
-	static const int64_t multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
-	static const int64_t nAveragingTargetTimespanV4 = nAveragingInterval * multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
-	static const int64_t nMaxAdjustDownV4 = 16;
-	static const int64_t nMaxAdjustUpV4 = 8;
-	static const int64_t nMinActualTimespanV4 = nAveragingTargetTimespanV4 * (100 - nMaxAdjustUpV4) / 100;
-	static const int64_t nMaxActualTimespanV4 = nAveragingTargetTimespanV4 * (100 + nMaxAdjustDownV4) / 100;
-	static const int64_t nLocalTargetAdjustment = 4; //target adjustment per algo
 
 	unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
@@ -246,10 +262,27 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 	if (pindexLast == NULL)
 		return nProofOfWorkLimit;
 
+	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+	{
+		// Special difficulty rule for testnet:
+		// If the new block's timestamp is more than 2* 10 minutes
+		// then allow mining of a min-difficulty block.
+		if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
+			return nProofOfWorkLimit;
+		else
+		{
+			// Return the last non-special-min-difficulty-rules-block
+			const CBlockIndex* pindex = pindexLast;
+			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+				pindex = pindex->pprev;
+			return pindex->nBits;
+		}
+	}
+
 	// find first block in averaging interval
 	// Go back by what we want to be nAveragingInterval blocks per algo
 	const CBlockIndex* pindexFirst = pindexLast;
-	for (int i = 0; pindexFirst && i < NUM_ALGOS*nAveragingInterval; i++)
+	for (int i = 0; pindexFirst && i < NUM_ALGOS*params.nAveragingInterval; i++)
 	{
 		pindexFirst = pindexFirst->pprev;
 	}
@@ -263,19 +296,19 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 	// Limit adjustment step
 	// Use medians to prevent time-warp attacks
 	int64_t nActualTimespan = pindexLast-> GetMedianTimePast() - pindexFirst->GetMedianTimePast();
-	nActualTimespan = nAveragingTargetTimespanV4 + (nActualTimespan - nAveragingTargetTimespanV4)/4;
+	nActualTimespan = params.nAveragingTargetTimespanV4 + (nActualTimespan - params.nAveragingTargetTimespanV4)/4;
 
-	if (nActualTimespan < nMinActualTimespanV4)
-		nActualTimespan = nMinActualTimespanV4;
-	if (nActualTimespan > nMaxActualTimespanV4)
-		nActualTimespan = nMaxActualTimespanV4;
+	if (nActualTimespan < params.nMinActualTimespanV4)
+		nActualTimespan = params.nMinActualTimespanV4;
+	if (nActualTimespan > params.nMaxActualTimespanV4)
+		nActualTimespan = params.nMaxActualTimespanV4;
 
 	//Global retarget
 	arith_uint256 bnNew;
 	bnNew.SetCompact(pindexPrevAlgo->nBits);
 
 	bnNew *= nActualTimespan;
-	bnNew /= nAveragingTargetTimespanV4;
+	bnNew /= params.nAveragingTargetTimespanV4;
 
 	//Per-algo retarget
 	int nAdjustments = pindexPrevAlgo->nHeight + NUM_ALGOS - 1 - pindexLast->nHeight;
@@ -284,14 +317,14 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 		for (int i = 0; i < nAdjustments; i++)
 		{
 			bnNew *= 100;
-			bnNew /= (100 + nLocalTargetAdjustment);
+			bnNew /= (100 + params.nLocalTargetAdjustment);
 		}
 	}
 	else if (nAdjustments < 0)//make it easier
 	{
 		for (int i = 0; i < -nAdjustments; i++)
 		{
-			bnNew *= (100 + nLocalTargetAdjustment);
+			bnNew *= (100 + params.nLocalTargetAdjustment);
 			bnNew /= 100;
 		}
 	}
@@ -306,16 +339,11 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
-	const int64_t multiAlgoDiffChangeTarget = 145000;
-	const int64_t alwaysUpdateDiffChangeTarget = 400000;
-	const int64_t workComputationChangeTarget = 1430000; 
-
-	if (pindexLast->nHeight < multiAlgoDiffChangeTarget)
+	if (pindexLast->nHeight < params.multiAlgoDiffChangeTarget)
 		return GetNextWorkRequiredV1(pindexLast, pblock, params, algo);
-	else if (pindexLast->nHeight < alwaysUpdateDiffChangeTarget){
-		LogPrintf("algo is %i", algo);
+	else if (pindexLast->nHeight < params.alwaysUpdateDiffChangeTarget){
 		return GetNextWorkRequiredV2(pindexLast, pblock, params, algo);
-	} else if(pindexLast->nHeight < workComputationChangeTarget)
+	} else if(pindexLast->nHeight < params.workComputationChangeTarget)
 		return GetNextWorkRequiredV3(pindexLast, pblock, params, algo);
 	else
 		return GetNextWorkRequiredV4(pindexLast, pblock, params, algo);

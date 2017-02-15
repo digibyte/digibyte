@@ -221,7 +221,7 @@ static void MutateTxAddInput(CMutableTransaction& tx, const std::string& strInpu
 
     CBlockIndex pindex;
     static const unsigned int minTxOutSz = 9;
-    static const unsigned int maxVout = MAX_BLOCK_BASE_SIZE(pindex.nHeight) / minTxOutSz;
+    static const unsigned int maxVout = MAX_BLOCK_BASE_SIZE / minTxOutSz;
 
     // extract and validate vout
     std::string strVout = vStrInputParts[1];

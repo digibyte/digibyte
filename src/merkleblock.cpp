@@ -163,7 +163,7 @@ uint256 CPartialMerkleTree::ExtractMatches(std::vector<uint256> &vMatch, std::ve
     while (CalcTreeWidth(nHeight) > 1)
         nHeight++;
     // check for excessively high numbers of transactions
-    if (nTransactions > MAX_BLOCK_BASE_SIZE(nHeight) / 60) // 60 is the lower bound for the size of a serialized CTransaction
+    if (nTransactions > MAX_BLOCK_BASE_SIZE / 60) // 60 is the lower bound for the size of a serialized CTransaction
         return uint256();
     // traverse the partial tree
     unsigned int nBitsUsed = 0, nHashUsed = 0;

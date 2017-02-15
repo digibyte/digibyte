@@ -50,8 +50,8 @@ const int64_t nTargetTimespanRe = 1*60; // 60 Seconds
 const int64_t nTargetSpacingRe = 1*60; // 60 seconds
 const int64_t nIntervalRe = nTargetTimespanRe / nTargetSpacingRe; // 1 block
 
-static unsigned int MAX_BLOCK_BASE_SIZE(unsigned int height)
-{
+static const unsigned int MAX_BLOCK_BASE_SIZE = 1000000;
+/*{
 	if(height<workComputationChangeTarget2)
 	{
 		return MAX_BLOCK_SIZE;
@@ -96,13 +96,12 @@ static unsigned int MAX_BLOCK_BASE_SIZE(unsigned int height)
 	{
 		return MAX_BLOCK_SIZE_1024;
 	}    
-}
+}*/
 /** The maximum allowed number of signature check operations in a block (network rule) */
 static const int64_t MAX_BLOCK_SIGOPS_COST = 80000;
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
 static const int COINBASE_MATURITY = 8;
 static const int COINBASE_MATURITY_2 = 100;
-
 /** Flags for nSequence and nLockTime locks */
 enum {
     /* Interpret sequence numbers as relative lock-time constraints. */

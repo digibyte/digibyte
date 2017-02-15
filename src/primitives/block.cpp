@@ -59,9 +59,11 @@ uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
 std::string CBlock::ToString() const
 {
     std::stringstream s;
-    s << strprintf("CBlock(hash=%s, ver=0x%08x, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
+    s << strprintf("CBlock(hash=%s, ver=0x%08x, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
         GetHash().ToString(),
         nVersion,
+        GetAlgo(),
+        GetPoWAlgoHash(GetAlgo()).ToString(),
         hashPrevBlock.ToString(),
         hashMerkleRoot.ToString(),
         nTime, nBits, nNonce,
@@ -71,6 +73,24 @@ std::string CBlock::ToString() const
         s << "  " << vtx[i]->ToString() << "\n";
     }
     return s.str();
+}
+
+std::string GetAlgoName(int Algo)
+{
+    switch (Algo)
+    {
+        case ALGO_SHA256D:
+            return std::string("sha256d");
+        case ALGO_SCRYPT:
+            return std::string("scrypt");
+        case ALGO_GROESTL:
+            return std::string("groestl");
+        case ALGO_SKEIN:
+            return std::string("skein");
+        case ALGO_QUBIT:
+            return std::string("qubit");
+    }
+    return std::string("unknown");       
 }
 
 int64_t GetBlockWeight(const CBlock& block)
