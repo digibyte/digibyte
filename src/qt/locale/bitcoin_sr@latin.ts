@@ -124,7 +124,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Usklađivanje sa mrežom...</translation>
@@ -158,16 +158,16 @@
         <translation>Otvori &amp;URI...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Pošalji novčiće na Bitcoin adresu</translation>
+        <source>Send coins to a DigiByte address</source>
+        <translation>Pošalji novčiće na DigiByte adresu</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Proveri poruku...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -404,10 +404,10 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Core</translation>
+        <source>DigiByte Core</source>
+        <translation>DigiByte Core</translation>
     </message>
     <message>
         <source>Information</source>

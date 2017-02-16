@@ -52,7 +52,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Cysoni â'r rhwydwaith...</translation>
@@ -114,8 +114,8 @@
         <translation>Newid y cyfrinymadrodd a ddefnyddiwyd ar gyfer amgryptio'r waled</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -478,14 +478,14 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     <message>
         <source>Options:</source>
         <translation>Opsiynau:</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Craidd Bitcoin</translation>
+        <source>DigiByte Core</source>
+        <translation>Craidd DigiByte</translation>
     </message>
     <message>
         <source>Information</source>

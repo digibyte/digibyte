@@ -62,12 +62,12 @@
         <translation>Helbideak jasotzen</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Hauek dira zure Bitcoin helbideak dirua bidaltzeko. Beti egiaztatu diru-kantitatea eta jasotzeko helbidea bidali baino lehen.</translation>
+        <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Hauek dira zure DigiByte helbideak dirua bidaltzeko. Beti egiaztatu diru-kantitatea eta jasotzeko helbidea bidali baino lehen.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Hauek dira zure Bitcoin helbideak dirua jasotzeko. Gomendagarria da erabiltzea jasotzeko helbide berri bat operazio bakoitzeko.</translation>
+        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Hauek dira zure DigiByte helbideak dirua jasotzeko. Gomendagarria da erabiltzea jasotzeko helbide berri bat operazio bakoitzeko.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -204,7 +204,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Sarearekin sinkronizatzen...</translation>
@@ -239,7 +239,7 @@
     </message>
     <message>
         <source>Show information about Qt</source>
-        <translation>Erakutsi Bitcoin-i buruzko informazioa</translation>
+        <translation>Erakutsi DigiByte-i buruzko informazioa</translation>
     </message>
     <message>
         <source>&amp;Options...</source>
@@ -818,7 +818,7 @@
     </message>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     <message>
         <source>Options:</source>
         <translation>Aukerak</translation>

@@ -76,7 +76,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>簽署訊息... &amp;m</translation>
@@ -154,8 +154,8 @@
         <translation>正在為磁碟區塊重建索引...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>付款至一個 Bitcoin 位址</translation>
+        <source>Send coins to a DigiByte address</source>
+        <translation>付款至一個 DigiByte 位址</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -178,8 +178,8 @@
         <translation>驗證訊息... &amp;V</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -302,6 +302,6 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     </context>
 </TS>

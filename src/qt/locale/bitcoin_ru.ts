@@ -62,12 +62,12 @@
         <translation>Адреса получения</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Это ваши адреса Bitcoin для отправки платежей. Всегда проверяйте сумму и адрес получателя перед отправкой перевода.</translation>
+        <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Это ваши адреса DigiByte для отправки платежей. Всегда проверяйте сумму и адрес получателя перед отправкой перевода.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Это ваши адреса Bitcoin для приёма платежей. Рекомендуется использовать новый адрес получения для каждой транзакции.</translation>
+        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Это ваши адреса DigiByte для приёма платежей. Рекомендуется использовать новый адрес получения для каждой транзакции.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -180,7 +180,7 @@
         <translation>Бумажник зашифрован</translation>
     </message>
     <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
+        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
         <translation>Сейчас %1 закроется для завершения процесса шифрования. Помните, что шифрование вашего бумажника не может полностью защитить ваши биткоины от кражи с помощью инфицирования вашего компьютера вредоносным ПО.</translation>
     </message>
     <message>
@@ -232,7 +232,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;Подписать сообщение...</translation>
@@ -334,8 +334,8 @@
         <translation>Идёт переиндексация блоков на диске...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Отправить монеты на указанный адрес Bitcoin</translation>
+        <source>Send coins to a DigiByte address</source>
+        <translation>Отправить монеты на указанный адрес DigiByte</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -358,8 +358,8 @@
         <translation>&amp;Проверить сообщение...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -386,12 +386,12 @@
         <translation>Зашифровать приватные ключи, принадлежащие вашему бумажнику</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Подписать сообщения вашим адресом Bitcoin, чтобы доказать, что вы им владеете</translation>
+        <source>Sign messages with your DigiByte addresses to prove you own them</source>
+        <translation>Подписать сообщения вашим адресом DigiByte, чтобы доказать, что вы им владеете</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом Bitcoin</translation>
+        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
+        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом DigiByte</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -410,8 +410,8 @@
         <translation>Панель вкладок</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Запросить платежи (создаёт QR-коды и bitcoin: ссылки)</translation>
+        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <translation>Запросить платежи (создаёт QR-коды и digibyte: ссылки)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -422,16 +422,16 @@
         <translation>Показать список использованных адресов и меток получения</translation>
     </message>
     <message>
-        <source>Open a bitcoin: URI or payment request</source>
-        <translation>Открыть bitcoin: URI или запрос платежа</translation>
+        <source>Open a digibyte: URI or payment request</source>
+        <translation>Открыть digibyte: URI или запрос платежа</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Параметры командной строки</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n активных соединений с сетью Bitcoin</numerusform><numerusform>%n активных соединений с сетью Bitcoin</numerusform><numerusform>%n активных соединений с сетью Bitcoin</numerusform><numerusform>%n активных соединений с сетью Bitcoin</numerusform></translation>
+        <source>%n active connection(s) to DigiByte network</source>
+        <translation><numerusform>%n активных соединений с сетью DigiByte</numerusform><numerusform>%n активных соединений с сетью DigiByte</numerusform><numerusform>%n активных соединений с сетью DigiByte</numerusform><numerusform>%n активных соединений с сетью DigiByte</numerusform></translation>
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -474,7 +474,7 @@
         <translation>Синхронизировано</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation>Показать помощь по %1, чтобы получить список доступных параметров командной строки</translation>
     </message>
     <message>
@@ -544,8 +544,8 @@
         <translation>Бумажник &lt;b&gt;зашифрован&lt;/b&gt; и в настоящее время &lt;b&gt;заблокирован&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
-        <translation>Произошла неисправимая ошибка. Bitcoin не может безопасно продолжать работу и будет закрыт.</translation>
+        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
+        <translation>Произошла неисправимая ошибка. DigiByte не может безопасно продолжать работу и будет закрыт.</translation>
     </message>
 </context>
 <context>
@@ -738,8 +738,8 @@
         <translation>Изменить адрес отправки</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>Введённый адрес "%1" не является правильным Bitcoin-адресом.</translation>
+        <source>The entered address "%1" is not a valid DigiByte address.</source>
+        <translation>Введённый адрес "%1" не является правильным DigiByte-адресом.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -847,7 +847,7 @@
         <translation>При первом запуске программы вы можете выбрать где %1 будет хранить свои данные.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <source>%1 will download and store a copy of the DigiByte block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation>%1 скачает и сохранит копию цепи блоков. Как минимум %2GB будут записаны в этот каталог, и со временем он будет расти. Бумажник также будет сохранен в этом каталоге.</translation>
     </message>
     <message>
@@ -882,11 +882,11 @@
         <translation>Форма</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the digibyte network, as detailed below.</source>
         <translation>Недавние транзакции могут быть пока не видны, поэтому ваш баланс может отображаться некорректно. Эта информация станет корректной, как только ваш бумажник будет синхронизирован с сетью, см. подробности ниже.</translation>
     </message>
     <message>
-        <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>Попытка потратить биткоины из ещё не отображённых транзакций будет отвергнута сетью.</translation>
     </message>
     <message>
@@ -1044,20 +1044,20 @@
         <translation>&amp;Тратить неподтверждённую сдачу</translation>
     </message>
     <message>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматически открыть порт для Bitcoin-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
+        <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Автоматически открыть порт для DigiByte-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
         <translation>Пробросить порт через &amp;UPnP</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
-        <translation>Подключаться к сети Bitcoin через прокси SOCKS5</translation>
+        <source>Connect to the DigiByte network through a SOCKS5 proxy.</source>
+        <translation>Подключаться к сети DigiByte через прокси SOCKS5</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
-        <translation>&amp;Подключаться к сети Bitcoin через прокси SOCKS5 (прокси по умолчанию):</translation>
+        <translation>&amp;Подключаться к сети DigiByte через прокси SOCKS5 (прокси по умолчанию):</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1092,8 +1092,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Подключаться к сети Bitcoin через прокси SOCKS5 для скрытых сервисов Tor.</translation>
+        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Подключаться к сети DigiByte через прокси SOCKS5 для скрытых сервисов Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1191,8 +1191,8 @@
         <translation>Форма</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Отображаемая информация может быть устаревшей. Ваш бумажник автоматически синхронизируется с сетью Bitcoin после подключения, но этот процесс пока не завершён.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
+        <translation>Отображаемая информация может быть устаревшей. Ваш бумажник автоматически синхронизируется с сетью DigiByte после подключения, но этот процесс пока не завершён.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1266,8 +1266,8 @@
         <translation>Ошибка запроса платежа</translation>
     </message>
     <message>
-        <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation>Не удаётся запустить bitcoin: обработчик click-to-pay</translation>
+        <source>Cannot start digibyte: click-to-pay handler</source>
+        <translation>Не удаётся запустить digibyte: обработчик click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1282,8 +1282,8 @@
         <translation>Неверный адрес платежа %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
-        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом Bitcoin или неправильными параметрами URI.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
+        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом DigiByte или неправильными параметрами URI.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1376,8 +1376,8 @@
         <translation>Сумма</translation>
     </message>
     <message>
-        <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation>Введите адрес Bitcoin (например, %1)</translation>
+        <source>Enter a DigiByte address (e.g. %1)</source>
+        <translation>Введите адрес DigiByte (например, %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1800,8 +1800,8 @@
         <translation>&amp;Повторно использовать существующий адрес получения (не рекомендуется)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
-        <translation>Необязательное сообщение для запроса платежа, которое будет показано при открытии запроса. Заметьте: сообщение не будет отправлено вместе с платежом через сеть Bitcoin.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
+        <translation>Необязательное сообщение для запроса платежа, которое будет показано при открытии запроса. Заметьте: сообщение не будет отправлено вместе с платежом через сеть DigiByte.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2033,7 +2033,7 @@
         <translation>Итого как минимум</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
         <translation>Уплата минимальной комиссии — не проблема, пока объём транзакций меньше, чем свободное место в блоках. Учтите, однако, что такая транзакция может никогда не подтвердиться, если спрос на транзакции превышает возможности сети по их обработке.</translation>
     </message>
     <message>
@@ -2197,8 +2197,8 @@
         <translation><numerusform>Начало подтверждения ожидается через %n блок.</numerusform><numerusform>Начало подтверждения ожидается через %n блока.</numerusform><numerusform>Начало подтверждения ожидается через %n блоков.</numerusform><numerusform>Начало подтверждения ожидается через %n блоков.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Bitcoin address</source>
-        <translation>Внимание: неверный адрес Bitcoin</translation>
+        <source>Warning: Invalid DigiByte address</source>
+        <translation>Внимание: неверный адрес DigiByte</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2240,8 +2240,8 @@
         <translation>Это нормальный платёж.</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
-        <translation>Адрес Bitcoin, на который отправить платёж</translation>
+        <source>The DigiByte address to send the payment to</source>
+        <translation>Адрес DigiByte, на который отправить платёж</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2260,7 +2260,7 @@
         <translation>Удалить эту запись</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>С отправляемой суммы будет удержана комиссия. Получателю придёт меньше биткоинов, чем вы вводите в поле количества. Если выбрано несколько получателей, комиссия распределяется поровну.</translation>
     </message>
     <message>
@@ -2284,8 +2284,8 @@
         <translation>Введите метку для этого адреса, чтобы добавить его в список использованных</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
-        <translation>К bitcoin: URI было прикреплено сообщение, которое будет сохранено вместе с транзакцией для вашего сведения. Заметьте: сообщение не будет отправлено через сеть Bitcoin.</translation>
+        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <translation>К digibyte: URI было прикреплено сообщение, которое будет сохранено вместе с транзакцией для вашего сведения. Заметьте: сообщение не будет отправлено через сеть DigiByte.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2329,12 +2329,12 @@
         <translation>&amp;Подписать сообщение</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive digibytes sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>Вы можете подписывать сообщения/соглашения своими адресами, чтобы доказать свою возможность получать биткоины на них. Будьте осторожны, не подписывайте что-то неопределённое или случайное, так как фишинговые атаки могут обманным путём заставить вас подписать нежелательные сообщения. Подписывайте только те сообщения, с которыми вы согласны вплоть до мелочей.</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
-        <translation>Адрес Bitcoin, которым подписать сообщение</translation>
+        <source>The DigiByte address to sign the message with</source>
+        <translation>Адрес DigiByte, которым подписать сообщение</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2365,8 +2365,8 @@
         <translation>Скопировать текущую подпись в системный буфер обмена</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Подписать сообщение, чтобы доказать владение адресом Bitcoin</translation>
+        <source>Sign the message to prove you own this DigiByte address</source>
+        <translation>Подписать сообщение, чтобы доказать владение адресом DigiByte</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2389,12 +2389,12 @@
         <translation>Введите ниже адрес получателя, сообщение (убедитесь, что переводы строк, пробелы, табы и т.п. в точности скопированы) и подпись, чтобы проверить сообщение. Убедитесь, что не скопировали лишнего в подпись, по сравнению с самим подписываемым сообщением, чтобы не стать жертвой атаки "man-in-the-middle". Заметьте, что эта операция удостоверяет лишь авторство подписавшего, но не может удостоверить отправителя транзакции.</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
-        <translation>Адрес Bitcoin, которым было подписано сообщение</translation>
+        <source>The DigiByte address the message was signed with</source>
+        <translation>Адрес DigiByte, которым было подписано сообщение</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом Bitcoin</translation>
+        <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
+        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом DigiByte</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2984,7 +2984,7 @@
     </message>
 </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     <message>
         <source>Options:</source>
         <translation>Параметры:</translation>
@@ -3054,8 +3054,8 @@
         <translation>Невозможно запустить HTTP сервер. Смотри debug лог для подробностей.</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Core</translation>
+        <source>DigiByte Core</source>
+        <translation>DigiByte Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

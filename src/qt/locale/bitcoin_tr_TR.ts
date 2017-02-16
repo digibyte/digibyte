@@ -52,7 +52,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>&amp;Receiving addresses...</source>
         <translation>Alış adresleri</translation>
@@ -170,6 +170,6 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     </context>
 </TS>

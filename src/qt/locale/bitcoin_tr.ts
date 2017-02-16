@@ -164,7 +164,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;Mesaj imzala...</translation>
@@ -254,8 +254,8 @@
         <translation>Diskteki bloklar yeniden endeksleniyor...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Bir Bitcoin adresine Bitcoin yolla</translation>
+        <source>Send coins to a DigiByte address</source>
+        <translation>Bir DigiByte adresine DigiByte yolla</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -278,8 +278,8 @@
         <translation>Mesaj &amp;kontrol et...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -306,12 +306,12 @@
         <translation>Cüzdanınızın özel anahtarlarını şifrele</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Mesajları adreslerin size ait olduğunu ispatlamak için Bitcoin adresleri ile imzala</translation>
+        <source>Sign messages with your DigiByte addresses to prove you own them</source>
+        <translation>Mesajları adreslerin size ait olduğunu ispatlamak için DigiByte adresleri ile imzala</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Belirtilen Bitcoin adresleri ile imzalandıklarından emin olmak için mesajları kontrol et</translation>
+        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
+        <translation>Belirtilen DigiByte adresleri ile imzalandıklarından emin olmak için mesajları kontrol et</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -330,8 +330,8 @@
         <translation>Sekme araç çubuğu</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Ödeme talep et (QR kodu ve bitcoin URI'si oluşturur)</translation>
+        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <translation>Ödeme talep et (QR kodu ve digibyte URI'si oluşturur)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -342,16 +342,16 @@
         <translation>Kullanılmış alım adresleri ve etiketlerin listesini göster</translation>
     </message>
     <message>
-        <source>Open a bitcoin: URI or payment request</source>
-        <translation>Bir bitcoin: bağlantısı ya da ödeme talebi aç</translation>
+        <source>Open a digibyte: URI or payment request</source>
+        <translation>Bir digibyte: bağlantısı ya da ödeme talebi aç</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Komut satırı seçenekleri</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>Bitcoin şebekesine %n faal bağlantı</numerusform><numerusform>Bitcoin şebekesine %n faal bağlantı</numerusform></translation>
+        <source>%n active connection(s) to DigiByte network</source>
+        <translation><numerusform>DigiByte şebekesine %n faal bağlantı</numerusform><numerusform>DigiByte şebekesine %n faal bağlantı</numerusform></translation>
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -394,8 +394,8 @@
         <translation>Güncel</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation>Olası Bitcoin komut satırı seçeneklerinin listesini görmek için %1 yardım mesajını göster</translation>
+        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
+        <translation>Olası DigiByte komut satırı seçeneklerinin listesini görmek için %1 yardım mesajını göster</translation>
     </message>
     <message>
         <source>%1 client</source>
@@ -456,7 +456,7 @@
     <name>CoinControlDialog</name>
     <message>
         <source>Coin Selection</source>
-        <translation>Bitcoin Seçimi</translation>
+        <translation>DigiByte Seçimi</translation>
     </message>
     <message>
         <source>Quantity:</source>
@@ -655,8 +655,8 @@
         <translation>Bu programın ilk kez başlatılmasından dolayı %1 yazılımının verilerini nerede saklayacağını seçebilirsiniz.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>%1, Bitcoin blok zincirinin bir kopyasını indirecek ve saklayacaktır. Bu klasörde en az %2GB veri saklanacak ve bu zamanla artacaktır. Cüzdan da bu klasörde saklanacaktır.</translation>
+        <source>%1 will download and store a copy of the DigiByte block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>%1, DigiByte blok zincirinin bir kopyasını indirecek ve saklayacaktır. Bu klasörde en az %2GB veri saklanacak ve bu zamanla artacaktır. Cüzdan da bu klasörde saklanacaktır.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -812,16 +812,16 @@
         <translation>Teyit edilmemiş para üstünü &amp;harca</translation>
     </message>
     <message>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Yönlendiricide Bitcoin istemci portlarını otomatik olarak açar. Bu, sadece yönlendiricinizin UPnP desteği bulunuyorsa ve etkinse çalışabilir.</translation>
+        <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Yönlendiricide DigiByte istemci portlarını otomatik olarak açar. Bu, sadece yönlendiricinizin UPnP desteği bulunuyorsa ve etkinse çalışabilir.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
         <translation>Portları &amp;UPnP kullanarak haritala</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
-        <translation>Bitcoin şebekesine SOCKS5 vekil sunucusu vasıtasıyla bağlan.</translation>
+        <source>Connect to the DigiByte network through a SOCKS5 proxy.</source>
+        <translation>DigiByte şebekesine SOCKS5 vekil sunucusu vasıtasıyla bağlan.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -860,8 +860,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Bitcoin şebekesine gizli Tor servisleri için ayrı bir SOCKS5 vekil sunucusu vasıtasıyla bağlan.</translation>
+        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>DigiByte şebekesine gizli Tor servisleri için ayrı bir SOCKS5 vekil sunucusu vasıtasıyla bağlan.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -909,7 +909,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Bitcoin gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
+        <translation>DigiByte gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -959,7 +959,7 @@
         <translation>Form</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
         <translation>Görüntülenen veriler zaman aşımına uğramış olabilir. Bağlantı kurulduğunda cüzdanınız otomatik olarak şebeke ile eşleşir ancak bu işlem henüz tamamlanmamıştır.</translation>
     </message>
     <message>
@@ -1048,8 +1048,8 @@
         <translation>Meblağ</translation>
     </message>
     <message>
-        <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation>Bir Bitcoin adresi giriniz (mesela %1)</translation>
+        <source>Enter a DigiByte address (e.g. %1)</source>
+        <translation>Bir DigiByte adresi giriniz (mesela %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1396,8 +1396,8 @@
         <translation>&amp;Hâlihazırda bulunan bir alım adresini kullan (önerilmez)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
-        <translation>Talep açıldığında gösterilecek, isteğinize dayalı, ödeme talebi ile ilişkilendirilecek bir mesaj. Not: Bu mesaj ödeme ile birlikte Bitcoin şebekesi üzerinden gönderilmeyecektir.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
+        <translation>Talep açıldığında gösterilecek, isteğinize dayalı, ödeme talebi ile ilişkilendirilecek bir mesaj. Not: Bu mesaj ödeme ile birlikte DigiByte şebekesi üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1494,7 +1494,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Bitcoin yolla</translation>
+        <translation>DigiByte yolla</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1573,8 +1573,8 @@
         <translation>toplam asgari</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
-        <translation>Asgari ücreti ödemek, bloklarda boşluktan daha az muamele hacmi olduğu sürece bir sorun çıkarmaz. Fakat şebekenin işleyecebileceğinden daha çok bitcoin muameleleri talebi olduğunda bunun asla teyit edilmeyen bir muamele olabileceğinin farkında olmalısınız.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
+        <translation>Asgari ücreti ödemek, bloklarda boşluktan daha az muamele hacmi olduğu sürece bir sorun çıkarmaz. Fakat şebekenin işleyecebileceğinden daha çok digibyte muameleleri talebi olduğunda bunun asla teyit edilmeyen bir muamele olabileceğinin farkında olmalısınız.</translation>
     </message>
     <message>
         <source>(read the tooltip)</source>
@@ -1664,8 +1664,8 @@
         <translation>Bu, normal bir ödemedir.</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
-        <translation>Ödemenin yollanacağı Bitcoin adresi</translation>
+        <source>The DigiByte address to send the payment to</source>
+        <translation>Ödemenin yollanacağı DigiByte adresi</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -1684,8 +1684,8 @@
         <translation>Bu unsuru kaldır</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>Ücret yollanan meblağdan alınacaktır. Alıcı meblağ alanında girdiğinizden daha az bitcoin alacaktır.  Eğer birden çok alıcı seçiliyse ücret eşit olarak bölünecektir.</translation>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>Ücret yollanan meblağdan alınacaktır. Alıcı meblağ alanında girdiğinizden daha az digibyte alacaktır.  Eğer birden çok alıcı seçiliyse ücret eşit olarak bölünecektir.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -1708,8 +1708,8 @@
         <translation>Kullanılmış adres listesine eklemek için bu adrese bir etiket girin</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
-        <translation>Bitcoin: URI'siyle ilişkili ve bilginiz için muameleyle saklanacak bir mesaj. Not: Bu mesaj Bitcoin şebekesi üzerinden gönderilmeyecektir.</translation>
+        <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
+        <translation>DigiByte: URI'siyle ilişkili ve bilginiz için muameleyle saklanacak bir mesaj. Not: Bu mesaj DigiByte şebekesi üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -1745,12 +1745,12 @@
         <translation>Mesaj &amp;imzala</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>Adreslerinize yollanan bitcoinleri alabileceğiniz ispatlamak için adreslerinizle mesaj/anlaşma imzalayabilirsiniz. Oltalama saldırılarının kimliğinizi imzanızla elde etmeyi deneyebilecekleri için belirsiz ya da rastgele hiçbir şey imzalamamaya dikkat ediniz. Sadece ayrıntılı açıklaması olan ve tümüne katıldığınız ifadeleri imzalayınız.</translation>
+        <source>You can sign messages/agreements with your addresses to prove you can receive digibytes sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation>Adreslerinize yollanan digibyteleri alabileceğiniz ispatlamak için adreslerinizle mesaj/anlaşma imzalayabilirsiniz. Oltalama saldırılarının kimliğinizi imzanızla elde etmeyi deneyebilecekleri için belirsiz ya da rastgele hiçbir şey imzalamamaya dikkat ediniz. Sadece ayrıntılı açıklaması olan ve tümüne katıldığınız ifadeleri imzalayınız.</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
-        <translation>Mesajın imzalanmasında kullanılacak Bitcoin adresi</translation>
+        <source>The DigiByte address to sign the message with</source>
+        <translation>Mesajın imzalanmasında kullanılacak DigiByte adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -1781,8 +1781,8 @@
         <translation>Güncel imzayı sistem panosuna kopyala</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Bu Bitcoin adresinin sizin olduğunu ispatlamak için mesajı imzalayın</translation>
+        <source>Sign the message to prove you own this DigiByte address</source>
+        <translation>Bu DigiByte adresinin sizin olduğunu ispatlamak için mesajı imzalayın</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -1805,12 +1805,12 @@
         <translation>Alıcının adresini, mesajı (satır sonları, boşluklar, sekmeler vs. karakterleri tam olarak kopyaladığınızdan emin olunuz) ve imzayı aşağıda giriniz. Bir ortadaki adam saldırısı tarafından kandırılmaya mâni olmak için imzadan, imzalı mesajın içeriğini aşan bir anlam çıkarmamaya dikkat ediniz. Bunun sadece imzalayan tarafın adres ile alım yapabildiğini ispatladığını ve herhangi bir muamelenin gönderi tarafını kanıtlayamayacağını unutmayınız!</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
-        <translation>Mesajın imzalanmasında kullanılan Bitcoin adresi</translation>
+        <source>The DigiByte address the message was signed with</source>
+        <translation>Mesajın imzalanmasında kullanılan DigiByte adresi</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Belirtilen Bitcoin adresi ile imzalandığını doğrulamak için mesajı kontrol et</translation>
+        <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
+        <translation>Belirtilen DigiByte adresi ile imzalandığını doğrulamak için mesajı kontrol et</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -1900,7 +1900,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     <message>
         <source>Options:</source>
         <translation>Seçenekler:</translation>
@@ -1958,8 +1958,8 @@
         <translation>HTTP sunucusu başlatılamadı. Ayrıntılar için debug.log dosyasına bakınız.</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Çekirdeği</translation>
+        <source>DigiByte Core</source>
+        <translation>DigiByte Çekirdeği</translation>
     </message>
     <message>
         <source>The %s developers</source>

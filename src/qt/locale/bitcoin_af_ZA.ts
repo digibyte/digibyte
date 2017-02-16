@@ -128,7 +128,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>DigiByteGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Sinchroniseer met die netwerk ...</translation>
@@ -166,8 +166,8 @@
         <translation>&amp;Opsies</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -706,7 +706,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     <message>
         <source>Options:</source>
         <translation>Opsies:</translation>
