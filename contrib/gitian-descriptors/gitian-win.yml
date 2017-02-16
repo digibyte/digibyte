@@ -22,7 +22,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/digibyte-team/bitcoin#26bc234da454c19acb99ccbe65b944e87a6c53d8.git"
+- "url": "https://github.com/digibyte-team/bitcoin.git"
   "dir": "digibyte"
 files: []
 script: |

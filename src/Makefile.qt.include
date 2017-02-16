@@ -397,7 +397,7 @@ endif
 if TARGET_WINDOWS
   qt_digibyte_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_digibyte_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+qt_digibyte_qt_LDADD = qt/libdigibyteqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
 qt_digibyte_qt_LDADD += $(LIBBITCOIN_WALLET)
 endif
@@ -435,7 +435,7 @@ $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES) 
 	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name bitcoin $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
-CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
+CLEAN_QT = $(nodist_qt_libdigibyteqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
 
 CLEANFILES += $(CLEAN_QT)
 
