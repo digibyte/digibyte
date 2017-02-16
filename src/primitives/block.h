@@ -9,10 +9,6 @@
 #include "primitives/transaction.h"
 #include "serialize.h"
 #include "uint256.h"
-#include "crypto/hashgroestl.h"
-#include "crypto/hashqubit.h"
-#include "crypto/hashskein.h"
-#include "crypto/scrypt.h"
 
 enum { 
     ALGO_SHA256D  = 0,

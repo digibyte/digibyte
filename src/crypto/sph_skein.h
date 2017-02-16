@@ -46,7 +46,7 @@ extern "C"{
 #endif
 
 #include <stddef.h>
-#include "crypto/sph_types.h"
+#include "sph_types.h"
 
 #if SPH_64
 

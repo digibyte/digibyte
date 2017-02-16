@@ -40,7 +40,7 @@ extern "C"{
 #endif
 
 #include <stddef.h>
-#include "crypto/sph_types.h"
+#include "sph_types.h"
 
 /**
  * Output size (in bits) for Groestl-224.
