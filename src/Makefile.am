@@ -378,7 +378,7 @@ libdigibyte_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libdigibyte_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
