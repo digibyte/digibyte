@@ -7,7 +7,7 @@ src/digibyte-cli
 src/digibyte-tx
 src/test/test_bitcoin
 src/test/test_bitcoin_fuzzy
-src/qt/test/test_digibyte-qt
+src/qt/test/test_bitcoin-qt
 
 # autoreconf
 Makefile.in
