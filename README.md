@@ -1,3 +1,5 @@
+Please note current version of DGB is v4.0.3 but will be replaced shortly with 4.13.0 DigiSync
+
 ====================================
 DigiSpeed v4.0.0 Release Notes
 =====================================
