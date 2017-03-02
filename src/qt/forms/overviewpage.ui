@@ -421,6 +421,27 @@
        </item>
       </layout>
      </item>
+               <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../bitcoin.qrc">:/icons/backg</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>-2</number>
+         </property>
+      </widget>
+     </item>
+  
+     
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
