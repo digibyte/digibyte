@@ -238,7 +238,7 @@ AC_ARG_WITH([libs],
 
 AC_ARG_WITH([daemon],
   [AS_HELP_STRING([--with-daemon],
-  [build bitcoind daemon (default=yes)])],
+  [build digibyted daemon (default=yes)])],
   [build_bitcoind=$withval],
   [build_bitcoind=yes])
 
