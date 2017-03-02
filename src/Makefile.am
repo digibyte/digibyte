@@ -257,6 +257,19 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha256.h \
   crypto/sha512.cpp \
   crypto/sha512.h \
+
+
+# consensus: shared between all executables that validate any consensus rules.
+libbitcoin_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libbitcoin_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcoin_consensus_a_SOURCES = \
+  amount.h \
+  arith_uint256.cpp \
+  arith_uint256.h \
+  consensus/merkle.cpp \
+  consensus/merkle.h \
+  consensus/params.h \
+  consensus/validation.h \
   crypto/blake.c \
   crypto/bmw.c \
   crypto/cubehash.c \
@@ -285,19 +298,7 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sph_simd.h \
   crypto/sph_skein.h \
   crypto/sph_types.h \
-  crypto/scrypt.h 
-
-# consensus: shared between all executables that validate any consensus rules.
-libbitcoin_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcoin_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_consensus_a_SOURCES = \
-  amount.h \
-  arith_uint256.cpp \
-  arith_uint256.h \
-  consensus/merkle.cpp \
-  consensus/merkle.h \
-  consensus/params.h \
-  consensus/validation.h \
+  crypto/scrypt.h \
   hash.cpp \
   hash.h \
   prevector.h \
@@ -320,36 +321,7 @@ libbitcoin_consensus_a_SOURCES = \
   uint256.h \
   utilstrencodings.cpp \
   utilstrencodings.h \
-  version.h \
-  crypto/blake.c \
-  crypto/bmw.c \
-  crypto/cubehash.c \
-  crypto/echo.c \
-  crypto/groestl.c \
-  crypto/jh.c \
-  crypto/keccak.c \
-  crypto/luffa.c \
-  crypto/shavite.c \
-  crypto/simd.c \
-  crypto/skein.c \
-  crypto/hashgroestl.h \
-  crypto/hashqubit.h \
-  crypto/hashskein.h \
-  crypto/scrypt.cpp \
-  crypto/scrypt-sse2.cpp \
-  crypto/sph_blake.h \
-  crypto/sph_bmw.h \
-  crypto/sph_cubehash.h \
-  crypto/sph_echo.h \
-  crypto/sph_groestl.h \
-  crypto/sph_jh.h \
-  crypto/sph_keccak.h \
-  crypto/sph_luffa.h \
-  crypto/sph_shavite.h \
-  crypto/sph_simd.h \
-  crypto/sph_skein.h \
-  crypto/sph_types.h \
-  crypto/scrypt.h 
+  version.h 
 
 # common: shared between bitcoind, and bitcoin-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
