@@ -5,7 +5,7 @@ src/digibyte
 src/digibyted
 src/digibyte-cli
 src/digibyte-tx
-src/test/test_bitcoin
+src/test/test_digibyte
 src/test/test_bitcoin_fuzzy
 src/qt/test/test_bitcoin-qt
 
