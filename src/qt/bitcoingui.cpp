@@ -754,9 +754,9 @@ void BitcoinGUI::updateHeadersSyncProgressLabel()
     int64_t headersTipTime = clientModel->getHeaderTipTime();
     int headersTipHeight = clientModel->getHeaderTipHeight();
     int spacing;
-	if (getHeaderTipHeight() < 145000)
+	if (clientModel->getHeaderTipHeight() < 145000)
 		spacing = 60;
-	else if (getHeaderTipHeight() < 400000){
+	else if (clientModel->getHeaderTipHeight() < 400000){
 		spacing = 30*5;
 	} else {
 		spacing = 15*5;
