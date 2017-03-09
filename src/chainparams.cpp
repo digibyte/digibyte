@@ -80,23 +80,25 @@ public:
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
-            // Original DigiByte - Obsolete
-            consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours Original DigiByte Retarget
-            consensus.nTargetSpacing = 60; // 60 seconds
 
-            consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-            // DigiShield Hard Fork Block Height 
-            consensus.nDiffChangeTarget = 67200;
-            consensus.nTargetTimespanRe = 1*60; // 60 Seconds
-            consensus.nTargetSpacingRe = 1*60; // 60 seconds
-            consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
+        // Original DigiByte 
+        consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours Original DigiByte Retarget
+        consensus.nTargetSpacing = 60; // 60 seconds
+        consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
 
-            consensus.nAveragingInterval = 10; // 10 blocks
-            consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-            consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
-            consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
-            consensus.nAveragingTargetTimespanV4 = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
+        // DigiShield Hard Fork Block Height 
+        consensus.nDiffChangeTarget = 67200;
+        consensus.nTargetTimespanRe = 1*60; // 60 Seconds
+        consensus.nTargetSpacingRe = 1*60; // 60 seconds
+        consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
 
+        consensus.nAveragingInterval = 10; // 10 blocks
+        consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
+        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
+        consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
+        consensus.nAveragingTargetTimespanV4 = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
+
+        // DigiShield Asymetrical Adjustment
         consensus.nMaxAdjustDown = 40; // 40% adjustment down
         consensus.nMaxAdjustUp = 20; // 20% adjustment up
         consensus.nMaxAdjustDownV3 = 16; // 16% adjustment down
@@ -123,7 +125,9 @@ public:
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
+
+        // DigiByte DigiSync 75% Consensus
+        consensus.nRuleChangeActivationThreshold = 1512; // 75% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.fRbfEnabled = false;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
