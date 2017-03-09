@@ -419,9 +419,7 @@
          </property>
         </spacer>
        </item>
-      </layout>
-     </item>
-               <item>
+           <item>
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string/>
@@ -440,8 +438,8 @@
          </property>
       </widget>
      </item>
-  
-     
+      </layout>
+     </item>     
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
