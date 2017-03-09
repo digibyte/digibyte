@@ -80,19 +80,22 @@ public:
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
-        consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
-        consensus.nTargetSpacing = 60; // 60 seconds
-        consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 67200;
-        consensus.nTargetTimespanRe = 1*60; // 60 Seconds
-        consensus.nTargetSpacingRe = 1*60; // 60 seconds
-        consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
+            // Original DigiByte - Obsolete
+            consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours Original DigiByte Retarget
+            consensus.nTargetSpacing = 60; // 60 seconds
 
-        consensus.nAveragingInterval = 10; // 10 blocks
-        consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
-        consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
-        consensus.nAveragingTargetTimespanV4 = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
+            consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
+            // DigiShield Hard Fork Block Height 
+            consensus.nDiffChangeTarget = 67200;
+            consensus.nTargetTimespanRe = 1*60; // 60 Seconds
+            consensus.nTargetSpacingRe = 1*60; // 60 seconds
+            consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
+
+            consensus.nAveragingInterval = 10; // 10 blocks
+            consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
+            consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
+            consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
+            consensus.nAveragingTargetTimespanV4 = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
 
         consensus.nMaxAdjustDown = 40; // 40% adjustment down
         consensus.nMaxAdjustUp = 20; // 20% adjustment up
@@ -110,8 +113,12 @@ public:
 
         consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
         consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
+
+        // Multi-Algo Hard Fork Block Height
         consensus.multiAlgoDiffChangeTarget = 145000;
+        // Multi-Algo Adjustment Block Height
         consensus.alwaysUpdateDiffChangeTarget = 400000;
+        // Multi Shield hard Fork Block Height
         consensus.workComputationChangeTarget = 1430000; 
 
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -221,10 +228,10 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 210000;
-        consensus.BIP34Height = 21111;
-        consensus.BIP34Hash = uint256S("0x0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8");
-        consensus.BIP65Height = 581885; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
-        consensus.BIP66Height = 330776; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
+        //consensus.BIP34Height = 21111;
+        //consensus.BIP34Hash = uint256S("0x0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8");
+        //consensus.BIP65Height = 581885; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
+        //consensus.BIP66Height = 330776; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
@@ -308,10 +315,10 @@ public:
     CRegTestParams() {
         strNetworkID = "regtest";
         consensus.nSubsidyHalvingInterval = 150;
-        consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
-        consensus.BIP34Hash = uint256();
-        consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
-        consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
+        //consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
+        //consensus.BIP34Hash = uint256();
+        //consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
+        //consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
