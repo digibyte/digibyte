@@ -72,10 +72,10 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 210000;
-        consensus.BIP34Height = 227931;
-        consensus.BIP34Hash = uint256S("0x000000000000024b89b42a942fe0d9fea3bb44ab7bd1b19115dd6a759c0808b8");
-        consensus.BIP65Height = 388381; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
-        consensus.BIP66Height = 363725; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
+        // consensus.BIP34Height = 145000;
+        // consensus.BIP34Hash = uint256S("0xf8d650dda836d5e3809b928b8523f050891c3bb9fa2c201bb04824a8a2fe7df6");
+        // consensus.BIP65Height = 145000; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
+        // consensus.BIP66Height = 145000; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
 
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
@@ -122,6 +122,11 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
+
+        // Deployment of BIP65, BIP66, and BIP34.
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].bit = 2;
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1603347472; // October 22nd, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nTimeout = 1634883472;    // October 22nd, 2021
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
