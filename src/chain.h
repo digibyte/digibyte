@@ -352,6 +352,8 @@ public:
         return false;
     }
 
+    bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck);
+
     //! Build the skiplist pointer for this entry.
     void BuildSkip();
 
