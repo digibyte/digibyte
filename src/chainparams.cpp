@@ -81,58 +81,67 @@ public:
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
 
-        // Original DigiByte 
-        consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours Original DigiByte Retarget
-        consensus.nTargetSpacing = 60; // 60 seconds
-        consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
+        /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
+        https://github.com/digibyte/digibyte-old/pull/36 
+        https://github.com/digibyte/digibyte-old/pull/15
 
-        // DigiShield Hard Fork Block Height 
-        consensus.nDiffChangeTarget = 67200;
-        consensus.nTargetTimespanRe = 1*60; // 60 Seconds
-        consensus.nTargetSpacingRe = 1*60; // 60 seconds
-        consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
+        Difficulty is updated for every algorithm on every block, not just the algorithm that was solved. 
+        In particular, the difficulty of one algorithm may decrease when a different algorithm is solved. 
 
-        consensus.nAveragingInterval = 10; // 10 blocks
-        consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
-        consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
+        An attacker with 90% of the SHA256D hashrate and 33% of each of the other 4 algorithms would 
+        have insufficient hashpower to mount a 51% attack.
+        **/
+
+        // Current Block Spacing & Difficulty Rules
         consensus.nAveragingTargetTimespanV4 = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
-
-        // DigiShield Asymetrical Adjustment
-        consensus.nMaxAdjustDown = 40; // 40% adjustment down
-        consensus.nMaxAdjustUp = 20; // 20% adjustment up
-        consensus.nMaxAdjustDownV3 = 16; // 16% adjustment down
-        consensus.nMaxAdjustUpV3 = 8; // 8% adjustment up
         consensus.nMaxAdjustDownV4 = 16;
         consensus.nMaxAdjustUpV4 = 8;
-
-        consensus.nMinActualTimespan = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUp) / 100;
-        consensus.nMaxActualTimespan = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDown) / 100;
-        consensus.nMinActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUpV3) / 100;
-        consensus.nMaxActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDownV3) / 100;
         consensus.nMinActualTimespanV4 = consensus.nAveragingTargetTimespanV4 * (100 - consensus.nMaxAdjustUpV4) / 100;
         consensus.nMaxActualTimespanV4 = consensus.nAveragingTargetTimespanV4 * (100 + consensus.nMaxAdjustDownV4) / 100;
-
         consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
         consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
 
+        // DigiShield Hard Fork Block Height
+        consensus.nDiffChangeTarget = 67200;
         // Multi-Algo Hard Fork Block Height
         consensus.multiAlgoDiffChangeTarget = 145000;
         // Multi-Algo Adjustment Block Height
         consensus.alwaysUpdateDiffChangeTarget = 400000;
-        // Multi Shield hard Fork Block Height
+        // Multi Shield hard Fork Block Height - Last Ever Hard Fork - Consensus Soft Forks From Now On
         consensus.workComputationChangeTarget = 1430000; 
+
+        // Old DigiByte Adjustment Code
+        consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours Original DigiByte Retarget
+        consensus.nTargetSpacing = 60; // 60 seconds
+        consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
+        consensus.nTargetTimespanRe = 1*60; // 60 Seconds
+        consensus.nTargetSpacingRe = 1*60; // 60 seconds
+        consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
+        consensus.nAveragingInterval = 10; // 10 blocks
+        consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
+        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
+        consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
+
+        // DigiShield Asymetrical Adjustment - Old Code
+        consensus.nMaxAdjustDown = 40; // 40% adjustment down
+        consensus.nMaxAdjustUp = 20; // 20% adjustment up
+        consensus.nMaxAdjustDownV3 = 16; // 16% adjustment down
+        consensus.nMaxAdjustUpV3 = 8; // 8% adjustment up
+        consensus.nMinActualTimespan = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUp) / 100;
+        consensus.nMaxActualTimespan = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDown) / 100;
+        consensus.nMinActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUpV3) / 100;
+        consensus.nMaxActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDownV3) / 100;
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
 
-        // DigiByte DigiSync 75% Consensus
+        // DigiByte - DigiSync Softfork 75% Consensus
         consensus.nRuleChangeActivationThreshold = 1512; // 75% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.fRbfEnabled = false;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
+        //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
+        //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
+        //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // Deployment of BIP65, BIP66, and BIP34.
         consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].bit = 2;
@@ -153,7 +162,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000015410e9889bd772becc");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x76c6c929a0028902313cf8fcd231707562a8cd4e430efa00656508647374a8df"); //4,096,666
+        consensus.defaultAssumeValid = uint256S("0x76c6c929a0028902313cf8fcd231707562a8cd4e430efa00656508647374a8df"); // Block 4,096,666
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
