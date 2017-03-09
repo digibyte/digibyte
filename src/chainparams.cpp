@@ -100,6 +100,7 @@ public:
         consensus.nMaxActualTimespanV4 = consensus.nAveragingTargetTimespanV4 * (100 + consensus.nMaxAdjustDownV4) / 100;
         consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
         consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
+        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
 
         // DigiShield Hard Fork Block Height
         consensus.nDiffChangeTarget = 67200;
@@ -119,7 +120,6 @@ public:
         consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
         consensus.nAveragingInterval = 10; // 10 blocks
         consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
         consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
 
         // DigiShield Asymetrical Adjustment - Old Code
