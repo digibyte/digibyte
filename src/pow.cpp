@@ -16,7 +16,7 @@
 unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
 
-    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+    unsigned int npowWorkLimit = UintToArith256(params.powLimit).GetCompact();
 	int nHeight = pindexLast->nHeight + 1;
 	bool fNewDifficultyProtocol = (nHeight >= params.nDiffChangeTarget);
 	int blockstogoback = 0;
@@ -28,7 +28,7 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 
 	// Genesis block
 	if (pindexLast == NULL)
-		return nProofOfWorkLimit;
+		return npowWorkLimit;
 
 	//if v2.0 changes are in effect for block num, alter retarget values
 	if(fNewDifficultyProtocol) {
@@ -47,12 +47,12 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 			// If the new block's timestamp is more than 2* 10 minutes
 			// then allow mining of a min-difficulty block.
 			if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
-				return nProofOfWorkLimit;
+				return npowWorkLimit;
 			else
 			{
 				// Return the last non-special-min-difficulty-rules-block
 				const CBlockIndex* pindex = pindexLast;
-				while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+				while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == npowWorkLimit)
 					pindex = pindex->pprev;
 				return pindex->nBits;
 			}
@@ -109,10 +109,10 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
 
-	unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+	unsigned int npowWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
 	if (pindexLast == NULL)
-		return nProofOfWorkLimit;
+		return npowWorkLimit;
 
 	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
 	{
@@ -120,12 +120,12 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 		// If the new block's timestamp is more than 2* 10 minutes
 		// then allow mining of a min-difficulty block.
 		if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
-			return nProofOfWorkLimit;
+			return npowWorkLimit;
 		else
 		{
 			// Return the last non-special-min-difficulty-rules-block
 			const CBlockIndex* pindex = pindexLast;
-			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == npowWorkLimit)
 				pindex = pindex->pprev;
 			return pindex->nBits;
 		}
@@ -149,7 +149,7 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 	if (pindexFirst == NULL)
 	{
 		LogPrintf("Use default POW Limit\n");
-		return nProofOfWorkLimit;
+		return npowWorkLimit;
 	}
 
 	// Limit adjustment step
@@ -178,11 +178,11 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
 
-	unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+	unsigned int npowWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
 	// Genesis block
 	if (pindexLast == NULL)
-		return nProofOfWorkLimit;
+		return npowWorkLimit;
 
 	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
 	{
@@ -190,12 +190,12 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 		// If the new block's timestamp is more than 2* 10 minutes
 		// then allow mining of a min-difficulty block.
 		if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
-			return nProofOfWorkLimit;
+			return npowWorkLimit;
 		else
 		{
 			// Return the last non-special-min-difficulty-rules-block
 			const CBlockIndex* pindex = pindexLast;
-			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == npowWorkLimit)
 				pindex = pindex->pprev;
 			return pindex->nBits;
 		}
@@ -210,7 +210,7 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 	}
 	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, algo);
 	if (pindexPrevAlgo == NULL || pindexFirst == NULL)
-		return nProofOfWorkLimit; // not enough blocks available
+		return npowWorkLimit; // not enough blocks available
 
 	// Limit adjustment step
 	// Use medians to prevent time-warp attacks
@@ -256,11 +256,11 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
 
-	unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+	unsigned int npowWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
 	// Genesis block
 	if (pindexLast == NULL)
-		return nProofOfWorkLimit;
+		return npowWorkLimit;
 
 	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
 	{
@@ -268,12 +268,12 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 		// If the new block's timestamp is more than 2* 10 minutes
 		// then allow mining of a min-difficulty block.
 		if (pblock->nTime > pindexLast->nTime + params.nTargetSpacing*2)
-			return nProofOfWorkLimit;
+			return npowWorkLimit;
 		else
 		{
 			// Return the last non-special-min-difficulty-rules-block
 			const CBlockIndex* pindex = pindexLast;
-			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+			while (pindex->pprev && pindex->nHeight % params.nInterval != 0 && pindex->nBits == npowWorkLimit)
 				pindex = pindex->pprev;
 			return pindex->nBits;
 		}
@@ -290,7 +290,7 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, algo);
 	if (pindexPrevAlgo == NULL || pindexFirst == NULL)
 	{
-		return nProofOfWorkLimit;
+		return npowWorkLimit;
 	}
 
 	// Limit adjustment step
