@@ -15,7 +15,20 @@
 class CCoinsViewCache;
 
 /** Default for -blockmaxsize, which controls the maximum size of block the mining code will create **/
-static const unsigned int DEFAULT_BLOCK_MAX_SIZE = 750000;
+static const unsigned int DEFAULT_BLOCK_MAX_SIZE = MAX_BLOCK_SIZE;
+
+/** The maximum allowed size for a serialized block, in bytes (network rule) */
+static const unsigned int MAX_BLOCK_SIZE 	  	= 1000000;
+static const unsigned int MAX_BLOCK_SIZE_2 		= 2000000;
+static const unsigned int MAX_BLOCK_SIZE_4 		= 4000000;
+static const unsigned int MAX_BLOCK_SIZE_8 		= 8000000;
+static const unsigned int MAX_BLOCK_SIZE_16 	= 16000000;
+static const unsigned int MAX_BLOCK_SIZE_32		= 32000000;
+static const unsigned int MAX_BLOCK_SIZE_64		= 64000000;
+static const unsigned int MAX_BLOCK_SIZE_128	= 128000000;
+static const unsigned int MAX_BLOCK_SIZE_256	= 256000000;
+static const unsigned int MAX_BLOCK_SIZE_512	= 512000000;
+static const unsigned int MAX_BLOCK_SIZE_1024	= 1024000000;
 /** Default for -blockprioritysize, maximum space for zero/low-fee transactions **/
 static const unsigned int DEFAULT_BLOCK_PRIORITY_SIZE = 0;
 /** Default for -blockmaxweight, which controls the range of block weights the mining code will create **/
