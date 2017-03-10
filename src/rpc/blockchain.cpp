@@ -52,12 +52,12 @@ double GetDifficulty(const CBlockIndex* blockindex, int algo)
     if (blockindex == NULL)
     {
         if (chainActive.Tip() == NULL)
-            nBits = Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
+            nBits = Params().powLimit(ALGO_SHA256D).GetCompact();
         else
         {
             blockindex = GetLastBlockIndexForAlgo(chainActive.Tip(), algo);
             if (blockindex == NULL)
-                nBits = Params().ProofOfWorkLimit(algo).GetCompact();
+                nBits = Params().powLimit(algo).GetCompact();
             else
                 nBits = blockindex->nBits;
         }
