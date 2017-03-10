@@ -869,21 +869,6 @@ bool AppInitParameterInteraction()
         if (GetBoolArg("-txindex", DEFAULT_TXINDEX))
             return InitError(_("Prune mode is incompatible with -txindex."));
     }
-    // Algo
-    std::string strAlgo = GetArg("-algo", "sha256d");
-    transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
-    if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
-        miningAlgo = ALGO_SHA256D;
-    else if (strAlgo == "scrypt")
-        miningAlgo = ALGO_SCRYPT;
-    else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
-        miningAlgo = ALGO_GROESTL;
-    else if (strAlgo == "skein" || strAlgo == "skeinsha2")
-        miningAlgo = ALGO_SKEIN;
-    else if (strAlgo == "q2c" || strAlgo == "qubit")
-        miningAlgo = ALGO_QUBIT;
-    else
-        miningAlgo = ALGO_SHA256D;
 
     // Make sure enough file descriptors are available
     int nBind = std::max(
