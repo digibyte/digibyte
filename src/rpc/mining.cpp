@@ -248,6 +248,12 @@ UniValue getmininginfo(const JSONRPCRequest& request)
     obj.push_back(Pair("currentblockweight", (uint64_t)nLastBlockWeight));
     obj.push_back(Pair("currentblocktx",   (uint64_t)nLastBlockTx));
     obj.push_back(Pair("difficulty",       (double)GetDifficulty()));
+    obj.push_back(Pair("difficulty",         (double)GetDifficulty(NULL, miningAlgo)));
+    obj.push_back(Pair("difficulty_sha256d", (double)GetDifficulty(NULL, ALGO_SHA256D)));
+    obj.push_back(Pair("difficulty_scrypt",  (double)GetDifficulty(NULL, ALGO_SCRYPT)));
+    obj.push_back(Pair("difficulty_groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
+    obj.push_back(Pair("difficulty_skein",   (double)GetDifficulty(NULL, ALGO_SKEIN)));
+    obj.push_back(Pair("difficulty_qubit",   (double)GetDifficulty(NULL, ALGO_QUBIT)));
     obj.push_back(Pair("errors",           GetWarnings("statusbar")));
     obj.push_back(Pair("networkhashps",    getnetworkhashps(request)));
     obj.push_back(Pair("pooledtx",         (uint64_t)mempool.size()));

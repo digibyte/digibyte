@@ -71,7 +71,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nSubsidyHalvingInterval = 210000;
+        //consensus.nSubsidyHalvingInterval = 210000; - BTC
         // consensus.BIP34Height = 145000;
         // consensus.BIP34Hash = uint256S("0xf8d650dda836d5e3809b928b8523f050891c3bb9fa2c201bb04824a8a2fe7df6");
         // consensus.BIP65Height = 145000; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
@@ -90,6 +90,12 @@ public:
 
         An attacker with 90% of the SHA256D hashrate and 33% of each of the other 4 algorithms would 
         have insufficient hashpower to mount a 51% attack.
+
+        - MultiAlgo POW (Scrypt, SHA256D, Qubit, Skein and Groestl) algorithms
+        - 15 Second Block Target (1.5 min per Algo)
+        - ~21 billion total coins in 21 years
+        - 8000 coins per block, reduces by 0.5% every 10,080 blocks starting 2/28/14 1% monthly reduction
+        - Difficulty retarget every 1 block per algo (1.5 Min)
         **/
 
         // Current Block Spacing & Difficulty Rules
