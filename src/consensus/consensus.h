@@ -14,16 +14,6 @@ static const unsigned int MAX_BLOCK_SERIALIZED_SIZE = 4000000;
 static const unsigned int MAX_BLOCK_WEIGHT = 4000000;
 /** The maximum allowed size for a block excluding witness data, in bytes (network rule) */
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
-static const unsigned int MAX_BLOCK_SIZE_2 = 2000000;
-static const unsigned int MAX_BLOCK_SIZE_4 = 4000000;
-static const unsigned int MAX_BLOCK_SIZE_8 = 8000000;
-static const unsigned int MAX_BLOCK_SIZE_16	= 16000000;
-static const unsigned int MAX_BLOCK_SIZE_32	= 32000000;
-static const unsigned int MAX_BLOCK_SIZE_64	= 64000000;
-static const unsigned int MAX_BLOCK_SIZE_128 = 128000000;
-static const unsigned int MAX_BLOCK_SIZE_256 = 256000000;
-static const unsigned int MAX_BLOCK_SIZE_512 = 512000000;
-static const unsigned int MAX_BLOCK_SIZE_1024 = 1024000000;
 
 const int64_t nDiffChangeTarget = 67200; // Patch effective @ block 67200//for testing
 const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000//for testing
