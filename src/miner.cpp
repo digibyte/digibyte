@@ -145,28 +145,8 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     LOCK2(cs_main, mempool.cs);
     CBlockIndex* pindexPrev = chainActive.Tip();
 
-    pblock->nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus());
-    switch (algo)
-    {
-        case ALGO_SCRYPT:
-        break;
-        case ALGO_SHA256D:
-        pblock->nVersion |= BLOCK_VERSION_SHA256D;
-        break;
-        case ALGO_GROESTL:
-        pblock->nVersion |= BLOCK_VERSION_GROESTL;
-        break;
-        case ALGO_SKEIN:
-        pblock->nVersion |= BLOCK_VERSION_SKEIN;
-        break;
-        case ALGO_QUBIT:
-        pblock->nVersion |= BLOCK_VERSION_QUBIT;
-        break;
-        default:
-        error("CreateNewBlock: bad algo");
-        return NULL;
-    }
-    
+    pblock->nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus(), algo);
+
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
     if (chainparams.MineBlocksOnDemand())
