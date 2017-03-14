@@ -113,7 +113,7 @@ UniValue generateBlocks(boost::shared_ptr<CReserveScript> coinbaseScript, int nG
     UniValue blockHashes(UniValue::VARR);
     while (nHeight < nHeightEnd)
     {
-        std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(Params()).CreateNewBlock(coinbaseScript->reserveScript));
+        std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(Params()).CreateNewBlock(coinbaseScript->reserveScript, miningAlgo));
         if (!pblocktemplate.get())
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Couldn't create new block");
         CBlock *pblock = &pblocktemplate->block;
@@ -542,7 +542,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
 
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy);
+        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, miningAlgo);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 
@@ -553,7 +553,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
     const Consensus::Params& consensusParams = Params().GetConsensus();
 
     // Update nTime
-    UpdateTime(pblock, consensusParams, pindexPrev);
+    UpdateTime(pblock, consensusParams, pindexPrev, miningAlgo);
     pblock->nNonce = 0;
 
     // NOTE: If at some point we support pre-segwit miners post-segwit-activation, this needs to take segwit support into consideration
