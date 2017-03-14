@@ -1762,6 +1762,35 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
     return nVersion;
 }
 
+int32_t SetAlgo(int algo)
+{
+    int32_t nVersion = VERSIONBITS_TOP_BITS;
+
+        switch(algo)
+        {
+            case ALGO_SHA256D:
+                nVersion |= BLOCK_VERSION_SHA256D;
+                break;
+            case ALGO_SCRYPT:
+                nVersion |= BLOCK_VERSION_SCRYPT;
+                break;
+            case ALGO_GROESTL:
+                nVersion |= BLOCK_VERSION_GROESTL;
+                break;
+            case ALGO_SKEIN:
+                nVersion |= BLOCK_VERSION_SKEIN;
+                break;
+            case ALGO_QUBIT:
+                nVersion |= BLOCK_VERSION_QUBIT;
+                break;
+            default:
+                nVersion |= BLOCK_VERSION_SCRYPT;
+                break;
+        }
+
+    return nVersion;
+}
+
 bool isMultiAlgoVersion(int nVersion){
     if(nVersion == 514 || nVersion == 1026 || nVersion == 1538 || nVersion == 2050) {
         return true;

@@ -550,6 +550,8 @@ extern VersionBitsCache versionbitscache;
  */
 int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params);
 
+int32_t SetAlgo(int algo);
+
 bool isMultiAlgoVersion(int nVersion);
 
 /** Reject codes greater or equal to this can be returned by AcceptToMemPool
