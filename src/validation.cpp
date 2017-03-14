@@ -47,7 +47,7 @@
 #include <boost/thread.hpp>
 
 #if defined(NDEBUG)
-# error "Bitcoin cannot be compiled without assertions."
+# error "DigiByte cannot be compiled without assertions."
 #endif
 
 /**
