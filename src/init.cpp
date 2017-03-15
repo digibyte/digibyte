@@ -1303,6 +1303,8 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
     else
         miningAlgo = ALGO_SHA256D;
 
+    LogPrintf("Selected Algo: %s\n", strAlgo);
+
     // see Step 2: parameter interactions for more information about these
     fListen = GetBoolArg("-listen", DEFAULT_LISTEN);
     fDiscover = GetBoolArg("-discover", true);

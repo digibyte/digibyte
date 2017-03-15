@@ -1782,42 +1782,6 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
     return nVersion;
 }
 
-int32_t SetAlgo(int algo)
-{
-    int32_t nVersion = VERSIONBITS_TOP_BITS;
-
-        switch(algo)
-        {
-            case ALGO_SHA256D:
-                nVersion |= BLOCK_VERSION_SHA256D;
-                break;
-            case ALGO_SCRYPT:
-                nVersion |= BLOCK_VERSION_SCRYPT;
-                break;
-            case ALGO_GROESTL:
-                nVersion |= BLOCK_VERSION_GROESTL;
-                break;
-            case ALGO_SKEIN:
-                nVersion |= BLOCK_VERSION_SKEIN;
-                break;
-            case ALGO_QUBIT:
-                nVersion |= BLOCK_VERSION_QUBIT;
-                break;
-            default:
-                nVersion |= BLOCK_VERSION_SCRYPT;
-                break;
-        }
-
-    return nVersion;
-}
-
-bool isMultiAlgoVersion(int nVersion){
-    if(nVersion == 514 || nVersion == 1026 || nVersion == 1538 || nVersion == 2050) {
-        return true;
-    }
-    return false;
-}
-
 /**
  * Threshold condition checker that triggers when unknown versionbits are seen on the network.
  */
@@ -2254,7 +2218,7 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
         {
             int nAlgo = pindex->GetAlgo();
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0 && !isMultiAlgoVersion(pindex->nVersion))
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
