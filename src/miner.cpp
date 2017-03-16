@@ -143,7 +143,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     pblocktemplate->vTxSigOpsCost.push_back(-1); // updated at end
 
     LOCK2(cs_main, mempool.cs);
-    CBlockIndex* pindexPrev = chainActive.Tip();ß
+    CBlockIndex* pindexPrev = chainActive.Tip();
 
     pblock->nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus(), algo);
 
