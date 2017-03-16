@@ -1162,6 +1162,54 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
+CAmount GetDGBSubsidy(int nHeight) {
+	// thanks to RealSolid & WDC for helping out with this code
+	CAmount qSubsidy;
+
+    int64_t nDiffChangeTarget = 67200;
+    int64_t alwaysUpdateDiffChangeTarget = 400000;
+    int64_t patchBlockRewardDuration = 10080;
+    int64_t patchBlockRewardDuration2 = 80160;
+    int64_t workComputationChangeTarget = 1430000;
+    
+	if (nHeight < alwaysUpdateDiffChangeTarget)
+	{
+		qSubsidy = 8000*COIN;
+		int blocks = nHeight - nDiffChangeTarget;
+		int weeks = (blocks / patchBlockRewardDuration)+1;
+		//decrease reward by 0.5% every 10080 blocks
+		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);
+	}
+	else if(nHeight<workComputationChangeTarget)
+	{
+		qSubsidy = 2459*COIN;
+		int blocks = nHeight - alwaysUpdateDiffChangeTarget;
+		int weeks = (blocks / patchBlockRewardDuration2)+1;
+		//decrease reward by 1% every month
+		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
+	}
+	else
+	{
+		//hard fork point: 1.43M
+		//subsidy at hard fork: 2157
+		//monthly decay factor: 98884/100000
+		//last block number: 41668798
+		//expected years after hard fork: 19.1395
+
+		qSubsidy = 2157*COIN/2;
+		int64_t blocks = nHeight - workComputationChangeTarget;
+		int64_t months = blocks*15/(3600*24*365/12);
+		for(int64_t i = 0; i < months; i++)
+		{
+			qSubsidy*=98884;
+			qSubsidy/=100000;
+		}
+	}
+
+	return qSubsidy;
+
+}
+
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
 	CAmount nSubsidy = COIN;
@@ -1188,39 +1236,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 
 	} else {
 		//patch takes effect after 67,200 blocks solved
-        if (nHeight < alwaysUpdateDiffChangeTarget)
-        {
-            nSubsidy = 8000*COIN;
-            int blocks = nHeight - nDiffChangeTarget;
-            int weeks = (blocks / patchBlockRewardDuration)+1;
-            //decrease reward by 0.5% every 10080 blocks
-            for(int i = 0; i < weeks; i++)  nSubsidy -= (nSubsidy/200);
-        }
-        else if(nHeight < workComputationChangeTarget)
-        {
-            nSubsidy = 2459*COIN;
-            int blocks = nHeight - alwaysUpdateDiffChangeTarget;
-            int weeks = (blocks / patchBlockRewardDuration2)+1;
-            //decrease reward by 1% every month
-            for(int i = 0; i < weeks; i++)  nSubsidy -= (nSubsidy/100);
-        }
-        else
-        {
-            //hard fork point: 1.43M
-            //subsidy at hard fork: 2157
-            //monthly decay factor: 98884/100000
-            //last block number: 41668798
-            //expected years after hard fork: 19.1395
-
-            nSubsidy = 2157*COIN/2;
-            int64_t blocks = nHeight - workComputationChangeTarget;
-            int64_t months = blocks*15/(3600*24*365/12);
-            for(int64_t i = 0; i < months; i++)
-            {
-                nSubsidy*=98884;
-                nSubsidy/=100000;
-            }
-        }
+		nSubsidy = GetDGBSubsidy(nHeight);
 	}
 
 	//make sure the reward is at least 1 DGB
