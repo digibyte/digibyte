@@ -65,6 +65,8 @@ struct Params {
     int64_t nTargetTimespanRe;
     int64_t nTargetSpacingRe;
     int64_t nIntervalRe;
+    int64_t patchBlockRewardDuration;
+    int64_t patchBlockRewardDuration2;
 
 	int64_t nAveragingInterval;
     int64_t multiAlgoTargetSpacing;

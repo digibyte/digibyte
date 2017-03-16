@@ -1162,18 +1162,53 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
+CAmount GetDGBSubsidy(int nHeight, const Consensus::Params& consensusParams) {
+	// thanks to RealSolid & WDC for helping out with this code
+	CAmount qSubsidy;
+    
+	if (nHeight < consensusParams.alwaysUpdateDiffChangeTarget)
+	{
+		qSubsidy = 8000*COIN;
+		int blocks = nHeight - consensusParams.nDiffChangeTarget;
+		int weeks = (blocks / consensusParams.patchBlockRewardDuration)+1;
+		//decrease reward by 0.5% every 10080 blocks
+		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);
+	}
+	else if(nHeight<consensusParams.workComputationChangeTarget)
+	{
+		qSubsidy = 2459*COIN;
+		int blocks = nHeight - consensusParams.alwaysUpdateDiffChangeTarget;
+		int weeks = (blocks / consensusParams.patchBlockRewardDuration2)+1;
+		//decrease reward by 1% every month
+		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
+	}
+	else
+	{
+		//hard fork point: 1.43M
+		//subsidy at hard fork: 2157
+		//monthly decay factor: 98884/100000
+		//last block number: 41668798
+		//expected years after hard fork: 19.1395
+
+		qSubsidy = 2157*COIN/2;
+		int64_t blocks = nHeight - consensusParams.workComputationChangeTarget;
+		int64_t months = blocks*15/(3600*24*365/12);
+		for(int64_t i = 0; i < months; i++)
+		{
+			qSubsidy*=98884;
+			qSubsidy/=100000;
+		}
+	}
+
+	return qSubsidy;
+
+}
+
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
 	CAmount nSubsidy = COIN;
 
-    // Find some place to put these
-    int64_t nDiffChangeTarget = 67200;
-    int64_t alwaysUpdateDiffChangeTarget = 400000;
-    int64_t patchBlockRewardDuration = 10080;
-    int64_t patchBlockRewardDuration2 = 80160;
-    int64_t workComputationChangeTarget = 1430000;
-
-	if(nHeight < nDiffChangeTarget) {
+	if(nHeight < consensusParams.nDiffChangeTarget) {
 		//this is pre-patch, reward is 8000.
 		nSubsidy = 8000 * COIN;
 
@@ -1188,39 +1223,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 
 	} else {
 		//patch takes effect after 67,200 blocks solved
-        if (nHeight < alwaysUpdateDiffChangeTarget)
-        {
-            nSubsidy = 8000*COIN;
-            int blocks = nHeight - nDiffChangeTarget;
-            int weeks = (blocks / patchBlockRewardDuration)+1;
-            //decrease reward by 0.5% every 10080 blocks
-            for(int i = 0; i < weeks; i++)  nSubsidy -= (nSubsidy/200);
-        }
-        else if(nHeight < workComputationChangeTarget)
-        {
-            nSubsidy = 2459*COIN;
-            int blocks = nHeight - alwaysUpdateDiffChangeTarget;
-            int weeks = (blocks / patchBlockRewardDuration2)+1;
-            //decrease reward by 1% every month
-            for(int i = 0; i < weeks; i++)  nSubsidy -= (nSubsidy/100);
-        }
-        else
-        {
-            //hard fork point: 1.43M
-            //subsidy at hard fork: 2157
-            //monthly decay factor: 98884/100000
-            //last block number: 41668798
-            //expected years after hard fork: 19.1395
-
-            nSubsidy = 2157*COIN/2;
-            int64_t blocks = nHeight - workComputationChangeTarget;
-            int64_t months = blocks*15/(3600*24*365/12);
-            for(int64_t i = 0; i < months; i++)
-            {
-                nSubsidy*=98884;
-                nSubsidy/=100000;
-            }
-        }
+		nSubsidy = GetDGBSubsidy(nHeight, consensusParams);
 	}
 
 	//make sure the reward is at least 1 DGB
@@ -1250,8 +1253,8 @@ bool IsInitialBlockDownload()
         return true;
     if (chainActive.Tip()->nChainWork < UintToArith256(chainParams.GetConsensus().nMinimumChainWork))
         return true;
-    if (chainActive.Tip()->GetBlockTime() < (GetTime() - nMaxTipAge) && chainParams.NetworkIDString() != CBaseChainParams::TESTNET)
-        return true;
+    //if (chainActive.Tip()->GetBlockTime() < (GetTime() - nMaxTipAge) && chainParams.NetworkIDString() != CBaseChainParams::TESTNET)
+        //return true;
     latchToFalse.store(true, std::memory_order_relaxed);
     return false;
 }
@@ -1433,6 +1436,7 @@ bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoins
 
         CAmount nValueIn = 0;
         CAmount nFees = 0;
+
         for (unsigned int i = 0; i < tx.vin.size(); i++)
         {
             const COutPoint &prevout = tx.vin[i].prevout;
@@ -1747,7 +1751,7 @@ void ThreadScriptCheck() {
 // Protected by cs_main
 VersionBitsCache versionbitscache;
 
-int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params)
+int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, int algo)
 {
     LOCK(cs_main);
     int32_t nVersion = VERSIONBITS_TOP_BITS;
@@ -1759,14 +1763,27 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         }
     }
 
-    return nVersion;
-}
+    switch (algo)
+    {
+        case ALGO_SCRYPT:
+        break;
+        case ALGO_SHA256D:
+        nVersion |= BLOCK_VERSION_SHA256D;
+        break;
+        case ALGO_GROESTL:
+        nVersion |= BLOCK_VERSION_GROESTL;
+        break;
+        case ALGO_SKEIN:
+        nVersion |= BLOCK_VERSION_SKEIN;
+        break;
+        case ALGO_QUBIT:
+        nVersion |= BLOCK_VERSION_QUBIT;
+        break;
+        default:
+        return nVersion;
+    }    
 
-bool isMultiAlgoVersion(int nVersion){
-    if(nVersion == 514 || nVersion == 1026 || nVersion == 1538 || nVersion == 2050) {
-        return true;
-    }
-    return false;
+    return nVersion;
 }
 
 /**
@@ -1787,9 +1804,10 @@ public:
 
     bool Condition(const CBlockIndex* pindex, const Consensus::Params& params) const
     {
+        int nAlgo = pindex->GetAlgo();
         return ((pindex->nVersion & VERSIONBITS_TOP_MASK) == VERSIONBITS_TOP_BITS) &&
                ((pindex->nVersion >> bit) & 1) != 0 &&
-               ((ComputeBlockVersion(pindex->pprev, params) >> bit) & 1) == 0;
+               ((ComputeBlockVersion(pindex->pprev, params, nAlgo) >> bit) & 1) == 0;
     }
 };
 
@@ -2202,8 +2220,9 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
         // Check the version of the last 100 blocks to see if we need to upgrade:
         for (int i = 0; i < 100 && pindex != NULL; i++)
         {
-            int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus());
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0 && !isMultiAlgoVersion(pindex->nVersion))
+            int nAlgo = pindex->GetAlgo();
+            int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
@@ -2890,7 +2909,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 
 bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW)
 {
-    // Check proof of work matches claimed amount
+    //Check proof of work matches claimed amount
     int nAlgo = block.GetAlgo();
     if (fCheckPOW && !CheckProofOfWork(block.GetPoWAlgoHash(nAlgo), block.nBits, consensusParams))
         return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");

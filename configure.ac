@@ -309,7 +309,7 @@ case $host in
      TARGET_OS=darwin
      LEVELDB_TARGET_FLAGS="-DOS_MACOSX"
      if  test x$cross_compiling != xyes; then
-       BUILD_OS=darwin
+       BUILD_OS=darwin   
        AC_CHECK_PROG([PORT],port, port)
        if test x$PORT = xport; then
          dnl add default macports paths

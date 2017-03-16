@@ -9,6 +9,7 @@
 #include "primitives/transaction.h"
 #include "serialize.h"
 #include "uint256.h"
+#include "util.h"
 
 enum { 
     ALGO_SHA256D  = 0,
@@ -92,6 +93,7 @@ public:
         switch(algo)
         {
             case ALGO_SHA256D:
+                nVersion |= BLOCK_VERSION_SHA256D;
                 break;
             case ALGO_SCRYPT:
                 nVersion |= BLOCK_VERSION_SCRYPT;

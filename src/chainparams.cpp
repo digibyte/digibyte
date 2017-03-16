@@ -101,7 +101,9 @@ public:
         consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 67200;
+        consensus.nDiffChangeTarget = 67200; // DigiShield Hard Fork Block BIP34Height
+        consensus.patchBlockRewardDuration = 10080; //10080;
+        consensus.patchBlockRewardDuration2 = 80160; //80160;
         consensus.nTargetTimespanRe = 1*60; // 60 Seconds
         consensus.nTargetSpacingRe = 1*60; // 60 seconds
         consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
@@ -128,13 +130,16 @@ public:
 
         consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
         consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
-        consensus.multiAlgoDiffChangeTarget = 145000;
-        consensus.alwaysUpdateDiffChangeTarget = 400000;
-        consensus.workComputationChangeTarget = 1430000; 
+
+
+        // DigiByte Hard Fork Block Heights
+        consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 DigiShield Hard Fork
+        consensus.alwaysUpdateDiffChangeTarget = 400000; // Block 400,000 MultiShield Hard Fork
+        consensus.workComputationChangeTarget = 1430000; // Block 1,430,000 DigiSpeed Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
+        consensus.nRuleChangeActivationThreshold = 1512; // 95% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.fRbfEnabled = false;
         //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -143,24 +148,24 @@ public:
 
         // Deployment of BIP65, BIP66, and BIP34.
         consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1603347472; // October 22nd, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nTimeout = 1634883472;    // October 22nd, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1490355345; // March 24th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nTimeout = 1521891345;    // March 24th, 2018
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1603347472; // October 22nd, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1634883472; // October 22nd, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1490355345; // March 24th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1521891345; // March 24th, 2018
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1603347472; // October 22nd, 2020.
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1634883472; // October 22nd, 2021.
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1490355345; // March 24th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1521891345; // March 24th, 2018
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000015410e9889bd772becc");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x76c6c929a0028902313cf8fcd231707562a8cd4e430efa00656508647374a8df"); // Block 4,096,666
+        consensus.defaultAssumeValid = uint256S("0x7276f304fe729c456525ea746cc1db3f36ef5371ef99682f59a8e30bebd27ca1"); // Block 4,142,500
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -181,8 +186,8 @@ public:
 
         // Note that of those with the service bits flag, most only support a subset of possible options
         vSeeds.push_back(CDNSSeedData("digibyte.co", "seed.digibyte.co"));
-        //vSeeds.push_back(CDNSSeedData("digiexplorer.info", "digiexplorer.info"));
-        //vSeeds.push_back(CDNSSeedData("digihash.co", "digihash.co"));
+        vSeeds.push_back(CDNSSeedData("digiexplorer.info", "seed.digiexplorer.info"));
+        vSeeds.push_back(CDNSSeedData("digihash.co", "seed.digihash.co"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
