@@ -1162,29 +1162,23 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
-CAmount GetDGBSubsidy(int nHeight) {
+CAmount GetDGBSubsidy(int nHeight, const Consensus::Params& consensusParams) {
 	// thanks to RealSolid & WDC for helping out with this code
 	CAmount qSubsidy;
-
-    int64_t nDiffChangeTarget = 67200;
-    int64_t alwaysUpdateDiffChangeTarget = 400000;
-    int64_t patchBlockRewardDuration = 10080;
-    int64_t patchBlockRewardDuration2 = 80160;
-    int64_t workComputationChangeTarget = 1430000;
     
-	if (nHeight < alwaysUpdateDiffChangeTarget)
+	if (nHeight < consensusParams.alwaysUpdateDiffChangeTarget)
 	{
 		qSubsidy = 8000*COIN;
-		int blocks = nHeight - nDiffChangeTarget;
-		int weeks = (blocks / patchBlockRewardDuration)+1;
+		int blocks = nHeight - consensusParams.nDiffChangeTarget;
+		int weeks = (blocks / consensusParams.patchBlockRewardDuration)+1;
 		//decrease reward by 0.5% every 10080 blocks
 		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);
 	}
-	else if(nHeight<workComputationChangeTarget)
+	else if(nHeight<consensusParams.workComputationChangeTarget)
 	{
 		qSubsidy = 2459*COIN;
-		int blocks = nHeight - alwaysUpdateDiffChangeTarget;
-		int weeks = (blocks / patchBlockRewardDuration2)+1;
+		int blocks = nHeight - consensusParams.alwaysUpdateDiffChangeTarget;
+		int weeks = (blocks / consensusParams.patchBlockRewardDuration2)+1;
 		//decrease reward by 1% every month
 		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
 	}
@@ -1197,7 +1191,7 @@ CAmount GetDGBSubsidy(int nHeight) {
 		//expected years after hard fork: 19.1395
 
 		qSubsidy = 2157*COIN/2;
-		int64_t blocks = nHeight - workComputationChangeTarget;
+		int64_t blocks = nHeight - consensusParams.workComputationChangeTarget;
 		int64_t months = blocks*15/(3600*24*365/12);
 		for(int64_t i = 0; i < months; i++)
 		{
@@ -1214,14 +1208,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
 	CAmount nSubsidy = COIN;
 
-    // Find some place to put these
-    int64_t nDiffChangeTarget = 67200;
-    int64_t alwaysUpdateDiffChangeTarget = 400000;
-    int64_t patchBlockRewardDuration = 10080;
-    int64_t patchBlockRewardDuration2 = 80160;
-    int64_t workComputationChangeTarget = 1430000;
-
-	if(nHeight < nDiffChangeTarget) {
+	if(nHeight < consensusParams.nDiffChangeTarget) {
 		//this is pre-patch, reward is 8000.
 		nSubsidy = 8000 * COIN;
 
@@ -1236,7 +1223,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 
 	} else {
 		//patch takes effect after 67,200 blocks solved
-		nSubsidy = GetDGBSubsidy(nHeight);
+		nSubsidy = GetDGBSubsidy(nHeight, consensusParams);
 	}
 
 	//make sure the reward is at least 1 DGB
@@ -1449,6 +1436,7 @@ bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoins
 
         CAmount nValueIn = 0;
         CAmount nFees = 0;
+
         for (unsigned int i = 0; i < tx.vin.size(); i++)
         {
             const COutPoint &prevout = tx.vin[i].prevout;

@@ -102,6 +102,8 @@ public:
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
         consensus.nDiffChangeTarget = 100;
+        consensus.patchBlockRewardDuration = 2;//10080;
+        consensus.patchBlockRewardDuration2 = 4;//80160;
         consensus.nTargetTimespanRe = 1*60; // 60 Seconds
         consensus.nTargetSpacingRe = 1*60; // 60 seconds
         consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
