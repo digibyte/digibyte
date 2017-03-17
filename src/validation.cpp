@@ -1785,7 +1785,12 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
 
     return nVersion;
 }
-
+bool isMultiAlgoVersion(int nVersion){
+     if(nVersion == 514 || nVersion == 1026 || nVersion == 1538 || nVersion == 2050) {
+         return true;
+     }
+     return false;
+ }
 /**
  * Threshold condition checker that triggers when unknown versionbits are seen on the network.
  */
@@ -2222,7 +2227,7 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
         {
             int nAlgo = pindex->GetAlgo();
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0 && !isMultiAlgoVersion(pindex->nVersion))
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
