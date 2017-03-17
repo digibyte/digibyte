@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_MERKLEBLOCK_H
-#define BITCOIN_MERKLEBLOCK_H
+#ifndef DIGIBYTE_MERKLEBLOCK_H
+#define DIGIBYTE_MERKLEBLOCK_H
 
 #include "serialize.h"
 #include "uint256.h"
@@ -154,4 +154,4 @@ public:
     }
 };
 
-#endif // BITCOIN_MERKLEBLOCK_H
+#endif // DIGIBYTE_MERKLEBLOCK_H

@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_RANDOM_H
-#define BITCOIN_RANDOM_H
+#ifndef DIGIBYTE_RANDOM_H
+#define DIGIBYTE_RANDOM_H
 
 #include "uint256.h"
 
@@ -46,4 +46,4 @@ public:
     uint32_t Rw;
 };
 
-#endif // BITCOIN_RANDOM_H
+#endif // DIGIBYTE_RANDOM_H

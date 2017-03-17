@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_HTTPSERVER_H
-#define BITCOIN_HTTPSERVER_H
+#ifndef DIGIBYTE_HTTPSERVER_H
+#define DIGIBYTE_HTTPSERVER_H
 
 #include <string>
 #include <stdint.h>
@@ -144,4 +144,4 @@ private:
     struct event* ev;
 };
 
-#endif // BITCOIN_HTTPSERVER_H
+#endif // DIGIBYTE_HTTPSERVER_H

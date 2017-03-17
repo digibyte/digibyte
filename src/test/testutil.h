@@ -5,11 +5,11 @@
 /**
  * Utility functions shared by unit tests
  */
-#ifndef BITCOIN_TEST_TESTUTIL_H
-#define BITCOIN_TEST_TESTUTIL_H
+#ifndef DIGIBYTE_TEST_TESTUTIL_H
+#define DIGIBYTE_TEST_TESTUTIL_H
 
 #include <boost/filesystem/path.hpp>
 
 boost::filesystem::path GetTempPath();
 
-#endif // BITCOIN_TEST_TESTUTIL_H
+#endif // DIGIBYTE_TEST_TESTUTIL_H

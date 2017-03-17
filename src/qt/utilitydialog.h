@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_UTILITYDIALOG_H
-#define BITCOIN_QT_UTILITYDIALOG_H
+#ifndef DIGIBYTE_QT_UTILITYDIALOG_H
+#define DIGIBYTE_QT_UTILITYDIALOG_H
 
 #include <QDialog>
 #include <QObject>
@@ -49,4 +49,4 @@ protected:
     void closeEvent(QCloseEvent *event);
 };
 
-#endif // BITCOIN_QT_UTILITYDIALOG_H
+#endif // DIGIBYTE_QT_UTILITYDIALOG_H

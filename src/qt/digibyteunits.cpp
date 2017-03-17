@@ -17,9 +17,9 @@ BitcoinUnits::BitcoinUnits(QObject *parent):
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(BTC);
-    unitlist.append(mBTC);
-    unitlist.append(uBTC);
+    unitlist.append(DGB);
+    unitlist.append(mDGB);
+    unitlist.append(uDGB);
     return unitlist;
 }
 
@@ -27,9 +27,9 @@ bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case BTC:
-    case mBTC:
-    case uBTC:
+    case DGB:
+    case mDGB:
+    case uDGB:
         return true;
     default:
         return false;
@@ -40,9 +40,9 @@ QString BitcoinUnits::name(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("DGB");
-    case mBTC: return QString("mDGB");
-    case uBTC: return QString::fromUtf8("μDGB");
+    case DGB: return QString("DGB");
+    case mDGB: return QString("mDGB");
+    case uDGB: return QString::fromUtf8("μDGB");
     default: return QString("???");
     }
 }
@@ -51,9 +51,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("DigiBytess");
-    case mBTC: return QString("Milli-DigiBytess (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Micro-DigiBytess (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case DGB: return QString("DigiBytess");
+    case mDGB: return QString("Milli-DigiBytess (1 / 1" THIN_SP_UTF8 "000)");
+    case uDGB: return QString("Micro-DigiBytess (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
@@ -62,9 +62,9 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case BTC:  return 100000000;
-    case mBTC: return 100000;
-    case uBTC: return 100;
+    case DGB:  return 100000000;
+    case mDGB: return 100000;
+    case uDGB: return 100;
     default:   return 100000000;
     }
 }
@@ -73,9 +73,9 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case BTC: return 8;
-    case mBTC: return 5;
-    case uBTC: return 2;
+    case DGB: return 8;
+    case mDGB: return 5;
+    case uDGB: return 2;
     default: return 0;
     }
 }
