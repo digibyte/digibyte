@@ -3,13 +3,13 @@ Description=Bitcoin's distributed currency daemon
 After=network.target
 
 [Service]
-User=bitcoin
-Group=bitcoin
+User=digibyte
+Group=digibyte
 
 Type=forking
-PIDFile=/var/lib/bitcoind/bitcoind.pid
-ExecStart=/usr/bin/bitcoind -daemon -pid=/var/lib/bitcoind/bitcoind.pid \
--conf=/etc/bitcoin/bitcoin.conf -datadir=/var/lib/bitcoind -disablewallet
+PIDFile=/var/lib/digibyted/digibyted.pid
+ExecStart=/usr/bin/digibyted -daemon -pid=/var/lib/digibyted/digibyted.pid \
+-conf=/etc/digibyte/digibyte.conf -datadir=/var/lib/digibyted -disablewallet
 
 Restart=always
 PrivateTmp=true

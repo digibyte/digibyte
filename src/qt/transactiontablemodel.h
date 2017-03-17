@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_QT_TRANSACTIONTABLEMODEL_H
 #define DIGIBYTE_QT_TRANSACTIONTABLEMODEL_H
 
-#include "bitcoinunits.h"
+#include "digibyteunits.h"
 
 #include <QAbstractTableModel>
 #include <QStringList>

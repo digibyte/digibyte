@@ -26,7 +26,7 @@ void InitLogging();
 //!Parameter interaction: change current parameters depending on various rules
 void InitParameterInteraction();
 
-/** Initialize bitcoin core: Basic context setup.
+/** Initialize digibyte core: Basic context setup.
  *  @note This can be done before daemonization.
  *  @pre Parameters should be parsed and config file should be read.
  */

@@ -1,4 +1,4 @@
-/* src/config/bitcoin-config.h.in.  Generated from configure.ac by autoheader.  */
+/* src/config/digibyte-config.h.in.  Generated from configure.ac by autoheader.  */
 
 #ifndef DIGIBYTE_CONFIG_H
 

@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/digibyte-config.h"
 #endif
 
 #include "init.h"
@@ -142,7 +142,7 @@ bool ShutdownRequested()
 /**
  * This is a minimally invasive approach to shutdown on LevelDB read errors from the
  * chainstate, while keeping user interface out of the common library, which is shared
- * between bitcoind, and bitcoin-qt and non-server tools.
+ * between digibyted, and digibyte-qt and non-server tools.
 */
 class CCoinsViewErrorCatcher : public CCoinsViewBacked
 {

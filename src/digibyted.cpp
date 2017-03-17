@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/digibyte-config.h"
 #endif
 
 #include "chainparams.h"
@@ -31,7 +31,7 @@
  *
  * \section intro_sec Introduction
  *
- * This is the developer documentation of the reference client for an experimental new digital currency called Bitcoin (https://www.bitcoin.org/),
+ * This is the developer documentation of the reference client for an experimental new digital currency called Bitcoin (https://www.digibyte.org/),
  * which enables instant payments to anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
  * with no central authority: managing transactions and issuing money are carried out collectively by the network.
  *
@@ -71,7 +71,7 @@ bool AppInit(int argc, char* argv[])
     //
     // Parameters
     //
-    // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
+    // If Qt is used, parameters/digibyte.conf are parsed in qt/digibyte.cpp's main()
     ParseParameters(argc, argv);
 
     // Process help and version before taking care about datadir
@@ -128,7 +128,7 @@ bool AppInit(int argc, char* argv[])
             fprintf(stderr, "Error: There is no RPC client functionality in digibyted anymore. Use the digibyte-cli utility instead.\n");
             exit(EXIT_FAILURE);
         }
-        // -server defaults to true for bitcoind but not for the GUI so do this here
+        // -server defaults to true for digibyted but not for the GUI so do this here
         SoftSetBoolArg("-server", true);
         // Set this early so that parameter interactions go to console
         InitLogging();
@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
 {
     SetupEnvironment();
 
-    // Connect bitcoind signal handlers
+    // Connect digibyted signal handlers
     noui_connect();
 
     return (AppInit(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE);

@@ -5,7 +5,7 @@
 #include "overviewpage.h"
 #include "ui_overviewpage.h"
 
-#include "bitcoinunits.h"
+#include "digibyteunits.h"
 #include "clientmodel.h"
 #include "guiconstants.h"
 #include "guiutil.h"

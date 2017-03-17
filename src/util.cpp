@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/digibyte-config.h"
 #endif
 
 #include "util.h"
@@ -482,7 +482,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Windows < Vista: C:\Documents and Settings\Username\Application Data\Bitcoin
     // Windows >= Vista: C:\Users\Username\AppData\Roaming\Bitcoin
     // Mac: ~/Library/Application Support/Bitcoin
-    // Unix: ~/.bitcoin
+    // Unix: ~/.digibyte
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "DigiByte";
@@ -558,7 +558,7 @@ void ReadConfigFile(const std::string& confPath)
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile(confPath));
     if (!streamConfig.good())
-        return; // No bitcoin.conf file is OK
+        return; // No digibyte.conf file is OK
 
     {
         LOCK(cs_args);
@@ -567,7 +567,7 @@ void ReadConfigFile(const std::string& confPath)
 
         for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
         {
-            // Don't overwrite existing settings so command line settings override bitcoin.conf
+            // Don't overwrite existing settings so command line settings override digibyte.conf
             string strKey = string("-") + it->string_key;
             string strValue = it->value[0];
             InterpretNegativeSetting(strKey, strValue);

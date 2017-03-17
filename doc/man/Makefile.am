@@ -1,1 +1,1 @@
-dist_man1_MANS=bitcoind.1 bitcoin-qt.1 bitcoin-cli.1 bitcoin-tx.1
+dist_man1_MANS=digibyted.1 digibyte-qt.1 digibyte-cli.1 digibyte-tx.1

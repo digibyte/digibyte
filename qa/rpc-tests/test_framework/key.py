@@ -2,7 +2,7 @@
 #
 # key.py - OpenSSL wrapper
 #
-# This file is modified from python-bitcoinlib.
+# This file is modified from python-digibytelib.
 #
 
 """ECC secp256k1 crypto routines

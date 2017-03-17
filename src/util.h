@@ -11,7 +11,7 @@
 #define DIGIBYTE_UTIL_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/digibyte-config.h"
 #endif
 
 #include "compat.h"

@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_WALLET_TEST_FIXTURE_H
 #define DIGIBYTE_WALLET_TEST_FIXTURE_H
 
-#include "test/test_bitcoin.h"
+#include "test/test_digibyte.h"
 
 /** Testing setup and teardown for wallet.
  */

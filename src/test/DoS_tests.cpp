@@ -14,7 +14,7 @@
 #include "util.h"
 #include "validation.h"
 
-#include "test/test_bitcoin.h"
+#include "test/test_digibyte.h"
 
 #include <stdint.h>
 

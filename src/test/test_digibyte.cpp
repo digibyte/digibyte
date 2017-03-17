@@ -4,7 +4,7 @@
 
 #define BOOST_TEST_MODULE Bitcoin Test Suite
 
-#include "test_bitcoin.h"
+#include "test_digibyte.h"
 
 #include "chainparams.h"
 #include "consensus/consensus.h"
@@ -62,7 +62,7 @@ TestingSetup::TestingSetup(const std::string& chainName) : BasicTestingSetup(cha
 
         RegisterAllCoreRPCCommands(tableRPC);
         ClearDatadirCache();
-        pathTemp = GetTempPath() / strprintf("test_bitcoin_%lu_%i", (unsigned long)GetTime(), (int)(GetRand(100000)));
+        pathTemp = GetTempPath() / strprintf("test_digibyte_%lu_%i", (unsigned long)GetTime(), (int)(GetRand(100000)));
         boost::filesystem::create_directories(pathTemp);
         ForceSetArg("-datadir", pathTemp.string());
         mempool.setSanityCheck(1.0);

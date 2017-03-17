@@ -2,26 +2,26 @@
 
 # backward compatibility for existing gentoo layout 
 #
-if [ -d "/var/lib/bitcoin/.bitcoin" ]; then
-	DIGIBYTED_DEFAULT_DATADIR="/var/lib/bitcoin/.bitcoin"
+if [ -d "/var/lib/digibyte/.digibyte" ]; then
+	DIGIBYTED_DEFAULT_DATADIR="/var/lib/digibyte/.digibyte"
 else
-	DIGIBYTED_DEFAULT_DATADIR="/var/lib/bitcoind"
+	DIGIBYTED_DEFAULT_DATADIR="/var/lib/digibyted"
 fi
 
-DIGIBYTED_CONFIGFILE=${DIGIBYTED_CONFIGFILE:-/etc/bitcoin/bitcoin.conf}
-DIGIBYTED_PIDDIR=${DIGIBYTED_PIDDIR:-/var/run/bitcoind}
-DIGIBYTED_PIDFILE=${DIGIBYTED_PIDFILE:-${DIGIBYTED_PIDDIR}/bitcoind.pid}
+DIGIBYTED_CONFIGFILE=${DIGIBYTED_CONFIGFILE:-/etc/digibyte/digibyte.conf}
+DIGIBYTED_PIDDIR=${DIGIBYTED_PIDDIR:-/var/run/digibyted}
+DIGIBYTED_PIDFILE=${DIGIBYTED_PIDFILE:-${DIGIBYTED_PIDDIR}/digibyted.pid}
 DIGIBYTED_DATADIR=${DIGIBYTED_DATADIR:-${DIGIBYTED_DEFAULT_DATADIR}}
-DIGIBYTED_USER=${DIGIBYTED_USER:-${DIGIBYTE_USER:-bitcoin}}
-DIGIBYTED_GROUP=${DIGIBYTED_GROUP:-bitcoin}
-DIGIBYTED_BIN=${DIGIBYTED_BIN:-/usr/bin/bitcoind}
+DIGIBYTED_USER=${DIGIBYTED_USER:-${DIGIBYTE_USER:-digibyte}}
+DIGIBYTED_GROUP=${DIGIBYTED_GROUP:-digibyte}
+DIGIBYTED_BIN=${DIGIBYTED_BIN:-/usr/bin/digibyted}
 DIGIBYTED_NICE=${DIGIBYTED_NICE:-${NICELEVEL:-0}}
 DIGIBYTED_OPTS="${DIGIBYTED_OPTS:-${DIGIBYTE_OPTS}}"
 
 name="Bitcoin Core Daemon"
 description="Bitcoin cryptocurrency P2P network daemon"
 
-command="/usr/bin/bitcoind"
+command="/usr/bin/digibyted"
 command_args="-pid=\"${DIGIBYTED_PIDFILE}\" \
 		-conf=\"${DIGIBYTED_CONFIGFILE}\" \
 		-datadir=\"${DIGIBYTED_DATADIR}\" \
@@ -71,7 +71,7 @@ checkconfig()
 {
 	if ! grep -qs '^rpcpassword=' "${DIGIBYTED_CONFIGFILE}" ; then
 		eerror ""
-		eerror "ERROR: You must set a secure rpcpassword to run bitcoind."
+		eerror "ERROR: You must set a secure rpcpassword to run digibyted."
 		eerror "The setting must appear in ${DIGIBYTED_CONFIGFILE}"
 		eerror ""
 		eerror "This password is security critical to securing wallets "

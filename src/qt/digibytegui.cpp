@@ -3,12 +3,12 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/digibyte-config.h"
 #endif
 
-#include "bitcoingui.h"
+#include "digibytegui.h"
 
-#include "bitcoinunits.h"
+#include "digibyteunits.h"
 #include "clientmodel.h"
 #include "guiconstants.h"
 #include "guiutil.h"

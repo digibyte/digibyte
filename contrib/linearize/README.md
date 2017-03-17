@@ -20,7 +20,7 @@ standalone hash lists but safe to use with linearize-data.py, which will output
 the same data no matter which byte format is chosen.
 
 The `linearize-hashes` script requires a connection, local or remote, to a
-JSON-RPC server. Running `bitcoind` or `bitcoin-qt -server` will be sufficient.
+JSON-RPC server. Running `digibyted` or `digibyte-qt -server` will be sufficient.
 
 ## Step 2: Copy local block data
 
@@ -35,7 +35,7 @@ Optional config file setting for linearize-data:
 * `file_timestamp`: Set each file's last-modified time to that of the most
 recent block in that file.
 * `genesis`: The hash of the genesis block in the blockchain.
-* `input`: bitcoind blocks/ directory containing blkNNNNN.dat
+* `input`: digibyted blocks/ directory containing blkNNNNN.dat
 * `hashlist`: text file containing list of block hashes created by
 linearize-hashes.py.
 * `max_out_sz`: Maximum size for files created by the `output_file` option.

@@ -3,18 +3,18 @@ release-notes at release time)
 
 Bitcoin Core version *version* is now available from:
 
-  <https://bitcoin.org/bin/bitcoin-core-*version*/>
+  <https://digibyte.org/bin/digibyte-core-*version*/>
 
 This is a new major version release, including new features, various bugfixes
 and performance improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/bitcoin/bitcoin/issues>
+  <https://github.com/digibyte/digibyte/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://bitcoincore.org/en/list/announcements/join/>
+  <https://digibytecore.org/en/list/announcements/join/>
 
 Compatibility
 ==============
@@ -150,4 +150,4 @@ Credits
 Thanks to everyone who directly contributed to this release:
 
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/digibyte/).

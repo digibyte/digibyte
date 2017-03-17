@@ -18,7 +18,7 @@ ImportNode = collections.namedtuple("ImportNode", "rescan")
 
 
 def call_import_rpc(call, data, address, scriptPubKey, pubkey, key, label, node, rescan):
-    """Helper that calls a wallet import RPC on a bitcoin node."""
+    """Helper that calls a wallet import RPC on a digibyte node."""
     watchonly = data != Data.priv
     if call == Call.single:
         if data == Data.address:
@@ -45,7 +45,7 @@ def call_import_rpc(call, data, address, scriptPubKey, pubkey, key, label, node,
 # List of RPCs that import a wallet key or address in various ways.
 IMPORT_RPCS = [functools.partial(call_import_rpc, call, data) for call, data in itertools.product(Call, Data)]
 
-# List of bitcoind nodes that will import keys.
+# List of digibyted nodes that will import keys.
 IMPORT_NODES = [
     ImportNode(rescan=True),
     ImportNode(rescan=False),

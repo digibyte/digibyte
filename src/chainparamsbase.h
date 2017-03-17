@@ -9,7 +9,7 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between bitcoin-cli and bitcoind)
+ * CBaseChainParams defines the base parameters (shared between digibyte-cli and digibyted)
  * of a given instance of the Bitcoin system.
  */
 class CBaseChainParams

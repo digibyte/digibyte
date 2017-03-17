@@ -4,10 +4,10 @@ TOPDIR=${TOPDIR:-$(git rev-parse --show-toplevel)}
 SRCDIR=${SRCDIR:-$TOPDIR/src}
 MANDIR=${MANDIR:-$TOPDIR/doc/man}
 
-DIGIBYTED=${DIGIBYTED:-$SRCDIR/bitcoind}
-DIGIBYTECLI=${DIGIBYTECLI:-$SRCDIR/bitcoin-cli}
-DIGIBYTETX=${DIGIBYTETX:-$SRCDIR/bitcoin-tx}
-DIGIBYTEQT=${DIGIBYTEQT:-$SRCDIR/qt/bitcoin-qt}
+DIGIBYTED=${DIGIBYTED:-$SRCDIR/digibyted}
+DIGIBYTECLI=${DIGIBYTECLI:-$SRCDIR/digibyte-cli}
+DIGIBYTETX=${DIGIBYTETX:-$SRCDIR/digibyte-tx}
+DIGIBYTEQT=${DIGIBYTEQT:-$SRCDIR/qt/digibyte-qt}
 
 [ ! -x $DIGIBYTED ] && echo "$DIGIBYTED not found or not executable." && exit 1
 
@@ -15,8 +15,8 @@ DIGIBYTEQT=${DIGIBYTEQT:-$SRCDIR/qt/bitcoin-qt}
 DGBVER=($($DIGIBYTECLI --version | head -n1 | awk -F'[ -]' '{ print $6, $7 }'))
 
 # Create a footer file with copyright content.
-# This gets autodetected fine for bitcoind if --version-string is not set,
-# but has different outcomes for bitcoin-qt and bitcoin-cli.
+# This gets autodetected fine for digibyted if --version-string is not set,
+# but has different outcomes for digibyte-qt and digibyte-cli.
 echo "[COPYRIGHT]" > footer.h2m
 $DIGIBYTED --version | sed -n '1!p' >> footer.h2m
 

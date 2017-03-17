@@ -11,7 +11,7 @@ RAW_TEST_FILES = \
 GENERATED_TEST_FILES = $(RAW_TEST_FILES:.raw=.raw.h)
 
 bench_bench_digibyte_SOURCES = \
-  bench/bench_bitcoin.cpp \
+  bench/bench_digibyte.cpp \
   bench/bench.cpp \
   bench/bench.h \
   bench/checkblock.cpp \
@@ -60,13 +60,13 @@ CLEANFILES += $(CLEAN_DIGIBYTE_BENCH)
 
 bench/checkblock.cpp: bench/data/block413567.raw.h
 
-bitcoin_bench: $(BENCH_BINARY)
+digibyte_bench: $(BENCH_BINARY)
 
 bench: $(BENCH_BINARY) FORCE
 	$(BENCH_BINARY)
 
-bitcoin_bench_clean : FORCE
-	rm -f $(CLEAN_DIGIBYTE_BENCH) $(bench_bench_bitcoin_OBJECTS) $(BENCH_BINARY)
+digibyte_bench_clean : FORCE
+	rm -f $(CLEAN_DIGIBYTE_BENCH) $(bench_bench_digibyte_OBJECTS) $(BENCH_BINARY)
 
 %.raw.h: %.raw
 	@$(MKDIR_P) $(@D)

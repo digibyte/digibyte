@@ -104,11 +104,11 @@ class BitcoinTestFramework(object):
 
         parser = optparse.OptionParser(usage="%prog [options]")
         parser.add_option("--nocleanup", dest="nocleanup", default=False, action="store_true",
-                          help="Leave bitcoinds and test.* datadir on exit or error")
+                          help="Leave digibyteds and test.* datadir on exit or error")
         parser.add_option("--noshutdown", dest="noshutdown", default=False, action="store_true",
-                          help="Don't stop bitcoinds after the test execution")
+                          help="Don't stop digibyteds after the test execution")
         parser.add_option("--srcdir", dest="srcdir", default=os.path.normpath(os.path.dirname(os.path.realpath(__file__))+"/../../../src"),
-                          help="Source directory containing bitcoind/bitcoin-cli (default: %default)")
+                          help="Source directory containing digibyted/digibyte-cli (default: %default)")
         parser.add_option("--cachedir", dest="cachedir", default=os.path.normpath(os.path.dirname(os.path.realpath(__file__))+"/../../cache"),
                           help="Directory for caching pregenerated datadirs")
         parser.add_option("--tmpdir", dest="tmpdir", default=tempfile.mkdtemp(prefix="test"),
@@ -163,7 +163,7 @@ class BitcoinTestFramework(object):
             print("Stopping nodes")
             stop_nodes(self.nodes)
         else:
-            print("Note: bitcoinds were not stopped and may still be running")
+            print("Note: digibyteds were not stopped and may still be running")
 
         if not self.options.nocleanup and not self.options.noshutdown and success:
             print("Cleaning up")
@@ -190,7 +190,7 @@ class BitcoinTestFramework(object):
             sys.exit(1)
 
 
-# Test framework for doing p2p comparison testing, which sets up some bitcoind
+# Test framework for doing p2p comparison testing, which sets up some digibyted
 # binaries:
 # 1 binary: test binary
 # 2 binaries: 1 test binary, 1 ref binary
@@ -205,11 +205,11 @@ class ComparisonTestFramework(BitcoinTestFramework):
 
     def add_options(self, parser):
         parser.add_option("--testbinary", dest="testbinary",
-                          default=os.getenv("DIGIBYTED", "bitcoind"),
-                          help="bitcoind binary to test")
+                          default=os.getenv("DIGIBYTED", "digibyted"),
+                          help="digibyted binary to test")
         parser.add_option("--refbinary", dest="refbinary",
-                          default=os.getenv("DIGIBYTED", "bitcoind"),
-                          help="bitcoind binary to use for reference nodes (if any)")
+                          default=os.getenv("DIGIBYTED", "digibyted"),
+                          help="digibyted binary to use for reference nodes (if any)")
 
     def setup_network(self):
         self.nodes = start_nodes(
