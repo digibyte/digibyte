@@ -3,7 +3,7 @@ Shared Libraries
 
 ## digibyteconsensus
 
-The purpose of this library is to make the verification functionality that is critical to Bitcoin's consensus available to other applications, e.g. to language bindings.
+The purpose of this library is to make the verification functionality that is critical to DigiByte's consensus available to other applications, e.g. to language bindings.
 
 ### API
 
@@ -43,7 +43,7 @@ The interface is defined in the C header `digibyteconsensus.h` located in  `src/
 - `digibyteconsensus_ERR_AMOUNT_REQUIRED` - Input amount is required if WITNESS is used
 
 ### Example Implementations
-- [NBitcoin](https://github.com/NicolasDorier/NBitcoin/blob/master/NBitcoin/Script.cs#L814) (.NET Bindings)
+- [NDigiByte](https://github.com/NicolasDorier/NDigiByte/blob/master/NDigiByte/Script.cs#L814) (.NET Bindings)
 - [node-libdigibyteconsensus](https://github.com/bitpay/node-libdigibyteconsensus) (Node.js Bindings)
 - [java-libdigibyteconsensus](https://github.com/dexX7/java-libdigibyteconsensus) (Java Bindings)
 - [digibyteconsensus-php](https://github.com/Bit-Wasp/digibyteconsensus-php) (PHP Bindings)

@@ -36,7 +36,7 @@ Check out the source code in the following directory hierarchy.
     git clone https://github.com/devrandom/gitian-builder.git
     git clone https://github.com/digibyte/digibyte.git
 
-### Bitcoin maintainers/release engineers, update version in sources
+### DigiByte maintainers/release engineers, update version in sources
 
 Update the following:
 
@@ -122,7 +122,7 @@ NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from 
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-### Build and sign Bitcoin Core for Linux, Windows, and OS X:
+### Build and sign DigiByte Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
     ./bin/gbuild --memory 3000 --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
@@ -258,14 +258,14 @@ digibyte.org (see below for digibyte.org update instructions).
 
 - Update digibyte.org version
 
-  - First, check to see if the Bitcoin.org maintainers have prepared a
+  - First, check to see if the DigiByte.org maintainers have prepared a
     release: https://github.com/digibyte-dot-org/digibyte.org/labels/Releases
 
       - If they have, it will have previously failed their Travis CI
         checks because the final release files weren't uploaded.
         Trigger a Travis CI rebuild---if it passes, merge.
 
-  - If they have not prepared a release, follow the Bitcoin.org release
+  - If they have not prepared a release, follow the DigiByte.org release
     instructions: https://github.com/digibyte-dot-org/digibyte.org#release-notes
 
   - After the pull request is merged, the website will automatically show the newest version within 15 minutes, as well
@@ -275,13 +275,13 @@ digibyte.org (see below for digibyte.org update instructions).
 
   - digibyte-dev and digibyte-core-dev mailing list
 
-  - Bitcoin Core announcements list https://digibytecore.org/en/list/announcements/join/
+  - DigiByte Core announcements list https://digibytecore.org/en/list/announcements/join/
 
   - digibytecore.org blog post
 
   - Update title of #digibyte on Freenode IRC
 
-  - Optionally twitter, reddit /r/Bitcoin, ... but this will usually sort out itself
+  - Optionally twitter, reddit /r/DigiByte, ... but this will usually sort out itself
 
   - Notify BlueMatt so that he can start building [the PPAs](https://launchpad.net/~digibyte/+archive/ubuntu/digibyte)
 

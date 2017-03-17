@@ -68,9 +68,9 @@ can then be controlled by group membership.
 3b) Mac OS X
 
 Binary:              `/usr/local/bin/digibyted`  
-Configuration file:  `~/Library/Application Support/Bitcoin/digibyte.conf`  
-Data directory:      `~/Library/Application Support/Bitcoin`
-Lock file:           `~/Library/Application Support/Bitcoin/.lock`
+Configuration file:  `~/Library/Application Support/DigiByte/digibyte.conf`  
+Data directory:      `~/Library/Application Support/DigiByte`
+Lock file:           `~/Library/Application Support/DigiByte/.lock`
 
 4. Installing Service Configuration
 -----------------------------------

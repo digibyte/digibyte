@@ -24,7 +24,7 @@ In case you want to build the disk image with `make deploy` (.dmg / optional), y
 
 NOTE: Building with Qt4 is still supported, however, could result in a broken UI. Building with Qt5 is recommended.
 
-Build Bitcoin Core
+Build DigiByte Core
 ------------------------
 
 1. Clone the digibyte source code and cd into `digibyte`
@@ -53,19 +53,19 @@ Build Bitcoin Core
 Running
 -------
 
-Bitcoin Core is now available at `./src/digibyted`
+DigiByte Core is now available at `./src/digibyted`
 
 Before running, it's recommended you create an RPC configuration file.
 
-    echo -e "rpcuser=digibyterpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Bitcoin/digibyte.conf"
+    echo -e "rpcuser=digibyterpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/DigiByte/digibyte.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/Bitcoin/digibyte.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/DigiByte/digibyte.conf"
 
 The first time you run digibyted, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/Bitcoin/debug.log
+    tail -f $HOME/Library/Application\ Support/DigiByte/debug.log
 
 Other commands:
 -------
