@@ -23,7 +23,7 @@ MultiAlgo Hardfork: Block 145k, Sep. 1st 2014
 
 MultiShield Hardfork: Block 400k, Dec. 10th 2014
 
-DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 201
+DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 2015
 
 DigiByte vs Bitcoin
 -------------------
