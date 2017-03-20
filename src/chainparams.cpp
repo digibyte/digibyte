@@ -139,8 +139,8 @@ public:
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1512; // 95% of 2016
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
+        consensus.nRuleChangeActivationThreshold = 360; // 72,576 90% of 80,640
+        consensus.nMinerConfirmationWindow = 400; // nPowTargetTimespan / nPowTargetSpacing 80,640 main net
         consensus.fRbfEnabled = false;
         //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
