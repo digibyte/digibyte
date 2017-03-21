@@ -81,14 +81,14 @@ public:
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
 
-        /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
-        https://github.com/digibyte/digibyte-old/pull/36 
+        /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here:
+        https://github.com/digibyte/digibyte-old/pull/36
         https://github.com/digibyte/digibyte-old/pull/15
 
-        Difficulty is updated for every algorithm on every block, not just the algorithm that was solved. 
-        In particular, the difficulty of one algorithm may decrease when a different algorithm is solved. 
+        Difficulty is updated for every algorithm on every block, not just the algorithm that was solved.
+        In particular, the difficulty of one algorithm may decrease when a different algorithm is solved.
 
-        An attacker with 90% of the SHA256D hashrate and 33% of each of the other 4 algorithms would 
+        An attacker with 90% of the SHA256D hashrate and 33% of each of the other 4 algorithms would
         have insufficient hashpower to mount a 51% attack.
 
         - MultiAlgo POW (Scrypt, SHA256D, Qubit, Skein and Groestl) algorithms
@@ -253,8 +253,8 @@ public:
         consensus.nPowTargetSpacing = 10 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
+        consensus.nRuleChangeActivationThreshold = 60480; // 75% for testchains
+        consensus.nMinerConfirmationWindow = 80640; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
@@ -433,4 +433,4 @@ void UpdateRegtestBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime,
 {
     regTestParams.UpdateBIP9Parameters(d, nStartTime, nTimeout);
 }
- 
+
