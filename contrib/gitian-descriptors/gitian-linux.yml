@@ -28,7 +28,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/digibytedigibyte.git"
+- "url": "https://github.com/digibyte/digibyte.git"
   "dir": "digibyte"
 files: []
 script: |
