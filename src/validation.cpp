@@ -1207,7 +1207,7 @@ CAmount GetDGBSubsidy(int nHeight, const Consensus::Params& consensusParams) {
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
 	CAmount nSubsidy = COIN;
-
+     LogPrintf("block height for reward is %d\n", nHeight);
 	if(nHeight < consensusParams.nDiffChangeTarget) {
 		//this is pre-patch, reward is 8000.
 		nSubsidy = 8000 * COIN;
