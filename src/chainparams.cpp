@@ -101,12 +101,12 @@ public:
         consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 30; // DigiShield Hard Fork Block BIP34Height 67,200
+        consensus.nDiffChangeTarget = 67200; // DigiShield Hard Fork Block BIP34Height 67,200
 
         // Old 1% monthly DGB Reward before 15 secon block change
-        consensus.patchBlockRewardDuration = 10080; //10080;
-        //4 blocks per min, x60 minutes x 24hours x 14 days = 80,160 blocks for 0.5% reduction in DGB reward supply
-        consensus.patchBlockRewardDuration2 = 20; //80160;
+        consensus.patchBlockRewardDuration = 10080; //10080; - No longer used
+        //4 blocks per min, x60 minutes x 24hours x 14 days = 80,160 blocks for 0.5% reduction in DGB reward supply - No longer used
+        consensus.patchBlockRewardDuration2 = 80160; //80160;
         consensus.nTargetTimespanRe = 1*60; // 60 Seconds
         consensus.nTargetSpacingRe = 1*60; // 60 seconds
         consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
@@ -136,14 +136,14 @@ public:
 
 
         // DigiByte Hard Fork Block Heights
-        consensus.multiAlgoDiffChangeTarget = 40; // Block 145,000 DigiShield Hard Fork
-        consensus.alwaysUpdateDiffChangeTarget = 50; // Block 400,000 MultiShield Hard Fork
-        consensus.workComputationChangeTarget = 60; // Block 1,430,000 DigiSpeed Hard Fork
+        consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 DigiShield Hard Fork
+        consensus.alwaysUpdateDiffChangeTarget = 400000; // Block 400,000 MultiShield Hard Fork
+        consensus.workComputationChangeTarget = 1430000; // Block 1,430,000 DigiSpeed Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 360; // 72,576 90% of 80,640
-        consensus.nMinerConfirmationWindow = 400; // nPowTargetTimespan / nPowTargetSpacing 80,640 main net
+        consensus.nRuleChangeActivationThreshold = 28224; // 72,576 90% of 28224 - 70%
+        consensus.nMinerConfirmationWindow = 40320; // nPowTargetTimespan / nPowTargetSpacing 40320 main net - 1 week
         consensus.fRbfEnabled = false;
         //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
@@ -168,7 +168,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"); // Block 4,142,500
+        consensus.defaultAssumeValid = uint256S("0x13b5d2755daf8350efd6d4ca859fa3a0eb1ed879843e7c16a487e4575c9d8e92"); // Block 4,177,777
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -179,7 +179,7 @@ public:
         pchMessageStart[1] = 0xc3;
         pchMessageStart[2] = 0xb6;
         pchMessageStart[3] = 0xda;
-        nDefaultPort = 12025;
+        nDefaultPort = 12024;
         nPruneAfterHeight = 100000;
 
         genesis = CreateGenesisBlock(1389388394, 2447652, 0x1e0ffff0, 1, 8000);
@@ -209,7 +209,7 @@ public:
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (     0, uint256S("0x7497ea1b465eb39f1c8f507bc877078fe016d6fcb6dfad3a64c98dcc6e1e8496"))
-            /**(  5000, uint256S("0x95753d284404118788a799ac754a3fdb5d817f5bd73a78697dfe40985c085596"))
+            (  5000, uint256S("0x95753d284404118788a799ac754a3fdb5d817f5bd73a78697dfe40985c085596"))
             ( 10000, uint256S("0x12f90b8744f3b965e107ad9fd8b33ba6d95a91882fbc4b5f8588d70d494bed88"))
             ( 12000, uint256S("0xa1266acba91dc3d5737d9e8c6e21b7a91901f7f4c48082ce3d84dd394a13e415"))
             ( 14300, uint256S("0x24f665d71b0c6c88f6f72a863e9f1ba8e835cc52d13ad895dc5426021c7d2c48"))
@@ -225,7 +225,8 @@ public:
             ( 400100, uint256S("0x82325a97cd97ac14b0a57408f881b1a9fc40174f8430a4580429499ac5d153c8"))
             ( 521000, uint256S("0xd23fd1e1f994c0586d761b71bb3530e9ab45bd0fabda3a5a2e394f3dc4d9bb04"))
             ( 1380000, uint256S("0x00000000000001969b1e5836dd8bf6a001d96f4a16d336e09405b62b29feead6"))
-            ( 1435000, uint256S("0xf78cc9c2791c8a23720e2efcdaf46584046ee5db8f050e21a3a15a13f5c68da0"))**/
+            ( 1435000, uint256S("0xf78cc9c2791c8a23720e2efcdaf46584046ee5db8f050e21a3a15a13f5c68da0"))
+            ( 4177777, uint256S("0x13b5d2755daf8350efd6d4ca859fa3a0eb1ed879843e7c16a487e4575c9d8e92"))
         };
 
         chainTxData = ChainTxData{
