@@ -101,9 +101,12 @@ public:
         consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 10; // DigiShield Hard Fork Block BIP34Height 67,200
+        consensus.nDiffChangeTarget = 30; // DigiShield Hard Fork Block BIP34Height 67,200
+
+        // Old 1% monthly DGB Reward before 15 secon block change
         consensus.patchBlockRewardDuration = 10080; //10080;
-        consensus.patchBlockRewardDuration2 = 80160; //80160;
+        //4 blocks per min, x60 minutes x 24hours x 14 days = 80,160 blocks for 0.5% reduction in DGB reward supply
+        consensus.patchBlockRewardDuration2 = 20; //80160;
         consensus.nTargetTimespanRe = 1*60; // 60 Seconds
         consensus.nTargetSpacingRe = 1*60; // 60 seconds
         consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
@@ -133,9 +136,9 @@ public:
 
 
         // DigiByte Hard Fork Block Heights
-        consensus.multiAlgoDiffChangeTarget = 20; // Block 145,000 DigiShield Hard Fork
-        consensus.alwaysUpdateDiffChangeTarget = 30; // Block 400,000 MultiShield Hard Fork
-        consensus.workComputationChangeTarget = 40; // Block 1,430,000 DigiSpeed Hard Fork
+        consensus.multiAlgoDiffChangeTarget = 40; // Block 145,000 DigiShield Hard Fork
+        consensus.alwaysUpdateDiffChangeTarget = 50; // Block 400,000 MultiShield Hard Fork
+        consensus.workComputationChangeTarget = 60; // Block 1,430,000 DigiSpeed Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;

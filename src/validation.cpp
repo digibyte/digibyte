@@ -1212,11 +1212,11 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 		//this is pre-patch, reward is 8000.
 		nSubsidy = 8000 * COIN;
 
-		if(nHeight < 1440)  //1440
+		if(nHeight < 10)  //1440
 		{
 			nSubsidy = 72000 * COIN;
 		}
-		else if(nHeight < 5760)  //5760
+		else if(nHeight < 20)  //5760
 		{
 			nSubsidy = 16000 * COIN;
 		}
