@@ -18,8 +18,8 @@ DIGIBYTED_BIN=${DIGIBYTED_BIN:-/usr/bin/digibyted}
 DIGIBYTED_NICE=${DIGIBYTED_NICE:-${NICELEVEL:-0}}
 DIGIBYTED_OPTS="${DIGIBYTED_OPTS:-${DIGIBYTE_OPTS}}"
 
-name="Bitcoin Core Daemon"
-description="Bitcoin cryptocurrency P2P network daemon"
+name="DigiByte Core Daemon"
+description="DigiByte cryptocurrency P2P network daemon"
 
 command="/usr/bin/digibyted"
 command_args="-pid=\"${DIGIBYTED_PIDFILE}\" \
@@ -84,7 +84,7 @@ checkconfig()
 		eerror "It is also recommended that you also set alertnotify so you are "
 		eerror "notified of problems:"
 		eerror ""
-		eerror "ie: alertnotify=echo %%s | mail -s \"Bitcoin Alert\"" \
+		eerror "ie: alertnotify=echo %%s | mail -s \"DigiByte Alert\"" \
 			"admin@foo.com"
 		eerror ""
 		return 1

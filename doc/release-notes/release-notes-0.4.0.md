@@ -1,5 +1,5 @@
-Bitcoin version 0.4.0 is now available for download at:
-http://sourceforge.net/projects/digibyte/files/Bitcoin/digibyte-0.4.0/
+DigiByte version 0.4.0 is now available for download at:
+http://sourceforge.net/projects/digibyte/files/DigiByte/digibyte-0.4.0/
 
 The main feature in this release is wallet private key encryption;
 you can set a passphrase that must be entered before sending coins.
@@ -27,14 +27,14 @@ Optimize database writes for large (lots of inputs) transactions
 
 Wallet Encryption
 
-Bitcoin supports native wallet encryption so that people who steal your
-wallet file don't automatically get access to all of your Bitcoins.
+DigiByte supports native wallet encryption so that people who steal your
+wallet file don't automatically get access to all of your DigiBytes.
 In order to enable this feature, choose "Encrypt Wallet" from the
 Options menu.  You will be prompted to enter a passphrase, which
 will be used as the key to encrypt your wallet and will be needed
-every time you wish to send Bitcoins.  If you lose this passphrase,
+every time you wish to send DigiBytes.  If you lose this passphrase,
 you will lose access to spend all of the digibytes in your wallet,
-no one, not even the Bitcoin developers can recover your Bitcoins.
+no one, not even the DigiByte developers can recover your DigiBytes.
 This means you are responsible for your own security, store your
 passphrase in a secure location and do not forget it.
 
@@ -46,24 +46,24 @@ relevant transactions, you are only protected from someone spending
 your coins.
 
 It is recommended that you backup your wallet file before you
-encrypt your wallet.  To do this, close the Bitcoin client and
+encrypt your wallet.  To do this, close the DigiByte client and
 copy the wallet.dat file from ~/.digibyte/ on Linux, /Users/(user
-name)/Application Support/Bitcoin/ on Mac OSX, and %APPDATA%/Bitcoin/
-on Windows (that is /Users/(user name)/AppData/Roaming/Bitcoin on
+name)/Application Support/DigiByte/ on Mac OSX, and %APPDATA%/DigiByte/
+on Windows (that is /Users/(user name)/AppData/Roaming/DigiByte on
 Windows Vista and 7 and /Documents and Settings/(user name)/Application
-Data/Bitcoin on Windows XP).  Once you have copied that file to a
-safe location, reopen the Bitcoin client and Encrypt your wallet.
+Data/DigiByte on Windows XP).  Once you have copied that file to a
+safe location, reopen the DigiByte client and Encrypt your wallet.
 If everything goes fine, delete the backup and enjoy your encrypted
 wallet.  Note that once you encrypt your wallet, you will never be
-able to go back to a version of the Bitcoin client older than 0.4.
+able to go back to a version of the DigiByte client older than 0.4.
 
 Keep in mind that you are always responsible for your own security.
 All it takes is a slightly more advanced wallet-stealing trojan which
 installs a keylogger to steal your wallet passphrase as you enter it
-in addition to your wallet file and you have lost all your Bitcoins.
+in addition to your wallet file and you have lost all your DigiBytes.
 Wallet encryption cannot keep you safe if you do not practice
 good security, such as running up-to-date antivirus software, only
-entering your wallet passphrase in the Bitcoin client and using the
+entering your wallet passphrase in the DigiByte client and using the
 same passphrase only as your wallet passphrase.
 
 See the doc/README file in the digibyte source for technical details

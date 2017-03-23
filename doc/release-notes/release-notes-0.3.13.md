@@ -12,7 +12,7 @@ Gavin Andresen:
 * Clean shutdown on SIGTERM on Linux.
 
 Download:
-http://sourceforge.net/projects/digibyte/files/Bitcoin/digibyte-0.3.13/
+http://sourceforge.net/projects/digibyte/files/DigiByte/digibyte-0.3.13/
 
 (Thanks Laszlo for the Mac OSX build!)
 

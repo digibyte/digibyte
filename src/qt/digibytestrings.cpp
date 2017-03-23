@@ -9,7 +9,7 @@
 #define UNUSED
 #endif
 static const char UNUSED *digibyte_strings[] = {
-QT_TRANSLATE_NOOP("digibyte-core", "Bitcoin Core"),
+QT_TRANSLATE_NOOP("digibyte-core", "DigiByte Core"),
 QT_TRANSLATE_NOOP("digibyte-core", "The %s developers"),
 QT_TRANSLATE_NOOP("digibyte-core", ""
 "(1 = keep tx meta data e.g. account owner and payment request information, 2 "

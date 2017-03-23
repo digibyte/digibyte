@@ -1,5 +1,5 @@
-Bitcoin version 0.7.1 is now available from:
-  http://sourceforge.net/projects/digibyte/files/Bitcoin/digibyte-0.7.1/
+DigiByte version 0.7.1 is now available from:
+  http://sourceforge.net/projects/digibyte/files/DigiByte/digibyte-0.7.1/
 
 This is a bug-fix minor release.
 
@@ -30,7 +30,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait
 until it has completely shut down (which might take a few minutes for older
 versions), then run the installer (on Windows) or just copy over
-/Applications/Bitcoin-Qt (on Mac) or digibyted/digibyte-qt (on Linux).
+/Applications/DigiByte-Qt (on Mac) or digibyted/digibyte-qt (on Linux).
 
 If you were running on Linux with a version that might have been compiled
 with a different version of Berkeley DB (for example, if you were using an
@@ -75,7 +75,7 @@ Dependency changes
 Bug fixes
 ---------
 
-* Clicking on a digibyte: URI on Windows should now launch Bitcoin-Qt properly.
+* Clicking on a digibyte: URI on Windows should now launch DigiByte-Qt properly.
 
 * When running -testnet, use RPC port 18332 by default.
 

@@ -31,10 +31,10 @@ Package: digibyted
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- Bitcoin is an experimental new digital currency that enables instant
- payments to anyone, anywhere in the world. Bitcoin uses peer-to-peer
+ DigiByte is an experimental new digital currency that enables instant
+ payments to anyone, anywhere in the world. DigiByte uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. Bitcoin Core
+ and issuing money are carried out collectively by the network. DigiByte Core
  is the name of the open source software which enables the use of this currency.
  .
  This package provides the daemon, digibyted, and the CLI tool
@@ -44,22 +44,22 @@ Package: digibyte-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- Bitcoin is an experimental new digital currency that enables instant
- payments to anyone, anywhere in the world. Bitcoin uses peer-to-peer
+ DigiByte is an experimental new digital currency that enables instant
+ payments to anyone, anywhere in the world. DigiByte uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. Bitcoin Core
+ and issuing money are carried out collectively by the network. DigiByte Core
  is the name of the open source software which enables the use of this currency.
  .
- This package provides Bitcoin-Qt, a GUI for Bitcoin based on Qt.
+ This package provides DigiByte-Qt, a GUI for DigiByte based on Qt.
 
 Package: digibyte-tx
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer digital currency - standalone transaction tool
- Bitcoin is an experimental new digital currency that enables instant
- payments to anyone, anywhere in the world. Bitcoin uses peer-to-peer
+ DigiByte is an experimental new digital currency that enables instant
+ payments to anyone, anywhere in the world. DigiByte uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. Bitcoin Core
+ and issuing money are carried out collectively by the network. DigiByte Core
  is the name of the open source software which enables the use of this currency.
  .
  This package provides digibyte-tx, a command-line transaction creation

@@ -37,7 +37,7 @@ Source30:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contri
 Source31:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contrib/rpm/digibyte.fc
 Source32:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contrib/rpm/digibyte.if
 
-Source100:	https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg
+Source100:	https://upload.wikimedia.org/wikipedia/commons/4/46/DigiByte.svg
 
 %if 0%{?_use_libressl:1}
 BuildRequires:	libressl-devel
@@ -54,7 +54,7 @@ Patch0:		digibyte-0.12.0-libressl.patch
 
 
 %description
-Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
+DigiByte is a digital cryptographic currency that uses peer-to-peer technology to
 operate with no central authority or banks; managing transactions and the
 issuing of digibytes is carried out collectively by the network.
 
@@ -79,17 +79,17 @@ BuildRequires:	%{_bindir}/inkscape
 BuildRequires:	%{_bindir}/convert
 
 %description core
-Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
+DigiByte is a digital cryptographic currency that uses peer-to-peer technology to
 operate with no central authority or banks; managing transactions and the
 issuing of digibytes is carried out collectively by the network.
 
 This package contains the Qt based graphical client and node. If you are looking
-to run a Bitcoin wallet, this is probably the package you want.
+to run a DigiByte wallet, this is probably the package you want.
 %endif
 
 
 %package libs
-Summary:	Bitcoin shared libraries
+Summary:	DigiByte shared libraries
 Group:		System Environment/Libraries
 
 %description libs
@@ -134,7 +134,7 @@ If you use the graphical digibyte-core client then you almost certainly do not
 need this package.
 
 %package utils
-Summary:	Bitcoin utilities
+Summary:	DigiByte utilities
 Group:		Applications/System
 
 %description utils
@@ -209,7 +209,7 @@ touch -a -m -t 201504280000 %{buildroot}%{_sysconfdir}/sysconfig/digibyte
 mkdir -p %{buildroot}%{_unitdir}
 cat <<EOF > %{buildroot}%{_unitdir}/digibyte.service
 [Unit]
-Description=Bitcoin daemon
+Description=DigiByte daemon
 After=syslog.target network.target
 
 [Service]
@@ -265,10 +265,10 @@ mkdir -p %{buildroot}%{_datadir}/applications
 cat <<EOF > %{buildroot}%{_datadir}/applications/digibyte-core.desktop
 [Desktop Entry]
 Encoding=UTF-8
-Name=Bitcoin
-Comment=Bitcoin P2P Cryptocurrency
-Comment[fr]=Bitcoin, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=Bitcoin, eşten eşe kriptografik sanal para birimi
+Name=DigiByte
+Comment=DigiByte P2P Cryptocurrency
+Comment[fr]=DigiByte, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=DigiByte, eşten eşe kriptografik sanal para birimi
 Exec=digibyte-qt %u
 Terminal=false
 Type=Application
@@ -324,7 +324,7 @@ qa/pull-tester/rpc-tests.py -extended
 getent group digibyte >/dev/null || groupadd -r digibyte
 getent passwd digibyte >/dev/null ||
 	useradd -r -g digibyte -d /var/lib/digibyte -s /sbin/nologin \
-	-c "Bitcoin wallet server" digibyte
+	-c "DigiByte wallet server" digibyte
 exit 0
 
 %post server

@@ -25,36 +25,36 @@ MultiShield Hardfork: Block 400k, Dec. 10th 2014
 
 DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 2015
 
-DigiByte vs Bitcoin
+DigiByte vs DigiByte
 -------------------
 
-Security: 5 DigiByte mining algorithms vs. 1 Bitcoin algorithm.
+Security: 5 DigiByte mining algorithms vs. 1 DigiByte algorithm.
 DigiByte mining is much more decentralized.
 DigiByte mining algorithms can be changed out in the future to prevent centralization.
 
-Speed:  DigiByte transactions occur much faster that Bitcoin transactions.
+Speed:  DigiByte transactions occur much faster that DigiByte transactions.
 1-3 second transaction notifications.
-15 second DigiByte blocks vs. 10 minute Bitcoin blocks.
-DigiBytes are confirmed after 1.5 minutes vs. 1 hour with Bitcoins.
+15 second DigiByte blocks vs. 10 minute DigiByte blocks.
+DigiBytes are confirmed after 1.5 minutes vs. 1 hour with DigiBytes.
 
 Transaction Volume: DigiByte can handle many more transactions per second.
-Bitcoin can only handle 7 transactions per second.
+DigiByte can only handle 7 transactions per second.
 DigiByte currently can handle 280+ transactions per second.
 The 2015 DigiSpeed hardfork introduced changes that double the capacity of the network every two years.
 
 Total Supply: More DigiBytes, lower price, more micro transactions, better price stability.
 21 billion DigiBytes will be created over 21 years.
-Only 21 million Bitcoin will be created over 140 years.
-1:1000 ratio. 1 Bitcoin for every 1000 DigiBytes.
+Only 21 million DigiByte will be created over 140 years.
+1:1000 ratio. 1 DigiByte for every 1000 DigiBytes.
 
 Flexibility: Ability to quickly add new features.
-DigiByte can add new features & upgrades much quicker than Bitcoin.
+DigiByte can add new features & upgrades much quicker than DigiByte.
 Future DigiByte upgrades will push transaction limit to several thousand per second.
 
 Marketability & Usability: DigiByte is an easy brand to market to consumers.
 DigiBytes are much cheaper to acquire.
 $1 - $10 long-term price target per DigiByte.
-Send 5 DigiBytes instead of 0.005 Bitcoin.
+Send 5 DigiBytes instead of 0.005 DigiByte.
 
 License
 -------

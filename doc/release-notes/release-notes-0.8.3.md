@@ -1,5 +1,5 @@
-Bitcoin-Qt version 0.8.3 is now available from:
-  http://sourceforge.net/projects/digibyte/files/Bitcoin/digibyte-0.8.3/
+DigiByte-Qt version 0.8.3 is now available from:
+  http://sourceforge.net/projects/digibyte/files/DigiByte/digibyte-0.8.3/
 
 This is a maintenance release to fix a denial-of-service attack that
 can cause nodes to crash.
