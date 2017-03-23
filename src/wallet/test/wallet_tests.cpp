@@ -9,10 +9,16 @@
 #include <utility>
 #include <vector>
 
+#include "rpc/server.h"
+#include "test/test_digibyte.h"
+#include "validation.h"
 #include "wallet/test/wallet_test_fixture.h"
 
 #include <boost/foreach.hpp>
 #include <boost/test/unit_test.hpp>
+#include <univalue.h>
+
+extern UniValue importmulti(const JSONRPCRequest& request);
 
 // how many times to run all the tests to have a chance to catch errors that only show up with particular random shuffles
 #define RUN_TESTS 100
@@ -353,6 +359,73 @@ BOOST_AUTO_TEST_CASE(ApproximateBestSubset)
     BOOST_CHECK_EQUAL(setCoinsRet.size(), 2U);
 
     empty_wallet();
+}
+
+BOOST_FIXTURE_TEST_CASE(rescan, TestChain100Setup)
+{
+    LOCK(cs_main);
+
+    // Cap last block file size, and mine new block in a new block file.
+    CBlockIndex* oldTip = chainActive.Tip();
+    GetBlockFileInfo(oldTip->GetBlockPos().nFile)->nSize = MAX_BLOCKFILE_SIZE;
+    CreateAndProcessBlock({}, GetScriptForRawPubKey(coinbaseKey.GetPubKey()));
+    CBlockIndex* newTip = chainActive.Tip();
+
+    // Verify ScanForWalletTransactions picks up transactions in both the old
+    // and new block files.
+    {
+        CWallet wallet;
+        LOCK(wallet.cs_wallet);
+        wallet.AddKeyPubKey(coinbaseKey, coinbaseKey.GetPubKey());
+        BOOST_CHECK_EQUAL(oldTip, wallet.ScanForWalletTransactions(oldTip));
+        BOOST_CHECK_EQUAL(wallet.GetImmatureBalance(), 100 * COIN);
+    }
+
+    // Prune the older block file.
+    PruneOneBlockFile(oldTip->GetBlockPos().nFile);
+    UnlinkPrunedFiles({oldTip->GetBlockPos().nFile});
+
+    // Verify ScanForWalletTransactions only picks transactions in the new block
+    // file.
+    {
+        CWallet wallet;
+        LOCK(wallet.cs_wallet);
+        wallet.AddKeyPubKey(coinbaseKey, coinbaseKey.GetPubKey());
+        BOOST_CHECK_EQUAL(newTip, wallet.ScanForWalletTransactions(oldTip));
+        BOOST_CHECK_EQUAL(wallet.GetImmatureBalance(), 50 * COIN);
+    }
+
+    // Verify importmulti RPC returns failure for a key whose creation time is
+    // before the missing block, and success for a key whose creation time is
+    // after.
+    {
+        CWallet wallet;
+        CWallet *backup = ::pwalletMain;
+        ::pwalletMain = &wallet;
+        UniValue keys;
+        keys.setArray();
+        UniValue key;
+        key.setObject();
+        key.pushKV("scriptPubKey", HexStr(GetScriptForRawPubKey(coinbaseKey.GetPubKey())));
+        key.pushKV("timestamp", 0);
+        key.pushKV("internal", UniValue(true));
+        keys.push_back(key);
+        key.clear();
+        key.setObject();
+        CKey futureKey;
+        futureKey.MakeNewKey(true);
+        key.pushKV("scriptPubKey", HexStr(GetScriptForRawPubKey(futureKey.GetPubKey())));
+        key.pushKV("timestamp", newTip->GetBlockTimeMax() + 7200);
+        key.pushKV("internal", UniValue(true));
+        keys.push_back(key);
+        JSONRPCRequest request;
+        request.params.setArray();
+        request.params.push_back(keys);
+
+        UniValue response = importmulti(request);
+        BOOST_CHECK_EQUAL(response.write(), strprintf("[{\"success\":false,\"error\":{\"code\":-1,\"message\":\"Failed to rescan before time %d, transactions may be missing.\"}},{\"success\":true}]", newTip->GetBlockTimeMax()));
+        ::pwalletMain = backup;
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

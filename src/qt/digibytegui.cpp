@@ -518,7 +518,10 @@ void DigiByteGUI::setClientModel(ClientModel *_clientModel)
         // Propagate cleared model to child objects
         rpcConsole->setClientModel(nullptr);
 #ifdef ENABLE_WALLET
-        walletFrame->setClientModel(nullptr);
+        if (walletFrame)
+        {
+            walletFrame->setClientModel(nullptr);
+        }
 #endif // ENABLE_WALLET
         unitDisplayControl->setOptionsModel(nullptr);
     }
@@ -778,7 +781,7 @@ void DigiByteGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVe
     if (!clientModel)
         return;
 
-    // Prevent orphan statusbar messages (e.g. hover Quit in main menu, wait until chain-sync starts -> garbelled text)
+    // Prevent orphan statusbar messages (e.g. hover Quit in main menu, wait until chain-sync starts -> garbled text)
     statusBar()->clearMessage();
 
     // Acquire current block source

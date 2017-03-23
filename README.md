@@ -1,4 +1,3 @@
-
 What is DigiByte?
 ----------------
 
@@ -56,6 +55,7 @@ DigiBytes are much cheaper to acquire.
 $1 - $10 long-term price target per DigiByte.
 Send 5 DigiBytes instead of 0.005 DigiByte.
 
+
 License
 -------
 
@@ -99,5 +99,4 @@ Changes should be tested by somebody other than the developer who wrote the
 code. This is especially important for large or high-risk changes. It is useful
 to add a test plan to the pull request description if testing the changes is
 not straightforward.
-
 

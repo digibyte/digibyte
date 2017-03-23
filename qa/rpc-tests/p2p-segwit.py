@@ -951,7 +951,6 @@ class SegWitTest(DigiByteTestFramework):
         tx.rehash()
 
         tx_hash = tx.sha256
-        tx_value = tx.vout[0].nValue
 
         # Verify that unnecessary witnesses are rejected.
         self.test_node.announce_tx_and_wait_for_getdata(tx)
@@ -1702,9 +1701,11 @@ class SegWitTest(DigiByteTestFramework):
         for node in [self.nodes[0], self.nodes[2]]:
             gbt_results = node.getblocktemplate()
             block_version = gbt_results['version']
-            # If we're not indicating segwit support, we should not be signalling
-            # for segwit activation, nor should we get a witness commitment.
-            assert_equal(block_version & (1 << VB_WITNESS_BIT), 0)
+            # If we're not indicating segwit support, we will still be
+            # signalling for segwit activation.
+            assert_equal((block_version & (1 << VB_WITNESS_BIT) != 0), node == self.nodes[0])
+            # If we don't specify the segwit rule, then we won't get a default
+            # commitment.
             assert('default_witness_commitment' not in gbt_results)
 
         # Workaround:
