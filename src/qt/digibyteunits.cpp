@@ -51,9 +51,9 @@ QString DigiByteUnits::description(int unit)
 {
     switch(unit)
     {
-    case DGB: return QString("DigiBytess");
-    case mDGB: return QString("Milli-DigiBytess (1 / 1" THIN_SP_UTF8 "000)");
-    case uDGB: return QString("Micro-DigiBytess (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case DGB: return QString("DigiBytes");
+    case mDGB: return QString("Milli-DigiBytes (1 / 1" THIN_SP_UTF8 "000)");
+    case uDGB: return QString("Micro-DigiBytes (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }

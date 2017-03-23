@@ -1,4 +1,5 @@
-DigiByte Core 0.13.99
+
+DigiByte Core 0.14.0
 =====================
 
 Intro

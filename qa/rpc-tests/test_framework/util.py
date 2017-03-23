@@ -375,27 +375,18 @@ def stop_node(node, i):
         node.stop()
     except http.client.CannotSendRequest as e:
         print("WARN: Unable to stop node: " + repr(e))
-    digibyted_processes[i].wait(timeout=DIGIBYTED_PROC_WAIT_TIMEOUT)
+    return_code = digibyted_processes[i].wait(timeout=DIGIBYTED_PROC_WAIT_TIMEOUT)
+    assert_equal(return_code, 0)
     del digibyted_processes[i]
 
 def stop_nodes(nodes):
-    for node in nodes:
-        try:
-            node.stop()
-        except http.client.CannotSendRequest as e:
-            print("WARN: Unable to stop node: " + repr(e))
-    del nodes[:] # Emptying array closes connections as a side effect
-    wait_digibyteds()
+    for i, node in enumerate(nodes):
+        stop_node(node, i)
+    assert not digibyted_processes.values() # All connections must be gone now
 
 def set_node_times(nodes, t):
     for node in nodes:
         node.setmocktime(t)
-
-def wait_digibyteds():
-    # Wait for all digibyteds to cleanly exit
-    for digibyted in digibyted_processes.values():
-        digibyted.wait(timeout=DIGIBYTED_PROC_WAIT_TIMEOUT)
-    digibyted_processes.clear()
 
 def connect_nodes(from_connection, node_num):
     ip_port = "127.0.0.1:"+str(p2p_port(node_num))
@@ -550,13 +541,30 @@ def assert_raises_message(exc, message, fun, *args, **kwds):
     else:
         raise AssertionError("No exception raised")
 
-def assert_raises_jsonrpc(code, fun, *args, **kwds):
-    '''Check for specific JSONRPC exception code'''
+def assert_raises_jsonrpc(code, message, fun, *args, **kwds):
+    """Run an RPC and verify that a specific JSONRPC exception code and message is raised.
+
+    Calls function `fun` with arguments `args` and `kwds`. Catches a JSONRPCException
+    and verifies that the error code and message are as expected. Throws AssertionError if
+    no JSONRPCException was returned or if the error code/message are not as expected.
+
+    Args:
+        code (int), optional: the error code returned by the RPC call (defined
+            in src/rpc/protocol.h). Set to None if checking the error code is not required.
+        message (string), optional: [a substring of] the error string returned by the
+            RPC call. Set to None if checking the error string is not required
+        fun (function): the function to call. This should be the name of an RPC.
+        args*: positional arguments for the function.
+        kwds**: named arguments for the function.
+    """
     try:
         fun(*args, **kwds)
     except JSONRPCException as e:
-        if e.error["code"] != code:
+        # JSONRPCException was thrown as expected. Check the code and message values are correct.
+        if (code is not None) and (code != e.error["code"]):
             raise AssertionError("Unexpected JSONRPC error code %i" % e.error["code"])
+        if (message is not None) and (message not in e.error['message']):
+            raise AssertionError("Expected substring not found:"+e.error['message'])
     except Exception as e:
         raise AssertionError("Unexpected exception raised: "+type(e).__name__)
     else:
