@@ -238,7 +238,7 @@ libdigibyte_wallet_a_SOURCES = \
   $(DIGIBYTE_CORE_H)
 
 # crypto primitives library
-crypto_libdigibyte_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_CONFIG_INCLUDES)
+crypto_libdigibyte_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_CONFIG_INCLUDES) $(SSL_CFLAGS)
 crypto_libdigibyte_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 crypto_libdigibyte_crypto_a_SOURCES = \
   crypto/aes.cpp \
@@ -457,8 +457,8 @@ if GLIBC_BACK_COMPAT
 endif
 
 libdigibyteconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libdigibyteconsensus_la_LIBADD = $(LIBSECP256K1)
-libdigibyteconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_DIGIBYTE_INTERNAL
+libdigibyteconsensus_la_LIBADD = $(LIBSECP256K1) $(BOOST_LIBS) $(CRYPTO_LIBS)
+libdigibyteconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_DIGIBYTE_INTERNAL $(SSL_CFLAGS)
 libdigibyteconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
