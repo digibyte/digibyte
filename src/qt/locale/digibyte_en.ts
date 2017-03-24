@@ -610,11 +610,7 @@
         <translation>Up to date</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_en.ts
         <location line="-438"/>
-=======
-        <location line="-441"/>
->>>>>>> 0.14:src/qt/locale/digibyte_en.ts
         <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation type="unfinished"></translation>
     </message>
