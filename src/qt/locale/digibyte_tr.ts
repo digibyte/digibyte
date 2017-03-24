@@ -2390,19 +2390,11 @@
     </message>
     <message>
         <source>The DigiByte address the message was signed with</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_tr.ts
-        <translation>Mesajın imzalanmasında kullanılan DigiByte adresi</translation>
-    </message>
-    <message>
-        <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>Belirtilen DigiByte adresi ile imzalandığını doğrulamak için mesajı kontrol et</translation>
-=======
         <translation>İletinin imzalanmasında kullanılan DigiByte adresi</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Belirtilen DigiByte adresi ile imzalandığını doğrulamak için iletiyi kontrol et</translation>
->>>>>>> 0.14:src/qt/locale/digibyte_tr.ts
     </message>
     <message>
         <source>Verify &amp;Message</source>
