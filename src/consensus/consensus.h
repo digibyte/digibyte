@@ -15,7 +15,7 @@ static const unsigned int MAX_BLOCK_WEIGHT = 4000000;
 /** The maximum allowed size for a block excluding witness data, in bytes (network rule) */
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 
-const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000//for testing
+const int64_t multiAlgoDiffChangeTarget = 30; // block 145000 where multi-algo work weighting starts 145000//for testing
 
 static const unsigned int MAX_BLOCK_BASE_SIZE = 2000000;
 
