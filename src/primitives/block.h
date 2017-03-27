@@ -24,7 +24,7 @@ const int NUM_ALGOS = 5;
 enum
 {
     // primary version
-    BLOCK_VERSION_DEFAULT        = 2, 
+    BLOCK_VERSION_DEFAULT        = 4, 
 
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),
