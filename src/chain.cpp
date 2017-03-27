@@ -121,7 +121,7 @@ void CBlockIndex::BuildSkip()
 
 int GetAlgoWorkFactor(int nHeight, int algo) 
 {
-    const int64_t multiAlgoDiffChangeTarget = 145000;
+    const int64_t multiAlgoDiffChangeTarget = 30; //145000
     if (nHeight < multiAlgoDiffChangeTarget)
     {
         return 1;
