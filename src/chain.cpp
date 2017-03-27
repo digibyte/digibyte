@@ -121,8 +121,7 @@ void CBlockIndex::BuildSkip()
 
 int GetAlgoWorkFactor(int nHeight, int algo) 
 {
-    const int64_t multiAlgoDiffChangeTarget = 30; //145000
-    if (nHeight < multiAlgoDiffChangeTarget)
+    if (nHeight < Params().GetConsensus().multiAlgoDiffChangeTarget)
     {
         return 1;
     }
