@@ -1758,9 +1758,9 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
 
     for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
         ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache);
-        //if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
-         //   nVersion |= VersionBitsMask(params, (Consensus::DeploymentPos)i);
-        //}
+        if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
+            nVersion |= VersionBitsMask(params, (Consensus::DeploymentPos)i);
+        }
     }
 
     switch (algo)
@@ -3106,14 +3106,14 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
     }
 
     // Enforce rule that the coinbase starts with serialized block height
-    /** if (VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_NVERSIONBIPS, versionbitscache) == THRESHOLD_ACTIVE)
+     if (VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_NVERSIONBIPS, versionbitscache) == THRESHOLD_ACTIVE)
     {
         CScript expect = CScript() << nHeight;
         if (block.vtx[0]->vin[0].scriptSig.size() < expect.size() ||
             !std::equal(expect.begin(), expect.end(), block.vtx[0]->vin[0].scriptSig.begin())) {
             return state.DoS(100, false, REJECT_INVALID, "bad-cb-height", false, "block height mismatch in coinbase");
         }
-    } **/
+    } 
 
     // Validation for witness commitments.
     // * We compute the witness hash (which is the hash including witnesses) of all the block's transactions, except the
