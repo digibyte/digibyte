@@ -101,7 +101,7 @@ public:
         consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 20; // DigiShield Hard Fork Block BIP34Height 67,200
+        consensus.nDiffChangeTarget = 5; // DigiShield Hard Fork Block BIP34Height 67,200
 
         // Old 1% monthly DGB Reward before 15 secon block change
         consensus.patchBlockRewardDuration = 10080; //10080; - No longer used
@@ -136,14 +136,14 @@ public:
 
 
         // DigiByte Hard Fork Block Heights
-        consensus.multiAlgoDiffChangeTarget = 30; // Block 145,000 DigiShield Hard Fork
-        consensus.alwaysUpdateDiffChangeTarget = 40; // Block 400,000 MultiShield Hard Fork
-        consensus.workComputationChangeTarget = 50; // Block 1,430,000 DigiSpeed Hard Fork
+        consensus.multiAlgoDiffChangeTarget = 10; // Block 145,000 MultiAlgo Hard Fork
+        consensus.alwaysUpdateDiffChangeTarget = 20; // Block 400,000 MultiShield Hard Fork
+        consensus.workComputationChangeTarget = 25; // Block 1,430,000 DigiSpeed Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 40; // 28224 - 70% of 40320
-        consensus.nMinerConfirmationWindow = 50; // nPowTargetTimespan / nPowTargetSpacing 40320 main net - 1 week
+        consensus.nRuleChangeActivationThreshold = 21; // 28224 - 70% of 40320
+        consensus.nMinerConfirmationWindow = 25; // nPowTargetTimespan / nPowTargetSpacing 40320 main net - 1 week
         consensus.fRbfEnabled = false;
         //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
