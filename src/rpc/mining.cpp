@@ -643,7 +643,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
                 vbavailable.push_back(Pair(gbt_vb_name(pos), consensusParams.vDeployments[pos].bit));
                 if (setClientRules.find(vbinfo.name) == setClientRules.end()) {
                     if (!vbinfo.gbt_force) {
-                         If the client doesn't support this, don't indicate it in the [default] version
+                         // If the client doesn't support this, don't indicate it in the [default] version
                          pblock->nVersion &= ~VersionBitsMask(consensusParams, pos);
                     }
                 }
