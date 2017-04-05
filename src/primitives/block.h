@@ -23,20 +23,19 @@ enum {
 
 const int NUM_ALGOS = 5;
 
-enum
-{
+enum : u_int32_t{
     // primary version
     BLOCK_VERSION_DEFAULT        = 4, 
 
     // algo
-    BLOCK_VERSION_ALGO           = (7 << 29),
-    BLOCK_VERSION_SCRYPT         = (1 << 29),
-    BLOCK_VERSION_SHA256D        = (1 << 29),
-    BLOCK_VERSION_GROESTL        = (2 << 29),
-    BLOCK_VERSION_SKEIN          = (3 << 29),
-    BLOCK_VERSION_QUBIT          = (4 << 29),
-    //BLOCK_VERSION_EQUIHASH       = (5 << 25),
-    //BLOCK_VERSION_ETHASH         = (6 << 25),
+    BLOCK_VERSION_ALGO           = (7 << 9),
+    BLOCK_VERSION_SCRYPT         = (1 << 9),
+    BLOCK_VERSION_SHA256D        = (1 << 9),
+    BLOCK_VERSION_GROESTL        = (2 << 9),
+    BLOCK_VERSION_SKEIN          = (3 << 9),
+    BLOCK_VERSION_QUBIT          = (4 << 9),
+    //BLOCK_VERSION_EQUIHASH       = (5 << 9),
+    //BLOCK_VERSION_ETHASH         = (6 << 9),
 };
 
 std::string GetAlgoName(int Algo);
