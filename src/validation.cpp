@@ -1755,14 +1755,6 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
 {
     LOCK(cs_main);
     int32_t nVersion = VERSIONBITS_TOP_BITS;
-
-    for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
-        ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache);
-        if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
-            nVersion |= VersionBitsMask(params, (Consensus::DeploymentPos)i);
-        }
-    }
-
     switch (algo)
     {
         case ALGO_SCRYPT:
@@ -1781,7 +1773,13 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         break;
         default:
         return nVersion;
-    }    
+    }  
+    for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
+        ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache); 
+        if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
+            nVersion |= VersionBitsMask(params, (Consensus::DeploymentPos)i);
+        }
+    } 
 
     return nVersion;
 }
