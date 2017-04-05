@@ -29,12 +29,12 @@ enum
     BLOCK_VERSION_DEFAULT        = 4, 
 
     // algo
-    BLOCK_VERSION_ALGO           = (7 << 25),
-    BLOCK_VERSION_SCRYPT         = (1 << 25),
-    BLOCK_VERSION_SHA256D        = (1 << 25),
-    BLOCK_VERSION_GROESTL        = (2 << 25),
-    BLOCK_VERSION_SKEIN          = (3 << 25),
-    BLOCK_VERSION_QUBIT          = (4 << 25),
+    BLOCK_VERSION_ALGO           = (7 << 9),
+    BLOCK_VERSION_SCRYPT         = (1 << 9),
+    BLOCK_VERSION_SHA256D        = (1 << 9),
+    BLOCK_VERSION_GROESTL        = (2 << 9),
+    BLOCK_VERSION_SKEIN          = (3 << 9),
+    BLOCK_VERSION_QUBIT          = (4 << 9),
     //BLOCK_VERSION_EQUIHASH       = (5 << 25),
     //BLOCK_VERSION_ETHASH         = (6 << 25),
 };
