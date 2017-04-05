@@ -23,7 +23,7 @@ enum {
 
 const int NUM_ALGOS = 5;
 
-enum : u_int32_t{
+enum {
     // primary version
     BLOCK_VERSION_DEFAULT        = 4, 
 
