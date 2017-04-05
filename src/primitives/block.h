@@ -27,12 +27,12 @@ enum
     BLOCK_VERSION_DEFAULT        = 4, 
 
     // algo
-    BLOCK_VERSION_ALGO           = (7 << 9),
-    BLOCK_VERSION_SCRYPT         = (1 << 9),
-    BLOCK_VERSION_SHA256D        = (1 << 9),
-    BLOCK_VERSION_GROESTL        = (2 << 9),
-    BLOCK_VERSION_SKEIN          = (3 << 9),
-    BLOCK_VERSION_QUBIT          = (4 << 9),
+    BLOCK_VERSION_ALGO           = (7 << 5),
+    BLOCK_VERSION_SCRYPT         = (1 << 5),
+    BLOCK_VERSION_SHA256D        = (1 << 5),
+    BLOCK_VERSION_GROESTL        = (2 << 5),
+    BLOCK_VERSION_SKEIN          = (3 << 5),
+    BLOCK_VERSION_QUBIT          = (4 << 5),
 };
 
 std::string GetAlgoName(int Algo);
