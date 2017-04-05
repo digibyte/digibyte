@@ -34,6 +34,10 @@ int CBlockHeader::GetAlgo() const
             return ALGO_SKEIN;
         case BLOCK_VERSION_QUBIT:
             return ALGO_QUBIT;
+        //case BLOCK_VERSION_EQUIHASH:
+            //return ALGO_EQUIHASH;
+        //case BLOCK_VERSION_ETHASH:
+            //return ALGO_ETHASH;
     }
     return ALGO_SCRYPT;
 }
@@ -56,6 +60,10 @@ uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
             return HashSkein(BEGIN(nVersion), END(nNonce));
         case ALGO_QUBIT:
             return HashQubit(BEGIN(nVersion), END(nNonce));
+        //case ALGO_EQUIHASH:
+            //return HashEquihash(BEGIN(nVersion), END(nNonce));
+        //case ALGO_ETHASH:
+            //return HashEthash(BEGIN(nVersion), END(nNonce));
     }
     return GetHash();
 }
@@ -93,6 +101,10 @@ std::string GetAlgoName(int Algo)
             return std::string("skein");
         case ALGO_QUBIT:
             return std::string("qubit");
+        //case ALGO_EQUIHASH:
+            //return std::string("equihash");
+        //case ALGO_ETHASH:
+            //return std::string("ethash");
     }
     return std::string("unknown");       
 }

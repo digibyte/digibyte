@@ -1316,6 +1316,10 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
         miningAlgo = ALGO_SKEIN;
     else if (strAlgo == "q2c" || strAlgo == "qubit")
         miningAlgo = ALGO_QUBIT;
+    //else if (strAlgo == "equihash" || strAlgo == "equihash")
+        //miningAlgo = ALGO_EQUIHASH;
+    //else if (strAlgo == "ethash" || strAlgo == "ethash")
+        //miningAlgo = ALGO_ETHASH;
     else
         miningAlgo = ALGO_SHA256D;
 

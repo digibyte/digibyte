@@ -100,6 +100,8 @@ UniValue getinfo(const JSONRPCRequest& request)
     obj.push_back(Pair("difficulty_groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
     obj.push_back(Pair("difficulty_skein",   (double)GetDifficulty(NULL, ALGO_SKEIN)));
     obj.push_back(Pair("difficulty_qubit",   (double)GetDifficulty(NULL, ALGO_QUBIT)));
+    //obj.push_back(Pair("difficulty_equihash",   (double)GetDifficulty(NULL, ALGO_EQUIHASH)));
+    //obj.push_back(Pair("difficulty_ethash",   (double)GetDifficulty(NULL, ALGO_ETHASH)));
     obj.push_back(Pair("testnet",       Params().NetworkIDString() == CBaseChainParams::TESTNET));
 #ifdef ENABLE_WALLET
     if (pwalletMain) {

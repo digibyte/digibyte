@@ -17,6 +17,8 @@ enum {
     ALGO_GROESTL  = 2,
     ALGO_SKEIN    = 3,
     ALGO_QUBIT    = 4,
+    //ALGO_EQUIHASH = 5,
+    //ALGO_ETHASH   = 6,
     NUM_ALGOS_IMPL };
 
 const int NUM_ALGOS = 5;
@@ -33,6 +35,8 @@ enum
     BLOCK_VERSION_GROESTL        = (2 << 25),
     BLOCK_VERSION_SKEIN          = (3 << 25),
     BLOCK_VERSION_QUBIT          = (4 << 25),
+    //BLOCK_VERSION_EQUIHASH       = (5 << 25),
+    //BLOCK_VERSION_ETHASH         = (6 << 25),
 };
 
 std::string GetAlgoName(int Algo);
@@ -107,6 +111,12 @@ public:
             case ALGO_QUBIT:
                 nVersion |= BLOCK_VERSION_QUBIT;
                 break;
+            //case ALGO_EQUIHASH:
+                //nVersion |= BLOCK_VERSION_EQUIHASH;
+                //break;
+            //case ALGO_ETHASH:
+                //nVersion |= BLOCK_VERSION_ETHASH;
+                //break;
             default:
                 break;
         }

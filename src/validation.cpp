@@ -1777,6 +1777,12 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         case ALGO_QUBIT:
         nVersion |= BLOCK_VERSION_QUBIT;
         break;
+        //case ALGO_EQUIHASH:
+        //nVersion |= BLOCK_VERSION_EQUIHASH;
+        //break;
+        //case ALGO_ETHASH:
+        //nVersion |= BLOCK_VERSION_ETHASH;
+        //break;
         default:
         return nVersion;
     }  
