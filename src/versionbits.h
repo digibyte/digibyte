@@ -9,15 +9,13 @@
 #include <map>
 
 /** What block version to use for new blocks (pre versionbits) */
-static const int32_t VERSIONBITS_LAST_OLD_BLOCK_VERSION = 4;
+static const int32_t VERSIONBITS_LAST_OLD_BLOCK_VERSION = 2;
 /** What bits to set in version for versionbits blocks */
-static const int32_t VERSIONBITS_TOP_BITS = 0x20000UL;
+static const int32_t VERSIONBITS_TOP_BITS = 0x20000002UL;
 /** What bitmask determines whether versionbits is in use */
-static const int32_t VERSIONBITS_TOP_MASK = 0xF0000UL;
+static const int32_t VERSIONBITS_TOP_MASK = 0xF0000000UL;
 /** Total bits available for versionbits */
 static const int32_t VERSIONBITS_NUM_BITS = 16;
-/** Total bits used for Multi Algo */
-static const int32_t VERSIONBITS_NUM_BITS_TO_SKIP = 12;
 
 enum ThresholdState {
     THRESHOLD_DEFINED,
