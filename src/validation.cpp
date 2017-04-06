@@ -1758,7 +1758,7 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
     for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
         ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache); 
         if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
-            nVersion |= (VersionBitsMask(params, (Consensus::DeploymentPos)i) >> VERSIONBITS_NUM_BITS_TO_SKIP);
+            nVersion |= (VersionBitsMask(params, (Consensus::DeploymentPos)i) << VERSIONBITS_NUM_BITS_TO_SKIP);
         }
     } 
     switch (algo)
