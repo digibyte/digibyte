@@ -101,7 +101,7 @@ public:
         consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 5; // DigiShield Hard Fork Block BIP34Height 67,200
+        consensus.nDiffChangeTarget = 3; // DigiShield Hard Fork Block BIP34Height 67,200
 
         // Old 1% monthly DGB Reward before 15 secon block change
         consensus.patchBlockRewardDuration = 10080; //10080; - No longer used
@@ -136,7 +136,7 @@ public:
 
 
         // DigiByte Hard Fork Block Heights
-        consensus.multiAlgoDiffChangeTarget = 10; // Block 145,000 MultiAlgo Hard Fork
+        consensus.multiAlgoDiffChangeTarget = 6; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 20; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 25; // Block 1,430,000 DigiSpeed Hard Fork
 
