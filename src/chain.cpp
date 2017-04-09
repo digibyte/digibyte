@@ -159,7 +159,25 @@ arith_uint256 GetBlockProofBase(const CBlockIndex& block)
     return (~bnTarget / (bnTarget + 1)) + 1;
 }
 
+// BTC GetBlockProof
 arith_uint256 GetBlockProof(const CBlockIndex& block)
+{
+    arith_uint256 bnTarget;
+    bool fNegative;
+    bool fOverflow;
+    bnTarget.SetCompact(block.nBits, &fNegative, &fOverflow);
+    if (fNegative || fOverflow || bnTarget == 0)
+        return 0;
+    // We need to compute 2**256 / (bnTarget+1), but we can't represent 2**256
+    // as it's too large for a arith_uint256. However, as 2**256 is at least as large
+    // as bnTarget+1, it is equal to ((2**256 - bnTarget - 1) / (bnTarget+1)) + 1,
+    // or ~bnTarget / (nTarget+1) + 1.
+    return (~bnTarget / (bnTarget + 1)) + 1;
+}
+
+
+// DGB 6.14.1 GetBlock Proof
+/** arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
     CBlockHeader header = block.GetBlockHeader();
     int nHeight = block.nHeight;
@@ -193,7 +211,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
         return UintToArith256(bnRes.getuint256());
     }
 }
-
+**/
 int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params& params)
 {
     arith_uint256 r;
