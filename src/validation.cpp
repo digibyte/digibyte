@@ -1754,7 +1754,7 @@ VersionBitsCache versionbitscache;
 int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, int algo)
 {
     LOCK(cs_main);
-    int32_t nVersion = VERSIONBITS_TOP_BITS | BLOCK_VERSION_DEFAULT;
+    int32_t nVersion = VERSIONBITS_TOP_BITS;
     for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
         ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache); 
         if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
@@ -1790,7 +1790,7 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
     return nVersion;
 }
 bool isMultiAlgoVersion(int nVersion){
-     if((nVersion & 0xfffU) == 514 || (nVersion & 0xfffU) == 1026 || (nVersion & 0xfffU) == 1538 || (nVersion & 0xfffU) == 2050) {
+     if((nVersion & 0xfffU) == 512 || (nVersion & 0xfffU) == 1024 || (nVersion & 0xfffU) == 1536 || (nVersion & 0xfffU) == 2048) {
          return true;
      }
      return false;
