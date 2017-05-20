@@ -9,6 +9,7 @@ the DigiByte Core software, see https://digibyte.co
 DigiByte FAQ
 -------------
 Launch Date: January 10th, 2014
+
 Blockchain Type: Public, Decentralized, UTXO based, Multi-Algorithm
 Ticker Symbol: DGB
 Genisis Block Hash: "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M customers"
