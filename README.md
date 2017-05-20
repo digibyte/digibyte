@@ -8,11 +8,22 @@ the DigiByte Core software, see https://digibyte.co
 
 DigiByte FAQ
 -------------
-Total Supply: 21 Bilion DigiBytes in 21 years
-Block Timing: 15 Second Blocks, (1.5 Minutes per algo)
-Mining Algorithims: Five (Sha256, Scrypt, Groestl, Skein & Qubit)
-Blockchain Type: Public, Decentralized UTXO based
 Launch Date: January 10th, 2014
+Blockchain Type: Public, Decentralized, UTXO based, Multi-Algorithm
+Ticker Symbol: DGB
+Genisis Block Hash: "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M customers"
+Max Total Supply: 21 Bilion DigiBytes in 21 Years (2035)
+Current Supply: 8,107,031,908 DGB (May 2017)
+Yearly Supply Inflation: 12% in 2017
+Block Reward Reduction: 1% Monthly
+Current Block Reward 891 DGB
+Mining Algorithims: Five (Sha256, Scrypt, Groestl, Skein & Qubit)
+Block Timing: 15 Second Blocks, (1.5 Minutes per algo)
+Algo Block Share: 20% Block Share Per Algo (5)
+Difficulty Retarget Every 1 Block, 5 Seperate Difficulties, 1 For Each Mining Algo
+SegWit Support Yes. First major altcoin to successfully activate Segwit. (April 2017)
+Hardforks 4. DigiShield, MultiAlgo, MultiShield, DigiSpeed
+Softforks 3. SegWit, CSV, NVersionBips
 
 You can mine DigiByte on one of five seperate mining algorithms. Each algo averages out to mine 20% of new blocks. This allows for much greater decentraliztion than other blockchains. In order for an attacker to hardfork DigiByte the attacker would need to control 93% of the hashrate on 1 algo, and 51% of the other 4 making DigiByte much more secure against PoW attacks than other blockchains.
 
@@ -24,7 +35,7 @@ MultiShield Hardfork: Block 400k, Dec. 10th 2014
 
 DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 2015
 
-DigiByte vs DigiByte
+DigiByte vs Bitcoin
 -------------------
 
 Security: 5 DigiByte mining algorithms vs. 1 DigiByte algorithm.
