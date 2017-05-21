@@ -50,7 +50,8 @@ MultiShield Hardfork: Block 400k, Dec. 10th 2014
 
 DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 2015
 
-DigiByte vs Bitcoin
+DigiByte vs 
+
 -------------------
 
 Security: 5 DigiByte mining algorithms vs. 1 DigiByte algorithm.
@@ -59,7 +60,7 @@ DigiByte mining algorithms can be changed out in the future to prevent centraliz
 
 Speed:  DigiByte transactions occur much faster than Bitcoin transactions.
 1-3 second transaction notifications.
-15 second DigiByte blocks vs. 10 minute Bitcion blocks.
+15 second DigiByte blocks vs. 10 minute Bitcoin blocks.
 DigiBytes are confirmed after 1.5 minutes vs. 1 hour with Bitcoin.
 
 Transaction Volume: DigiByte can handle many more transactions per second.
