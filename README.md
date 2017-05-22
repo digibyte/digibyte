@@ -57,7 +57,7 @@ Security: 5 DigiByte mining algorithms vs. 1 Bitcoin algorithm.
 DigiByte mining is much more decentralized.
 DigiByte mining algorithms can be changed out in the future to prevent centralization.
 
-Speed:  DigiByte transactions occur much faster that Bitcoin transactions.
+Speed:  DigiByte transactions occur much faster than Bitcoin transactions.
 1-3 second transaction notifications.
 15 second DigiByte blocks vs. 10 minute Bitcoin blocks.
 DigiBytes are confirmed after 1.5 minutes vs. 1 hour with Bitcoin.
