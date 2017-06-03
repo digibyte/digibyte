@@ -23,6 +23,14 @@ const struct BIP9DeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION
         /*.name =*/ "nversionbips",
         /*.gbt_force =*/ true,
     }
+    //{
+       // /*.name =*/ "equihash",
+        ///*.gbt_force =*/ true,
+    //}
+     //{
+       // /*.name =*/ "ethash",
+       // /*.gbt_force =*/ true,
+    //}
 };
 
 ThresholdState AbstractThresholdConditionChecker::GetStateFor(const CBlockIndex* pindexPrev, const Consensus::Params& params, ThresholdConditionCache& cache) const

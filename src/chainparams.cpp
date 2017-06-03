@@ -136,7 +136,7 @@ public:
 
 
         // DigiByte Hard Fork Block Heights
-        consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 DigiShield Hard Fork
+        consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400000; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430000; // Block 1,430,000 DigiSpeed Hard Fork
 
@@ -145,30 +145,42 @@ public:
         consensus.nRuleChangeActivationThreshold = 28224; // 28224 - 70% of 40320
         consensus.nMinerConfirmationWindow = 40320; // nPowTargetTimespan / nPowTargetSpacing 40320 main net - 1 week
         consensus.fRbfEnabled = false;
-        //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
-        //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
-        //consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
-        // Deployment of BIP65, BIP66, and BIP34.
-        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1489997089; // March 24th, 2017 1490355345
-        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nTimeout = 1521891345;    // March 24th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 27; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // Deployment of BIP68, BIP112, and BIP113.
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 12; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1489997089; // March 24th, 2017 1490355345
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1521891345; // March 24th, 2018
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 13; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1490355345; // March 24th, 2017 1490355345
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1521891345; // March 24th, 2018
 
+        // Deployment of BIP65, BIP66, and BIP34.
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].bit = 14; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1489997089; // March 24th, 2017 1490355345
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nTimeout = 1521891345;    // March 24th, 2018
+
+        // Deployment of Equihash algo softfork
+        //consensus.vDeployments[Consensus::DEPLOYMENT_EQUIHASH].bit = 3;
+        //consensus.vDeployments[Consensus::DEPLOYMENT_EQUIHASH].nStartTime = 1489997089; // July, 2017 
+        //consensus.vDeployments[Consensus::DEPLOYMENT_EQUIHASH].nTimeout = 1521891345;    // July, 2018
+
+        // Deployment of Ethash algo softfork
+        //consensus.vDeployments[Consensus::DEPLOYMENT_ETHASH].bit = 4;
+        //consensus.vDeployments[Consensus::DEPLOYMENT_ETHASH].nStartTime = 1489997089; // October, 2017 
+        //consensus.vDeployments[Consensus::DEPLOYMENT_ETHASH].nTimeout = 1521891345;    // October, 2018
+
+
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000015a7ac471a4d995eecc");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x13b5d2755daf8350efd6d4ca859fa3a0eb1ed879843e7c16a487e4575c9d8e92"); // Block 4,177,777
+        consensus.defaultAssumeValid = uint256S("0x23f72e760542bf021ec76d04231ad7cf80142069a79ba702028e074b726f86ef"); // Block 4,255,555
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -226,7 +238,7 @@ public:
             ( 521000, uint256S("0xd23fd1e1f994c0586d761b71bb3530e9ab45bd0fabda3a5a2e394f3dc4d9bb04"))
             ( 1380000, uint256S("0x00000000000001969b1e5836dd8bf6a001d96f4a16d336e09405b62b29feead6"))
             ( 1435000, uint256S("0xf78cc9c2791c8a23720e2efcdaf46584046ee5db8f050e21a3a15a13f5c68da0"))
-            ( 4177777, uint256S("0x13b5d2755daf8350efd6d4ca859fa3a0eb1ed879843e7c16a487e4575c9d8e92"))
+            ( 4255555, uint256S("0x23f72e760542bf021ec76d04231ad7cf80142069a79ba702028e074b726f86ef"))
         };
 
         chainTxData = ChainTxData{

@@ -1754,15 +1754,13 @@ VersionBitsCache versionbitscache;
 int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, int algo)
 {
     LOCK(cs_main);
-    int32_t nVersion = VERSIONBITS_TOP_BITS;
-
+    int32_t nVersion = VERSIONBITS_TOP_BITS | BLOCK_VERSION_DEFAULT;
     for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
-        ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache);
+        ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache); 
         if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
             nVersion |= VersionBitsMask(params, (Consensus::DeploymentPos)i);
         }
-    }
-
+    } 
     switch (algo)
     {
         case ALGO_SCRYPT:
@@ -1779,14 +1777,20 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         case ALGO_QUBIT:
         nVersion |= BLOCK_VERSION_QUBIT;
         break;
+        //case ALGO_EQUIHASH:
+        //nVersion |= BLOCK_VERSION_EQUIHASH;
+        //break;
+        //case ALGO_ETHASH:
+        //nVersion |= BLOCK_VERSION_ETHASH;
+        //break;
         default:
         return nVersion;
-    }    
+    }  
 
     return nVersion;
 }
 bool isMultiAlgoVersion(int nVersion){
-     if(nVersion == 514 || nVersion == 1026 || nVersion == 1538 || nVersion == 2050) {
+     if((nVersion & 0xfffU) == 514 || (nVersion & 0xfffU) == 1026 || (nVersion & 0xfffU) == 1538 || (nVersion & 0xfffU) == 2050) {
          return true;
      }
      return false;
@@ -2244,8 +2248,8 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
             }
         }
     }
-    LogPrintf("%s: new best=%s height=%d algo=%d (%s) log2_work=%.8g tx=%lu date='%s' progress=%f cache=%.1fMiB(%utx)", __func__,
-      chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), chainActive.Tip()->GetAlgo(), GetAlgoName(chainActive.Tip()->GetAlgo()),
+    LogPrintf("%s: new best=%s height=%d version=0x%08x algo=%d (%s) log2_work=%.8g tx=%lu date='%s' progress=%f cache=%.1fMiB(%utx)", __func__,
+      chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), chainActive.Tip()->nVersion, chainActive.Tip()->GetAlgo(), GetAlgoName(chainActive.Tip()->GetAlgo()),
       log(chainActive.Tip()->nChainWork.getdouble())/log(2.0), (unsigned long)chainActive.Tip()->nChainTx,
       DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()),
       GuessVerificationProgress(chainParams.TxData(), chainActive.Tip()), pcoinsTip->DynamicMemoryUsage() * (1.0 / (1<<20)), pcoinsTip->GetCacheSize());
@@ -3106,14 +3110,14 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
     }
 
     // Enforce rule that the coinbase starts with serialized block height
-    if (VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_NVERSIONBIPS, versionbitscache) == THRESHOLD_ACTIVE)
+     if (VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_NVERSIONBIPS, versionbitscache) == THRESHOLD_ACTIVE)
     {
         CScript expect = CScript() << nHeight;
         if (block.vtx[0]->vin[0].scriptSig.size() < expect.size() ||
             !std::equal(expect.begin(), expect.end(), block.vtx[0]->vin[0].scriptSig.begin())) {
             return state.DoS(100, false, REJECT_INVALID, "bad-cb-height", false, "block height mismatch in coinbase");
         }
-    }
+    } 
 
     // Validation for witness commitments.
     // * We compute the witness hash (which is the hash including witnesses) of all the block's transactions, except the

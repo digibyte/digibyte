@@ -253,6 +253,8 @@ UniValue getmininginfo(const JSONRPCRequest& request)
     obj.push_back(Pair("difficulty_groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
     obj.push_back(Pair("difficulty_skein",   (double)GetDifficulty(NULL, ALGO_SKEIN)));
     obj.push_back(Pair("difficulty_qubit",   (double)GetDifficulty(NULL, ALGO_QUBIT)));
+    //obj.push_back(Pair("difficulty_EQUIHASH",   (double)GetDifficulty(NULL, ALGO_EQUIHASH)));
+    //obj.push_back(Pair("difficulty_ETHASH",   (double)GetDifficulty(NULL, ALGO_ETHASH)));
     obj.push_back(Pair("errors",           GetWarnings("statusbar")));
     //obj.push_back(Pair("networkhashps",    getnetworkhashps(request)));
     obj.push_back(Pair("pooledtx",         (uint64_t)mempool.size()));
@@ -635,7 +637,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
                 break;
             case THRESHOLD_LOCKED_IN:
                 // Ensure bit is set in block version
-                pblock->nVersion |= VersionBitsMask(consensusParams, pos);
+                 pblock->nVersion |= VersionBitsMask(consensusParams, pos);
                 // FALL THROUGH to get vbavailable set...
             case THRESHOLD_STARTED:
             {
@@ -643,8 +645,8 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
                 vbavailable.push_back(Pair(gbt_vb_name(pos), consensusParams.vDeployments[pos].bit));
                 if (setClientRules.find(vbinfo.name) == setClientRules.end()) {
                     if (!vbinfo.gbt_force) {
-                        // If the client doesn't support this, don't indicate it in the [default] version
-                        pblock->nVersion &= ~VersionBitsMask(consensusParams, pos);
+                         // If the client doesn't support this, don't indicate it in the [default] version
+                         pblock->nVersion &= ~VersionBitsMask(consensusParams, pos);
                     }
                 }
                 break;

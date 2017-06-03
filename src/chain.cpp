@@ -121,8 +121,7 @@ void CBlockIndex::BuildSkip()
 
 int GetAlgoWorkFactor(int nHeight, int algo) 
 {
-    const int64_t multiAlgoDiffChangeTarget = 145000;
-    if (nHeight < multiAlgoDiffChangeTarget)
+    if (nHeight < Params().GetConsensus().multiAlgoDiffChangeTarget)
     {
         return 1;
     }
@@ -167,7 +166,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
     arith_uint256 nBlockWork = GetBlockProofBase(block);
     arith_uint256 nAlgoWork = GetAlgoWorkFactor(nHeight, header.GetAlgo());
     CBigNum bnBlockWork = CBigNum(ArithToUint256(nBlockWork));
-    const int64_t workComputationChangeTarget = 1430000;
+    const int64_t workComputationChangeTarget = 1430000; // Block 1430000 -25 testing
 
     if (nHeight < workComputationChangeTarget)
     {
