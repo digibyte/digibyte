@@ -10,6 +10,9 @@
     <height>380</height>
    </rect>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(10, 22, 68);</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="labelExplanation">

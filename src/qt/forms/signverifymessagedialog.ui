@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Signatures - Sign / Verify a Message</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(31, 71, 200);</string>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -99,6 +102,9 @@
          <property name="toolTip">
           <string>Enter the message you want to sign here</string>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -122,6 +128,9 @@
             <font>
              <italic>true</italic>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
            </property>
            <property name="readOnly">
             <bool>true</bool>
