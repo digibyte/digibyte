@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2016 The Bitcoin Core developers
+# Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 
@@ -14,7 +14,7 @@ def get_unspent(listunspent, amount):
     raise AssertionError('Could not find unspent with amount={}'.format(amount))
 
 
-class RawTransactionsTest(BitcoinTestFramework):
+class RawTransactionsTest(DigiByteTestFramework):
 
     def __init__(self):
         super().__init__()
@@ -469,7 +469,9 @@ class RawTransactionsTest(BitcoinTestFramework):
         # locked wallet test
         self.nodes[1].encryptwallet("test")
         self.nodes.pop(1)
-        stop_nodes(self.nodes)
+        stop_node(self.nodes[0], 0)
+        stop_node(self.nodes[1], 2)
+        stop_node(self.nodes[2], 3)
 
         self.nodes = start_nodes(self.num_nodes, self.options.tmpdir)
         # This test is not meant to test fee estimation and we'd like

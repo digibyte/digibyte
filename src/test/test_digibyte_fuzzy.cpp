@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,6 +18,7 @@
 #include "streams.h"
 #include "undo.h"
 #include "version.h"
+#include "pubkey.h"
 
 #include <stdint.h>
 #include <unistd.h>
@@ -60,6 +61,7 @@ bool read_stdin(std::vector<char> &data) {
 
 int main(int argc, char **argv)
 {
+    ECCVerifyHandle globalVerifyHandle;
     std::vector<char> buffer;
     if (!read_stdin(buffer)) return 0;
 

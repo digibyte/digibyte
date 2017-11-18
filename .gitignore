@@ -75,7 +75,7 @@ src/qt/test/moc*.cpp
 *.qm
 Makefile
 digibyte-qt
-digibyte-Qt.app
+DigiByte-Qt.app
 
 # Unit-tests
 Makefile.test

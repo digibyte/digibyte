@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin developers
+// Copyright (c) 2009-2013 The DigiByte developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -292,7 +292,7 @@ public:
     // and  0xc0de000000 is compact (0x0600c0de)
     // (0x05c0de00) would be -0x40de000000
     //
-    // Bitcoin only uses this "compact" format for encoding difficulty
+    // DigiByte only uses this "compact" format for encoding difficulty
     // targets, which are unsigned 256bit quantities.  Thus, all the
     // complexities of the sign bit and using base 256 are probably an
     // implementation accident.

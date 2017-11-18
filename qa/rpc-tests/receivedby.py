@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2016 The Bitcoin Core developers
+# Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 # Exercise the listreceivedbyaddress API
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 
@@ -14,7 +14,6 @@ def get_sub_array_from_array(object_array, to_match):
         Finds and returns a sub array from an array of arrays.
         to_match should be a unique idetifier of a sub array
     '''
-    num_matched = 0
     for item in object_array:
         all_match = True
         for key,value in to_match.items():
@@ -25,7 +24,7 @@ def get_sub_array_from_array(object_array, to_match):
         return item
     return []
 
-class ReceivedByTest(BitcoinTestFramework):
+class ReceivedByTest(DigiByteTestFramework):
 
     def __init__(self):
         super().__init__()
@@ -104,7 +103,7 @@ class ReceivedByTest(BitcoinTestFramework):
         received_by_account_json = get_sub_array_from_array(self.nodes[1].listreceivedbyaccount(),{"account":account})
         if len(received_by_account_json) == 0:
             raise AssertionError("No accounts found in node")
-        balance_by_account = rec_by_accountArr = self.nodes[1].getreceivedbyaccount(account)
+        balance_by_account = self.nodes[1].getreceivedbyaccount(account)
 
         txid = self.nodes[0].sendtoaddress(addr, 0.1)
         self.sync_all()

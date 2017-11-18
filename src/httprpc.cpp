@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2016 The Bitcoin Core developers
+// Copyright (c) 2015-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -112,7 +112,7 @@ static bool multiUserAuthorized(std::string strUserPass)
             std::string strSalt = vFields[1];
             std::string strHash = vFields[2];
 
-            unsigned int KEY_SIZE = 32;
+            static const unsigned int KEY_SIZE = 32;
             unsigned char out[KEY_SIZE];
 
             CHMAC_SHA256(reinterpret_cast<const unsigned char*>(strSalt.c_str()), strSalt.size()).Write(reinterpret_cast<const unsigned char*>(strPass.c_str()), strPass.size()).Finalize(out);

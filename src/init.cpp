@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -678,7 +678,7 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 }
 
 /** Sanity checks
- *  Ensure that Bitcoin is running in a usable environment with all
+ *  Ensure that DigiByte is running in a usable environment with all
  *  necessary library support.
  */
 bool InitSanityCheck(void)
@@ -801,6 +801,19 @@ ServiceFlags nLocalServices = NODE_NETWORK;
 
 }
 
+[[noreturn]] static void new_handler_terminate()
+{
+    // Rather than throwing std::bad-alloc if allocation fails, terminate
+    // immediately to (try to) avoid chain corruption.
+    // Since LogPrintf may itself allocate memory, set the handler directly
+    // to terminate first.
+    std::set_new_handler(std::terminate);
+    LogPrintf("Error: Out of memory. Terminating.\n");
+
+    // The log was successful, terminate now.
+    std::terminate();
+};
+
 bool AppInitBasicSetup()
 {
     // ********************************************************* Step 1: setup
@@ -853,6 +866,9 @@ bool AppInitBasicSetup()
     // Ignore SIGPIPE, otherwise it will bring the daemon down if the client closes unexpectedly
     signal(SIGPIPE, SIG_IGN);
 #endif
+
+    std::set_new_handler(new_handler_terminate);
+
     return true;
 }
 
@@ -1096,7 +1112,7 @@ static bool LockDataDirectory(bool probeOnly)
 {
     std::string strDataDir = GetDataDir().string();
 
-    // Make sure only a single Bitcoin process is using the data directory.
+    // Make sure only a single DigiByte process is using the data directory.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     FILE* file = fopen(pathLockFile.string().c_str(), "a"); // empty lock file; created if it doesn't exist.
     if (file) fclose(file);
@@ -1300,6 +1316,10 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
         miningAlgo = ALGO_SKEIN;
     else if (strAlgo == "q2c" || strAlgo == "qubit")
         miningAlgo = ALGO_QUBIT;
+    //else if (strAlgo == "equihash" || strAlgo == "equihash")
+        //miningAlgo = ALGO_EQUIHASH;
+    //else if (strAlgo == "ethash" || strAlgo == "ethash")
+        //miningAlgo = ALGO_ETHASH;
     else
         miningAlgo = ALGO_SHA256D;
 

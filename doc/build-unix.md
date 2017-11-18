@@ -85,7 +85,7 @@ BerkeleyDB is required for the wallet.
 You can add the repository and install using the following commands:
 
     sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:digibyte/digibyte
+    sudo add-apt-repository ppa:bitcoin/bitcoin
     sudo apt-get update
     sudo apt-get install libdb4.8-dev libdb4.8++-dev
 
@@ -315,7 +315,7 @@ For further documentation on the depends system see [README.md](../depends/READM
 Building on FreeBSD
 --------------------
 
-(Updated as of FreeBSD 10.3)
+(Updated as of FreeBSD 11.0)
 
 Clang is installed by default as `cc` compiler, this makes it easier to get
 started than on [OpenBSD](build-openbsd.md). Installing dependencies:
@@ -337,7 +337,7 @@ with 4.8-built DigiByte Core is needed follow the steps under "Berkeley DB" abov
 Then build using:
 
     ./autogen.sh
-    ./configure --with-incompatible-bdb CPPFLAGS=-I/usr/local/include/db5 LDFLAGS=-L/usr/local/lib/db5
+    ./configure --with-incompatible-bdb BDB_CFLAGS="-I/usr/local/include/db5" BDB_LIBS="-L/usr/local/lib -ldb_cxx-5"
     make
 
 *Note on debugging*: The version of `gdb` installed by default is [ancient and considered harmful](https://wiki.freebsd.org/GdbRetirement).

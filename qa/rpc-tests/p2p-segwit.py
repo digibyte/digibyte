@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016 The Bitcoin Core developers
+# Copyright (c) 2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from test_framework.mininode import *
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.script import *
 from test_framework.blocktools import create_block, create_coinbase, add_witness_commitment, WITNESS_COMMITMENT_HEADER
@@ -188,7 +188,7 @@ def sign_P2PK_witness_input(script, txTo, inIdx, hashtype, value, key):
     txTo.rehash()
 
 
-class SegWitTest(BitcoinTestFramework):
+class SegWitTest(DigiByteTestFramework):
 
     def __init__(self):
         super().__init__()
@@ -951,7 +951,6 @@ class SegWitTest(BitcoinTestFramework):
         tx.rehash()
 
         tx_hash = tx.sha256
-        tx_value = tx.vout[0].nValue
 
         # Verify that unnecessary witnesses are rejected.
         self.test_node.announce_tx_and_wait_for_getdata(tx)
@@ -1702,9 +1701,11 @@ class SegWitTest(BitcoinTestFramework):
         for node in [self.nodes[0], self.nodes[2]]:
             gbt_results = node.getblocktemplate()
             block_version = gbt_results['version']
-            # If we're not indicating segwit support, we should not be signalling
-            # for segwit activation, nor should we get a witness commitment.
-            assert_equal(block_version & (1 << VB_WITNESS_BIT), 0)
+            # If we're not indicating segwit support, we will still be
+            # signalling for segwit activation.
+            assert_equal((block_version & (1 << VB_WITNESS_BIT) != 0), node == self.nodes[0])
+            # If we don't specify the segwit rule, then we won't get a default
+            # commitment.
             assert('default_witness_commitment' not in gbt_results)
 
         # Workaround:

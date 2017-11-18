@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015 The Bitcoin Core developers
+// Copyright (c) 2014-2015 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +10,7 @@
 
 /**
  * CBaseChainParams defines the base parameters (shared between digibyte-cli and digibyted)
- * of a given instance of the Bitcoin system.
+ * of a given instance of the DigiByte system.
  */
 class CBaseChainParams
 {

@@ -1,5 +1,5 @@
-Bitcoin version 0.5.1 is now available for download at:
-http://sourceforge.net/projects/digibyte/files/Bitcoin/digibyte-0.5.1/
+DigiByte version 0.5.1 is now available for download at:
+http://sourceforge.net/projects/digibyte/files/DigiByte/digibyte-0.5.1/
 
 This is a bugfix-only release.
 

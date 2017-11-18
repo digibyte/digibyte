@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,12 +17,13 @@ enum {
     ALGO_GROESTL  = 2,
     ALGO_SKEIN    = 3,
     ALGO_QUBIT    = 4,
+    //ALGO_EQUIHASH = 5,
+    //ALGO_ETHASH   = 6,
     NUM_ALGOS_IMPL };
 
 const int NUM_ALGOS = 5;
 
-enum
-{
+enum {
     // primary version
     BLOCK_VERSION_DEFAULT        = 2, 
 
@@ -33,6 +34,8 @@ enum
     BLOCK_VERSION_GROESTL        = (2 << 9),
     BLOCK_VERSION_SKEIN          = (3 << 9),
     BLOCK_VERSION_QUBIT          = (4 << 9),
+    //BLOCK_VERSION_EQUIHASH       = (5 << 9),
+    //BLOCK_VERSION_ETHASH         = (6 << 9),
 };
 
 std::string GetAlgoName(int Algo);
@@ -107,6 +110,12 @@ public:
             case ALGO_QUBIT:
                 nVersion |= BLOCK_VERSION_QUBIT;
                 break;
+            //case ALGO_EQUIHASH:
+                //nVersion |= BLOCK_VERSION_EQUIHASH;
+                //break;
+            //case ALGO_ETHASH:
+                //nVersion |= BLOCK_VERSION_ETHASH;
+                //break;
             default:
                 break;
         }

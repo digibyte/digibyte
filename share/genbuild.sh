@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2012-2016 The Bitcoin Core developers
+# Copyright (c) 2012-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -31,7 +31,7 @@ if [ -e "$(which git 2>/dev/null)" -a "$(git rev-parse --is-inside-work-tree 2>/
 
     # otherwise generate suffix from git, i.e. string like "59887e8-dirty"
     SUFFIX=$(git rev-parse --short HEAD)
-    git diff-index --quiet HEAD -- || SUFFIX="$SUFFIX-dirty"
+    git diff-index --quiet HEAD -- || SUFFIX="$SUFFIX-DGB"
 fi
 
 if [ -n "$DESC" ]; then

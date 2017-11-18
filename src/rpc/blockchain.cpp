@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -835,7 +835,8 @@ UniValue pruneblockchain(const JSONRPCRequest& request)
         throw runtime_error(
             "pruneblockchain\n"
             "\nArguments:\n"
-            "1. \"height\"       (numeric, required) The block height to prune up to. May be set to a discrete height, or to a unix timestamp to prune based on block time.\n"
+            "1. \"height\"       (numeric, required) The block height to prune up to. May be set to a discrete height, or a unix timestamp\n"
+            "                  to prune blocks whose block time is at least 2 hours older than the provided timestamp.\n"
             "\nResult:\n"
             "n    (numeric) Height of the last block pruned.\n"
             "\nExamples:\n"
@@ -854,7 +855,8 @@ UniValue pruneblockchain(const JSONRPCRequest& request)
     // Height value more than a billion is too high to be a block height, and
     // too low to be a block time (corresponds to timestamp from Sep 2001).
     if (heightParam > 1000000000) {
-        CBlockIndex* pindex = chainActive.FindEarliestAtLeast(heightParam);
+        // Add a 2 hour buffer to include blocks which might have had old timestamps
+        CBlockIndex* pindex = chainActive.FindEarliestAtLeast(heightParam - 7200);
         if (!pindex) {
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Could not find block with at least the specified timestamp.");
         }
@@ -1115,6 +1117,8 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     BIP9SoftForkDescPushBack(bip9_softforks, "csv", consensusParams, Consensus::DEPLOYMENT_CSV);
     BIP9SoftForkDescPushBack(bip9_softforks, "segwit", consensusParams, Consensus::DEPLOYMENT_SEGWIT);
     BIP9SoftForkDescPushBack(bip9_softforks, "nversionbips", consensusParams, Consensus::DEPLOYMENT_NVERSIONBIPS);
+    //BIP9SoftForkDescPushBack(bip9_softforks, "equihash", consensusParams, Consensus::DEPLOYMENT_EQUIHASH);
+    //BIP9SoftForkDescPushBack(bip9_softforks, "ethash", consensusParams, Consensus::DEPLOYMENT_ETHASH);
     obj.push_back(Pair("bip9_softforks", bip9_softforks));
 
     if (fPruneMode)

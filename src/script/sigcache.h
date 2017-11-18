@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,6 +14,8 @@
 // systems). Due to how we count cache size, actual memory usage is slightly
 // more (~32.25 MB)
 static const unsigned int DEFAULT_MAX_SIG_CACHE_SIZE = 32;
+// Maximum sig cache size allowed
+static const int64_t MAX_MAX_SIG_CACHE_SIZE = 16384;
 
 class CPubKey;
 

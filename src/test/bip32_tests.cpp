@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2015 The Bitcoin Core developers
+// Copyright (c) 2013-2015 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -90,18 +90,18 @@ void RunTest(const TestVector &test) {
         pubkey.Encode(data);
 
         // Test private key
-        CBitcoinExtKey b58key; b58key.SetKey(key);
+        CDigiByteExtKey b58key; b58key.SetKey(key);
         BOOST_CHECK(b58key.ToString() == derive.prv);
 
-        CBitcoinExtKey b58keyDecodeCheck(derive.prv);
+        CDigiByteExtKey b58keyDecodeCheck(derive.prv);
         CExtKey checkKey = b58keyDecodeCheck.GetKey();
         assert(checkKey == key); //ensure a base58 decoded key also matches
 
         // Test public key
-        CBitcoinExtPubKey b58pubkey; b58pubkey.SetKey(pubkey);
+        CDigiByteExtPubKey b58pubkey; b58pubkey.SetKey(pubkey);
         BOOST_CHECK(b58pubkey.ToString() == derive.pub);
 
-        CBitcoinExtPubKey b58PubkeyDecodeCheck(derive.pub);
+        CDigiByteExtPubKey b58PubkeyDecodeCheck(derive.pub);
         CExtPubKey checkPubKey = b58PubkeyDecodeCheck.GetKey();
         assert(checkPubKey == pubkey); //ensure a base58 decoded pubkey also matches
 

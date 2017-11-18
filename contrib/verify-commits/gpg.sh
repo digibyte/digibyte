@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2014-2016 The Bitcoin Core developers
+# Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,17 +12,13 @@ for LINE in $(echo "$INPUT" | gpg --trust-model always "$@" 2>/dev/null); do
 	case "$LINE" in
 	"[GNUPG:] VALIDSIG "*)
 		while read KEY; do
-			case "$LINE" in "[GNUPG:] VALIDSIG $KEY "*) VALID=true;; esac
+			[ "${LINE#?GNUPG:? VALIDSIG * * * * * * * * * }" = "$KEY" ] && VALID=true
 		done < ./contrib/verify-commits/trusted-keys
 		;;
 	"[GNUPG:] REVKEYSIG "*)
 		[ "$DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG" != 1 ] && exit 1
-		while read KEY; do
-			case "$LINE" in "[GNUPG:] REVKEYSIG ${KEY#????????????????????????} "*)
-				REVSIG=true
-				GOODREVSIG="[GNUPG:] GOODSIG ${KEY#????????????????????????} "
-			esac
-		done < ./contrib/verify-commits/trusted-keys
+		REVSIG=true
+		GOODREVSIG="[GNUPG:] GOODSIG ${LINE#* * *}"
 		;;
 	esac
 done

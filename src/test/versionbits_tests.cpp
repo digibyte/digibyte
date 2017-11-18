@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2016 The Bitcoin Core developers
+// Copyright (c) 2014-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
         blocksToMine--;
         nTime += 600;
         nHeight += 1;
-    };
+    }
 
     nTime = nTimeout;
     // FAILED is only triggered at the end of a period, so CBV should be setting

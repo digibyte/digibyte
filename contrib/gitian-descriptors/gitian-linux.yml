@@ -1,5 +1,5 @@
 ---
-name: "digibyte-linux-0.13"
+name: "digibyte-linux-6.14"
 enable_cache: true
 suites:
 - "trusty"
@@ -28,7 +28,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/digibyte-team/digibyte.git"
+- "url": "https://github.com/digibyte/digibyte.git"
   "dir": "digibyte"
 files: []
 script: |

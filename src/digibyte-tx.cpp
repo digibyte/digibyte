@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -250,7 +250,7 @@ static void MutateTxAddOutAddr(CMutableTransaction& tx, const std::string& strIn
 
     // extract and validate ADDRESS
     std::string strAddr = vStrInputParts[1];
-    CBitcoinAddress addr(strAddr);
+    CDigiByteAddress addr(strAddr);
     if (!addr.IsValid())
         throw std::runtime_error("invalid TX output address");
     // build standard output script via GetScriptForDestination()
@@ -275,7 +275,7 @@ static void MutateTxAddOutPubKey(CMutableTransaction& tx, const std::string& str
     if (!pubkey.IsFullyValid())
         throw std::runtime_error("invalid TX output pubkey");
     CScript scriptPubKey = GetScriptForRawPubKey(pubkey);
-    CBitcoinAddress addr(scriptPubKey);
+    CDigiByteAddress addr(scriptPubKey);
 
     // Extract and validate FLAGS
     bool bSegWit = false;
@@ -293,7 +293,7 @@ static void MutateTxAddOutPubKey(CMutableTransaction& tx, const std::string& str
     if (bScriptHash) {
         // Get the address for the redeem script, then call
         // GetScriptForDestination() to construct a P2SH scriptPubKey.
-        CBitcoinAddress redeemScriptAddr(scriptPubKey);
+        CDigiByteAddress redeemScriptAddr(scriptPubKey);
         scriptPubKey = GetScriptForDestination(redeemScriptAddr.Get());
     }
 
@@ -360,7 +360,7 @@ static void MutateTxAddOutMultiSig(CMutableTransaction& tx, const std::string& s
     if (bScriptHash) {
         // Get the address for the redeem script, then call
         // GetScriptForDestination() to construct a P2SH scriptPubKey.
-        CBitcoinAddress addr(scriptPubKey);
+        CDigiByteAddress addr(scriptPubKey);
         scriptPubKey = GetScriptForDestination(addr.Get());
     }
 
@@ -424,7 +424,7 @@ static void MutateTxAddOutScript(CMutableTransaction& tx, const std::string& str
       scriptPubKey = GetScriptForWitness(scriptPubKey);
     }
     if (bScriptHash) {
-      CBitcoinAddress addr(scriptPubKey);
+      CDigiByteAddress addr(scriptPubKey);
       scriptPubKey = GetScriptForDestination(addr.Get());
     }
 
@@ -540,7 +540,7 @@ static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)
     for (unsigned int kidx = 0; kidx < keysObj.size(); kidx++) {
         if (!keysObj[kidx].isStr())
             throw std::runtime_error("privatekey not a std::string");
-        CBitcoinSecret vchSecret;
+        CDigiByteSecret vchSecret;
         bool fGood = vchSecret.SetString(keysObj[kidx].getValStr());
         if (!fGood)
             throw std::runtime_error("privatekey not valid");

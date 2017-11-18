@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2016 The Bitcoin Core developers
+// Copyright (c) 2015-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,7 +63,8 @@ namespace benchmark {
 
     class BenchRunner
     {
-        static std::map<std::string, BenchFunction> benchmarks;
+        typedef std::map<std::string, BenchFunction> BenchmarkMap;
+        static BenchmarkMap &benchmarks();
 
     public:
         BenchRunner(std::string name, BenchFunction func);

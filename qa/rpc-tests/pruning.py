@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2016 The Bitcoin Core developers
+# Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,18 +11,23 @@
 # This test takes 30 mins or more (up to 2 hours)
 # ********
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 import time
 import os
 
 MIN_BLOCKS_TO_KEEP = 288
 
+# Rescans start at the earliest block up to 2 hours before a key timestamp, so
+# the manual prune RPC avoids pruning blocks in the same window to be
+# compatible with pruning based on key creation time.
+RESCAN_WINDOW = 2 * 60 * 60
+
 
 def calc_usage(blockdir):
     return sum(os.path.getsize(blockdir+f) for f in os.listdir(blockdir) if os.path.isfile(blockdir+f)) / (1024. * 1024.)
 
-class PruneTest(BitcoinTestFramework):
+class PruneTest(DigiByteTestFramework):
 
     def __init__(self):
         super().__init__()
@@ -239,7 +244,7 @@ class PruneTest(BitcoinTestFramework):
 
         def height(index):
             if use_timestamp:
-                return node.getblockheader(node.getblockhash(index))["time"]
+                return node.getblockheader(node.getblockhash(index))["time"] + RESCAN_WINDOW
             else:
                 return index
 

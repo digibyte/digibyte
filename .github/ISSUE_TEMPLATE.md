@@ -2,7 +2,7 @@
 
 This issue tracker is only for technical issues related to digibyte-core.
 
-General digibyte questions and/or support requests and are best directed to the [Bitcoin StackExchange](https://digibyte.stackexchange.com).
+General digibyte questions and/or support requests and are best directed to the [DigiByte StackExchange](https://digibyte.stackexchange.com).
 
 For reporting security issues, please read instructions at [https://digibytecore.org/en/contact/](https://digibytecore.org/en/contact/).
 

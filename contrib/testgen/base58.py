@@ -1,8 +1,8 @@
-# Copyright (c) 2012-2016 The Bitcoin Core developers
+# Copyright (c) 2012-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 '''
-Bitcoin base58 encoding and decoding.
+DigiByte base58 encoding and decoding.
 
 Based on https://digibytetalk.org/index.php?topic=1026.0 (public domain)
 '''
@@ -37,7 +37,7 @@ def b58encode(v):
         long_value = div
     result = __b58chars[long_value] + result
 
-    # Bitcoin does a little leading-zero-compression:
+    # DigiByte does a little leading-zero-compression:
     # leading 0-bytes in the input become leading-1s
     nPad = 0
     for c in v:
@@ -84,7 +84,6 @@ def b58decode_chk(v):
     result = b58decode(v)
     if result is None:
         return None
-    h3 = checksum(result[:-4])
     if result[-4:] == checksum(result[:-4]):
         return result[:-4]
     else:

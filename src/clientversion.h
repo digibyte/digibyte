@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,13 +14,13 @@
  */
 
 //! These need to be macros, as clientversion.cpp's and digibyte*-res.rc's voodoo requires it
-#define CLIENT_VERSION_MAJOR 0
-#define CLIENT_VERSION_MINOR 6
-#define CLIENT_VERSION_REVISION 13
+#define CLIENT_VERSION_MAJOR 6
+#define CLIENT_VERSION_MINOR 14
+#define CLIENT_VERSION_REVISION 2
 #define CLIENT_VERSION_BUILD 0
 
 //! Set to true for release, false for prerelease or test build
-#define CLIENT_VERSION_IS_RELEASE false
+#define CLIENT_VERSION_IS_RELEASE true
 
 /**
  * Copyright year (2009-this)

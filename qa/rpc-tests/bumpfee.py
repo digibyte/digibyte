@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016 The Bitcoin Core developers
+# Copyright (c) 2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from segwit import send_to_witness
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework import blocktools
 from test_framework.mininode import CTransaction
 from test_framework.util import *
@@ -20,7 +20,7 @@ WALLET_PASSPHRASE = "test"
 WALLET_PASSPHRASE_TIMEOUT = 3600
 
 
-class BumpFeeTest(BitcoinTestFramework):
+class BumpFeeTest(DigiByteTestFramework):
     def __init__(self):
         super().__init__()
         self.num_nodes = 2
@@ -69,6 +69,7 @@ class BumpFeeTest(BitcoinTestFramework):
         test_rebumping(rbf_node, dest_address)
         test_rebumping_not_replaceable(rbf_node, dest_address)
         test_unconfirmed_not_spendable(rbf_node, rbf_node_address)
+        test_bumpfee_metadata(rbf_node, dest_address)
         test_locked_wallet_fails(rbf_node, dest_address)
         print("Success")
 
@@ -255,6 +256,14 @@ def test_unconfirmed_not_spendable(rbf_node, rbf_node_address):
     assert_equal(
         sum(1 for t in rbf_node.listunspent(minconf=0, include_unsafe=False)
             if t["txid"] == rbfid and t["address"] == rbf_node_address and t["spendable"]), 1)
+
+
+def test_bumpfee_metadata(rbf_node, dest_address):
+    rbfid = rbf_node.sendtoaddress(dest_address, 0.00090000, "comment value", "to value")
+    bumped_tx = rbf_node.bumpfee(rbfid)
+    bumped_wtx = rbf_node.gettransaction(bumped_tx["txid"])
+    assert_equal(bumped_wtx["comment"], "comment value")
+    assert_equal(bumped_wtx["to"], "to value")
 
 
 def test_locked_wallet_fails(rbf_node, dest_address):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2016 The Bitcoin Core developers
+# Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,7 +17,7 @@ than:
       interface.
 
 For a description of arguments recognized by test scripts, see
-`qa/pull-tester/test_framework/test_framework.py:BitcoinTestFramework.main`.
+`qa/pull-tester/test_framework/test_framework.py:DigiByteTestFramework.main`.
 
 """
 
@@ -154,6 +154,7 @@ testScripts = [
     'bumpfee.py',
     'rpcnamedargs.py',
     'listsinceblock.py',
+    'p2p-leaktests.py',
 ]
 if ENABLE_ZMQ:
     testScripts.append('zmq_test.py')
@@ -168,6 +169,7 @@ testScriptsExt = [
     # vv Tests less than 2m vv
     'bip68-sequence.py',
     'getblocktemplate_longpoll.py',
+    'p2p-timeouts.py',
     # vv Tests less than 60s vv
     'bip9-softforks.py',
     'p2p-feefilter.py',
