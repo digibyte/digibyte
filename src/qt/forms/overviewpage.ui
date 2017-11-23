@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(10, 22, 68);</string>
+   <string notr="true">background-color: rgb(10, 25, 65);</string>
   </property>
   <layout class="QVBoxLayout" name="topLayout">
    <item>

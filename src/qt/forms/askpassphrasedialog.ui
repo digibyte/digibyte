@@ -25,9 +25,6 @@
   <property name="windowTitle">
    <string>Passphrase Dialog</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(10, 22, 68);</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="sizeConstraint">
     <enum>QLayout::SetMinimumSize</enum>

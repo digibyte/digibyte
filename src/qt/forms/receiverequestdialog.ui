@@ -10,9 +10,6 @@
     <height>597</height>
    </rect>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(10, 22, 68);</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="QRImageWidget" name="lblQRCode">
@@ -30,9 +27,6 @@
      </property>
      <property name="toolTip">
       <string>QR Code</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>

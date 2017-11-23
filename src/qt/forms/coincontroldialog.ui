@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>Coin Selection</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(10, 22, 68);</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayoutTop" stretch="0,0,0,0">
