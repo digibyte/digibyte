@@ -35,7 +35,7 @@
    <item>
     <widget class="QLabel" name="warningLabel">
      <property name="text">
-      <string notr="true">Placeholder text</string>
+      <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Placeholder text&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
@@ -56,7 +56,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="passLabel1">
        <property name="text">
-        <string>Enter passphrase</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Enter passphrase&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -70,7 +70,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="passLabel2">
        <property name="text">
-        <string>New passphrase</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;New passphrase&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -84,7 +84,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="passLabel3">
        <property name="text">
-        <string>Repeat new passphrase</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Repeat new passphrase&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
