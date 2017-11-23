@@ -5,6 +5,7 @@
 #include "networkstyle.h"
 
 #include "guiconstants.h"
+#include "guiutil.h"
 
 #include <QApplication>
 
@@ -26,6 +27,8 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     appName(_appName),
     titleAddText(qApp->translate("SplashScreen", _titleAddText))
 {
+    // Make sure settings migrated properly
+    GUIUtil::migrateQtSettings();
     // Grab theme from settings
     QString theme = GUIUtil::getThemeName();
     // load pixmap

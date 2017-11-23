@@ -176,6 +176,9 @@ namespace GUIUtil
 
     bool GetStartOnSystemStartup();
     bool SetStartOnSystemStartup(bool fAutoStart);
+    
+    /** Modify Qt network specific settings on migration */
+    void migrateQtSettings();
 
     /** Load global CSS theme */
     QString loadStyleSheet();
