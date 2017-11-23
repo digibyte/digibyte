@@ -77,6 +77,14 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
 
     /* Display elements init */
+
+
+    /* Theme selector */
+
+    ui->theme->addItem(QString("DGB-black"), QVariant("black"));
+    ui->theme->addItem(QString("DGB-blue"), QVariant("drkblue"));
+
+
     QDir translations(":translations");
 
     ui->digibyteAtStartup->setToolTip(ui->digibyteAtStartup->toolTip().arg(tr(PACKAGE_NAME)));

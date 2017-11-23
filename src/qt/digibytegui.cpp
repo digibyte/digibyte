@@ -276,6 +276,7 @@ void DigiByteGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
+    QString theme = GUIUtil::getThemeName();
     overviewAction = new QAction(platformStyle->SingleColorIcon(":/icons/overview"), tr("&Overview"), this);
     overviewAction->setStatusTip(tr("Show general overview of wallet"));
     overviewAction->setToolTip(overviewAction->statusTip());
@@ -717,6 +718,7 @@ void DigiByteGUI::updateNetworkState()
 {
     int count = clientModel->getNumConnections();
     QString icon;
+    QString theme = GUIUtil::getThemeName();
     switch(count)
     {
     case 0: icon = ":/icons/connect_0"; break;
@@ -821,6 +823,7 @@ void DigiByteGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVe
     tooltip = tr("Processed %n block(s) of transaction history.", "", count);
 
     // Set icon state: spinning if catching up, tick otherwise
+    QString theme = GUIUtil::getThemeName();
     if(secs < 90*60)
     {
         tooltip = tr("Up to date") + QString(".<br>") + tooltip;
@@ -1050,6 +1053,8 @@ bool DigiByteGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
 
 void DigiByteGUI::setHDStatus(int hdEnabled)
 {
+    QString theme = GUIUtil::getThemeName();
+
     labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(hdEnabled ? ":/icons/hd_enabled" : ":/icons/hd_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
     labelWalletHDStatusIcon->setToolTip(hdEnabled ? tr("HD key generation is <b>enabled</b>") : tr("HD key generation is <b>disabled</b>"));
 
@@ -1059,6 +1064,7 @@ void DigiByteGUI::setHDStatus(int hdEnabled)
 
 void DigiByteGUI::setEncryptionStatus(int status)
 {
+    QString theme = GUIUtil::getThemeName();
     switch(status)
     {
     case WalletModel::Unencrypted:

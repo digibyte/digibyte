@@ -55,6 +55,10 @@
         <file alias="backg">res/icons/digibyte_wallet.png</file>
         <file alias="network_disabled">res/icons/network_disabled.png</file>
     </qresource>
+    <qresource prefix="/css">
+        <file alias="drkblue">res/css/drkblue.css</file>
+        <file alias="black">res/css/black.css</file>
+    </qresource>
     <qresource prefix="/movies">
         <file alias="spinner-000">res/movies/spinner-000.png</file>
         <file alias="spinner-001">res/movies/spinner-001.png</file>
