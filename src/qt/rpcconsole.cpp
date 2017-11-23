@@ -418,6 +418,7 @@ RPCConsole::RPCConsole(const PlatformStyle *_platformStyle, QWidget *parent) :
 {
     ui->setupUi(this);
     GUIUtil::restoreWindowGeometry("nRPCConsoleWindow", this->size(), this);
+    QString theme = GUIUtil::getThemeName();
 
     ui->openDebugLogfileButton->setToolTip(ui->openDebugLogfileButton->toolTip().arg(tr(PACKAGE_NAME)));
 

@@ -180,6 +180,9 @@ namespace GUIUtil
     /** Load global CSS theme */
     QString loadStyleSheet();
 
+    /** Return name of current CSS theme */
+    QString getThemeName();
+
     /** Save window size and position */
     void saveWindowGeometry(const QString& strSetting, QWidget *parent);
     /** Restore window size and position */

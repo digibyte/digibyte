@@ -37,6 +37,9 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *_platformStyle, QWidget *par
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
 #endif
 
+QString theme = GUIUtil::getThemeName();
+
+
     // normal digibyte address field
     GUIUtil::setupAddressWidget(ui->payTo, this);
     // just a label for displaying digibyte address(es)

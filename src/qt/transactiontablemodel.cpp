@@ -387,6 +387,7 @@ QString TransactionTableModel::formatTxType(const TransactionRecord *wtx) const
 
 QVariant TransactionTableModel::txAddressDecoration(const TransactionRecord *wtx) const
 {
+    QString theme = GUIUtil::getThemeName();
     switch(wtx->type)
     {
     case TransactionRecord::Generated:
@@ -462,6 +463,7 @@ QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool
 
 QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx) const
 {
+    QString theme = GUIUtil::getThemeName();
     switch(wtx->status.status)
     {
     case TransactionStatus::OpenUntilBlock:
@@ -501,6 +503,7 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
 
 QVariant TransactionTableModel::txWatchonlyDecoration(const TransactionRecord *wtx) const
 {
+    QString theme = GUIUtil::getThemeName();
     if (wtx->involvesWatchAddress)
         return QIcon(":/icons/eye");
     else

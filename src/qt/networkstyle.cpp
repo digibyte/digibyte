@@ -26,6 +26,8 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     appName(_appName),
     titleAddText(qApp->translate("SplashScreen", _titleAddText))
 {
+    // Grab theme from settings
+    QString theme = GUIUtil::getThemeName();
     // load pixmap
     QPixmap pixmap(":/icons/digibyte");
 

@@ -53,6 +53,7 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
         hlayout->addSpacing(23);
     }
 
+    QString theme = GUIUtil::getThemeName();
     watchOnlyWidget = new QComboBox(this);
     watchOnlyWidget->setFixedWidth(24);
     watchOnlyWidget->addItem("", TransactionFilterProxy::WatchOnlyFilter_All);
