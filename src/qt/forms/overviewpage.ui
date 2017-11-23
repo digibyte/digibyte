@@ -6,15 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>643</width>
+    <width>596</width>
     <height>342</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(10, 25, 65);</string>
   </property>
   <layout class="QVBoxLayout" name="topLayout">
    <item>
@@ -422,27 +419,27 @@
          </property>
         </spacer>
        </item>
-       <item>
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string/>
+           <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../digibyte.qrc">:/icons/backg</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>-2</number>
          </property>
-         <property name="pixmap">
-          <pixmap resource="../digibyte.qrc">:/icons/backg</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="margin">
-          <number>-2</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      </widget>
      </item>
+      </layout>
+     </item>     
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -558,8 +555,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../digibyte.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
