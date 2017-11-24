@@ -1,4 +1,5 @@
 WalletFrame {
+background-color:#000;
 border-top:0px solid #000;
 margin:0;
 padding-top:20px;
@@ -57,7 +58,7 @@ color:#333;
 }
 
 QToolBar > QToolButton:checked {
-background-color:#1c75bc;
+background-color:#0066cc;
 color:#fff;
 font-weight:bold;
 }
@@ -141,7 +142,7 @@ background:#f2f2f2;
 }
 
 QComboBox:editable {
-background: #1c75bc;
+background: #0066cc;
 color:#616161;
 border:0px solid transparent;
 }
@@ -277,7 +278,7 @@ background-color:transparent;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
-background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.25, stop: 0 #1070B0, stop: 1 #1c75bc);
+background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.25, stop: 0 #1070B0, stop: 1 #0066cc);
 color:#fff;
 min-height:25px;
 font-weight:bold;
@@ -698,7 +699,7 @@ min-width:180px;
 }
 
 QDialog#RPCConsole QWidget#tab_peers  QLabel#peerHeading { /* Peers Info Header */
-color:#1c75bc;
+color:#0066cc;
 }
 
 QDialog#RPCConsole QPushButton#openDebugLogfileButton {
@@ -808,7 +809,7 @@ margin-left:16px;
 QWidget .QFrame#frame .QLabel#labelBalanceText { /* Available Balance Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
-background-color:#1c75bc;
+background-color:#0066cc;
 color:#ffffff;
 margin-right:5px;
 padding-right:5px;
@@ -820,7 +821,7 @@ min-height:35px;
 QWidget .QFrame#frame .QLabel#labelBalance { /* Available Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:12pt;
-color:#1c75bc;
+color:#0066cc;
 margin-left:0px;
     font-weight: bold;
 }
@@ -912,7 +913,7 @@ QWidget .QFrame#framePrivateSend .QLabel#labelPrivateSendHeader { /* PrivateSend
 qproperty-alignment: 'AlignVCenter | AlignCenter';
 max-width: 421px;
 min-width: 421px;
-background-color:#1c75bc;
+background-color:#0066cc;
 color:#fff;
 margin-right: 5px;
 padding-right: 5px;
@@ -969,7 +970,7 @@ color:#818181;
 }
 
 QWidget .QFrame#framePrivateSend #privateSendFormLayoutWidget .QProgressBar#privateSendProgress::chunk {
-background-color: #1c75bc;
+background-color: #0066cc;
 width:1px;
 }
 
