@@ -200,7 +200,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.push_back(CDNSSeedData("digibyte.co", "seed.digibyte.co"));
+        vSeeds.push_back(CDNSSeedData("digibyte.io", "seed.digibyte.io"));
         vSeeds.push_back(CDNSSeedData("digiexplorer.info", "digiexplorer.info"));
         vSeeds.push_back(CDNSSeedData("digihash.co", "digihash.co"));
 
