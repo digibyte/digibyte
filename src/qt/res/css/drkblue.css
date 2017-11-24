@@ -1,4 +1,5 @@
 WalletFrame {
+background-color:#003366;
 border-top:0px solid #000;
 margin:0;
 padding-top:20px;
@@ -19,11 +20,11 @@ background-color:#fff;
 }
 
 QMenuBar::item {
-background-color:#fff;
+background-color:#0066cc;
 }
 
 QMenuBar::item:selected {
-background-color:#f8f6f6;
+background-color:#003366;
 }
 
 QMenu {
