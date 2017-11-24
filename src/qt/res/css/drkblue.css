@@ -49,6 +49,7 @@ margin:0;
 
 QToolBar > QToolButton {
 background-color:#0066cc;
+color:#fff;
 border:0px solid #333;
 min-height:2.5em;
 min-width: 8em;
@@ -837,7 +838,7 @@ QWidget .QFrame#frame .QLabel#labelPendingText { /* Pending Balance Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
 font-size:9pt;
-background-color:#F8F6F6;
+background-color:#fff;
 margin-right:5px;
 padding-right:5px;
 }
@@ -881,7 +882,7 @@ QWidget .QFrame#frame .QLabel#labelTotalText { /* Total Balance Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
 font-size:9pt;
-background-color:#F8F6F6;
+background-color:#fff;
 margin-right:5px;
 padding-right:5px;
 }
@@ -1119,7 +1120,7 @@ background-repeat:none;
 
 QWidget .QFrame#frame_2 .QLabel#label_4 { /* Recent Transactions Label */
 min-width:180px;
-color:#999;
+color:#fff;
 margin-left:67px;
 margin-top:83px;
 margin-right:5px;
@@ -1141,6 +1142,7 @@ min-height:16px;
 QWidget .QFrame#frame_2 QListView { /* Transaction List */
 font-weight:normal;
 font-size:9pt;
+color:#fff;
 margin-top:12px;
 margin-left:0px; /* CSS Voodoo - set to -66px to hide default transaction icons */
 }
