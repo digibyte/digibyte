@@ -55,7 +55,7 @@ min-height:2.5em;
 min-width: 5em;
 padding: 0em 1em;
 /*font-weight:bold;*/
-color:#fff;
+color:#003366;
 }
 
 QToolBar > QToolButton:checked {
@@ -882,7 +882,7 @@ QWidget .QFrame#frame .QLabel#labelTotalText { /* Total Balance Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
 font-size:9pt;
-background-color:#fff;
+background-color:#003366;
 margin-right:5px;
 padding-right:5px;
 }
@@ -890,7 +890,7 @@ padding-right:5px;
 QWidget .QFrame#frame .QLabel#labelTotal { /* Total Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:9pt;
-color:#003366;
+color:#fff;
 margin-left:0px;
 }
 
