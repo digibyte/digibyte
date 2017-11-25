@@ -55,7 +55,7 @@ WalletFrame {
     min-width: 5em;
     padding: 0em 1em;
     /*font-weight:bold;*/
-    color:#fff;
+    color:#000;
     }
     
     QToolBar > QToolButton:checked {

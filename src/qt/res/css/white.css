@@ -49,7 +49,7 @@ WalletFrame {
     
     QToolBar > QToolButton {
     background-color:#cbccce;
-    color:#fff;
+    color:#003366;
     border:0px solid #333;
     min-height:2.5em;
     min-width: 5em;
