@@ -81,9 +81,9 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
 
     /* Theme selector */
 
-    ui->theme->addItem(QString("DGB-black"), QVariant("black"));
-    ui->theme->addItem(QString("DGB-blue"), QVariant("blue"));
-    ui->theme->addItem(QString("DGB-white"), QVariant("white"));
+    ui->theme->addItem(QString("DGB-Black"), QVariant("black"));
+    ui->theme->addItem(QString("DGB-Blue"), QVariant("blue"));
+    ui->theme->addItem(QString("DGB-White"), QVariant("white"));
  
 
 
