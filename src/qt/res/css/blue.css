@@ -71,7 +71,7 @@ WalletFrame {
     /*******************************************************/
     
     QLabel { /* Base Text Size & Color */
-    font-size:9pt;
+    font-size:11pt;
     color:#fff;
     }
     
