@@ -126,3 +126,9 @@ code. This is especially important for large or high-risk changes. It is useful
 to add a test plan to the pull request description if testing the changes is
 not straightforward.
 
+Styling
+-------
+
+CSS is used for styling the UI via Qt. You can download the free, open source license of QtCreator to edit the CSS. 
+
+QtCreator allows you to change CSS without having to re-compile the application. Download the QtCreator: https://www.qt.io/download-qt-for-application-development
