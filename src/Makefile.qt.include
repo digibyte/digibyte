@@ -357,7 +357,8 @@ endif
 RES_IMAGES = 
 
 RES_CSS = \
-  qt/res/css/drkblue.css \
+  qt/res/css/blue.css \
+  qt/res/css/white.css \
   qt/res/css/black.css 
 
 RES_MOVIES = $(wildcard qt/res/movies/spinner-*.png)
