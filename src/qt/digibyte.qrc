@@ -61,7 +61,7 @@
         <file alias="network_disabled">res/icons/blue/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/black">
-        <file alias="digibyte">res/icons/black.png</file>
+        <file alias="digibyte">res/icons/black/digibyte.png</file>
         <file alias="address-book">res/icons/black/address-book.png</file>
         <file alias="quit">res/icons/black/quit.png</file>
         <file alias="send">res/icons/black/send.png</file>
@@ -115,7 +115,7 @@
         <file alias="network_disabled">res/icons/black/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/white">
-        <file alias="digibyte">res/icons/white.png</file>
+        <file alias="digibyte">res/icons/white/digibyte.png</file>
         <file alias="address-book">res/icons/white/address-book.png</file>
         <file alias="quit">res/icons/white/quit.png</file>
         <file alias="send">res/icons/white/send.png</file>
