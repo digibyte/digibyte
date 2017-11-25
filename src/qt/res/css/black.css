@@ -1,5 +1,5 @@
 WalletFrame {
-background-color:#fff;
+background-color:#000;
 border-top:0px solid #000;
 margin:0;
 padding-top:20px;
@@ -41,14 +41,14 @@ color:#333;
 }
 
 QToolBar {
-background-color:#fff;
+background-color:#0066cc;
 border:0px solid #000;
 padding:0;
 margin:0;
 }
 
 QToolBar > QToolButton {
-background-color:#fff;
+background-color:#0066cc;
 color:#fff;
 border:0px solid #333;
 min-height:2.5em;
@@ -59,7 +59,7 @@ color:#333;
 }
 
 QToolBar > QToolButton:checked {
-background-color:#0066cc;
+background-color:#000;
 color:#fff;
 font-weight:bold;
 }

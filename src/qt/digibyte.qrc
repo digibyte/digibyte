@@ -3,8 +3,9 @@
         <file alias="digibyte">res/icons/digibyte.png</file>
         <file alias="warning">res/icons/warning.png</file>
         <file alias="prompticon">res/icons/chevron.png</file>
+         <file alias="prompticon">res/icons/digibyte.icns</file>
+    </qresource>
     <qresource prefix="/icons/blue">
-        <file alias="digibyte">res/icons/blue/digibyte.png</file>
         <file alias="address-book">res/icons/blue/address-book.png</file>
         <file alias="quit">res/icons/blue/quit.png</file>
         <file alias="send">res/icons/blue/send.png</file>
@@ -49,10 +50,8 @@
         <file alias="about">res/icons/blue/about.png</file>
         <file alias="about_qt">res/icons/blue/about_qt.png</file>
         <file alias="verify">res/icons/blue/verify.png</file>
-        <file alias="warning">res/icons/blue/warning.png</file>
         <file alias="fontbigger">res/icons/blue/fontbigger.png</file>
         <file alias="fontsmaller">res/icons/blue/fontsmaller.png</file>
-        <file alias="prompticon">res/icons/blue/chevron.png</file>
         <file alias="transaction_abandoned">res/icons/blue/transaction_abandoned.png</file>
         <file alias="hd_enabled">res/icons/blue/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/blue/hd_disabled.png</file>
@@ -60,7 +59,6 @@
         <file alias="network_disabled">res/icons/blue/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/black">
-        <file alias="digibyte">res/icons/black/digibyte.png</file>
         <file alias="address-book">res/icons/black/address-book.png</file>
         <file alias="quit">res/icons/black/quit.png</file>
         <file alias="send">res/icons/black/send.png</file>
@@ -105,10 +103,8 @@
         <file alias="about">res/icons/black/about.png</file>
         <file alias="about_qt">res/icons/black/about_qt.png</file>
         <file alias="verify">res/icons/black/verify.png</file>
-        <file alias="warning">res/icons/black/warning.png</file>
         <file alias="fontbigger">res/icons/black/fontbigger.png</file>
         <file alias="fontsmaller">res/icons/black/fontsmaller.png</file>
-        <file alias="prompticon">res/icons/black/chevron.png</file>
         <file alias="transaction_abandoned">res/icons/black/transaction_abandoned.png</file>
         <file alias="hd_enabled">res/icons/black/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/black/hd_disabled.png</file>
@@ -116,7 +112,6 @@
         <file alias="network_disabled">res/icons/black/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/white">
-        <file alias="digibyte">res/icons/white/digibyte.png</file>
         <file alias="address-book">res/icons/white/address-book.png</file>
         <file alias="quit">res/icons/white/quit.png</file>
         <file alias="send">res/icons/white/send.png</file>
@@ -161,10 +156,8 @@
         <file alias="about">res/icons/white/about.png</file>
         <file alias="about_qt">res/icons/white/about_qt.png</file>
         <file alias="verify">res/icons/white/verify.png</file>
-        <file alias="warning">res/icons/white/warning.png</file>
         <file alias="fontbigger">res/icons/white/fontbigger.png</file>
         <file alias="fontsmaller">res/icons/white/fontsmaller.png</file>
-        <file alias="prompticon">res/icons/white/chevron.png</file>
         <file alias="transaction_abandoned">res/icons/white/transaction_abandoned.png</file>
         <file alias="hd_enabled">res/icons/white/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/white/hd_disabled.png</file>

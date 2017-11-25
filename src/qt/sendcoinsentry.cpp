@@ -23,6 +23,8 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *_platformStyle, QWidget *par
 {
     ui->setupUi(this);
 
+    QString theme = GUIUtil::getThemeName();
+
     ui->addressBookButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/address-book"));
     ui->pasteButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/editpaste"));
     ui->deleteButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/remove"));
@@ -36,8 +38,6 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *_platformStyle, QWidget *par
 #if QT_VERSION >= 0x040700
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
 #endif
-
-QString theme = GUIUtil::getThemeName();
 
 
     // normal digibyte address field

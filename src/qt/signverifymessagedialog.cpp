@@ -28,6 +28,8 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(const PlatformStyle *_platformS
 {
     ui->setupUi(this);
 
+    QString theme = GUIUtil::getThemeName();
+
     ui->addressBookButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/address-book"));
     ui->pasteButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/editpaste"));
     ui->copySignatureButton_SM->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/editcopy"));
@@ -41,7 +43,7 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(const PlatformStyle *_platformS
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 #endif
 
-QString theme = GUIUtil::getThemeName();
+
 
     GUIUtil::setupAddressWidget(ui->addressIn_SM, this);
     GUIUtil::setupAddressWidget(ui->addressIn_VM, this);
