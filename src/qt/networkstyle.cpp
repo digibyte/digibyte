@@ -32,7 +32,7 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     // Grab theme from settings
     QString theme = GUIUtil::getThemeName();
     // load pixmap
-    QPixmap pixmap(":/icons/digibyte");
+    QPixmap pixmap(":/icons/" + theme + "/digibyte");
 
     if(iconColorHueShift != 0 && iconColorSaturationReduction != 0)
     {

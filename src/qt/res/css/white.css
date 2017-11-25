@@ -509,7 +509,7 @@ background-color:#fff;
 }
 
 QDialog#SignVerifyMessageDialog QPushButton#pasteButton_SM { /* Paste Button */
-/* qproperty-icon: url(":/icons/light/drkblue_editpaste"); */
+/* qproperty-icon: url(":/icons/" + theme + "/light/drkblue_editpaste"); */
 background-color:transparent;
 padding-left:15px;
 }
@@ -519,7 +519,7 @@ font-size:8pt;
 }
 
 QDialog#SignVerifyMessageDialog QPushButton#copySignatureButton_SM { /* Copy Button */
-/* qproperty-icon: url(":/icons/light/drkblue_editcopy"); */
+/* qproperty-icon: url(":/icons/" + theme + "/light/drkblue_editcopy"); */
 background-color:transparent;
 padding-left:10px;
 padding-right:10px;

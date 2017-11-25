@@ -47,7 +47,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     exportButton->setToolTip(tr("Export the data in the current tab to a file"));
     if (platformStyle->getImagesOnButtons()) {
         QString theme = GUIUtil::getThemeName();
-        exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
+        exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/export"));
     }
     hbox_buttons->addStretch();
     hbox_buttons->addWidget(exportButton);
