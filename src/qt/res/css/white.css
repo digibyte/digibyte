@@ -811,7 +811,7 @@ QWidget .QFrame#frame .QLabel#labelBalanceText { /* Available Balance Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
 background-color:#0066cc;
-color:#ffffff;
+color:#003366;
 margin-right:5px;
 padding-right:5px;
 font-size:10pt;
@@ -846,7 +846,7 @@ padding-right:5px;
 QWidget .QFrame#frame .QLabel#labelUnconfirmed { /* Pending Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:9pt;
-color:#fff;
+color:#0066cc;
 margin-left:0px;
 }
 
@@ -882,7 +882,7 @@ QWidget .QFrame#frame .QLabel#labelTotalText { /* Total Balance Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
 font-size:9pt;
-background-color:#F8F6F6;
+background-color:#0066cc;
 margin-right:5px;
 padding-right:5px;
 }
