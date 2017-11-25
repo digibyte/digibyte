@@ -239,6 +239,8 @@ RES_ICONS = \
   qt/res/icons/digibyte.png \
   qt/res/icons/chevron.png \
   qt/res/icons/warning.png \
+  qt/res/icons/digibyte_wallet.png \
+  qt/res/icons/black/digibyte.png \
   qt/res/icons/black/add.png \
   qt/res/icons/black/address-book.png \
   qt/res/icons/black/about.png \
@@ -291,6 +293,7 @@ RES_ICONS = \
   qt/res/icons/black/tx_mined.png \
   qt/res/icons/black/digibyte_wallet.png \
   qt/res/icons/black/verify.png \
+  qt/res/icons/white/digibyte.png \
   qt/res/icons/white/add.png \
   qt/res/icons/white/address-book.png \
   qt/res/icons/white/about.png \
@@ -343,6 +346,7 @@ RES_ICONS = \
   qt/res/icons/white/tx_mined.png \
   qt/res/icons/white/digibyte_wallet.png \
   qt/res/icons/white/verify.png \
+  qt/res/icons/blue/digibyte.png \
   qt/res/icons/blue/add.png \
   qt/res/icons/blue/address-book.png \
   qt/res/icons/blue/about.png \

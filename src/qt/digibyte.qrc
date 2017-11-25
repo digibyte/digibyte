@@ -3,9 +3,11 @@
         <file alias="digibyte">res/icons/digibyte.png</file>
         <file alias="warning">res/icons/warning.png</file>
         <file alias="prompticon">res/icons/chevron.png</file>
-         <file alias="prompticon">res/icons/digibyte.icns</file>
+        <file alias="prompticon">res/icons/digibyte.icns</file>
+        <file alias="backg">res/icons/digibyte_wallet.png</file>
     </qresource>
     <qresource prefix="/icons/blue">
+        <file alias="digibyte">res/icons/blue/digibyte.png</file>
         <file alias="address-book">res/icons/blue/address-book.png</file>
         <file alias="quit">res/icons/blue/quit.png</file>
         <file alias="send">res/icons/blue/send.png</file>
@@ -59,6 +61,7 @@
         <file alias="network_disabled">res/icons/blue/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/black">
+        <file alias="digibyte">res/icons/black.png</file>
         <file alias="address-book">res/icons/black/address-book.png</file>
         <file alias="quit">res/icons/black/quit.png</file>
         <file alias="send">res/icons/black/send.png</file>
@@ -112,6 +115,7 @@
         <file alias="network_disabled">res/icons/black/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/white">
+        <file alias="digibyte">res/icons/white.png</file>
         <file alias="address-book">res/icons/white/address-book.png</file>
         <file alias="quit">res/icons/white/quit.png</file>
         <file alias="send">res/icons/white/send.png</file>
