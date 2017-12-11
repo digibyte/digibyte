@@ -275,7 +275,7 @@ then
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
+
 	    mv build/out/digibyte-*.tar.gz build/out/src/digibyte-*.tar.gz ../digibyte-binaries/${VERSION}
 	fi
 	# Windows
@@ -285,7 +285,7 @@ then
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
+	    
 	    mv build/out/digibyte-*-win-unsigned.tar.gz inputs/digibyte-win-unsigned.tar.gz
 	    mv build/out/digibyte-*.zip build/out/digibyte-*.exe ../digibyte-binaries/${VERSION}
 	fi
@@ -296,7 +296,7 @@ then
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
+	   
 	    mv build/out/digibyte-*-osx-unsigned.tar.gz inputs/digibyte-osx-unsigned.tar.gz
 	    mv build/out/digibyte-*.tar.gz build/out/digibyte-*.dmg ../digibyte-binaries/${VERSION}
 	fi
