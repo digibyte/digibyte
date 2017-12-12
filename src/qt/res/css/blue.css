@@ -634,7 +634,7 @@ WalletFrame {
     
     /* Encrypt Wallet and Change Passphrase Dialog */
     QDialog#AskPassphraseDialog {
-    background-color:#F8F6F6;
+    background-color:#003366;
     }
     
     QDialog#AskPassphraseDialog QLabel#passLabel1, QDialog#AskPassphraseDialog QLabel#passLabel2, QDialog#AskPassphraseDialog QLabel#passLabel3 {
@@ -645,7 +645,7 @@ WalletFrame {
     
     /* Options Dialog */
     QDialog#OptionsDialog {
-    background-color:#F8F6F6;
+    background: color #003366;
     }
     
     QDialog#OptionsDialog QValueComboBox, QDialog#OptionsDialog QSpinBox {
