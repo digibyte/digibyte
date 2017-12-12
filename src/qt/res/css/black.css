@@ -746,7 +746,7 @@ WalletFrame {
     
     /* About Dash Dialog */
     QDialog#AboutDialog {
-    background-color:#F8F6F6;
+    background-color:#000;
     }
     
     QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Dash Contents */
