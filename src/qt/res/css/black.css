@@ -468,7 +468,7 @@ WalletFrame {
     
     /* Dialog: Open URI */
     QDialog#OpenURIDialog {
-    background-color:#F8F6F6;
+    background-color:#000;
     }
     
     QDialog#OpenURIDialog QLabel#label { /* URI Label */
@@ -494,7 +494,7 @@ WalletFrame {
     
     /* Dialog: Sign / Verify Message */
     QDialog#SignVerifyMessageDialog {
-    background-color:#F8F6F6;
+    background-color:#000;
     }
     
     QDialog#SignVerifyMessageDialog QPushButton#addressBookButton_SM { /* Address Book Button */
