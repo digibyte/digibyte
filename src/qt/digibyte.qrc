@@ -5,6 +5,11 @@
         <file alias="prompticon">res/icons/chevron.png</file>
         <file alias="backg">res/icons/digibyte_wallet.png</file>
     </qresource>
+    <qresource prefix="/css">
+        <file alias="blue">res/css/blue.css</file>
+        <file alias="black">res/css/black.css</file>
+        <file alias="white">res/css/white.css</file>
+    </qresource>
     <qresource prefix="/icons/blue">
         <file alias="digibyte">res/icons/blue/digibyte.png</file>
         <file alias="address-book">res/icons/blue/address-book.png</file>
@@ -167,11 +172,7 @@
         <file alias="backg">res/icons/white/digibyte_wallet.png</file>
         <file alias="network_disabled">res/icons/white/network_disabled.png</file>
     </qresource>
-    <qresource prefix="/css">
-        <file alias="blue">res/css/blue.css</file>
-        <file alias="black">res/css/black.css</file>
-        <file alias="white">res/css/white.css</file>
-    </qresource>
+ 
     <qresource prefix="/movies">
         <file alias="spinner-000">res/movies/spinner-000.png</file>
         <file alias="spinner-001">res/movies/spinner-001.png</file>
