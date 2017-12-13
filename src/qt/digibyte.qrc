@@ -3,7 +3,6 @@
         <file alias="digibyte">res/icons/digibyte.png</file>
         <file alias="warning">res/icons/warning.png</file>
         <file alias="prompticon">res/icons/chevron.png</file>
-        <file alias="prompticon">res/icons/digibyte.icns</file>
         <file alias="backg">res/icons/digibyte_wallet.png</file>
     </qresource>
     <qresource prefix="/icons/blue">
