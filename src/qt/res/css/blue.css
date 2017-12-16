@@ -153,9 +153,7 @@ WalletFrame {
     border:0px;
     }
     
-    QComboBox::down-arrow {
-    border-image: url(':/images/light/drkblue_downArrow') 0 0 0 0 stretch stretch;
-    }
+   
     
     QComboBox QListView {
     background:#fff;
@@ -208,9 +206,7 @@ WalletFrame {
     padding-top:2px;
     }
     
-    QAbstractSpinBox::up-arrow {
-    image:url(':/images/light/drkblue_upArrow_small');
-    }
+  
     
     QAbstractSpinBox::down-button {
     subcontrol-origin: border;
@@ -226,9 +222,7 @@ WalletFrame {
     padding-bottom:2px;
     }
     
-    QAbstractSpinBox::down-arrow {
-    image:url(':/images/light/drkblue_downArrow_small');
-    }
+
     
     QCheckBox {
     spacing: 5px;
@@ -239,37 +233,7 @@ WalletFrame {
     height: 16px;
     }
     
-    QCheckBox::indicator:unchecked {
-    image:url(':/images/light/unchecked');
-    }
-    
-    QCheckBox::indicator:unchecked:hover {
-    image:url(':/images/light/unchecked');
-    }
-    
-    QCheckBox::indicator:unchecked:pressed {
-    image:url(':/images/light/checked');
-    }
-    
-    QCheckBox::indicator:checked {
-    image:url(':/images/light/checked');
-    }
-    
-    QCheckBox::indicator:checked:hover {
-    image:url(':/images/light/checked');
-    }
-    
-    QCheckBox::indicator:checked:pressed {
-    image:url(':/images/light/unchecked');
-    }
-    
-    QCheckBox::indicator:indeterminate:hover {
-    image:url(':/images/light/unchecked');
-    }
-    
-    QCheckBox::indicator:indeterminate:pressed {
-    image:url(':/images/light/checked');
-    }
+
     
     /*******************************************************/
     
@@ -386,21 +350,7 @@ WalletFrame {
     height:10px;
     }
     
-    QScrollBar:up-arrow {
-    background-image: url(':/images/light/drkblue_upArrow_small');
-    }
-    
-    QScrollBar:down-arrow {
-    background-image: url(':/images/light/drkblue_downArrow_small');
-    }
-    
-    QScrollBar:left-arrow {
-    background-image: url(':/images/light/drkblue_leftArrow_small');
-    }
-    
-    QScrollBar:right-arrow {
-    background-image: url(':/images/light/drkblue_rightArrow_small');
-    }
+
     
     
     /*******************************************************/
@@ -1117,7 +1067,6 @@ WalletFrame {
     margin-right:20px;
     margin-left:0;
     margin-top:15px;
-    background-image: url(':/images/light/dash_logo_horizontal');
     background-repeat:none;
     }
     
@@ -1167,7 +1116,6 @@ WalletFrame {
     }
     
     QWidget#contentWidget { /* The actual content with the text/buttons/etc... */
-    border-image: url(':/images/light/drkblue_walletFrame_bg') 0 0 0 0 stretch stretch;
     border-top:0px solid #000;
     margin:0;
     padding-top:20px;
@@ -1480,7 +1428,6 @@ WalletFrame {
     }
     
     QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::branch:selected { /* Coin Control Branch Icon */
-    background-image: url(':/images/light/drkblue_qtreeview_selected');
     background-repeat:no-repeat;
     background-position:center;
     background-color:#f7f7f7;
@@ -1488,7 +1435,6 @@ WalletFrame {
     }
     
     QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::branch:checked { /* Coin Control Branch Icon */
-    background-image: url(':/images/light/drkblue_qtreeview_selected');
     background-repeat:no-repeat;
     background-position:center;
     background-color:#f7f7f7;
