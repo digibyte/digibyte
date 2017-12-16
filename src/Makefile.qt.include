@@ -244,7 +244,6 @@ RES_ICONS = \
   qt/res/icons/black/address-book.png \
   qt/res/icons/black/about.png \
   qt/res/icons/black/about_qt.png \
-  qt/res/icons/black/digibyte_testnet.ico \
   qt/res/icons/black/clock1.png \
   qt/res/icons/black/clock2.png \
   qt/res/icons/black/clock3.png \
@@ -297,7 +296,6 @@ RES_ICONS = \
   qt/res/icons/white/address-book.png \
   qt/res/icons/white/about.png \
   qt/res/icons/white/about_qt.png \
-  qt/res/icons/white/digibyte_testnet.ico \
   qt/res/icons/white/clock1.png \
   qt/res/icons/white/clock2.png \
   qt/res/icons/white/clock3.png \
@@ -350,7 +348,6 @@ RES_ICONS = \
   qt/res/icons/blue/address-book.png \
   qt/res/icons/blue/about.png \
   qt/res/icons/blue/about_qt.png \
-  qt/res/icons/blue/digibyte_testnet.ico \
   qt/res/icons/blue/clock1.png \
   qt/res/icons/blue/clock2.png \
   qt/res/icons/blue/clock3.png \
