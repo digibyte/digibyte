@@ -236,11 +236,9 @@ DIGIBYTE_QT_H = \
 
 RES_ICONS = \
   qt/res/icons/digibyte.ico \
-  qt/res/icons/digibyte_testnet.ico \
   qt/res/icons/digibyte.png \
   qt/res/icons/chevron.png \
   qt/res/icons/warning.png \
-  qt/res/icons/digibyte_wallet.png \
   qt/res/icons/black/digibyte.png \
   qt/res/icons/black/add.png \
   qt/res/icons/black/address-book.png \

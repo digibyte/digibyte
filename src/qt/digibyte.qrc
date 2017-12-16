@@ -3,7 +3,6 @@
         <file alias="digibyte">res/icons/digibyte.png</file>
         <file alias="warning">res/icons/warning.png</file>
         <file alias="prompticon">res/icons/chevron.png</file>
-        <file alias="backg">res/icons/digibyte_wallet.png</file>
     </qresource>
     <qresource prefix="/css">
         <file alias="blue">res/css/blue.css</file>
@@ -12,6 +11,7 @@
     </qresource>
     <qresource prefix="/icons/blue">
         <file alias="digibyte">res/icons/blue/digibyte.png</file>
+        <file alias="backg">res/icons/blue/digibyte_wallet.png</file>
         <file alias="address-book">res/icons/blue/address-book.png</file>
         <file alias="quit">res/icons/blue/quit.png</file>
         <file alias="send">res/icons/blue/send.png</file>
@@ -61,11 +61,11 @@
         <file alias="transaction_abandoned">res/icons/blue/transaction_abandoned.png</file>
         <file alias="hd_enabled">res/icons/blue/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/blue/hd_disabled.png</file>
-        <file alias="backg">res/icons/blue/digibyte_wallet.png</file>
         <file alias="network_disabled">res/icons/blue/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/black">
         <file alias="digibyte">res/icons/black/digibyte.png</file>
+        <file alias="backg">res/icons/black/digibyte_wallet.png</file>
         <file alias="address-book">res/icons/black/address-book.png</file>
         <file alias="quit">res/icons/black/quit.png</file>
         <file alias="send">res/icons/black/send.png</file>
@@ -115,11 +115,11 @@
         <file alias="transaction_abandoned">res/icons/black/transaction_abandoned.png</file>
         <file alias="hd_enabled">res/icons/black/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/black/hd_disabled.png</file>
-        <file alias="backg">res/icons/black/digibyte_wallet.png</file>
         <file alias="network_disabled">res/icons/black/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/white">
         <file alias="digibyte">res/icons/white/digibyte.png</file>
+        <file alias="backg">res/icons/white/digibyte_wallet.png</file>
         <file alias="address-book">res/icons/white/address-book.png</file>
         <file alias="quit">res/icons/white/quit.png</file>
         <file alias="send">res/icons/white/send.png</file>
@@ -169,7 +169,6 @@
         <file alias="transaction_abandoned">res/icons/white/transaction_abandoned.png</file>
         <file alias="hd_enabled">res/icons/white/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/white/hd_disabled.png</file>
-        <file alias="backg">res/icons/white/digibyte_wallet.png</file>
         <file alias="network_disabled">res/icons/white/network_disabled.png</file>
     </qresource>
  
