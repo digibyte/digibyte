@@ -16,29 +16,29 @@ WalletFrame {
     }
     
     QMenuBar {
-    background-color:#fff;
-    }
-    
-    QMenuBar::item {
-    background-color:#fff;
-    }
-    
-    QMenuBar::item:selected {
-    background-color:#f8f6f6;
-    }
-    
-    QMenu {
-    background-color:#f8f6f6;
-    }
-    
-    QMenu::item {
-    color:#333;
-    }
-    
-    QMenu::item:selected {
-    background-color:#f2f0f0;
-    color:#333;
-    }
+        background-color:#fff;
+        }
+        
+        QMenuBar::item {
+        background-color:#fff;
+        }
+        
+        QMenuBar::item:selected {
+        background-color:#f8f6f6;
+        }
+        
+        QMenu {
+        background-color:#f8f6f6;
+        }
+        
+        QMenu::item {
+        color:#333;
+        }
+        
+        QMenu::item:selected {
+        background-color:#f2f0f0;
+        color:#333;
+        }
     
     QToolBar {
     background-color:#fff;
