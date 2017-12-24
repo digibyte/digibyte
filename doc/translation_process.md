@@ -46,7 +46,7 @@ Visit the [Transifex Signup](https://www.transifex.com/signup/) page to create a
 You can find the DigiByte translation project at [https://www.transifex.com/projects/p/digibyte/](https://www.transifex.com/projects/p/digibyte/).
 
 ### Installing the Transifex client command-line tool
-The client it used to fetch updated translations. If you are having problems, or need more details, see [http://docs.transifex.com/developer/client/setup](http://docs.transifex.com/developer/client/setup)
+The client it used to fetch updated translations. If you are having problems, or need more details, see [https://docs.transifex.com/client/installing-the-client](https://docs.transifex.com/client/installing-the-client)
 
 **For Linux and Mac**
 
@@ -66,7 +66,7 @@ username = USERNAME
 
 **For Windows**
 
-Please see [http://docs.transifex.com/developer/client/setup#windows](http://docs.transifex.com/developer/client/setup#windows) for details on installation.
+Please see [https://docs.transifex.com/client/installing-the-client#section-installing-on-windows](https://docs.transifex.com/client/installing-the-client#section-installing-on-windows) for details on installation.
 
 The Transifex DigiByte project config file is included as part of the repo. It can be found at `.tx/config`, however you shouldn’t need change anything.
 

@@ -36,7 +36,7 @@ DigiByte Core committer via the Travis web interface.
 
 In some cases, secure strings may be needed for hiding sensitive info such as
 private keys or URLs. The travis client may be used to create these strings:
-http://docs.travis-ci.com/user/encryption-keys/
+https://docs.travis-ci.com/user/encryption-keys/
 
 For the details of the build descriptor, see the official docs:
-http://docs.travis-ci.com/user/build-configuration/
+https://docs.travis-ci.com/user/build-configuration/

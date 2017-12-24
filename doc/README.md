@@ -31,7 +31,7 @@ Drag DigiByte-Core to your applications folder, and then run DigiByte-Core.
 
 * See the documentation at the [DigiByte Wiki](https://en.digibyte.it/wiki/Main_Page)
 for help and more information.
-* Ask for help on [#digibyte](http://webchat.freenode.net?channels=digibyte) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=digibyte).
+* Ask for help on [#digibyte](https://webchat.freenode.net?channels=digibyte) on Freenode. If you don't have an IRC client use [webchat here](https://webchat.freenode.net?channels=digibyte).
 * Ask for help on the [DigiByteTalk](https://digibytetalk.org/) forums, in the [Technical Support board](https://digibytetalk.org/index.php?board=4.0).
 
 Building
@@ -63,8 +63,8 @@ The DigiByte repo's [root README](/README.md) contains relevant information on t
 
 ### Resources
 * Discuss on the [DigiByteTalk](https://digibytetalk.org/) forums, in the [Development & Technical Discussion board](https://digibytetalk.org/index.php?board=6.0).
-* Discuss project-specific development on #digibyte-core-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=digibyte-core-dev).
-* Discuss general DigiByte development on #digibyte-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=digibyte-dev).
+* Discuss project-specific development on #digibyte-core-dev on Freenode. If you don't have an IRC client use [webchat here](https://webchat.freenode.net/?channels=digibyte-core-dev).
+* Discuss general DigiByte development on #digibyte-dev on Freenode. If you don't have an IRC client use [webchat here](https://webchat.freenode.net/?channels=digibyte-dev).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)
