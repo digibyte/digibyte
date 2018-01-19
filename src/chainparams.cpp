@@ -203,6 +203,7 @@ public:
         vSeeds.push_back(CDNSSeedData("digibyte.io", "seed.digibyte.io"));
         vSeeds.push_back(CDNSSeedData("digiexplorer.info", "digiexplorer.info"));
         vSeeds.push_back(CDNSSeedData("digihash.co", "digihash.co"));
+        vSeeds.push_back(CDNSSeedData("digibyteprojects.com", "seed.digibyteprojects.com"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
