@@ -236,6 +236,9 @@
 /* Define to 1 if you have the `z ' library (-lz ). */
 #undef HAVE_LIBZ_
 
+/* Define this symbol if you have mallopt with M_ARENA_MAX */
+#undef HAVE_MALLOPT_ARENA_MAX
+
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
