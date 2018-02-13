@@ -80,7 +80,10 @@ DigiByte-Qt.app
 # Unit-tests
 Makefile.test
 digibyte-qt_test
+<<<<<<< HEAD
 src/test/buildenv.py
+=======
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 # Resources cpp
 qrc_*.cpp
@@ -101,8 +104,8 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-qa/pull-tester/tests_config.py
-qa/cache/*
+test/config.ini
+test/cache/*
 
 !src/leveldb*/Makefile
 

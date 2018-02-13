@@ -9,7 +9,6 @@
 #include <QObject>
 
 class DigiByteGUI;
-class ClientModel;
 
 namespace Ui {
     class HelpMessageDialog;

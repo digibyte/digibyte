@@ -11,7 +11,9 @@ TEST_QT_MOC_CPP = \
   qt/test/moc_uritests.cpp
 
 if ENABLE_WALLET
-TEST_QT_MOC_CPP += qt/test/moc_paymentservertests.cpp
+TEST_QT_MOC_CPP += \
+  qt/test/moc_paymentservertests.cpp \
+  qt/test/moc_wallettests.cpp
 endif
 
 TEST_QT_H = \
@@ -19,7 +21,14 @@ TEST_QT_H = \
   qt/test/rpcnestedtests.h \
   qt/test/uritests.h \
   qt/test/paymentrequestdata.h \
-  qt/test/paymentservertests.h
+  qt/test/paymentservertests.h \
+  qt/test/wallettests.h
+
+TEST_DIGIBYTE_CPP = \
+  test/test_digibyte.cpp
+
+TEST_DIGIBYTE_H = \
+  test/test_digibyte.h
 
 qt_test_test_digibyte_qt_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES) $(DIGIBYTE_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_TEST_INCLUDES) $(PROTOBUF_CFLAGS)
@@ -29,10 +38,14 @@ qt_test_test_digibyte_qt_SOURCES = \
   qt/test/rpcnestedtests.cpp \
   qt/test/test_main.cpp \
   qt/test/uritests.cpp \
-  $(TEST_QT_H)
+  $(TEST_QT_H) \
+  $(TEST_DIGIBYTE_CPP) \
+  $(TEST_DIGIBYTE_H)
 if ENABLE_WALLET
 qt_test_test_digibyte_qt_SOURCES += \
-  qt/test/paymentservertests.cpp
+  qt/test/paymentservertests.cpp \
+  qt/test/wallettests.cpp \
+  wallet/test/wallet_test_fixture.cpp
 endif
 
 nodist_qt_test_test_digibyte_qt_SOURCES = $(TEST_QT_MOC_CPP)
@@ -45,7 +58,7 @@ if ENABLE_ZMQ
 qt_test_test_digibyte_qt_LDADD += $(LIBDIGIBYTE_ZMQ) $(ZMQ_LIBS)
 endif
 qt_test_test_digibyte_qt_LDADD += $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBDIGIBYTE_UTIL) $(LIBDIGIBYTE_CONSENSUS) $(LIBDIGIBYTE_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) \
-  $(LIBMEMENV) $(BOOST_LIBS) $(QT_DBUS_LIBS) $(QT_TEST_LIBS) $(QT_LIBS) \
+  $(LIBLEVELDB_SSE42) $(LIBMEMENV) $(BOOST_LIBS) $(QT_DBUS_LIBS) $(QT_TEST_LIBS) $(QT_LIBS) \
   $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_test_test_digibyte_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)

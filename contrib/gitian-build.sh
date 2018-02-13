@@ -22,7 +22,7 @@ proc=2
 mem=2000
 lxc=true
 osslTarUrl=http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
-osslPatchUrl=https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
+osslPatchUrl=https://digibytecore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
 scriptName=$(basename -- "$0")
 signProg="gpg --detach-sign"
 commitFiles=true
@@ -275,7 +275,11 @@ then
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
+<<<<<<< HEAD
 
+=======
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 	    mv build/out/digibyte-*.tar.gz build/out/src/digibyte-*.tar.gz ../digibyte-binaries/${VERSION}
 	fi
 	# Windows
@@ -285,7 +289,11 @@ then
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
+<<<<<<< HEAD
 	    
+=======
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 	    mv build/out/digibyte-*-win-unsigned.tar.gz inputs/digibyte-win-unsigned.tar.gz
 	    mv build/out/digibyte-*.zip build/out/digibyte-*.exe ../digibyte-binaries/${VERSION}
 	fi
@@ -296,7 +304,11 @@ then
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
+<<<<<<< HEAD
 	   
+=======
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 	    mv build/out/digibyte-*-osx-unsigned.tar.gz inputs/digibyte-osx-unsigned.tar.gz
 	    mv build/out/digibyte-*.tar.gz build/out/digibyte-*.dmg ../digibyte-binaries/${VERSION}
 	fi

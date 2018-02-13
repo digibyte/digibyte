@@ -1,10 +1,14 @@
 OpenBSD build guide
 ======================
+<<<<<<< HEAD
 (updated for OpenBSD 6.0)
+=======
+(updated for OpenBSD 6.2)
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 This guide describes how to build digibyted and command-line utilities on OpenBSD.
 
-As OpenBSD is most common as a server OS, we will not bother with the GUI.
+OpenBSD is most commonly used as a server OS, so this guide does not contain instructions for building the GUI.
 
 Preparation
 -------------
@@ -12,20 +16,28 @@ Preparation
 Run the following as root to install the base dependencies for building:
 
 ```bash
-pkg_add gmake libtool libevent
+pkg_add git gmake libevent libtool
 pkg_add autoconf # (select highest version, e.g. 2.69)
 pkg_add automake # (select highest version, e.g. 1.15)
-pkg_add python # (select highest version, e.g. 3.5)
+pkg_add python # (select highest version, e.g. 3.6)
+pkg_add boost
+
+git clone https://github.com/digibyte/digibyte.git
 ```
 
+<<<<<<< HEAD
 The default C++ compiler that comes with OpenBSD 5.9 is g++ 4.2. This version is old (from 2007), and is not able to compile the current version of DigiByte Core, primarily as it has no C++11 support, but even before there were issues. So here we will be installing a newer compiler.
+=======
+See [dependencies.md](dependencies.md) for a complete overview.
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 GCC
 -------
 
-You can install a newer version of gcc with:
+The default C++ compiler that comes with OpenBSD 6.2 is g++ 4.2.1. This version is old (from 2007), and is not able to compile the current version of DigiByte Core because it has no C++11 support. We'll install a newer version of GCC:
 
 ```bash
+<<<<<<< HEAD
 pkg_add g++ # (select newest 4.x version, e.g. 4.9.3)
 ```
 
@@ -65,12 +77,18 @@ config_opts="runtime-link=shared threadapi=pthread threading=multi link=static v
 ./b2 -d2 -j2 -d1 ${config_opts} --prefix=${BOOST_PREFIX} stage
 ./b2 -d0 -j4 ${config_opts} --prefix=${BOOST_PREFIX} install
 ```
+=======
+ pkg_add g++
+ ```
+
+ This compiler will not overwrite the system compiler, it will be installed as `egcc` and `eg++` in `/usr/local/bin`.
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 ### Building BerkeleyDB
 
 BerkeleyDB is only necessary for the wallet functionality. To skip this, pass `--disable-wallet` to `./configure`.
 
-See "Berkeley DB" in [build_unix.md](build_unix.md) for instructions on how to build BerkeleyDB 4.8.
+See "Berkeley DB" in [build-unix.md](build-unix.md#berkeley-db) for instructions on how to build BerkeleyDB 4.8.
 You cannot use the BerkeleyDB library from ports, for the same reason as boost above (g++/libstd++ incompatibility).
 
 ```bash
@@ -98,8 +116,13 @@ The standard ulimit restrictions in OpenBSD are very strict:
 
     data(kbytes)         1572864
 
+<<<<<<< HEAD
 This is, unfortunately, no longer enough to compile some `.cpp` files in the project,
 at least with gcc 4.9.3 (see issue https://github.com/digibyte/digibyte/issues/6658).
+=======
+This, unfortunately, may no longer be enough to compile some `.cpp` files in the project,
+at least with GCC 4.9.4 (see issue [#6658](https://github.com/digibyte/digibyte/issues/6658)).
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 If your user is in the `staff` group the limit can be raised with:
 
     ulimit -d 3000000
@@ -118,30 +141,34 @@ export AUTOCONF_VERSION=2.69 # replace this with the autoconf version that you i
 export AUTOMAKE_VERSION=1.15 # replace this with the automake version that you installed
 ./autogen.sh
 ```
-Make sure `BDB_PREFIX` and `BOOST_PREFIX` are set to the appropriate paths from the above steps.
+Make sure `BDB_PREFIX` is set to the appropriate path from the above steps.
 
 To configure with wallet:
 ```bash
+<<<<<<< HEAD
 ./configure --with-gui=no --with-boost=$BOOST_PREFIX \
     CC=egcc CXX=eg++ CPP=ecpp \
+=======
+./configure --with-gui=no CC=egcc CXX=eg++ CPP=ecpp \
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
     BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 ```
 
 To configure without wallet:
 ```bash
-./configure --disable-wallet --with-gui=no --with-boost=$BOOST_PREFIX \
-    CC=egcc CXX=eg++ CPP=ecpp
+./configure --disable-wallet --with-gui=no CC=egcc CXX=eg++ CPP=ecpp
 ```
 
 Build and run the tests:
 ```bash
-gmake # can use -jX here for parallelism
+gmake # use -jX here for parallelism
 gmake check
 ```
 
-Clang (not currently working)
+Clang
 ------------------------------
 
+<<<<<<< HEAD
 WARNING: This is outdated, needs to be updated for OpenBSD 6.0 and re-tried.
 
 Using a newer g++ results in linking the new code to a new libstdc++.
@@ -151,14 +178,16 @@ This gives conflicts, necessitating rebuild of all C++ dependencies of the appli
 With clang this can - at least theoretically - be avoided because it uses the
 base system's libstdc++.
 
+=======
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 ```bash
-pkg_add llvm boost
-```
+pkg_add llvm
 
-```bash
 ./configure --disable-wallet --with-gui=no CC=clang CXX=clang++
-gmake
+gmake # use -jX here for parallelism
+gmake check
 ```
+<<<<<<< HEAD
 
 However, this does not appear to work. Compilation succeeds, but link fails
 with many 'local symbol discarded' errors:
@@ -174,3 +203,5 @@ version installed by OpenBSD 5.7:
 - https://llvm.org/bugs/show_bug.cgi?id=9758
 
 There is no known workaround for this.
+=======
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7

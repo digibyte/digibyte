@@ -311,10 +311,15 @@ rm -f %{buildroot}%{_bindir}/test_*
 
 %check
 make check
+<<<<<<< HEAD:contrib/rpm/digibyte.spec
 pushd src
 srcdir=. test/digibyte-util-test.py
 popd
 qa/pull-tester/rpc-tests.py -extended
+=======
+srcdir=src test/digibyte-util-test.py
+test/functional/test_runner.py --extended
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:contrib/rpm/bitcoin.spec
 
 %post libs -p /sbin/ldconfig
 

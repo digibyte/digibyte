@@ -13,18 +13,24 @@ QT_TS = \
   qt/locale/digibyte_be_BY.ts \
   qt/locale/digibyte_bg_BG.ts \
   qt/locale/digibyte_bg.ts \
+  qt/locale/digibyte_bn.ts \
+  qt/locale/digibyte_bs.ts \
   qt/locale/digibyte_ca_ES.ts \
   qt/locale/digibyte_ca.ts \
   qt/locale/digibyte_ca@valencia.ts \
   qt/locale/digibyte_cs.ts \
   qt/locale/digibyte_cy.ts \
   qt/locale/digibyte_da.ts \
+  qt/locale/digibyte_de_DE.ts \
   qt/locale/digibyte_de.ts \
   qt/locale/digibyte_el_GR.ts \
   qt/locale/digibyte_el.ts \
+  qt/locale/digibyte_en_AU.ts \
   qt/locale/digibyte_en_GB.ts \
   qt/locale/digibyte_en.ts \
+  qt/locale/digibyte_en_US.ts \
   qt/locale/digibyte_eo.ts \
+  qt/locale/digibyte_es_419.ts \
   qt/locale/digibyte_es_AR.ts \
   qt/locale/digibyte_es_CL.ts \
   qt/locale/digibyte_es_CO.ts \
@@ -44,13 +50,16 @@ QT_TS = \
   qt/locale/digibyte_fr_FR.ts \
   qt/locale/digibyte_fr.ts \
   qt/locale/digibyte_gl.ts \
+  qt/locale/digibyte_he_IL.ts \
   qt/locale/digibyte_he.ts \
   qt/locale/digibyte_hi_IN.ts \
   qt/locale/digibyte_hr.ts \
   qt/locale/digibyte_hu.ts \
   qt/locale/digibyte_id_ID.ts \
+  qt/locale/digibyte_id.ts \
   qt/locale/digibyte_it_IT.ts \
   qt/locale/digibyte_it.ts \
+  qt/locale/digibyte_ja_JP.ts \
   qt/locale/digibyte_ja.ts \
   qt/locale/digibyte_ka.ts \
   qt/locale/digibyte_kk_KZ.ts \
@@ -63,8 +72,11 @@ QT_TS = \
   qt/locale/digibyte_mk_MK.ts \
   qt/locale/digibyte_mn.ts \
   qt/locale/digibyte_ms_MY.ts \
+  qt/locale/digibyte_my.ts \
+  qt/locale/digibyte_nb_NO.ts \
   qt/locale/digibyte_nb.ts \
   qt/locale/digibyte_ne.ts \
+  qt/locale/digibyte_nl_NL.ts \
   qt/locale/digibyte_nl.ts \
   qt/locale/digibyte_pam.ts \
   qt/locale/digibyte_pl.ts \
@@ -74,6 +86,7 @@ QT_TS = \
   qt/locale/digibyte_ro.ts \
   qt/locale/digibyte_ru_RU.ts \
   qt/locale/digibyte_ru.ts \
+  qt/locale/digibyte_si.ts \
   qt/locale/digibyte_sk.ts \
   qt/locale/digibyte_sl_SI.ts \
   qt/locale/digibyte_sq.ts \
@@ -81,7 +94,9 @@ QT_TS = \
   qt/locale/digibyte_sr.ts \
   qt/locale/digibyte_sv.ts \
   qt/locale/digibyte_ta.ts \
+  qt/locale/digibyte_te.ts \
   qt/locale/digibyte_th_TH.ts \
+  qt/locale/digibyte_th.ts \
   qt/locale/digibyte_tr_TR.ts \
   qt/locale/digibyte_tr.ts \
   qt/locale/digibyte_uk.ts \
@@ -122,6 +137,7 @@ QT_MOC_CPP = \
   qt/moc_digibyteamountfield.cpp \
   qt/moc_digibytegui.cpp \
   qt/moc_digibyteunits.cpp \
+  qt/moc_callback.cpp \
   qt/moc_clientmodel.cpp \
   qt/moc_coincontroldialog.cpp \
   qt/moc_coincontroltreewidget.cpp \
@@ -167,6 +183,7 @@ DIGIBYTE_MM = \
 QT_MOC = \
   qt/digibyte.moc \
   qt/digibyteamountfield.moc \
+  qt/callback.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
@@ -189,6 +206,7 @@ DIGIBYTE_QT_H = \
   qt/digibyteamountfield.h \
   qt/digibytegui.h \
   qt/digibyteunits.h \
+  qt/callback.h \
   qt/clientmodel.h \
   qt/coincontroldialog.h \
   qt/coincontroltreewidget.h \
@@ -514,7 +532,7 @@ endif
 if ENABLE_ZMQ
 qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_ZMQ) $(ZMQ_LIBS)
 endif
-qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBDIGIBYTE_UTIL) $(LIBDIGIBYTE_CONSENSUS) $(LIBDIGIBYTE_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBDIGIBYTE_UTIL) $(LIBDIGIBYTE_CONSENSUS) $(LIBDIGIBYTE_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_digibyte_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)

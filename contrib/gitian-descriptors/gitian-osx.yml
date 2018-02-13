@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 name: "digibyte-osx-6.14"
+=======
+name: "digibyte-osx-0.15"
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 enable_cache: true
 suites:
 - "trusty"
@@ -114,6 +118,9 @@ script: |
   find digibyte-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
   popd
 
+  # Workaround for tarball not building with the bare tag version (prep)
+  make -C src obj/build.h
+
   ORIGPATH="$PATH"
   # Extract the release tarball into a dir for each host and build
   for i in ${HOSTS}; do
@@ -123,6 +130,11 @@ script: |
     INSTALLPATH=`pwd`/installed/${DISTNAME}
     mkdir -p ${INSTALLPATH}
     tar --strip-components=1 -xf ../$SOURCEDIST
+
+    # Workaround for tarball not building with the bare tag version
+    echo '#!/bin/true' >share/genbuild.sh
+    mkdir src/obj
+    cp ../src/obj/build.h src/obj/
 
     CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS}
     make ${MAKEOPTS}

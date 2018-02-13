@@ -130,6 +130,8 @@ AC_DEFUN([DIGIBYTE_QT_CONFIGURE],[
       if test "x$digibyte_cv_need_acc_widget" = "xyes"; then
         _DIGIBYTE_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lqtaccessiblewidgets])
       fi
+      _DIGIBYTE_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin)],[-lqminimal])
+      AC_DEFINE(QT_QPA_PLATFORM_MINIMAL, 1, [Define this symbol if the minimal qt platform exists])
       if test x$TARGET_OS = xwindows; then
         _DIGIBYTE_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)],[-lqwindows])
         AC_DEFINE(QT_QPA_PLATFORM_WINDOWS, 1, [Define this symbol if the qt platform is windows])
@@ -397,17 +399,29 @@ AC_DEFUN([_DIGIBYTE_QT_FIND_LIBS_WITH_PKGCONFIG],[
     qt4_modules="QtCore QtGui QtNetwork"
     DIGIBYTE_QT_CHECK([
       if test x$digibyte_qt_want_version = xqt5 || ( test x$digibyte_qt_want_version = xauto && test x$auto_priority_version = xqt5 ); then
+<<<<<<< HEAD:build-aux/m4/digibyte_qt.m4
         PKG_CHECK_MODULES([QT], [$qt5_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes],[have_qt=no])
       elif test x$digibyte_qt_want_version = xqt4 || ( test x$digibyte_qt_want_version = xauto && test x$auto_priority_version = xqt4 ); then
         PKG_CHECK_MODULES([QT], [$qt4_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes], [have_qt=no])
+=======
+        PKG_CHECK_MODULES([QT5], [$qt5_modules], [QT_INCLUDES="$QT5_CFLAGS"; QT_LIBS="$QT5_LIBS" have_qt=yes],[have_qt=no])
+      elif test x$digibyte_qt_want_version = xqt4 || ( test x$digibyte_qt_want_version = xauto && test x$auto_priority_version = xqt4 ); then
+        PKG_CHECK_MODULES([QT4], [$qt4_modules], [QT_INCLUDES="$QT4_CFLAGS"; QT_LIBS="$QT4_LIBS" ; have_qt=yes], [have_qt=no])
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:build-aux/m4/bitcoin_qt.m4
       fi
 
       dnl qt version is set to 'auto' and the preferred version wasn't found. Now try the other.
       if test x$have_qt = xno && test x$digibyte_qt_want_version = xauto; then
         if test x$auto_priority_version = xqt5; then
+<<<<<<< HEAD:build-aux/m4/digibyte_qt.m4
           PKG_CHECK_MODULES([QT], [$qt4_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes; QT_LIB_PREFIX=Qt; digibyte_qt_got_major_vers=4], [have_qt=no])
         else
           PKG_CHECK_MODULES([QT], [$qt5_modules], [QT_INCLUDES="$QT_CFLAGS"; have_qt=yes; QT_LIB_PREFIX=Qt5; digibyte_qt_got_major_vers=5], [have_qt=no])
+=======
+          PKG_CHECK_MODULES([QT4], [$qt4_modules], [QT_INCLUDES="$QT4_CFLAGS"; QT_LIBS="$QT4_LIBS" ; have_qt=yes; QT_LIB_PREFIX=Qt; digibyte_qt_got_major_vers=4], [have_qt=no])
+        else
+          PKG_CHECK_MODULES([QT5], [$qt5_modules], [QT_INCLUDES="$QT5_CFLAGS"; QT_LIBS="$QT5_LIBS" ; have_qt=yes; QT_LIB_PREFIX=Qt5; digibyte_qt_got_major_vers=5], [have_qt=no])
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:build-aux/m4/bitcoin_qt.m4
         fi
       fi
       if test x$have_qt != xyes; then

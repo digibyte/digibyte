@@ -49,7 +49,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "DigiByte"
-#define QAPP_ORG_DOMAIN "digibyte.co"
+#define QAPP_ORG_DOMAIN "digibyte.io"
 #define QAPP_APP_NAME_DEFAULT "DigiByte-Qt"
 #define QAPP_APP_NAME_TESTNET "DigiByte-Qt-testnet"
 

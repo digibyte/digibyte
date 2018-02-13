@@ -1,22 +1,33 @@
-(note: this is a temporary file, to be added-to by anybody, and moved to
-release-notes at release time)
+DigiByte Core version *0.15.1* is now available from:
 
+<<<<<<< HEAD
 DigiByte Core version 0.14.0 is now available from:
+=======
+  <https://digibytecore.org/bin/digibyte-core-0.15.x/>
 
-This is a new major version release, including new features, various bugfixes
-and performance improvements, as well as updated translations.
+or
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
-Please report bugs using the issue tracker at github:
+  <https://digibyte.org/bin/digibyte-core-0.15.x/>
 
+This is a new minor version release, including various bugfixes and
+performance improvements, as well as updated translations.
+
+<<<<<<< HEAD
+=======
+Please report bugs using the issue tracker at GitHub:
+
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
   <https://github.com/digibyte/digibyte/issues>
 
 To receive security and update notifications, please subscribe to:
 
   <https://digibytecore.org/en/list/announcements/join/>
 
-Compatibility
+How to Upgrade
 ==============
 
+<<<<<<< HEAD
 DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later.
 
@@ -268,19 +279,38 @@ Since the changes in 0.12 to automatically limit the size of the mempool and imp
 - minimum fee rate of a package of transactions to be included in a block created by the mining code. If miners wish to set this minimum they can use the new `-blockmintxfee` option.  (defaults to 1000 satoshis/kB)
 
 The `-minrelaytxfee` option continues to exist but is recommended to be left unset.
+=======
+If you are running an older version, shut it down. Wait until it has completely
+shut down (which might take a few minutes for older versions), then run the 
+installer (on Windows) or just copy over `/Applications/DigiByte-Qt` (on Mac)
+or `digibyted`/`digibyte-qt` (on Linux).
 
-Fee Estimation Changes
-----------------------
+The first time you run version 0.15.0 or higher, your chainstate database will
+be converted to a new format, which will take anywhere from a few minutes to
+half an hour, depending on the speed of your machine.
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
+The file format of `fee_estimates.dat` changed in version 0.15.0. Hence, a
+downgrade from version 0.15 or upgrade to version 0.15 will cause all fee
+estimates to be discarded.
+
+<<<<<<< HEAD
 - Since 0.13.2 fee estimation for a confirmation target of 1 block has been
   disabled. The fee slider will no longer be able to choose a target of 1 block.
   This is only a minor behavior change as there was often insufficient
   data for this target anyway. `estimatefee 1` will now always return -1 and
   `estimatesmartfee 1` will start searching at a target of 2.
+=======
+Note that the block database format also changed in version 0.8.0 and there is no
+automatic upgrade code from before version 0.8 to version 0.15.0. Upgrading
+directly from 0.7.x and earlier without redownloading the blockchain is not supported.
+However, as usual, old wallet versions are still supported.
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
-- The default target for fee estimation is changed to 6 blocks in both the GUI
-  (previously 25) and for RPC calls (previously 2).
+Downgrading warning
+-------------------
 
+<<<<<<< HEAD
 Removal of Priority Estimation
 ------------------------------
 
@@ -305,29 +335,30 @@ P2P connection management
   option.
 
 - New connections to manually added peers are performed more quickly.
+=======
+The chainstate database for this release is not compatible with previous
+releases, so if you run 0.15 and then decide to switch back to any
+older version, you will need to run the old release with the `-reindex-chainstate`
+option to rebuild the chainstate data structures in the old format.
 
-Introduction of assumed-valid blocks
--------------------------------------
+If your node has pruning enabled, this will entail re-downloading and
+processing the entire blockchain.
 
-- A significant portion of the initial block download time is spent verifying
-  scripts/signatures.  Although the verification must pass to ensure the security
-  of the system, no other result from this verification is needed: If the node
-  knew the history of a given block were valid it could skip checking scripts
-  for its ancestors.
+Compatibility
+==============
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
-- A new configuration option 'assumevalid' is provided to express this knowledge
-  to the software.  Unlike the 'checkpoints' in the past this setting does not
-  force the use of a particular chain: chains that are consistent with it are
-  processed quicker, but other chains are still accepted if they'd otherwise
-  be chosen as best. Also unlike 'checkpoints' the user can configure which
-  block history is assumed true, this means that even outdated software can
-  sync more quickly if the setting is updated by the user.
+DigiByte Core is extensively tested on multiple operating systems using
+the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 
-- Because the validity of a chain history is a simple objective fact it is much
-  easier to review this setting.  As a result the software ships with a default
-  value adjusted to match the current chain shortly before release.  The use
-  of this default value can be disabled by setting -assumevalid=0
+DigiByte Core should also work on most other Unix-like systems but is not
+frequently tested on them.
 
+
+Notable changes
+===============
+
+<<<<<<< HEAD
 Fundrawtransaction change address reuse
 ----------------------------------------
 
@@ -763,12 +794,18 @@ and git merge commit are mentioned.
 - #8863,#8807 univalue: Pull subtree (MarcoFalke)
 - #9798 `e22c067` Fix Issue #9775 (Check returned value of fopen) (kirit93)
 - #9856 `69832aa` Terminate immediately when allocation fails (theuni)
+=======
+0.15.x Change log
+=================
+
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 - accraze
@@ -873,5 +910,8 @@ Thanks to everyone who directly contributed to this release:
 - wodry
 - Zak Wilcox
 >>>>>>> 0.14
+=======
+(todo)
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/digibyte/).

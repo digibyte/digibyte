@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=DigiByte Core
+Comment=Connect to the DigiByte P2P Network
+Comment[de]=Verbinde mit dem DigiByte peer-to-peer Netzwerk
+Comment[fr]=DigiByte, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=DigiByte, eşten eşe kriptografik sanal para birimi
+Exec=digibyte-qt %u
+Terminal=false
+Type=Application
+Icon=digibyte128
+MimeType=x-scheme-handler/digibyte;
+Categories=Office;Finance;

@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 
 DigiByte Core 0.14.0
 =====================
+=======
+DigiByte Core
+=============
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 Intro
 -----

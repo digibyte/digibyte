@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 DigiByte Core 0.14.0
 =====================
@@ -5,6 +6,14 @@ DigiByte Core 0.14.0
 Setup
 ---------------------
 DigiByte Core is the original DigiByte client and it builds the backbone of the network. However, it downloads and stores the entire history of DigiByte transactions (which is currently several GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+=======
+DigiByte Core
+=============
+
+Setup
+---------------------
+DigiByte Core is the original DigiByte client and it builds the backbone of the network. It downloads and, by default, stores the entire history of DigiByte transactions (which is currently more than 100 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 To download DigiByte Core, visit [digibytecore.org](https://digibytecore.org/en/releases/).
 

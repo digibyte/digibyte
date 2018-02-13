@@ -8,7 +8,11 @@ and remove old versions as necessary.
 
 The seeds compiled into the release are created from sipa's DNS seed data, like this:
 
+<<<<<<< HEAD
     curl -s http://digibyte.sipa.be/seeds.txt > seeds_main.txt
+=======
+    curl -s http://digibyte.sipa.be/seeds.txt.gz | gzip -dc > seeds_main.txt
+>>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
     python3 makeseeds.py < seeds_main.txt > nodes_main.txt
     python3 generate-seeds.py . > ../../src/chainparamsseeds.h
 

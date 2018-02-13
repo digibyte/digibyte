@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"co.digibyte.DigiByte-Qt";
+        return @"io.digibyte.DigiByte-Qt";
     } else {
         return [self __bundleIdentifier];
     }
