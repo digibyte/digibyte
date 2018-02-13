@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>org.bitcoin.bitcoind</string>
+	<string>org.digibyte.bitcoind</string>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/usr/local/bin/bitcoind</string>

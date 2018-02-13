@@ -1,10 +1,10 @@
 
-## <summary>policy for bitcoin</summary>
+## <summary>policy for digibyte</summary>
 
 
 ########################################
 ## <summary>
-##	Transition to bitcoin.
+##	Transition to digibyte.
 ## </summary>
 ## <param name="domain">
 ## <summary>
@@ -24,7 +24,7 @@ interface(`bitcoin_domtrans',`
 
 ########################################
 ## <summary>
-##	Execute bitcoin server in the bitcoin domain.
+##	Execute digibyte server in the digibyte domain.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -43,7 +43,7 @@ interface(`bitcoin_initrc_domtrans',`
 
 ########################################
 ## <summary>
-##	Search bitcoin lib directories.
+##	Search digibyte lib directories.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -62,7 +62,7 @@ interface(`bitcoin_search_lib',`
 
 ########################################
 ## <summary>
-##	Read bitcoin lib files.
+##	Read digibyte lib files.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -81,7 +81,7 @@ interface(`bitcoin_read_lib_files',`
 
 ########################################
 ## <summary>
-##	Manage bitcoin lib files.
+##	Manage digibyte lib files.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -100,7 +100,7 @@ interface(`bitcoin_manage_lib_files',`
 
 ########################################
 ## <summary>
-##	Manage bitcoin lib directories.
+##	Manage digibyte lib directories.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -121,7 +121,7 @@ interface(`bitcoin_manage_lib_dirs',`
 ########################################
 ## <summary>
 ##	All of the rules required to administrate
-##	a bitcoin environment
+##	a digibyte environment
 ## </summary>
 ## <param name="domain">
 ##	<summary>

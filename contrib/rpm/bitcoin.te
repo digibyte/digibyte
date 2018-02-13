@@ -1,4 +1,4 @@
-policy_module(bitcoin, 1.100.1)
+policy_module(digibyte, 1.100.1)
 
 ########################################
 #
@@ -28,7 +28,7 @@ corenet_port(bitcoin_port_t)
 
 ########################################
 #
-# bitcoin local policy
+# digibyte local policy
 #
 allow bitcoin_t self:process { fork };
 

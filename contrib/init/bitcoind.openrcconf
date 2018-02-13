@@ -1,7 +1,7 @@
 # /etc/conf.d/bitcoind: config file for /etc/init.d/bitcoind
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/bitcoin/bitcoin.conf"
+#BITCOIND_CONFIGFILE="/etc/digibyte/digibyte.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
 #BITCOIND_PIDDIR="/var/run/bitcoind"
@@ -13,8 +13,8 @@
 #BITCOIND_DATADIR="/var/lib/bitcoind"
 
 # User and group to own bitcoind process
-#BITCOIND_USER="bitcoin"
-#BITCOIND_GROUP="bitcoin"
+#BITCOIND_USER="digibyte"
+#BITCOIND_GROUP="digibyte"
 
 # Path to bitcoind executable
 #BITCOIND_BIN="/usr/bin/bitcoind"

@@ -1,10 +1,10 @@
 *.tar.gz
 
 *.exe
-src/bitcoin
+src/digibyte
 src/bitcoind
-src/bitcoin-cli
-src/bitcoin-tx
+src/digibyte-cli
+src/digibyte-tx
 src/test/test_bitcoin
 src/test/test_bitcoin_fuzzy
 src/qt/test/test_bitcoin-qt
@@ -30,8 +30,8 @@ config.log
 config.status
 configure
 libtool
-src/config/bitcoin-config.h
-src/config/bitcoin-config.h.in
+src/config/digibyte-config.h
+src/config/digibyte-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -74,12 +74,12 @@ src/qt/test/moc*.cpp
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-bitcoin-qt
-Bitcoin-Qt.app
+digibyte-qt
+DigiByte-Qt.app
 
 # Unit-tests
 Makefile.test
-bitcoin-qt_test
+digibyte-qt_test
 
 # Resources cpp
 qrc_*.cpp

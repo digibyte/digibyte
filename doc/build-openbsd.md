@@ -18,7 +18,7 @@ pkg_add automake # (select highest version, e.g. 1.15)
 pkg_add python # (select highest version, e.g. 3.6)
 pkg_add boost
 
-git clone https://github.com/bitcoin/bitcoin.git
+git clone https://github.com/digibyte/digibyte.git
 ```
 
 See [dependencies.md](dependencies.md) for a complete overview.
@@ -26,7 +26,7 @@ See [dependencies.md](dependencies.md) for a complete overview.
 GCC
 -------
 
-The default C++ compiler that comes with OpenBSD 6.2 is g++ 4.2.1. This version is old (from 2007), and is not able to compile the current version of Bitcoin Core because it has no C++11 support. We'll install a newer version of GCC:
+The default C++ compiler that comes with OpenBSD 6.2 is g++ 4.2.1. This version is old (from 2007), and is not able to compile the current version of DigiByte Core because it has no C++11 support. We'll install a newer version of GCC:
 
 ```bash
  pkg_add g++
@@ -42,7 +42,7 @@ See "Berkeley DB" in [build-unix.md](build-unix.md#berkeley-db) for instructions
 You cannot use the BerkeleyDB library from ports, for the same reason as boost above (g++/libstd++ incompatibility).
 
 ```bash
-# Pick some path to install BDB to, here we create a directory within the bitcoin directory
+# Pick some path to install BDB to, here we create a directory within the digibyte directory
 BITCOIN_ROOT=$(pwd)
 BDB_PREFIX="${BITCOIN_ROOT}/db4"
 mkdir -p $BDB_PREFIX
@@ -67,7 +67,7 @@ The standard ulimit restrictions in OpenBSD are very strict:
     data(kbytes)         1572864
 
 This, unfortunately, may no longer be enough to compile some `.cpp` files in the project,
-at least with GCC 4.9.4 (see issue [#6658](https://github.com/bitcoin/bitcoin/issues/6658)).
+at least with GCC 4.9.4 (see issue [#6658](https://github.com/digibyte/digibyte/issues/6658)).
 If your user is in the `staff` group the limit can be raised with:
 
     ulimit -d 3000000
@@ -76,7 +76,7 @@ The change will only affect the current shell and processes spawned by it. To
 make the change system-wide, change `datasize-cur` and `datasize-max` in
 `/etc/login.conf`, and reboot.
 
-### Building Bitcoin Core
+### Building DigiByte Core
 
 **Important**: use `gmake`, not `make`. The non-GNU `make` will exit with a horrible error.
 

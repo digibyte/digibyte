@@ -53,7 +53,7 @@ Only supports JSON as output format.
 
 The getutxo command allows querying of the UTXO set given a set of outpoints.
 See BIP64 for input and output serialisation:
-https://github.com/bitcoin/bips/blob/master/bip-0064.mediawiki
+https://github.com/digibyte/bips/blob/master/bip-0064.mediawiki
 
 Example:
 ```
@@ -90,7 +90,7 @@ Only supports JSON as output format.
 * bytes : (numeric) size of the TX mempool in bytes
 * usage : (numeric) total TX mempool memory usage
 * maxmempool : (numeric) maximum memory usage for the mempool in bytes
-* mempoolminfee : (numeric) minimum feerate (BTC per KB) for tx to be accepted
+* mempoolminfee : (numeric) minimum feerate (DGB per KB) for tx to be accepted
 
 `GET /rest/mempool/contents.json`
 

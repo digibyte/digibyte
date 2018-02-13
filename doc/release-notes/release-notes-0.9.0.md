@@ -1,27 +1,27 @@
-Bitcoin Core version 0.9.0 is now available from:
+DigiByte Core version 0.9.0 is now available from:
 
-  https://bitcoin.org/bin/0.9.0/
+  https://digibyte.org/bin/0.9.0/
 
 This is a new major version release, bringing both new features and
 bug fixes.
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/bitcoin/bitcoin/issues
+  https://github.com/digibyte/digibyte/issues
 
 How to Upgrade
 --------------
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), uninstall all
-earlier versions of Bitcoin, then run the installer (on Windows) or just copy
-over /Applications/Bitcoin-Qt (on Mac) or bitcoind/bitcoin-qt (on Linux).
+earlier versions of DigiByte, then run the installer (on Windows) or just copy
+over /Applications/DigiByte-Qt (on Mac) or bitcoind/digibyte-qt (on Linux).
 
 If you are upgrading from version 0.7.2 or earlier, the first time you run
 0.9.0 your blockchain files will be re-indexed, which will take anywhere from 
 30 minutes to several hours, depending on the speed of your machine.
 
-On Windows, do not forget to uninstall all earlier versions of the Bitcoin
+On Windows, do not forget to uninstall all earlier versions of the DigiByte
 client first, especially if you are switching to the 64-bit version.
 
 Windows 64-bit installer
@@ -59,11 +59,11 @@ Also, the first time you run a 0.8.x release on a 0.9 wallet it will rescan
 the blockchain for missing spent coins, which will take a long time (tens
 of minutes on a typical machine).
 
-Rebranding to Bitcoin Core
+Rebranding to DigiByte Core
 ---------------------------
 
-To reduce confusion between Bitcoin-the-network and Bitcoin-the-software we
-have renamed the reference client to Bitcoin Core.
+To reduce confusion between DigiByte-the-network and DigiByte-the-software we
+have renamed the reference client to DigiByte Core.
 
 
 OP_RETURN and data in the block chain
@@ -74,7 +74,7 @@ blockchain.  This change is not an endorsement of storing data in the
 blockchain.  The OP_RETURN change creates a provably-prunable output,
 to avoid data storage schemes -- some of which were already deployed --
 that were storing arbitrary data such as images as forever-unspendable
-TX outputs, bloating bitcoin's UTXO database.
+TX outputs, bloating digibyte's UTXO database.
 
 Storing arbitrary data in the blockchain is still a bad idea; it is less
 costly and far more efficient to store non-currency data elsewhere.
@@ -85,19 +85,19 @@ Autotools build system
 For 0.9.0 we switched to an autotools-based build system instead of individual
 (q)makefiles.
 
-Using the standard "./autogen.sh; ./configure; make" to build Bitcoin-Qt and
+Using the standard "./autogen.sh; ./configure; make" to build DigiByte-Qt and
 bitcoind makes it easier for experienced open source developers to contribute 
 to the project.
 
 Be sure to check doc/build-*.md for your platform before building from source.
 
-Bitcoin-cli
+DigiByte-cli
 -------------
 
 Another change in the 0.9 release is moving away from the bitcoind executable
 functioning both as a server and as a RPC client. The RPC client functionality
-("tell the running bitcoin daemon to do THIS") was split into a separate
-executable, 'bitcoin-cli'. The RPC client code will eventually be removed from
+("tell the running digibyte daemon to do THIS") was split into a separate
+executable, 'digibyte-cli'. The RPC client code will eventually be removed from
 bitcoind, but will be kept for backwards compatibility for a release or two.
 
 `walletpassphrase` RPC
@@ -295,18 +295,18 @@ GUI:
 - Add Coin Control Features
 - Improve receive coins workflow: make the 'Receive' tab into a form to request
   payments, and move historical address list functionality to File menu.
-- Rebrand to `Bitcoin Core`
+- Rebrand to `DigiByte Core`
 - Move initialization/shutdown to a thread. This prevents "Not responding"
   messages during startup. Also show a window during shutdown.
 - Don't regenerate autostart link on every client startup
-- Show and store message of normal bitcoin:URI
+- Show and store message of normal digibyte:URI
 - Fix richtext detection hang issue on very old Qt versions
 - OS X: Make use of the 10.8+ user notification center to display Growl-like 
   notifications
 - OS X: Added NSHighResolutionCapable flag to Info.plist for better font
   rendering on Retina displays.
-- OS X: Fix bitcoin-qt startup crash when clicking dock icon
-- Linux: Fix Gnome bitcoin: URI handler
+- OS X: Fix digibyte-qt startup crash when clicking dock icon
+- Linux: Fix Gnome digibyte: URI handler
 
 Miscellaneous:
 
@@ -314,7 +314,7 @@ Miscellaneous:
 - Add '-regtest' mode, similar to testnet but private with instant block
   generation with 'setgenerate' RPC.
 - Add 'linearize.py' script to contrib, for creating bootstrap.dat
-- Add separate bitcoin-cli client
+- Add separate digibyte-cli client
 
 Credits
 --------

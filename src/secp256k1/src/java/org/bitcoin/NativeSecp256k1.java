@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.bitcoin;
+package org.digibyte;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -24,12 +24,12 @@ import java.math.BigInteger;
 import com.google.common.base.Preconditions;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import static org.bitcoin.NativeSecp256k1Util.*;
+import static org.digibyte.NativeSecp256k1Util.*;
 
 /**
  * <p>This class holds native methods to handle ECDSA verification.</p>
  *
- * <p>You can find an example library that can be used for this at https://github.com/bitcoin/secp256k1</p>
+ * <p>You can find an example library that can be used for this at https://github.com/digibyte/secp256k1</p>
  *
  * <p>To build secp256k1 for use with bitcoinj, run
  * `./configure --enable-jni --enable-experimental --enable-module-ecdh`

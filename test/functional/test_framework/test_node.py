@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017 The Bitcoin Core developers
+# Copyright (c) 2017 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Class for bitcoind node under test"""
@@ -54,7 +54,7 @@ class TestNode():
         self.extra_args = extra_args
         self.args = [self.binary, "-datadir=" + self.datadir, "-server", "-keypool=1", "-discover=0", "-rest", "-logtimemicros", "-debug", "-debugexclude=libevent", "-debugexclude=leveldb", "-mocktime=" + str(mocktime), "-uacomment=testnode%d" % i]
 
-        self.cli = TestNodeCLI(os.getenv("BITCOINCLI", "bitcoin-cli"), self.datadir)
+        self.cli = TestNodeCLI(os.getenv("BITCOINCLI", "digibyte-cli"), self.datadir)
 
         self.running = False
         self.process = None
@@ -152,7 +152,7 @@ class TestNode():
         self.wait_until_stopped()
 
 class TestNodeCLI():
-    """Interface to bitcoin-cli for an individual node"""
+    """Interface to digibyte-cli for an individual node"""
 
     def __init__(self, binary, datadir):
         self.args = []
@@ -161,7 +161,7 @@ class TestNodeCLI():
         self.input = None
 
     def __call__(self, *args, input=None):
-        # TestNodeCLI is callable with bitcoin-cli command-line args
+        # TestNodeCLI is callable with digibyte-cli command-line args
         self.args = [str(arg) for arg in args]
         self.input = input
         return self
@@ -172,11 +172,11 @@ class TestNodeCLI():
         return dispatcher
 
     def send_cli(self, command, *args, **kwargs):
-        """Run bitcoin-cli command. Deserializes returned string as python object."""
+        """Run digibyte-cli command. Deserializes returned string as python object."""
 
         pos_args = [str(arg) for arg in args]
         named_args = [str(key) + "=" + str(value) for (key, value) in kwargs.items()]
-        assert not (pos_args and named_args), "Cannot use positional arguments and named arguments in the same bitcoin-cli call"
+        assert not (pos_args and named_args), "Cannot use positional arguments and named arguments in the same digibyte-cli call"
         p_args = [self.binary, "-datadir=" + self.datadir] + self.args
         if named_args:
             p_args += ["-named"]

@@ -51,7 +51,7 @@
     </message>
     <message>
         <source>C&amp;hoose</source>
-        <translation>Dies sind deine Bitcoin Adressen zum Senden von Zahlungsmitteln.
+        <translation>Dies sind deine DigiByte Adressen zum Senden von Zahlungsmitteln.
 Überprüfe immer die Menge, sowie die Empfänger-Adresse vor dem Senden von Coins.</translation>
     </message>
     <message>
@@ -579,7 +579,7 @@
     </message>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>digibyte-core</name>
     <message>
         <source>Information</source>
         <translation>Information</translation>

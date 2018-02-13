@@ -1,5 +1,5 @@
 # Linearize
-Construct a linear, no-fork, best version of the Bitcoin blockchain. The scripts
+Construct a linear, no-fork, best version of the DigiByte blockchain. The scripts
 run using Python 3 but are compatible with Python 2.
 
 ## Step 1: Download hash list
@@ -21,7 +21,7 @@ standalone hash lists but safe to use with linearize-data.py, which will output
 the same data no matter which byte format is chosen.
 
 The `linearize-hashes` script requires a connection, local or remote, to a
-JSON-RPC server. Running `bitcoind` or `bitcoin-qt -server` will be sufficient.
+JSON-RPC server. Running `bitcoind` or `digibyte-qt -server` will be sufficient.
 
 ## Step 2: Copy local block data
 
