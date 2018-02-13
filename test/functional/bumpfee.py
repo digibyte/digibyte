@@ -30,12 +30,7 @@ WALLET_PASSPHRASE_TIMEOUT = 3600
 
 
 class BumpFeeTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/bumpfee.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/bumpfee.py
         self.num_nodes = 2
         self.setup_clean_chain = True
         self.extra_args = [["-prematurewitness", "-walletprematurewitness", "-walletrbf={}".format(i)]
@@ -43,14 +38,8 @@ class BumpFeeTest(DigiByteTestFramework):
 
     def run_test(self):
         # Encrypt wallet for test_locked_wallet_fails test
-<<<<<<< HEAD:qa/rpc-tests/bumpfee.py
-        self.nodes[1].encryptwallet(WALLET_PASSPHRASE)
-        digibyted_processes[1].wait()
-        self.nodes[1] = start_node(1, self.options.tmpdir, extra_args[1])
-=======
         self.nodes[1].node_encrypt_wallet(WALLET_PASSPHRASE)
         self.start_node(1)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/bumpfee.py
         self.nodes[1].walletpassphrase(WALLET_PASSPHRASE, WALLET_PASSPHRASE_TIMEOUT)
 
         connect_nodes_bi(self.nodes, 0, 1)
@@ -60,11 +49,7 @@ class BumpFeeTest(DigiByteTestFramework):
         rbf_node_address = rbf_node.getnewaddress()
 
         # fund rbf node with 10 coins of 0.001 dgb (100,000 satoshis)
-<<<<<<< HEAD:qa/rpc-tests/bumpfee.py
-        print("Mining blocks...")
-=======
         self.log.info("Mining blocks...")
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/bumpfee.py
         peer_node.generate(110)
         self.sync_all()
         for i in range(25):
@@ -269,11 +254,7 @@ def test_unconfirmed_not_spendable(rbf_node, rbf_node_address):
 
 
 def test_bumpfee_metadata(rbf_node, dest_address):
-<<<<<<< HEAD:qa/rpc-tests/bumpfee.py
-    rbfid = rbf_node.sendtoaddress(dest_address, 0.00090000, "comment value", "to value")
-=======
     rbfid = rbf_node.sendtoaddress(dest_address, Decimal("0.00100000"), "comment value", "to value")
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/bumpfee.py
     bumped_tx = rbf_node.bumpfee(rbfid)
     bumped_wtx = rbf_node.gettransaction(bumped_tx["txid"])
     assert_equal(bumped_wtx["comment"], "comment value")

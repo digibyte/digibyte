@@ -4,17 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test spending coinbase transactions.
 
-<<<<<<< HEAD:qa/rpc-tests/mempool_spendcoinbase.py
-#
-# Test spending coinbase transactions.
-# The coinbase transaction in block N can appear in block
-# N+100... so is valid in the mempool when the best block
-# height is N+99.
-# This test makes sure coinbase spends that will be mature
-# in the next block are accepted into the memory pool,
-# but less mature coinbase spends are NOT.
-#
-=======
 The coinbase transaction in block N can appear in block
 N+100... so is valid in the mempool when the best block
 height is N+99.
@@ -22,20 +11,13 @@ This test makes sure coinbase spends that will be mature
 in the next block are accepted into the memory pool,
 but less mature coinbase spends are NOT.
 """
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/mempool_spendcoinbase.py
 
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 # Create one-input, one-output, no-fee transaction:
 class MempoolSpendCoinbaseTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/mempool_spendcoinbase.py
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/mempool_spendcoinbase.py
         self.num_nodes = 1
         self.extra_args = [["-checkmempool"]]
 

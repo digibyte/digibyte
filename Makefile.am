@@ -62,17 +62,10 @@ OSX_PACKAGING = $(OSX_DEPLOY_SCRIPT) $(OSX_FANCY_PLIST) $(OSX_INSTALLER_ICONS) \
   $(top_srcdir)/contrib/macdeploy/detached-sig-apply.sh \
   $(top_srcdir)/contrib/macdeploy/detached-sig-create.sh
 
-<<<<<<< HEAD
-COVERAGE_INFO = baseline_filtered_combined.info baseline.info \
-  leveldb_baseline.info test_digibyte_filtered.info total_coverage.info \
-  baseline_filtered.info rpc_test.info rpc_test_filtered.info \
-  leveldb_baseline_filtered.info test_digibyte_coverage.info test_digibyte.info
-=======
 COVERAGE_INFO = baseline.info \
   test_digibyte_filtered.info total_coverage.info \
   baseline_filtered.info functional_test.info functional_test_filtered.info \
   test_digibyte_coverage.info test_digibyte.info
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 dist-hook:
 	-$(GIT) archive --format=tar HEAD -- src/clientversion.cpp | $(AMTAR) -C $(top_distdir) -xf -
@@ -185,25 +178,6 @@ baseline_filtered.info: baseline.info
 	$(abs_builddir)/contrib/filter-lcov.py $(LCOV_FILTER_PATTERN) $< $@
 	$(LCOV) -a $@ $(LCOV_OPTS) -o $@
 
-<<<<<<< HEAD
-baseline_filtered_combined.info: leveldb_baseline_filtered.info baseline_filtered.info
-	$(LCOV) -a leveldb_baseline_filtered.info -a baseline_filtered.info -o $@
-
-test_digibyte.info: baseline_filtered_combined.info
-	$(MAKE) -C src/ check
-	$(LCOV) -c -d $(abs_builddir)/src -t test_digibyte -o $@
-	$(LCOV) -z -d $(abs_builddir)/src
-	$(LCOV) -z -d $(abs_builddir)/src/leveldb
-
-test_digibyte_filtered.info: test_digibyte.info
-	$(LCOV) -r $< "/usr/include/*" -o $@
-
-rpc_test.info: test_digibyte_filtered.info
-	-@TIMEOUT=15 python qa/pull-tester/rpc-tests.py $(EXTENDED_RPC_TESTS)
-	$(LCOV) -c -d $(abs_builddir)/src --t rpc-tests -o $@
-	$(LCOV) -z -d $(abs_builddir)/src
-	$(LCOV) -z -d $(abs_builddir)/src/leveldb
-=======
 test_digibyte.info: baseline_filtered.info
 	$(MAKE) -C src/ check
 	$(LCOV) -c $(LCOV_OPTS) -d $(abs_builddir)/src -t test_digibyte -o $@
@@ -217,22 +191,11 @@ functional_test.info: test_digibyte_filtered.info
 	-@TIMEOUT=15 test/functional/test_runner.py $(EXTENDED_FUNCTIONAL_TESTS)
 	$(LCOV) -c $(LCOV_OPTS) -d $(abs_builddir)/src --t functional-tests -o $@
 	$(LCOV) -z $(LCOV_OPTS) -d $(abs_builddir)/src
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 functional_test_filtered.info: functional_test.info
 	$(abs_builddir)/contrib/filter-lcov.py $(LCOV_FILTER_PATTERN) $< $@
 	$(LCOV) -a $@ $(LCOV_OPTS) -o $@
 
-<<<<<<< HEAD
-test_digibyte_coverage.info: baseline_filtered_combined.info test_digibyte_filtered.info
-	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_digibyte_filtered.info -o $@
-
-total_coverage.info: baseline_filtered_combined.info test_digibyte_filtered.info rpc_test_filtered.info
-	$(LCOV) -a baseline_filtered.info -a leveldb_baseline_filtered.info -a test_digibyte_filtered.info -a rpc_test_filtered.info -o $@ | $(GREP) "\%" | $(AWK) '{ print substr($$3,2,50) "/" $$5 }' > coverage_percent.txt
-
-test_digibyte.coverage/.dirstamp:  test_digibyte_coverage.info
-	$(GENHTML) -s $< -o $(@D)
-=======
 test_digibyte_coverage.info: baseline_filtered.info test_digibyte_filtered.info
 	$(LCOV) -a $(LCOV_OPTS) baseline_filtered.info -a test_digibyte_filtered.info -o $@
 
@@ -241,7 +204,6 @@ total_coverage.info: test_digibyte_filtered.info functional_test_filtered.info
 
 test_digibyte.coverage/.dirstamp:  test_digibyte_coverage.info
 	$(GENHTML) -s $(LCOV_OPTS) $< -o $(@D)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 	@touch $@
 
 total.coverage/.dirstamp: total_coverage.info
@@ -254,14 +216,6 @@ endif
 
 dist_noinst_SCRIPTS = autogen.sh
 
-<<<<<<< HEAD
-EXTRA_DIST = $(top_srcdir)/share/genbuild.sh qa/pull-tester/rpc-tests.py qa/rpc-tests $(DIST_CONTRIB) $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING) $(BIN_CHECKS)
-
-CLEANFILES = $(OSX_DMG) $(DIGIBYTE_WIN_INSTALLER)
-
-# This file is problematic for out-of-tree builds if it exists.
-DISTCLEANFILES = qa/pull-tester/tests_config.pyc
-=======
 EXTRA_DIST = $(DIST_SHARE) test/functional/test_runner.py test/functional $(DIST_CONTRIB) $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING) $(BIN_CHECKS)
 
 EXTRA_DIST += \
@@ -318,17 +272,11 @@ EXTRA_DIST += \
     test/util/data/txcreatesignv2.hex
 
 CLEANFILES = $(OSX_DMG) $(DIGIBYTE_WIN_INSTALLER)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 .INTERMEDIATE: $(COVERAGE_INFO)
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-man
 
 clean-local:
-<<<<<<< HEAD
-	rm -rf coverage_percent.txt test_digibyte.coverage/ total.coverage/ qa/tmp/ cache/ $(OSX_APP)
-	rm -rf qa/pull-tester/__pycache__
-=======
 	rm -rf coverage_percent.txt test_digibyte.coverage/ total.coverage/ test/tmp/ cache/ $(OSX_APP)
 	rm -rf test/functional/__pycache__
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7

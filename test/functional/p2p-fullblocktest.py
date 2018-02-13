@@ -25,17 +25,6 @@ class PreviousSpendableOutput(object):
         self.tx = tx
         self.n = n  # the output we're spending
 
-<<<<<<< HEAD:qa/rpc-tests/p2p-fullblocktest.py
-'''
-This reimplements tests from the digibytej/FullBlockTestGenerator used
-by the pull-tester.
-
-We use the testing framework in which we expect a particular answer from
-each test.
-'''
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-fullblocktest.py
 #  Use this class for tests that require behavior other than normal "mininode" behavior.
 #  For now, it is used to serialize a bloated varint (b64).
 class CBrokenBlock(CBlock):
@@ -408,11 +397,7 @@ class FullBlockTest(ComparisonTestFramework):
 
         # Extend the b26 chain to make sure digibyted isn't accepting b26
         b27 = block(27, spend=out[7])
-<<<<<<< HEAD:qa/rpc-tests/p2p-fullblocktest.py
-        yield rejected(RejectResult(0, b'bad-prevblk'))
-=======
         yield rejected(False)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-fullblocktest.py
 
         # Now try a too-large-coinbase script
         tip(15)
@@ -424,11 +409,7 @@ class FullBlockTest(ComparisonTestFramework):
 
         # Extend the b28 chain to make sure digibyted isn't accepting b28
         b29 = block(29, spend=out[7])
-<<<<<<< HEAD:qa/rpc-tests/p2p-fullblocktest.py
-        yield rejected(RejectResult(0, b'bad-prevblk'))
-=======
         yield rejected(False)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-fullblocktest.py
 
         # b30 has a max-sized coinbase scriptSig.
         tip(23)

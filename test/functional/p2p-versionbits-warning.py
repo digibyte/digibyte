@@ -27,36 +27,8 @@ class TestNode(NodeConnCB):
     def on_inv(self, conn, message):
         pass
 
-<<<<<<< HEAD:qa/rpc-tests/p2p-versionbits-warning.py
-    # Wrapper for the NodeConn's send_message function
-    def send_message(self, message):
-        self.connection.send_message(message)
-
-    def on_pong(self, conn, message):
-        self.last_pong = message
-
-    # Sync up with the node after delivery of a block
-    def sync_with_ping(self, timeout=30):
-        self.connection.send_message(msg_ping(nonce=self.ping_counter))
-        received_pong = False
-        sleep_time = 0.05
-        while not received_pong and timeout > 0:
-            time.sleep(sleep_time)
-            timeout -= sleep_time
-            with mininode_lock:
-                if self.last_pong.nonce == self.ping_counter:
-                    received_pong = True
-        self.ping_counter += 1
-        return received_pong
-
-
-class VersionBitsWarningTest(DigiByteTestFramework):
-    def __init__(self):
-        super().__init__()
-=======
 class VersionBitsWarningTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-versionbits-warning.py
         self.setup_clean_chain = True
         self.num_nodes = 1
 

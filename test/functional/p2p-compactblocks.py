@@ -14,20 +14,8 @@ from test_framework.util import *
 from test_framework.blocktools import create_block, create_coinbase, add_witness_commitment
 from test_framework.script import CScript, OP_TRUE
 
-<<<<<<< HEAD:qa/rpc-tests/p2p-compactblocks.py
-'''
-CompactBlocksTest -- test compact blocks (BIP 152)
-
-Version 1 compact blocks are pre-segwit (txids)
-Version 2 compact blocks are post-segwit (wtxids)
-'''
-
-# TestNode: A peer we use to send messages to digibyted, and store responses.
-class TestNode(SingleNodeConnCB):
-=======
 # TestNode: A peer we use to send messages to digibyted, and store responses.
 class TestNode(NodeConnCB):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-compactblocks.py
     def __init__(self):
         super().__init__()
         self.last_sendcmpct = []
@@ -92,11 +80,6 @@ class TestNode(NodeConnCB):
             return (block_hash in self.announced_blockhashes)
         wait_until(received_hash, timeout=timeout, lock=mininode_lock)
 
-<<<<<<< HEAD:qa/rpc-tests/p2p-compactblocks.py
-class CompactBlocksTest(DigiByteTestFramework):
-    def __init__(self):
-        super().__init__()
-=======
     def send_await_disconnect(self, message, timeout=30):
         """Sends a message to the node and wait for disconnect.
 
@@ -107,7 +90,6 @@ class CompactBlocksTest(DigiByteTestFramework):
 
 class CompactBlocksTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-compactblocks.py
         self.setup_clean_chain = True
         # Node0 = pre-segwit, node1 = segwit-aware
         self.num_nodes = 2

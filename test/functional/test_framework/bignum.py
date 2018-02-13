@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
 #
-<<<<<<< HEAD:qa/rpc-tests/test_framework/bignum.py
-# bignum.py
-#
-# This file is copied from python-digibytelib.
-#
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/bignum.py
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Big number routines.

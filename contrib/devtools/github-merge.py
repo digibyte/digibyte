@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2016 The DigiByte Core developers
-=======
 # Copyright (c) 2016-2017 DigiByte Core Developers
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

@@ -41,12 +41,6 @@ while true; do
 		echo "There is a valid path from "$CURRENT_COMMIT" to $VERIFIED_ROOT where all commits are signed!"
 		exit 0;
 	fi
-<<<<<<< HEAD
-	if [ "${REVSIG_ALLOWED#*$1}" != "$REVSIG_ALLOWED" ]; then
-		export DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG=1
-	else
-		export DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG=0
-=======
 
 	if [ "$CURRENT_COMMIT" = $VERIFIED_SHA512_ROOT ]; then
 		if [ "$VERIFY_TREE" = "1" ]; then
@@ -60,7 +54,6 @@ while true; do
 		export DIGIBYTE_VERIFY_COMMITS_ALLOW_SHA1=0
 	else
 		export DIGIBYTE_VERIFY_COMMITS_ALLOW_SHA1=1
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 	fi
 
 	if [ "${REVSIG_ALLOWED#*$CURRENT_COMMIT}" != "$REVSIG_ALLOWED" ]; then
@@ -68,23 +61,6 @@ while true; do
 	else
 		export DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG=0
 	fi
-<<<<<<< HEAD
-	local PARENTS
-	PARENTS=$(git show -s --format=format:%P $1)
-	for PARENT in $PARENTS; do
-		if IS_SIGNED $PARENT; then
-			return 0;
-		fi
-		break
-	done
-	if ! "$HAVE_FAILED"; then
-		echo "No parent of $1 was signed with a trusted key!" > /dev/stderr
-		echo "Parents are:" > /dev/stderr
-		for PARENT in $PARENTS; do
-			git show -s $PARENT > /dev/stderr
-		done
-		HAVE_FAILED=true
-=======
 
 	if ! git -c "gpg.program=${DIR}/gpg.sh" verify-commit "$CURRENT_COMMIT" > /dev/null; then
 		if [ "$PREV_COMMIT" != "" ]; then
@@ -98,7 +74,6 @@ while true; do
 			echo "$CURRENT_COMMIT was not signed with a trusted key!" > /dev/stderr
 		fi
 		exit 1
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 	fi
 
 	# We always verify the top of the tree

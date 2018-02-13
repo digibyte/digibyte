@@ -10,14 +10,11 @@ from test_framework.mininode import *
 from io import BytesIO
 
 class DecodeScriptTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/decodescript.py
     """Tests decoding scripts via RPC command "decodescript"."""
 
     def __init__(self):
         super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/decodescript.py
         self.setup_clean_chain = True
         self.num_nodes = 1
 

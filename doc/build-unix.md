@@ -340,11 +340,7 @@ Then build using:
 
     ./autogen.sh
     ./configure --with-incompatible-bdb BDB_CFLAGS="-I/usr/local/include/db5" BDB_LIBS="-L/usr/local/lib -ldb_cxx-5"
-<<<<<<< HEAD
-    make
-=======
     gmake
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 *Note on debugging*: The version of `gdb` installed by default is [ancient and considered harmful](https://wiki.freebsd.org/GdbRetirement).
 It is not suitable for debugging a multi-threaded C++ program, not even for getting backtraces. Please install the package `gdb` and

@@ -4,25 +4,11 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test gettxoutproof and verifytxoutproof RPCs."""
 
-<<<<<<< HEAD:qa/rpc-tests/merkle_blocks.py
-#
-# Test merkleblock fetch/validation
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/merkle_blocks.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 class MerkleBlockTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/merkle_blocks.py
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = True
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/merkle_blocks.py
         self.num_nodes = 4
         self.setup_clean_chain = True
         # Nodes 0/1 are "wallet" nodes, Nodes 2/3 are used for testing

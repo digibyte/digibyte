@@ -23,11 +23,7 @@
 #DIGIBYTED_NICE=0
 
 # Additional options (avoid -conf and -datadir, use flags above)
-<<<<<<< HEAD
-DIGIBYTED_OPTS="-disablewallet"
-=======
 #DIGIBYTED_OPTS=""
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 # The timeout in seconds OpenRC will wait for digibyted to terminate
 # after a SIGTERM has been raised.

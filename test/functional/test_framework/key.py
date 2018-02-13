@@ -1,15 +1,5 @@
 # Copyright (c) 2011 Sam Rushing
-<<<<<<< HEAD:qa/rpc-tests/test_framework/key.py
-#
-# key.py - OpenSSL wrapper
-#
-# This file is modified from python-digibytelib.
-#
-
-"""ECC secp256k1 crypto routines
-=======
 """ECC secp256k1 OpenSSL wrapper.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/key.py
 
 WARNING: This module does not mlock() secrets; your private keys may end up on
 disk in swap! Use with caution!

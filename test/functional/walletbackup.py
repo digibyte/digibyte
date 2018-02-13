@@ -30,21 +30,11 @@ confirm 1/2/3/4 balances are same as before.
 Shutdown again, restore using importwallet,
 and confirm again balances are correct.
 """
-<<<<<<< HEAD:qa/rpc-tests/walletbackup.py
-
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/walletbackup.py
 from random import randint
 import shutil
 
-<<<<<<< HEAD:qa/rpc-tests/walletbackup.py
-class WalletBackupTest(DigiByteTestFramework):
-=======
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/walletbackup.py
 
 class WalletBackupTest(DigiByteTestFramework):
     def set_test_params(self):

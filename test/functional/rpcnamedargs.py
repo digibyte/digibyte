@@ -4,33 +4,14 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test using named arguments for RPCs."""
 
-<<<<<<< HEAD:qa/rpc-tests/rpcnamedargs.py
-from decimal import Decimal
-
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.authproxy import JSONRPCException
-=======
-from test_framework.test_framework import DigiByteTestFramework
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rpcnamedargs.py
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
 )
 
-<<<<<<< HEAD:qa/rpc-tests/rpcnamedargs.py
-
-class NamedArgumentTest(DigiByteTestFramework):
-    """
-    Test named arguments on RPC calls.
-    """
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = False
-=======
 class NamedArgumentTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rpcnamedargs.py
         self.num_nodes = 1
 
     def run_test(self):
@@ -38,11 +19,7 @@ class NamedArgumentTest(DigiByteTestFramework):
         h = node.help(command='getinfo')
         assert(h.startswith('getinfo\n'))
 
-<<<<<<< HEAD:qa/rpc-tests/rpcnamedargs.py
-        assert_raises_jsonrpc(-8, 'Unknown named parameter', node.help, random='getinfo')
-=======
         assert_raises_rpc_error(-8, 'Unknown named parameter', node.help, random='getinfo')
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rpcnamedargs.py
 
         h = node.getblockhash(height=0)
         node.getblock(blockhash=h)

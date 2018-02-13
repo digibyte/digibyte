@@ -3,12 +3,8 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-<<<<<<< HEAD
-###   This script attempts to download the signature file SHA256SUMS.asc from digibyte.org
-=======
 ###   This script attempts to download the signature file SHA256SUMS.asc from
 ###   digibytecore.org and digibyte.org and compares them.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 ###   It first checks if the signature passes, and then downloads the files specified in
 ###   the file, and checks if the hashes of these files match those that are specified
 ###   in the signature file.
@@ -27,13 +23,9 @@ TMPFILE="hashes.tmp"
 
 SIGNATUREFILENAME="SHA256SUMS.asc"
 RCSUBDIR="test"
-<<<<<<< HEAD
-BASEDIR="https://digibyte.org/bin/"
-=======
 HOST1="https://digibytecore.org"
-HOST2="https://digibyte.org"
+HOST2="https://digibyte.io"
 BASEDIR="/bin/"
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 VERSIONPREFIX="digibyte-core-"
 RCVERSIONSTRING="rc"
 

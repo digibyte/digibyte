@@ -2,30 +2,12 @@
 # Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-<<<<<<< HEAD:qa/rpc-tests/wallet.py
-
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-
-class WalletTest (DigiByteTestFramework):
-
-    def check_fee_amount(self, curr_balance, balance_with_fee, fee_per_byte, tx_size):
-        """Return curr_balance after asserting the fee was in range"""
-        fee = balance_with_fee - curr_balance
-        assert_fee_amount(fee, tx_size, fee_per_byte * 1000)
-        return curr_balance
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = True
-=======
 """Test the wallet."""
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 class WalletTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/wallet.py
         self.num_nodes = 4
         self.setup_clean_chain = True
         self.extra_args = [['-usehd={:d}'.format(i%2==0)] for i in range(4)]
@@ -74,9 +56,6 @@ class WalletTest(DigiByteTestFramework):
         assert_equal(len(self.nodes[1].listunspent()), 1)
         assert_equal(len(self.nodes[2].listunspent()), 0)
 
-<<<<<<< HEAD:qa/rpc-tests/wallet.py
-        # Send 21 DGB from 0 to 2 using sendtoaddress call.
-=======
         self.log.info("test gettxout")
         confirmed_txid, confirmed_index = utxos[0]["txid"], utxos[0]["vout"]
         # First, outputs that are unspent both in the chain and in the
@@ -90,7 +69,6 @@ class WalletTest(DigiByteTestFramework):
         # Locked memory should use at least 32 bytes to sign each transaction
         self.log.info("test getmemoryinfo")
         memory_before = self.nodes[0].getmemoryinfo()
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/wallet.py
         self.nodes[0].sendtoaddress(self.nodes[2].getnewaddress(), 11)
         mempool_txid = self.nodes[0].sendtoaddress(self.nodes[2].getnewaddress(), 10)
         memory_after = self.nodes[0].getmemoryinfo()

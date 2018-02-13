@@ -4,14 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test fee estimation code."""
 
-<<<<<<< HEAD:qa/rpc-tests/smartfees.py
-#
-# Test fee estimation code
-#
-
-from collections import OrderedDict
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/smartfees.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.script import CScript, OP_1, OP_DROP, OP_2, OP_HASH160, OP_EQUAL, hash160, OP_TRUE
@@ -149,13 +141,7 @@ def check_estimates(node, fees_seen, max_invalid, print_estimates = True):
 
 
 class EstimateFeeTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/smartfees.py
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/smartfees.py
         self.num_nodes = 3
 
     def setup_network(self):

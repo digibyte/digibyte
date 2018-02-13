@@ -7,24 +7,12 @@
 import socket
 import sys
 
-<<<<<<< HEAD:qa/rpc-tests/rpcbind_test.py
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-from test_framework.netutil import *
-
-
-class RPCBindTest(DigiByteTestFramework):
-
-    def __init__(self):
-        super().__init__()
-=======
 from test_framework.test_framework import DigiByteTestFramework, SkipTest
 from test_framework.util import *
 from test_framework.netutil import *
 
 class RPCBindTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rpcbind_test.py
         self.setup_clean_chain = True
         self.num_nodes = 1
 
@@ -43,18 +31,11 @@ class RPCBindTest(DigiByteTestFramework):
         if allow_ips:
             base_args += ['-rpcallowip=' + x for x in allow_ips]
         binds = ['-rpcbind='+addr for addr in addresses]
-<<<<<<< HEAD:qa/rpc-tests/rpcbind_test.py
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir, [base_args + binds], connect_to)
-        pid = digibyted_processes[0].pid
-        assert_equal(set(get_bind_addrs(pid)), set(expected))
-        stop_nodes(self.nodes)
-=======
         self.nodes[0].rpchost = connect_to
         self.start_node(0, base_args + binds)
         pid = self.nodes[0].process.pid
         assert_equal(set(get_bind_addrs(pid)), set(expected))
         self.stop_nodes()
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rpcbind_test.py
 
     def run_allowip_test(self, allow_ips, rpchost, rpcport):
         '''
@@ -63,20 +44,12 @@ class RPCBindTest(DigiByteTestFramework):
         '''
         self.log.info("Allow IP test for %s:%d" % (rpchost, rpcport))
         base_args = ['-disablewallet', '-nolisten'] + ['-rpcallowip='+x for x in allow_ips]
-<<<<<<< HEAD:qa/rpc-tests/rpcbind_test.py
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir, [base_args])
-        # connect to node through non-loopback interface
-        node = get_rpc_proxy(rpc_url(0, "%s:%d" % (rpchost, rpcport)), 0)
-        node.getnetworkinfo()
-        stop_nodes(self.nodes)
-=======
         self.nodes[0].rpchost = None
         self.start_nodes([base_args])
         # connect to node through non-loopback interface
         node = get_rpc_proxy(rpc_url(get_datadir_path(self.options.tmpdir, 0), 0, "%s:%d" % (rpchost, rpcport)), 0, coveragedir=self.options.coveragedir)
         node.getnetworkinfo()
         self.stop_nodes()
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rpcbind_test.py
 
     def run_test(self):
         # due to OS-specific network stats queries, this test works only on Linux

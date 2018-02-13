@@ -4,13 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the RBF code."""
 
-<<<<<<< HEAD:qa/rpc-tests/replace-by-fee.py
-#
-# Test replace by fee code
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/replace-by-fee.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.script import *
@@ -67,14 +60,6 @@ def make_utxo(node, amount, confirmed=True, scriptPubKey=CScript([1])):
     return COutPoint(int(txid, 16), 0)
 
 class ReplaceByFeeTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/replace-by-fee.py
-
-    def __init__(self):
-        super().__init__()
-        self.num_nodes = 1
-        self.setup_clean_chain = False
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/replace-by-fee.py
 
     def set_test_params(self):
         self.num_nodes = 2
@@ -264,17 +249,8 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         dbl_tx.vin = [CTxIn(tx0_outpoint, nSequence=0)]
         dbl_tx.vout = [CTxOut(initial_nValue - fee*n, CScript([1]))]
         dbl_tx_hex = txToHex(dbl_tx)
-<<<<<<< HEAD:qa/rpc-tests/replace-by-fee.py
-        try:
-            self.nodes[0].sendrawtransaction(dbl_tx_hex, True)
-        except JSONRPCException as exp:
-            assert_equal(exp.error['code'], -26) # insufficient fee
-        else:
-            assert(False)
-=======
         # This will raise an exception due to insufficient fee
         assert_raises_rpc_error(-26, "insufficient fee", self.nodes[0].sendrawtransaction, dbl_tx_hex, True)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/replace-by-fee.py
 
         # 1 DGB fee is enough
         dbl_tx = CTransaction()

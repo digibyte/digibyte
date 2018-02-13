@@ -11,11 +11,8 @@
 override_dh_auto_clean:
 	if [ -f Makefile ]; then $(MAKE) distclean; fi
 	rm -rf Makefile.in aclocal.m4 configure src/Makefile.in src/digibyte-config.h.in src/build-aux src/qt/Makefile.in src/qt/test/Makefile.in src/test/Makefile.in
-<<<<<<< HEAD
-=======
 
 QT=$(shell dpkg-vendor --derives-from Ubuntu && echo qt4 || echo qt5)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 # Yea, autogen should be run on the source archive, but I like doing git archive
 override_dh_auto_configure:

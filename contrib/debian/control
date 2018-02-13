@@ -34,19 +34,11 @@ Package: digibyted
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
-<<<<<<< HEAD
- DigiByte is an experimental new digital currency that enables instant
- payments to anyone, anywhere in the world. DigiByte uses peer-to-peer
- technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. DigiByte Core
- is the name of the open source software which enables the use of this currency.
-=======
  DigiByte is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
  .
  This package provides the daemon, digibyted, and the CLI tool
  digibyte-cli to interact with the daemon.
@@ -55,19 +47,11 @@ Package: digibyte-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
-<<<<<<< HEAD
- DigiByte is an experimental new digital currency that enables instant
- payments to anyone, anywhere in the world. DigiByte uses peer-to-peer
- technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. DigiByte Core
- is the name of the open source software which enables the use of this currency.
-=======
  DigiByte is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
  .
  This package provides DigiByte-Qt, a GUI for DigiByte based on Qt.
 
@@ -75,19 +59,11 @@ Package: digibyte-tx
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer digital currency - standalone transaction tool
-<<<<<<< HEAD
- DigiByte is an experimental new digital currency that enables instant
- payments to anyone, anywhere in the world. DigiByte uses peer-to-peer
- technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. DigiByte Core
- is the name of the open source software which enables the use of this currency.
-=======
  DigiByte is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
  .
  This package provides digibyte-tx, a command-line transaction creation
  tool which can be used without a digibyte daemon.  Some means of

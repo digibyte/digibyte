@@ -4,24 +4,11 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the wallet accounts properly when there are cloned transactions with malleated scriptsigs."""
 
-<<<<<<< HEAD:qa/rpc-tests/txn_clone.py
-#
-# Test proper accounting with an equivalent malleability clone
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/txn_clone.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 class TxnMallTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/txn_clone.py
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/txn_clone.py
         self.num_nodes = 4
 
     def add_options(self, parser):

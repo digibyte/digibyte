@@ -2,18 +2,7 @@
 # Copyright (c) 2015-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-<<<<<<< HEAD:qa/rpc-tests/test_framework/comptool.py
-
-from .mininode import *
-from .blockstore import BlockStore, TxStore
-from .util import p2p_port
-
-'''
-This is a tool for comparing two or more digibyteds to each other
-using a script provided.
-=======
 """Compare two or more digibyteds to each other.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/comptool.py
 
 To use, create a class that implements get_tests(), and pass it in
 as the test generator to TestManager.  get_tests() should be a python

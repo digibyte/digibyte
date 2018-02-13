@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
 name: "digibyte-win-6.15"
-=======
-name: "digibyte-win-0.15"
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 enable_cache: true
 suites:
 - "trusty"
@@ -148,24 +144,17 @@ script: |
     mkdir -p ${INSTALLPATH}
     tar --strip-components=1 -xf ../$SOURCEDIST
 
-<<<<<<< HEAD
-    CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS} CFLAGS="${HOST_CFLAGS} -msse2" CXXFLAGS="${HOST_CXXFLAGS}"
-=======
     # Workaround for tarball not building with the bare tag version
     echo '#!/bin/true' >share/genbuild.sh
     mkdir src/obj
     cp ../src/obj/build.h src/obj/
 
-    CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS} CFLAGS="${HOST_CFLAGS}" CXXFLAGS="${HOST_CXXFLAGS}"
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
+    CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS} CFLAGS="${HOST_CFLAGS}" -msse2" CXXFLAGS="${HOST_CXXFLAGS}"
     make ${MAKEOPTS}
     make ${MAKEOPTS} -C src check-security
     make deploy
     make install DESTDIR=${INSTALLPATH}
-<<<<<<< HEAD
-=======
     rename 's/-setup\.exe$/-setup-unsigned.exe/' *-setup.exe
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
     cp -f digibyte-*setup*.exe $OUTDIR/
     cd installed
     mv ${DISTNAME}/bin/*.dll ${DISTNAME}/lib/

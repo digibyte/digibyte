@@ -1,23 +1,16 @@
 DigiByte Core version *0.15.1* is now available from:
 
-<<<<<<< HEAD
-DigiByte Core version 0.14.0 is now available from:
-=======
   <https://digibytecore.org/bin/digibyte-core-0.15.x/>
 
 or
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
   <https://digibyte.org/bin/digibyte-core-0.15.x/>
 
 This is a new minor version release, including various bugfixes and
 performance improvements, as well as updated translations.
 
-<<<<<<< HEAD
-=======
 Please report bugs using the issue tracker at GitHub:
 
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
   <https://github.com/digibyte/digibyte/issues>
 
 To receive security and update notifications, please subscribe to:
@@ -27,20 +20,6 @@ To receive security and update notifications, please subscribe to:
 How to Upgrade
 ==============
 
-<<<<<<< HEAD
-DigiByte Core is extensively tested on multiple operating systems using
-the Linux kernel, macOS 10.8+, and Windows Vista and later.
-
-Microsoft ended support for Windows XP on [April 8th, 2014](https://www.microsoft.com/en-us/WindowsForBusiness/end-of-xp-support),
-No attempt is made to prevent installing or running the software on Windows XP, you
-can still do so at your own risk but be aware that there are known instabilities and issues.
-Please do not report issues about Windows XP to the issue tracker.
-
-DigiByte Core should also work on most other Unix-like systems but is not
-frequently tested on them.
-
-Notable changes
-===============
 
 Performance Improvements
 --------------
@@ -288,54 +267,19 @@ or `digibyted`/`digibyte-qt` (on Linux).
 The first time you run version 0.15.0 or higher, your chainstate database will
 be converted to a new format, which will take anywhere from a few minutes to
 half an hour, depending on the speed of your machine.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 The file format of `fee_estimates.dat` changed in version 0.15.0. Hence, a
 downgrade from version 0.15 or upgrade to version 0.15 will cause all fee
 estimates to be discarded.
 
-<<<<<<< HEAD
-- Since 0.13.2 fee estimation for a confirmation target of 1 block has been
-  disabled. The fee slider will no longer be able to choose a target of 1 block.
-  This is only a minor behavior change as there was often insufficient
-  data for this target anyway. `estimatefee 1` will now always return -1 and
-  `estimatesmartfee 1` will start searching at a target of 2.
-=======
 Note that the block database format also changed in version 0.8.0 and there is no
 automatic upgrade code from before version 0.8 to version 0.15.0. Upgrading
 directly from 0.7.x and earlier without redownloading the blockchain is not supported.
 However, as usual, old wallet versions are still supported.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 Downgrading warning
 -------------------
 
-<<<<<<< HEAD
-Removal of Priority Estimation
-------------------------------
-
-- Estimation of "priority" needed for a transaction to be included within a target
-  number of blocks has been removed.  The RPC calls are deprecated and will either
-  return -1 or 1e24 appropriately. The format for `fee_estimates.dat` has also
-  changed to no longer save these priority estimates. It will automatically be
-  converted to the new format which is not readable by prior versions of the
-  software.
-
-- Support for "priority" (coin age) transaction sorting for mining is
-  considered deprecated in Core and will be removed in the next major version.
-  This is not to be confused with the `prioritisetransaction` RPC which will remain
-  supported by Core for adding fee deltas to transactions.
-
-P2P connection management
---------------------------
-
-- Peers manually added through the `-addnode` option or `addnode` RPC now have their own
-  limit of eight connections which does not compete with other inbound or outbound
-  connection usage and is not subject to the limitation imposed by the `-maxconnections`
-  option.
-
-- New connections to manually added peers are performed more quickly.
-=======
 The chainstate database for this release is not compatible with previous
 releases, so if you run 0.15 and then decide to switch back to any
 older version, you will need to run the old release with the `-reindex-chainstate`
@@ -346,7 +290,6 @@ processing the entire blockchain.
 
 Compatibility
 ==============
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
@@ -358,37 +301,6 @@ frequently tested on them.
 Notable changes
 ===============
 
-<<<<<<< HEAD
-Fundrawtransaction change address reuse
-----------------------------------------
-
-- Before 0.14, `fundrawtransaction` was by default wallet stateless. In
-  almost all cases `fundrawtransaction` does add a change-output to the
-  outputs of the funded transaction. Before 0.14, the used keypool key was
-  never marked as change-address key and directly returned to the keypool
-  (leading to address reuse).  Before 0.14, calling `getnewaddress`
-  directly after `fundrawtransaction` did generate the same address as
-  the change-output address.
-
-- Since 0.14, fundrawtransaction does reserve the change-output-key from
-  the keypool by default (optional by setting  `reserveChangeKey`, default =
-  `true`)
-
-- Users should also consider using `getrawchangeaddress()` in conjunction
-  with `fundrawtransaction`'s `changeAddress` option.
-
-Unused mempool memory used by coincache
-----------------------------------------
-
-- Before 0.14, memory reserved for mempool (using the `-maxmempool` option)
-  went unused during initial block download, or IBD. In 0.14, the UTXO DB cache
-  (controlled with the `-dbcache` option) borrows memory from the mempool
-  when there is extra memory available. This may result in an increase in
-  memory usage during IBD for those previously relying on only the `-dbcache`
-  option to limit memory during that time.
-
-0.14.0 Change log
-=================
 
 Detailed release notes follow. This overview includes changes that affect
 behavior, not code moves, minor refactors and string updates. For convenience
@@ -798,15 +710,13 @@ and git merge commit are mentioned.
 0.15.x Change log
 =================
 
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 =======
 - accraze
 - adlawren

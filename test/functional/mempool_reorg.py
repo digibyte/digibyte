@@ -13,12 +13,7 @@ from test_framework.util import *
 
 # Create one-input, one-output, no-fee transaction:
 class MempoolCoinbaseTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/mempool_reorg.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/mempool_reorg.py
         self.num_nodes = 2
         self.extra_args = [["-checkmempool"]] * 2
 

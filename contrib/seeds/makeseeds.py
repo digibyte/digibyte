@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 #!/usr/bin/env python3
 # Copyright (c) 2013-2017 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
@@ -34,11 +30,7 @@ import collections
 PATTERN_IPV4 = re.compile(r"^((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})):(\d+)$")
 PATTERN_IPV6 = re.compile(r"^\[([0-9a-z:]+)\]:(\d+)$")
 PATTERN_ONION = re.compile(r"^([abcdefghijklmnopqrstuvwxyz234567]{16}\.onion):(\d+)$")
-<<<<<<< HEAD
-PATTERN_AGENT = re.compile(r"^(/Satoshi:0.12.(0|1|99)/|/Satoshi:0.13.(0|1|2|99)/)$")
-=======
 PATTERN_AGENT = re.compile(r"^(/Satoshi:0.13.(1|2|99)/|/Satoshi:0.14.(0|1|2|99)/)$")
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 def parseline(line):
     sline = line.split()

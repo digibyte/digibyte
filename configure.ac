@@ -1,24 +1,14 @@
 dnl require autoconf 2.60 (AS_ECHO/AS_ECHO_N)
 AC_PREREQ([2.60])
-<<<<<<< HEAD
 define(_CLIENT_VERSION_MAJOR, 6)
 define(_CLIENT_VERSION_MINOR, 15)
 define(_CLIENT_VERSION_REVISION, 3)
-=======
-define(_CLIENT_VERSION_MAJOR, 0)
-define(_CLIENT_VERSION_MINOR, 15)
-define(_CLIENT_VERSION_REVISION, 1)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2017)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[DigiByte Core]])
-<<<<<<< HEAD
 AC_INIT([DigiByte Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[https://github.com/digibyte/digibyte/issues],[digibyte],[https://digibyte.io/])
-=======
-AC_INIT([DigiByte Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[https://github.com/digibyte/digibyte/issues],[digibyte],[https://digibytecore.org/])
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 AC_CONFIG_SRCDIR([src/validation.cpp])
 AC_CONFIG_HEADERS([src/config/digibyte-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -28,15 +18,12 @@ DIGIBYTE_DAEMON_NAME=digibyted
 DIGIBYTE_GUI_NAME=digibyte-qt
 DIGIBYTE_CLI_NAME=digibyte-cli
 DIGIBYTE_TX_NAME=digibyte-tx
-<<<<<<< HEAD
-=======
 
 dnl Unless the user specified ARFLAGS, force it to be cr
 AC_ARG_VAR(ARFLAGS, [Flags for the archiver, defaults to <cr> if not set])
 if test "x${ARFLAGS+set}" != "xset"; then
   ARFLAGS="cr"
 fi
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 AC_CANONICAL_HOST
 
@@ -631,8 +618,6 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/socket.h>]],
  [ AC_MSG_RESULT(no)]
 )
 
-<<<<<<< HEAD
-=======
 dnl Check for MSG_DONTWAIT
 AC_MSG_CHECKING(for MSG_DONTWAIT)
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/socket.h>]],
@@ -649,7 +634,6 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <malloc.h>]],
  [ AC_MSG_RESULT(no)]
 )
 
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 dnl Check for mallopt(M_ARENA_MAX) (to set glibc arenas)
 AC_MSG_CHECKING(for mallopt M_ARENA_MAX)
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <malloc.h>]],

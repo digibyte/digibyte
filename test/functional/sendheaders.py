@@ -2,18 +2,7 @@
 # Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-<<<<<<< HEAD:qa/rpc-tests/sendheaders.py
-
-from test_framework.mininode import *
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-from test_framework.blocktools import create_block, create_coinbase
-
-'''
-SendHeadersTest -- test behavior of headers messages to announce blocks.
-=======
 """Test behavior of headers messages to announce blocks.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/sendheaders.py
 
 Setup: 
 
@@ -184,25 +173,8 @@ class TestNode(NodeConnCB):
         getblocks_message.locator.vHave = locator
         self.send_message(getblocks_message)
 
-<<<<<<< HEAD:qa/rpc-tests/sendheaders.py
-# InvNode: This peer should only ever receive inv's, because it doesn't ever send a
-# "sendheaders" message.
-class InvNode(BaseNode):
-    def __init__(self):
-        BaseNode.__init__(self)
-
-# TestNode: This peer is the one we use for most of the testing.
-class TestNode(BaseNode):
-    def __init__(self):
-        BaseNode.__init__(self)
-
-class SendHeadersTest(DigiByteTestFramework):
-    def __init__(self):
-        super().__init__()
-=======
 class SendHeadersTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/sendheaders.py
         self.setup_clean_chain = True
         self.num_nodes = 2
 

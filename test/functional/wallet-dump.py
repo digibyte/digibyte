@@ -4,15 +4,10 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the dumpwallet RPC."""
 
-<<<<<<< HEAD:qa/rpc-tests/wallet-dump.py
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import (start_nodes, start_node, assert_equal, digibyted_processes)
-=======
 import os
 
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (assert_equal, assert_raises_rpc_error)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/wallet-dump.py
 
 
 def read_dump(file_name, addrs, hd_master_addr_old):
@@ -61,14 +56,7 @@ def read_dump(file_name, addrs, hd_master_addr_old):
 
 
 class WalletDumpTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/wallet-dump.py
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = False
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/wallet-dump.py
         self.num_nodes = 1
         self.extra_args = [["-keypool=90"]]
 
@@ -104,14 +92,8 @@ class WalletDumpTest(DigiByteTestFramework):
         assert_equal(found_addr_rsv, 90*2) # 90 keys plus 100% internal keys
 
         #encrypt wallet, restart, unlock and dump
-<<<<<<< HEAD:qa/rpc-tests/wallet-dump.py
-        self.nodes[0].encryptwallet('test')
-        digibyted_processes[0].wait()
-        self.nodes[0] = start_node(0, self.options.tmpdir, self.extra_args[0])
-=======
         self.nodes[0].node_encrypt_wallet('test')
         self.start_node(0)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/wallet-dump.py
         self.nodes[0].walletpassphrase('test', 10)
         # Should be a no-op:
         self.nodes[0].keypoolrefill()

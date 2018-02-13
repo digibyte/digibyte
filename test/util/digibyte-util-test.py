@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2014 BitPay Inc.
-<<<<<<< HEAD:src/test/bctest.py
-# Copyright 2016 The DigiByte Core developers
-=======
 # Copyright 2016-2017 The DigiByte Core developers
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/util/digibyte-util-test.py
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test framework for digibyte utils.

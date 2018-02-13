@@ -2,24 +2,12 @@
 # Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-<<<<<<< HEAD:qa/rpc-tests/importprunedfunds.py
-
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-
-
-class ImportPrunedFundsTest(DigiByteTestFramework):
-
-    def __init__(self):
-        super().__init__()
-=======
 """Test the importprunedfunds and removeprunedfunds RPCs."""
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 class ImportPrunedFundsTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/importprunedfunds.py
         self.setup_clean_chain = True
         self.num_nodes = 2
 

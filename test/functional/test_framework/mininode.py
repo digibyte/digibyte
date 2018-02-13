@@ -20,28 +20,6 @@ msg_block, msg_tx, msg_headers, etc.:
 ser_*, deser_*: functions that handle serialization/deserialization
 """
 
-<<<<<<< HEAD:qa/rpc-tests/test_framework/mininode.py
-#
-# mininode.py - DigiByte P2P network half-a-node
-#
-# This python code was modified from ArtForz' public domain  half-a-node, as
-# found in the mini-node branch of http://github.com/jgarzik/pynode.
-#
-# NodeConn: an object which manages p2p connectivity to a digibyte node
-# NodeConnCB: a base class that describes the interface for receiving
-#             callbacks with network messages from a NodeConn
-# CBlock, CTransaction, CBlockHeader, CTxIn, CTxOut, etc....:
-#     data structures that should map to corresponding structures in
-#     digibyte/primitives
-# msg_block, msg_tx, msg_headers, etc.:
-#     data structures that represent network messages
-# ser_*, deser_*: functions that handle serialization/deserialization
-
-
-import struct
-import socket
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/mininode.py
 import asyncore
 from codecs import encode
 from collections import defaultdict
@@ -1577,20 +1555,6 @@ class NodeConnCB(object):
     def on_ping(self, conn, message):
         if conn.ver_send > BIP0031_VERSION:
             conn.send_message(msg_pong(message.nonce))
-<<<<<<< HEAD:qa/rpc-tests/test_framework/mininode.py
-    def on_reject(self, conn, message): pass
-    def on_open(self, conn): pass
-    def on_close(self, conn): pass
-    def on_mempool(self, conn): pass
-    def on_pong(self, conn, message): pass
-    def on_feefilter(self, conn, message): pass
-    def on_sendheaders(self, conn, message): pass
-    def on_sendcmpct(self, conn, message): pass
-    def on_cmpctblock(self, conn, message): pass
-    def on_getblocktxn(self, conn, message): pass
-    def on_blocktxn(self, conn, message): pass
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/mininode.py
 
     def on_verack(self, conn, message):
         conn.ver_recv = conn.ver_send
@@ -1718,12 +1682,7 @@ class NodeConn(asyncore.dispatcher):
             vt.addrFrom.port = 0
             self.send_message(vt, True)
 
-<<<<<<< HEAD:qa/rpc-tests/test_framework/mininode.py
-        print('MiniNode: Connecting to DigiByte Node IP # ' + dstaddr + ':' \
-            + str(dstport))
-=======
         logger.info('Connecting to DigiByte Node: %s:%d' % (self.dstaddr, self.dstport))
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/mininode.py
 
         try:
             self.connect((dstaddr, dstport))
@@ -1733,11 +1692,7 @@ class NodeConn(asyncore.dispatcher):
 
     def handle_connect(self):
         if self.state != "connected":
-<<<<<<< HEAD:qa/rpc-tests/test_framework/mininode.py
-            self.show_debug_msg("MiniNode: Connected & Listening: \n")
-=======
             logger.debug("Connected & Listening: %s:%d" % (self.dstaddr, self.dstport))
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/mininode.py
             self.state = "connected"
             self.cb.on_open(self)
 

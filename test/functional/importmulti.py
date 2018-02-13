@@ -2,21 +2,12 @@
 # Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-<<<<<<< HEAD:qa/rpc-tests/importmulti.py
-
-=======
 """Test the importmulti RPC."""
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/importmulti.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 class ImportMultiTest (DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/importmulti.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/importmulti.py
         self.num_nodes = 2
         self.setup_clean_chain = True
 
@@ -55,11 +46,7 @@ class ImportMultiTest (DigiByteTestFramework):
         # RPC importmulti -----------------------------------------------
 
         # DigiByte Address
-<<<<<<< HEAD:qa/rpc-tests/importmulti.py
-        print("Should import an address")
-=======
         self.log.info("Should import an address")
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/importmulti.py
         address = self.nodes[0].validateaddress(self.nodes[0].getnewaddress())
         result = self.nodes[1].importmulti([{
             "scriptPubKey": {
@@ -75,11 +62,7 @@ class ImportMultiTest (DigiByteTestFramework):
         watchonly_address = address['address']
         watchonly_timestamp = timestamp
 
-<<<<<<< HEAD:qa/rpc-tests/importmulti.py
-        print("Should not import an invalid address")
-=======
         self.log.info("Should not import an invalid address")
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/importmulti.py
         result = self.nodes[1].importmulti([{
             "scriptPubKey": {
                 "address": "not valid address",
@@ -185,8 +168,6 @@ class ImportMultiTest (DigiByteTestFramework):
         assert_equal(address_assert['iswatchonly'], False)
         assert_equal(address_assert['ismine'], True)
         assert_equal(address_assert['timestamp'], timestamp)
-<<<<<<< HEAD:qa/rpc-tests/importmulti.py
-=======
 
         self.log.info("Should not import an address with private key if is already imported")
         result = self.nodes[1].importmulti([{
@@ -199,7 +180,6 @@ class ImportMultiTest (DigiByteTestFramework):
         assert_equal(result[0]['success'], False)
         assert_equal(result[0]['error']['code'], -4)
         assert_equal(result[0]['error']['message'], 'The wallet already contains the private key for this address or script')
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/importmulti.py
 
         # Address + Private key + watchonly
         self.log.info("Should not import an address with private key and with watchonly")
@@ -440,23 +420,6 @@ class ImportMultiTest (DigiByteTestFramework):
         assert_equal(address_assert['ismine'], False)
         assert_equal('timestamp' in address_assert, False)
 
-<<<<<<< HEAD:qa/rpc-tests/importmulti.py
-        # restart nodes to check for proper serialization/deserialization of watch only address
-        stop_nodes(self.nodes)
-        self.nodes = start_nodes(2, self.options.tmpdir)
-        address_assert = self.nodes[1].validateaddress(watchonly_address)
-        assert_equal(address_assert['iswatchonly'], True)
-        assert_equal(address_assert['ismine'], False)
-        assert_equal(address_assert['timestamp'], watchonly_timestamp);
-
-        # Bad or missing timestamps
-        print("Should throw on invalid or missing timestamp values")
-        assert_raises_message(JSONRPCException, 'Missing required timestamp field for key',
-            self.nodes[1].importmulti, [{
-                "scriptPubKey": address['scriptPubKey'],
-            }])
-        assert_raises_message(JSONRPCException, 'Expected number or "now" timestamp value for key. got type string',
-=======
 
         # Importing existing watch only address with new timestamp should replace saved timestamp.
         assert_greater_than(timestamp, watchonly_timestamp)
@@ -490,7 +453,6 @@ class ImportMultiTest (DigiByteTestFramework):
                 "scriptPubKey": address['scriptPubKey'],
             }])
         assert_raises_rpc_error(-3, 'Expected number or "now" timestamp value for key. got type string',
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/importmulti.py
             self.nodes[1].importmulti, [{
                 "scriptPubKey": address['scriptPubKey'],
                 "timestamp": "",

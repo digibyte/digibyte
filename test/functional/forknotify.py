@@ -8,18 +8,8 @@ import time
 
 from test_framework.test_framework import DigiByteTestFramework
 
-<<<<<<< HEAD:qa/rpc-tests/forknotify.py
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-
-class ForkNotifyTest(DigiByteTestFramework):
-
-    def __init__(self):
-        super().__init__()
-=======
 class ForkNotifyTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/forknotify.py
         self.num_nodes = 2
 
     def setup_network(self):

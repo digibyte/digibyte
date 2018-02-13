@@ -4,11 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the listreceivedbyaddress RPC."""
 
-<<<<<<< HEAD:qa/rpc-tests/receivedby.py
-# Exercise the listreceivedbyaddress API
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/receivedby.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
@@ -28,22 +23,9 @@ def get_sub_array_from_array(object_array, to_match):
     return []
 
 class ReceivedByTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/receivedby.py
-
-    def __init__(self):
-        super().__init__()
-        self.num_nodes = 4
-        self.setup_clean_chain = False
-
-    def setup_nodes(self):
-        #This test requires mocktime
-        enable_mocktime()
-        return start_nodes(self.num_nodes, self.options.tmpdir)
-=======
     def set_test_params(self):
         self.num_nodes = 2
         self.enable_mocktime()
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/receivedby.py
 
     def run_test(self):
         '''

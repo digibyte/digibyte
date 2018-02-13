@@ -9,14 +9,7 @@ from test_framework.util import *
 
 
 class SignRawTransactionsTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/signrawtransactions.py
-    """Tests transaction signing via RPC command "signrawtransaction"."""
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/signrawtransactions.py
         self.setup_clean_chain = True
         self.num_nodes = 1
 
@@ -105,11 +98,7 @@ class SignRawTransactionsTest(DigiByteTestFramework):
             assert_equal(decodedRawTx["vin"][i]["vout"], inp["vout"])
 
         # Make sure decoderawtransaction throws if there is extra data
-<<<<<<< HEAD:qa/rpc-tests/signrawtransactions.py
-        assert_raises(JSONRPCException, self.nodes[0].decoderawtransaction, rawTx + "00")
-=======
         assert_raises_rpc_error(-22, "TX decode failed", self.nodes[0].decoderawtransaction, rawTx + "00")
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/signrawtransactions.py
 
         rawTxSigned = self.nodes[0].signrawtransaction(rawTx, scripts, privKeys)
 

@@ -4,11 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test descendant package tracking code."""
 
-<<<<<<< HEAD:qa/rpc-tests/mempool_packages.py
-# Test descendant package tracking code
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/mempool_packages.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.mininode import COIN
@@ -17,12 +12,7 @@ MAX_ANCESTORS = 25
 MAX_DESCENDANTS = 25
 
 class MempoolPackagesTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/mempool_packages.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/mempool_packages.py
         self.num_nodes = 2
         self.extra_args = [["-maxorphantx=1000"], ["-maxorphantx=1000", "-limitancestorcount=5"]]
 

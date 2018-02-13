@@ -14,17 +14,8 @@ def get_unspent(listunspent, amount):
             return utx
     raise AssertionError('Could not find unspent with amount={}'.format(amount))
 
-<<<<<<< HEAD:qa/rpc-tests/fundrawtransaction.py
-
-class RawTransactionsTest(DigiByteTestFramework):
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = True
-=======
 class RawTransactionsTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/fundrawtransaction.py
         self.num_nodes = 4
         self.setup_clean_chain = True
 
@@ -201,16 +192,7 @@ class RawTransactionsTest(DigiByteTestFramework):
         dec_tx  = self.nodes[2].decoderawtransaction(rawtx)
         assert_equal(utx['txid'], dec_tx['vin'][0]['txid'])
 
-<<<<<<< HEAD:qa/rpc-tests/fundrawtransaction.py
-        try:
-            self.nodes[2].fundrawtransaction(rawtx, {'changeAddress': 'foobar'})
-            raise AssertionError("Accepted invalid digibyte address")
-        except JSONRPCException as e:
-            assert("changeAddress must be a valid digibyte address" in e.error['message'])
-
-=======
         assert_raises_rpc_error(-5, "changeAddress must be a valid digibyte address", self.nodes[2].fundrawtransaction, rawtx, {'changeAddress':'foobar'})
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/fundrawtransaction.py
 
         ############################################################
         # test a fundrawtransaction with a provided change address #
@@ -463,18 +445,10 @@ class RawTransactionsTest(DigiByteTestFramework):
 
         ############################################################
         # locked wallet test
-<<<<<<< HEAD:qa/rpc-tests/fundrawtransaction.py
-        self.nodes[1].encryptwallet("test")
-        self.nodes.pop(1)
-        stop_node(self.nodes[0], 0)
-        stop_node(self.nodes[1], 2)
-        stop_node(self.nodes[2], 3)
-=======
         self.stop_node(0)
         self.nodes[1].node_encrypt_wallet("test")
         self.stop_node(2)
         self.stop_node(3)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/fundrawtransaction.py
 
         self.start_nodes()
         # This test is not meant to test fee estimation and we'd like

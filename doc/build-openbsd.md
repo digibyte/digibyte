@@ -1,10 +1,6 @@
 OpenBSD build guide
 ======================
-<<<<<<< HEAD
-(updated for OpenBSD 6.0)
-=======
 (updated for OpenBSD 6.2)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 This guide describes how to build digibyted and command-line utilities on OpenBSD.
 
@@ -25,11 +21,7 @@ pkg_add boost
 git clone https://github.com/digibyte/digibyte.git
 ```
 
-<<<<<<< HEAD
-The default C++ compiler that comes with OpenBSD 5.9 is g++ 4.2. This version is old (from 2007), and is not able to compile the current version of DigiByte Core, primarily as it has no C++11 support, but even before there were issues. So here we will be installing a newer compiler.
-=======
 See [dependencies.md](dependencies.md) for a complete overview.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 GCC
 -------
@@ -37,52 +29,10 @@ GCC
 The default C++ compiler that comes with OpenBSD 6.2 is g++ 4.2.1. This version is old (from 2007), and is not able to compile the current version of DigiByte Core because it has no C++11 support. We'll install a newer version of GCC:
 
 ```bash
-<<<<<<< HEAD
-pkg_add g++ # (select newest 4.x version, e.g. 4.9.3)
-```
-
-This compiler will not overwrite the system compiler, it will be installed as `egcc` and `eg++` in `/usr/local/bin`.
-
-### Building boost
-
-Do not use `pkg_add boost`! The boost version installed thus is compiled using the `g++` compiler not `eg++`, which will result in a conflict between `/usr/local/lib/libestdc++.so.XX.0` and `/usr/lib/libstdc++.so.XX.0`, resulting in a test crash:
-
-    test_digibyte:/usr/lib/libstdc++.so.57.0: /usr/local/lib/libestdc++.so.17.0 : WARNING: symbol(_ZN11__gnu_debug17_S_debug_me ssagesE) size mismatch, relink your program
-    ...
-    Segmentation fault (core dumped)
-
-This makes it necessary to build boost, or at least the parts used by DigiByte Core, manually:
-
-```
-# Pick some path to install boost to, here we create a directory within the digibyte directory
-DIGIBYTE_ROOT=$(pwd)
-BOOST_PREFIX="${DIGIBYTE_ROOT}/boost"
-mkdir -p $BOOST_PREFIX
-
-# Fetch the source and verify that it is not tampered with
-curl -o boost_1_61_0.tar.bz2 http://heanet.dl.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2
-echo 'a547bd06c2fd9a71ba1d169d9cf0339da7ebf4753849a8f7d6fdb8feee99b640  boost_1_61_0.tar.bz2' | sha256 -c
-# MUST output: (SHA256) boost_1_61_0.tar.bz2: OK
-tar -xjf boost_1_61_0.tar.bz2
-
-# Boost 1.61 needs one small patch for OpenBSD
-cd boost_1_61_0
-# Also here: https://gist.githubusercontent.com/laanwj/bf359281dc319b8ff2e1/raw/92250de8404b97bb99d72ab898f4a8cb35ae1ea3/patch-boost_test_impl_execution_monitor_ipp.patch
-patch -p0 < /usr/ports/devel/boost/patches/patch-boost_test_impl_execution_monitor_ipp
-
-# Build w/ minimum configuration necessary for digibyte
-echo 'using gcc : : eg++ : <cxxflags>"-fvisibility=hidden -fPIC" <linkflags>"" <archiver>"ar" <striper>"strip"  <ranlib>"ranlib" <rc>"" : ;' > user-config.jam
-config_opts="runtime-link=shared threadapi=pthread threading=multi link=static variant=release --layout=tagged --build-type=complete --user-config=user-config.jam -sNO_BZIP2=1"
-./bootstrap.sh --without-icu --with-libraries=chrono,filesystem,program_options,system,thread,test
-./b2 -d2 -j2 -d1 ${config_opts} --prefix=${BOOST_PREFIX} stage
-./b2 -d0 -j4 ${config_opts} --prefix=${BOOST_PREFIX} install
-```
-=======
  pkg_add g++
  ```
 
  This compiler will not overwrite the system compiler, it will be installed as `egcc` and `eg++` in `/usr/local/bin`.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 ### Building BerkeleyDB
 
@@ -116,13 +66,8 @@ The standard ulimit restrictions in OpenBSD are very strict:
 
     data(kbytes)         1572864
 
-<<<<<<< HEAD
-This is, unfortunately, no longer enough to compile some `.cpp` files in the project,
-at least with gcc 4.9.3 (see issue https://github.com/digibyte/digibyte/issues/6658).
-=======
 This, unfortunately, may no longer be enough to compile some `.cpp` files in the project,
 at least with GCC 4.9.4 (see issue [#6658](https://github.com/digibyte/digibyte/issues/6658)).
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 If your user is in the `staff` group the limit can be raised with:
 
     ulimit -d 3000000
@@ -145,12 +90,7 @@ Make sure `BDB_PREFIX` is set to the appropriate path from the above steps.
 
 To configure with wallet:
 ```bash
-<<<<<<< HEAD
-./configure --with-gui=no --with-boost=$BOOST_PREFIX \
-    CC=egcc CXX=eg++ CPP=ecpp \
-=======
 ./configure --with-gui=no CC=egcc CXX=eg++ CPP=ecpp \
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
     BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 ```
 
@@ -168,18 +108,6 @@ gmake check
 Clang
 ------------------------------
 
-<<<<<<< HEAD
-WARNING: This is outdated, needs to be updated for OpenBSD 6.0 and re-tried.
-
-Using a newer g++ results in linking the new code to a new libstdc++.
-Libraries built with the old g++, will still import the old library.
-This gives conflicts, necessitating rebuild of all C++ dependencies of the application.
-
-With clang this can - at least theoretically - be avoided because it uses the
-base system's libstdc++.
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 ```bash
 pkg_add llvm
 
@@ -187,21 +115,3 @@ pkg_add llvm
 gmake # use -jX here for parallelism
 gmake check
 ```
-<<<<<<< HEAD
-
-However, this does not appear to work. Compilation succeeds, but link fails
-with many 'local symbol discarded' errors:
-
-    local symbol 150: discarded in section `.text._ZN10tinyformat6detail14FormatIterator6finishEv' from libdigibyte_util.a(libdigibyte_util_a-random.o)
-    local symbol 151: discarded in section `.text._ZN10tinyformat6detail14FormatIterator21streamStateFromFormatERSoRjPKcii' from libdigibyte_util.a(libdigibyte_util_a-random.o)
-    local symbol 152: discarded in section `.text._ZN10tinyformat6detail12convertToIntIA13_cLb0EE6invokeERA13_Kc' from libdigibyte_util.a(libdigibyte_util_a-random.o)
-
-According to similar reported errors this is a binutils (ld) issue in 2.15, the
-version installed by OpenBSD 5.7:
-
-- http://openbsd-archive.7691.n7.nabble.com/UPDATE-cppcheck-1-65-td248900.html
-- https://llvm.org/bugs/show_bug.cgi?id=9758
-
-There is no known workaround for this.
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7

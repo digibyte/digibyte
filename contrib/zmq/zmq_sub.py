@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#!/usr/bin/env python2
-=======
 #!/usr/bin/env python3
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 # Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.

@@ -4,13 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test BIP68 implementation."""
 
-<<<<<<< HEAD:qa/rpc-tests/bip68-sequence.py
-#
-# Test BIP68 implementation
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/bip68-sequence.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.blocktools import *
@@ -24,12 +17,7 @@ SEQUENCE_LOCKTIME_MASK = 0x0000ffff
 NOT_FINAL_ERROR = "64: non-BIP68-final"
 
 class BIP68Test(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/bip68-sequence.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/bip68-sequence.py
         self.num_nodes = 2
         self.extra_args = [[], ["-acceptnonstdtxn=0"]]
 

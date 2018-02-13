@@ -23,19 +23,8 @@ class LongpollThread(threading.Thread):
         self.node.getblocktemplate({'longpollid':self.longpollid})
 
 class GetBlockTemplateLPTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/getblocktemplate_longpoll.py
-    '''
-    Test longpolling with getblocktemplate.
-    '''
-
-    def __init__(self):
-        super().__init__()
-        self.num_nodes = 4
-        self.setup_clean_chain = False
-=======
     def set_test_params(self):
         self.num_nodes = 2
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/getblocktemplate_longpoll.py
 
     def run_test(self):
         self.log.info("Warning: this test will take about 70 seconds in the best case. Be patient.")

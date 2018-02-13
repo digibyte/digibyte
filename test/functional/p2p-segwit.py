@@ -109,13 +109,7 @@ def sign_P2PK_witness_input(script, txTo, inIdx, hashtype, value, key):
 
 
 class SegWitTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/p2p-segwit.py
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-segwit.py
         self.setup_clean_chain = True
         self.num_nodes = 3
         self.extra_args = [["-whitelist=127.0.0.1"], ["-whitelist=127.0.0.1", "-acceptnonstdtxn=0"], ["-whitelist=127.0.0.1", "-vbparams=segwit:0:0"]]

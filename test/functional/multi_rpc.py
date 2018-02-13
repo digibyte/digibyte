@@ -4,13 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multiple RPC users."""
 
-<<<<<<< HEAD:qa/rpc-tests/multi_rpc.py
-#
-# Test multiple rpc user config option rpcauth
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/multi_rpc.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import str_to_b64str, assert_equal
 
@@ -19,27 +12,16 @@ import http.client
 import urllib.parse
 
 class HTTPBasicsTest (DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/multi_rpc.py
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = False
-        self.num_nodes = 1
-=======
     def set_test_params(self):
         self.num_nodes = 2
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/multi_rpc.py
 
     def setup_chain(self):
         super().setup_chain()
         #Append rpcauth to digibyte.conf before initialization
         rpcauth = "rpcauth=rt:93648e835a54c573682c2eb19f882535$7681e9c5b74bdd85e78166031d2058e1069b3ed7ed967c93fc63abba06f31144"
         rpcauth2 = "rpcauth=rt2:f8607b1a88861fac29dfccf9b52ff9f$ff36a0c23c8c62b4846112e50fa888416e94c17bfd4c42f88fd8f55ec6a3137e"
-<<<<<<< HEAD:qa/rpc-tests/multi_rpc.py
-=======
         rpcuser = "rpcuser=rpcuser💻"
         rpcpassword = "rpcpassword=rpcpassword🔑"
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/multi_rpc.py
         with open(os.path.join(self.options.tmpdir+"/node0", "digibyte.conf"), 'a', encoding='utf8') as f:
             f.write(rpcauth+"\n")
             f.write(rpcauth2+"\n")

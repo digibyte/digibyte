@@ -14,12 +14,7 @@ from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
 
 class GetChainTipsTest (DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/getchaintips.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/getchaintips.py
         self.num_nodes = 4
 
     def run_test (self):

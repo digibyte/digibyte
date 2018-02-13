@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
-name: "digibyte-linux-6.14"
-=======
-name: "digibyte-linux-0.15"
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
+name: "digibyte-linux-6.15"
 enable_cache: true
 suites:
 - "trusty"

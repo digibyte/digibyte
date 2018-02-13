@@ -2,10 +2,6 @@
 # Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-<<<<<<< HEAD:qa/rpc-tests/abandonconflict.py
-
-
-=======
 """Test the abandontransaction RPC.
 
  The abandontransaction RPC marks a transaction and all its in-wallet
@@ -14,17 +10,11 @@
  which are not included in a block and are not currently in the mempool. It has
  no effect on transactions which are already conflicted or abandoned.
 """
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/abandonconflict.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 class AbandonConflictTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/abandonconflict.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/abandonconflict.py
         self.num_nodes = 2
         self.extra_args = [["-minrelaytxfee=0.00001"], []]
 

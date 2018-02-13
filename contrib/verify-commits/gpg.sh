@@ -45,14 +45,11 @@ for LINE in $(echo "$GPG_RES"); do
 		[ "$DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG" != 1 ] && exit 1
 		REVSIG=true
 		GOODREVSIG="[GNUPG:] GOODSIG ${LINE#* * *}"
-<<<<<<< HEAD
-=======
 		;;
 	"[GNUPG:] EXPKEYSIG "*)
 		[ "$DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG" != 1 ] && exit 1
 		REVSIG=true
 		GOODREVSIG="[GNUPG:] GOODSIG ${LINE#* * *}"
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 		;;
 	esac
 done

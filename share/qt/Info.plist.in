@@ -38,11 +38,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-<<<<<<< HEAD
   <string>co.digibyte.DigiByte-Qt</string>
-=======
-  <string>org.digibytefoundation.DigiByte-Qt</string>
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -50,11 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-<<<<<<< HEAD
       <string>co.digibyte.DigiBytePayment</string>
-=======
-      <string>org.digibyte.DigiBytePayment</string>
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
       <key>CFBundleURLSchemes</key>
       <array>
         <string>digibyte</string>
@@ -66,11 +58,7 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-<<<<<<< HEAD
       <string>co.digibyte.paymentrequest</string>
-=======
-      <string>org.digibyte.paymentrequest</string>
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
       <key>UTTypeDescription</key>
       <string>DigiByte payment request</string>
       <key>UTTypeConformsTo</key>
@@ -96,11 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-<<<<<<< HEAD
         <string>co.digibyte.paymentrequest</string>
-=======
-        <string>org.digibyte.paymentrequest</string>
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

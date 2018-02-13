@@ -31,14 +31,7 @@ Start three nodes:
 """
 import time
 
-<<<<<<< HEAD:qa/rpc-tests/assumevalid.py
-from test_framework.mininode import *
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-from test_framework.blocktools import create_block, create_coinbase
-=======
 from test_framework.blocktools import (create_block, create_coinbase)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/assumevalid.py
 from test_framework.key import CECKey
 from test_framework.mininode import (CBlockHeader,
                                      COutPoint,
@@ -60,14 +53,8 @@ class BaseNode(NodeConnCB):
         headers_message.headers = [CBlockHeader(b) for b in new_blocks]
         self.send_message(headers_message)
 
-<<<<<<< HEAD:qa/rpc-tests/assumevalid.py
-class SendHeadersTest(DigiByteTestFramework):
-    def __init__(self):
-        super().__init__()
-=======
 class AssumeValidTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/assumevalid.py
         self.setup_clean_chain = True
         self.num_nodes = 3
 

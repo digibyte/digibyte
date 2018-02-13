@@ -4,13 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the RPC HTTP basics."""
 
-<<<<<<< HEAD:qa/rpc-tests/httpbasics.py
-#
-# Test rpc http basics
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/httpbasics.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
@@ -18,12 +11,7 @@ import http.client
 import urllib.parse
 
 class HTTPBasicsTest (DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/httpbasics.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/httpbasics.py
         self.num_nodes = 3
 
     def setup_network(self):

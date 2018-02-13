@@ -4,14 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the REST API."""
 
-<<<<<<< HEAD:qa/rpc-tests/rest.py
-#
-# Test REST interface
-#
-
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rest.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from struct import *

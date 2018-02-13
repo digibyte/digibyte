@@ -2,18 +2,7 @@
 # Copyright (c) 2015-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-<<<<<<< HEAD:qa/rpc-tests/maxuploadtarget.py
-
-from test_framework.mininode import *
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-import time
-
-'''
-Test behavior of -maxuploadtarget.
-=======
 """Test behavior of -maxuploadtarget.
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/maxuploadtarget.py
 
 * Verify that getdata requests for old blocks (>1week) are dropped
 if uploadtarget has been reached.
@@ -38,47 +27,7 @@ class TestNode(NodeConnCB):
 
     def on_block(self, conn, message):
         message.block.calc_sha256()
-<<<<<<< HEAD:qa/rpc-tests/maxuploadtarget.py
-        try:
-            self.block_receive_map[message.block.sha256] += 1
-        except KeyError as e:
-            self.block_receive_map[message.block.sha256] = 1
-
-    # Spin until verack message is received from the node.
-    # We use this to signal that our test can begin. This
-    # is called from the testing thread, so it needs to acquire
-    # the global lock.
-    def wait_for_verack(self):
-        def veracked():
-            return self.verack_received
-        return wait_until(veracked, timeout=10)
-
-    def wait_for_disconnect(self):
-        def disconnected():
-            return self.peer_disconnected
-        return wait_until(disconnected, timeout=10)
-
-    # Wrapper for the NodeConn's send_message function
-    def send_message(self, message):
-        self.connection.send_message(message)
-
-    def on_pong(self, conn, message):
-        self.last_pong = message
-
-    def on_close(self, conn):
-        self.peer_disconnected = True
-
-    # Sync up with the node after delivery of a block
-    def sync_with_ping(self, timeout=30):
-        def received_pong():
-            return (self.last_pong.nonce == self.ping_counter)
-        self.connection.send_message(msg_ping(nonce=self.ping_counter))
-        success = wait_until(received_pong, timeout=timeout)
-        self.ping_counter += 1
-        return success
-=======
         self.block_receive_map[message.block.sha256] += 1
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/maxuploadtarget.py
 
 class MaxUploadTest(DigiByteTestFramework):
  

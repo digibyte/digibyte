@@ -4,32 +4,14 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the invalidateblock RPC."""
 
-<<<<<<< HEAD:qa/rpc-tests/invalidateblock.py
-#
-# Test InvalidateBlock code
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/invalidateblock.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
-class InvalidateTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/invalidateblock.py
-    
+class InvalidateTest(DigiByteTestFramework):   
         
     def __init__(self):
-        super().__init__()
-=======
+
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/invalidateblock.py
-        self.setup_clean_chain = True
-        self.num_nodes = 3
-
-    def setup_network(self):
-        self.setup_nodes()
-
-    def run_test(self):
         self.log.info("Make sure we repopulate setBlockIndexCandidates after InvalidateBlock:")
         self.log.info("Mine 4 blocks on Node 0")
         self.nodes[0].generate(4)

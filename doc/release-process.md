@@ -38,27 +38,7 @@ Check out the source code in the following directory hierarchy.
     git clone https://github.com/devrandom/gitian-builder.git
     git clone https://github.com/digibyte/digibyte.git
 
-<<<<<<< HEAD
-### DigiByte maintainers/release engineers, update version in sources
-
-Update the following:
-
-- `configure.ac`:
-    - `_CLIENT_VERSION_MAJOR`
-    - `_CLIENT_VERSION_MINOR`
-    - `_CLIENT_VERSION_REVISION`
-    - Don't forget to set `_CLIENT_VERSION_IS_RELEASE` to `true`
-- `src/clientversion.h`: (this mirrors `configure.ac` - see issue #3539)
-    - `CLIENT_VERSION_MAJOR`
-    - `CLIENT_VERSION_MINOR`
-    - `CLIENT_VERSION_REVISION`
-    - Don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`
-- `doc/README.md` and `doc/README_windows.txt`
-- `doc/Doxyfile`: `PROJECT_NUMBER` contains the full version
-- `contrib/gitian-descriptors/*.yml`: usually one'd want to do this on master after branching off the release - but be sure to at least do it before a new major release
-=======
 ### DigiByte maintainers/release engineers, suggestion for writing release notes
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 
 Write release notes. git shortlog helps a lot, for example:
 
@@ -131,28 +111,16 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 ### Build and sign DigiByte Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
-<<<<<<< HEAD
-    ./bin/gbuild --memory 3000 --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
-    mv build/out/digibyte-*.tar.gz build/out/src/digibyte-*.tar.gz ../
-
-    ./bin/gbuild --memory 3000 --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
-=======
     ./bin/gbuild --num-make 2 --memory 3000 --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
     mv build/out/digibyte-*.tar.gz build/out/src/digibyte-*.tar.gz ../
 
     ./bin/gbuild --num-make 2 --memory 3000 --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
     ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
     mv build/out/digibyte-*-win-unsigned.tar.gz inputs/digibyte-win-unsigned.tar.gz
     mv build/out/digibyte-*.zip build/out/digibyte-*.exe ../
 
-<<<<<<< HEAD
-    ./bin/gbuild --memory 3000 --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
-=======
     ./bin/gbuild --num-make 2 --memory 3000 --commit digibyte=v${VERSION} ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
     ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
     mv build/out/digibyte-*-osx-unsigned.tar.gz inputs/digibyte-osx-unsigned.tar.gz
     mv build/out/digibyte-*.tar.gz build/out/digibyte-*.dmg ../

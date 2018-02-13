@@ -36,19 +36,8 @@ class TestNode(NodeConnCB):
         with mininode_lock:
             self.txinvs = []
 
-<<<<<<< HEAD:qa/rpc-tests/p2p-feefilter.py
-    def send_filter(self, feerate):
-        self.send_message(msg_feefilter(feerate))
-        self.sync_with_ping()
-
-class FeeFilterTest(DigiByteTestFramework):
-
-    def __init__(self):
-        super().__init__()
-=======
 class FeeFilterTest(DigiByteTestFramework):
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/p2p-feefilter.py
         self.num_nodes = 2
 
     def run_test(self):

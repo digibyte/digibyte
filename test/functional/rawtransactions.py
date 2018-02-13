@@ -17,31 +17,12 @@ from test_framework.util import *
 
 # Create one-input, one-output, no-fee transaction:
 class RawTransactionsTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/rawtransactions.py
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rawtransactions.py
         self.setup_clean_chain = True
         self.num_nodes = 3
 
     def setup_network(self, split=False):
-<<<<<<< HEAD:qa/rpc-tests/rawtransactions.py
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir)
-
-        #connect to a local machine for debugging
-        #url = "http://digibyterpc:DP6DvqZtqXarpeNWyN3LZTFchCCyCUuHwNF7E8pX99x1@%s:%d" % ('127.0.0.1', 18332)
-        #proxy = AuthServiceProxy(url)
-        #proxy.url = url # store URL on proxy for info
-        #self.nodes.append(proxy)
-
-        connect_nodes_bi(self.nodes,0,1)
-        connect_nodes_bi(self.nodes,1,2)
-=======
         super().setup_network()
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/rawtransactions.py
         connect_nodes_bi(self.nodes,0,2)
 
     def run_test(self):

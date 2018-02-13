@@ -4,34 +4,14 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool limiting together/eviction with the wallet."""
 
-<<<<<<< HEAD:qa/rpc-tests/mempool_limit.py
-# Test mempool limiting together/eviction with the wallet
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/mempool_limit.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
 class MempoolLimitTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/mempool_limit.py
 
     def setup_network(self):
         self.nodes = []
         self.nodes.append(start_node(0, self.options.tmpdir, ["-maxmempool=5", "-spendzeroconfchange=0", "-debug"]))
-        self.is_network_split = False
-        self.sync_all()
-        self.relayfee = self.nodes[0].getnetworkinfo()['relayfee']
-
-    def __init__(self):
-        super().__init__()
-=======
-    def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/mempool_limit.py
-        self.setup_clean_chain = True
-        self.num_nodes = 1
-        self.extra_args = [["-maxmempool=5", "-spendzeroconfchange=0"]]
-
-    def run_test(self):
         txouts = gen_return_txouts()
         relayfee = self.nodes[0].getnetworkinfo()['relayfee']
 

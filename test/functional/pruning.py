@@ -19,24 +19,14 @@ MIN_BLOCKS_TO_KEEP = 288
 # Rescans start at the earliest block up to 2 hours before a key timestamp, so
 # the manual prune RPC avoids pruning blocks in the same window to be
 # compatible with pruning based on key creation time.
-<<<<<<< HEAD:qa/rpc-tests/pruning.py
-RESCAN_WINDOW = 2 * 60 * 60
-=======
 TIMESTAMP_WINDOW = 2 * 60 * 60
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/pruning.py
 
 
 def calc_usage(blockdir):
     return sum(os.path.getsize(blockdir+f) for f in os.listdir(blockdir) if os.path.isfile(blockdir+f)) / (1024. * 1024.)
 
 class PruneTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/pruning.py
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/pruning.py
         self.setup_clean_chain = True
         self.num_nodes = 6
 
@@ -252,11 +242,7 @@ class PruneTest(DigiByteTestFramework):
 
         def height(index):
             if use_timestamp:
-<<<<<<< HEAD:qa/rpc-tests/pruning.py
-                return node.getblockheader(node.getblockhash(index))["time"] + RESCAN_WINDOW
-=======
                 return node.getblockheader(node.getblockhash(index))["time"] + TIMESTAMP_WINDOW
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/pruning.py
             else:
                 return index
 

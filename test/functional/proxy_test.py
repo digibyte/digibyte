@@ -4,22 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test digibyted with different proxy configuration.
 
-<<<<<<< HEAD:qa/rpc-tests/proxy_test.py
-import socket
-import os
-
-from test_framework.socks5 import Socks5Configuration, Socks5Command, Socks5Server, AddressType
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import (
-    PORT_MIN,
-    PORT_RANGE,
-    start_nodes,
-    assert_equal,
-)
-from test_framework.netutil import test_ipv6_local
-'''
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/proxy_test.py
 Test plan:
 - Start digibyted's with different proxy configurations
 - Use addnode to initiate connections
@@ -58,12 +42,7 @@ from test_framework.netutil import test_ipv6_local
 RANGE_BEGIN = PORT_MIN + 2 * PORT_RANGE  # Start after p2p and rpc ports
 
 class ProxyTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/proxy_test.py
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/proxy_test.py
         self.num_nodes = 4
 
     def setup_nodes(self):

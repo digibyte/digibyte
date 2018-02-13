@@ -4,8 +4,6 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test NULLDUMMY softfork.
 
-<<<<<<< HEAD:qa/rpc-tests/nulldummy.py
-=======
 Connect to a single node.
 Generate 2 blocks (save the coinbases for later).
 Generate 427 more blocks.
@@ -15,7 +13,6 @@ Generate 427 more blocks.
 [Policy/Consensus] Check that the new NULLDUMMY rules are enforced on the 432nd block.
 """
 
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/nulldummy.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.mininode import CTransaction, NetworkThread
@@ -38,20 +35,6 @@ def trueDummy(tx):
     tx.vin[0].scriptSig = CScript(newscript)
     tx.rehash()
 
-<<<<<<< HEAD:qa/rpc-tests/nulldummy.py
-'''
-This test is meant to exercise NULLDUMMY softfork.
-Connect to a single node.
-Generate 2 blocks (save the coinbases for later).
-Generate 427 more blocks.
-[Policy/Consensus] Check that NULLDUMMY compliant transactions are accepted in the 430th block.
-[Policy] Check that non-NULLDUMMY transactions are rejected before activation.
-[Consensus] Check that the new NULLDUMMY rules are not enforced on the 431st block.
-[Policy/Consensus] Check that the new NULLDUMMY rules are enforced on the 432nd block.
-'''
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/nulldummy.py
 class NULLDUMMYTest(DigiByteTestFramework):
 
     def set_test_params(self):

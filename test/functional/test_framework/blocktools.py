@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD:qa/rpc-tests/test_framework/blocktools.py
-# blocktools.py - utilities for manipulating blocks and transactions
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/test_framework/blocktools.py
 # Copyright (c) 2015-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.

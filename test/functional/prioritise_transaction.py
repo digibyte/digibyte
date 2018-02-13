@@ -4,25 +4,12 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the prioritisetransaction mining RPC."""
 
-<<<<<<< HEAD:qa/rpc-tests/prioritise_transaction.py
-#
-# Test PrioritiseTransaction code
-#
-
-=======
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/prioritise_transaction.py
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.mininode import COIN, MAX_BLOCK_BASE_SIZE
 
 class PrioritiseTransactionTest(DigiByteTestFramework):
-<<<<<<< HEAD:qa/rpc-tests/prioritise_transaction.py
-
-    def __init__(self):
-        super().__init__()
-=======
     def set_test_params(self):
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7:test/functional/prioritise_transaction.py
         self.setup_clean_chain = True
         self.num_nodes = 2
         self.extra_args = [["-printpriority=1"], ["-printpriority=1"]]
