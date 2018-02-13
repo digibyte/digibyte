@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Big number routines.
 
-This file is copied from python-bitcoinlib.
+This file is copied from python-digibytelib.
 """
 
 import struct

@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test block processing.
 
-This reimplements tests from the bitcoinj/FullBlockTestGenerator used
+This reimplements tests from the digibytej/FullBlockTestGenerator used
 by the pull-tester.
 
 We use the testing framework in which we expect a particular answer from
@@ -395,7 +395,7 @@ class FullBlockTest(ComparisonTestFramework):
         b26 = update_block(26, [])
         yield rejected(RejectResult(16, b'bad-cb-length'))
 
-        # Extend the b26 chain to make sure bitcoind isn't accepting b26
+        # Extend the b26 chain to make sure digibyted isn't accepting b26
         b27 = block(27, spend=out[7])
         yield rejected(False)
 
@@ -407,7 +407,7 @@ class FullBlockTest(ComparisonTestFramework):
         b28 = update_block(28, [])
         yield rejected(RejectResult(16, b'bad-cb-length'))
 
-        # Extend the b28 chain to make sure bitcoind isn't accepting b28
+        # Extend the b28 chain to make sure digibyted isn't accepting b28
         b29 = block(29, spend=out[7])
         yield rejected(False)
 

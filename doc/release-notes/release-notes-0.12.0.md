@@ -17,7 +17,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/DigiByte-Qt (on Mac) or
-bitcoind/digibyte-qt (on Linux).
+digibyted/digibyte-qt (on Linux).
 
 Downgrade warning
 -----------------
@@ -173,7 +173,7 @@ overridden with the option `-rpccookiefile`.
 This is similar to Tor's CookieAuthentication: see
 https://www.torproject.org/docs/tor-manual.html.en
 
-This allows running bitcoind without having to do any manual configuration.
+This allows running digibyted without having to do any manual configuration.
 
 Relay: Any sequence of pushdatas in OP_RETURN outputs now allowed
 -----------------------------------------------------------------
@@ -250,7 +250,7 @@ information, pass `-debug=tor`.
 Notifications through ZMQ
 -------------------------
 
-Bitcoind can now (optionally) asynchronously notify clients through a
+DigiByted can now (optionally) asynchronously notify clients through a
 ZMQ-based PUB socket of the arrival of new transactions and blocks.
 This feature requires installation of the ZMQ C API library 4.x and
 configuring its use through the command line or configuration file.
@@ -429,16 +429,16 @@ caching. A sample config for apache2 could look like:
     SSLCertificateFile /etc/apache2/ssl/server.crt
     SSLCertificateKeyFile /etc/apache2/ssl/server.key
 
-    <Location /bitcoinrpc>
+    <Location /digibyterpc>
         ProxyPass http://127.0.0.1:8332/
         ProxyPassReverse http://127.0.0.1:8332/
         # optional enable digest auth
         # AuthType Digest
         # ...
 
-        # optional bypass bitcoind rpc basic auth
+        # optional bypass digibyted rpc basic auth
         # RequestHeader set Authorization "Basic <hash>"
-        # get the <hash> from the shell with: base64 <<< bitcoinrpc:<password>
+        # get the <hash> from the shell with: base64 <<< digibyterpc:<password>
     </Location>
 
     # Or, balance the load:
@@ -459,7 +459,7 @@ Other P2P Changes
 -----------------
 
 The list of banned peers is now stored on disk rather than in memory.
-Restarting bitcoind will no longer clear out the list of banned peers; instead
+Restarting digibyted will no longer clear out the list of banned peers; instead
 a new RPC call (`clearbanned`) can be used to manually clear the list.  The new
 `setban` RPC call can also be used to manually ban or unban a peer.
 
@@ -750,7 +750,7 @@ git merge commit are mentioned.
 - #7063 `6abf6eb` [Tests] Add prioritisetransaction RPC test (Suhas Daftuar)
 - #7137 `16f4a6e` Tests: Explicitly set chain limits in replace-by-fee test (Suhas Daftuar)
 - #7216 `9572e49` Removed offline testnet DNSSeed 'alexykot.me'. (tnull)
-- #7209 `f3ad812` test: don't override BITCOIND and BITCOINCLI if they're set (Wladimir J. van der Laan)
+- #7209 `f3ad812` test: don't override DIGIBYTED and DIGIBYTECLI if they're set (Wladimir J. van der Laan)
 - #7226 `301f16a` Tests: Add more tests to p2p-fullblocktest (Suhas Daftuar)
 - #7153 `9ef7c54` [Tests] Add mempool_limit.py test (Jonas Schnelli)
 - #7170 `453c567` tests: Disable Tor interaction (Wladimir J. van der Laan)
@@ -765,8 +765,8 @@ git merge commit are mentioned.
 - #6061 `eba2f06` Separate Consensus::CheckTxInputs and GetSpendHeight in CheckInputs (Jorge Timón)
 - #5994 `786ed11` detach wallet from miner (Jonas Schnelli)
 - #6387 `11576a5` [digibyte-cli] improve error output (Jonas Schnelli)
-- #6401 `6db53b4` Add BITCOIND_SIGTERM_TIMEOUT to OpenRC init scripts (Florian Schmaus)
-- #6430 `b01981e` doc: add documentation for shared library libbitcoinconsensus (Braydon Fuller)
+- #6401 `6db53b4` Add DIGIBYTED_SIGTERM_TIMEOUT to OpenRC init scripts (Florian Schmaus)
+- #6430 `b01981e` doc: add documentation for shared library libdigibyteconsensus (Braydon Fuller)
 - #6372 `dcc495e` Update Linearize tool to support Windows paths; fix variable scope; update README and example configuration (Paul Georgiou)
 - #6453 `8fe5cce` Separate core memory usage computation in core_memusage.h (Pieter Wuille)
 - #6149 `633fe10` Buffer log messages and explicitly open logs (Adam Weiss)

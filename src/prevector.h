@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _BITCOIN_PREVECTOR_H_
-#define _BITCOIN_PREVECTOR_H_
+#ifndef _DIGIBYTE_PREVECTOR_H_
+#define _DIGIBYTE_PREVECTOR_H_
 
 #include <assert.h>
 #include <stdlib.h>

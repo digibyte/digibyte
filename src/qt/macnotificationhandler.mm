@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.bitcoinfoundation.DigiByte-Qt";
+        return @"org.digibytefoundation.DigiByte-Qt";
     } else {
         return [self __bundleIdentifier];
     }

@@ -11,7 +11,7 @@
 #include "rpc/register.h"
 #include "rpc/server.h"
 #include "rpcconsole.h"
-#include "test/test_bitcoin.h"
+#include "test/test_digibyte.h"
 #include "univalue.h"
 #include "util.h"
 

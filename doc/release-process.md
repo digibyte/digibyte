@@ -84,7 +84,7 @@ Ensure gitian-builder is up-to-date:
 
     pushd ./gitian-builder
     mkdir -p inputs
-    wget -P inputs https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
+    wget -P inputs https://digibytecore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
     wget -P inputs http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
     popd
 
@@ -292,9 +292,9 @@ digibyte.org (see below for digibyte.org update instructions).
 
   - digibyte-dev and digibyte-core-dev mailing list
 
-  - DigiByte Core announcements list https://bitcoincore.org/en/list/announcements/join/
+  - DigiByte Core announcements list https://digibytecore.org/en/list/announcements/join/
 
-  - bitcoincore.org blog post
+  - digibytecore.org blog post
 
   - Update title of #digibyte on Freenode IRC
 

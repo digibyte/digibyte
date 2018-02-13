@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_COMPAT_ENDIAN_H
-#define BITCOIN_COMPAT_ENDIAN_H
+#ifndef DIGIBYTE_COMPAT_ENDIAN_H
+#define DIGIBYTE_COMPAT_ENDIAN_H
 
 #if defined(HAVE_CONFIG_H)
 #include "config/digibyte-config.h"
@@ -193,4 +193,4 @@ inline uint64_t le64toh(uint64_t little_endian_64bits)
 
 #endif // WORDS_BIGENDIAN
 
-#endif // BITCOIN_COMPAT_ENDIAN_H
+#endif // DIGIBYTE_COMPAT_ENDIAN_H

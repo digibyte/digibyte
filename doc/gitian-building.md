@@ -450,10 +450,10 @@ Then when building, override the remote URLs that gbuild would otherwise pull fr
 cd /some/root/path/
 git clone https://github.com/digibyte-core/digibyte-detached-sigs.git
 
-BTCPATH=/some/root/path/digibyte
+DGBPATH=/some/root/path/digibyte
 SIGPATH=/some/root/path/digibyte-detached-sigs
 
-./bin/gbuild --url digibyte=${BTCPATH},signature=${SIGPATH} ../digibyte/contrib/gitian-descriptors/gitian-win-signer.yml
+./bin/gbuild --url digibyte=${DGBPATH},signature=${SIGPATH} ../digibyte/contrib/gitian-descriptors/gitian-win-signer.yml
 ```
 
 Signing externally

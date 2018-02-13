@@ -18,7 +18,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/DigiByte-Qt (on Mac) or
-bitcoind/digibyte-qt (on Linux).
+digibyted/digibyte-qt (on Linux).
 
 Downgrade warning
 ------------------
@@ -297,7 +297,7 @@ git merge commit are mentioned.
 
 ### Build system
 - #5501 `c76c9d2` Add mips, mipsel and aarch64 to depends platforms
-- #5334 `cf87536` libbitcoinconsensus: Add pkg-config support
+- #5334 `cf87536` libdigibyteconsensus: Add pkg-config support
 - #5514 `ed11d53` Fix 'make distcheck'
 - #5505 `a99ef7d` Build winshutdownmonitor.cpp on Windows only
 - #5582 `e8a6639` Osx toolchain update
@@ -346,7 +346,7 @@ git merge commit are mentioned.
 - #5626 `ab0d798` Fix icon sizes and column width
 - #5683 `c7b22aa` add new osx dmg background picture
 - #5620 `7823598` Payment request expiration bug fix
-- #5729 `9c4a5a5` Allow unit changes for read-only BitcoinAmountField
+- #5729 `9c4a5a5` Allow unit changes for read-only DigiByteAmountField
 - #5753 `0f44672` Add digibyte logo to about screen
 - #5629 `a956586` Prevent amount overflow problem with payment requests
 - #5830 `215475a` Don't save geometry for options and about/help window
@@ -396,7 +396,7 @@ git merge commit are mentioned.
 - #5839 `86eb461` keys: remove libsecp256k1 verification until it's actually supported
 - #5749 `d734d87` Help messages correctly formatted (79 chars)
 - #5884 `7077fe6` BUGFIX: Stack around the variable 'rv' was corrupted
-- #5849 `41259ca` contrib/init/bitcoind.openrc: Compatibility with previous OpenRC init script variables
+- #5849 `41259ca` contrib/init/digibyted.openrc: Compatibility with previous OpenRC init script variables
 - #5950 `41113e3` Fix locale fallback and guard tests against invalid locale settings
 - #5965 `7c6bfb1` Add git-subtree-check.sh script
 - #6033 `1623f6e` FreeBSD, OpenBSD thread renaming
@@ -427,7 +427,7 @@ Thanks to everyone who directly contributed to this release:
 - azeteki
 - Ben Holden-Crowther
 - bikinibabe
-- BitcoinPRReadingGroup
+- DigiBytePRReadingGroup
 - Blake Jakopovic
 - BtcDrak
 - charlescharles

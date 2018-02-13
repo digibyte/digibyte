@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_VALIDATIONINTERFACE_H
-#define BITCOIN_VALIDATIONINTERFACE_H
+#ifndef DIGIBYTE_VALIDATIONINTERFACE_H
+#define DIGIBYTE_VALIDATIONINTERFACE_H
 
 #include <memory>
 
@@ -95,4 +95,4 @@ public:
 
 CMainSignals& GetMainSignals();
 
-#endif // BITCOIN_VALIDATIONINTERFACE_H
+#endif // DIGIBYTE_VALIDATIONINTERFACE_H

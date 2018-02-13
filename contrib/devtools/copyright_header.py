@@ -20,13 +20,13 @@ EXCLUDE = [
     'src/secp256k1/include/secp256k1_ecdh.h',
     'src/secp256k1/include/secp256k1_recovery.h',
     'src/secp256k1/include/secp256k1_schnorr.h',
-    'src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.c',
-    'src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.h',
-    'src/secp256k1/src/java/org_bitcoin_Secp256k1Context.c',
-    'src/secp256k1/src/java/org_bitcoin_Secp256k1Context.h',
+    'src/secp256k1/src/java/org_digibyte_NativeSecp256k1.c',
+    'src/secp256k1/src/java/org_digibyte_NativeSecp256k1.h',
+    'src/secp256k1/src/java/org_digibyte_Secp256k1Context.c',
+    'src/secp256k1/src/java/org_digibyte_Secp256k1Context.h',
     # auto generated:
     'src/univalue/lib/univalue_escapes.h',
-    'src/qt/bitcoinstrings.cpp',
+    'src/qt/digibytestrings.cpp',
     'src/chainparamsseeds.h',
     # other external copyrights:
     'src/tinyformat.h',

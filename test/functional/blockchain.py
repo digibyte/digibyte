@@ -21,7 +21,7 @@ from decimal import Decimal
 import http.client
 import subprocess
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises,
@@ -30,7 +30,7 @@ from test_framework.util import (
     assert_is_hash_string,
 )
 
-class BlockchainTest(BitcoinTestFramework):
+class BlockchainTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.extra_args = [['-stopatheight=207']]

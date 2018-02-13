@@ -2,6 +2,6 @@
 host = https://www.transifex.com
 
 [digibyte.qt-translation-014x]
-file_filter = src/qt/locale/bitcoin_<lang>.ts
-source_file = src/qt/locale/bitcoin_en.ts
+file_filter = src/qt/locale/digibyte_<lang>.ts
+source_file = src/qt/locale/digibyte_en.ts
 source_lang = en

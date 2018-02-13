@@ -52,16 +52,16 @@ Node1 is unused in tests 3-7:
 """
 
 from test_framework.mininode import *
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 import time
 from test_framework.blocktools import create_block, create_coinbase, create_transaction
 
-class AcceptBlockTest(BitcoinTestFramework):
+class AcceptBlockTest(DigiByteTestFramework):
     def add_options(self, parser):
         parser.add_option("--testbinary", dest="testbinary",
-                          default=os.getenv("BITCOIND", "bitcoind"),
-                          help="bitcoind binary to test")
+                          default=os.getenv("DIGIBYTED", "digibyted"),
+                          help="digibyted binary to test")
 
     def set_test_params(self):
         self.setup_clean_chain = True

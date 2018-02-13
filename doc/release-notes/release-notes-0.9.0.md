@@ -15,7 +15,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), uninstall all
 earlier versions of DigiByte, then run the installer (on Windows) or just copy
-over /Applications/DigiByte-Qt (on Mac) or bitcoind/digibyte-qt (on Linux).
+over /Applications/DigiByte-Qt (on Mac) or digibyted/digibyte-qt (on Linux).
 
 If you are upgrading from version 0.7.2 or earlier, the first time you run
 0.9.0 your blockchain files will be re-indexed, which will take anywhere from 
@@ -86,7 +86,7 @@ For 0.9.0 we switched to an autotools-based build system instead of individual
 (q)makefiles.
 
 Using the standard "./autogen.sh; ./configure; make" to build DigiByte-Qt and
-bitcoind makes it easier for experienced open source developers to contribute 
+digibyted makes it easier for experienced open source developers to contribute 
 to the project.
 
 Be sure to check doc/build-*.md for your platform before building from source.
@@ -94,11 +94,11 @@ Be sure to check doc/build-*.md for your platform before building from source.
 DigiByte-cli
 -------------
 
-Another change in the 0.9 release is moving away from the bitcoind executable
+Another change in the 0.9 release is moving away from the digibyted executable
 functioning both as a server and as a RPC client. The RPC client functionality
 ("tell the running digibyte daemon to do THIS") was split into a separate
 executable, 'digibyte-cli'. The RPC client code will eventually be removed from
-bitcoind, but will be kept for backwards compatibility for a release or two.
+digibyted, but will be kept for backwards compatibility for a release or two.
 
 `walletpassphrase` RPC
 -----------------------
@@ -143,7 +143,7 @@ Transaction Fees
 
 This release drops the default fee required to relay transactions across the
 network and for miners to consider the transaction in their blocks to
-0.01mBTC per kilobyte.
+0.01mDGB per kilobyte.
 
 Note that getting a transaction relayed across the network does NOT guarantee
 that the transaction will be accepted by a miner; by default, miners fill
@@ -156,7 +156,7 @@ the mintxfee setting to determine which low-priority transactions should
 be considered for inclusion in blocks.
 
 The wallet code still uses a default fee for low-priority transactions of
-0.1mBTC per kilobyte. During periods of heavy transaction volume, even this
+0.1mDGB per kilobyte. During periods of heavy transaction volume, even this
 fee may not be enough to get transactions confirmed quickly; the mintxfee
 option may be used to override the default.
 
@@ -197,13 +197,13 @@ Command-line options:
 - New option: -nospendzeroconfchange to never spend unconfirmed change outputs
 - New option: -zapwallettxes to rebuild the wallet's transaction information
 - Rename option '-tor' to '-onion' to better reflect what it does
-- Add '-disablewallet' mode to let bitcoind run entirely without wallet (when
+- Add '-disablewallet' mode to let digibyted run entirely without wallet (when
   built with wallet)
 - Update default '-rpcsslciphers' to include TLSv1.2
 - make '-logtimestamps' default on and rework help-message
 - RPC client option: '-rpcwait', to wait for server start
 - Remove '-logtodebugger'
-- Allow `-noserver` with bitcoind
+- Allow `-noserver` with digibyted
 
 Block-chain handling and storage:
 
@@ -239,7 +239,7 @@ Mining:
 
 Protocol and network:
 
-- Drop the fee required to relay a transaction to 0.01mBTC per kilobyte
+- Drop the fee required to relay a transaction to 0.01mDGB per kilobyte
 - Send tx relay flag with version
 - New 'reject' P2P message (BIP 0061, see
   https://gist.github.com/gavinandresen/7079034 for draft)
@@ -254,7 +254,7 @@ Protocol and network:
 - Improve logging of failed connections
 - Bump protocol version to 70002
 - Add some additional logging to give extra network insight
-- Added new DNS seed from bitcoinstats.com
+- Added new DNS seed from digibytestats.com
 
 Validation:
 
@@ -378,7 +378,7 @@ Thanks to everyone who contributed to this release:
 - paveljanik
 - Peter Todd
 - phantomcircuit
-- phelixbtc
+- phelixdgb
 - Philip Kaufmann
 - Pieter Wuille
 - Rav3nPL

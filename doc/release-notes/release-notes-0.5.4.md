@@ -8,7 +8,7 @@ Please report bugs using the issue tracker at github:
 https://github.com/digibyte/digibyte/issues
 
 Stable source code is hosted at Gitorious:
-http://gitorious.org/digibyte/bitcoind-stable/archive-tarball/v0.5.4#.tar.gz
+http://gitorious.org/digibyte/digibyted-stable/archive-tarball/v0.5.4#.tar.gz
 
 PROTOCOL UPDATES
 
@@ -31,7 +31,7 @@ Print detailed wallet loading errors to debug.log when it is corrupt.
 Allocate exactly the amount of space needed for signing transactions, instead of a fixed 10k buffer.
 Workaround for improbable memory access violation.
 Check wallet's minimum version before trying to load it.
-Remove wxBitcoin properly when installing DigiByte-Qt over it. (Windows)
+Remove wxDigiByte properly when installing DigiByte-Qt over it. (Windows)
 Detail reorganization information better in debug log.
 Use a messagebox to display the error when -server is provided without configuring a RPC password.
 Testing suite build now honours provided CXXFLAGS.

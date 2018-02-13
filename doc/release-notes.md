@@ -1,6 +1,6 @@
 DigiByte Core version *0.15.1* is now available from:
 
-  <https://bitcoincore.org/bin/digibyte-core-0.15.x/>
+  <https://digibytecore.org/bin/digibyte-core-0.15.x/>
 
 or
 
@@ -15,7 +15,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://bitcoincore.org/en/list/announcements/join/>
+  <https://digibytecore.org/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -23,7 +23,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the 
 installer (on Windows) or just copy over `/Applications/DigiByte-Qt` (on Mac)
-or `bitcoind`/`digibyte-qt` (on Linux).
+or `digibyted`/`digibyte-qt` (on Linux).
 
 The first time you run version 0.15.0 or higher, your chainstate database will
 be converted to a new format, which will take anywhere from a few minutes to

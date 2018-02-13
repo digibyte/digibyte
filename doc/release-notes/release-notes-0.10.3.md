@@ -18,7 +18,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/DigiByte-Qt (on Mac) or
-bitcoind/digibyte-qt (on Linux).
+digibyted/digibyte-qt (on Linux).
 
 Downgrade warning
 ------------------
@@ -84,8 +84,8 @@ much more common since BIP62 was initially written.
 
 DigiByte Core has produced compatible signatures since a28fb70e in
 September 2013, but this didn't make it into a release until 0.9
-in March 2014; Bitcoinj has done so for a similar span of time.
-Bitcoinjs and electrum have been more recently updated.
+in March 2014; DigiBytej has done so for a similar span of time.
+DigiBytejs and electrum have been more recently updated.
 
 This does not replace the need for BIP62 or similar, as miners can
 still cooperate to break transactions.  Nor does it replace the

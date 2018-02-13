@@ -26,11 +26,11 @@ Build-Depends: debhelper,
  python,
  libzmq3-dev
 Standards-Version: 3.9.2
-Homepage: https://bitcoincore.org/
+Homepage: https://digibytecore.org/
 Vcs-Git: git://github.com/digibyte/digibyte.git
 Vcs-Browser: https://github.com/digibyte/digibyte
 
-Package: bitcoind
+Package: digibyted
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
@@ -40,7 +40,7 @@ Description: peer-to-peer network based digital currency - daemon
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
  .
- This package provides the daemon, bitcoind, and the CLI tool
+ This package provides the daemon, digibyted, and the CLI tool
  digibyte-cli to interact with the daemon.
 
 Package: digibyte-qt

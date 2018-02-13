@@ -12,7 +12,7 @@ Please report bugs using the issue tracker at github:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://bitcoincore.org/en/list/announcements/join/>
+  <https://digibytecore.org/en/list/announcements/join/>
 
 Compatibility
 ==============
@@ -89,8 +89,8 @@ covered by the txid. This provides several immediate benefits:
   (such as hardware wallets), reduces the amount of data the signature
   generator needs to download, and allows the signature generator to operate
   more quickly.  This is made possible by having the generator sign the amount
-  of bitcoins they think they are spending, and by having full nodes refuse to
-  accept those signatures unless the amount of bitcoins being spent is exactly
+  of digibytes they think they are spending, and by having full nodes refuse to
+  accept those signatures unless the amount of digibytes being spent is exactly
   the same as was signed.  For non-segwit transactions, wallets instead had to
   download the complete previous transactions being spent for every payment
   they made, which could be a slow operation on hardware wallets and in other
@@ -159,13 +159,13 @@ For more information about segwit, please see the [segwit FAQ][], the
 operator, please see the [versionbits FAQ][] for information about
 signaling support for a soft fork.
 
-[Segwit FAQ]: https://bitcoincore.org/en/2016/01/26/segwit-benefits/
-[segwit wallet developers guide]: https://bitcoincore.org/en/segwit_wallet_dev/
+[Segwit FAQ]: https://digibytecore.org/en/2016/01/26/segwit-benefits/
+[segwit wallet developers guide]: https://digibytecore.org/en/segwit_wallet_dev/
 [BIP141]: https://github.com/digibyte/bips/blob/master/bip-0141.mediawiki
 [BIP143]: https://github.com/digibyte/bips/blob/master/bip-0143.mediawiki
 [BIP144]: https://github.com/digibyte/bips/blob/master/bip-0144.mediawiki
 [BIP145]: https://github.com/digibyte/bips/blob/master/bip-0145.mediawiki
-[versionbits FAQ]: https://bitcoincore.org/en/2016/06/08/version-bits-miners-faq/
+[versionbits FAQ]: https://digibytecore.org/en/2016/06/08/version-bits-miners-faq/
 
 
 Null dummy soft fork
@@ -243,7 +243,7 @@ git merge commit are mentioned.
 
 ### Consensus
 - #8636 `9dfa0c8` Implement NULLDUMMY softfork (BIP147) (jl2012)
-- #8848 `7a34a46` Add NULLDUMMY verify flag in bitcoinconsensus.h (jl2012)
+- #8848 `7a34a46` Add NULLDUMMY verify flag in digibyteconsensus.h (jl2012)
 - #8937 `8b66659` Define start and end time for segwit deployment (sipa)
 
 ### RPC and other APIs
@@ -275,13 +275,13 @@ git merge commit are mentioned.
 - #8612 `2215c22` Check for compatibility with download in FindNextBlocksToDownload (sipa)
 - #8606 `bbf379b` Fix some locks (sipa)
 - #8594 `ab295bb` Do not add random inbound peers to addrman (gmaxwell)
-- #8940 `5b4192b` Add x9 service bit support to dnsseed.bluematt.me, seed.bitcoinstats.com (TheBlueMatt, cdecker)
+- #8940 `5b4192b` Add x9 service bit support to dnsseed.bluematt.me, seed.digibytestats.com (TheBlueMatt, cdecker)
 - #8944 `685e4c7` Remove bogus assert on number of oubound connections. (TheBlueMatt)
 - #8949 `0dbc48a` Be more agressive in getting connections to peers with relevant services (gmaxwell)
 
 ### Build system
-- #8293 `fa5b249` Allow building libbitcoinconsensus without any univalue (luke-jr)
-- #8492 `8b0bdd3` Allow building bench_bitcoin by itself (luke-jr)
+- #8293 `fa5b249` Allow building libdigibyteconsensus without any univalue (luke-jr)
+- #8492 `8b0bdd3` Allow building bench_digibyte by itself (luke-jr)
 - #8563 `147003c` Add configure check for -latomic (ajtowns)
 - #8626 `ea51b0f` Berkeley DB v6 compatibility fix (netsafe)
 - #8520 `75f2065` Remove check for `openssl/ec.h` (laanwj)
@@ -329,7 +329,7 @@ git merge commit are mentioned.
 - #8841 `3e4abb5` Fix nulldummy test (jl2012)
 - #8854 `624a007` Fix race condition in p2p-compactblocks test (sdaftuar)
 - #8857 `1f60d45` mininode: Only allow named args in wait_until (MarcoFalke)
-- #8860 `0bee740` util: Move wait_bitcoinds() into stop_nodes() (MarcoFalke)
+- #8860 `0bee740` util: Move wait_digibyteds() into stop_nodes() (MarcoFalke)
 - #8882 `b73f065` Fix race conditions in p2p-compactblocks.py and sendheaders.py (sdaftuar)
 - #8904 `cc6f551` Fix compact block shortids for a test case (dagurval)
 
@@ -337,7 +337,7 @@ git merge commit are mentioned.
 - #8754 `0e2c6bd` Target protobuf 2.6 in OS X build notes. (fanquake)
 - #8461 `b17a3f9` Document return value of networkhashps for getmininginfo RPC endpoint (jlopp)
 - #8512 `156e305` Corrected JSON typo on setban of net.cpp (sevastos)
-- #8683 `8a7d7ff` Fix incorrect file name digibyte.qrc  (bitcoinsSG)
+- #8683 `8a7d7ff` Fix incorrect file name digibyte.qrc  (digibytesSG)
 - #8891 `5e0dd9e` Update bips.md for Segregated Witness (fanquake)
 - #8545 `863ae74` Update git-subtree-check.sh README (MarcoFalke)
 - #8607 `486650a` Fix doxygen off-by-one comments, fix typos (MarcoFalke)

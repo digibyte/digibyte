@@ -54,7 +54,7 @@ transactions and less traffic on the digibyte
 network. The shorter keys are already supported
 by the network but wallet.dat files containing
 short keys are not compatible with earlier
-versions of DigiByte-Qt/bitcoind.
+versions of DigiByte-Qt/digibyted.
 
 New command-line argument -blocknotify=<command>
 that will spawn a shell process to run <command> 

@@ -127,7 +127,7 @@ public:
         vSeeds.emplace_back("seed.digibyte.sipa.be", true); // Pieter Wuille, only supports x1, x5, x9, and xd
         vSeeds.emplace_back("dnsseed.bluematt.me", true); // Matt Corallo, only supports x9
         vSeeds.emplace_back("dnsseed.digibyte.dashjr.org", false); // Luke Dashjr
-        vSeeds.emplace_back("seed.bitcoinstats.com", true); // Christian Decker, supports x1 - xf
+        vSeeds.emplace_back("seed.digibytestats.com", true); // Christian Decker, supports x1 - xf
         vSeeds.emplace_back("seed.digibyte.jonasschnelli.ch", true); // Jonas Schnelli, only supports x1, x5, x9, and xd
         vSeeds.emplace_back("seed.dgb.petertodd.org", true); // Peter Todd, only supports x1, x5, x9, and xd
 
@@ -226,7 +226,7 @@ public:
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
         vSeeds.emplace_back("testnet-seed.digibyte.jonasschnelli.ch", true);
-        vSeeds.emplace_back("seed.tbtc.petertodd.org", true);
+        vSeeds.emplace_back("seed.tdgb.petertodd.org", true);
         vSeeds.emplace_back("testnet-seed.bluematt.me", false);
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);

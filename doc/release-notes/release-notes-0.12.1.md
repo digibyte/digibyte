@@ -18,7 +18,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/DigiByte-Qt (on Mac) or
-bitcoind/digibyte-qt (on Linux).
+digibyted/digibyte-qt (on Linux).
 
 Downgrade warning
 -----------------
@@ -152,7 +152,7 @@ git merge commit are mentioned.
 - #7739 `7ffc2bd` Add abandoned status to listtransactions (jonasschnelli)
 
 ### Block and transaction handling
-- #7543 `834aaef` Backport BIP9, BIP68 and BIP112 with softfork (btcdrak)
+- #7543 `834aaef` Backport BIP9, BIP68 and BIP112 with softfork (dgbdrak)
 
 ### P2P protocol and network code
 - #7804 `90f1d24` Track block download times per individual block (sipa)
@@ -174,8 +174,8 @@ git merge commit are mentioned.
 ### Miscellaneous
 - #7617 `f04f4fd` Fix markdown syntax and line terminate LogPrint (MarcoFalke)
 - #7747 `4d035bc` added depends cross compile info (accraze)
-- #7741 `a0cea89` Mark p2p alert system as deprecated (btcdrak)
-- #7780 `c5f94f6` Disable bad-chain alert (btcdrak)
+- #7741 `a0cea89` Mark p2p alert system as deprecated (dgbdrak)
+- #7780 `c5f94f6` Disable bad-chain alert (dgbdrak)
 
 Credits
 =======

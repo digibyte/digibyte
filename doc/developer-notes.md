@@ -151,7 +151,7 @@ to see it.
 
 **testnet and regtest modes**
 
-Run with the -testnet option to run with "play bitcoins" on the test network, if you
+Run with the -testnet option to run with "play digibytes" on the test network, if you
 are testing multi-machine code that needs to operate across the internet.
 
 If you are testing something that can run on one machine, run with the -regtest option.
@@ -209,7 +209,7 @@ Threads
 
 - ThreadRPCServer : Remote procedure call handler, listens on port 8332 for connections and services them.
 
-- BitcoinMiner : Generates bitcoins (if wallet is enabled).
+- DigiByteMiner : Generates digibytes (if wallet is enabled).
 
 - Shutdown : Does an orderly shutdown of everything.
 

@@ -38,7 +38,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.bitcoinfoundation.DigiByte-Qt</string>
+  <string>org.digibytefoundation.DigiByte-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.digibyte.BitcoinPayment</string>
+      <string>org.digibyte.DigiBytePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>digibyte</string>
@@ -71,7 +71,7 @@
         <string>application/x-digibyte-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>bitcoinpaymentrequest</string>
+          <string>digibytepaymentrequest</string>
         </array>
       </dict>
     </dict>

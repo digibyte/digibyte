@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CHAINPARAMSBASE_H
-#define BITCOIN_CHAINPARAMSBASE_H
+#ifndef DIGIBYTE_CHAINPARAMSBASE_H
+#define DIGIBYTE_CHAINPARAMSBASE_H
 
 #include <memory>
 #include <string>
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between digibyte-cli and bitcoind)
+ * CBaseChainParams defines the base parameters (shared between digibyte-cli and digibyted)
  * of a given instance of the DigiByte system.
  */
 class CBaseChainParams
@@ -59,4 +59,4 @@ void SelectBaseParams(const std::string& chain);
  */
 std::string ChainNameFromCommandLine();
 
-#endif // BITCOIN_CHAINPARAMSBASE_H
+#endif // DIGIBYTE_CHAINPARAMSBASE_H

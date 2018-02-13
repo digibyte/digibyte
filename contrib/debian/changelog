@@ -337,7 +337,7 @@ digibyte (0.5.0~rc3-natty0) natty; urgency=low
 
 digibyte (0.5.0~rc1-natty1) natty; urgency=low
 
-  * Add test_bitcoin to build test
+  * Add test_digibyte to build test
   * Fix clean
   * Remove uneccessary build-dependancies
 
@@ -403,7 +403,7 @@ digibyte (0.3.24~dfsg-1) unstable; urgency=low
 
   [ Jonas Smedegaard ]
   * Improve various usage hints:
-    + Explicitly mention in long description that bitcoind contains
+    + Explicitly mention in long description that digibyted contains
       daemon and command-line interface.
     + Extend README.Debian with section on lack of GUI, and add primary
       headline.
@@ -484,7 +484,7 @@ digibyte (0.3.20.01~dfsg-1) unstable; urgency=low
   * Add myself as uploader.
 
   [ Jonas Smedegaard ]
-  * Add wrapper for bitcoind to ease initial startup.
+  * Add wrapper for digibyted to ease initial startup.
   * Update patches:
     + Drop patch 2002: Applied upstream.
     + Add patch 1005 to add phtread linker option.
@@ -492,7 +492,7 @@ digibyte (0.3.20.01~dfsg-1) unstable; urgency=low
     + Refresh patches.
   * Extend copyright years in rules file header.
   * Rewrite copyright file using draft svn166 of DEP5 format.
-  * Rename binary package to bitcoind (from bincoin-cli).
+  * Rename binary package to digibyted (from bincoin-cli).
     Closes: bug#614025. Thanks to Luke-Jr.
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 01 Mar 2011 15:55:04 +0100
@@ -527,7 +527,7 @@ digibyte (0.3.19~dfsg-4) unstable; urgency=low
 
   [ Micah Anderson ]
   * Provide example digibyte.conf.
-  * Add bitcoind(1) and digibyte.conf(5) man pages.
+  * Add digibyted(1) and digibyte.conf(5) man pages.
 
   [ Jonas Smedegaard ]
   * Ease backporting:

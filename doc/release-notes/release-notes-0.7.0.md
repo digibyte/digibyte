@@ -1,7 +1,7 @@
 DigiByte version 0.7.0 is now available for download at:
   http://sourceforge.net/projects/digibyte/files/DigiByte/digibyte-0.7.0/
 
-We recommend that everybody running prior versions of bitcoind/DigiByte-Qt
+We recommend that everybody running prior versions of digibyted/DigiByte-Qt
 upgrade to this release, except for users running Mac OSX 10.5.
 
 Please report bugs using the issue tracker at github:
@@ -30,7 +30,7 @@ Code:
 /Applications/DigiByte-Qt
 (on Mac) or
 Code:
-bitcoind/digibyte-qt
+digibyted/digibyte-qt
 (on Linux).
 
 If you were running on Linux with a version that might have been compiled
@@ -131,7 +131,7 @@ Internal codebase
 Miscellaneous
 
 * Reopen debug.log upon SIGHUP
-* Bash programmable completion for bitcoind(1)
+* Bash programmable completion for digibyted(1)
 * On supported OS's, each thread is given a useful name
 
 

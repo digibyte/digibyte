@@ -3,7 +3,7 @@ DigiByte Core integration/staging tree
 
 [![Build Status](https://travis-ci.org/digibyte/digibyte.svg?branch=master)](https://travis-ci.org/digibyte/digibyte)
 
-https://bitcoincore.org
+https://digibytecore.org
 
 What is DigiByte?
 ----------------
@@ -16,7 +16,7 @@ software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
 the DigiByte Core software, see https://digibyte.org/en/download, or read the
-[original whitepaper](https://bitcoincore.org/digibyte.pdf).
+[original whitepaper](https://digibytecore.org/digibyte.pdf).
 
 License
 -------

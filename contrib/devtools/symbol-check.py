@@ -53,7 +53,7 @@ READELF_CMD = os.getenv('READELF', '/usr/bin/readelf')
 CPPFILT_CMD = os.getenv('CPPFILT', '/usr/bin/c++filt')
 # Allowed NEEDED libraries
 ALLOWED_LIBRARIES = {
-# bitcoind and digibyte-qt
+# digibyted and digibyte-qt
 b'libgcc_s.so.1', # GCC base support
 b'libc.so.6', # C library
 b'libpthread.so.0', # threading

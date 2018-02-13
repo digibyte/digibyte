@@ -11,11 +11,11 @@ The wallet encryption feature introduced in DigiByte version 0.4.0 did not suffi
 managed to get a copy of your encrypted wallet.dat file might be able to recover some or all of the unencrypted keys and steal the
 associated coins.
 
-If you have a previously encrypted wallet.dat, the first time you run wxbitcoin or bitcoind the wallet will be rewritten, DigiByte will
+If you have a previously encrypted wallet.dat, the first time you run wxdigibyte or digibyted the wallet will be rewritten, DigiByte will
 shut down, and you will be prompted to restart it to run with the new, properly encrypted file.
 
 If you had a previously encrypted wallet.dat that might have been copied or stolen (for example, you backed it up to a public
-location) you should send all of your bitcoins to yourself using a new digibyte address and stop using any previously generated addresses.
+location) you should send all of your digibytes to yourself using a new digibyte address and stop using any previously generated addresses.
 
 Wallets encrypted with this version of DigiByte are written properly.
 
@@ -25,14 +25,14 @@ new private keys are properly backed up you should:
 1. Run DigiByte and let it rewrite the wallet.dat file
 
 2. Run it again, then ask it for a new digibyte address.
-wxBitcoin: new address visible on main window
-bitcoind: run the 'walletpassphrase' RPC command to unlock the wallet,  then run the 'getnewaddress' RPC command.
+wxDigiByte: new address visible on main window
+digibyted: run the 'walletpassphrase' RPC command to unlock the wallet,  then run the 'getnewaddress' RPC command.
 
-3. If your encrypted wallet.dat may have been copied or stolen, send all of your bitcoins to the new digibyte address.
+3. If your encrypted wallet.dat may have been copied or stolen, send all of your digibytes to the new digibyte address.
 
 4. Shut down DigiByte, then backup the wallet.dat file.
 IMPORTANT: be sure to request a new digibyte address before backing up, so that the 'keypool' is regenerated and backed up.
 
-"Security in depth" is always a good idea, so choosing a secure location for the backup and/or encrypting the backup before uploading it is recommended. And as in previous releases, if your machine is infected by malware there are several ways an attacker might steal your bitcoins.
+"Security in depth" is always a good idea, so choosing a secure location for the backup and/or encrypting the backup before uploading it is recommended. And as in previous releases, if your machine is infected by malware there are several ways an attacker might steal your digibytes.
 
 Thanks to Alan Reiner (etotheipi) for finding and reporting this bug.

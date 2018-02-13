@@ -87,8 +87,8 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "digibyte.conf";
-const char * const BITCOIN_PID_FILENAME = "bitcoind.pid";
+const char * const DIGIBYTE_CONF_FILENAME = "digibyte.conf";
+const char * const DIGIBYTE_PID_FILENAME = "digibyted.pid";
 
 ArgsManager gArgs;
 bool fPrintToConsole = false;
@@ -627,7 +627,7 @@ void ArgsManager::ReadConfigFile(const std::string& confPath)
 #ifndef WIN32
 fs::path GetPidFile()
 {
-    fs::path pathPidFile(gArgs.GetArg("-pid", BITCOIN_PID_FILENAME));
+    fs::path pathPidFile(gArgs.GetArg("-pid", DIGIBYTE_PID_FILENAME));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }

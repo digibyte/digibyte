@@ -18,7 +18,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/DigiByte-Qt (on Mac) or
-bitcoind/digibyte-qt (on Linux).
+digibyted/digibyte-qt (on Linux).
 
 Downgrading warning
 ---------------------
@@ -226,17 +226,17 @@ Starting from 0.10.0, the DigiByte Core distribution includes a consensus librar
 
 The purpose of this library is to make the verification functionality that is
 critical to DigiByte's consensus available to other applications, e.g. to language
-bindings such as [python-bitcoinlib](https://pypi.python.org/pypi/python-bitcoinlib) or
+bindings such as [python-digibytelib](https://pypi.python.org/pypi/python-digibytelib) or
 alternative node implementations.
 
-This library is called `libbitcoinconsensus.so` (or, `.dll` for Windows).
-Its interface is defined in the C header [bitcoinconsensus.h](https://github.com/digibyte/digibyte/blob/0.10/src/script/bitcoinconsensus.h).
+This library is called `libdigibyteconsensus.so` (or, `.dll` for Windows).
+Its interface is defined in the C header [digibyteconsensus.h](https://github.com/digibyte/digibyte/blob/0.10/src/script/digibyteconsensus.h).
 
 In its initial version the API includes two functions:
 
-- `bitcoinconsensus_verify_script` verifies a script. It returns whether the indicated input of the provided serialized transaction 
+- `digibyteconsensus_verify_script` verifies a script. It returns whether the indicated input of the provided serialized transaction 
 correctly spends the passed scriptPubKey under additional constraints indicated by flags
-- `bitcoinconsensus_version` returns the API version, currently at an experimental `0`
+- `digibyteconsensus_version` returns the API version, currently at an experimental `0`
 
 The functionality is planned to be extended to e.g. UTXO management in upcoming releases, but the interface
 for existing methods should remain stable.
@@ -255,8 +255,8 @@ most miners include them in blocks they mined.
 digibyte-tx
 ----------
 
-It has been observed that many of the RPC functions offered by bitcoind are
-"pure functions", and operate independently of the bitcoind wallet. This
+It has been observed that many of the RPC functions offered by digibyted are
+"pure functions", and operate independently of the digibyted wallet. This
 included many of the RPC "raw transaction" API functions, such as
 createrawtransaction.
 
@@ -340,7 +340,7 @@ RPC:
 - `f923c07` Support IPv6 lookup in digibyte-cli even when IPv6 only bound on localhost
 - `b641c9c` Fix addnode "onetry": Connect with OpenNetworkConnection
 - `171ca77` estimatefee / estimatepriority RPC methods
-- `b750cf1` Remove cli functionality from bitcoind
+- `b750cf1` Remove cli functionality from digibyted
 - `f6984e8` Add "chain" to getmininginfo, improve help in getblockchaininfo
 - `99ddc6c` Add nLocalServices info to RPC getinfo
 - `cf0c47b` Remove getwork() RPC call
@@ -498,7 +498,7 @@ Build system:
 - `af0bd5e` osx: fix signing to make Gatekeeper happy (again)
 - `a7d1f03` build: fix dynamic boost check when --with-boost= is used
 - `d5fd094` build: fix qt test build when libprotobuf is in a non-standard path
-- `2cf5f16` Add libbitcoinconsensus library
+- `2cf5f16` Add libdigibyteconsensus library
 - `914868a` build: add a deterministic dmg signer 
 - `2d375fe` depends: bump openssl to 1.0.1k
 - `b7a4ecc` Build: Only check for boost when building code that requires it
@@ -598,7 +598,7 @@ Tests:
 - `2b62e17` Clearly separate PUSHDATA and numeric argument MINIMALDATA tests
 - `16d78bd` Add valid invert of invalid every numeric opcode tests
 - `f635269` tests: enable alertnotify test for Windows
-- `7a41614` tests: allow rpc-tests to get filenames for bitcoind and digibyte-cli from the environment
+- `7a41614` tests: allow rpc-tests to get filenames for digibyted and digibyte-cli from the environment
 - `5122ea7` tests: fix forknotify.py on windows
 - `fa7f8cd` tests: remove old pull-tester scripts
 - `7667850` tests: replace the old (unused since Travis) tests with new rpc test scripts
@@ -635,7 +635,7 @@ Miscellaneous:
 - `cd01a5e` Enable paranoid corruption checks in LevelDB >= 1.16
 - `9365937` Add comment about never updating nTimeOffset past 199 samples
 - `403c1bf` contrib: remove getwork-based pyminer (as getwork API call has been removed)
-- `0c3e101` contrib: Added systemd .service file in order to help distributions integrate bitcoind
+- `0c3e101` contrib: Added systemd .service file in order to help distributions integrate digibyted
 - `0a0878d` doc: Add new DNSseed policy
 - `2887bff` Update coding style and add .clang-format
 - `5cbda4f` Changed LevelDB cursors to use scoped pointers to ensure destruction when going out of scope
