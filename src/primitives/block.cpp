@@ -13,6 +13,7 @@
 #include "crypto/hashqubit.h"
 #include "crypto/hashskein.h"
 #include "crypto/scrypt.h"
+#include "consensus/consensus.h"
 #include "util.h"
 
 uint256 CBlockHeader::GetHash() const
@@ -107,7 +108,6 @@ std::string GetAlgoName(int Algo)
     }
     return std::string("unknown");       
 }
-
 int64_t GetBlockWeight(const CBlock& block)
 {
     // This implements the weight = (stripped_size * 4) + witness_size formula,

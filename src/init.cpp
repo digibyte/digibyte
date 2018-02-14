@@ -852,19 +852,6 @@ ServiceFlags nLocalServices = NODE_NETWORK;
     std::terminate();
 };
 
-[[noreturn]] static void new_handler_terminate()
-{
-    // Rather than throwing std::bad-alloc if allocation fails, terminate
-    // immediately to (try to) avoid chain corruption.
-    // Since LogPrintf may itself allocate memory, set the handler directly
-    // to terminate first.
-    std::set_new_handler(std::terminate);
-    LogPrintf("Error: Out of memory. Terminating.\n");
-
-    // The log was successful, terminate now.
-    std::terminate();
-};
-
 bool AppInitBasicSetup()
 {
     // ********************************************************* Step 1: setup
@@ -1381,7 +1368,7 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
     }
 
     // Algo
-    std::string strAlgo = GetArg("-algo", "sha256d");
+    std::string strAlgo = gArgs.GetArg("-algo", "sha256d");
     transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
     if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
         miningAlgo = ALGO_SHA256D;
