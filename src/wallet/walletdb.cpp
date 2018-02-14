@@ -866,12 +866,3 @@ bool CWalletDB::WriteVersion(int nVersion)
     return batch.WriteVersion(nVersion);
 }
 
-void CWalletDB::IncrementUpdateCounter()
-{
-    nWalletDBUpdateCounter++;
-}
-
-unsigned int CWalletDB::GetUpdateCounter()
-{
-    return nWalletDBUpdateCounter;
-}
