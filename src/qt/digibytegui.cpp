@@ -126,7 +126,11 @@ DigiByteGUI::DigiByteGUI(const PlatformStyle *_platformStyle, const NetworkStyle
 
     this->setStyleSheet(GUIUtil::loadStyleSheet());
     
-    GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
+   QSettings settings;
+    if (!restoreGeometry(settings.value("MainWindowGeometry").toByteArray())) {
+        // Restore failed (perhaps missing setting), center the window
+        move(QApplication::desktop()->availableGeometry().center() - frameGeometry().center());
+    }
 
     QString windowTitle = tr(PACKAGE_NAME) + " - ";
 #ifdef ENABLE_WALLET
