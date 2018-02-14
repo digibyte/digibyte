@@ -525,19 +525,19 @@ void CTxMemPool::removeForReorg(const CCoinsViewCache *pcoins, unsigned int nMem
                 indexed_transaction_set::const_iterator it2 = mapTx.find(txin.prevout.hash);
                 if (it2 != mapTx.end())
                     continue;
-                const CCoins *coins = pcoins->AccessCoins(txin.prevout.hash);
-                if (nCheckFrequency != 0) assert(coins);
-                if (coins->nHeight < multiAlgoDiffChangeTarget) {                    
-                    if (!coins || (coins->IsCoinBase() && ((signed long)nMemPoolHeight) - coins->nHeight < COINBASE_MATURITY)) {
-                        txToRemove.insert(it);
-                        break;
-                    }
-                } else {
-                    if (!coins || (coins->IsCoinBase() && ((signed long)nMemPoolHeight) - coins->nHeight < COINBASE_MATURITY_2)) {
-                        txToRemove.insert(it);
-                        break;
-                    }                    
+                const Coin &coin = pcoins->AccessCoin(txin.prevout);
+                if (nCheckFrequency != 0) assert(!coin.IsSpent());
+                if (coin.nHeight < multiAlgoDiffChangeTarget) {                    
+                if (coin.IsSpent() || (coin.IsCoinBase() && ((signed long)nMemPoolHeight) - coin.nHeight < COINBASE_MATURITY)) {
+                    txToRemove.insert(it);
+                    break;
                 }
+                } else {
+                    if (coin.IsSpent() || (coin.IsCoinBase() && ((signed long)nMemPoolHeight) - coin.nHeight < COINBASE_MATURITY_2)) {
+                    txToRemove.insert(it);
+                    break;
+                }  
+                }              
             }
         }
         if (!validLP) {
