@@ -72,7 +72,7 @@ WalletFrame {
     
     QLabel { /* Base Text Size & Color */
     font-size:11pt;
-    color:#fff;
+    color:#666;
     }
     
     .QCheckBox { /* Checkbox Labels */
@@ -1094,7 +1094,7 @@ WalletFrame {
     QWidget .QFrame#frame_2 QListView { /* Transaction List */
     font-weight:normal;
     font-size:11pt;
-    color:#003366;
+    color:#fff;
     margin-top:12px;
     margin-left:0px; /* CSS Voodoo - set to -66px to hide default transaction icons */
     }
