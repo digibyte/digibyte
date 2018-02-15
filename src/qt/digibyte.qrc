@@ -63,8 +63,10 @@
         <file alias="hd_enabled">res/icons/blue/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/blue/hd_disabled.png</file>
         <file alias="network_disabled">res/icons/blue/network_disabled.png</file>
+        <file alias="warning">res/icons/blue/warning.png</file>
     </qresource>
     <qresource prefix="/icons/black">
+        <file alias="warning">res/icons/black/warning.png</file>
         <file alias="digibyte">res/icons/black/digibyte.png</file>
         <file alias="backg">res/icons/black/digibyte_wallet.png</file>
         <file alias="address-book">res/icons/black/address-book.png</file>
@@ -119,6 +121,7 @@
         <file alias="network_disabled">res/icons/black/network_disabled.png</file>
     </qresource>
     <qresource prefix="/icons/white">
+        <file alias="warning">res/icons/white/warning.png</file>
         <file alias="digibyte">res/icons/white/digibyte.png</file>
         <file alias="backg">res/icons/white/digibyte_wallet.png</file>
         <file alias="address-book">res/icons/white/address-book.png</file>
