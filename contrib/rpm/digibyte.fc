@@ -1,0 +1,8 @@
+/usr/bin/digibyte-cli		--	gen_context(system_u:object_r:digibyte_exec_t,s0)
+/usr/sbin/digibyted		--	gen_context(system_u:object_r:digibyte_exec_t,s0)
+/usr/lib(64)?/digibyte/digibyted		--	gen_context(system_u:object_r:digibyte_exec_t,s0)
+
+/etc/digibyte(/.*)?		gen_context(system_u:object_r:digibyte_conf_t,s0)
+/var/lib/digibyte(/.*)?		gen_context(system_u:object_r:digibyte_var_lib_t,s0)
+
+(/var)?/run/digibyted(/.*)?   gen_context(system_u:object_r:digibyte_var_run_t,s0)

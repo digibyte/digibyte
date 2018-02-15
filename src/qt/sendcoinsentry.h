@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2017 The Bitcoin Core developers
+// Copyright (c) 2011-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,7 +17,7 @@ namespace Ui {
 }
 
 /**
- * A single entry in the dialog for sending bitcoins.
+ * A single entry in the dialog for sending digibytes.
  * Stacked widget, with different UIs for payment requests
  * with a strong payee identity.
  */

@@ -1,0 +1,81 @@
+policy_module(digibyte, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type digibyte_t;
+type digibyte_exec_t;
+init_daemon_domain(digibyte_t, digibyte_exec_t)
+
+permissive digibyte_t;
+
+type digibyte_initrc_exec_t;
+init_script_file(digibyte_initrc_exec_t)
+
+type digibyte_conf_t;
+files_type(digibyte_conf_t)
+
+type digibyte_var_lib_t;
+files_type(digibyte_var_lib_t)
+
+type digibyte_var_run_t;
+files_type(digibyte_var_run_t)
+
+type digibyte_port_t;
+corenet_port(digibyte_port_t)
+
+########################################
+#
+# digibyte local policy
+#
+allow digibyte_t self:process { fork };
+
+allow digibyte_t self:fifo_file rw_fifo_file_perms;
+allow digibyte_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(digibyte_t, digibyte_conf_t, digibyte_conf_t)
+manage_files_pattern(digibyte_t, digibyte_conf_t, digibyte_conf_t)
+
+manage_dirs_pattern(digibyte_t, digibyte_var_lib_t, digibyte_var_lib_t)
+manage_files_pattern(digibyte_t, digibyte_var_lib_t, digibyte_var_lib_t)
+files_var_lib_filetrans(digibyte_t, digibyte_var_lib_t, { dir file })
+
+manage_dirs_pattern(digibyte_t, digibyte_var_run_t, digibyte_var_run_t)
+manage_files_pattern(digibyte_t, digibyte_var_run_t, digibyte_var_run_t)
+
+sysnet_dns_name_resolve(digibyte_t)
+corenet_all_recvfrom_unlabeled(digibyte_t)
+
+allow digibyte_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(digibyte_t)
+corenet_tcp_sendrecv_generic_node(digibyte_t)
+corenet_tcp_sendrecv_all_ports(digibyte_t)
+corenet_tcp_bind_generic_node(digibyte_t)
+
+gen_require(`
+    type digibyte_port_t;
+')
+allow digibyte_t digibyte_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type digibyte_port_t;
+')
+allow digibyte_t digibyte_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(digibyte_t)
+
+files_read_etc_files(digibyte_t)
+
+miscfiles_read_localization(digibyte_t)
+
+sysnet_dns_name_resolve(digibyte_t)
+
+allow digibyte_t digibyte_exec_t:file execute_no_trans;
+allow digibyte_t self:process setsched;
+corecmd_exec_ls(digibyte_t)
+corenet_tcp_connect_http_port(digibyte_t)
+dev_read_urand(digibyte_t)
+fs_getattr_xattr_fs(digibyte_t)
+kernel_read_system_state(digibyte_t)

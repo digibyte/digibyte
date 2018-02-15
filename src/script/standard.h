@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The Bitcoin Core developers
+// Copyright (c) 2009-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -117,7 +117,7 @@ struct WitnessUnknown
  *  * WitnessV0ScriptHash: TX_WITNESS_V0_SCRIPTHASH destination (P2WSH)
  *  * WitnessV0KeyHash: TX_WITNESS_V0_KEYHASH destination (P2WPKH)
  *  * WitnessUnknown: TX_WITNESS_UNKNOWN destination (P2W???)
- *  A CTxDestination is the internal data type encoded in a bitcoin address
+ *  A CTxDestination is the internal data type encoded in a digibyte address
  */
 typedef boost::variant<CNoDestination, CKeyID, CScriptID, WitnessV0ScriptHash, WitnessV0KeyHash, WitnessUnknown> CTxDestination;
 
@@ -163,7 +163,7 @@ bool ExtractDestination(const CScript& scriptPubKey, CTxDestination& addressRet)
 bool ExtractDestinations(const CScript& scriptPubKey, txnouttype& typeRet, std::vector<CTxDestination>& addressRet, int& nRequiredRet);
 
 /**
- * Generate a Bitcoin scriptPubKey for the given CTxDestination. Returns a P2PKH
+ * Generate a DigiByte scriptPubKey for the given CTxDestination. Returns a P2PKH
  * script for a CKeyID destination, a P2SH script for a CScriptID, and an empty
  * script for CNoDestination.
  */

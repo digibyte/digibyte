@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2017 The Bitcoin Core developers
+# Copyright (c) 2016-2017 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the bumpfee RPC.
@@ -15,7 +15,7 @@ make assumptions about execution order.
 """
 
 from test_framework.blocktools import send_to_witness
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework import blocktools
 from test_framework.mininode import CTransaction
 from test_framework.util import *
@@ -29,7 +29,7 @@ WALLET_PASSPHRASE = "test"
 WALLET_PASSPHRASE_TIMEOUT = 3600
 
 
-class BumpFeeTest(BitcoinTestFramework):
+class BumpFeeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
@@ -48,7 +48,7 @@ class BumpFeeTest(BitcoinTestFramework):
         peer_node, rbf_node = self.nodes
         rbf_node_address = rbf_node.getnewaddress()
 
-        # fund rbf node with 10 coins of 0.001 btc (100,000 satoshis)
+        # fund rbf node with 10 coins of 0.001 dgb (100,000 satoshis)
         self.log.info("Mining blocks...")
         peer_node.generate(110)
         self.sync_all()

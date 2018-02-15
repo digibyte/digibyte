@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2017 The Bitcoin Core developers
+// Copyright (c) 2015-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -280,7 +280,7 @@ static void http_reject_request_cb(struct evhttp_request* req, void*)
 /** Event dispatcher thread */
 static bool ThreadHTTP(struct event_base* base, struct evhttp* http)
 {
-    RenameThread("bitcoin-http");
+    RenameThread("digibyte-http");
     LogPrint(BCLog::HTTP, "Entering http event loop\n");
     event_base_dispatch(base);
     // Event loop will be interrupted by InterruptHTTPServer()
@@ -329,7 +329,7 @@ static bool HTTPBindAddresses(struct evhttp* http)
 /** Simple wrapper to set thread name and run work queue */
 static void HTTPWorkQueueRun(WorkQueue<HTTPClosure>* queue)
 {
-    RenameThread("bitcoin-httpworker");
+    RenameThread("digibyte-httpworker");
     queue->Run();
 }
 
@@ -473,7 +473,7 @@ void StopHTTPServer()
         // at least libevent 2.0.21 and always introduced a delay. In libevent
         // master that appears to be solved, so in the future that solution
         // could be used again (if desirable).
-        // (see discussion in https://github.com/bitcoin/bitcoin/pull/6990)
+        // (see discussion in https://github.com/digibyte/digibyte/pull/6990)
         if (threadResult.valid() && threadResult.wait_for(std::chrono::milliseconds(2000)) == std::future_status::timeout) {
             LogPrintf("HTTP event loop did not exit within allotted time, sending loopbreak\n");
             event_base_loopbreak(eventBase);

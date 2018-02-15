@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The Bitcoin Core developers
+# Copyright (c) 2014-2017 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test running bitcoind with the -rpcbind and -rpcallowip options."""
+"""Test running digibyted with the -rpcbind and -rpcallowip options."""
 
 import socket
 import sys
 
-from test_framework.test_framework import BitcoinTestFramework, SkipTest
+from test_framework.test_framework import DigiByteTestFramework, SkipTest
 from test_framework.util import *
 from test_framework.netutil import *
 
-class RPCBindTest(BitcoinTestFramework):
+class RPCBindTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
