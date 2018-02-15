@@ -3029,7 +3029,7 @@ std::vector<unsigned char> GenerateCoinbaseCommitment(CBlock& block, const CBloc
  *  set; UTXO-related validity checks are done in ConnectBlock(). */
 static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, const CChainParams& params, const CBlockIndex* pindexPrev, int64_t nAdjustedTime)
 {
-   const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
+   //const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
 
     // Check proof of work
     const Consensus::Params& consensusParams = params.GetConsensus();
