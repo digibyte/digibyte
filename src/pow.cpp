@@ -27,7 +27,7 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 	int64_t retargetInterval = params.nInterval;
 
 	// Genesis block
-	if (pindexLast == NULL)
+	if (pindexLast == nullptr)
 		return npowWorkLimit;
 
 	//if v2.0 changes are in effect for block num, alter retarget values
@@ -111,7 +111,7 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 
 	unsigned int npowWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
-	if (pindexLast == NULL)
+	if (pindexLast == nullptr)
 		return npowWorkLimit;
 
 	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
@@ -146,7 +146,7 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 		pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
 	}
 
-	if (pindexFirst == NULL)
+	if (pindexFirst == nullptr)
 	{
 		LogPrintf("Use default POW Limit\n");
 		return npowWorkLimit;
@@ -181,7 +181,7 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 	unsigned int npowWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
 	// Genesis block
-	if (pindexLast == NULL)
+	if (pindexLast == nullptr)
 		return npowWorkLimit;
 
 	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
@@ -209,7 +209,7 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 		pindexFirst = pindexFirst->pprev;
 	}
 	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, algo);
-	if (pindexPrevAlgo == NULL || pindexFirst == NULL)
+	if (pindexPrevAlgo == nullptr || pindexFirst == nullptr)
 		return npowWorkLimit; // not enough blocks available
 
 	// Limit adjustment step
@@ -283,7 +283,7 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 	unsigned int npowWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
 	// Genesis block
-	if (pindexLast == NULL)
+	if (pindexLast == nullptr)
 		return npowWorkLimit;
 
 	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
@@ -312,7 +312,7 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 	}
 
 	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, algo);
-	if (pindexPrevAlgo == NULL || pindexFirst == NULL)
+	if (pindexPrevAlgo == nullptr || pindexFirst == nullptr)
 	{
 		return npowWorkLimit;
 	}
@@ -422,10 +422,10 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
 	for (;;)
 	{
 		if (!pindex)
-			return NULL;
+			return nullptr;
 		if (pindex->GetAlgo() == algo)
 			return pindex;
 		pindex = pindex->pprev;
 	}
-	return NULL;
+	return nullptr;
 }

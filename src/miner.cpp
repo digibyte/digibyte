@@ -131,7 +131,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
 
     if (pindexPrev->nHeight < multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
         error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %d", pindexPrev->nHeight, multiAlgoDiffChangeTarget);
-        return NULL;
+        return nullptr;
     }
 
     // -regtest only: allow overriding block.nVersion with
