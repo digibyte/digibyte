@@ -688,16 +688,16 @@ WalletFrame {
     border:0;
     }
     
-    /* About Dash Dialog */
+    /* About DigiByte Dialog */
     QDialog#AboutDialog {
     background-color:#F8F6F6;
     }
     
-    QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Dash Contents */
+    QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About DigiByte Contents */
     margin-left:10px;
     }
     
-    QDialog#AboutDialog QLabel#label_2 { /* Margin for About Dash text */
+    QDialog#AboutDialog QLabel#label_2 { /* Margin for About DigiByte text */
     margin-right:10px;
     }
     
@@ -729,7 +729,7 @@ WalletFrame {
     qproperty-alignment: 'AlignVCenter | AlignRight';
     min-width:160px;
     background-color:transparent;
-    color:#f4f4f5;
+    color:#003366;
     margin-right:5px;
     padding-right:5px;
     }
