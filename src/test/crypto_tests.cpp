@@ -2,19 +2,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-<<<<<<< HEAD
-#include "crypto/aes.h"
-#include "crypto/chacha20.h"
-#include "crypto/ripemd160.h"
-#include "crypto/sha1.h"
-#include "crypto/sha256.h"
-#include "crypto/sha512.h"
-#include "crypto/hmac_sha256.h"
-#include "crypto/hmac_sha512.h"
-#include "random.h"
-#include "utilstrencodings.h"
-#include "test/test_digibyte.h"
-=======
 #include <crypto/aes.h>
 #include <crypto/chacha20.h>
 #include <crypto/ripemd160.h>
@@ -26,10 +13,7 @@
 #include <random.h>
 #include <utilstrencodings.h>
 #include <test/test_digibyte.h>
->>>>>>> e97f9575d305be3bae99eb731045ebf411582f49
-
 #include <vector>
-
 #include <boost/test/unit_test.hpp>
 #include <openssl/aes.h>
 #include <openssl/evp.h>

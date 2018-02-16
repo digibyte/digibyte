@@ -6,11 +6,7 @@
 #include <validation.h>
 #include <net.h>
 
-<<<<<<< HEAD
-#include "test/test_digibyte.h"
-=======
 #include <test/test_digibyte.h>
->>>>>>> e97f9575d305be3bae99eb731045ebf411582f49
 
 #include <boost/signals2/signal.hpp>
 #include <boost/test/unit_test.hpp>

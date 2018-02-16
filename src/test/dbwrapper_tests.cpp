@@ -2,17 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-<<<<<<< HEAD
-#include "dbwrapper.h"
-#include "uint256.h"
-#include "random.h"
-#include "test/test_digibyte.h"
-=======
 #include <dbwrapper.h>
 #include <uint256.h>
 #include <random.h>
 #include <test/test_digibyte.h>
->>>>>>> e97f9575d305be3bae99eb731045ebf411582f49
 
 #include <boost/test/unit_test.hpp>
 

@@ -2,15 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-<<<<<<< HEAD
-#include "hash.h"
-#include "utilstrencodings.h"
-#include "test/test_digibyte.h"
-=======
 #include <hash.h>
 #include <utilstrencodings.h>
 #include <test/test_digibyte.h>
->>>>>>> e97f9575d305be3bae99eb731045ebf411582f49
 
 #include <vector>
 
