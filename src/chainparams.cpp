@@ -204,10 +204,10 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("seed.digibyte.io"));
-        vSeeds.emplace_back("seed.digibyteprojects.com"));
-        vSeeds.emplace_back("digiexplorer.info"));
-        vSeeds.emplace_back("digihash.co"));
+        vSeeds.push_back(CDNSSeedData("digibyte.io", "seed.digibyte.io"));
+        vSeeds.push_back(CDNSSeedData("digiexplorer.info", "digiexplorer.info"));
+        vSeeds.push_back(CDNSSeedData("digihash.co", "digihash.co"));
+        vSeeds.push_back(CDNSSeedData("digibyteprojects.com", "seed.digibyteprojects.com"));
 
 
 
@@ -373,7 +373,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seed.digibyteprojects.com"));
+        vSeeds.push_back(CDNSSeedData("testnet-seed.digibyteprojects.com", "testnet-seed.digibyteprojects.com"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,126);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,140);
