@@ -70,19 +70,19 @@ TestingSetup::TestingSetup(const std::string& chainName) : BasicTestingSetup(cha
 
         RegisterAllCoreRPCCommands(tableRPC);
         ClearDatadirCache();
-        pathTemp = fs::temp_directory_path() / strprintf("test_digibyte_%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(100000)));
+        pathTemp = fs::temp_directory_path() / strprintf("test_bitcoin_%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(100000)));
         fs::create_directories(pathTemp);
         gArgs.ForceSetArg("-datadir", pathTemp.string());
 
-        // Note that because we don't bother running a scheduler thread here,
-        // callbacks via CValidationInterface are unreliable, but that's OK,
-        // our unit tests aren't testing multiple parts of the code at once.
+        // We have to run a scheduler thread to prevent ActivateBestChain
+        // from blocking due to queue overrun.
+        threadGroup.create_thread(boost::bind(&CScheduler::serviceQueue, &scheduler));
         GetMainSignals().RegisterBackgroundSignalScheduler(scheduler);
 
         mempool.setSanityCheck(1.0);
-        pblocktree = new CBlockTreeDB(1 << 20, true);
-        pcoinsdbview = new CCoinsViewDB(1 << 23, true);
-        pcoinsTip = new CCoinsViewCache(pcoinsdbview);
+        pblocktree.reset(new CBlockTreeDB(1 << 20, true));
+        pcoinsdbview.reset(new CCoinsViewDB(1 << 23, true));
+        pcoinsTip.reset(new CCoinsViewCache(pcoinsdbview.get()));
         if (!LoadGenesisBlock(chainparams)) {
             throw std::runtime_error("LoadGenesisBlock failed.");
         }
@@ -109,9 +109,9 @@ TestingSetup::~TestingSetup()
         g_connman.reset();
         peerLogic.reset();
         UnloadBlockIndex();
-        delete pcoinsTip;
-        delete pcoinsdbview;
-        delete pblocktree;
+        pcoinsTip.reset();
+        pcoinsdbview.reset();
+        pblocktree.reset();
         fs::remove_all(pathTemp);
 }
 
