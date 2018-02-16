@@ -13,8 +13,6 @@
 #include <string>
 #include <vector>
 
-#include <openssl/bn.h>
-
 class uint256;
 
 class uint_error : public std::runtime_error {
@@ -27,7 +25,7 @@ template<unsigned int BITS>
 class base_uint
 {
 protected:
-    static constexpr int WIDTH = BITS / 32;
+    enum { WIDTH=BITS/8 };
     uint32_t pn[WIDTH];
 public:
 
