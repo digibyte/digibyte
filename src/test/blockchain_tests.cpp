@@ -40,52 +40,54 @@ void RejectDifficultyMismatch(double difficulty, double expected_difficulty) {
 /* Given a BlockIndex with the provided nbits,
  * verify that the expected difficulty results.
  */
-void TestDifficulty(uint32_t nbits, double expected_difficulty)
+
+void TestDifficulty(uint32_t nbits, double expected_difficulty, int algo)
 {
     CBlockIndex* block_index = CreateBlockIndexWithNbits(nbits);
     /* Since we are passing in block index explicitly,
      * there is no need to set up anything within the chain itself.
-     */
-    CChain chain;
+     */ 
+     CChain chain;
 
-    double difficulty = GetDifficulty(chain, block_index);
+    double difficulty = GetDifficulty(chain, block_index, algo=2);
     delete block_index;
 
     RejectDifficultyMismatch(difficulty, expected_difficulty);
 }
 
+
 BOOST_FIXTURE_TEST_SUITE(blockchain_difficulty_tests, BasicTestingSetup)
 
 BOOST_AUTO_TEST_CASE(get_difficulty_for_very_low_target)
 {
-    TestDifficulty(0x1f111111, 0.000001);
+    TestDifficulty(0x1f111111, 0.000001,2);
 }
 
 BOOST_AUTO_TEST_CASE(get_difficulty_for_low_target)
 {
-    TestDifficulty(0x1ef88f6f, 0.000016);
+    TestDifficulty(0x1ef88f6f, 0.000016,2);
 }
 
 BOOST_AUTO_TEST_CASE(get_difficulty_for_mid_target)
 {
-    TestDifficulty(0x1df88f6f, 0.004023);
+    TestDifficulty(0x1df88f6f, 0.004023,2);
 }
 
 BOOST_AUTO_TEST_CASE(get_difficulty_for_high_target)
 {
-    TestDifficulty(0x1cf88f6f, 1.029916);
+    TestDifficulty(0x1cf88f6f, 1.02991,2);
 }
 
 BOOST_AUTO_TEST_CASE(get_difficulty_for_very_high_target)
 {
-    TestDifficulty(0x12345678, 5913134931067755359633408.0);
+    TestDifficulty(0x12345678, 5913134931067755359633408.0,2);
 }
 
 // Verify that difficulty is 1.0 for an empty chain.
 BOOST_AUTO_TEST_CASE(get_difficulty_for_null_tip)
 {
     CChain chain;
-    double difficulty = GetDifficulty(chain, nullptr);
+    double difficulty = GetDifficulty(chain, nullptr,2);
     RejectDifficultyMismatch(difficulty, 1.0);
 }
 
@@ -96,7 +98,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_null_block_index)
 {
     CChain chain = CreateChainWithNbits(0x1df88f6f);
 
-    double difficulty = GetDifficulty(chain, nullptr);
+    double difficulty = GetDifficulty(chain, nullptr,2);
     delete chain.Tip();
 
     double expected_difficulty = 0.004023;
@@ -116,7 +118,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_block_index_overrides_tip)
      */
     CBlockIndex* override_block_index = CreateBlockIndexWithNbits(0x12345678);
 
-    double difficulty = GetDifficulty(chain, override_block_index);
+    double difficulty = GetDifficulty(chain, override_block_index,2);
     delete chain.Tip();
     delete override_block_index;
 
