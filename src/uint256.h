@@ -19,9 +19,9 @@ template<unsigned int BITS>
 class base_blob
 {
 public:
-    enum { WIDTH=BITS/32 };
+    static constexpr int WIDTH = BITS / 8;
     uint8_t data[WIDTH];
-    
+
     base_blob()
     {
         memset(data, 0, sizeof(data));
