@@ -1900,7 +1900,7 @@
         <translation>Bech32 адреса (BIP-173) дешевле в коммисиях и предлагают лучшую защиту от опечаток. Когда пункт P2SH не отмечен, будет создан связанный SegWit адрес, совместимый со старыми кошельками.</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Создать Bech32 адрес</translation>
     </message>
     <message>

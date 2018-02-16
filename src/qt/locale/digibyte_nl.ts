@@ -1904,7 +1904,7 @@
         <translation>Bech32 adressen (BIP-173) zijn goedkoper om van te betalen en bieden betere bescherming tegen typefouten. Indien niet aangevinkt zal een P2SH omgeven SegWit adres aangemaakt worden, compatibel met oudere wallets.</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Genereer Bech32-adres</translation>
     </message>
     <message>

@@ -1900,7 +1900,7 @@
         <translation>Bech32-Adressen (BIP-173) sind günstiger zum Senden, und besser geschützt gegen Tippfehler. Wenn nicht gewählt, wird eine P2SH-verpackte SegWit-Adresse generiert, kompatibel mit älteren Wallets.</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Erzeuge Bech32-Adresse</translation>
     </message>
     <message>

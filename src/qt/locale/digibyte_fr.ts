@@ -1904,7 +1904,7 @@
         <translation>Il est moins coûteux de dépenser à partir d’adresses Bech32 (BIP-173). Elles offrent aussi une meilleure protection contre les fautes de frappe. Si cette option n’est pas cochée, une adresse SegWit enveloppée dans un P2SH sera créée, compatible avec les anciens porte-monnaie.</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Générer une adresse Bech32</translation>
     </message>
     <message>

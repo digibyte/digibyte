@@ -1904,7 +1904,7 @@
         <translation>Bech32 位址(BIP-173)是一種花費成本較小，且較不容易打錯的位址類型。如果沒有勾選的話，會使用以 P2SH 包裝的 SegWit 位址，這種位址類型跟舊版錢包相容。</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>產生 Bech32 位址</translation>
     </message>
     <message>

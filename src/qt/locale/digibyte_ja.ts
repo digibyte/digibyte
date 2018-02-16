@@ -1904,7 +1904,7 @@
         <translation>Bech32形式(BIP-173を参照)のアドレスを利用するとアドレスからの出金時に安い手数料で済み、また誤入力の可能性を減らすことができます。チェックを外すと、古いウォレットと互換性を保つことができるP2SH形式のセグウィットアドレスが作られます。</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Bech32形式のアドレスを生成</translation>
     </message>
     <message>
