@@ -284,6 +284,13 @@ CTxDestination DecodeDestination(const std::string& str, const CChainParams& par
             std::copy(data.begin() + script_prefix.size(), data.end(), hash.begin());
             return CScriptID(hash);
         }
+
+        const std::vector<unsigned char>& script_prefix_old = params.Base58Prefix(CChainParams::SCRIPT_ADDRESS_OLD);
+        if (data.size() == hash.size() + script_prefix_old.size() && std::equal(script_prefix_old.begin(), script_prefix_old.end(), data.begin())) {
+            std::copy(data.begin() + script_prefix_old.size(), data.end(), hash.begin());
+            return CScriptID(hash);
+        }
+
     }
     data.clear();
     auto bech = bech32::Decode(str);
