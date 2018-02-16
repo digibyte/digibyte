@@ -40,9 +40,6 @@
 /* Define to 1 to enable ZMQ functions */
 #undef ENABLE_ZMQ
 
-/* Define this symbol to build in experimental assembly routines */
-#undef EXPERIMENTAL_ASM
-
 /* parameter and return value type for __fdelt_chk */
 #undef FDELT_TYPE
 
@@ -330,6 +327,9 @@
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
 
+/* Define if thread_local is supported. */
+#undef HAVE_THREAD_LOCAL
+
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
@@ -367,9 +367,6 @@
    your system. */
 #undef PTHREAD_CREATE_JOINABLE
 
-/* Define this symbol if the qt platform is cocoa */
-#undef QT_QPA_PLATFORM_COCOA
-
 /* Define this symbol if the minimal qt platform exists */
 #undef QT_QPA_PLATFORM_MINIMAL
 
@@ -387,6 +384,9 @@
 
 /* Define to 1 if strerror_r returns char *. */
 #undef STRERROR_R_CHAR_P
+
+/* Define this symbol to build in assembly routines */
+#undef USE_ASM
 
 /* Define this symbol if coverage is enabled */
 #undef USE_COVERAGE
