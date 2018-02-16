@@ -204,6 +204,9 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
+        vSeeds.emplace_back("seed1.digibyte.io");
+        vSeeds.emplace_back("seed2.digibyte.io");
+        vSeeds.emplace_back("seed3.digibyte.io");
         vSeeds.emplace_back("seed.digibyte.io");
         vSeeds.emplace_back("seed.digibyteprojects.com");
         vSeeds.emplace_back("digihash.co");
