@@ -31,7 +31,6 @@ QT_TS = \
   qt/locale/digibyte_en_US.ts \
   qt/locale/digibyte_eo.ts \
   qt/locale/digibyte_es_419.ts \
-  qt/locale/digibyte_es_AR.ts \
   qt/locale/digibyte_es_CL.ts \
   qt/locale/digibyte_es_CO.ts \
   qt/locale/digibyte_es_DO.ts \
@@ -59,7 +58,6 @@ QT_TS = \
   qt/locale/digibyte_id_ID.ts \
   qt/locale/digibyte_id.ts \
   qt/locale/digibyte_is.ts \
-  qt/locale/digibyte_it_IT.ts \
   qt/locale/digibyte_it.ts \
   qt/locale/digibyte_ja_JP.ts \
   qt/locale/digibyte_ja.ts \
@@ -113,7 +111,6 @@ QT_TS = \
   qt/locale/digibyte_uk.ts \
   qt/locale/digibyte_ur_PK.ts \
   qt/locale/digibyte_uz@Cyrl.ts \
-  qt/locale/digibyte_vi.ts \
   qt/locale/digibyte_vi_VN.ts \
   qt/locale/digibyte_zh_CN.ts \
   qt/locale/digibyte_zh-Hans.ts \

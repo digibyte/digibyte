@@ -161,6 +161,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <source>Copy quantity</source>
+        </message>
     <message>
         <source>Copy amount</source>
         <translation>העתק סכום</translation>
@@ -168,6 +169,7 @@
     </context>
 <context>
     <name>SendCoinsEntry</name>
+    </context>
 <context>
     <name>SendConfirmationDialog</name>
     </context>

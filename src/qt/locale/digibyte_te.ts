@@ -226,10 +226,10 @@
     </context>
 <context>
     <name>QObject</name>
-    </message>
 </context>
 <context>
     <name>QObject::QObject</name>
+    </context>
 <context>
     <name>QRImageWidget</name>
     </context>
@@ -376,9 +376,11 @@
     <name>digibyte-core</name>
     <message>
         <source>DigiByte Core</source>
+        </message>
     <message>
         <source>Information</source>
         <translation>వర్తమానము</translation>
+        </message>
     <message>
         <source>Warning</source>
         <translation>హెచ్చరిక</translation>

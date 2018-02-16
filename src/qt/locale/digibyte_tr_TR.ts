@@ -1414,11 +1414,11 @@
         <source>Invalid -onion address or hostname: '%s'</source>
         <translation>Hatalı -onion adresi ya da host adı: '%s'</translation>
     </message>
+    <message>
         <source>RPC server options:</source>
         <translation>RPC sunucu ayarları</translation>
     </message>
     <message>
-=======
         <source>This is experimental software.</source>
         <translation>Bu deneysel bir yazılımdır.</translation>
     </message>

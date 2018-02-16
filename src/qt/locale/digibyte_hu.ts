@@ -1123,6 +1123,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     <message>
         <source>Hide tray icon</source>
         <translation>Tálcaikon elrejtése</translation>
+        </message>
     <message>
         <source>M&amp;inimize on close</source>
         <translation>K&amp;icsinyítés záráskor</translation>
@@ -2051,6 +2052,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     <message>
         <source>normal</source>
         <translation>normál</translation>
+        </message> 
     <message>
         <source>Add &amp;Recipient</source>
         <translation>&amp;Címzett hozzáadása</translation>
@@ -2719,6 +2721,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     </message>
     <message>
         <source>Increase transaction fee</source>
+        </message>
     <message>
         <source>Copy address</source>
         <translation>Cím másolása</translation>
@@ -2726,6 +2729,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
     <message>
         <source>Copy label</source>
         <translation>Címke másolása</translation>
+        </message>
     <message>
         <source>Copy amount</source>
         <translation>Összeg másolása</translation>

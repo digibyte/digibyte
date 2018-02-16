@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
 <TS version="2.1" language="en">
 <context>
     <name>AddressBookPage</name>
@@ -1683,8 +1681,7 @@
     <message>
         <location line="-398"/>
     </message>
-        <location line="+102"/>
-        <location line="+13"/>
+    <message>
         <location line="+7"/>
         <source>URI handling</source>
         <translation type="unfinished"></translation>
@@ -4924,6 +4921,7 @@
     <message>
         <location line="-263"/>
     </message>
+    <message>
         <location line="+185"/>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
         <translation>Allow DNS lookups for -addnode, -seednode and -connect</translation>

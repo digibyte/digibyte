@@ -415,6 +415,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
         <translation>Vis lista over brukte sendeadresser og merkelapper</translation>
@@ -516,9 +517,6 @@
     </context>
 <context>
     <name>CoinControlDialog</name>
-        <source>(no label)</source>
-        <translation>(ingen beskrivelse)</translation>
-    </message>
     </context>
 <context>
     <name>EditAddressDialog</name>
