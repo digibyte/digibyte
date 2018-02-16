@@ -1219,13 +1219,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
 
     const Consensus::Params& consensusParams = Params().GetConsensus();
     UniValue bip9_softforks(UniValue::VOBJ);
-<<<<<<< HEAD
-    BIP9SoftForkDescPushBack(bip9_softforks, "csv", consensusParams, Consensus::DEPLOYMENT_CSV);
-    BIP9SoftForkDescPushBack(bip9_softforks, "segwit", consensusParams, Consensus::DEPLOYMENT_SEGWIT);
-    BIP9SoftForkDescPushBack(bip9_softforks, "nversionbips", consensusParams, Consensus::DEPLOYMENT_NVERSIONBIPS);
-    //BIP9SoftForkDescPushBack(bip9_softforks, "equihash", consensusParams, Consensus::DEPLOYMENT_EQUIHASH);
-    //BIP9SoftForkDescPushBack(bip9_softforks, "ethash", consensusParams, Consensus::DEPLOYMENT_ETHASH);
-=======
     softforks.push_back(SoftForkDesc("bip34", 2, tip, consensusParams));
     softforks.push_back(SoftForkDesc("bip66", 3, tip, consensusParams));
     softforks.push_back(SoftForkDesc("bip65", 4, tip, consensusParams));
@@ -1233,7 +1226,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
         BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
     }
     obj.push_back(Pair("softforks",             softforks));
->>>>>>> e97f9575d305be3bae99eb731045ebf411582f49
     obj.push_back(Pair("bip9_softforks", bip9_softforks));
 
     obj.push_back(Pair("warnings", GetWarnings("statusbar")));
