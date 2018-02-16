@@ -2,10 +2,17 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <boost/test/unit_test.hpp>
+<<<<<<< HEAD
 #include "cuckoocache.h"
 #include "script/sigcache.h"
 #include "test/test_digibyte.h"
 #include "random.h"
+=======
+#include <cuckoocache.h>
+#include <script/sigcache.h>
+#include <test/test_digibyte.h>
+#include <random.h>
+>>>>>>> e97f9575d305be3bae99eb731045ebf411582f49
 #include <thread>
 
 /** Test Suite for CuckooCache

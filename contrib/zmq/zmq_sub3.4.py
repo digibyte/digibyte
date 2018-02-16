@@ -8,8 +8,8 @@
 
     DigiByte should be started with the command line arguments:
         digibyted -testnet -daemon \
-                -zmqpubhashblock=tcp://127.0.0.1:28332 \
                 -zmqpubrawtx=tcp://127.0.0.1:28332 \
+                -zmqpubrawblock=tcp://127.0.0.1:28332 \
                 -zmqpubhashtx=tcp://127.0.0.1:28332 \
                 -zmqpubhashblock=tcp://127.0.0.1:28332
 
@@ -36,7 +36,7 @@ import sys
 
 if not (sys.version_info.major >= 3 and sys.version_info.minor >= 4):
     print("This example only works with Python 3.4 and greater")
-    exit(1)
+    sys.exit(1)
 
 port = 28332
 

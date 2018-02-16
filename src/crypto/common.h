@@ -1,4 +1,4 @@
-// Copyright (c) 2014 The DigiByte Core developers
+// Copyright (c) 2014-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,12 +6,12 @@
 #define DIGIBYTE_CRYPTO_COMMON_H
 
 #if defined(HAVE_CONFIG_H)
-#include "digibyte-config.h"
+#include <config/digibyte-config.h>
 #endif
 
 #include <stdint.h>
 
-#include "compat/endian.h"
+#include <compat/endian.h>
 
 uint16_t static inline ReadLE16(const unsigned char* ptr)
 {

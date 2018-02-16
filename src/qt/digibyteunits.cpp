@@ -2,9 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "digibyteunits.h"
+#include <qt/digibyteunits.h>
 
-#include "primitives/transaction.h"
+#include <primitives/transaction.h>
 
 #include <QStringList>
 
@@ -36,14 +36,23 @@ bool DigiByteUnits::valid(int unit)
     }
 }
 
-QString DigiByteUnits::name(int unit)
+QString DigiByteUnits::longName(int unit)
 {
     switch(unit)
     {
     case DGB: return QString("DGB");
     case mDGB: return QString("mDGB");
-    case uDGB: return QString::fromUtf8("μDGB");
+    case uDGB: return QString::fromUtf8("µDGB (digis)");
     default: return QString("???");
+    }
+}
+
+QString DigiByteUnits::shortName(int unit)
+{
+    switch(unit)
+    {
+    case uDGB: return QString::fromUtf8("bits");
+    default:   return longName(unit);
     }
 }
 
@@ -53,7 +62,7 @@ QString DigiByteUnits::description(int unit)
     {
     case DGB: return QString("DigiBytes");
     case mDGB: return QString("Milli-DigiBytes (1 / 1" THIN_SP_UTF8 "000)");
-    case uDGB: return QString("Micro-DigiBytes (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case uDGB: return QString("Micro-DigiBytes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
@@ -121,7 +130,7 @@ QString DigiByteUnits::format(int unit, const CAmount& nIn, bool fPlus, Separato
 
 QString DigiByteUnits::formatWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
-    return format(unit, amount, plussign, separators) + QString(" ") + name(unit);
+    return format(unit, amount, plussign, separators) + QString(" ") + shortName(unit);
 }
 
 QString DigiByteUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
@@ -176,7 +185,7 @@ QString DigiByteUnits::getAmountColumnTitle(int unit)
     QString amountTitle = QObject::tr("Amount");
     if (DigiByteUnits::valid(unit))
     {
-        amountTitle += " ("+DigiByteUnits::name(unit) + ")";
+        amountTitle += " ("+DigiByteUnits::shortName(unit) + ")";
     }
     return amountTitle;
 }
@@ -197,7 +206,7 @@ QVariant DigiByteUnits::data(const QModelIndex &index, int role) const
         {
         case Qt::EditRole:
         case Qt::DisplayRole:
-            return QVariant(name(unit));
+            return QVariant(longName(unit));
         case Qt::ToolTipRole:
             return QVariant(description(unit));
         case UnitRole:

@@ -5,8 +5,8 @@
 #ifndef DIGIBYTE_QT_TRANSACTIONRECORD_H
 #define DIGIBYTE_QT_TRANSACTIONRECORD_H
 
-#include "amount.h"
-#include "uint256.h"
+#include <amount.h>
+#include <uint256.h>
 
 #include <QList>
 #include <QString>
@@ -140,7 +140,7 @@ public:
 
     /** Return whether a status update is needed.
      */
-    bool statusUpdateNeeded();
+    bool statusUpdateNeeded() const;
 };
 
 #endif // DIGIBYTE_QT_TRANSACTIONRECORD_H

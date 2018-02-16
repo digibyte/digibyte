@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_RPC_MINING_H
 #define DIGIBYTE_RPC_MINING_H
 
-#include "script/script.h"
+#include <script/script.h>
 
 #include <univalue.h>
 

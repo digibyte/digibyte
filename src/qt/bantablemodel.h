@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_QT_BANTABLEMODEL_H
 #define DIGIBYTE_QT_BANTABLEMODEL_H
 
-#include "net.h"
+#include <net.h>
 
 #include <QAbstractTableModel>
 #include <QStringList>

@@ -24,7 +24,7 @@ else
 		case "$LINE" in
 			"gpg (GnuPG) 1.4.1"*|"gpg (GnuPG) 2.0."*)
 				echo "Please upgrade to at least gpg 2.1.10 to check for weak signatures" > /dev/stderr
-				GPG_RES="$(echo "$INPUT" | gpg --trust-model always "$@" 2>/dev/null)"
+				GPG_RES="$(printf '%s\n' "$INPUT" | gpg --trust-model always "$@" 2>/dev/null)"
 				;;
 			# We assume if you're running 2.1+, you're probably running 2.1.10+
 			# gpg will fail otherwise
@@ -32,7 +32,7 @@ else
 			# gpg will fail otherwise
 		esac
 	done
-	[ "$GPG_RES" = "" ] && GPG_RES="$(echo "$INPUT" | gpg --trust-model always --weak-digest sha1 "$@" 2>/dev/null)"
+	[ "$GPG_RES" = "" ] && GPG_RES="$(printf '%s\n' "$INPUT" | gpg --trust-model always --weak-digest sha1 "$@" 2>/dev/null)"
 fi
 for LINE in $(echo "$GPG_RES"); do
 	case "$LINE" in
@@ -51,14 +51,19 @@ for LINE in $(echo "$GPG_RES"); do
 		REVSIG=true
 		GOODREVSIG="[GNUPG:] GOODSIG ${LINE#* * *}"
 		;;
+	"[GNUPG:] EXPKEYSIG "*)
+		[ "$DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG" != 1 ] && exit 1
+		REVSIG=true
+		GOODREVSIG="[GNUPG:] GOODSIG ${LINE#* * *}"
+		;;
 	esac
 done
 if ! $VALID; then
 	exit 1
 fi
 if $VALID && $REVSIG; then
-	echo "$INPUT" | gpg --trust-model always "$@" 2>/dev/null | grep "\[GNUPG:\] \(NEWSIG\|SIG_ID\|VALIDSIG\)"
+	printf '%s\n' "$INPUT" | gpg --trust-model always "$@" 2>/dev/null | grep "\[GNUPG:\] \(NEWSIG\|SIG_ID\|VALIDSIG\)"
 	echo "$GOODREVSIG"
 else
-	echo "$INPUT" | gpg --trust-model always "$@" 2>/dev/null
+	printf '%s\n' "$INPUT" | gpg --trust-model always "$@" 2>/dev/null
 fi

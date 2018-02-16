@@ -2,7 +2,6 @@
 Setup
 ---------------------
 DigiByte Core is the original DigiByte client and it builds the backbone of the network. However, it downloads and stores the entire history of DigiByte transactions (which is currently several GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
-=======
 DigiByte Core
 =============
 
@@ -42,6 +41,7 @@ Building
 ---------------------
 The following are developer notes on how to build DigiByte on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
+- [Dependencies](dependencies.md)
 - [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
 - [Windows Build Notes](build-windows.md)

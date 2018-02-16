@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_MEMUSAGE_H
 #define DIGIBYTE_MEMUSAGE_H
 
-#include "indirectmap.h"
+#include <indirectmap.h>
 
 #include <stdlib.h>
 

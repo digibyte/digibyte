@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_QT_TRANSACTIONTABLEMODEL_H
 #define DIGIBYTE_QT_TRANSACTIONTABLEMODEL_H
 
-#include "digibyteunits.h"
+#include <qt/digibyteunits.h>
 
 #include <QAbstractTableModel>
 #include <QStringList>
@@ -79,7 +79,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const;
-    bool processingQueuedTransactions() { return fProcessingQueuedTransactions; }
+    bool processingQueuedTransactions() const { return fProcessingQueuedTransactions; }
 
 private:
     CWallet* wallet;

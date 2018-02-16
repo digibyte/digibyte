@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_QT_TRANSACTIONVIEW_H
 #define DIGIBYTE_QT_TRANSACTIONVIEW_H
 
-#include "guiutil.h"
+#include <qt/guiutil.h>
 
 #include <QWidget>
 #include <QKeyEvent>
@@ -66,7 +66,7 @@ private:
     QComboBox *dateWidget;
     QComboBox *typeWidget;
     QComboBox *watchOnlyWidget;
-    QLineEdit *addressWidget;
+    QLineEdit *search_widget;
     QLineEdit *amountWidget;
 
     QMenu *contextMenu;
@@ -113,7 +113,7 @@ public Q_SLOTS:
     void chooseType(int idx);
     void chooseWatchonly(int idx);
     void changedAmount();
-    void changedPrefix();
+    void changedSearch();
     void exportClicked();
     void focusTransaction(const QModelIndex&);
 

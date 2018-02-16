@@ -8,7 +8,7 @@ There are currently two sets of tests in this directory:
 - [functional](/test/functional) which test the functionality of 
 digibyted and digibyte-qt by interacting with them through the RPC and P2P
 interfaces.
-- [util](test/util) which tests the digibyte utilities, currently only
+- [util](/test/util) which tests the digibyte utilities, currently only
 digibyte-tx.
 
 The util tests are run as part of `make check` target. The functional

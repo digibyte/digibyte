@@ -3,13 +3,13 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <vector>
-#include "prevector.h"
+#include <prevector.h>
 
-#include "reverse_iterator.h"
-#include "serialize.h"
-#include "streams.h"
+#include <reverse_iterator.h>
+#include <serialize.h>
+#include <streams.h>
 
-#include "test/test_digibyte.h"
+#include <test/test_digibyte.h>
 
 #include <boost/test/unit_test.hpp>
 
@@ -152,11 +152,11 @@ public:
         pre_vector.assign(n, value);
     }
 
-    Size size() {
+    Size size() const {
         return real_vector.size();
     }
 
-    Size capacity() {
+    Size capacity() const {
         return pre_vector.capacity();
     }
 

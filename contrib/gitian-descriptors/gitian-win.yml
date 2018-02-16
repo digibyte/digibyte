@@ -1,5 +1,5 @@
 ---
-name: "digibyte-win-6.15"
+name: "digibyte-win-6.16"
 enable_cache: true
 suites:
 - "trusty"

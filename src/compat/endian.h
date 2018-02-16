@@ -6,12 +6,12 @@
 #define DIGIBYTE_COMPAT_ENDIAN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/digibyte-config.h"
+#include <config/digibyte-config.h>
 #endif
 
-#include <stdint.h>
+#include <compat/byteswap.h>
 
-#include "compat/byteswap.h"
+#include <stdint.h>
 
 #if defined(HAVE_ENDIAN_H)
 #include <endian.h>

@@ -44,6 +44,12 @@ src/qt/forms/ui_*.h
 
 src/qt/test/moc*.cpp
 
+src/qt/digibyte-qt.config
+src/qt/digibyte-qt.creator
+src/qt/digibyte-qt.creator.user
+src/qt/digibyte-qt.files
+src/qt/digibyte-qt.includes
+
 .deps
 .dirstamp
 .libs
@@ -76,6 +82,7 @@ src/qt/test/moc*.cpp
 Makefile
 digibyte-qt
 DigiByte-Qt.app
+background.tiff*
 
 # Unit-tests
 Makefile.test

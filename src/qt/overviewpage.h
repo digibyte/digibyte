@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_QT_OVERVIEWPAGE_H
 #define DIGIBYTE_QT_OVERVIEWPAGE_H
 
-#include "amount.h"
+#include <amount.h>
 
 #include <QWidget>
 #include <memory>

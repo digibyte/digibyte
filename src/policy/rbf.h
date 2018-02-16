@@ -1,11 +1,11 @@
-// Copyright (c) 2016 The DigiByte Core developers
+// Copyright (c) 2016-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_POLICY_RBF_H
 #define DIGIBYTE_POLICY_RBF_H
 
-#include "txmempool.h"
+#include <txmempool.h>
 
 static const uint32_t MAX_BIP125_RBF_SEQUENCE = 0xfffffffd;
 

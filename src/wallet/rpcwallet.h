@@ -1,11 +1,14 @@
-// Copyright (c) 2016 The DigiByte Core developers
+// Copyright (c) 2016-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_WALLET_RPCWALLET_H
 #define DIGIBYTE_WALLET_RPCWALLET_H
 
+#include <string>
+
 class CRPCTable;
+class CWallet;
 class JSONRPCRequest;
 
 void RegisterWalletRPCCommands(CRPCTable &t);

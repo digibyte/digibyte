@@ -5,7 +5,10 @@ and tests weren't explicitly disabled.
 
 After configuring, they can be run with `make check`.
 
-To run the digibyted tests manually, launch `src/test/test_digibyte`.
+To run the digibyted tests manually, launch `src/test/test_digibyte`. To recompile
+after a test file was modified, run `make` and then run the test again. If you
+modify a non-test file, use `make -C src/test` to recompile only what's needed
+to run the digibyted tests.
 
 To add more digibyted tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
 .cpp files in the `test/` directory or add new .cpp files that
@@ -49,4 +52,4 @@ examine `uint256_tests.cpp`.
 
 For further reading, I found the following website to be helpful in
 explaining how the boost unit test framework works:
-[http://www.alittlemadness.com/2009/03/31/c-unit-testing-with-boosttest/](http://www.alittlemadness.com/2009/03/31/c-unit-testing-with-boosttest/).
+[http://www.alittlemadness.com/2009/03/31/c-unit-testing-with-boosttest/](http://archive.is/dRBGf).

@@ -1,20 +1,21 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The DigiByte Core developers
+// Copyright (c) 2009-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "primitives/block.h"
-
-#include "hash.h"
-#include "tinyformat.h"
-#include "utilstrencodings.h"
-#include "crypto/common.h"
-#include "crypto/hashgroestl.h"
-#include "crypto/hashqubit.h"
-#include "crypto/hashskein.h"
-#include "crypto/scrypt.h"
-#include "consensus/consensus.h"
-#include "util.h"
+#include <primitives/block.h>
+#include <utilstrencodings.h>
+#include <crypto/common.h>
+#include <crypto/hashgroestl.h>
+#include <crypto/hashqubit.h>
+#include <crypto/hashskein.h>
+#include <crypto/scrypt.h>
+#include <consensus/consensus.h>
+#include <util.h>
+#include <hash.h>
+#include <tinyformat.h>
+#include <utilstrencodings.h>
+#include <crypto/common.h>
 
 uint256 CBlockHeader::GetHash() const
 {

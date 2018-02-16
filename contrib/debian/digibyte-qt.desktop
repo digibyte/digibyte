@@ -1,5 +1,5 @@
 [Desktop Entry]
-Encoding=UTF-8
+Version=1.0
 Name=DigiByte Core
 Comment=Connect to the DigiByte P2P Network
 Comment[de]=Verbinde mit dem DigiByte peer-to-peer Netzwerk
@@ -11,3 +11,4 @@ Type=Application
 Icon=digibyte128
 MimeType=x-scheme-handler/digibyte;
 Categories=Office;Finance;
+StartupWMClass=DigiByte-qt

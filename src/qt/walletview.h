@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_QT_WALLETVIEW_H
 #define DIGIBYTE_QT_WALLETVIEW_H
 
-#include "amount.h"
+#include <amount.h>
 
 #include <QStackedWidget>
 

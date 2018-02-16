@@ -1,12 +1,12 @@
-// Copyright (c) 2011-2015 The DigiByte Core developers
+// Copyright (c) 2011-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "digibyteamountfield.h"
+#include <qt/digibyteamountfield.h>
 
-#include "digibyteunits.h"
-#include "guiconstants.h"
-#include "qvaluecombobox.h"
+#include <qt/digibyteunits.h>
+#include <qt/guiconstants.h>
+#include <qt/qvaluecombobox.h>
 
 #include <QApplication>
 #include <QAbstractSpinBox>
@@ -188,7 +188,7 @@ Q_SIGNALS:
     void valueChanged();
 };
 
-#include "digibyteamountfield.moc"
+#include <qt/digibyteamountfield.moc>
 
 DigiByteAmountField::DigiByteAmountField(QWidget *parent) :
     QWidget(parent),

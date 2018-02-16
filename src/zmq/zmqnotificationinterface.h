@@ -5,7 +5,7 @@
 #ifndef DIGIBYTE_ZMQ_ZMQNOTIFICATIONINTERFACE_H
 #define DIGIBYTE_ZMQ_ZMQNOTIFICATIONINTERFACE_H
 
-#include "validationinterface.h"
+#include <validationinterface.h>
 #include <string>
 #include <map>
 #include <list>
@@ -13,7 +13,7 @@
 class CBlockIndex;
 class CZMQAbstractNotifier;
 
-class CZMQNotificationInterface : public CValidationInterface
+class CZMQNotificationInterface final : public CValidationInterface
 {
 public:
     virtual ~CZMQNotificationInterface();

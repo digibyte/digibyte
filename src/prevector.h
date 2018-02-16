@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DIGIBYTE_PREVECTOR_H_
-#define _DIGIBYTE_PREVECTOR_H_
+#ifndef DIGIBYTE_PREVECTOR_H
+#define DIGIBYTE_PREVECTOR_H
 
 #include <assert.h>
 #include <stdlib.h>
@@ -514,4 +514,4 @@ public:
 };
 #pragma pack(pop)
 
-#endif
+#endif // DIGIBYTE_PREVECTOR_H

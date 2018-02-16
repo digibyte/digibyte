@@ -1,5 +1,5 @@
 ---
-name: "digibyte-linux-6.15"
+name: "digibyte-linux-6.16"
 enable_cache: true
 suites:
 - "trusty"
