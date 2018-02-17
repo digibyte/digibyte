@@ -1824,7 +1824,7 @@
         <translation>&amp;Vastaanota maksu</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Luo Bech32-osoite</translation>
     </message>
     <message>

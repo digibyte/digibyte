@@ -1885,7 +1885,7 @@ Esta sincronização inicial é muito exigente e pode expor problemas de hardwar
         <translation>Os endereços Bech32 (BIP-173) são mais baratos de gastar e oferecem uma proteção melhor contra erros de digitação. Quando desmarcado, será criado um endereço SegWit envolvido em P2SH, compatível com carteiras antigas.</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Gerar endereço Bech32</translation>
     </message>
     <message>

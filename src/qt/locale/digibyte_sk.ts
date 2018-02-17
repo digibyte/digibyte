@@ -1905,7 +1905,7 @@
         <translation>Je lacnejšie míňať z Bech32 adries (BIP-173), ktoré tiež ponúkajú lepšiu ochranu voči preklepom. Ak túto možnosť nevyberiete, bude vytvorená adresa typu P2SH so SegWit, kompatibilná so staršími peňaženkami.</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Generovať adresu Bech32</translation>
     </message>
     <message>

@@ -209,7 +209,7 @@
              <string>Bech32 addresses (BIP-173) are cheaper to spend from and offer better protection against typos. When unchecked a P2SH wrapped SegWit address will be created, compatible with older wallets.</string>
             </property>
             <property name="text">
-             <string>Generate Bech32 address</string>
+             <string>Create "dgb1" SegWit Prefix Address</string>
             </property>
            </widget>
           </item>

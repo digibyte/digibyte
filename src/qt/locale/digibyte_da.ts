@@ -1904,7 +1904,7 @@
         <translation>Bech32-adresser (BIP-173) er billigere at betale fra og tilbyder bedre beskyttelse imod tastefejl. Hvis denne ikke er markeret, vil en SegWit-adresse pakket ind i P2SH, som er kompatibel med ældre tegnebøger, blive oprettet.</translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Generér Bech32-adresse</translation>
     </message>
     <message>

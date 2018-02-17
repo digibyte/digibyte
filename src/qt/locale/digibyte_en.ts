@@ -2463,7 +2463,7 @@
     </message>
     <message>
         <location line="+3"/>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

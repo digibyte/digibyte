@@ -1905,7 +1905,7 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>Indirizzi Bech32 (BIP-173) sono piu' economici per spendere e offrono maggior protezione contro errori di battitura. Quando non selezionati, un indirizzo di tipo P2SH wrapped SegWit sara' creato, compatibile con i portafogli precedenti. </translation>
     </message>
     <message>
-        <source>Generate Bech32 address</source>
+        <source>Create "dgb1" SegWit Prefix Address</source>
         <translation>Genera un indirizzo Bech32</translation>
     </message>
     <message>
