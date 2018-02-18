@@ -22,8 +22,11 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
         /*.name =*/ "nversionbips",
         /*.gbt_force =*/ true,
     }
+    //{
+       // /*.name =*/ "equihash",
+        ///*.gbt_force =*/ true,
+    //}
 };
-
 ThresholdState AbstractThresholdConditionChecker::GetStateFor(const CBlockIndex* pindexPrev, const Consensus::Params& params, ThresholdConditionCache& cache) const
 {
     int nPeriod = Period(params);
