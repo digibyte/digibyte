@@ -1249,9 +1249,9 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     CBlockIndex* tip = chainActive.Tip();
     UniValue softforks(UniValue::VARR);
     UniValue bip9_softforks(UniValue::VOBJ);
-    softforks.push_back(SoftForkDesc("csv", 2, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("segwit", 3, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("nversionbips", 4, tip, consensusParams));
+    softforks.push_back(SoftForkDesc("csv", 12, tip, consensusParams));
+    softforks.push_back(SoftForkDesc("segwit", 13, tip, consensusParams));
+    softforks.push_back(SoftForkDesc("nversionbips", 14, tip, consensusParams));
     //softforks.push_back(SoftForkDesc("equihash", 5, tip, consensusParams));
     for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
         BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
