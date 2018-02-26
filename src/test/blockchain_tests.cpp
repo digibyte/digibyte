@@ -83,12 +83,12 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_very_high_target)
     TestDifficulty(0x12345678, 5913134931067755359633408.0,2);
 }
 
-// Verify that difficulty is 1.0 for an empty chain.
+// Verify that difficulty is 0.000244 for an empty chain.
 BOOST_AUTO_TEST_CASE(get_difficulty_for_null_tip)
 {
     CChain chain;
     double difficulty = GetDifficulty(chain, nullptr,2);
-    RejectDifficultyMismatch(difficulty, 1.0);
+    RejectDifficultyMismatch(difficulty, 0.000244);
 }
 
 /* Verify that if difficulty is based upon the block index
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_null_block_index)
     double difficulty = GetDifficulty(chain, nullptr,2);
     delete chain.Tip();
 
-    double expected_difficulty = 0.004023;
+    double expected_difficulty = 0.000244;
 
     RejectDifficultyMismatch(difficulty, expected_difficulty);
 }

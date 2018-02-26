@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(caddrdb_read)
 
     // Add three addresses to new table.
     CService source;
-    Lookup("252.5.1.1", source, 8333, false);
+    Lookup("252.5.1.1", source, 12024, false);
     addrmanUncorrupted.Add(CAddress(addr1, NODE_NONE), source);
     addrmanUncorrupted.Add(CAddress(addr2, NODE_NONE), source);
     addrmanUncorrupted.Add(CAddress(addr3, NODE_NONE), source);

@@ -1,0 +1,17 @@
+{
+  "files.associations": {
+    "xlocale": "cpp",
+    "xstring": "cpp",
+    "xutility": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "initializer_list": "cpp",
+    "list": "cpp",
+    "queue": "cpp",
+    "regex": "cpp",
+    "type_traits": "cpp",
+    "vector": "cpp",
+    "xhash": "cpp",
+    "xtree": "cpp"
+  }
+}
