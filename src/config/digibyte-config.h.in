@@ -367,6 +367,9 @@
    your system. */
 #undef PTHREAD_CREATE_JOINABLE
 
+/* Define this symbol if the qt platform is cocoa */
+#undef QT_QPA_PLATFORM_COCOA
+
 /* Define this symbol if the minimal qt platform exists */
 #undef QT_QPA_PLATFORM_MINIMAL
 
