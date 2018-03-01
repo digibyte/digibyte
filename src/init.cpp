@@ -1369,7 +1369,7 @@ bool AppInitMain()
     }
 
     // Algo
-    std::string strAlgo = gArgs.GetArg("-algo", "sha256d");
+    std::string strAlgo = gArgs.GetArg("-algo", "scrypt");
     transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
     if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
         miningAlgo = ALGO_SHA256D;
@@ -1386,7 +1386,7 @@ bool AppInitMain()
     //else if (strAlgo == "ethash" || strAlgo == "ethash")
         //miningAlgo = ALGO_ETHASH;
     else
-        miningAlgo = ALGO_SHA256D;
+        miningAlgo = ALGO_SCRYPT;
 
     LogPrintf("Selected Algo: %s\n", strAlgo);
 
