@@ -31,7 +31,7 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 		return npowWorkLimit;
 
 	//if v2.0 changes are in effect for block num, alter retarget values
-	if(fNewDifficultyProtocol) {
+	if(fNewDifficultyProtocol && !params.fPowAllowMinDifficultyBlocks) {
 		LogPrintf("GetNextWorkRequired nActualTimespan Limiting\n");
 		retargetTimespan = params.nTargetTimespanRe;
 		//retargetSpacing = nTargetSpacingRe;
@@ -41,7 +41,7 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 	// Only change once per interval
 	if ((pindexLast->nHeight+1) % retargetInterval != 0)
 	{
-		if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+		if (params.fPowAllowMinDifficultyBlocks)
 		{
 			// Special difficulty rule for testnet:
 			// If the new block's timestamp is more than 2* 10 minutes
@@ -76,7 +76,7 @@ unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const CBlockHe
 	int64_t nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
 
 	// thanks to RealSolid & WDC for this code
-	if(fNewDifficultyProtocol) {
+	if(fNewDifficultyProtocol && !params.fPowAllowMinDifficultyBlocks) {
 		if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
 		if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
 	}
@@ -111,7 +111,7 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const CBlockHe
 	if (pindexLast == nullptr)
 		return npowWorkLimit;
 
-	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+	if (params.fPowAllowMinDifficultyBlocks)
 	{
 		// Special difficulty rule for testnet:
 		// If the new block's timestamp is more than 2* 10 minutes
@@ -179,7 +179,7 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const CBlockHe
 	if (pindexLast == nullptr)
 		return npowWorkLimit;
 
-	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+	if (params.fPowAllowMinDifficultyBlocks)
 	{
 		// Special difficulty rule for testnet:
 		// If the new block's timestamp is more than 2* 10 minutes
@@ -256,7 +256,7 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const CBlockHe
 	if (pindexLast == nullptr)
 		return npowWorkLimit;
 
-	if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+	if (params.fPowAllowMinDifficultyBlocks)
 	{
 		// Special difficulty rule for testnet:
 		// If the new block's timestamp is more than 2* 10 minutes
