@@ -372,6 +372,10 @@ then
 	    ./bin/gsign -p "$signProg" --signer "$SIGNER" --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx-signer.yml
 	fi
 	popd
+        if [[ $commitFiles = true ]]
+        then
+            # Commit Sigs
+            pushd gitian.sigs
             echo ""
             echo "Committing ${VERSION} Signed Sigs"
             echo ""
