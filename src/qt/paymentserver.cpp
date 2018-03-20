@@ -8,9 +8,9 @@
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
 
-#include <base58.h>
 #include <chainparams.h>
 #include <policy/policy.h>
+#include <key_io.h>
 #include <ui_interface.h>
 #include <util.h>
 #include <wallet/wallet.h>
@@ -643,7 +643,7 @@ void PaymentServer::fetchPaymentACK(CWallet* wallet, const SendCoinsRecipient& r
         // use for change. Despite an actual payment and not change, this is a close match:
         // it's the output type we use subject to privacy issues, but not restricted by what
         // other software supports.
-        const OutputType change_type = g_change_type != OUTPUT_TYPE_NONE ? g_change_type : g_address_type;
+        const OutputType change_type = wallet->m_default_change_type != OutputType::NONE ? wallet->m_default_change_type : wallet->m_default_address_type;
         wallet->LearnRelatedScripts(newKey, change_type);
         CTxDestination dest = GetDestinationForKey(newKey, change_type);
         wallet->SetAddressBook(dest, strAccount, "refund");
@@ -770,7 +770,7 @@ bool PaymentServer::verifyExpired(const payments::PaymentDetails& requestDetails
 {
     bool fVerified = (requestDetails.has_expires() && (int64_t)requestDetails.expires() < GetTime());
     if (fVerified) {
-        const QString requestExpires = QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M:%S", (int64_t)requestDetails.expires()));
+        const QString requestExpires = QString::fromStdString(FormatISO8601DateTime((int64_t)requestDetails.expires()));
         qWarning() << QString("PaymentServer::%1: Payment request expired \"%2\".")
             .arg(__func__)
             .arg(requestExpires);

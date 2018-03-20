@@ -34,10 +34,9 @@ Full instructions to install WSL are available on the above link.
 To install WSL on Windows 10 with Fall Creators Update installed (version >= 16215.0) do the following:
 
 1. Enable the Windows Subsystem for Linux feature
-  * From Start, search for "Turn Windows features on or off" (type 'turn')
-  * Select Windows Subsystem for Linux
-  * Click OK
-  * Restart if necessary
+  * Open the Windows Features dialog (`OptionalFeatures.exe`)
+  * Enable 'Windows Subsystem for Linux'
+  * Click 'OK' and restart if necessary
 2. Install Ubuntu
   * Open Microsoft Store and search for Ubuntu or use [this link](https://www.microsoft.com/store/productId/9NBLGGH4MSV6)
   * Click Install
@@ -63,6 +62,8 @@ installing the toolchain will be different.
 
 First, install the general dependencies:
 
+    sudo apt update
+    sudo apt upgrade
     sudo apt install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
 
 A host toolchain (`build-essential`) is necessary because some dependency
@@ -102,11 +103,9 @@ Note that for WSL the DigiByte Core source path MUST be somewhere in the default
 example /usr/src/digibyte, AND not under /mnt/d/. If this is not the case the dependency autoconf scripts will fail.
 This means you cannot use a directory that located directly on the host Windows file system to perform the build.
 
-The next three steps are an example of how to acquire the source in an appropriate way.
+Acquire the source in the usual way:
 
-    cd /usr/src
-    sudo git clone https://github.com/digibyte/digibyte.git
-    sudo chmod -R a+rw digibyte
+    git clone https://github.com/digibyte/digibyte.git
 
 Once the source code is ready the build steps are below.
 
@@ -132,11 +131,9 @@ Note that for WSL the DigiByte Core source path MUST be somewhere in the default
 example /usr/src/digibyte, AND not under /mnt/d/. If this is not the case the dependency autoconf scripts will fail.
 This means you cannot use a directory that located directly on the host Windows file system to perform the build.
 
-The next three steps are an example of how to acquire the source in an appropriate way.
+Acquire the source in the usual way:
 
-    cd /usr/src
-    sudo git clone https://github.com/digibyte/digibyte.git
-    sudo chmod -R a+rw digibyte
+    git clone https://github.com/digibyte/digibyte.git
 
 Then build using:
 

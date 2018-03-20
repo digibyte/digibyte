@@ -7,9 +7,8 @@
 #include <qt/guiutil.h>
 #include <qt/walletmodel.h>
 
-#include <base58.h>
+#include <key_io.h>
 #include <wallet/wallet.h>
-
 
 #include <QFont>
 #include <QDebug>
@@ -393,11 +392,8 @@ QString AddressTableModel::addRow(const QString &type, const QString &label, con
     }
 
     // Add entry
-    {
-        LOCK(wallet->cs_wallet);
-        wallet->SetAddressBook(DecodeDestination(strAddress), strLabel,
-                               (type == Send ? "send" : "receive"));
-    }
+    wallet->SetAddressBook(DecodeDestination(strAddress), strLabel,
+                           (type == Send ? "send" : "receive"));
     return QString::fromStdString(strAddress);
 }
 
@@ -411,10 +407,7 @@ bool AddressTableModel::removeRows(int row, int count, const QModelIndex &parent
         // Also refuse to remove receiving addresses.
         return false;
     }
-    {
-        LOCK(wallet->cs_wallet);
-        wallet->DelAddressBook(DecodeDestination(rec->address.toStdString()));
-    }
+    wallet->DelAddressBook(DecodeDestination(rec->address.toStdString()));
     return true;
 }
 
@@ -447,6 +440,8 @@ int AddressTableModel::lookupAddress(const QString &address) const
         return lst.at(0).row();
     }
 }
+
+OutputType AddressTableModel::GetDefaultAddressType() const { return wallet->m_default_address_type; };
 
 void AddressTableModel::emitDataChanged(int idx)
 {

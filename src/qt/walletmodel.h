@@ -5,6 +5,11 @@
 #ifndef DIGIBYTE_QT_WALLETMODEL_H
 #define DIGIBYTE_QT_WALLETMODEL_H
 
+#include <amount.h>
+#include <key.h>
+#include <serialize.h>
+#include <script/standard.h>
+
 #include <qt/paymentrequestplus.h>
 #include <qt/walletmodeltransaction.h>
 
@@ -15,7 +20,7 @@
 
 #include <QObject>
 
-enum OutputType : int;
+enum class OutputType;
 
 class AddressTableModel;
 class OptionsModel;

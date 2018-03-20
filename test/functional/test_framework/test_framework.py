@@ -24,8 +24,8 @@ from .util import (
     check_json_precision,
     connect_nodes_bi,
     disconnect_nodes,
+    get_datadir_path,
     initialize_datadir,
-    log_filename,
     p2p_port,
     set_node_times,
     sync_blocks,
@@ -63,6 +63,7 @@ class DigiByteTestFramework():
         self.nodes = []
         self.mocktime = 0
         self.supports_cli = False
+        self.bind_to_localhost_only = True
         self.set_test_params()
 
         assert hasattr(self, "num_nodes"), "Test must set self.num_nodes in set_test_params()"
@@ -99,7 +100,9 @@ class DigiByteTestFramework():
 
         PortSeed.n = self.options.port_seed
 
-        os.environ['PATH'] = self.options.srcdir + ":" + self.options.srcdir + "/qt:" + os.environ['PATH']
+        os.environ['PATH'] = self.options.srcdir + os.pathsep + \
+                             self.options.srcdir + os.path.sep + "qt" + os.pathsep + \
+                             os.environ['PATH']
 
         check_json_precision()
 
@@ -148,10 +151,11 @@ class DigiByteTestFramework():
             self.log.info("Note: digibyteds were not stopped and may still be running")
 
         if not self.options.nocleanup and not self.options.noshutdown and success != TestStatus.FAILED:
-            self.log.info("Cleaning up")
-            shutil.rmtree(self.options.tmpdir)
+            self.log.info("Cleaning up {} on exit".format(self.options.tmpdir))
+            cleanup_tree_on_exit = True
         else:
             self.log.warning("Not cleaning up dir %s" % self.options.tmpdir)
+            cleanup_tree_on_exit = False
 
         if success == TestStatus.PASSED:
             self.log.info("Tests successful")
@@ -164,6 +168,8 @@ class DigiByteTestFramework():
             self.log.error("Hint: Call {} '{}' to consolidate all logs".format(os.path.normpath(os.path.dirname(os.path.realpath(__file__)) + "/../combine_logs.py"), self.options.tmpdir))
             exit_code = TEST_EXIT_FAILED
         logging.shutdown()
+        if cleanup_tree_on_exit:
+            shutil.rmtree(self.options.tmpdir)
         sys.exit(exit_code)
 
     # Methods to override in subclass test scripts.
@@ -210,15 +216,19 @@ class DigiByteTestFramework():
 
     def add_nodes(self, num_nodes, extra_args=None, rpchost=None, timewait=None, binary=None):
         """Instantiate TestNode objects"""
-
+        if self.bind_to_localhost_only:
+            extra_confs = [["bind=127.0.0.1"]] * num_nodes
+        else:
+            extra_confs = [[]] * num_nodes
         if extra_args is None:
             extra_args = [[]] * num_nodes
         if binary is None:
             binary = [None] * num_nodes
+        assert_equal(len(extra_confs), num_nodes)
         assert_equal(len(extra_args), num_nodes)
         assert_equal(len(binary), num_nodes)
         for i in range(num_nodes):
-            self.nodes.append(TestNode(i, self.options.tmpdir, extra_args[i], rpchost, timewait=timewait, binary=binary[i], stderr=None, mocktime=self.mocktime, coverage_dir=self.options.coveragedir, use_cli=self.options.usecli))
+            self.nodes.append(TestNode(i, self.options.tmpdir, rpchost=rpchost, timewait=timewait, binary=binary[i], stderr=None, mocktime=self.mocktime, coverage_dir=self.options.coveragedir, extra_conf=extra_confs[i], extra_args=extra_args[i], use_cli=self.options.usecli))
 
     def start_node(self, i, *args, **kwargs):
         """Start a digibyted"""
@@ -348,7 +358,7 @@ class DigiByteTestFramework():
         ll = int(self.options.loglevel) if self.options.loglevel.isdigit() else self.options.loglevel.upper()
         ch.setLevel(ll)
         # Format logs the same as digibyted's debug.log with microprecision (so log files can be concatenated and sorted)
-        formatter = logging.Formatter(fmt='%(asctime)s.%(msecs)03d000 %(name)s (%(levelname)s): %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+        formatter = logging.Formatter(fmt='%(asctime)s.%(msecs)03d000Z %(name)s (%(levelname)s): %(message)s', datefmt='%Y-%m-%dT%H:%M:%S')
         formatter.converter = time.gmtime
         fh.setFormatter(formatter)
         ch.setFormatter(formatter)
@@ -372,7 +382,7 @@ class DigiByteTestFramework():
         assert self.num_nodes <= MAX_NODES
         create_cache = False
         for i in range(MAX_NODES):
-            if not os.path.isdir(os.path.join(self.options.cachedir, 'node' + str(i))):
+            if not os.path.isdir(get_datadir_path(self.options.cachedir, i)):
                 create_cache = True
                 break
 
@@ -381,16 +391,16 @@ class DigiByteTestFramework():
 
             # find and delete old cache directories if any exist
             for i in range(MAX_NODES):
-                if os.path.isdir(os.path.join(self.options.cachedir, "node" + str(i))):
-                    shutil.rmtree(os.path.join(self.options.cachedir, "node" + str(i)))
+                if os.path.isdir(get_datadir_path(self.options.cachedir, i)):
+                    shutil.rmtree(get_datadir_path(self.options.cachedir, i))
 
             # Create cache directories, run digibyteds:
             for i in range(MAX_NODES):
                 datadir = initialize_datadir(self.options.cachedir, i)
-                args = [os.getenv("DIGIBYTED", "digibyted"), "-server", "-keypool=1", "-datadir=" + datadir, "-discover=0"]
+                args = [os.getenv("DIGIBYTED", "digibyted"), "-datadir=" + datadir]
                 if i > 0:
                     args.append("-connect=127.0.0.1:" + str(p2p_port(0)))
-                self.nodes.append(TestNode(i, self.options.cachedir, extra_args=[], rpchost=None, timewait=None, binary=None, stderr=None, mocktime=self.mocktime, coverage_dir=None))
+                self.nodes.append(TestNode(i, self.options.cachedir, extra_conf=["bind=127.0.0.1"], extra_args=[],rpchost=None, timewait=None, binary=None, stderr=None, mocktime=self.mocktime, coverage_dir=None))
                 self.nodes[i].args = args
                 self.start_node(i)
 
@@ -420,15 +430,18 @@ class DigiByteTestFramework():
             self.stop_nodes()
             self.nodes = []
             self.disable_mocktime()
+
+            def cache_path(n, *paths):
+                return os.path.join(get_datadir_path(self.options.cachedir, n), "regtest", *paths)
+
             for i in range(MAX_NODES):
-                os.remove(log_filename(self.options.cachedir, i, "debug.log"))
-                os.remove(log_filename(self.options.cachedir, i, "wallets/db.log"))
-                os.remove(log_filename(self.options.cachedir, i, "peers.dat"))
-                os.remove(log_filename(self.options.cachedir, i, "fee_estimates.dat"))
+                for entry in os.listdir(cache_path(i)):
+                    if entry not in ['wallets', 'chainstate', 'blocks']:
+                        os.remove(cache_path(i, entry))
 
         for i in range(self.num_nodes):
-            from_dir = os.path.join(self.options.cachedir, "node" + str(i))
-            to_dir = os.path.join(self.options.tmpdir, "node" + str(i))
+            from_dir = get_datadir_path(self.options.cachedir, i)
+            to_dir = get_datadir_path(self.options.tmpdir, i)
             shutil.copytree(from_dir, to_dir)
             initialize_datadir(self.options.tmpdir, i)  # Overwrite port/rpcport in digibyte.conf
 
