@@ -185,7 +185,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x23f72e760542bf021ec76d04231ad7cf80142069a79ba702028e074b726f86ef"); // Block 4,255,555
+        consensus.defaultAssumeValid = uint256S("0x6495a84f8f83981a435a6cbf9e6dd4bf0f38618c8325213ca6ef6add40c0ddd8"); // Block 6,000,000
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -209,9 +209,10 @@ public:
         vSeeds.emplace_back("seed2.digibyte.io");
         vSeeds.emplace_back("seed3.digibyte.io");
         vSeeds.emplace_back("seed.digibyte.io");
-        vSeeds.emplace_back("seed.digibyteprojects.com");
         vSeeds.emplace_back("digihash.co");
         vSeeds.emplace_back("digiexplorer.info");
+        vSeeds.emplace_back("seed.digibyteprojects.com");
+
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
@@ -251,11 +252,12 @@ public:
             { 1380000, uint256S("0x00000000000001969b1e5836dd8bf6a001d96f4a16d336e09405b62b29feead6")},
             { 1435000, uint256S("0xf78cc9c2791c8a23720e2efcdaf46584046ee5db8f050e21a3a15a13f5c68da0")},
             { 4255555, uint256S("0x23f72e760542bf021ec76d04231ad7cf80142069a79ba702028e074b726f86ef")},
+            { 6000000, uint256S("0x6495a84f8f83981a435a6cbf9e6dd4bf0f38618c8325213ca6ef6add40c0ddd8")},
          }
         };
 
         chainTxData = ChainTxData{
-            // Data as of block 00000000000000000166d612d5595e2b1cd88d71d695fc580af64d8da8658c23 (height 446482).
+            // Data as of block 6495a84f8f83981a435a6cbf9e6dd4bf0f38618c8325213ca6ef6add40c0ddd8 (height 6,000,000).
             1416891634, // * UNIX timestamp of last known number of transactions
             1046018,  // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
