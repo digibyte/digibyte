@@ -276,12 +276,6 @@
 /* Define to 1 if you have the <miniupnpc/upnperrors.h> header file. */
 #undef HAVE_MINIUPNPC_UPNPERRORS_H
 
-/* Define this symbol if you have MSG_DONTWAIT */
-#undef HAVE_MSG_DONTWAIT
-
-/* Define this symbol if you have MSG_NOSIGNAL */
-#undef HAVE_MSG_NOSIGNAL
-
 /* Define if you have POSIX threads libraries and header files. */
 #undef HAVE_PTHREAD
 
@@ -366,6 +360,9 @@
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
 #undef PTHREAD_CREATE_JOINABLE
+
+/* Define this symbol if the qt platform is cocoa */
+#undef QT_QPA_PLATFORM_COCOA
 
 /* Define this symbol if the minimal qt platform exists */
 #undef QT_QPA_PLATFORM_MINIMAL

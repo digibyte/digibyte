@@ -33,6 +33,9 @@ void CConnmanTest::AddNode(CNode& node)
 void CConnmanTest::ClearNodes()
 {
     LOCK(g_connman->cs_vNodes);
+    for (CNode* node : g_connman->vNodes) {
+        delete node;
+    }
     g_connman->vNodes.clear();
 }
 
@@ -70,7 +73,7 @@ TestingSetup::TestingSetup(const std::string& chainName) : BasicTestingSetup(cha
 
         RegisterAllCoreRPCCommands(tableRPC);
         ClearDatadirCache();
-        pathTemp = fs::temp_directory_path() / strprintf("test_bitcoin_%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(100000)));
+        pathTemp = fs::temp_directory_path() / strprintf("test_digibyte_%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(100000)));
         fs::create_directories(pathTemp);
         gArgs.ForceSetArg("-datadir", pathTemp.string());
 

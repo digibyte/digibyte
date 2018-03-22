@@ -21,7 +21,7 @@ proc=2
 mem=2000
 lxc=true
 osslTarUrl=http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
-osslPatchUrl=https://digibytecore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
+osslPatchUrl=https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
 scriptName=$(basename -- "$0")
 signProg="gpg --detach-sign"
 commitFiles=true
@@ -47,7 +47,7 @@ Options:
 -j		Number of processes to use. Default 2
 -m		Memory to allocate in MiB. Default 2000
 --kvm           Use KVM instead of LXC
---setup         Set up the Gitian building environment. Uses KVM. If you want to use lxc, use the --lxc option. Only works on Debian-based systems (Ubuntu, Debian)
+--setup         Set up the Gitian building environment. Uses LXC. If you want to use KVM, use the --kvm option. Only works on Debian-based systems (Ubuntu, Debian)
 --detach-sign   Create the assert file for detached signing. Will not commit anything.
 --no-commit     Do not commit anything to git
 -h|--help	Print this help message
@@ -77,7 +77,7 @@ while :; do
         -S|--signer)
 	    if [ -n "$2" ]
 	    then
-		SIGNER=$2
+		SIGNER="$2"
 		shift
 	    else
 		echo 'Error: "--signer" requires a non-empty argument.'
@@ -190,7 +190,7 @@ fi
 # Get signer
 if [[ -n "$1" ]]
 then
-    SIGNER=$1
+    SIGNER="$1"
     shift
 fi
 
@@ -203,7 +203,7 @@ then
 fi
 
 # Check that a signer is specified
-if [[ $SIGNER == "" ]]
+if [[ "$SIGNER" == "" ]]
 then
     echo "$scriptName: Missing signer."
     echo "Try $scriptName --help for more information"
@@ -229,8 +229,8 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/digibyte-core/gitian.sigs.git
-    git clone https://github.com/digibyte-core/digibyte-detached-sigs.git
+    git clone https://github.com/digibyte/gitian.sigs.git
+    git clone https://github.com/digibyte/digibyte-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
     if [[ -n "$USE_LXC" ]]
@@ -272,7 +272,7 @@ then
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p "$signProg" --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-linux.yml
 	    mv build/out/digibyte-*.tar.gz build/out/src/digibyte-*.tar.gz ../digibyte-binaries/${VERSION}
 	fi
 	# Windows
@@ -282,7 +282,7 @@ then
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p "$signProg" --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win.yml
 	    mv build/out/digibyte-*-win-unsigned.tar.gz inputs/digibyte-win-unsigned.tar.gz
 	    mv build/out/digibyte-*.zip build/out/digibyte-*.exe ../digibyte-binaries/${VERSION}
 	fi
@@ -293,7 +293,7 @@ then
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit digibyte=${COMMIT} --url digibyte=${url} ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p "$signProg" --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx.yml
 	    mv build/out/digibyte-*-osx-unsigned.tar.gz inputs/digibyte-osx-unsigned.tar.gz
 	    mv build/out/digibyte-*.tar.gz build/out/digibyte-*.dmg ../digibyte-binaries/${VERSION}
 	fi
@@ -306,9 +306,9 @@ then
             echo "Committing ${VERSION} Unsigned Sigs"
             echo ""
             pushd gitian.sigs
-            git add ${VERSION}-linux/${SIGNER}
-            git add ${VERSION}-win-unsigned/${SIGNER}
-            git add ${VERSION}-osx-unsigned/${SIGNER}
+            git add ${VERSION}-linux/"${SIGNER}"
+            git add ${VERSION}-win-unsigned/"${SIGNER}"
+            git add ${VERSION}-osx-unsigned/"${SIGNER}"
             git commit -a -m "Add ${VERSION} unsigned sigs for ${SIGNER}"
             popd
         fi
@@ -358,7 +358,7 @@ then
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -i --commit signature=${COMMIT} ../digibyte/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p "$signProg" --signer "$SIGNER" --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win-signer.yml
 	    mv build/out/digibyte-*win64-setup.exe ../digibyte-binaries/${VERSION}
 	    mv build/out/digibyte-*win32-setup.exe ../digibyte-binaries/${VERSION}
 	fi
@@ -369,11 +369,9 @@ then
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -i --commit signature=${COMMIT} ../digibyte/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    mv build/out/digibyte-osx-signed.dmg ../digibyte-binaries/${VERSION}/digibyte-${VERSION}-osx.dmg
+	    ./bin/gsign -p "$signProg" --signer "$SIGNER" --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-osx-signer.yml
 	fi
 	popd
-
         if [[ $commitFiles = true ]]
         then
             # Commit Sigs
@@ -381,8 +379,8 @@ then
             echo ""
             echo "Committing ${VERSION} Signed Sigs"
             echo ""
-            git add ${VERSION}-win-signed/${SIGNER}
-            git add ${VERSION}-osx-signed/${SIGNER}
+            git add ${VERSION}-win-signed/"${SIGNER}"
+            git add ${VERSION}-osx-signed/"${SIGNER}"
             git commit -a -m "Add ${VERSION} signed binary sigs for ${SIGNER}"
             popd
         fi

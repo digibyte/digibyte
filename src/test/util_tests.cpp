@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <vector>
 #ifndef WIN32
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #endif
@@ -81,6 +82,20 @@ BOOST_AUTO_TEST_CASE(util_HexStr)
         "04 67 8a fd b0");
 
     BOOST_CHECK_EQUAL(
+        HexStr(ParseHex_expected + sizeof(ParseHex_expected),
+               ParseHex_expected + sizeof(ParseHex_expected)),
+        "");
+
+    BOOST_CHECK_EQUAL(
+        HexStr(ParseHex_expected + sizeof(ParseHex_expected),
+               ParseHex_expected + sizeof(ParseHex_expected), true),
+        "");
+
+    BOOST_CHECK_EQUAL(
+        HexStr(ParseHex_expected, ParseHex_expected),
+        "");
+
+    BOOST_CHECK_EQUAL(
         HexStr(ParseHex_expected, ParseHex_expected, true),
         "");
 
@@ -89,6 +104,58 @@ BOOST_AUTO_TEST_CASE(util_HexStr)
     BOOST_CHECK_EQUAL(
         HexStr(ParseHex_vec, true),
         "04 67 8a fd b0");
+
+    BOOST_CHECK_EQUAL(
+        HexStr(ParseHex_vec.rbegin(), ParseHex_vec.rend()),
+        "b0fd8a6704"
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(ParseHex_vec.rbegin(), ParseHex_vec.rend(), true),
+        "b0 fd 8a 67 04"
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(std::reverse_iterator<const uint8_t *>(ParseHex_expected),
+               std::reverse_iterator<const uint8_t *>(ParseHex_expected)),
+        ""
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(std::reverse_iterator<const uint8_t *>(ParseHex_expected),
+               std::reverse_iterator<const uint8_t *>(ParseHex_expected), true),
+        ""
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(std::reverse_iterator<const uint8_t *>(ParseHex_expected + 1),
+               std::reverse_iterator<const uint8_t *>(ParseHex_expected)),
+        "04"
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(std::reverse_iterator<const uint8_t *>(ParseHex_expected + 1),
+               std::reverse_iterator<const uint8_t *>(ParseHex_expected), true),
+        "04"
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(std::reverse_iterator<const uint8_t *>(ParseHex_expected + 5),
+               std::reverse_iterator<const uint8_t *>(ParseHex_expected)),
+        "b0fd8a6704"
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(std::reverse_iterator<const uint8_t *>(ParseHex_expected + 5),
+               std::reverse_iterator<const uint8_t *>(ParseHex_expected), true),
+        "b0 fd 8a 67 04"
+    );
+
+    BOOST_CHECK_EQUAL(
+        HexStr(std::reverse_iterator<const uint8_t *>(ParseHex_expected + 65),
+               std::reverse_iterator<const uint8_t *>(ParseHex_expected)),
+        "5f1df16b2b704c8a578d0bbaf74d385cde12c11ee50455f3c438ef4c3fbcf649b6de611feae06279a60939e028a8d65c10b73071a6f16719274855feb0fd8a6704"
+    );
 }
 
 
@@ -97,8 +164,25 @@ BOOST_AUTO_TEST_CASE(util_DateTimeStrFormat)
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M:%S", 0), "1970-01-01 00:00:00");
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M:%S", 0x7FFFFFFF), "2038-01-19 03:14:07");
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M:%S", 1317425777), "2011-09-30 23:36:17");
+    BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%dT%H:%M:%SZ", 1317425777), "2011-09-30T23:36:17Z");
+    BOOST_CHECK_EQUAL(DateTimeStrFormat("%H:%M:%SZ", 1317425777), "23:36:17Z");
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%Y-%m-%d %H:%M", 1317425777), "2011-09-30 23:36");
     BOOST_CHECK_EQUAL(DateTimeStrFormat("%a, %d %b %Y %H:%M:%S +0000", 1317425777), "Fri, 30 Sep 2011 23:36:17 +0000");
+}
+
+BOOST_AUTO_TEST_CASE(util_FormatISO8601DateTime)
+{
+    BOOST_CHECK_EQUAL(FormatISO8601DateTime(1317425777), "2011-09-30T23:36:17Z");
+}
+
+BOOST_AUTO_TEST_CASE(util_FormatISO8601Date)
+{
+    BOOST_CHECK_EQUAL(FormatISO8601Date(1317425777), "2011-09-30");
+}
+
+BOOST_AUTO_TEST_CASE(util_FormatISO8601Time)
+{
+    BOOST_CHECK_EQUAL(FormatISO8601Time(1317425777), "23:36:17Z");
 }
 
 class TestArgsManager : public ArgsManager
@@ -687,7 +771,7 @@ BOOST_AUTO_TEST_CASE(test_LockDirectory)
     thr.join();
     BOOST_CHECK_EQUAL(threadresult, true);
 #ifndef WIN32
-    // Try to aquire lock in child process while we're holding it, this should fail.
+    // Try to acquire lock in child process while we're holding it, this should fail.
     char ch;
     BOOST_CHECK_EQUAL(write(fd[1], &LockCommand, 1), 1);
     BOOST_CHECK_EQUAL(read(fd[1], &ch, 1), 1);
@@ -698,7 +782,7 @@ BOOST_AUTO_TEST_CASE(test_LockDirectory)
     // Probing lock from our side now should succeed, but not hold on to the lock.
     BOOST_CHECK_EQUAL(LockDirectory(dirname, lockname, true), true);
 
-    // Try to acquire the lock in the child process, this should be succesful.
+    // Try to acquire the lock in the child process, this should be successful.
     BOOST_CHECK_EQUAL(write(fd[1], &LockCommand, 1), 1);
     BOOST_CHECK_EQUAL(read(fd[1], &ch, 1), 1);
     BOOST_CHECK_EQUAL((bool)ch, true);

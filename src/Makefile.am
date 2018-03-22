@@ -4,8 +4,8 @@
 
 DIST_SUBDIRS = secp256k1 univalue
 
-AM_LDFLAGS = $(PTHREAD_CFLAGS) $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS)
-AM_CXXFLAGS = $(HARDENED_CXXFLAGS) $(ERROR_CXXFLAGS)
+AM_LDFLAGS = $(PTHREAD_CFLAGS) $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS) $(GPROF_LDFLAGS)
+AM_CXXFLAGS = $(HARDENED_CXXFLAGS) $(ERROR_CXXFLAGS) $(GPROF_CXXFLAGS)
 AM_CPPFLAGS = $(HARDENED_CPPFLAGS)
 EXTRA_LIBRARIES =
 
@@ -105,6 +105,7 @@ DIGIBYTE_CORE_H = \
   indirectmap.h \
   init.h \
   key.h \
+  key_io.h \
   keystore.h \
   dbwrapper.h \
   limitedmap.h \
@@ -132,13 +133,14 @@ DIGIBYTE_CORE_H = \
   rpc/protocol.h \
   rpc/safemode.h \
   rpc/server.h \
+  rpc/rawtransaction.h \
   rpc/register.h \
   rpc/util.h \
   scheduler.h \
+  script/ismine.h \
   script/sigcache.h \
   script/sign.h \
   script/standard.h \
-  script/ismine.h \
   streams.h \
   support/allocators/secure.h \
   support/allocators/zeroafterfree.h \
@@ -170,6 +172,7 @@ DIGIBYTE_CORE_H = \
   wallet/wallet.h \
   wallet/walletdb.h \
   wallet/walletutil.h \
+  wallet/coinselection.h \
   warnings.h \
   zmq/zmqabstractnotifier.h \
   zmq/zmqconfig.h\
@@ -216,7 +219,6 @@ libdigibyte_server_a_SOURCES = \
   rpc/safemode.cpp \
   rpc/server.cpp \
   script/sigcache.cpp \
-  script/ismine.cpp \
   timedata.cpp \
   torcontrol.cpp \
   txdb.cpp \
@@ -252,6 +254,7 @@ libdigibyte_wallet_a_SOURCES = \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
   wallet/walletutil.cpp \
+  wallet/coinselection.cpp \
   $(DIGIBYTE_CORE_H)
 
 # crypto primitives library
@@ -358,12 +361,14 @@ libdigibyte_common_a_SOURCES = \
   core_read.cpp \
   core_write.cpp \
   key.cpp \
+  key_io.cpp \
   keystore.cpp \
   netaddress.cpp \
   netbase.cpp \
   policy/feerate.cpp \
   protocol.cpp \
   scheduler.cpp \
+  script/ismine.cpp \
   script/sign.cpp \
   script/standard.cpp \
   warnings.cpp \
@@ -420,10 +425,10 @@ endif
 
 digibyted_LDADD = \
   $(LIBDIGIBYTE_SERVER) \
+  $(LIBDIGIBYTE_WALLET) \
   $(LIBDIGIBYTE_COMMON) \
   $(LIBUNIVALUE) \
   $(LIBDIGIBYTE_UTIL) \
-  $(LIBDIGIBYTE_WALLET) \
   $(LIBDIGIBYTE_ZMQ) \
   $(LIBDIGIBYTE_CONSENSUS) \
   $(LIBDIGIBYTE_CRYPTO) \

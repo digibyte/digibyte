@@ -41,6 +41,14 @@
         <source>&amp;Delete</source>
         <translation>&amp;Delete</translation>
     </message>
+    <message>
+        <source>Choose the address to send coins to</source>
+        <translation>Choose the address to send coins to</translation>
+    </message>
+    <message>
+        <source>Choose the address to receive coins with</source>
+        <translation>Choose the address to receive coins with</translation>
+    </message>
     </context>
 <context>
     <name>AddressTableModel</name>

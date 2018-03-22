@@ -5,10 +5,10 @@
 
 #include <wallet/walletdb.h>
 
-#include <base58.h>
 #include <consensus/tx_verify.h>
 #include <consensus/validation.h>
 #include <fs.h>
+#include <key_io.h>
 #include <protocol.h>
 #include <serialize.h>
 #include <sync.h>
@@ -267,7 +267,7 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
         {
             uint256 hash;
             ssKey >> hash;
-            CWalletTx wtx;
+            CWalletTx wtx(nullptr /* pwallet */, MakeTransactionRef());
             ssValue >> wtx;
             CValidationState state;
             if (!(CheckTransaction(*wtx.tx, state) && (wtx.GetHash() == hash) && state.IsValid()))
@@ -605,7 +605,7 @@ DBErrors CWalletDB::LoadWallet(CWallet* pwallet)
         pwallet->UpdateTimeFirstKey(1);
 
     for (uint256 hash : wss.vWalletUpgrade)
-        WriteTx(pwallet->mapWallet[hash]);
+        WriteTx(pwallet->mapWallet.at(hash));
 
     // Rewrite encrypted wallets of versions 0.4.0 and 0.5.0rc:
     if (wss.fIsEncrypted && (wss.nFileVersion == 40000 || wss.nFileVersion == 50000))
@@ -666,7 +666,7 @@ DBErrors CWalletDB::FindWalletTx(std::vector<uint256>& vTxHash, std::vector<CWal
                 uint256 hash;
                 ssKey >> hash;
 
-                CWalletTx wtx;
+                CWalletTx wtx(nullptr /* pwallet */, MakeTransactionRef());
                 ssValue >> wtx;
 
                 vTxHash.push_back(hash);
@@ -773,16 +773,16 @@ void MaybeCompactWalletDB()
 //
 // Try to (very carefully!) recover wallet file if there is a problem.
 //
-bool CWalletDB::Recover(const std::string& filename, void *callbackDataIn, bool (*recoverKVcallback)(void* callbackData, CDataStream ssKey, CDataStream ssValue), std::string& out_backup_filename)
+bool CWalletDB::Recover(const fs::path& wallet_path, void *callbackDataIn, bool (*recoverKVcallback)(void* callbackData, CDataStream ssKey, CDataStream ssValue), std::string& out_backup_filename)
 {
-    return CDB::Recover(filename, callbackDataIn, recoverKVcallback, out_backup_filename);
+    return CDB::Recover(wallet_path, callbackDataIn, recoverKVcallback, out_backup_filename);
 }
 
-bool CWalletDB::Recover(const std::string& filename, std::string& out_backup_filename)
+bool CWalletDB::Recover(const fs::path& wallet_path, std::string& out_backup_filename)
 {
     // recover without a key filter callback
     // results in recovering all record types
-    return CWalletDB::Recover(filename, nullptr, nullptr, out_backup_filename);
+    return CWalletDB::Recover(wallet_path, nullptr, nullptr, out_backup_filename);
 }
 
 bool CWalletDB::RecoverKeysOnlyFilter(void *callbackData, CDataStream ssKey, CDataStream ssValue)
@@ -808,14 +808,14 @@ bool CWalletDB::RecoverKeysOnlyFilter(void *callbackData, CDataStream ssKey, CDa
     return true;
 }
 
-bool CWalletDB::VerifyEnvironment(const std::string& walletFile, const fs::path& walletDir, std::string& errorStr)
+bool CWalletDB::VerifyEnvironment(const fs::path& wallet_path, std::string& errorStr)
 {
-    return CDB::VerifyEnvironment(walletFile, walletDir, errorStr);
+    return CDB::VerifyEnvironment(wallet_path, errorStr);
 }
 
-bool CWalletDB::VerifyDatabaseFile(const std::string& walletFile, const fs::path& walletDir, std::string& warningStr, std::string& errorStr)
+bool CWalletDB::VerifyDatabaseFile(const fs::path& wallet_path, std::string& warningStr, std::string& errorStr)
 {
-    return CDB::VerifyDatabaseFile(walletFile, walletDir, warningStr, errorStr, CWalletDB::Recover);
+    return CDB::VerifyDatabaseFile(wallet_path, warningStr, errorStr, CWalletDB::Recover);
 }
 
 bool CWalletDB::WriteDestData(const std::string &address, const std::string &key, const std::string &value)

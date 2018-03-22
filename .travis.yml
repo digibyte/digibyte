@@ -3,12 +3,13 @@ dist: trusty
 os: linux
 language: minimal
 cache:
+  ccache: true
   directories:
   - depends/built
   - depends/sdk-sources
   - $HOME/.ccache
 git:
-  depth: false  # full clone for git subtree check, this works around issue #12388
+  depth: 1
 env:
   global:
     - MAKEJOBS=-j3
@@ -46,6 +47,7 @@ install:
     - if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get install --no-install-recommends --no-upgrade -qq $PACKAGES; fi
     - if [ "$CHECK_DOC" = 1 -a "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then travis_retry pip3 install flake8 --user; fi
 before_script:
+    - if [ "$CHECK_DOC" = 1 ]; then git fetch --unshallow; fi
     - if [ "$CHECK_DOC" = 1 -a "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then contrib/devtools/commit-script-check.sh $TRAVIS_COMMIT_RANGE; fi
     - if [ "$CHECK_DOC" = 1 ]; then contrib/devtools/git-subtree-check.sh src/crypto/ctaes; fi
     - if [ "$CHECK_DOC" = 1 ]; then contrib/devtools/git-subtree-check.sh src/secp256k1; fi
@@ -68,7 +70,7 @@ script:
     - if [ -n "$USE_SHELL" ]; then export CONFIG_SHELL="$USE_SHELL"; fi
     - OUTDIR=$BASE_OUTDIR/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST
     - DIGIBYTE_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST --bindir=$OUTDIR/bin --libdir=$OUTDIR/lib"
-    - depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE
+    - if [ -z "$NO_DEPENDS" ]; then ccache --max-size=$CCACHE_SIZE; fi
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
     - mkdir build && cd build
     - ../configure --cache-file=config.cache $DIGIBYTE_CONFIG_ALL $DIGIBYTE_CONFIG || ( cat config.log && false)
