@@ -364,10 +364,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1489997089; // March 24th, 2017 149
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000001f057509eba81aed91");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x308ea0711d5763be2995670dd9ca9872753561285a84da1d58be58acaa822252"); //1079274
+        consensus.defaultAssumeValid = uint256S("0x00"); //1079274
 
         pchMessageStart[0] = 0xfd;
         pchMessageStart[1] = 0xc8;
@@ -406,6 +406,7 @@ public:
 
         checkpointData = {
             {
+                {     0, uint256S("0x308ea0711d5763be2995670dd9ca9872753561285a84da1d58be58acaa822252")},
             }
         };
 
