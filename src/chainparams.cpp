@@ -384,6 +384,9 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
+        vSeeds.emplace_back("seed1.digibyte.io");
+        vSeeds.emplace_back("seed2.digibyte.io");
+        vSeeds.emplace_back("seed3.digibyte.io");
         vSeeds.emplace_back("testnet-seed.digibyteprojects.com");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,126);
