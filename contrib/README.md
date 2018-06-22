@@ -40,6 +40,9 @@ RPM spec file for building digibyte-core on RPM based distributions.
 ### [Gitian-build](/contrib/gitian-build.sh) ###
 Script for running full Gitian builds.
 
+### [init](/contrib/init) ###
+Sample configuration files for SystemD, Upstart, OpenRC, CentOS, and OS X.
+
 Test and Verify Tools 
 ---------------------
 
