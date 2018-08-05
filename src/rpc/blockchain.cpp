@@ -1264,7 +1264,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.pushKV("blocks",                (int)chainActive.Height());
     obj.pushKV("headers",               pindexBestHeader ? pindexBestHeader->nHeight : -1);
     obj.pushKV("bestblockhash",         chainActive.Tip()->GetBlockHash().GetHex());
-    obj.push_back(Pair("difficulty",    (double)GetDifficulty(NULL, miningAlgo)));
     obj.pushKV("mediantime",            (int64_t)chainActive.Tip()->GetMedianTimePast());
     obj.pushKV("verificationprogress",  GuessVerificationProgress(Params().TxData(), chainActive.Tip()));
     obj.pushKV("initialblockdownload",  IsInitialBlockDownload());
@@ -1289,8 +1288,14 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     }
     const Consensus::Params& consensusParams = Params().GetConsensus();
     CBlockIndex* tip = chainActive.Tip();
+    UniValue difficulties(UniValue::VOBJ);
     UniValue softforks(UniValue::VARR);
     UniValue bip9_softforks(UniValue::VOBJ);
+    difficulties.push_back(Pair("sha256d", (double)GetDifficulty(NULL, ALGO_SHA256D)));
+    difficulties.push_back(Pair("scrypt", (double)GetDifficulty(NULL, ALGO_SCRYPT)));
+    difficulties.push_back(Pair("groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
+    difficulties.push_back(Pair("skein", (double)GetDifficulty(NULL, ALGO_SKEIN)));
+    difficulties.push_back(Pair("qubit", (double)GetDifficulty(NULL, ALGO_QUBIT)));
     softforks.push_back(SoftForkDesc("csv", 12, tip, consensusParams));
     softforks.push_back(SoftForkDesc("segwit", 13, tip, consensusParams));
     softforks.push_back(SoftForkDesc("nversionbips", 14, tip, consensusParams));
@@ -1298,6 +1303,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
         BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
     }
+    obj.pushKV("difficulties",             difficulties);
     obj.pushKV("softforks",             softforks);
     obj.pushKV("bip9_softforks", bip9_softforks);
 
