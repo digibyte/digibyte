@@ -4,9 +4,10 @@
 
 DIST_SUBDIRS = secp256k1 univalue
 
-AM_LDFLAGS = $(PTHREAD_CFLAGS) $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS) $(GPROF_LDFLAGS)
-AM_CXXFLAGS = $(HARDENED_CXXFLAGS) $(ERROR_CXXFLAGS) $(GPROF_CXXFLAGS)
-AM_CPPFLAGS = $(HARDENED_CPPFLAGS)
+AM_LDFLAGS = $(PTHREAD_CFLAGS) $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS) $(GPROF_LDFLAGS) $(SANITIZER_LDFLAGS)
+AM_CXXFLAGS = $(DEBUG_CXXFLAGS) $(HARDENED_CXXFLAGS) $(WARN_CXXFLAGS) $(NOWARN_CXXFLAGS) $(ERROR_CXXFLAGS) $(GPROF_CXXFLAGS) $(SANITIZER_CXXFLAGS)
+AM_CPPFLAGS = $(DEBUG_CPPFLAGS) $(HARDENED_CPPFLAGS)
+AM_LIBTOOLFLAGS = --preserve-dup-deps
 EXTRA_LIBRARIES =
 
 if EMBEDDED_UNIVALUE
@@ -28,7 +29,7 @@ LIBDIGIBYTE_COMMON=libdigibyte_common.a
 LIBDIGIBYTE_CONSENSUS=libdigibyte_consensus.a
 LIBDIGIBYTE_CLI=libdigibyte_cli.a
 LIBDIGIBYTE_UTIL=libdigibyte_util.a
-LIBDIGIBYTE_CRYPTO=crypto/libdigibyte_crypto.a
+LIBDIGIBYTE_CRYPTO_BASE=crypto/libdigibyte_crypto_base.a
 LIBDIGIBYTEQT=qt/libdigibyteqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 
@@ -42,7 +43,21 @@ if ENABLE_WALLET
 LIBDIGIBYTE_WALLET=libdigibyte_wallet.a
 endif
 
-$(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
+LIBDIGIBYTE_CRYPTO= $(LIBDIGIBYTE_CRYPTO_BASE)
+if ENABLE_SSE41
+LIBDIGIBYTE_CRYPTO_SSE41 = crypto/libdigibyte_crypto_sse41.a
+LIBDIGIBYTE_CRYPTO += $(LIBDIGIBYTE_CRYPTO_SSE41)
+endif
+if ENABLE_AVX2
+LIBDIGIBYTE_CRYPTO_AVX2 = crypto/libdigibyte_crypto_avx2.a
+LIBDIGIBYTE_CRYPTO += $(LIBDIGIBYTE_CRYPTO_AVX2)
+endif
+if ENABLE_SHANI
+LIBDIGIBYTE_CRYPTO_SHANI = crypto/libdigibyte_crypto_shani.a
+LIBDIGIBYTE_CRYPTO += $(LIBDIGIBYTE_CRYPTO_SHANI)
+endif
+
+$(LIBSECP256K1): $(wildcard secp256k1/src/*.h) $(wildcard secp256k1/src/*.c) $(wildcard secp256k1/include/*)
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C $(@D) $(@F)
 
 # Make is not made aware of per-object dependencies to avoid limiting building parallelization
@@ -102,13 +117,19 @@ DIGIBYTE_CORE_H = \
   fs.h \
   httprpc.h \
   httpserver.h \
+  index/base.h \
+  index/txindex.h \
   indirectmap.h \
   init.h \
+  interfaces/handler.h \
+  interfaces/node.h \
+  interfaces/wallet.h \
   key.h \
   key_io.h \
   keystore.h \
   dbwrapper.h \
   limitedmap.h \
+  logging.h \
   memusage.h \
   merkleblock.h \
   miner.h \
@@ -118,6 +139,7 @@ DIGIBYTE_CORE_H = \
   netbase.h \
   netmessagemaker.h \
   noui.h \
+  outputtype.h \
   policy/feerate.h \
   policy/fees.h \
   policy/policy.h \
@@ -131,16 +153,17 @@ DIGIBYTE_CORE_H = \
   rpc/client.h \
   rpc/mining.h \
   rpc/protocol.h \
-  rpc/safemode.h \
   rpc/server.h \
   rpc/rawtransaction.h \
   rpc/register.h \
   rpc/util.h \
   scheduler.h \
+  script/descriptor.h \
   script/ismine.h \
   script/sigcache.h \
   script/sign.h \
   script/standard.h \
+  shutdown.h \
   streams.h \
   support/allocators/secure.h \
   support/allocators/zeroafterfree.h \
@@ -157,17 +180,18 @@ DIGIBYTE_CORE_H = \
   ui_interface.h \
   undo.h \
   util.h \
+  utilmemory.h \
   utilmoneystr.h \
   utiltime.h \
   validation.h \
   validationinterface.h \
   versionbits.h \
+  walletinitinterface.h \
   wallet/coincontrol.h \
   wallet/crypter.h \
   wallet/db.h \
   wallet/feebumper.h \
   wallet/fees.h \
-  wallet/init.h \
   wallet/rpcwallet.h \
   wallet/wallet.h \
   wallet/walletdb.h \
@@ -177,7 +201,8 @@ DIGIBYTE_CORE_H = \
   zmq/zmqabstractnotifier.h \
   zmq/zmqconfig.h\
   zmq/zmqnotificationinterface.h \
-  zmq/zmqpublishnotifier.h
+  zmq/zmqpublishnotifier.h \
+  zmq/zmqrpc.h
 
 
 obj/build.h: FORCE
@@ -199,6 +224,8 @@ libdigibyte_server_a_SOURCES = \
   consensus/tx_verify.cpp \
   httprpc.cpp \
   httpserver.cpp \
+  index/base.cpp \
+  index/txindex.cpp \
   init.cpp \
   dbwrapper.cpp \
   merkleblock.cpp \
@@ -206,6 +233,7 @@ libdigibyte_server_a_SOURCES = \
   net.cpp \
   net_processing.cpp \
   noui.cpp \
+  outputtype.cpp \
   policy/fees.cpp \
   policy/policy.cpp \
   policy/rbf.cpp \
@@ -216,9 +244,10 @@ libdigibyte_server_a_SOURCES = \
   rpc/misc.cpp \
   rpc/net.cpp \
   rpc/rawtransaction.cpp \
-  rpc/safemode.cpp \
   rpc/server.cpp \
+  rpc/util.cpp \
   script/sigcache.cpp \
+  shutdown.cpp \
   timedata.cpp \
   torcontrol.cpp \
   txdb.cpp \
@@ -235,7 +264,8 @@ libdigibyte_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdigibyte_zmq_a_SOURCES = \
   zmq/zmqabstractnotifier.cpp \
   zmq/zmqnotificationinterface.cpp \
-  zmq/zmqpublishnotifier.cpp
+  zmq/zmqpublishnotifier.cpp \
+  zmq/zmqrpc.cpp
 endif
 
 
@@ -244,6 +274,8 @@ endif
 libdigibyte_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES)
 libdigibyte_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdigibyte_wallet_a_SOURCES = \
+  interfaces/wallet.cpp \
+  wallet/coincontrol.cpp \
   wallet/crypter.cpp \
   wallet/db.cpp \
   wallet/feebumper.cpp \
@@ -258,9 +290,9 @@ libdigibyte_wallet_a_SOURCES = \
   $(DIGIBYTE_CORE_H)
 
 # crypto primitives library
-crypto_libdigibyte_crypto_a_CPPFLAGS = $(AM_CPPFLAGS)
-crypto_libdigibyte_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-crypto_libdigibyte_crypto_a_SOURCES = \
+crypto_libdigibyte_crypto_base_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libdigibyte_crypto_base_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libdigibyte_crypto_base_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes_helper.c \
   crypto/aes.h \
@@ -282,8 +314,26 @@ crypto_libdigibyte_crypto_a_SOURCES = \
 
 
 if USE_ASM
-crypto_libdigibyte_crypto_a_SOURCES += crypto/sha256_sse4.cpp
+crypto_libdigibyte_crypto_base_a_SOURCES += crypto/sha256_sse4.cpp
 endif
+
+crypto_libdigibyte_crypto_sse41_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libdigibyte_crypto_sse41_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libdigibyte_crypto_sse41_a_CXXFLAGS += $(SSE41_CXXFLAGS)
+crypto_libdigibyte_crypto_sse41_a_CPPFLAGS += -DENABLE_SSE41
+crypto_libdigibyte_crypto_sse41_a_SOURCES = crypto/sha256_sse41.cpp
+
+crypto_libdigibyte_crypto_avx2_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libdigibyte_crypto_avx2_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libdigibyte_crypto_avx2_a_CXXFLAGS += $(AVX2_CXXFLAGS)
+crypto_libdigibyte_crypto_avx2_a_CPPFLAGS += -DENABLE_AVX2
+crypto_libdigibyte_crypto_avx2_a_SOURCES = crypto/sha256_avx2.cpp
+
+crypto_libdigibyte_crypto_shani_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libdigibyte_crypto_shani_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libdigibyte_crypto_shani_a_CXXFLAGS += $(SHANI_CXXFLAGS)
+crypto_libdigibyte_crypto_shani_a_CPPFLAGS += -DENABLE_SHANI
+crypto_libdigibyte_crypto_shani_a_SOURCES = crypto/sha256_shani.cpp
 
 # consensus: shared between all executables that validate any consensus rules.
 libdigibyte_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES)
@@ -342,6 +392,7 @@ libdigibyte_consensus_a_SOURCES = \
   script/script_error.cpp \
   script/script_error.h \
   serialize.h \
+  span.h \
   tinyformat.h \
   uint256.cpp \
   uint256.h \
@@ -368,6 +419,7 @@ libdigibyte_common_a_SOURCES = \
   policy/feerate.cpp \
   protocol.cpp \
   scheduler.cpp \
+  script/descriptor.cpp \
   script/ismine.cpp \
   script/sign.cpp \
   script/standard.cpp \
@@ -387,9 +439,11 @@ libdigibyte_util_a_SOURCES = \
   compat/glibcxx_sanity.cpp \
   compat/strnlen.cpp \
   fs.cpp \
+  interfaces/handler.cpp \
+  interfaces/node.cpp \
+  logging.cpp \
   random.cpp \
   rpc/protocol.cpp \
-  rpc/util.cpp \
   support/cleanse.cpp \
   sync.cpp \
   threadinterrupt.cpp \
@@ -401,6 +455,7 @@ libdigibyte_util_a_SOURCES = \
 
 if GLIBC_BACK_COMPAT
 libdigibyte_util_a_SOURCES += compat/glibc_compat.cpp
+AM_LDFLAGS += $(COMPAT_LDFLAGS)
 endif
 
 # cli: shared between digibyte-cli and digibyte-qt
@@ -482,7 +537,7 @@ digibyte_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 # digibyteconsensus library #
 if BUILD_DIGIBYTE_LIBS
 include_HEADERS = script/digibyteconsensus.h
-libdigibyteconsensus_la_SOURCES = $(crypto_libdigibyte_crypto_a_SOURCES) $(libdigibyte_consensus_a_SOURCES)
+libdigibyteconsensus_la_SOURCES = $(crypto_libdigibyte_crypto_base_a_SOURCES) $(libdigibyte_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
   libdigibyteconsensus_la_SOURCES += compat/glibc_compat.cpp

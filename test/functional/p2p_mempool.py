@@ -21,7 +21,6 @@ class P2PMempoolTests(DigiByteTestFramework):
     def run_test(self):
         # Add a p2p connection
         self.nodes[0].add_p2p_connection(P2PInterface())
-        network_thread_start()
         self.nodes[0].p2p.wait_for_verack()
 
         #request mempool
@@ -30,6 +29,6 @@ class P2PMempoolTests(DigiByteTestFramework):
 
         #mininode must be disconnected at this point
         assert_equal(len(self.nodes[0].getpeerinfo()), 0)
-    
+
 if __name__ == '__main__':
     P2PMempoolTests().main()

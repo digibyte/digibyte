@@ -17,7 +17,7 @@
 
 
 static CCriticalSection cs_nTimeOffset;
-static int64_t nTimeOffset = 0;
+static int64_t nTimeOffset GUARDED_BY(cs_nTimeOffset) = 0;
 
 /**
  * "Never go to sea with two chronometers; take one or three."
@@ -110,9 +110,9 @@ void AddTimeData(const CNetAddr& ip, int64_t nOffsetSample)
 
         if (LogAcceptCategory(BCLog::NET)) {
             for (int64_t n : vSorted) {
-                LogPrint(BCLog::NET, "%+d  ", n);
+                LogPrint(BCLog::NET, "%+d  ", n); /* Continued */
             }
-            LogPrint(BCLog::NET, "|  ");
+            LogPrint(BCLog::NET, "|  "); /* Continued */
 
             LogPrint(BCLog::NET, "nTimeOffset = %+d  (%+d minutes)\n", nTimeOffset, nTimeOffset/60);
         }

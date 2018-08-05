@@ -2,12 +2,11 @@ UNIX BUILD NOTES
 ====================
 Some notes on how to build DigiByte Core in Unix.
 
-(For BSD specific instructions, see [build-openbsd.md](build-openbsd.md) and/or
-[build-netbsd.md](build-netbsd.md))
+(For BSD specific instructions, see `build-*bsd.md` in this directory.)
 
 Note
 ---------------------
-Always use absolute paths to configure and compile digibyte and the dependencies,
+Always use absolute paths to configure and compile DigiByte Core and the dependencies,
 for example, when specifying the path of the dependency:
 
 	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
@@ -71,19 +70,7 @@ tuned to conserve memory with additional CXXFLAGS:
 
 Build requirements:
 
-    sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3
-
-Options when installing required Boost library files:
-
-1. On at least Ubuntu 14.04+ and Debian 7+ there are generic names for the
-individual boost development packages, so the following can be used to only
-install necessary parts of boost:
-
-        sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
-
-2. If that doesn't work, you can install all boost development packages with:
-
-        sudo apt-get install libboost-all-dev
+    sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
 
 BerkeleyDB is required for the wallet.
 
@@ -112,18 +99,13 @@ ZMQ dependencies (provides ZMQ API 4.x):
 
 #### Dependencies for the GUI
 
-If you want to build DigiByte-Qt, make sure that the required packages for Qt development
-are installed. Either Qt 5 or Qt 4 are necessary to build the GUI.
-If both Qt 4 and Qt 5 are installed, Qt 5 will be used. Pass `--with-gui=qt4` to configure to choose Qt4.
+If you want to build digibyte-qt, make sure that the required packages for Qt development
+are installed. Qt 5 is necessary to build the GUI.
 To build without GUI pass `--without-gui`.
 
-To build with Qt 5 (recommended) you need the following:
+To build with Qt 5 you need the following:
 
     sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
-
-Alternatively, to build with Qt 4 you need the following:
-
-    sudo apt-get install libqt4-dev libprotobuf-dev protobuf-compiler
 
 libqrencode (optional) can be installed with:
 
@@ -145,7 +127,7 @@ Optional:
 
     sudo dnf install miniupnpc-devel
 
-To build with Qt 5 (recommended) you need the following:
+To build with Qt 5 you need the following:
 
     sudo dnf install qt5-qttools-devel qt5-qtbase-devel protobuf-devel
 
@@ -196,7 +178,7 @@ If you need to build Boost yourself:
 
 Security
 --------
-To help make your digibyte installation more secure by making certain attacks impossible to
+To help make your DigiByte Core installation more secure by making certain attacks impossible to
 exploit even if a vulnerability is found, binaries are hardened by default.
 This can be disabled with:
 
@@ -212,7 +194,7 @@ Hardening enables the following features:
     Build position independent code to take advantage of Address Space Layout Randomization
     offered by some kernels. Attackers who can cause execution of code at an arbitrary memory
     location are thwarted if they don't know where anything useful is located.
-    The stack and heap are randomly located by default but this allows the code section to be
+    The stack and heap are randomly located by default, but this allows the code section to be
     randomly located as well.
 
     On an AMD64 processor where a library was not compiled with -fPIC, this will cause an error
@@ -228,8 +210,8 @@ Hardening enables the following features:
     ET_DYN
 
 * Non-executable Stack
-    If the stack is executable then trivial stack based buffer overflow exploits are possible if
-    vulnerable buffers are found. By default, digibyte should be built with a non-executable stack
+    If the stack is executable then trivial stack-based buffer overflow exploits are possible if
+    vulnerable buffers are found. By default, DigiByte Core should be built with a non-executable stack,
     but if one of the libraries it uses asks for an executable stack or someone makes a mistake
     and uses a compiler extension which requires an executable stack, it will silently build an
     executable without the non-executable stack protection.
@@ -237,7 +219,7 @@ Hardening enables the following features:
     To verify that the stack is non-executable after compiling use:
     `scanelf -e ./digibyte`
 
-    the output should contain:
+    The output should contain:
 	STK/REL/PTL
 	RW- R-- RW-
 
@@ -245,7 +227,7 @@ Hardening enables the following features:
 
 Disable-wallet mode
 --------------------
-When the intention is to run only a P2P node without a wallet, digibyte may be compiled in
+When the intention is to run only a P2P node without a wallet, DigiByte Core may be compiled in
 disable-wallet mode with:
 
     ./configure --disable-wallet
@@ -303,33 +285,3 @@ To build executables for ARM:
 
 For further documentation on the depends system see [README.md](../depends/README.md) in the depends directory.
 
-Building on FreeBSD
---------------------
-
-(Updated as of FreeBSD 11.0)
-
-Clang is installed by default as `cc` compiler, this makes it easier to get
-started than on [OpenBSD](build-openbsd.md). Installing dependencies:
-
-    pkg install autoconf automake libtool pkgconf
-    pkg install boost-libs openssl libevent
-    pkg install gmake
-
-You need to use GNU make (`gmake`) instead of `make`.
-(`libressl` instead of `openssl` will also work)
-
-For the wallet (optional):
-
-    ./contrib/install_db4.sh `pwd`
-    setenv BDB_PREFIX $PWD/db4
-
-Then build using:
-
-    ./autogen.sh
-    ./configure --disable-wallet # OR
-    ./configure BDB_CFLAGS="-I${BDB_PREFIX}/include" BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx"
-    gmake
-
-*Note on debugging*: The version of `gdb` installed by default is [ancient and considered harmful](https://wiki.freebsd.org/GdbRetirement).
-It is not suitable for debugging a multi-threaded C++ program, not even for getting backtraces. Please install the package `gdb` and
-use the versioned gdb command e.g. `gdb7111`.

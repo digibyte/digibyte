@@ -81,7 +81,7 @@ static int verify_script(const unsigned char *scriptPubKey, unsigned int scriptP
                                     unsigned int nIn, unsigned int flags, digibyteconsensus_error* err)
 {
     if (!verify_flags(flags)) {
-        return digibyteconsensus_ERR_INVALID_FLAGS;
+        return set_error(err, digibyteconsensus_ERR_INVALID_FLAGS);
     }
     try {
         TxInputStream stream(SER_NETWORK, PROTOCOL_VERSION, txTo, txToLen);

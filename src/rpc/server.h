@@ -45,6 +45,7 @@ public:
     bool fHelp;
     std::string URI;
     std::string authUser;
+    std::string peerAddr;
 
     JSONRPCRequest() : id(NullUniValue), params(NullUniValue), fHelp(false) {}
     void parse(const UniValue& valRequest);
@@ -197,7 +198,7 @@ extern CAmount AmountFromValue(const UniValue& value);
 extern std::string HelpExampleCli(const std::string& methodname, const std::string& args);
 extern std::string HelpExampleRpc(const std::string& methodname, const std::string& args);
 
-bool StartRPC();
+void StartRPC();
 void InterruptRPC();
 void StopRPC();
 std::string JSONRPCExecBatch(const JSONRPCRequest& jreq, const UniValue& vReq);

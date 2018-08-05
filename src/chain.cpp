@@ -3,8 +3,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <bignum.h>
 #include <chain.h>
 #include <chainparams.h>
+#include <pow.h>
 
 /**
  * CChain implementation
@@ -160,7 +162,7 @@ arith_uint256 GetBlockProofBase(const CBlockIndex& block)
 }
 
 // BTC GetBlockProof
-arith_uint256 GetBlockProof(const CBlockIndex& block)
+/*arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
     arith_uint256 bnTarget;
     bool fNegative;
@@ -173,11 +175,11 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
     // as bnTarget+1, it is equal to ((2**256 - bnTarget - 1) / (bnTarget+1)) + 1,
     // or ~bnTarget / (bnTarget+1) + 1.
     return (~bnTarget / (bnTarget + 1)) + 1;
-}
+}*/
 
 
 // DGB 6.14.1 GetBlock Proof
-/** arith_uint256 GetBlockProof(const CBlockIndex& block)
+arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
     CBlockHeader header = block.GetBlockHeader();
     int nHeight = block.nHeight;
@@ -211,7 +213,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
         return UintToArith256(bnRes.getuint256());
     }
 }
-**/
+
 int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params& params)
 {
     arith_uint256 r;

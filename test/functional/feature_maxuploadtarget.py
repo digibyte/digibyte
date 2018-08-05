@@ -6,7 +6,7 @@
 
 * Verify that getdata requests for old blocks (>1week) are dropped
 if uploadtarget has been reached.
-* Verify that getdata requests for recent blocks are respecteved even
+* Verify that getdata requests for recent blocks are respected even
 if uploadtarget has been reached.
 * Verify that the upload counters are reset after 24 hours.
 """
@@ -17,7 +17,7 @@ from test_framework.mininode import *
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 
-class TestNode(P2PInterface):
+class TestP2PConn(P2PInterface):
     def __init__(self):
         super().__init__()
         self.block_receive_map = defaultdict(int)
@@ -30,11 +30,11 @@ class TestNode(P2PInterface):
         self.block_receive_map[message.block.sha256] += 1
 
 class MaxUploadTest(DigiByteTestFramework):
- 
+
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
-        self.extra_args = [["-maxuploadtarget=800", "-blockmaxsize=999000"]]
+        self.extra_args = [["-maxuploadtarget=800"]]
 
         # Cache for utxos, as the listunspent may take a long time later in the test
         self.utxo_cache = []
@@ -55,9 +55,8 @@ class MaxUploadTest(DigiByteTestFramework):
         p2p_conns = []
 
         for _ in range(3):
-            p2p_conns.append(self.nodes[0].add_p2p_connection(TestNode()))
+            p2p_conns.append(self.nodes[0].add_p2p_connection(TestP2PConn()))
 
-        network_thread_start()
         for p2pc in p2p_conns:
             p2pc.wait_for_verack()
 
@@ -100,7 +99,7 @@ class MaxUploadTest(DigiByteTestFramework):
             assert_equal(p2p_conns[0].block_receive_map[big_old_block], i+1)
 
         assert_equal(len(self.nodes[0].getpeerinfo()), 3)
-        # At most a couple more tries should succeed (depending on how long 
+        # At most a couple more tries should succeed (depending on how long
         # the test has been running so far).
         for i in range(3):
             p2p_conns[0].send_message(getdata_request)
@@ -144,12 +143,10 @@ class MaxUploadTest(DigiByteTestFramework):
         #stop and start node 0 with 1MB maxuploadtarget, whitelist 127.0.0.1
         self.log.info("Restarting nodes with -whitelist=127.0.0.1")
         self.stop_node(0)
-        self.start_node(0, ["-whitelist=127.0.0.1", "-maxuploadtarget=1", "-blockmaxsize=999000"])
+        self.start_node(0, ["-whitelist=127.0.0.1", "-maxuploadtarget=1"])
 
         # Reconnect to self.nodes[0]
-        self.nodes[0].add_p2p_connection(TestNode())
-
-        network_thread_start()
+        self.nodes[0].add_p2p_connection(TestP2PConn())
         self.nodes[0].p2p.wait_for_verack()
 
         #retrieve 20 blocks which should be enough to break the 1MB limit

@@ -21,9 +21,10 @@ Utility to generate the pnSeed[] array that is compiled into the client.
 Build Tools and Keys
 ---------------------
 
-### [Debian](/contrib/debian) ###
-Contains files used to package digibyted/digibyte-qt
-for Debian-based Linux systems. If you compile digibyted/digibyte-qt yourself, there are some useful files here.
+### Packaging ###
+The [Debian](/contrib/debian) subfolder contains the copyright file.
+
+All other packaging related files can be found in the [bitcoin-core/packaging](https://github.com/bitcoin-core/packaging) repository.
 
 ### [Gitian-descriptors](/contrib/gitian-descriptors) ###
 Files used during the gitian build process. For more information about gitian, see the [the DigiByte Core documentation repository](https://github.com/digibyte-core/docs).
@@ -34,10 +35,7 @@ PGP keys used for signing DigiByte Core [Gitian release](/doc/release-process.md
 ### [MacDeploy](/contrib/macdeploy) ###
 Scripts and notes for Mac builds. 
 
-### [RPM](/contrib/rpm) ###
-RPM spec file for building digibyte-core on RPM based distributions.
-
-### [Gitian-build](/contrib/gitian-build.sh) ###
+### [Gitian-build](/contrib/gitian-build.py) ###
 Script for running full Gitian builds.
 
 Test and Verify Tools 

@@ -1,14 +1,14 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2018 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <rpc/server.h>
 
 #include <fs.h>
-#include <init.h>
 #include <key_io.h>
 #include <random.h>
+#include <shutdown.h>
 #include <sync.h>
 #include <ui_interface.h>
 #include <util.h>
@@ -23,10 +23,10 @@
 #include <memory> // for unique_ptr
 #include <unordered_map>
 
-static bool fRPCRunning = false;
-static bool fRPCInWarmup = true;
-static std::string rpcWarmupStatus("RPC server started");
 static CCriticalSection cs_rpcWarmup;
+static bool fRPCRunning = false;
+static bool fRPCInWarmup GUARDED_BY(cs_rpcWarmup) = true;
+static std::string rpcWarmupStatus GUARDED_BY(cs_rpcWarmup) = "RPC server started";
 /* Timer-creating functions */
 static RPCTimerInterface* timerInterface = nullptr;
 /* Map of name to timer. */
@@ -239,7 +239,7 @@ UniValue stop(const JSONRPCRequest& jsonRequest)
     return "DigiByte server stopping";
 }
 
-UniValue uptime(const JSONRPCRequest& jsonRequest)
+static UniValue uptime(const JSONRPCRequest& jsonRequest)
 {
     if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
         throw std::runtime_error(
@@ -301,12 +301,11 @@ bool CRPCTable::appendCommand(const std::string& name, const CRPCCommand* pcmd)
     return true;
 }
 
-bool StartRPC()
+void StartRPC()
 {
     LogPrint(BCLog::RPC, "Starting RPC\n");
     fRPCRunning = true;
     g_rpcSignals.Started();
-    return true;
 }
 
 void InterruptRPC()
@@ -367,7 +366,11 @@ void JSONRPCRequest::parse(const UniValue& valRequest)
     if (!valMethod.isStr())
         throw JSONRPCError(RPC_INVALID_REQUEST, "Method must be a string");
     strMethod = valMethod.get_str();
-    LogPrint(BCLog::RPC, "ThreadRPCServer method=%s\n", SanitizeString(strMethod));
+    if (fLogIPs)
+        LogPrint(BCLog::RPC, "ThreadRPCServer method=%s user=%s peeraddr=%s\n", SanitizeString(strMethod),
+            this->authUser, this->peerAddr);
+    else
+        LogPrint(BCLog::RPC, "ThreadRPCServer method=%s user=%s\n", SanitizeString(strMethod), this->authUser);
 
     // Parse params
     UniValue valParams = find_value(request, "params");

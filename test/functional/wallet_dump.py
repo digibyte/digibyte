@@ -36,10 +36,10 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                     addr_keypath = comment.split(" addr=")[1]
                     addr = addr_keypath.split(" ")[0]
                     keypath = None
-                    if keytype == "inactivehdmaster=1":
+                    if keytype == "inactivehdseed=1":
                         # ensure the old master is still available
                         assert(hd_master_addr_old == addr)
-                    elif keytype == "hdmaster=1":
+                    elif keytype == "hdseed=1":
                         # ensure we have generated a new hd master key
                         assert(hd_master_addr_old != addr)
                         hd_master_addr_ret = addr
@@ -80,16 +80,13 @@ class WalletDumpTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.extra_args = [["-keypool=90", "-addresstype=legacy", "-deprecatedrpc=addwitnessaddress"]]
+        self.rpc_timeout = 120
 
     def setup_network(self, split=False):
-        # Use 1 minute timeout because the initial getnewaddress RPC can take
-        # longer than the default 30 seconds due to an expensive
-        # CWallet::TopUpKeyPool call, and the encryptwallet RPC made later in
-        # the test often takes even longer.
-        self.add_nodes(self.num_nodes, extra_args=self.extra_args, timewait=60)
+        self.add_nodes(self.num_nodes, extra_args=self.extra_args)
         self.start_nodes()
 
-    def run_test (self):
+    def run_test(self):
         wallet_unenc_dump = os.path.join(self.nodes[0].datadir, "wallet.unencrypted.dump")
         wallet_enc_dump = os.path.join(self.nodes[0].datadir, "wallet.encrypted.dump")
 
@@ -135,7 +132,7 @@ class WalletDumpTest(DigiByteTestFramework):
         assert_equal(found_addr, test_addr_count)
         assert_equal(found_script_addr, 2)
         assert_equal(found_addr_chg, 90*2 + 50)  # old reserve keys are marked as change now
-        assert_equal(found_addr_rsv, 90*2) 
+        assert_equal(found_addr_rsv, 90*2)
         assert_equal(witness_addr_ret, witness_addr)
 
         # Overwriting should fail

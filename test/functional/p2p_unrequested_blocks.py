@@ -57,12 +57,8 @@ from test_framework.util import *
 import time
 from test_framework.blocktools import create_block, create_coinbase, create_transaction
 
-class AcceptBlockTest(DigiByteTestFramework):
-    def add_options(self, parser):
-        parser.add_option("--testbinary", dest="testbinary",
-                          default=os.getenv("DIGIBYTED", "digibyted"),
-                          help="digibyted binary to test")
 
+class AcceptBlockTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2
@@ -77,15 +73,11 @@ class AcceptBlockTest(DigiByteTestFramework):
         self.setup_nodes()
 
     def run_test(self):
-        # Setup the p2p connections and start up the network thread.
+        # Setup the p2p connections
         # test_node connects to node0 (not whitelisted)
         test_node = self.nodes[0].add_p2p_connection(P2PInterface())
         # min_work_node connects to node1 (whitelisted)
         min_work_node = self.nodes[1].add_p2p_connection(P2PInterface())
-
-        network_thread_start()
-
-        # Test logic begins here
         test_node.wait_for_verack()
         min_work_node.wait_for_verack()
 
@@ -166,7 +158,7 @@ class AcceptBlockTest(DigiByteTestFramework):
         self.log.info("Unrequested more-work block accepted")
 
         # 4c. Now mine 288 more blocks and deliver; all should be processed but
-        # the last (height-too-high) on node (as long as its not missing any headers)
+        # the last (height-too-high) on node (as long as it is not missing any headers)
         tip = block_h3
         all_blocks = []
         for i in range(288):
@@ -208,10 +200,8 @@ class AcceptBlockTest(DigiByteTestFramework):
 
         self.nodes[0].disconnect_p2ps()
         self.nodes[1].disconnect_p2ps()
-        network_thread_join()
 
         test_node = self.nodes[0].add_p2p_connection(P2PInterface())
-        network_thread_start()
         test_node.wait_for_verack()
 
         test_node.send_message(msg_block(block_h1f))
@@ -297,8 +287,6 @@ class AcceptBlockTest(DigiByteTestFramework):
 
             self.nodes[0].disconnect_p2ps()
             test_node = self.nodes[0].add_p2p_connection(P2PInterface())
-
-            network_thread_start()
             test_node.wait_for_verack()
 
         # We should have failed reorg and switched back to 290 (but have block 291)

@@ -270,6 +270,52 @@ RES_ICONS = \
   qt/res/icons/digibyte_testnet.ico \
   qt/res/icons/digibyte.png \
   qt/res/icons/chevron.png \
+  qt/res/icons/clock1.png \
+  qt/res/icons/clock2.png \
+  qt/res/icons/clock3.png \
+  qt/res/icons/clock4.png \
+  qt/res/icons/clock5.png \
+  qt/res/icons/configure.png \
+  qt/res/icons/connect0.png \
+  qt/res/icons/connect1.png \
+  qt/res/icons/connect2.png \
+  qt/res/icons/connect3.png \
+  qt/res/icons/connect4.png \
+  qt/res/icons/debugwindow.png \
+  qt/res/icons/edit.png \
+  qt/res/icons/editcopy.png \
+  qt/res/icons/editpaste.png \
+  qt/res/icons/export.png \
+  qt/res/icons/eye.png \
+  qt/res/icons/eye_minus.png \
+  qt/res/icons/eye_plus.png \
+  qt/res/icons/filesave.png \
+  qt/res/icons/fontbigger.png \
+  qt/res/icons/fontsmaller.png \
+  qt/res/icons/hd_disabled.png \
+  qt/res/icons/hd_enabled.png \
+  qt/res/icons/history.png \
+  qt/res/icons/info.png \
+  qt/res/icons/key.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/network_disabled.png \
+  qt/res/icons/open.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/proxy.png \
+  qt/res/icons/quit.png \
+  qt/res/icons/receive.png \
+  qt/res/icons/remove.png \
+  qt/res/icons/send.png \
+  qt/res/icons/synced.png \
+  qt/res/icons/transaction0.png \
+  qt/res/icons/transaction2.png \
+  qt/res/icons/transaction_abandoned.png \
+  qt/res/icons/transaction_conflicted.png \
+  qt/res/icons/tx_inout.png \
+  qt/res/icons/tx_input.png \
+  qt/res/icons/tx_output.png \
+  qt/res/icons/tx_mined.png \
   qt/res/icons/warning.png \
   qt/res/icons/digibyte_wallet.png \
   qt/res/icons/black/warning.png \
@@ -494,7 +540,7 @@ if ENABLE_WALLET
 DIGIBYTE_QT_CPP += $(DIGIBYTE_QT_WALLET_CPP)
 endif
 
-RES_IMAGES = 
+RES_IMAGES =
 
 RES_CSS = \
   qt/res/css/blue.css \
@@ -545,7 +591,7 @@ if TARGET_WINDOWS
 endif
 qt_digibyte_qt_LDADD = qt/libdigibyteqt.a $(LIBDIGIBYTE_SERVER)
 if ENABLE_WALLET
-qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_WALLET)
+qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_UTIL) $(LIBDIGIBYTE_WALLET)
 endif
 if ENABLE_ZMQ
 qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_ZMQ) $(ZMQ_LIBS)
@@ -554,7 +600,7 @@ qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBDIGIBYTE_U
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_digibyte_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_digibyte_qt_LIBTOOLFLAGS = --tag CXX
+qt_digibyte_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)

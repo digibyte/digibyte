@@ -42,8 +42,7 @@ DIST_CONTRIB = $(top_srcdir)/contrib/digibyte-cli.bash-completion \
 	       $(top_srcdir)/contrib/digibyte-tx.bash-completion \
 	       $(top_srcdir)/contrib/digibyted.bash-completion \
 	       $(top_srcdir)/contrib/init \
-	       $(top_srcdir)/contrib/install_db4.sh \
-	       $(top_srcdir)/contrib/rpm
+	       $(top_srcdir)/contrib/install_db4.sh
 DIST_SHARE = \
   $(top_srcdir)/share/genbuild.sh \
   $(top_srcdir)/share/rpcauth
@@ -95,9 +94,9 @@ $(OSX_APP)/Contents/Resources/digibyte.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_DATA) $< $@
 
-$(OSX_APP)/Contents/MacOS/DigiByte-Qt: $(DIGIBYTE_QT_BIN)
+$(OSX_APP)/Contents/MacOS/DigiByte-Qt: all-recursive
 	$(MKDIR_P) $(@D)
-	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $< $@
+	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $(DIGIBYTE_QT_BIN) $@
 
 $(OSX_APP)/Contents/Resources/Base.lproj/InfoPlist.strings:
 	$(MKDIR_P) $(@D)
@@ -269,7 +268,8 @@ EXTRA_DIST += \
     test/util/data/txcreatescript4.json \
     test/util/data/txcreatesignv1.hex \
     test/util/data/txcreatesignv1.json \
-    test/util/data/txcreatesignv2.hex
+    test/util/data/txcreatesignv2.hex \
+    test/util/rpcauth-test.py
 
 CLEANFILES = $(OSX_DMG) $(DIGIBYTE_WIN_INSTALLER)
 

@@ -8,6 +8,7 @@ from base64 import b64encode
 from binascii import hexlify, unhexlify
 from decimal import Decimal, ROUND_DOWN
 import hashlib
+import inspect
 import json
 import logging
 import os
@@ -204,9 +205,9 @@ def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf'), lock=N
     if attempts == float('inf') and timeout == float('inf'):
         timeout = 60
     attempt = 0
-    timeout += time.time()
+    time_end = time.time() + timeout
 
-    while attempt < attempts and time.time() < timeout:
+    while attempt < attempts and time.time() < time_end:
         if lock:
             with lock:
                 if predicate():
@@ -218,8 +219,12 @@ def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf'), lock=N
         time.sleep(0.05)
 
     # Print the cause of the timeout
-    assert_greater_than(attempts, attempt)
-    assert_greater_than(timeout, time.time())
+    predicate_source = inspect.getsourcelines(predicate)
+    logger.error("wait_until() failed. Predicate: {}".format(predicate_source))
+    if attempt >= attempts:
+        raise AssertionError("Predicate {} not true after {} attempts".format(predicate_source, attempts))
+    elif time.time() >= time_end:
+        raise AssertionError("Predicate {} not true after {} seconds".format(predicate_source, timeout))
     raise RuntimeError('Unreachable')
 
 # RPC/P2P connection constants and functions
@@ -284,24 +289,27 @@ def rpc_url(datadir, i, rpchost=None):
 ################
 
 def initialize_datadir(dirname, n):
-    datadir = os.path.join(dirname, "node" + str(n))
+    datadir = get_datadir_path(dirname, n)
     if not os.path.isdir(datadir):
         os.makedirs(datadir)
     with open(os.path.join(datadir, "digibyte.conf"), 'w', encoding='utf8') as f:
         f.write("regtest=1\n")
+        f.write("[regtest]\n")
         f.write("port=" + str(p2p_port(n)) + "\n")
         f.write("rpcport=" + str(rpc_port(n)) + "\n")
         f.write("server=1\n")
         f.write("keypool=1\n")
         f.write("discover=0\n")
         f.write("listenonion=0\n")
+        f.write("printtoconsole=0\n")
+        os.makedirs(os.path.join(datadir, 'stderr'), exist_ok=True)
+        os.makedirs(os.path.join(datadir, 'stdout'), exist_ok=True)
     return datadir
 
 def get_datadir_path(dirname, n):
     return os.path.join(dirname, "node" + str(n))
 
-def append_config(dirname, n, options):
-    datadir = get_datadir_path(dirname, n)
+def append_config(datadir, options):
     with open(os.path.join(datadir, "digibyte.conf"), 'a', encoding='utf8') as f:
         for option in options:
             f.write(option + "\n")
@@ -319,7 +327,7 @@ def get_auth_cookie(datadir):
                     assert password is None  # Ensure that there is only one rpcpassword line
                     password = line.split("=")[1].strip("\n")
     if os.path.isfile(os.path.join(datadir, "regtest", ".cookie")):
-        with open(os.path.join(datadir, "regtest", ".cookie"), 'r') as f:
+        with open(os.path.join(datadir, "regtest", ".cookie"), 'r', encoding="ascii") as f:
             userpass = f.read()
             split_userpass = userpass.split(':')
             user = split_userpass[0]
@@ -327,6 +335,12 @@ def get_auth_cookie(datadir):
     if user is None or password is None:
         raise ValueError("No RPC credentials")
     return user, password
+
+# If a cookie file exists in the given datadir, delete it.
+def delete_cookie_file(datadir):
+    if os.path.isfile(os.path.join(datadir, "regtest", ".cookie")):
+        logger.debug("Deleting leftover cookie file")
+        os.remove(os.path.join(datadir, "regtest", ".cookie"))
 
 def get_bip9_status(node, key):
     info = node.getblockchaininfo()
@@ -338,7 +352,14 @@ def set_node_times(nodes, t):
 
 def disconnect_nodes(from_connection, node_num):
     for peer_id in [peer['id'] for peer in from_connection.getpeerinfo() if "testnode%d" % node_num in peer['subver']]:
-        from_connection.disconnectnode(nodeid=peer_id)
+        try:
+            from_connection.disconnectnode(nodeid=peer_id)
+        except JSONRPCException as e:
+            # If this node is disconnected between calculating the peer id
+            # and issuing the disconnect, don't worry about it.
+            # This avoids a race condition if we're mass-disconnecting peers.
+            if e.error['code'] != -29: # RPC_CLIENT_NODE_NOT_CONNECTED
+                raise
 
     # wait to disconnect
     wait_until(lambda: [peer['id'] for peer in from_connection.getpeerinfo() if "testnode%d" % node_num in peer['subver']] == [], timeout=5)
@@ -545,3 +566,14 @@ def mine_large_block(node, utxos=None):
     fee = 100 * node.getnetworkinfo()["relayfee"]
     create_lots_of_big_transactions(node, txouts, utxos, num, fee=fee)
     node.generate(1)
+
+def find_vout_for_address(node, txid, addr):
+    """
+    Locate the vout index of the given transaction sending to the
+    given address. Raises runtime error exception if not found.
+    """
+    tx = node.getrawtransaction(txid, True)
+    for i in range(len(tx["vout"])):
+        if any([addr == a for a in tx["vout"][i]["scriptPubKey"]["addresses"]]):
+            return i
+    raise RuntimeError("Vout not found for address: txid=%s, addr=%s" % (txid, addr))

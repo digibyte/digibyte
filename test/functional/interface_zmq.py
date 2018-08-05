@@ -3,11 +3,10 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the ZMQ notification interface."""
-import configparser
-import os
 import struct
 
-from test_framework.test_framework import DigiByteTestFramework, SkipTest
+from test_framework.test_framework import (
+    DigiByteTestFramework, skip_if_no_digibyted_zmq, skip_if_no_py3_zmq)
 from test_framework.mininode import CTransaction
 from test_framework.util import (assert_equal,
                                  bytes_to_hex_str,
@@ -39,20 +38,9 @@ class ZMQTest (DigiByteTestFramework):
         self.num_nodes = 2
 
     def setup_nodes(self):
-        # Try to import python3-zmq. Skip this test if the import fails.
-        try:
-            import zmq
-        except ImportError:
-            raise SkipTest("python3-zmq module not available.")
-
-        # Check that digibyte has been built with ZMQ enabled.
-        config = configparser.ConfigParser()
-        if not self.options.configfile:
-            self.options.configfile = os.path.abspath(os.path.join(os.path.dirname(__file__), "../config.ini"))
-        config.read_file(open(self.options.configfile))
-
-        if not config["components"].getboolean("ENABLE_ZMQ"):
-            raise SkipTest("digibyted has not been built with zmq enabled.")
+        skip_if_no_py3_zmq()
+        skip_if_no_digibyted_zmq(self)
+        import zmq
 
         # Initialize ZMQ context and socket.
         # All messages are received in the same socket which means

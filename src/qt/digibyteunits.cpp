@@ -20,6 +20,7 @@ QList<DigiByteUnits::Unit> DigiByteUnits::availableUnits()
     unitlist.append(DGB);
     unitlist.append(mDGB);
     unitlist.append(uDGB);
+    unitlist.append(SAT);
     return unitlist;
 }
 
@@ -30,6 +31,7 @@ bool DigiByteUnits::valid(int unit)
     case DGB:
     case mDGB:
     case uDGB:
+    case SAT:
         return true;
     default:
         return false;
@@ -42,7 +44,8 @@ QString DigiByteUnits::longName(int unit)
     {
     case DGB: return QString("DGB");
     case mDGB: return QString("mDGB");
-    case uDGB: return QString::fromUtf8("µDGB (digis)");
+    case uDGB: return QString::fromUtf8("µDGB (bits)");
+    case SAT: return QString("Satoshi (sat)");
     default: return QString("???");
     }
 }
@@ -52,7 +55,8 @@ QString DigiByteUnits::shortName(int unit)
     switch(unit)
     {
     case uDGB: return QString::fromUtf8("bits");
-    default:   return longName(unit);
+    case SAT: return QString("sat");
+    default: return longName(unit);
     }
 }
 
@@ -60,9 +64,10 @@ QString DigiByteUnits::description(int unit)
 {
     switch(unit)
     {
-    case DGB: return QString("DigiBytes");
-    case mDGB: return QString("Milli-DigiBytes (1 / 1" THIN_SP_UTF8 "000)");
-    case uDGB: return QString("Micro-DigiBytes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case DGB: return QString("Digibytes");
+    case mDGB: return QString("Milli-Digibytes (1 / 1" THIN_SP_UTF8 "000)");
+    case uDGB: return QString("Micro-Digibytes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
@@ -71,10 +76,11 @@ qint64 DigiByteUnits::factor(int unit)
 {
     switch(unit)
     {
-    case DGB:  return 100000000;
+    case DGB: return 100000000;
     case mDGB: return 100000;
     case uDGB: return 100;
-    default:   return 100000000;
+    case SAT: return 1;
+    default: return 100000000;
     }
 }
 
@@ -85,6 +91,7 @@ int DigiByteUnits::decimals(int unit)
     case DGB: return 8;
     case mDGB: return 5;
     case uDGB: return 2;
+    case SAT: return 0;
     default: return 0;
     }
 }
@@ -100,9 +107,7 @@ QString DigiByteUnits::format(int unit, const CAmount& nIn, bool fPlus, Separato
     int num_decimals = decimals(unit);
     qint64 n_abs = (n > 0 ? n : -n);
     qint64 quotient = n_abs / coin;
-    qint64 remainder = n_abs % coin;
     QString quotient_str = QString::number(quotient);
-    QString remainder_str = QString::number(remainder).rightJustified(num_decimals, '0');
 
     // Use SI-style thin space separators as these are locale independent and can't be
     // confused with the decimal marker.
@@ -116,7 +121,14 @@ QString DigiByteUnits::format(int unit, const CAmount& nIn, bool fPlus, Separato
         quotient_str.insert(0, '-');
     else if (fPlus && n > 0)
         quotient_str.insert(0, '+');
-    return quotient_str + QString(".") + remainder_str;
+
+    if (num_decimals > 0) {
+        qint64 remainder = n_abs % coin;
+        QString remainder_str = QString::number(remainder).rightJustified(num_decimals, '0');
+        return quotient_str + QString(".") + remainder_str;
+    } else {
+        return quotient_str;
+    }
 }
 
 

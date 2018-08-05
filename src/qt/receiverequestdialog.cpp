@@ -16,9 +16,6 @@
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPixmap>
-#if QT_VERSION < 0x050000
-#include <QUrl>
-#endif
 
 #if defined(HAVE_CONFIG_H)
 #include <config/digibyte-config.h> /* for USE_QRCODE */
@@ -108,12 +105,12 @@ ReceiveRequestDialog::~ReceiveRequestDialog()
     delete ui;
 }
 
-void ReceiveRequestDialog::setModel(OptionsModel *_model)
+void ReceiveRequestDialog::setModel(WalletModel *_model)
 {
     this->model = _model;
 
     if (_model)
-        connect(_model, SIGNAL(displayUnitChanged(int)), this, SLOT(update()));
+        connect(_model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(update()));
 
     // update the display unit if necessary
     update();
@@ -143,11 +140,14 @@ void ReceiveRequestDialog::update()
     html += "<a href=\""+uri+"\">" + GUIUtil::HtmlEscape(uri) + "</a><br>";
     html += "<b>"+tr("Address")+"</b>: " + GUIUtil::HtmlEscape(info.address) + "<br>";
     if(info.amount)
-        html += "<b>"+tr("Amount")+"</b>: " + DigiByteUnits::formatHtmlWithUnit(model->getDisplayUnit(), info.amount) + "<br>";
+        html += "<b>"+tr("Amount")+"</b>: " + DigiByteUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), info.amount) + "<br>";
     if(!info.label.isEmpty())
         html += "<b>"+tr("Label")+"</b>: " + GUIUtil::HtmlEscape(info.label) + "<br>";
     if(!info.message.isEmpty())
         html += "<b>"+tr("Message")+"</b>: " + GUIUtil::HtmlEscape(info.message) + "<br>";
+    if(model->isMultiwallet()) {
+        html += "<b>"+tr("Wallet")+"</b>: " + GUIUtil::HtmlEscape(model->getWalletName()) + "<br>";
+    }
     ui->outUri->setText(html);
 
 #ifdef USE_QRCODE

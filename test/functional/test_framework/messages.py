@@ -4,7 +4,7 @@
 # Copyright (c) 2010-2017 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""DigiByte test framework primitive and message strcutures
+"""DigiByte test framework primitive and message structures
 
 CBlock, CTransaction, CBlockHeader, CTxIn, CTxOut, etc....:
     data structures that should map to corresponding structures in
@@ -34,14 +34,14 @@ MY_RELAY = 1 # from version 70001 onwards, fRelay should be appended to version 
 MAX_INV_SZ = 50000
 MAX_BLOCK_BASE_SIZE = 1000000
 
-COIN = 100000000 # 1 dgb in satoshis
+COIN = 100000000  # 1 dgb in satoshis
+
+BIP125_SEQUENCE_NUMBER = 0xfffffffd  # Sequence number that is BIP 125 opt-in and BIP 68-opt-out
 
 NODE_NETWORK = (1 << 0)
 # NODE_GETUTXO = (1 << 1)
 NODE_BLOOM = (1 << 2)
 NODE_WITNESS = (1 << 3)
-NODE_UNSUPPORTED_SERVICE_BIT_5 = (1 << 5)
-NODE_UNSUPPORTED_SERVICE_BIT_7 = (1 << 7)
 NODE_NETWORK_LIMITED = (1 << 10)
 
 MSG_TX = 1
@@ -470,6 +470,7 @@ class CTransaction():
     def rehash(self):
         self.sha256 = None
         self.calc_sha256()
+        return self.hash
 
     # We will only cache the serialization without witness in
     # self.sha256 and self.hash -- those are expected to be the txid.
@@ -837,6 +838,52 @@ class BlockTransactions():
 
     def __repr__(self):
         return "BlockTransactions(hash=%064x transactions=%s)" % (self.blockhash, repr(self.transactions))
+
+class CPartialMerkleTree():
+    def __init__(self):
+        self.nTransactions = 0
+        self.vHash = []
+        self.vBits = []
+        self.fBad = False
+
+    def deserialize(self, f):
+        self.nTransactions = struct.unpack("<i", f.read(4))[0]
+        self.vHash = deser_uint256_vector(f)
+        vBytes = deser_string(f)
+        self.vBits = []
+        for i in range(len(vBytes) * 8):
+            self.vBits.append(vBytes[i//8] & (1 << (i % 8)) != 0)
+
+    def serialize(self):
+        r = b""
+        r += struct.pack("<i", self.nTransactions)
+        r += ser_uint256_vector(self.vHash)
+        vBytesArray = bytearray([0x00] * ((len(self.vBits) + 7)//8))
+        for i in range(len(self.vBits)):
+            vBytesArray[i // 8] |= self.vBits[i] << (i % 8)
+        r += ser_string(bytes(vBytesArray))
+        return r
+
+    def __repr__(self):
+        return "CPartialMerkleTree(nTransactions=%d, vHash=%s, vBits=%s)" % (self.nTransactions, repr(self.vHash), repr(self.vBits))
+
+class CMerkleBlock():
+    def __init__(self):
+        self.header = CBlockHeader()
+        self.txn = CPartialMerkleTree()
+
+    def deserialize(self, f):
+        self.header.deserialize(f)
+        self.txn.deserialize(f)
+
+    def serialize(self):
+        r = b""
+        r += self.header.serialize()
+        r += self.txn.serialize()
+        return r
+
+    def __repr__(self):
+        return "CMerkleBlock(header=%s, txn=%s)" % (repr(self.header), repr(self.txn))
 
 
 # Objects that correspond to messages on the wire

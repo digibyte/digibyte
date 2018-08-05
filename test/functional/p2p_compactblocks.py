@@ -12,10 +12,11 @@ from test_framework.mininode import *
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import *
 from test_framework.blocktools import create_block, create_coinbase, add_witness_commitment
-from test_framework.script import CScript, OP_TRUE
+from test_framework.script import CScript, OP_TRUE, OP_DROP
 
-# TestNode: A peer we use to send messages to digibyted, and store responses.
-class TestNode(P2PInterface):
+
+# TestP2PConn: A peer we use to send messages to digibyted, and store responses.
+class TestP2PConn(P2PInterface):
     def __init__(self):
         super().__init__()
         self.last_sendcmpct = []
@@ -86,7 +87,7 @@ class TestNode(P2PInterface):
         This is used when we want to send a message into the node that we expect
         will get us disconnected, eg an invalid block."""
         self.send_message(message)
-        wait_until(lambda: self.state != "connected", timeout=timeout, lock=mininode_lock)
+        wait_until(lambda: not self.is_connected, timeout=timeout, lock=mininode_lock)
 
 class CompactBlocksTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -423,7 +424,7 @@ class CompactBlocksTest(DigiByteTestFramework):
         for i in range(num_transactions):
             tx = CTransaction()
             tx.vin.append(CTxIn(COutPoint(utxo[0], utxo[1]), b''))
-            tx.vout.append(CTxOut(utxo[2] - 1000, CScript([OP_TRUE])))
+            tx.vout.append(CTxOut(utxo[2] - 1000, CScript([OP_TRUE, OP_DROP] * 15 + [OP_TRUE])))
             tx.rehash()
             utxo = [tx.sha256, 0, tx.vout[0].nValue]
             block.vtx.append(tx)
@@ -548,7 +549,7 @@ class CompactBlocksTest(DigiByteTestFramework):
         # Note that it's possible for digibyted to be smart enough to know we're
         # lying, since it could check to see if the shortid matches what we're
         # sending, and eg disconnect us for misbehavior.  If that behavior
-        # change were made, we could just modify this test by having a
+        # change was made, we could just modify this test by having a
         # different peer provide the block further down, so that we're still
         # verifying that the block isn't marked bad permanently. This is good
         # enough for now.
@@ -787,12 +788,10 @@ class CompactBlocksTest(DigiByteTestFramework):
         assert_equal(int(node.getbestblockhash(), 16), block.sha256)
 
     def run_test(self):
-        # Setup the p2p connections and start up the network thread.
-        self.test_node = self.nodes[0].add_p2p_connection(TestNode())
-        self.segwit_node = self.nodes[1].add_p2p_connection(TestNode(), services=NODE_NETWORK|NODE_WITNESS)
-        self.old_node = self.nodes[1].add_p2p_connection(TestNode(), services=NODE_NETWORK)
-
-        network_thread_start()
+        # Setup the p2p connections
+        self.test_node = self.nodes[0].add_p2p_connection(TestP2PConn())
+        self.segwit_node = self.nodes[1].add_p2p_connection(TestP2PConn(), services=NODE_NETWORK|NODE_WITNESS)
+        self.old_node = self.nodes[1].add_p2p_connection(TestP2PConn(), services=NODE_NETWORK)
 
         self.test_node.wait_for_verack()
 

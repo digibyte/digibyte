@@ -9,6 +9,7 @@
 #include <qt/optionsmodel.h>
 
 #include <chainparams.h>
+#include <interfaces/node.h>
 #include <policy/policy.h>
 #include <key_io.h>
 #include <ui_interface.h>
@@ -16,6 +17,7 @@
 #include <wallet/wallet.h>
 
 #include <cstdlib>
+#include <memory>
 
 #include <openssl/x509_vfy.h>
 
@@ -39,12 +41,7 @@
 #include <QSslSocket>
 #include <QStringList>
 #include <QTextDocument>
-
-#if QT_VERSION < 0x050000
-#include <QUrl>
-#else
 #include <QUrlQuery>
-#endif
 
 const int DIGIBYTE_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
 const QString DIGIBYTE_IPC_PREFIX("digibyte:");
@@ -98,11 +95,7 @@ static QList<QString> savedPaymentRequests;
 
 static void ReportInvalidCertificate(const QSslCertificate& cert)
 {
-#if QT_VERSION < 0x050000
-    qDebug() << QString("%1: Payment server found an invalid certificate: ").arg(__func__) << cert.serialNumber() << cert.subjectInfo(QSslCertificate::CommonName) << cert.subjectInfo(QSslCertificate::OrganizationalUnitName);
-#else
     qDebug() << QString("%1: Payment server found an invalid certificate: ").arg(__func__) << cert.serialNumber() << cert.subjectInfo(QSslCertificate::CommonName) << cert.subjectInfo(QSslCertificate::DistinguishedNameQualifier) << cert.subjectInfo(QSslCertificate::OrganizationalUnitName);
-#endif
 }
 
 //
@@ -155,13 +148,11 @@ void PaymentServer::LoadRootCAs(X509_STORE* _store)
             continue;
         }
 
-#if QT_VERSION >= 0x050000
         // Blacklisted certificate
         if (cert.isBlacklisted()) {
             ReportInvalidCertificate(cert);
             continue;
         }
-#endif
         QByteArray certData = cert.toDer();
         const unsigned char *data = (const unsigned char *)certData.data();
 
@@ -199,7 +190,7 @@ void PaymentServer::LoadRootCAs(X509_STORE* _store)
 // Warning: ipcSendCommandLine() is called early in init,
 // so don't use "Q_EMIT message()", but "QMessageBox::"!
 //
-void PaymentServer::ipcParseCommandLine(int argc, char* argv[])
+void PaymentServer::ipcParseCommandLine(interfaces::Node& node, int argc, char* argv[])
 {
     for (int i = 1; i < argc; i++)
     {
@@ -221,11 +212,11 @@ void PaymentServer::ipcParseCommandLine(int argc, char* argv[])
                 auto tempChainParams = CreateChainParams(CBaseChainParams::MAIN);
 
                 if (IsValidDestinationString(r.address.toStdString(), *tempChainParams)) {
-                    SelectParams(CBaseChainParams::MAIN);
+                    node.selectParams(CBaseChainParams::MAIN);
                 } else {
                     tempChainParams = CreateChainParams(CBaseChainParams::TESTNET);
                     if (IsValidDestinationString(r.address.toStdString(), *tempChainParams)) {
-                        SelectParams(CBaseChainParams::TESTNET);
+                        node.selectParams(CBaseChainParams::TESTNET);
                     }
                 }
             }
@@ -239,11 +230,11 @@ void PaymentServer::ipcParseCommandLine(int argc, char* argv[])
             {
                 if (request.getDetails().network() == "main")
                 {
-                    SelectParams(CBaseChainParams::MAIN);
+                    node.selectParams(CBaseChainParams::MAIN);
                 }
                 else if (request.getDetails().network() == "test")
                 {
-                    SelectParams(CBaseChainParams::TESTNET);
+                    node.selectParams(CBaseChainParams::TESTNET);
                 }
             }
         }
@@ -404,13 +395,14 @@ void PaymentServer::handleURIOrFile(const QString& s)
         return;
     }
 
-    if (s.startsWith(DIGIBYTE_IPC_PREFIX, Qt::CaseInsensitive)) // digibyte: URI
+    if (s.startsWith("digibyte://", Qt::CaseInsensitive))
     {
-#if QT_VERSION < 0x050000
-        QUrl uri(s);
-#else
+        Q_EMIT message(tr("URI handling"), tr("'digibyte://' is not a valid URI. Use 'digibyte:' instead."),
+            CClientUIInterface::MSG_ERROR);
+    }
+    else if (s.startsWith(DIGIBYTE_IPC_PREFIX, Qt::CaseInsensitive)) // digibyte: URI
+    {
         QUrlQuery uri((QUrl(s)));
-#endif
         if (uri.hasQueryItem("r")) // payment request URI
         {
             QByteArray temp;
@@ -521,7 +513,7 @@ bool PaymentServer::processPaymentRequest(const PaymentRequestPlus& request, Sen
 
     if (request.IsInitialized()) {
         // Payment request network matches client network?
-        if (!verifyNetwork(request.getDetails())) {
+        if (!verifyNetwork(optionsModel->node(), request.getDetails())) {
             Q_EMIT message(tr("Payment request rejected"), tr("Payment request network doesn't match client network."),
                 CClientUIInterface::MSG_ERROR);
 
@@ -578,7 +570,7 @@ bool PaymentServer::processPaymentRequest(const PaymentRequestPlus& request, Sen
 
         // Extract and check amounts
         CTxOut txOut(sendingTo.second, sendingTo.first);
-        if (IsDust(txOut, ::dustRelayFee)) {
+        if (IsDust(txOut, optionsModel->node().getDustRelayFee())) {
             Q_EMIT message(tr("Payment request error"), tr("Requested payment amount of %1 is too small (considered dust).")
                 .arg(DigiByteUnits::formatWithUnit(optionsModel->getDisplayUnit(), sendingTo.second)),
                 CClientUIInterface::MSG_ERROR);
@@ -616,7 +608,7 @@ void PaymentServer::fetchRequest(const QUrl& url)
     netManager->get(netRequest);
 }
 
-void PaymentServer::fetchPaymentACK(CWallet* wallet, const SendCoinsRecipient& recipient, QByteArray transaction)
+void PaymentServer::fetchPaymentACK(WalletModel* walletModel, const SendCoinsRecipient& recipient, QByteArray transaction)
 {
     const payments::PaymentDetails& details = recipient.paymentRequest.getDetails();
     if (!details.has_payment_url())
@@ -634,19 +626,18 @@ void PaymentServer::fetchPaymentACK(CWallet* wallet, const SendCoinsRecipient& r
     payment.add_transactions(transaction.data(), transaction.size());
 
     // Create a new refund address, or re-use:
-    QString account = tr("Refund from %1").arg(recipient.authenticatedMerchant);
-    std::string strAccount = account.toStdString();
     CPubKey newKey;
-    if (wallet->GetKeyFromPool(newKey)) {
+    if (walletModel->wallet().getKeyFromPool(false /* internal */, newKey)) {
         // BIP70 requests encode the scriptPubKey directly, so we are not restricted to address
         // types supported by the receiver. As a result, we choose the address format we also
         // use for change. Despite an actual payment and not change, this is a close match:
         // it's the output type we use subject to privacy issues, but not restricted by what
         // other software supports.
-        const OutputType change_type = wallet->m_default_change_type != OutputType::NONE ? wallet->m_default_change_type : wallet->m_default_address_type;
-        wallet->LearnRelatedScripts(newKey, change_type);
+        const OutputType change_type = walletModel->wallet().getDefaultChangeType() != OutputType::CHANGE_AUTO ? walletModel->wallet().getDefaultChangeType() : walletModel->wallet().getDefaultAddressType();
+        walletModel->wallet().learnRelatedScripts(newKey, change_type);
         CTxDestination dest = GetDestinationForKey(newKey, change_type);
-        wallet->SetAddressBook(dest, strAccount, "refund");
+        std::string label = tr("Refund from %1").arg(recipient.authenticatedMerchant).toStdString();
+        walletModel->wallet().setAddressBook(dest, label, "refund");
 
         CScript s = GetScriptForDestination(dest);
         payments::Output* refund_to = payment.add_refund_to();
@@ -754,14 +745,14 @@ void PaymentServer::handlePaymentACK(const QString& paymentACKMsg)
     Q_EMIT message(tr("Payment acknowledged"), paymentACKMsg, CClientUIInterface::ICON_INFORMATION | CClientUIInterface::MODAL);
 }
 
-bool PaymentServer::verifyNetwork(const payments::PaymentDetails& requestDetails)
+bool PaymentServer::verifyNetwork(interfaces::Node& node, const payments::PaymentDetails& requestDetails)
 {
-    bool fVerified = requestDetails.network() == Params().NetworkIDString();
+    bool fVerified = requestDetails.network() == node.getNetwork();
     if (!fVerified) {
         qWarning() << QString("PaymentServer::%1: Payment request network \"%2\" doesn't match client network \"%3\".")
             .arg(__func__)
             .arg(QString::fromStdString(requestDetails.network()))
-            .arg(QString::fromStdString(Params().NetworkIDString()));
+            .arg(QString::fromStdString(node.getNetwork()));
     }
     return fVerified;
 }

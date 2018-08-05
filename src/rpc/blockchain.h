@@ -34,4 +34,3 @@ UniValue mempoolToJSON(bool fVerbose = false);
 UniValue blockheaderToJSON(const CBlockIndex* blockindex);
 
 #endif
-
