@@ -1683,12 +1683,9 @@
         <location line="-398"/>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_en.ts
-=======
         <location line="+82"/>
         <location line="+21"/>
         <location line="+13"/>
->>>>>>> digibyte/master:src/qt/locale/digibyte_en.ts
         <location line="+7"/>
         <source>URI handling</source>
         <translation type="unfinished"></translation>
