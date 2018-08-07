@@ -366,8 +366,58 @@ BOOST_AUTO_TEST_CASE( divide )
     BOOST_CHECK(R2L / MaxL == ZeroL);
     BOOST_CHECK(MaxL / R2L == 1);
     BOOST_CHECK_THROW(R2L / ZeroL, uint_error);
+
+    uint32_t nInts[4] = {1u, 0x88eu, 0x36cb6079u, 0xf6b4a385u};
+    for (int i = 0; i < 4; i++)
+    {
+        BOOST_CHECK((R1L / nInts[i]) == (R1L / arith_uint256(nInts[i])));
+        BOOST_CHECK((R2L / nInts[i]) == (R2L / arith_uint256(nInts[i])));
+        BOOST_CHECK((MaxL / nInts[i]) == (MaxL / arith_uint256(nInts[i])));
+    }
+    BOOST_CHECK_THROW(R2L / 0, uint_error);
 }
 
+void CheckNthRoot(arith_uint256 x, int n)
+{
+    arith_uint256 root = x.ApproxNthRoot(n);
+    arith_uint256 power = 1;
+    arith_uint256 penultimate = 1;
+    for (int i = 0; i < n; i++)
+    {
+        penultimate = power;
+        power *= root;
+    }
+    // second condition is overflow check
+    BOOST_CHECK(power <= x && power / root == penultimate);
+    int roundingPos = std::max<int>(0, root.bits() - 64/n);
+    root += OneL << roundingPos;
+    // root should be too big now
+    power = 1;
+    for (int i = 0; i < n; i++)
+    {
+        penultimate = power;
+        power *= root;
+    }
+    BOOST_CHECK(!(power <= x && power / root == penultimate));
+}
+
+BOOST_AUTO_TEST_CASE( root )
+{
+    for (int n = 2; n <= 5; n++)
+    {
+        BOOST_CHECK(ZeroL.ApproxNthRoot(n) == ZeroL);
+        for (int shift = 0; shift < 2*n; shift++)
+        {
+            CheckNthRoot(MaxL >> shift, n);
+            CheckNthRoot(R1L >> shift, n);
+            CheckNthRoot(R2L >> shift, n);
+        }
+        for (int shift = 0; shift < 70; shift++)
+        {
+            CheckNthRoot(OneL << shift, n);
+        }
+    }
+}
 
 bool almostEqual(double d1, double d2)
 {
