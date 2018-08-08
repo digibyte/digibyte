@@ -509,7 +509,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     chainActive.Tip()->nHeight++;
     SetMockTime(chainActive.Tip()->GetMedianTimePast() + 1);
 
-    BOOST_CHECK(pblocktemplate = AssemblerForTest(chainparams).CreateNewBlock(scriptPubKey));
+    BOOST_CHECK(pblocktemplate = AssemblerForTest(chainparams).CreateNewBlock(scriptPubKey, 2));
     BOOST_CHECK_EQUAL(pblocktemplate->block.vtx.size(), 5U);
 
     chainActive.Tip()->nHeight--;
