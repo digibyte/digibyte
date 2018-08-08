@@ -26,7 +26,7 @@ int CBlockHeader::GetAlgo() const
 {
     switch (nVersion & BLOCK_VERSION_ALGO)
     {
-        case 1:
+        case BLOCK_VERSION_SCRYPT:
             return ALGO_SCRYPT;
         case BLOCK_VERSION_SHA256D:
             return ALGO_SHA256D;
@@ -46,6 +46,7 @@ int CBlockHeader::GetAlgo() const
 
 uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
 {
+    assert(algo == GetAlgo()); // why is this even an argument?
     switch (algo)
     {
         case ALGO_SHA256D:
@@ -109,6 +110,7 @@ std::string GetAlgoName(int Algo)
     }
     return std::string("unknown");       
 }
+
 int64_t GetBlockWeight(const CBlock& block)
 {
     // This implements the weight = (stripped_size * 4) + witness_size formula,
