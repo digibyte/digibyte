@@ -494,7 +494,7 @@ if ENABLE_WALLET
 DIGIBYTE_QT_CPP += $(DIGIBYTE_QT_WALLET_CPP)
 endif
 
-RES_IMAGES = 
+RES_IMAGES =
 
 RES_CSS = \
   qt/res/css/blue.css \
@@ -545,7 +545,7 @@ if TARGET_WINDOWS
 endif
 qt_digibyte_qt_LDADD = qt/libdigibyteqt.a $(LIBDIGIBYTE_SERVER)
 if ENABLE_WALLET
-qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_WALLET)
+qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_UTIL) $(LIBDIGIBYTE_WALLET)
 endif
 if ENABLE_ZMQ
 qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_ZMQ) $(ZMQ_LIBS)
@@ -554,7 +554,7 @@ qt_digibyte_qt_LDADD += $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBDIGIBYTE_U
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_digibyte_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_digibyte_qt_LIBTOOLFLAGS = --tag CXX
+qt_digibyte_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)

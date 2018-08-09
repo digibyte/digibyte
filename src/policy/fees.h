@@ -2,8 +2,8 @@
 // Copyright (c) 2009-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef DIGIBYTE_POLICYESTIMATOR_H
-#define DIGIBYTE_POLICYESTIMATOR_H
+#ifndef DIGIBYTE_POLICY_FEES_H
+#define DIGIBYTE_POLICY_FEES_H
 
 #include <amount.h>
 #include <policy/feerate.h>
@@ -12,6 +12,7 @@
 #include <sync.h>
 
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -68,7 +69,7 @@ class TxConfirmStats;
 
 /* Identifier for each of the 3 different TxConfirmStats which will track
  * history over different time horizons. */
-enum FeeEstimateHorizon {
+enum class FeeEstimateHorizon {
     SHORT_HALFLIFE = 0,
     MED_HALFLIFE = 1,
     LONG_HALFLIFE = 2
@@ -293,4 +294,5 @@ private:
     std::set<double> feeset;
     FastRandomContext insecure_rand;
 };
-#endif /*DIGIBYTE_POLICYESTIMATOR_H */
+
+#endif // DIGIBYTE_POLICY_FEES_H

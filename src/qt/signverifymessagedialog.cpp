@@ -10,7 +10,6 @@
 #include <qt/platformstyle.h>
 #include <qt/walletmodel.h>
 
-#include <init.h>
 #include <key_io.h>
 #include <validation.h> // For strMessageMagic
 #include <wallet/wallet.h>
@@ -39,9 +38,7 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(const PlatformStyle *_platformS
     ui->verifyMessageButton_VM->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/transaction_0"));
     ui->clearButton_VM->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/remove"));
 
-#if QT_VERSION >= 0x040700
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
-#endif
 
 
 
@@ -144,7 +141,7 @@ void SignVerifyMessageDialog::on_signMessageButton_SM_clicked()
     }
 
     CKey key;
-    if (!model->getPrivKey(*keyID, key))
+    if (!model->wallet().getPrivKey(*keyID, key))
     {
         ui->statusLabel_SM->setStyleSheet("QLabel { color: red; }");
         ui->statusLabel_SM->setText(tr("Private key for the entered address is not available."));

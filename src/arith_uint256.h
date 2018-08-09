@@ -64,14 +64,6 @@ public:
 
     explicit base_uint(const std::string& str);
 
-    bool operator!() const
-    {
-        for (int i = 0; i < WIDTH; i++)
-            if (pn[i] != 0)
-                return false;
-        return true;
-    }
-
     const base_uint operator~() const
     {
         base_uint ret;
@@ -174,6 +166,7 @@ public:
 
     base_uint& operator*=(uint32_t b32);
     base_uint& operator*=(const base_uint& b);
+    base_uint& operator/=(uint32_t b32);
     base_uint& operator/=(const base_uint& b);
 
     base_uint& operator++()
@@ -223,6 +216,7 @@ public:
     friend inline const base_uint operator>>(const base_uint& a, int shift) { return base_uint(a) >>= shift; }
     friend inline const base_uint operator<<(const base_uint& a, int shift) { return base_uint(a) <<= shift; }
     friend inline const base_uint operator*(const base_uint& a, uint32_t b) { return base_uint(a) *= b; }
+    friend inline const base_uint operator/(const base_uint& a, uint32_t b) { return base_uint(a) /= b; }
     friend inline bool operator==(const base_uint& a, const base_uint& b) { return memcmp(a.pn, b.pn, sizeof(a.pn)) == 0; }
     friend inline bool operator!=(const base_uint& a, const base_uint& b) { return memcmp(a.pn, b.pn, sizeof(a.pn)) != 0; }
     friend inline bool operator>(const base_uint& a, const base_uint& b) { return a.CompareTo(b) > 0; }
@@ -247,6 +241,8 @@ public:
      * value is zero.
      */
     unsigned int bits() const;
+
+    base_uint ApproxNthRoot(int n) const;
 
     uint64_t GetLow64() const
     {

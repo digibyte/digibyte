@@ -13,7 +13,7 @@ To download DigiByte Core, visit [digibytecore.org](https://digibytecore.org/en/
 
 Running
 ---------------------
-The following are some helpful notes on how to run DigiByte on your native platform.
+The following are some helpful notes on how to run DigiByte Core on your native platform.
 
 ### Unix
 
@@ -26,9 +26,9 @@ Unpack the files into a directory and run:
 
 Unpack the files into a directory, and then run digibyte-qt.exe.
 
-### OS X
+### macOS
 
-Drag DigiByte-Core to your applications folder, and then run DigiByte-Core.
+Drag DigiByte Core to your applications folder, and then run DiugiByte Core.
 
 ### Need Help?
 
@@ -39,10 +39,10 @@ for help and more information.
 
 Building
 ---------------------
-The following are developer notes on how to build DigiByte on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build DigiByte Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [Dependencies](dependencies.md)
-- [OS X Build Notes](build-osx.md)
+- [macOS Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
 - [Windows Build Notes](build-windows.md)
 - [OpenBSD Build Notes](build-openbsd.md)

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_BLOCK_ENCODINGS_H
-#define DIGIBYTE_BLOCK_ENCODINGS_H
+#ifndef DIGIBYTE_BLOCKENCODINGS_H
+#define DIGIBYTE_BLOCKENCODINGS_H
 
 #include <primitives/block.h>
 
@@ -206,4 +206,4 @@ public:
     ReadStatus FillBlock(CBlock& block, const std::vector<CTransactionRef>& vtx_missing);
 };
 
-#endif
+#endif // DIGIBYTE_BLOCKENCODINGS_H

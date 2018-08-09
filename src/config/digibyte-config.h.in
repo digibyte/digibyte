@@ -7,6 +7,9 @@
 /* Define if building universal (internal helper macro) */
 #undef AC_APPLE_UNIVERSAL_BUILD
 
+/* Define this symbol if type char equals int8_t */
+#undef CHAR_EQUALS_INT8
+
 /* Version Build */
 #undef CLIENT_VERSION_BUILD
 
@@ -34,6 +37,15 @@
 /* Copyright year */
 #undef COPYRIGHT_YEAR
 
+/* Define this symbol to build code that uses AVX2 intrinsics */
+#undef ENABLE_AVX2
+
+/* Define this symbol to build code that uses SHA-NI intrinsics */
+#undef ENABLE_SHANI
+
+/* Define this symbol to build code that uses SSE4.1 intrinsics */
+#undef ENABLE_SSE41
+
 /* Define to 1 to enable wallet functions */
 #undef ENABLE_WALLET
 
@@ -51,9 +63,6 @@
 
 /* define if the Boost::Filesystem library is available */
 #undef HAVE_BOOST_FILESYSTEM
-
-/* define if the Boost::PROGRAM_OPTIONS library is available */
-#undef HAVE_BOOST_PROGRAM_OPTIONS
 
 /* define if the Boost::System library is available */
 #undef HAVE_BOOST_SYSTEM

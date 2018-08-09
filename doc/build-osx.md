@@ -1,11 +1,11 @@
-Mac OS X Build Instructions and Notes
+macOS Build Instructions and Notes
 ====================================
 The commands in this guide should be executed in a Terminal application.
 The built-in one is located in `/Applications/Utilities/Terminal.app`.
 
 Preparation
 -----------
-Install the OS X command line tools:
+Install the macOS command line tools:
 
 `xcode-select --install`
 
@@ -16,15 +16,13 @@ Then install [Homebrew](https://brew.sh).
 Dependencies
 ----------------------
 
-    brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python qt libevent
+    brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python qt libevent qrencode
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
 If you want to build the disk image with `make deploy` (.dmg / optional), you need RSVG
 
     brew install librsvg
-
-NOTE: Building with Qt4 is still supported, however, could result in a broken UI. Building with Qt5 is recommended.
 
 Berkeley DB
 -----------
@@ -43,14 +41,14 @@ from the root of the repository.
 Build DigiByte Core
 ------------------------
 
-1. Clone the digibyte source code and cd into `digibyte`
+1. Clone the DigiByte Core source code and cd into `digibyte`
 
         git clone https://github.com/digibyte/digibyte
         cd digibyte
 
-2.  Build digibyte-core:
+2.  Build DigiByte Core:
 
-    Configure and build the headless digibyte binaries as well as the GUI (if Qt is found).
+    Configure and build the headless DigiByte Core binaries as well as the GUI (if Qt is found).
 
     You can disable the GUI build by passing `--without-gui` to configure.
 
@@ -71,7 +69,7 @@ Running
 
 DigiByte Core is now available at `./src/digibyted`
 
-Before running, it's recommended you create an RPC configuration file.
+Before running, it's recommended that you create an RPC configuration file.
 
     echo -e "rpcuser=digibyterpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/DigiByte/digibyte.conf"
 
@@ -93,6 +91,6 @@ Other commands:
 Notes
 -----
 
-* Tested on OS X 10.8 through 10.13 on 64-bit Intel processors only.
+* Tested on OS X 10.10 Yosemite through macOS 10.13 High Sierra on 64-bit Intel processors only.
 
 * Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/digibyte/digibyte/issues/7714)

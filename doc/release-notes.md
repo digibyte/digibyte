@@ -281,12 +281,17 @@ DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 =======
 Bitcoin Core is extensively tested on multiple operating systems using
+<<<<<<< HEAD
 the Linux kernel, macOS 10.8+, and Windows 7 and newer (Windows XP is not supported).
 >>>>>>> 8ee5c7b747171e335793c74cd9d2f7491da58164
+=======
+the Linux kernel, macOS 10.10+, and Windows 7 and newer (Windows XP is not supported).
+>>>>>>> bitcoin/master
 
 DigiByte Core should also work on most other Unix-like systems but is not
 frequently tested on them.
 
+<<<<<<< HEAD
 =======
 Wallet changes
 ---------------
@@ -371,6 +376,18 @@ GUI changes
 - Support for searching by TXID has been added, rather than just address and label.
 - A "Use available balance" option has been added to the send coins dialog, to add the remaining available wallet balance to a transaction output.
 - A toggle for unblinding the password fields on the password dialog has been added.
+=======
+From 0.17.0 onwards macOS <10.10 is no longer supported. 0.17.0 is built using Qt 5.9.x, which doesn't
+support versions of macOS older than 10.10.
+
+Notable changes
+===============
+>>>>>>> bitcoin/master
+
+GUI changes
+-----------
+
+- Block storage can be limited under Preferences, in the Main tab. Undoing this setting requires downloading the full blockchain again. This mode is incompatible with -txindex and -rescan.
 
 RPC changes
 ------------
@@ -393,6 +410,19 @@ RPC changes
 
 - The `createrawtransaction` RPC will now accept an array or dictionary (kept for compatibility) for the `outputs` parameter. This means the order of transaction outputs can be specified by the client.
 - The `fundrawtransaction` RPC will reject the previously deprecated `reserveChangeKey` option.
+- `sendmany` now shuffles outputs to improve privacy, so any previously expected behavior with regards to output ordering can no longer be relied upon.
+- The new RPC `testmempoolaccept` can be used to test acceptance of a transaction to the mempool without adding it.
+- JSON transaction decomposition now includes a `weight` field which provides
+  the transaction's exact weight. This is included in REST /rest/tx/ and
+  /rest/block/ endpoints when in json mode. This is also included in `getblock`
+  (with verbosity=2), `listsinceblock`, `listtransactions`, and
+  `getrawtransaction` RPC commands.
+- New `fees` field introduced in `getrawmempool`, `getmempoolancestors`, `getmempooldescendants` and
+   `getmempoolentry` when verbosity is set to `true` with sub-fields `ancestor`, `base`, `modified`
+   and `descendant` denominated in BTC. This new field deprecates previous fee fields, such as
+   `fee`, `modifiedfee`, `ancestorfee` and `descendantfee`.
+- The new RPC `getzmqnotifications` returns information about active ZMQ
+  notifications.
 
 External wallet files
 ---------------------
@@ -423,11 +453,44 @@ Low-level RPC changes
   now the empty string `""` instead of `"wallet.dat"`. If bitcoin is started
   with any `-wallet=<path>` options, there is no change in behavior, and the
   name of any wallet is just its `<path>` string.
+- Passing an empty string (`""`) as the `address_type` parameter to
+  `getnewaddress`, `getrawchangeaddress`, `addmultisigaddress`,
+  `fundrawtransaction` RPCs is now an error. Previously, this would fall back
+  to using the default address type. It is still possible to pass null or leave
+  the parameter unset to use the default address type.
+
+- Bare multisig outputs to our keys are no longer automatically treated as
+  incoming payments. As this feature was only available for multisig outputs for
+  which you had all private keys in your wallet, there was generally no use for
+  them compared to single-key schemes. Furthermore, no address format for such
+  outputs is defined, and wallet software can't easily send to it. These outputs
+  will no longer show up in `listtransactions`, `listunspent`, or contribute to
+  your balance, unless they are explicitly watched (using `importaddress` or
+  `importmulti` with hex script argument). `signrawtransaction*` also still
+  works for them.
 
 ### Logging
 
 - The log timestamp format is now ISO 8601 (e.g. "2018-02-28T12:34:56Z").
 >>>>>>> 8ee5c7b747171e335793c74cd9d2f7491da58164
+
+- When running bitcoind with `-debug` but without `-daemon`, logging to stdout
+  is now the default behavior. Setting `-printtoconsole=1` no longer implicitly
+  disables logging to debug.log. Instead, logging to file can be explicitly disabled
+  by setting `-debuglogfile=0`.
+
+Miner block size removed
+------------------------
+
+The `-blockmaxsize` option for miners to limit their blocks' sizes was
+deprecated in V0.15.1, and has now been removed. Miners should use the
+`-blockmaxweight` option if they want to limit the weight of their blocks'
+weights.
+
+Python Support
+--------------
+
+Support for Python 2 has been discontinued for all test files and tools.
 
 Credits
 =======

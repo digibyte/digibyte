@@ -76,11 +76,11 @@ public:
     CMainParams() {
         strNetworkID = "main";
         //consensus.nSubsidyHalvingInterval = 210000; - DGB
-         consensus.BIP16Height = 0 ;
-         consensus.BIP34Height = 4394880;
-         consensus.BIP34Hash = uint256S("0xadd8ca420f557f62377ec2be6e6f47b96cf2e68160d58aeb7b73433de834cca0");
-         consensus.BIP65Height = 4394880; // 
-         consensus.BIP66Height = 4394880; // 
+        consensus.BIP16Exception = uint256S("0x0");
+        consensus.BIP34Height = 4394880;
+        consensus.BIP34Hash = uint256S("0xadd8ca420f557f62377ec2be6e6f47b96cf2e68160d58aeb7b73433de834cca0");
+        consensus.BIP65Height = 4394880; // 
+        consensus.BIP66Height = 4394880; // 
 
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
@@ -411,10 +411,10 @@ public:
         };
 
         chainTxData = ChainTxData{
-            // Data as of block 000000000000033cfa3c975eb83ecf2bb4aaedf68e6d279f6ed2b427c64caff9 (height 1260526)
-            1516903490,
-            17082348,
-            0.09
+            // Data from rpc: getchaintxstats 4096 0000000000000037a8cd3e06cd5edbfe9dd1dbcc5dacab279376ef7cfc2b4c75
+            /* nTime    */ 1531929919,
+            /* nTxCount */ 19438708,
+            /* dTxRate  */ 0.626
         };
 
         /* enable fallback fee on testnet */

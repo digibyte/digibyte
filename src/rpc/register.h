@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_RPCREGISTER_H
-#define DIGIBYTE_RPCREGISTER_H
+#ifndef DIGIBYTE_RPC_REGISTER_H
+#define DIGIBYTE_RPC_REGISTER_H
 
 /** These are in one header file to avoid creating tons of single-function
  * headers for everything under src/rpc/ */
@@ -29,4 +29,4 @@ static inline void RegisterAllCoreRPCCommands(CRPCTable &t)
     RegisterRawTransactionRPCCommands(t);
 }
 
-#endif
+#endif // DIGIBYTE_RPC_REGISTER_H

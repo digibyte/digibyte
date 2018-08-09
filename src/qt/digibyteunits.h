@@ -58,7 +58,8 @@ public:
     {
         DGB,
         mDGB,
-        uDGB
+        uDGB,
+        SAT
     };
 
     enum SeparatorStyle

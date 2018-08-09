@@ -69,15 +69,31 @@ base_uint<BITS>& base_uint<BITS>::operator*=(uint32_t b32)
 template <unsigned int BITS>
 base_uint<BITS>& base_uint<BITS>::operator*=(const base_uint& b)
 {
-    base_uint<BITS> a = *this;
-    *this = 0;
+    base_uint<BITS> a;
     for (int j = 0; j < WIDTH; j++) {
         uint64_t carry = 0;
         for (int i = 0; i + j < WIDTH; i++) {
-            uint64_t n = carry + pn[i + j] + (uint64_t)a.pn[j] * b.pn[i];
-            pn[i + j] = n & 0xffffffff;
+            uint64_t n = carry + a.pn[i + j] + (uint64_t)pn[j] * b.pn[i];
+            a.pn[i + j] = n & 0xffffffff;
             carry = n >> 32;
         }
+    }
+    *this = a;
+    return *this;
+}
+
+template <unsigned int BITS>
+base_uint<BITS>& base_uint<BITS>::operator/=(uint32_t b32)
+{
+    if (b32 == 0)
+        throw uint_error("Division by zero");
+    uint64_t remainder = 0;
+    for (int i = WIDTH-1; i >= 0; i--)
+    {
+        remainder <<= 32;
+        remainder += pn[i];
+        pn[i] = remainder / b32;
+        remainder = remainder % b32;
     }
     return *this;
 }
@@ -185,12 +201,39 @@ unsigned int base_uint<BITS>::bits() const
     return 0;
 }
 
+template <unsigned int BITS>
+base_uint<BITS> base_uint<BITS>::ApproxNthRoot(int n) const
+{
+    assert(1 < n && n < 64);
+    int nLength = bits();
+    int nShifts = std::max(0, ((nLength-1)/n)+1-(64/n));
+
+    base_uint<BITS> shifted = *this >> (n * nShifts);
+    uint64_t nHead = shifted.GetLow64();
+
+    // Just binary search the answer
+    uint64_t nRoot = 0;
+    for (int i = 64/n - 1; i >= 0; i--)
+    {
+        uint64_t nNext = nRoot | ((uint64_t)1 << i);
+        uint64_t nPower = nNext;
+        for (int j = 1; j < n; j++)
+            nPower *= nNext;
+        if (nPower <= nHead)
+            nRoot = nNext;
+    }
+    base_uint<BITS> res(nRoot);
+    res <<= nShifts;
+    return res;
+}
+
 // Explicit instantiations for base_uint<256>
 template base_uint<256>::base_uint(const std::string&);
 template base_uint<256>& base_uint<256>::operator<<=(unsigned int);
 template base_uint<256>& base_uint<256>::operator>>=(unsigned int);
 template base_uint<256>& base_uint<256>::operator*=(uint32_t b32);
 template base_uint<256>& base_uint<256>::operator*=(const base_uint<256>& b);
+template base_uint<256>& base_uint<256>::operator/=(uint32_t b32);
 template base_uint<256>& base_uint<256>::operator/=(const base_uint<256>& b);
 template int base_uint<256>::CompareTo(const base_uint<256>&) const;
 template bool base_uint<256>::EqualTo(uint64_t) const;
@@ -200,6 +243,7 @@ template std::string base_uint<256>::ToString() const;
 template void base_uint<256>::SetHex(const char*);
 template void base_uint<256>::SetHex(const std::string&);
 template unsigned int base_uint<256>::bits() const;
+template base_uint<256> base_uint<256>::ApproxNthRoot(int n) const;
 
 // This implementation directly uses shifts instead of going
 // through an intermediate MPI representation.

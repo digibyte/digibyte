@@ -2,7 +2,6 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-TESTS += test/test_digibyte
 bin_PROGRAMS += test/test_digibyte
 noinst_PROGRAMS += test/test_digibyte_fuzzy
 TEST_SRCDIR = test
@@ -20,6 +19,11 @@ JSON_TEST_FILES = \
 RAW_TEST_FILES =
 
 GENERATED_TEST_FILES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
+
+DIGIBYTE_TEST_SUITE = \
+  test/test_digibyte_main.cpp \
+  test/test_digibyte.h \
+  test/test_digibyte.cpp
 
 # test_digibyte binary #
 DIGIBYTE_TESTS =\
@@ -42,7 +46,8 @@ DIGIBYTE_TESTS =\
   test/compress_tests.cpp \
   test/crypto_tests.cpp \
   test/cuckoocache_tests.cpp \
-  test/DoS_tests.cpp \
+  test/denialofservice_tests.cpp \
+  test/descriptor_tests.cpp \
   test/getarg_tests.cpp \
   test/hash_tests.cpp \
   test/key_io_tests.cpp \
@@ -67,7 +72,7 @@ DIGIBYTE_TESTS =\
   test/rpc_tests.cpp \
   test/sanity_tests.cpp \
   test/scheduler_tests.cpp \
-  test/script_P2SH_tests.cpp \
+  test/script_p2sh_tests.cpp \
   test/script_tests.cpp \
   test/script_standard_tests.cpp \
   test/scriptnum_tests.cpp \
@@ -76,34 +81,37 @@ DIGIBYTE_TESTS =\
   test/sigopcount_tests.cpp \
   test/skiplist_tests.cpp \
   test/streams_tests.cpp \
-  test/test_digibyte.cpp \
-  test/test_digibyte.h \
-  test/test_digibyte_main.cpp \
   test/timedata_tests.cpp \
   test/torcontrol_tests.cpp \
   test/transaction_tests.cpp \
+  test/txindex_tests.cpp \
   test/txvalidation_tests.cpp \
   test/txvalidationcache_tests.cpp \
-  test/versionbits_tests.cpp \
   test/uint256_tests.cpp \
-  test/util_tests.cpp
+  test/util_tests.cpp \
+  test/validation_block_tests.cpp \
+  test/versionbits_tests.cpp
 
 if ENABLE_WALLET
 DIGIBYTE_TESTS += \
-  wallet/test/wallet_test_fixture.cpp \
-  wallet/test/wallet_test_fixture.h \
   wallet/test/accounting_tests.cpp \
+  wallet/test/psbt_wallet_tests.cpp \
   wallet/test/wallet_tests.cpp \
-  wallet/test/crypto_tests.cpp \
+  wallet/test/wallet_crypto_tests.cpp \
   wallet/test/coinselector_tests.cpp
+
+DIGIBYTE_TEST_SUITE += \
+  wallet/test/wallet_test_fixture.cpp \
+  wallet/test/wallet_test_fixture.h
 endif
 
-test_test_digibyte_SOURCES = $(DIGIBYTE_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
+test_test_digibyte_SOURCES = $(DIGIBYTE_TEST_SUITE) $(DIGIBYTE_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
 test_test_digibyte_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES) $(TESTDEFS) $(EVENT_CFLAGS)
 test_test_digibyte_LDADD =
 if ENABLE_WALLET
 test_test_digibyte_LDADD += $(LIBDIGIBYTE_WALLET)
 endif
+
 test_test_digibyte_LDADD += $(LIBDIGIBYTE_SERVER) $(LIBDIGIBYTE_CLI) $(LIBDIGIBYTE_COMMON) $(LIBDIGIBYTE_UTIL) $(LIBDIGIBYTE_CONSENSUS) $(LIBDIGIBYTE_CRYPTO) $(LIBUNIVALUE) \
   $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) $(BOOST_LIBS) $(BOOST_UNIT_TEST_FRAMEWORK_LIB) $(LIBSECP256K1) $(EVENT_LIBS) $(EVENT_PTHREADS_LIBS)
 test_test_digibyte_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -129,6 +137,9 @@ test_test_digibyte_fuzzy_LDADD = \
   $(LIBDIGIBYTE_UTIL) \
   $(LIBDIGIBYTE_CONSENSUS) \
   $(LIBDIGIBYTE_CRYPTO) \
+  $(LIBDIGIBYTE_CRYPTO_SSE41) \
+  $(LIBDIGIBYTE_CRYPTO_AVX2) \
+  $(LIBDIGIBYTE_CRYPTO_SHANI) \
   $(LIBSECP256K1)
 
 test_test_digibyte_fuzzy_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
@@ -150,13 +161,19 @@ digibyte_test_check: $(TEST_BINARY) FORCE
 digibyte_test_clean : FORCE
 	rm -f $(CLEAN_DIGIBYTE_TEST) $(test_test_digibyte_OBJECTS) $(TEST_BINARY)
 
-check-local:
+check-local: $(DIGIBYTE_TESTS:.cpp=.cpp.test)
 	@echo "Running test/util/digibyte-util-test.py..."
 	$(PYTHON) $(top_builddir)/test/util/digibyte-util-test.py
+	@echo "Running test/util/rpcauth-test.py..."
+	$(PYTHON) $(top_builddir)/test/util/rpcauth-test.py
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C secp256k1 check
 if EMBEDDED_UNIVALUE
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C univalue check
 endif
+
+%.cpp.test: %.cpp
+	@echo Running tests: `cat $< | grep -E "(BOOST_FIXTURE_TEST_SUITE\\(|BOOST_AUTO_TEST_SUITE\\()" | cut -d '(' -f 2 | cut -d ',' -f 1 | cut -d ')' -f 1` from $<
+	$(AM_V_at)$(TEST_BINARY) -l test_suite -t "`cat $< | grep -E "(BOOST_FIXTURE_TEST_SUITE\\(|BOOST_AUTO_TEST_SUITE\\()" | cut -d '(' -f 2 | cut -d ',' -f 1 | cut -d ')' -f 1`" > $<.log 2>&1 || (cat $<.log && false)
 
 %.json.h: %.json
 	@$(MKDIR_P) $(@D)

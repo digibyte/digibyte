@@ -70,9 +70,17 @@ class AbandonConflictTest(DigiByteTestFramework):
         signed2 = self.nodes[0].signrawtransactionwithwallet(self.nodes[0].createrawtransaction(inputs, outputs))
         txABC2 = self.nodes[0].sendrawtransaction(signed2["hex"])
 
+        # Create a child tx spending ABC2
+        signed3_change = Decimal("24.999")
+        inputs = [ {"txid":txABC2, "vout":0} ]
+        outputs = { self.nodes[0].getnewaddress(): signed3_change }
+        signed3 = self.nodes[0].signrawtransactionwithwallet(self.nodes[0].createrawtransaction(inputs, outputs))
+        # note tx is never directly referenced, only abandoned as a child of the above
+        self.nodes[0].sendrawtransaction(signed3["hex"])
+
         # In mempool txs from self should increase balance from change
         newbalance = self.nodes[0].getbalance()
-        assert_equal(newbalance, balance - Decimal("30") + Decimal("24.9996"))
+        assert_equal(newbalance, balance - Decimal("30") + signed3_change)
         balance = newbalance
 
         # Restart the node with a higher min relay fee so the parent tx is no longer in mempool
@@ -87,7 +95,7 @@ class AbandonConflictTest(DigiByteTestFramework):
         # Not in mempool txs from self should only reduce balance
         # inputs are still spent, but change not received
         newbalance = self.nodes[0].getbalance()
-        assert_equal(newbalance, balance - Decimal("24.9996"))
+        assert_equal(newbalance, balance - signed3_change)
         # Unconfirmed received funds that are not in mempool, also shouldn't show
         # up in unconfirmed balance
         unconfbalance = self.nodes[0].getunconfirmedbalance() + self.nodes[0].getbalance()
@@ -109,7 +117,7 @@ class AbandonConflictTest(DigiByteTestFramework):
         assert_equal(len(self.nodes[0].getrawmempool()), 0)
         assert_equal(self.nodes[0].getbalance(), balance)
 
-        # But if its received again then it is unabandoned
+        # But if it is received again then it is unabandoned
         # And since now in mempool, the change is available
         # But its child tx remains abandoned
         self.nodes[0].sendrawtransaction(signed["hex"])
@@ -117,7 +125,7 @@ class AbandonConflictTest(DigiByteTestFramework):
         assert_equal(newbalance, balance - Decimal("20") + Decimal("14.99998"))
         balance = newbalance
 
-        # Send child tx again so its unabandoned
+        # Send child tx again so it is unabandoned
         self.nodes[0].sendrawtransaction(signed2["hex"])
         newbalance = self.nodes[0].getbalance()
         assert_equal(newbalance, balance - Decimal("10") - Decimal("14.99998") + Decimal("24.9996"))
