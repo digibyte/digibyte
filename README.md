@@ -94,10 +94,6 @@ regularly to indicate new official, stable release versions of DigiByte Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-<<<<<<< HEAD
-
-=======
->>>>>>> bitcoin/master
 Testing
 -------
 
