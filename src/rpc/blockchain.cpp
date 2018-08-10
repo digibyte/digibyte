@@ -1270,6 +1270,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.pushKV("chainwork",             chainActive.Tip()->nChainWork.GetHex());
     obj.pushKV("size_on_disk",          CalculateCurrentUsage());
     obj.pushKV("pruned",                fPruneMode);
+    obj.pushKV("miningalgo",            GetAlgoName(miningAlgo));
     if (fPruneMode) {
         CBlockIndex* block = chainActive.Tip();
         assert(block);
