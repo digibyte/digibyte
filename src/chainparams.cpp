@@ -388,6 +388,7 @@ public:
         vSeeds.emplace_back("seed2.digibyte.io");
         vSeeds.emplace_back("seed3.digibyte.io");
         vSeeds.emplace_back("testnet-seed.digibyteprojects.com");
+        vSeeds.emplace_back("testnet-1.us.digibyteservers.io");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,126);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,140);
