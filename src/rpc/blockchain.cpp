@@ -375,7 +375,7 @@ static UniValue getdifficulty(const JSONRPCRequest& request)
         );
 
     LOCK(cs_main);
-    return GetDifficulty();
+    return GetDifficulty(nullptr, miningAlgo);
 }
 
 static std::string EntryDescriptionString()
