@@ -302,7 +302,7 @@ static std::string gbt_vb_name(const Consensus::DeploymentPos pos) {
 
 static UniValue getblocktemplate(const JSONRPCRequest& request)
 {
-    if (request.fHelp || request.params.size() > 1)
+    if (request.fHelp || request.params.size() > 2)
         throw std::runtime_error(
             "getblocktemplate ( TemplateRequest )\n"
             "\nIf the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.\n"
@@ -326,6 +326,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
             "           ,...\n"
             "       ]\n"
             "     }\n"
+            "2. algo    (string, optional) The mining algorithm to use for this pow hash, 'sha256d', 'scrypt', 'groestl', 'skein', 'qubit'\n"
             "\n"
 
             "\nResult:\n"
@@ -442,6 +443,23 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
         }
     }
 
+    int algo = miningAlgo;
+    if (!request.params[1].isNull()) {
+        std::string strAlgo = request.params[1].get_str();
+        if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
+            algo = ALGO_SHA256D;
+        else if (strAlgo == "scrypt")
+            algo = ALGO_SCRYPT;
+        else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
+            algo = ALGO_GROESTL;
+        else if (strAlgo == "skein" || strAlgo == "skeinsha2")
+            algo = ALGO_SKEIN;
+        else if (strAlgo == "q2c" || strAlgo == "qubit")
+            algo = ALGO_QUBIT;
+        else
+            algo = miningAlgo;
+    }
+
     if (strMode != "template")
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
@@ -530,7 +548,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
 
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, miningAlgo, fSupportsSegwit);
+        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, algo, fSupportsSegwit);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 
@@ -542,7 +560,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     const Consensus::Params& consensusParams = Params().GetConsensus();
 
     // Update nTime
-    UpdateTime(pblock, consensusParams, pindexPrev, miningAlgo);
+    UpdateTime(pblock, consensusParams, pindexPrev, algo);
     pblock->nNonce = 0;
 
     // NOTE: If at some point we support pre-segwit miners post-segwit-activation, this needs to take segwit support into consideration
