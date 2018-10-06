@@ -483,9 +483,7 @@ extern VersionBitsCache versionbitscache;
  */
 int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, int algo);
 
-int32_t SetAlgo(int algo);
-
-bool isMultiAlgoVersion(int nVersion);
+bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consensus, int algo);
 
 /** Reject codes greater or equal to this can be returned by AcceptToMemPool
  * for transactions, to signal internal conditions. They cannot and should not

@@ -358,8 +358,11 @@ libdigibyte_consensus_a_SOURCES = \
   crypto/simd.c \
   crypto/skein.c \
   crypto/hashgroestl.h \
+  crypto/hashodo.h \
   crypto/hashqubit.h \
   crypto/hashskein.h \
+  crypto/odocrypt.cpp \
+  crypto/odocrypt.h \
   crypto/scrypt.cpp \
   crypto/scrypt-sse2.cpp \
   crypto/sph_blake.h \

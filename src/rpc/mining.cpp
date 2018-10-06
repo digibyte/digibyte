@@ -216,13 +216,14 @@ static UniValue getmininginfo(const JSONRPCRequest& request)
     obj.pushKV("pow_algo_id",        miningAlgo);
     obj.pushKV("pow_algo",           GetAlgoName(miningAlgo));
     obj.pushKV("difficulty",         (double)GetDifficulty(NULL, miningAlgo));
-    obj.pushKV("difficulty_sha256d", (double)GetDifficulty(NULL, ALGO_SHA256D));
-    obj.pushKV("difficulty_scrypt",  (double)GetDifficulty(NULL, ALGO_SCRYPT));
-    obj.pushKV("difficulty_groestl", (double)GetDifficulty(NULL, ALGO_GROESTL));
-    obj.pushKV("difficulty_skein",   (double)GetDifficulty(NULL, ALGO_SKEIN));
-    obj.pushKV("difficulty_qubit",   (double)GetDifficulty(NULL, ALGO_QUBIT));
-    //obj.push_back(Pair("difficulty_EQUIHASH",   (double)GetDifficulty(NULL, ALGO_EQUIHASH)));
-    //obj.push_back(Pair("difficulty_ETHASH",   (double)GetDifficulty(NULL, ALGO_ETHASH)));
+    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
+    {
+        if (IsAlgoActive(chainActive.Tip(), Params().GetConsensus(), algo))
+        {
+            std::string key = "difficulty_" + GetAlgoName(algo);
+            obj.pushKV(key, (double)GetDifficulty(NULL, algo));
+        }
+    }
     obj.pushKV("errors",           GetWarnings("statusbar"));
     //obj.push_back(Pair("networkhashps",    getnetworkhashps(request)));
     obj.pushKV("pooledtx",         (uint64_t)mempool.size());
@@ -326,7 +327,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
             "           ,...\n"
             "       ]\n"
             "     }\n"
-            "2. algo    (string, optional) The mining algorithm to use for this pow hash, 'sha256d', 'scrypt', 'groestl', 'skein', 'qubit'\n"
+            "2. algo    (string, optional) The mining algorithm to use for this pow hash, 'sha256d', 'scrypt', 'groestl', 'skein', 'qubit', 'odo'\n"
             "\n"
 
             "\nResult:\n"
@@ -446,18 +447,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     int algo = miningAlgo;
     if (!request.params[1].isNull()) {
         std::string strAlgo = request.params[1].get_str();
-        if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
-            algo = ALGO_SHA256D;
-        else if (strAlgo == "scrypt")
-            algo = ALGO_SCRYPT;
-        else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
-            algo = ALGO_GROESTL;
-        else if (strAlgo == "skein" || strAlgo == "skeinsha2")
-            algo = ALGO_SKEIN;
-        else if (strAlgo == "q2c" || strAlgo == "qubit")
-            algo = ALGO_QUBIT;
-        else
-            algo = miningAlgo;
+        algo = GetAlgoByName(strAlgo, algo);
     }
 
     if (strMode != "template")
