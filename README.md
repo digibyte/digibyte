@@ -1,7 +1,7 @@
 What is DigiByte?
 ----------------
 
-DigiByte (DGB) is a rapidly growing four year old decentralized global blockchain with a focus on cyber security, payments & secure communications technologies.
+DigiByte (DGB) is a rapidly growing, four year old decentralized global blockchain with a focus on cyber security, payments & secure communications technologies.
 
 For more information, as well as an immediately useable, binary version of
 the DigiByte Core software, see https://digibyte.io
@@ -18,27 +18,27 @@ Genesis Block Hash: "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M
 
 Max Total Supply: 21 Billion DigiBytes in 21 Years (2035)
 
-Current Supply: 8,107,031,908 DGB (May 2017)
+Current Supply: 10,958,130,206 DGB (October 2018)
 
 Yearly Supply Inflation: 12% in 2017
 
 Block Reward Reduction: 1% Monthly
 
-Current Block Reward 891 DGB
+Current Block Reward: 891 DGB
 
-Mining Algorithms: Five (Sha256, Scrypt, Groestl, Skein & Qubit)
+Mining Algorithms: Five - (SHA-256, Scrypt, Groestl, Skein & Qubit)
 
-Block Timing: 15 Second Blocks, (1.5 Minutes per algo)
+Block Interval: 15 Second Blocks, (1.5 Minutes per algo)
 
 Algo Block Share: 20% Block Share Per Algo (5)
 
-Difficulty Retarget Every 1 Block, 5 Separate Difficulties, 1 For Each Mining Algo
+Difficulty Retarget: Every 1 Block, 5 Separate Difficulties, 1 For Each Mining Algo
 
-SegWit Support Yes. First major altcoin to successfully activate Segwit. (April 2017)
+SegWit Support: Yes. First major altcoin to successfully activate Segwit. (April 2017)
 
-Hardforks 4. DigiShield, MultiAlgo, MultiShield, DigiSpeed
+Hardforks: 4. DigiShield, MultiAlgo, MultiShield, DigiSpeed
 
-Softforks 3. SegWit, CSV, NVersionBips
+Softforks: 3. SegWit, CSV, NVersionBips
 
 You can mine DigiByte on one of five separate mining algorithms. Each algo averages out to mine 20% of new blocks. This allows for much greater decentralization than other blockchains. In order for an attacker to hardfork DigiByte the attacker would need to control 93% of the hashrate on 1 algo, and 51% of the other 4 making DigiByte much more secure against PoW attacks than other blockchains.
 
@@ -53,11 +53,11 @@ DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 2015
 DigiByte vs Bitcoin
 -------------------
 
-Security: 5 DigiByte mining algorithms vs. 1 Bitcoin algorithm.
+Security: 5 DigiByte mining algorithms vs. 1 Bitcoin mining algorithm.
 DigiByte mining is much more decentralized.
 DigiByte mining algorithms can be changed out in the future to prevent centralization.
 
-Speed:  DigiByte transactions occur much faster than Bitcoin transactions.
+Speed: DigiByte transactions occur much faster than Bitcoin transactions.
 1-3 second transaction notifications.
 15 second DigiByte blocks vs. 10 minute Bitcoin blocks.
 DigiBytes are confirmed after 1.5 minutes vs. 1 hour with Bitcoin.
