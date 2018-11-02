@@ -535,7 +535,8 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     static bool fLastTemplateSupportsSegwit = true;
     if (pindexPrev != chainActive.Tip() ||
         (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5) ||
-        fLastTemplateSupportsSegwit != fSupportsSegwit)
+        fLastTemplateSupportsSegwit != fSupportsSegwit ||
+        algo != pindexPrev->GetAlgo())
     {
         // Clear pindexPrev so future calls make a new block, despite any failures from here on
         pindexPrev = nullptr;
