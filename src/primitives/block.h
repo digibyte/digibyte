@@ -11,6 +11,8 @@
 #include <uint256.h>
 #include <util.h>
 
+namespace Consensus { struct Params; }
+
 enum { 
     ALGO_UNKNOWN = -1,
     ALGO_SHA256D  = 0,
@@ -71,6 +73,7 @@ inline int GetVersionForAlgo(int algo)
     }
 }
 
+uint32_t OdoKey(const Consensus::Params& params, uint32_t nTime);
 
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work

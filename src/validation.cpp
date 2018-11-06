@@ -3341,14 +3341,6 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams, block.GetAlgo()))
         return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
-    // Check for non-standard SCRYPT version.  This check can be removed after a
-    // post hard-fork checkpoint.
-    if (IsAlgoActive(pindexPrev, consensusParams, ALGO_ODO))
-    {
-        if (block.GetAlgo() == ALGO_SCRYPT && ((block.nVersion & BLOCK_VERSION_ALGO) != BLOCK_VERSION_SCRYPT))
-            return state.DoS(100, false, REJECT_INVALID, "bad-version-scrypt", false, "non-standard scrypt version");
-    }
-
     // Check against checkpoints
     if (fCheckpointsEnabled) {
         // Don't accept any forks from the main chain prior to last checkpoint.

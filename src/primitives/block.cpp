@@ -20,34 +20,10 @@
 #include <crypto/common.h>
 #include <arith_uint256.h>
 
-#include <unordered_map>
-
 uint256 CBlockHeader::GetHash() const
 {
     return SerializeHash(*this);
 }
-
-struct HeaderHash
-{
-    size_t operator() (const CBlockHeader& header) const
-    {
-        return header.nTime;
-    }
-};
-
-struct HeaderEqual
-{
-    bool operator() (const CBlockHeader& lhs, const CBlockHeader& rhs) const
-    {
-        return
-                lhs.nVersion == rhs.nVersion &&
-                lhs.hashPrevBlock == rhs.hashPrevBlock &&
-                lhs.hashMerkleRoot == rhs.hashMerkleRoot &&
-                lhs.nTime == rhs.nTime &&
-                lhs.nBits == rhs.nBits &&
-                lhs.nNonce == rhs.nNonce;
-    }
-};
 
 int CBlockHeader::GetAlgo() const
 {
@@ -68,60 +44,9 @@ int CBlockHeader::GetAlgo() const
         //case BLOCK_VERSION_ETHASH:
             //return ALGO_ETHASH;
         case BLOCK_VERSION_ODO:
-        // In version 6 and below, this version mask is unused.  However, nodes
-        // running version 6 will happily accept a block with this version mask,
-        // and just treat it like a normal SCRYPT block.  For this reason, if we
-        // were to simply return ALGO_ODO here, it would be possible for a
-        // malicious miner to cause a chain-split before the hard fork by
-        // submitting such a block with a valid SCRYPT proof-of-work.
-        //
-        // This would be an easily solved problem if we had access to the block
-        // height here, but we don't.  The best alternative I could come up with
-        // is to check the proof-of-work here.  If its proof-of-work is valid
-        // as a SCRYPT block, but not as an ODO block, return ALGO_SCRYPT,
-        // otherwise return ALGO_ODO.  It's technically possible for a malicious
-        // miner to cause a similar chain-split by mining a block where both
-        // proof-of-works are valid, but at current mining difficulties this
-        // would require around 2^96 hashes.
-        //
-        // This entire code block can be removed once a post hard-fork block has
-        // been checkpointed.
-        {
-            // GetAlgo() will be called hundreds of times on the same block, so
-            // it is absolutely necessary to make sure it remains fast.
-            static std::mutex mutex;
-            static std::unordered_map<CBlockHeader, int, HeaderHash, HeaderEqual> cache;
-
-            {
-                std::unique_lock<std::mutex> guard(mutex);
-                auto it = cache.find(*this);
-                if (it != cache.end())
-                    return it->second;
-            }
-
-            arith_uint256 bnTarget;
-            bnTarget.SetCompact(nBits);
-
-            int result = ALGO_ODO;
-            if (UintToArith256(GetPoWAlgoHash(ALGO_ODO)) > bnTarget &&
-                UintToArith256(GetPoWAlgoHash(ALGO_SCRYPT)) <= bnTarget)
-            {
-                result = ALGO_SCRYPT;
-            }
-
-            {
-                std::unique_lock<std::mutex> guard(mutex);
-                cache.insert(std::make_pair(*this, result));
-                return result;
-            }
-        }
             return ALGO_ODO;
     }
-    // We can't yet return ALGO_UNKNOWN here for the same reasons as the above
-    // comment.  After the hard-fork block height, such blocks will be rejected
-    // in ContextualCheckBlockHeader.  Once a post hard-fork block has been
-    // checkpointed, this code can then be replaced by "return ALGO_UNKNOWN".
-    return ALGO_SCRYPT;
+    return ALGO_UNKNOWN;
 }
 
 uint32_t OdoKey(const Consensus::Params& params, uint32_t nTime)
@@ -133,9 +58,7 @@ uint32_t OdoKey(const Consensus::Params& params, uint32_t nTime)
 
 uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
 {
-    // This assert can be added back after the weird stuff in GetAlgo() is
-    // removed
-    //assert(algo == GetAlgo()); // why is this even an argument?
+    assert(algo == GetAlgo()); // why is this even an argument?
     switch (algo)
     {
         case ALGO_SHA256D:
