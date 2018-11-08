@@ -67,7 +67,7 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
         else
         {
             //blockindex = chainActive.Tip();
-            blockindex = GetLastBlockIndexForAlgo(chain.Tip(), algo);
+            blockindex = GetLastBlockIndexForAlgo(chain.Tip(), Params().GetConsensus(), algo);
             if (blockindex == nullptr)
                 nBits = powLimit;
             else

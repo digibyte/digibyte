@@ -23,7 +23,7 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
 
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&);
-const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo);
+const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, const Consensus::Params&, int algo);
 const CBlockIndex* GetAlgo();
 
 #endif // DIGIBYTE_POW_H
