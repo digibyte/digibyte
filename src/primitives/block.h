@@ -28,7 +28,7 @@ enum {
     BLOCK_VERSION_DEFAULT        = 2, 
 
     // algo
-    BLOCK_VERSION_ALGO           = (7 << 9),
+    BLOCK_VERSION_ALGO           = (15 << 8),
     BLOCK_VERSION_SCRYPT         = (0 << 9),
     BLOCK_VERSION_SHA256D        = (1 << 9),
     BLOCK_VERSION_GROESTL        = (2 << 9),
