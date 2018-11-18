@@ -533,9 +533,11 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     // Cache whether the last invocation was with segwit support, to avoid returning
     // a segwit-block to a non-segwit caller.
     static bool fLastTemplateSupportsSegwit = true;
+    static int lastAlgo;
     if (pindexPrev != chainActive.Tip() ||
         (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5) ||
-        fLastTemplateSupportsSegwit != fSupportsSegwit)
+        fLastTemplateSupportsSegwit != fSupportsSegwit ||
+        algo != lastAlgo)
     {
         // Clear pindexPrev so future calls make a new block, despite any failures from here on
         pindexPrev = nullptr;
@@ -545,6 +547,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
         CBlockIndex* pindexPrevNew = chainActive.Tip();
         nStart = GetTime();
         fLastTemplateSupportsSegwit = fSupportsSegwit;
+        lastAlgo = algo;
 
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
