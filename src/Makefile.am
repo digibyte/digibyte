@@ -251,6 +251,7 @@ libdigibyte_server_a_SOURCES = \
   timedata.cpp \
   torcontrol.cpp \
   txdb.cpp \
+  memory_mapping.cpp \
   txmempool.cpp \
   ui_interface.cpp \
   validation.cpp \

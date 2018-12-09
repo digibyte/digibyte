@@ -6,6 +6,8 @@
 #ifndef DIGIBYTE_CHAIN_H
 #define DIGIBYTE_CHAIN_H
 
+#include "memory_mapping.h"
+
 #include <arith_uint256.h>
 #include <consensus/params.h>
 #include <primitives/block.h>
@@ -373,6 +375,19 @@ public:
     //! Efficiently find an ancestor of this block.
     CBlockIndex* GetAncestor(int height);
     const CBlockIndex* GetAncestor(int height) const;
+
+    //! Use a memory mapped to run on low memory devices.
+    //! If a device runs out of memory it saves the unneeded pages to disk storage.
+    #if defined(MEMORY_MAPPING) && !defined(WIN32)
+    void* operator new(size_t size) {
+        DiskAllocator* da = DiskAllocator::getInstance();
+        return da->alloc(size);
+    }
+
+    void operator delete(void* ptr) {
+        // do nothing
+    }
+    #endif
 };
 
 arith_uint256 GetBlockProof(const CBlockIndex& block);

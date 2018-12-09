@@ -152,6 +152,12 @@ AC_ARG_ENABLE([hardening],
   [use_hardening=$enableval],
   [use_hardening=auto])
 
+AC_ARG_ENABLE([low-memory-mode],
+  [AS_HELP_STRING([--enable-low-memory-mode],
+  [use memory mapped files to run on low-memory devices (default is to not use memory mapped files)])],
+  [use_low_memory_mode=$enableval],
+  [use_low_memory_mode=no])
+
 AC_ARG_ENABLE([reduce-exports],
   [AS_HELP_STRING([--enable-reduce-exports],
   [attempt to reduce exported symbols in the resulting executables (default is no)])],
@@ -671,6 +677,11 @@ if test x$use_glibc_compat != xno; then
   AX_CHECK_LINK_FLAG([[-Wl,--wrap=log2f]], [COMPAT_LDFLAGS="$COMPAT_LDFLAGS -Wl,--wrap=log2f"])
 else
   AC_SEARCH_LIBS([clock_gettime],[rt])
+fi
+
+# define MEMORY_MAPPING if low_memory_mode was requested
+if test "x$use_low_memory_mode" != xno; then
+    AC_DEFINE([MEMORY_MAPPING], [1], [use memory mapped files])
 fi
 
 if test "x$enable_gprof" = xyes; then
@@ -1333,6 +1344,7 @@ AM_CONDITIONAL([USE_QRCODE], [test x$use_qr = xyes])
 AM_CONDITIONAL([USE_LCOV],[test x$use_lcov = xyes])
 AM_CONDITIONAL([GLIBC_BACK_COMPAT],[test x$use_glibc_compat = xyes])
 AM_CONDITIONAL([HARDEN],[test x$use_hardening = xyes])
+AM_CONDITIONAL([MEMORY_MAPPING],[test x$use_low_memory_mode = xyes])
 AM_CONDITIONAL([ENABLE_HWCRC32],[test x$enable_hwcrc32 = xyes])
 AM_CONDITIONAL([ENABLE_SSE41],[test x$enable_sse41 = xyes])
 AM_CONDITIONAL([ENABLE_AVX2],[test x$enable_avx2 = xyes])
