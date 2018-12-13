@@ -18,7 +18,7 @@
 
 	#ifndef MEMORY_MAPPING_SIZE
 		// default: 8 GB
-		#define MEMORY_MAPPING_SIZE (1024 * 1024 * 1024 * 8L)
+		#define MEMORY_MAPPING_SIZE (1024 * 1024 * 1024 * 8ULL)
 	#endif
 
 	#ifndef MEMORY_MAPPING_PATH
