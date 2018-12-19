@@ -21,6 +21,10 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
     {
         /*.name =*/ "nversionbips",
         /*.gbt_force =*/ true,
+    },
+    {
+        /*.name =*/ "reservealgo",
+        /*.gbt_force =*/ true,
     }
     //{
        // /*.name =*/ "equihash",
