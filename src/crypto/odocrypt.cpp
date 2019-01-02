@@ -72,22 +72,13 @@ OdoCrypt::OdoCrypt(uint32_t key)
     OdoRandom r(key);
 
     // Randomize each s-box
-    for (int i = 0; i < SBOX_COUNT; i++)
+    for (int i = 0; i < SMALL_SBOX_COUNT; i++)
     {
-        for (int j = 0; j < 1 << SMALL_SBOX_WIDTH; j++)
-            Sbox1[i][j] = j;
-        r.Shuffle(Sbox1[i], 1 << SMALL_SBOX_WIDTH);
-
-        // Duplicate half of the large s-boxes, in order to take advantage of
-        // dual-port ram
-        if (i & 1)
-            std::copy(Sbox2[i-1], Sbox2[i-1] + (1 << LARGE_SBOX_WIDTH), Sbox2[i]);
-        else
-        {
-            for (int j = 0; j < 1 << LARGE_SBOX_WIDTH; j++)
-                Sbox2[i][j] = j;
-            r.Shuffle(Sbox2[i], 1 << LARGE_SBOX_WIDTH);
-        }
+        r.Permutation(Sbox1[i]);
+    }
+    for (int i = 0; i < LARGE_SBOX_COUNT; i++)
+    {
+        r.Permutation(Sbox2[i]);
     }
 
     // Randomize each p-box
@@ -154,8 +145,8 @@ void Transpose(T (&res)[sz][sz], const T (&orig)[sz][sz])
 
 void OdoCrypt::Decrypt(char plain[DIGEST_SIZE], const char cipher[DIGEST_SIZE]) const
 {
-    uint8_t invSbox1[SBOX_COUNT][1 << SMALL_SBOX_WIDTH];
-    uint16_t invSbox2[SBOX_COUNT][1 << LARGE_SBOX_WIDTH];
+    uint8_t invSbox1[SMALL_SBOX_COUNT][1 << SMALL_SBOX_WIDTH];
+    uint16_t invSbox2[LARGE_SBOX_COUNT][1 << LARGE_SBOX_WIDTH];
     uint64_t invPbox1[STATE_SIZE][STATE_SIZE];
     uint64_t invPbox2[STATE_SIZE][STATE_SIZE];
 
@@ -216,24 +207,25 @@ void OdoCrypt::PreMix(uint64_t state[STATE_SIZE])
 
 void OdoCrypt::ApplySboxes(
     uint64_t state[STATE_SIZE],
-    const uint8_t sbox1[SBOX_COUNT][1 << SMALL_SBOX_WIDTH],
-    const uint16_t sbox2[SBOX_COUNT][1 << LARGE_SBOX_WIDTH])
+    const uint8_t sbox1[SMALL_SBOX_COUNT][1 << SMALL_SBOX_WIDTH],
+    const uint16_t sbox2[LARGE_SBOX_COUNT][1 << LARGE_SBOX_WIDTH])
 {
     const static uint64_t MASK1 = (1 << SMALL_SBOX_WIDTH) - 1;
     const static uint64_t MASK2 = (1 << LARGE_SBOX_WIDTH) - 1;
 
-    int sboxIndex = 0;
+    int smallSboxIndex = 0;
     for (int i = 0; i < STATE_SIZE; i++)
     {
         uint64_t next = 0;
         int pos = 0;
-        for (int j = 0; j < SBOX_COUNT / STATE_SIZE; j++)
+        int largeSboxIndex = i;
+        for (int j = 0; j < SMALL_SBOX_COUNT / STATE_SIZE; j++)
         {
-            next |= (uint64_t)sbox1[sboxIndex][(state[i] >> pos) & MASK1] << pos;
+            next |= (uint64_t)sbox1[smallSboxIndex][(state[i] >> pos) & MASK1] << pos;
             pos += SMALL_SBOX_WIDTH;
-            next |= (uint64_t)sbox2[sboxIndex][(state[i] >> pos) & MASK2] << pos;
+            next |= (uint64_t)sbox2[largeSboxIndex][(state[i] >> pos) & MASK2] << pos;
             pos += LARGE_SBOX_WIDTH;
-            sboxIndex++;
+            smallSboxIndex++;
         }
         state[i] = next;
     }

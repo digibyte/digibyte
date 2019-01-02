@@ -18,8 +18,9 @@ public:
     const static int ROTATION_COUNT = 6;
     const static int WORD_BITS = 64;
     const static int DIGEST_BITS = 8*DIGEST_SIZE;
-    const static int SBOX_COUNT = DIGEST_BITS / (SMALL_SBOX_WIDTH + LARGE_SBOX_WIDTH);
     const static int STATE_SIZE = DIGEST_BITS / WORD_BITS;
+    const static int SMALL_SBOX_COUNT = DIGEST_BITS / (SMALL_SBOX_WIDTH + LARGE_SBOX_WIDTH);
+    const static int LARGE_SBOX_COUNT = STATE_SIZE;
 
     OdoCrypt(uint32_t key);
 
@@ -29,8 +30,8 @@ public:
     void Decrypt(char plain[DIGEST_SIZE], const char cipher[DIGEST_SIZE]) const;
 
 private:
-    uint8_t Sbox1[SBOX_COUNT][1 << SMALL_SBOX_WIDTH];
-    uint16_t Sbox2[SBOX_COUNT][1 << LARGE_SBOX_WIDTH];
+    uint8_t Sbox1[SMALL_SBOX_COUNT][1 << SMALL_SBOX_WIDTH];
+    uint16_t Sbox2[LARGE_SBOX_COUNT][1 << LARGE_SBOX_WIDTH];
     uint64_t Pbox1[STATE_SIZE][STATE_SIZE];
     uint64_t Pbox2[STATE_SIZE][STATE_SIZE];
     int Rotations[ROTATION_COUNT];
@@ -46,8 +47,8 @@ private:
     // Non-linear substitution.
     static void ApplySboxes(
         uint64_t state[STATE_SIZE],
-        const uint8_t sbox1[SBOX_COUNT][1 << SMALL_SBOX_WIDTH],
-        const uint16_t sbox2[SBOX_COUNT][1 << LARGE_SBOX_WIDTH]);
+        const uint8_t sbox1[SMALL_SBOX_COUNT][1 << SMALL_SBOX_WIDTH],
+        const uint16_t sbox2[LARGE_SBOX_COUNT][1 << LARGE_SBOX_WIDTH]);
 
     // Move bits between words.
     static void ApplyPbox(uint64_t state[STATE_SIZE], const uint64_t pbox[STATE_SIZE][STATE_SIZE]);
