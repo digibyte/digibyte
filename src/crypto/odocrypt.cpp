@@ -37,6 +37,14 @@ struct OdoRandom
             std::swap(first[i], first[Next(i+1)]);
     }
 
+    template<class T, size_t sz>
+    void Permutation(T (&arr)[sz])
+    {
+        for (size_t i = 0; i < sz; i++)
+            arr[i] = i;
+        Shuffle(arr, sz);
+    }
+
     uint64_t current;
     uint64_t multiplicand;
     uint64_t addend;
@@ -86,35 +94,30 @@ OdoCrypt::OdoCrypt(uint32_t key)
     RandomizePbox(r, Pbox1);
     RandomizePbox(r, Pbox2);
 
+    // Randomize rotations
+    // Rotations must be distinct, non-zero, and have odd sum
+    {
+        int bits[WORD_BITS-1];
+        r.Permutation(bits);
+        int sum = 0;
+        for (int j = 0; j < ROTATION_COUNT-1; j++)
+        {
+            Rotations[j] = bits[j] + 1;
+            sum += Rotations[j];
+        }
+        for (int j = ROTATION_COUNT-1; ; j++)
+        {
+            if ((bits[j] + 1 + sum) % 2)
+            {
+                Rotations[ROTATION_COUNT-1] = bits[j] + 1;
+                break;
+            }
+        }
+    }
+
     // Randomize each round key
     for (int i = 0; i < ROUNDS; i++)
         RoundKey[i] = r.Next(1 << STATE_SIZE);
-
-    // Randomize rotations
-    for (int i = 0; i < STATE_SIZE; i++)
-    {
-        int bits[WORD_BITS];
-        for (int j = 0; j < WORD_BITS; j++)
-            bits[j] = j;
-        r.Shuffle(bits, WORD_BITS);
-
-        int sum = 0;
-        for (int j = 0; j < ROTATION_COUNT; j++)
-            sum += bits[j];
-        // sum must be odd
-        if ((sum % 2) == 0)
-        {
-            for (int j = ROTATION_COUNT; ; j++)
-            {
-                if ((bits[j] + bits[0]) % 2)
-                {
-                    bits[0] = bits[j];
-                    break;
-                }
-            }
-        }
-        std::copy(bits, bits + ROTATION_COUNT, Rotations[i]);
-    }
 }
 
 void OdoCrypt::Encrypt(char cipher[DIGEST_SIZE], const char plain[DIGEST_SIZE]) const
@@ -166,7 +169,8 @@ void OdoCrypt::Decrypt(char plain[DIGEST_SIZE], const char cipher[DIGEST_SIZE]) 
     for (int round = ROUNDS-1; round >= 0; round--)
     {
         ApplyRoundKey(state, RoundKey[round]);
-        for (int i = 0; i < WORD_BITS-1; i++)
+        // LCM(STATE_SIZE, WORD_BITS)-1 is enough iterations, but this will do.
+        for (int i = 0; i < STATE_SIZE*WORD_BITS-1; i++)
             ApplyRotations(state, Rotations);
         ApplyPbox(state, invPbox2);
         ApplySboxes(state, invSbox1, invSbox2);
@@ -251,15 +255,16 @@ inline uint64_t Rot(uint64_t x, int r)
     return r == 0 ? x : (x << r) ^ (x >> (64-r));
 }
 
-void OdoCrypt::ApplyRotations(uint64_t state[STATE_SIZE], const int rotations[STATE_SIZE][ROTATION_COUNT])
+void OdoCrypt::ApplyRotations(uint64_t state[STATE_SIZE], const int rotations[ROTATION_COUNT])
 {
+    uint64_t next[STATE_SIZE];
+    std::rotate_copy(state, state+1, state+STATE_SIZE, next);
     for (int i = 0; i < STATE_SIZE; i++)
+    for (int j = 0; j < ROTATION_COUNT; j++)
     {
-        uint64_t next = 0;
-        for (int j = 0; j < ROTATION_COUNT; j++)
-            next ^= Rot(state[i], rotations[i][j]);
-        state[i] = next;
+            next[i] ^= Rot(state[i], rotations[j]);
     }
+    std::copy(next, next+STATE_SIZE, state);
 }
 
 void OdoCrypt::ApplyRoundKey(uint64_t state[STATE_SIZE], int roundKey)

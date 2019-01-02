@@ -15,7 +15,7 @@ public:
     const static int ROUNDS = 84;
     const static int SMALL_SBOX_WIDTH = 6;
     const static int LARGE_SBOX_WIDTH = 10;
-    const static int ROTATION_COUNT = 5;
+    const static int ROTATION_COUNT = 6;
     const static int WORD_BITS = 64;
     const static int DIGEST_BITS = 8*DIGEST_SIZE;
     const static int SBOX_COUNT = DIGEST_BITS / (SMALL_SBOX_WIDTH + LARGE_SBOX_WIDTH);
@@ -33,7 +33,7 @@ private:
     uint16_t Sbox2[SBOX_COUNT][1 << LARGE_SBOX_WIDTH];
     uint64_t Pbox1[STATE_SIZE][STATE_SIZE];
     uint64_t Pbox2[STATE_SIZE][STATE_SIZE];
-    int Rotations[STATE_SIZE][ROTATION_COUNT];
+    int Rotations[ROTATION_COUNT];
     uint16_t RoundKey[ROUNDS];
 
     // Pack/unpack bytes into internal state
@@ -53,7 +53,7 @@ private:
     static void ApplyPbox(uint64_t state[STATE_SIZE], const uint64_t pbox[STATE_SIZE][STATE_SIZE]);
 
     // Linear mix step.
-    static void ApplyRotations(uint64_t state[STATE_SIZE], const int rotations[STATE_SIZE][ROTATION_COUNT]);
+    static void ApplyRotations(uint64_t state[STATE_SIZE], const int rotations[ROTATION_COUNT]);
 
     // Add round key. Involution.
     static void ApplyRoundKey(uint64_t state[STATE_SIZE], int roundKey);
