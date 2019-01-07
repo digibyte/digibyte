@@ -9,7 +9,7 @@
 	#include <unistd.h>
 	#include <stdlib.h>
 	#include <sys/mman.h>
-	#include <sys/syslimits.h>
+	#include <limits.h>
 	#include <fcntl.h>
 	#include <stdio.h>
 
@@ -39,7 +39,7 @@
 		this->offset = 0;
 
 		// retrieve file descriptor
-		this->fd = open(filename, O_CREAT | O_RDWR);// fileno(this->file);
+		this->fd = open(filename, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);// fileno(this->file);
 		if (this->fd == -1) {
 			perror("[CRITICAL] Could not create temporary file. Exiting due to error");
 			exit(EXIT_FAILURE);

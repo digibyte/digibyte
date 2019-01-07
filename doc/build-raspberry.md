@@ -1,12 +1,16 @@
 Build on Raspberry PI
 =====================
 
-Use the new flag ```bash
---enable-low-memory-mode
-```
+Use the new flag ```--enable-low-memory-mode```
 
 when running ./configure to use memory mapped files, which perform better than SWAP memory and prevent crashes.
 
+```
+./autogen.sh
+./configure --enable-low-memory-mode
+cd src && make digibyted # or any other target you like
+
+```
 
 Important Notes
 ---------------
