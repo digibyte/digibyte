@@ -146,7 +146,7 @@ bool CZMQAbstractPublishNotifier::SendMessage(const char *command, const void* d
     return true;
 }
 
-bool CZMQPublishHashBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
+bool CZMQPublishHashBlockNotifier::NotifyBlock(CBlockIndexConstPtr pindex)
 {
     uint256 hash = pindex->GetBlockHash();
     LogPrint(BCLog::ZMQ, "zmq: Publish hashblock %s\n", hash.GetHex());
@@ -166,7 +166,7 @@ bool CZMQPublishHashTransactionNotifier::NotifyTransaction(const CTransaction &t
     return SendMessage(MSG_HASHTX, data, 32);
 }
 
-bool CZMQPublishRawBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
+bool CZMQPublishRawBlockNotifier::NotifyBlock(CBlockIndexConstPtr pindex)
 {
     LogPrint(BCLog::ZMQ, "zmq: Publish rawblock %s\n", pindex->GetBlockHash().GetHex());
 

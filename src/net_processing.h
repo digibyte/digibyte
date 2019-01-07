@@ -27,11 +27,11 @@ public:
     /**
      * Overridden from CValidationInterface.
      */
-    void BlockConnected(const std::shared_ptr<const CBlock>& pblock, const CBlockIndex* pindexConnected, const std::vector<CTransactionRef>& vtxConflicted) override;
+    void BlockConnected(const std::shared_ptr<const CBlock>& pblock, CBlockIndexConstPtr pindexConnected, const std::vector<CTransactionRef>& vtxConflicted) override;
     /**
      * Overridden from CValidationInterface.
      */
-    void UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload) override;
+    void UpdatedBlockTip(CBlockIndexConstPtr pindexNew, CBlockIndexConstPtr pindexFork, bool fInitialDownload) override;
     /**
      * Overridden from CValidationInterface.
      */
@@ -39,7 +39,7 @@ public:
     /**
      * Overridden from CValidationInterface.
      */
-    void NewPoWValidBlock(const CBlockIndex *pindex, const std::shared_ptr<const CBlock>& pblock) override;
+    void NewPoWValidBlock(CBlockIndexConstPtr pindex, const std::shared_ptr<const CBlock>& pblock) override;
 
     /** Initialize a peer by adding it to mapNodeState and pushing a message requesting its version */
     void InitializeNode(CNode* pnode) override;

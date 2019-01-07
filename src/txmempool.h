@@ -1,10 +1,12 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
+    // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_TXMEMPOOL_H
 #define DIGIBYTE_TXMEMPOOL_H
+
+#include <chain.h>
 
 #include <memory>
 #include <set>
@@ -42,7 +44,7 @@ struct LockPoints
     // As long as the current chain descends from the highest height block
     // containing one of the inputs used in the calculation, then the cached
     // values are still valid even after a reorg.
-    CBlockIndex* maxInputBlock;
+    CBlockIndexPtr maxInputBlock;
 
     LockPoints() : height(0), time(0), maxInputBlock(nullptr) { }
 };

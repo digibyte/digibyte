@@ -26,10 +26,10 @@ public:
     int64_t EndTime(const Consensus::Params& params) const override { return TestTime(20000); }
     int Period(const Consensus::Params& params) const override { return 1000; }
     int Threshold(const Consensus::Params& params) const override { return 900; }
-    bool Condition(const CBlockIndex* pindex, const Consensus::Params& params) const override { return (pindex->nVersion & 0x100); }
+    bool Condition(CBlockIndexConstPtr pindex, const Consensus::Params& params) const override { return (pindex->nVersion & 0x100); }
 
-    ThresholdState GetStateFor(const CBlockIndex* pindexPrev) const { return AbstractThresholdConditionChecker::GetStateFor(pindexPrev, paramsDummy, cache); }
-    int GetStateSinceHeightFor(const CBlockIndex* pindexPrev) const { return AbstractThresholdConditionChecker::GetStateSinceHeightFor(pindexPrev, paramsDummy, cache); }
+    ThresholdState GetStateFor(CBlockIndexConstPtr pindexPrev) const { return AbstractThresholdConditionChecker::GetStateFor(pindexPrev, paramsDummy, cache); }
+    int GetStateSinceHeightFor(CBlockIndexConstPtr pindexPrev) const { return AbstractThresholdConditionChecker::GetStateSinceHeightFor(pindexPrev, paramsDummy, cache); }
 };
 
 class TestAlwaysActiveConditionChecker : public TestConditionChecker
@@ -76,7 +76,7 @@ public:
 
     VersionBitsTester& Mine(unsigned int height, int32_t nTime, int32_t nVersion) {
         while (vpblock.size() < height) {
-            CBlockIndex* pindex = new CBlockIndex();
+            CBlockIndexPtr pindex = new CBlockIndex();
             pindex->nHeight = vpblock.size();
             pindex->pprev = vpblock.size() > 0 ? vpblock.back() : nullptr;
             pindex->nTime = nTime;
@@ -153,7 +153,7 @@ public:
         return *this;
     }
 
-    CBlockIndex * Tip() { return vpblock.size() ? vpblock.back() : nullptr; }
+    CBlockIndexPtr  Tip() { return vpblock.size() ? vpblock.back() : nullptr; }
 };
 
 BOOST_FIXTURE_TEST_SUITE(versionbits_tests, TestingSetup)
@@ -270,7 +270,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
 
     // Before MedianTimePast of the chain has crossed nStartTime, the bit
     // should not be set.
-    CBlockIndex *lastBlock = nullptr;
+    CBlockIndexPtr lastBlock = nullptr;
     lastBlock = firstChain.Mine(2016, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
     BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams, 2) & (1<<bit), 0);
 

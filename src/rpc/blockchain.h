@@ -5,6 +5,8 @@
 #ifndef DIGIBYTE_RPC_BLOCKCHAIN_H
 #define DIGIBYTE_RPC_BLOCKCHAIN_H
 
+#include <chain.h>
+
 class CBlock;
 class CBlockIndex;
 class UniValue;
@@ -16,13 +18,13 @@ class UniValue;
  * @return A floating point number that is a multiple of the main net minimum
  * difficulty (4295032833 hashes).
  */
-double GetDifficulty(const CBlockIndex* blockindex = nullptr, int algo = 2);
+double GetDifficulty(CBlockIndexConstPtr blockindex = nullptr, int algo = 2);
 
 /** Callback for when block tip changed. */
-void RPCNotifyBlockChange(bool ibd, const CBlockIndex *);
+void RPCNotifyBlockChange(bool ibd, CBlockIndexConstPtr);
 
 /** Block description to JSON */
-UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool txDetails = false);
+UniValue blockToJSON(const CBlock& block, CBlockIndexConstPtr blockindex, bool txDetails = false);
 
 /** Mempool information to JSON */
 UniValue mempoolInfoToJSON();
@@ -31,6 +33,6 @@ UniValue mempoolInfoToJSON();
 UniValue mempoolToJSON(bool fVerbose = false);
 
 /** Block header to JSON */
-UniValue blockheaderToJSON(const CBlockIndex* blockindex);
+UniValue blockheaderToJSON(CBlockIndexConstPtr blockindex);
 
 #endif

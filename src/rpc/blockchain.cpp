@@ -56,7 +56,7 @@ static CUpdatedBlock latestblock;
 
 /* Calculate the difficulty for a given block index.
  */
-double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
+double GetDifficulty(const CChain& chain, CBlockIndexConstPtr blockindex, int algo)
 {
     unsigned int nBits;
     unsigned int powLimit = UintToArith256(Params().GetConsensus().powLimit).GetCompact();
@@ -95,12 +95,12 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
     return dDiff;
 }
 
-double GetDifficulty(const CBlockIndex* blockindex, int algo)
+double GetDifficulty(CBlockIndexConstPtr blockindex, int algo)
 {
     return GetDifficulty(chainActive, blockindex, algo);
 }
 
-UniValue blockheaderToJSON(const CBlockIndex* blockindex)
+UniValue blockheaderToJSON(CBlockIndexConstPtr blockindex)
 {
     AssertLockHeld(cs_main);
     UniValue result(UniValue::VOBJ);
@@ -124,13 +124,13 @@ UniValue blockheaderToJSON(const CBlockIndex* blockindex)
 
     if (blockindex->pprev)
         result.pushKV("previousblockhash", blockindex->pprev->GetBlockHash().GetHex());
-    CBlockIndex *pnext = chainActive.Next(blockindex);
+    CBlockIndexPtr pnext = chainActive.Next(blockindex);
     if (pnext)
         result.pushKV("nextblockhash", pnext->GetBlockHash().GetHex());
     return result;
 }
 
-UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool txDetails)
+UniValue blockToJSON(const CBlock& block, CBlockIndexConstPtr blockindex, bool txDetails)
 {
     AssertLockHeld(cs_main);
     UniValue result(UniValue::VOBJ);
@@ -174,7 +174,7 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
 
     if (blockindex->pprev)
         result.pushKV("previousblockhash", blockindex->pprev->GetBlockHash().GetHex());
-    CBlockIndex *pnext = chainActive.Next(blockindex);
+    CBlockIndexPtr pnext = chainActive.Next(blockindex);
     if (pnext)
         result.pushKV("nextblockhash", pnext->GetBlockHash().GetHex());
     return result;
@@ -214,7 +214,7 @@ static UniValue getbestblockhash(const JSONRPCRequest& request)
     return chainActive.Tip()->GetBlockHash().GetHex();
 }
 
-void RPCNotifyBlockChange(bool ibd, const CBlockIndex * pindex)
+void RPCNotifyBlockChange(bool ibd, CBlockIndexConstPtr pindex)
 {
     if(pindex) {
         std::lock_guard<std::mutex> lock(cs_blockchange);
@@ -697,7 +697,7 @@ static UniValue getblockhash(const JSONRPCRequest& request)
     if (nHeight < 0 || nHeight > chainActive.Height())
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Block height out of range");
 
-    CBlockIndex* pblockindex = chainActive[nHeight];
+    CBlockIndexPtr pblockindex = chainActive[nHeight];
     return pblockindex->GetBlockHash().GetHex();
 }
 
@@ -745,7 +745,7 @@ static UniValue getblockheader(const JSONRPCRequest& request)
     if (!request.params[1].isNull())
         fVerbose = request.params[1].get_bool();
 
-    const CBlockIndex* pblockindex = LookupBlockIndex(hash);
+    CBlockIndexConstPtr pblockindex = LookupBlockIndex(hash);
     if (!pblockindex) {
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
     }
@@ -761,7 +761,7 @@ static UniValue getblockheader(const JSONRPCRequest& request)
     return blockheaderToJSON(pblockindex);
 }
 
-static CBlock GetBlockChecked(const CBlockIndex* pblockindex)
+static CBlock GetBlockChecked(CBlockIndexConstPtr pblockindex)
 {
     CBlock block;
     if (IsBlockPruned(pblockindex)) {
@@ -844,7 +844,7 @@ static UniValue getblock(const JSONRPCRequest& request)
             verbosity = request.params[1].get_bool() ? 1 : 0;
     }
 
-    const CBlockIndex* pblockindex = LookupBlockIndex(hash);
+    CBlockIndexConstPtr pblockindex = LookupBlockIndex(hash);
     if (!pblockindex) {
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
     }
@@ -960,7 +960,7 @@ static UniValue pruneblockchain(const JSONRPCRequest& request)
     // too low to be a block time (corresponds to timestamp from Sep 2001).
     if (heightParam > 1000000000) {
         // Add a 2 hour buffer to include blocks which might have had old timestamps
-        CBlockIndex* pindex = chainActive.FindEarliestAtLeast(heightParam - TIMESTAMP_WINDOW);
+        CBlockIndexPtr pindex = chainActive.FindEarliestAtLeast(heightParam - TIMESTAMP_WINDOW);
         if (!pindex) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Could not find block with at least the specified timestamp.");
         }
@@ -1087,7 +1087,7 @@ UniValue gettxout(const JSONRPCRequest& request)
         }
     }
 
-    const CBlockIndex* pindex = LookupBlockIndex(pcoinsTip->GetBestBlock());
+    CBlockIndexConstPtr pindex = LookupBlockIndex(pcoinsTip->GetBestBlock());
     ret.pushKV("bestblock", pindex->GetBlockHash().GetHex());
     if (coin.nHeight == MEMPOOL_HEIGHT) {
         ret.pushKV("confirmations", 0);
@@ -1132,7 +1132,7 @@ static UniValue verifychain(const JSONRPCRequest& request)
 }
 
 /** Implementation of IsSuperMajority with better feedback */
-static UniValue SoftForkMajorityDesc(int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
+static UniValue SoftForkMajorityDesc(int version, CBlockIndexPtr pindex, const Consensus::Params& consensusParams)
 {
     UniValue rv(UniValue::VOBJ);
     bool activated = false;
@@ -1152,7 +1152,7 @@ static UniValue SoftForkMajorityDesc(int version, CBlockIndex* pindex, const Con
     return rv;
 }
 
-static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
+static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndexPtr pindex, const Consensus::Params& consensusParams)
 {
     UniValue rv(UniValue::VOBJ);
     rv.pushKV("id", name);
@@ -1271,7 +1271,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.pushKV("size_on_disk",          CalculateCurrentUsage());
     obj.pushKV("pruned",                fPruneMode);
     if (fPruneMode) {
-        CBlockIndex* block = chainActive.Tip();
+        CBlockIndexPtr block = chainActive.Tip();
         assert(block);
         while (block->pprev && (block->pprev->nStatus & BLOCK_HAVE_DATA)) {
             block = block->pprev;
@@ -1287,7 +1287,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
         }
     }
     const Consensus::Params& consensusParams = Params().GetConsensus();
-    CBlockIndex* tip = chainActive.Tip();
+    CBlockIndexPtr tip = chainActive.Tip();
     UniValue difficulties(UniValue::VOBJ);
     UniValue softforks(UniValue::VARR);
     UniValue bip9_softforks(UniValue::VOBJ);
@@ -1314,7 +1314,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
 /** Comparison function for sorting the getchaintips heads.  */
 struct CompareBlocksByHeight
 {
-    bool operator()(const CBlockIndex* a, const CBlockIndex* b) const
+    bool operator()(CBlockIndexConstPtr a, CBlockIndexConstPtr b) const
     {
         /* Make sure that unequal blocks with the same height do not compare
            equal. Use the pointers themselves to make a distinction. */
@@ -1368,11 +1368,11 @@ static UniValue getchaintips(const JSONRPCRequest& request)
      *  - Iterate through the orphan blocks. If the block isn't pointed to by another orphan, it is a chain tip.
      *  - add chainActive.Tip()
      */
-    std::set<const CBlockIndex*, CompareBlocksByHeight> setTips;
-    std::set<const CBlockIndex*> setOrphans;
-    std::set<const CBlockIndex*> setPrevs;
+    std::set<CBlockIndexConstPtr, CompareBlocksByHeight> setTips;
+    std::set<CBlockIndexConstPtr> setOrphans;
+    std::set<CBlockIndexConstPtr> setPrevs;
 
-    for (const std::pair<const uint256, CBlockIndex*>& item : mapBlockIndex)
+    for (const std::pair<const uint256, CBlockIndexPtr>& item : mapBlockIndex)
     {
         if (!chainActive.Contains(item.second)) {
             setOrphans.insert(item.second);
@@ -1380,7 +1380,7 @@ static UniValue getchaintips(const JSONRPCRequest& request)
         }
     }
 
-    for (std::set<const CBlockIndex*>::iterator it = setOrphans.begin(); it != setOrphans.end(); ++it)
+    for (std::set<CBlockIndexConstPtr>::iterator it = setOrphans.begin(); it != setOrphans.end(); ++it)
     {
         if (setPrevs.erase(*it) == 0) {
             setTips.insert(*it);
@@ -1392,7 +1392,7 @@ static UniValue getchaintips(const JSONRPCRequest& request)
 
     /* Construct the output array.  */
     UniValue res(UniValue::VARR);
-    for (const CBlockIndex* block : setTips)
+    for (CBlockIndexConstPtr block : setTips)
     {
         UniValue obj(UniValue::VOBJ);
         obj.pushKV("height", block->nHeight);
@@ -1484,7 +1484,7 @@ static UniValue preciousblock(const JSONRPCRequest& request)
 
     std::string strHash = request.params[0].get_str();
     uint256 hash(uint256S(strHash));
-    CBlockIndex* pblockindex;
+    CBlockIndexPtr pblockindex;
 
     {
         LOCK(cs_main);
@@ -1524,7 +1524,7 @@ static UniValue invalidateblock(const JSONRPCRequest& request)
 
     {
         LOCK(cs_main);
-        CBlockIndex* pblockindex = LookupBlockIndex(hash);
+        CBlockIndexPtr pblockindex = LookupBlockIndex(hash);
         if (!pblockindex) {
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
         }
@@ -1563,7 +1563,7 @@ static UniValue reconsiderblock(const JSONRPCRequest& request)
 
     {
         LOCK(cs_main);
-        CBlockIndex* pblockindex = LookupBlockIndex(hash);
+        CBlockIndexPtr pblockindex = LookupBlockIndex(hash);
         if (!pblockindex) {
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
         }
@@ -1605,7 +1605,7 @@ static UniValue getchaintxstats(const JSONRPCRequest& request)
             + HelpExampleRpc("getchaintxstats", "2016")
         );
 
-    const CBlockIndex* pindex;
+    CBlockIndexConstPtr pindex;
     int blockcount = 30 * 24 * 60 * 60 / Params().GetConsensus().nPowTargetSpacing; // By default: 1 month
 
     if (request.params[1].isNull()) {
@@ -1635,7 +1635,7 @@ static UniValue getchaintxstats(const JSONRPCRequest& request)
         }
     }
 
-    const CBlockIndex* pindexPast = pindex->GetAncestor(pindex->nHeight - blockcount);
+    CBlockIndexConstPtr pindexPast = pindex->GetAncestor(pindex->nHeight - blockcount);
     int nTimeDiff = pindex->GetMedianTimePast() - pindexPast->GetMedianTimePast();
     int nTxDiff = pindex->nChainTx - pindexPast->nChainTx;
 
@@ -1738,7 +1738,7 @@ static UniValue getblockstats(const JSONRPCRequest& request)
 
     LOCK(cs_main);
 
-    CBlockIndex* pindex;
+    CBlockIndexPtr pindex;
     if (request.params[0].isNum()) {
         const int height = request.params[0].get_int();
         const int current_tip = chainActive.Height();

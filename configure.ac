@@ -154,7 +154,7 @@ AC_ARG_ENABLE([hardening],
 
 AC_ARG_ENABLE([low-memory-mode],
   [AS_HELP_STRING([--enable-low-memory-mode],
-  [use memory mapped files to run on low-memory devices (default is to not use memory mapped files)])],
+  [reduces memory usage to run on low-memory devices while decreasing performance (default is to not use this mode)])],
   [use_low_memory_mode=$enableval],
   [use_low_memory_mode=no])
 
@@ -681,6 +681,7 @@ fi
 
 # define MEMORY_MAPPING if low_memory_mode was requested
 if test "x$use_low_memory_mode" != xno; then
+    
     AC_DEFINE([MEMORY_MAPPING], [1], [use memory mapped files])
 fi
 
@@ -1476,15 +1477,16 @@ echo "  with gui / qt = $digibyte_enable_qt"
 if test x$digibyte_enable_qt != xno; then
     echo "    with qr     = $use_qr"
 fi
-echo "  with zmq      = $use_zmq"
-echo "  with test     = $use_tests"
-echo "  with bench    = $use_bench"
-echo "  with upnp     = $use_upnp"
-echo "  use asm       = $use_asm"
-echo "  sanitizers    = $use_sanitizers"
-echo "  debug enabled = $enable_debug"
-echo "  gprof enabled = $enable_gprof"
-echo "  werror        = $enable_werror"
+echo "  with zmq        = $use_zmq"
+echo "  with test       = $use_tests"
+echo "  with bench      = $use_bench"
+echo "  with upnp       = $use_upnp"
+echo "  use asm         = $use_asm"
+echo "  sanitizers      = $use_sanitizers"
+echo "  debug enabled   = $enable_debug"
+echo "  gprof enabled   = $enable_gprof"
+echo "  werror          = $enable_werror"
+echo "  low memory mode = $use_low_memory_mode"
 echo
 echo "  target os     = $TARGET_OS"
 echo "  build os      = $BUILD_OS"

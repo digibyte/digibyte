@@ -5,11 +5,11 @@
 #ifndef DIGIBYTE_CHECKPOINTS_H
 #define DIGIBYTE_CHECKPOINTS_H
 
+#include <chain.h>
 #include <uint256.h>
 
 #include <map>
 
-class CBlockIndex;
 struct CCheckpointData;
 
 /**
@@ -19,8 +19,8 @@ struct CCheckpointData;
 namespace Checkpoints
 {
 
-//! Returns last CBlockIndex* that is a checkpoint
-CBlockIndex* GetLastCheckpoint(const CCheckpointData& data);
+//! Returns last CBlockIndexPtr that is a checkpoint
+CBlockIndexRawPtr GetLastCheckpoint(const CCheckpointData& data);
 
 } //namespace Checkpoints
 

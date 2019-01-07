@@ -243,7 +243,7 @@ bool TxIndex::Init()
     return BaseIndex::Init();
 }
 
-bool TxIndex::WriteBlock(const CBlock& block, const CBlockIndex* pindex)
+bool TxIndex::WriteBlock(const CBlock& block, CBlockIndexConstPtr pindex)
 {
     CDiskTxPos pos(pindex->GetBlockPos(), GetSizeOfCompactSize(block.vtx.size()));
     std::vector<std::pair<uint256, CDiskTxPos>> vPos;

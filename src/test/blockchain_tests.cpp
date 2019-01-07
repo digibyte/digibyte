@@ -13,9 +13,9 @@ static bool DoubleEquals(double a, double b, double epsilon)
     return std::abs(a - b) < epsilon;
 }
 
-static CBlockIndex* CreateBlockIndexWithNbits(uint32_t nbits)
+static CBlockIndexPtr CreateBlockIndexWithNbits(uint32_t nbits)
 {
-    CBlockIndex* block_index = new CBlockIndex();
+    CBlockIndexPtr block_index = new CBlockIndex();
     block_index->nHeight = 46367;
     block_index->nTime = 1269211443;
     block_index->nBits = nbits;
@@ -34,7 +34,7 @@ static void RejectDifficultyMismatch(double difficulty, double expected_difficul
  */
 static void TestDifficulty(uint32_t nbits, double expected_difficulty)
 {
-    CBlockIndex* block_index = CreateBlockIndexWithNbits(nbits);
+    CBlockIndexPtr block_index = CreateBlockIndexWithNbits(nbits);
     double difficulty = GetDifficulty(block_index, 2);
     delete block_index;
 

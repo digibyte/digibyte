@@ -14,16 +14,23 @@ class CBlockHeader;
 class CBlockIndex;
 class uint256;
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
-unsigned int GetNextWorkRequiredv1(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
-unsigned int GetNextWorkRequiredv2(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
-unsigned int GetNextWorkRequiredv3(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
-unsigned int GetNextWorkRequiredv4(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
-unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params&);
+#if MEMORY_MAPPING 
+	class CBlockIndexProxy;
+	typedef CBlockIndexProxy CBlockIndexConstPtr;
+#else 
+	typedef CBlockIndexConstPtr CBlockIndexConstPtr;
+#endif
+
+unsigned int GetNextWorkRequired(CBlockIndexConstPtr pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
+unsigned int GetNextWorkRequiredv1(CBlockIndexConstPtr pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
+unsigned int GetNextWorkRequiredv2(CBlockIndexConstPtr pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
+unsigned int GetNextWorkRequiredv3(CBlockIndexConstPtr pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
+unsigned int GetNextWorkRequiredv4(CBlockIndexConstPtr pindexLast, const CBlockHeader *pblock, const Consensus::Params&, int algo);
+unsigned int CalculateNextWorkRequired(CBlockIndexConstPtr pindexLast, int64_t nFirstBlockTime, const Consensus::Params&);
 
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&);
-const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, const Consensus::Params&, int algo);
-const CBlockIndex* GetAlgo();
+CBlockIndexConstPtr GetLastBlockIndexForAlgo(CBlockIndexConstPtr pindex, const Consensus::Params&, int algo);
+CBlockIndexConstPtr GetAlgo();
 
 #endif // DIGIBYTE_POW_H

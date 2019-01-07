@@ -370,8 +370,8 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     int nHeight = chainActive.Height();
     // Create an actual 209999-long block chain (without valid blocks).
     while (chainActive.Tip()->nHeight < 209999) {
-        CBlockIndex* prev = chainActive.Tip();
-        CBlockIndex* next = new CBlockIndex();
+        CBlockIndexPtr prev = chainActive.Tip();
+        CBlockIndexPtr next = new CBlockIndex();
         next->phashBlock = new uint256(InsecureRand256());
         pcoinsTip->SetBestBlock(next->GetBlockHash());
         next->pprev = prev;
@@ -382,8 +382,8 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     BOOST_CHECK(pblocktemplate = AssemblerForTest(chainparams).CreateNewBlock(scriptPubKey, 2));
     // Extend to a 210000-long block chain.
     while (chainActive.Tip()->nHeight < 210000) {
-        CBlockIndex* prev = chainActive.Tip();
-        CBlockIndex* next = new CBlockIndex();
+        CBlockIndexPtr prev = chainActive.Tip();
+        CBlockIndexPtr next = new CBlockIndex();
         next->phashBlock = new uint256(InsecureRand256());
         pcoinsTip->SetBestBlock(next->GetBlockHash());
         next->pprev = prev;
@@ -413,7 +413,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
 
     // Delete the dummy blocks again.
     while (chainActive.Tip()->nHeight > nHeight) {
-        CBlockIndex* del = chainActive.Tip();
+        CBlockIndexPtr del = chainActive.Tip();
         chainActive.SetTip(del->pprev);
         pcoinsTip->SetBestBlock(del->pprev->GetBlockHash());
         delete del->phashBlock;

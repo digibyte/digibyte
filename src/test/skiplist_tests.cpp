@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(getlocator_test)
     // Test 100 random starting points for locators.
     for (int n=0; n<100; n++) {
         int r = InsecureRandRange(150000);
-        CBlockIndex* tip = (r < 100000) ? &vBlocksMain[r] : &vBlocksSide[r - 100000];
+        CBlockIndexPtr tip = (r < 100000) ? &vBlocksMain[r] : &vBlocksSide[r - 100000];
         CBlockLocator locator = chain.GetLocator(tip);
 
         // The first result must be the block itself, the last one must be genesis.
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(findearliestatleast_test)
         // Pick a random element in vBlocksMain.
         int r = InsecureRandRange(vBlocksMain.size());
         int64_t test_time = vBlocksMain[r].nTime;
-        CBlockIndex *ret = chain.FindEarliestAtLeast(test_time);
+        CBlockIndexPtr ret = chain.FindEarliestAtLeast(test_time);
         BOOST_CHECK(ret->nTimeMax >= test_time);
         BOOST_CHECK((ret->pprev==nullptr) || ret->pprev->nTimeMax < test_time);
         BOOST_CHECK(vBlocksMain[r].GetAncestor(ret->nHeight) == ret);
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_CASE(findearliestatleast_edge_test)
 {
     std::list<CBlockIndex> blocks;
     for (unsigned int timeMax : {100, 100, 100, 200, 200, 200, 300, 300, 300}) {
-        CBlockIndex* prev = blocks.empty() ? nullptr : &blocks.back();
+        CBlockIndexPtr prev = blocks.empty() ? nullptr : &blocks.back();
         blocks.emplace_back();
         blocks.back().nHeight = prev ? prev->nHeight + 1 : 0;
         blocks.back().pprev = prev;

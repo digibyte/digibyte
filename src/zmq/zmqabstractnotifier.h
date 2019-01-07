@@ -5,6 +5,7 @@
 #ifndef DIGIBYTE_ZMQ_ZMQABSTRACTNOTIFIER_H
 #define DIGIBYTE_ZMQ_ZMQABSTRACTNOTIFIER_H
 
+#include <chain.h>
 #include <zmq/zmqconfig.h>
 
 class CBlockIndex;
@@ -32,7 +33,7 @@ public:
     virtual bool Initialize(void *pcontext) = 0;
     virtual void Shutdown() = 0;
 
-    virtual bool NotifyBlock(const CBlockIndex *pindex);
+    virtual bool NotifyBlock(CBlockIndexConstPtr pindex);
     virtual bool NotifyTransaction(const CTransaction &transaction);
 
 protected:

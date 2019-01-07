@@ -50,7 +50,7 @@ static void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& 
         LOCK(cs_main);
 
         entry.pushKV("blockhash", hashBlock.GetHex());
-        CBlockIndex* pindex = LookupBlockIndex(hashBlock);
+        CBlockIndexPtr pindex = LookupBlockIndex(hashBlock);
         if (pindex) {
             if (chainActive.Contains(pindex)) {
                 entry.pushKV("confirmations", 1 + chainActive.Height() - pindex->nHeight);
@@ -145,7 +145,7 @@ static UniValue getrawtransaction(const JSONRPCRequest& request)
 
     bool in_active_chain = true;
     uint256 hash = ParseHashV(request.params[0], "parameter 1");
-    CBlockIndex* blockindex = nullptr;
+    CBlockIndexPtr blockindex = nullptr;
 
     if (hash == Params().GenesisBlock().hashMerkleRoot) {
         // Special exception for the genesis block coinbase transaction
@@ -238,7 +238,7 @@ static UniValue gettxoutproof(const JSONRPCRequest& request)
        oneTxid = hash;
     }
 
-    CBlockIndex* pblockindex = nullptr;
+    CBlockIndexPtr pblockindex = nullptr;
     uint256 hashBlock;
     if (!request.params[1].isNull()) {
         LOCK(cs_main);
@@ -323,7 +323,7 @@ static UniValue verifytxoutproof(const JSONRPCRequest& request)
 
     LOCK(cs_main);
 
-    const CBlockIndex* pindex = LookupBlockIndex(merkleBlock.header.GetHash());
+    CBlockIndexConstPtr pindex = LookupBlockIndex(merkleBlock.header.GetHash());
     if (!pindex || !chainActive.Contains(pindex) || pindex->nTx == 0) {
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found in chain");
     }

@@ -175,7 +175,7 @@ class NodeImpl : public Node
     }
     double getVerificationProgress() override
     {
-        const CBlockIndex* tip;
+        CBlockIndexConstPtr tip;
         {
             LOCK(::cs_main);
             tip = ::chainActive.Tip();
@@ -270,7 +270,7 @@ class NodeImpl : public Node
     }
     std::unique_ptr<Handler> handleNotifyBlockTip(NotifyBlockTipFn fn) override
     {
-        return MakeHandler(::uiInterface.NotifyBlockTip.connect([fn](bool initial_download, const CBlockIndex* block) {
+        return MakeHandler(::uiInterface.NotifyBlockTip.connect([fn](bool initial_download, CBlockIndexConstPtr block) {
             fn(initial_download, block->nHeight, block->GetBlockTime(),
                 GuessVerificationProgress(Params().TxData(), block));
         }));
@@ -278,7 +278,7 @@ class NodeImpl : public Node
     std::unique_ptr<Handler> handleNotifyHeaderTip(NotifyHeaderTipFn fn) override
     {
         return MakeHandler(
-            ::uiInterface.NotifyHeaderTip.connect([fn](bool initial_download, const CBlockIndex* block) {
+            ::uiInterface.NotifyHeaderTip.connect([fn](bool initial_download, CBlockIndexConstPtr block) {
                 fn(initial_download, block->nHeight, block->GetBlockTime(),
                     GuessVerificationProgress(Params().TxData(), block));
             }));

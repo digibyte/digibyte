@@ -6,6 +6,8 @@
 #ifndef DIGIBYTE_UI_INTERFACE_H
 #define DIGIBYTE_UI_INTERFACE_H
 
+#include <chain.h>
+
 #include <memory>
 #include <stdint.h>
 #include <string>
@@ -102,10 +104,10 @@ public:
     boost::signals2::signal<void (const std::string &title, int nProgress, bool resume_possible)> ShowProgress;
 
     /** New block has been accepted */
-    boost::signals2::signal<void (bool, const CBlockIndex *)> NotifyBlockTip;
+    boost::signals2::signal<void (bool, CBlockIndexConstPtr )> NotifyBlockTip;
 
     /** Best header has changed */
-    boost::signals2::signal<void (bool, const CBlockIndex *)> NotifyHeaderTip;
+    boost::signals2::signal<void (bool, CBlockIndexConstPtr )> NotifyHeaderTip;
 
     /** Banlist did change. */
     boost::signals2::signal<void (void)> BannedListChanged;

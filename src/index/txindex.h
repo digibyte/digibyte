@@ -26,7 +26,7 @@ protected:
     /// Override base class init to migrate from old database.
     bool Init() override;
 
-    bool WriteBlock(const CBlock& block, const CBlockIndex* pindex) override;
+    bool WriteBlock(const CBlock& block, CBlockIndexConstPtr pindex) override;
 
     BaseIndex::DB& GetDB() const override;
 

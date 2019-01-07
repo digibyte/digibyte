@@ -25,12 +25,12 @@ struct TestSubscriber : public CValidationInterface {
 
     TestSubscriber(uint256 tip) : m_expected_tip(tip) {}
 
-    void UpdatedBlockTip(const CBlockIndex* pindexNew, const CBlockIndex* pindexFork, bool fInitialDownload) override
+    void UpdatedBlockTip(CBlockIndexConstPtr pindexNew, CBlockIndexConstPtr pindexFork, bool fInitialDownload) override
     {
         BOOST_CHECK_EQUAL(m_expected_tip, pindexNew->GetBlockHash());
     }
 
-    void BlockConnected(const std::shared_ptr<const CBlock>& block, const CBlockIndex* pindex, const std::vector<CTransactionRef>& txnConflicted) override
+    void BlockConnected(const std::shared_ptr<const CBlock>& block, CBlockIndexConstPtr pindex, const std::vector<CTransactionRef>& txnConflicted) override
     {
         BOOST_CHECK_EQUAL(m_expected_tip, block->hashPrevBlock);
         BOOST_CHECK_EQUAL(m_expected_tip, pindex->pprev->GetBlockHash());
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE(processnewblock_signals_ordering)
     SyncWithValidationInterfaceQueue();
 
     // subscribe to events (this subscriber will validate event ordering)
-    const CBlockIndex* initial_tip = nullptr;
+    CBlockIndexConstPtr initial_tip = nullptr;
     {
         LOCK(cs_main);
         initial_tip = chainActive.Tip();
