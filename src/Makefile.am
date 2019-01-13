@@ -296,6 +296,7 @@ crypto_libdigibyte_crypto_base_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes_helper.c \
   crypto/aes.h \
+  crypto/brg_endian.h \
   crypto/chacha20.h \
   crypto/chacha20.cpp \
   crypto/common.h \
@@ -303,6 +304,8 @@ crypto_libdigibyte_crypto_base_a_SOURCES = \
   crypto/hmac_sha256.h \
   crypto/hmac_sha512.cpp \
   crypto/hmac_sha512.h \
+  crypto/KeccakP-800-reference.c \
+  crypto/KeccakP-800-SnP.h \
   crypto/ripemd160.cpp \
   crypto/ripemd160.h \
   crypto/sha1.cpp \

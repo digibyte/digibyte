@@ -8,24 +8,26 @@
 
 #include "uint256.h"
 #include "odocrypt.h"
-#include "sph_keccak.h"
+extern "C" {
+#include "KeccakP-800-SnP.h"
+}
 
 template<typename T1>
 inline uint256 HashOdo(const T1 pbegin, const T1 pend, uint32_t key)
 
 {
-    char cipher[OdoCrypt::DIGEST_SIZE] = {};
-    sph_keccak256_context ctx_keccak;
+    char cipher[KeccakP800_stateSizeInBytes] = {};
     uint256 hash;
 
     size_t len = (pend - pbegin) * sizeof(pbegin[0]);
     assert(len <= OdoCrypt::DIGEST_SIZE);
+    assert(OdoCrypt::DIGEST_SIZE < KeccakP800_stateSizeInBytes);
     memcpy(cipher, static_cast<const void*>(&pbegin[0]), len);
-    OdoCrypt(key).Encrypt(cipher, cipher);
+    cipher[len] = 1;
 
-    sph_keccak256_init(&ctx_keccak);
-    sph_keccak256 (&ctx_keccak, static_cast<const void*>(cipher), OdoCrypt::DIGEST_SIZE);
-    sph_keccak256_close(&ctx_keccak, static_cast<void*>(&hash));
+    OdoCrypt(key).Encrypt(cipher, cipher);
+    KeccakP800_Permute_12rounds(cipher);
+    memcpy(hash.data, cipher, hash.size());
 
     return hash;
 }
