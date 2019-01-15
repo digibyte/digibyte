@@ -24,7 +24,7 @@ Yearly Supply Inflation: 12% in 2017
 
 Block Reward Reduction: 1% Monthly
 
-Current Block Reward: 891 DGB
+Current Block Reward: 712 DGB
 
 Mining Algorithms: Five - (SHA-256, Scrypt, Groestl, Skein & Qubit)
 
