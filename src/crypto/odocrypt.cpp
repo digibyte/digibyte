@@ -22,19 +22,23 @@ struct OdoRandom
     // For a standard LCG, every seed produces the same sequence, but from a different
     // starting point.  This generator gives the 1st, 3rd, 6th, 10th, etc output from
     // a standard LCG.  This ensures that every seed produces a unique sequence.
-    inline int Next(int N)
+    inline uint32_t NextInt()
     {
         addend += multiplicand * BASE_ADDEND;
         multiplicand *= BASE_MULTIPLICAND;
         current = current * multiplicand + addend;
-        return ((current >> 32) * N) >> 32;
+        return current >> 32;
     }
 
-    template<class T>
-    void Shuffle(T first, int N)
+    inline uint64_t NextLong()
     {
-        for (int i = 1; i < N; i++)
-            std::swap(first[i], first[Next(i+1)]);
+        uint64_t hi = NextInt();
+        return (hi << 32) | NextInt();
+    }
+
+    inline int Next(int N)
+    {
+        return ((uint64_t)NextInt() * N) >> 32;
     }
 
     template<class T, size_t sz>
@@ -42,30 +46,14 @@ struct OdoRandom
     {
         for (size_t i = 0; i < sz; i++)
             arr[i] = i;
-        Shuffle(arr, sz);
+        for (int i = 1; i < sz; i++)
+            std::swap(arr[i], arr[Next(i+1)]);
     }
 
     uint64_t current;
     uint64_t multiplicand;
     uint64_t addend;
 };
-
-void RandomizePbox(OdoRandom& r, uint64_t pbox[OdoCrypt::STATE_SIZE][OdoCrypt::STATE_SIZE])
-{
-    for (int i = 0; i < OdoCrypt::STATE_SIZE; i++)
-    for (int j = 0; j < OdoCrypt::STATE_SIZE; j++)
-        pbox[i][j] = 0;
-    for (int i = 0; i < OdoCrypt::WORD_BITS; i++)
-    {
-        int cycle[OdoCrypt::STATE_SIZE + 1];
-        for (size_t j = 0; j < OdoCrypt::STATE_SIZE; j++)
-            cycle[j] = j;
-        r.Shuffle(cycle, OdoCrypt::STATE_SIZE);
-        cycle[OdoCrypt::STATE_SIZE] = cycle[0];
-        for (size_t j = 0; j < OdoCrypt::STATE_SIZE; j++)
-            pbox[cycle[j]][cycle[j+1]] |= (uint64_t)1 << i;
-    }
-}
 
 OdoCrypt::OdoCrypt(uint32_t key)
 {
@@ -82,8 +70,16 @@ OdoCrypt::OdoCrypt(uint32_t key)
     }
 
     // Randomize each p-box
-    RandomizePbox(r, Pbox1);
-    RandomizePbox(r, Pbox2);
+    for (int i = 0; i < 2; i++)
+    {
+        Pbox& perm = Permutation[i];
+        for (int j = 0; j < PBOX_SUBROUNDS; j++)
+        for (int k = 0; k < STATE_SIZE/2; k++)
+            perm.mask[j][k] = r.NextLong();
+        for (int j = 0; j < PBOX_SUBROUNDS-1; j++)
+        for (int k = 0; k < STATE_SIZE/2; k++)
+            perm.rotation[j][k] = r.Next(63) + 1;
+    }
 
     // Randomize rotations
     // Rotations must be distinct, non-zero, and have odd sum
@@ -118,9 +114,9 @@ void OdoCrypt::Encrypt(char cipher[DIGEST_SIZE], const char plain[DIGEST_SIZE]) 
     PreMix(state);
     for (int round = 0; round < ROUNDS; round++)
     {
-        ApplyPbox(state, Pbox1);
+        ApplyPbox(state, Permutation[0]);
         ApplySboxes(state, Sbox1, Sbox2);
-        ApplyPbox(state, Pbox2);
+        ApplyPbox(state, Permutation[1]);
         ApplyRotations(state, Rotations);
         ApplyRoundKey(state, RoundKey[round]);
     }
@@ -135,25 +131,13 @@ void InvertMapping(T (&res)[sz1][sz2], const T (&mapping)[sz1][sz2])
         res[i][mapping[i][j]] = j;
 }
 
-template<class T, size_t sz>
-void Transpose(T (&res)[sz][sz], const T (&orig)[sz][sz])
-{
-    for (size_t i = 0; i < sz; i++)
-    for (size_t j = 0; j < sz; j++)
-        res[i][j] = orig[j][i];
-}
-
 void OdoCrypt::Decrypt(char plain[DIGEST_SIZE], const char cipher[DIGEST_SIZE]) const
 {
     uint8_t invSbox1[SMALL_SBOX_COUNT][1 << SMALL_SBOX_WIDTH];
     uint16_t invSbox2[LARGE_SBOX_COUNT][1 << LARGE_SBOX_WIDTH];
-    uint64_t invPbox1[STATE_SIZE][STATE_SIZE];
-    uint64_t invPbox2[STATE_SIZE][STATE_SIZE];
 
     InvertMapping(invSbox1, Sbox1);
     InvertMapping(invSbox2, Sbox2);
-    Transpose(invPbox1, Pbox1);
-    Transpose(invPbox2, Pbox2);
 
     uint64_t state[STATE_SIZE];
     Unpack(state, cipher);
@@ -163,9 +147,9 @@ void OdoCrypt::Decrypt(char plain[DIGEST_SIZE], const char cipher[DIGEST_SIZE]) 
         // LCM(STATE_SIZE, WORD_BITS)-1 is enough iterations, but this will do.
         for (int i = 0; i < STATE_SIZE*WORD_BITS-1; i++)
             ApplyRotations(state, Rotations);
-        ApplyPbox(state, invPbox2);
+        ApplyInvPbox(state, Permutation[1]);
         ApplySboxes(state, invSbox1, invSbox2);
-        ApplyPbox(state, invPbox1);
+        ApplyInvPbox(state, Permutation[0]);
     }
     PreMix(state);
     Pack(state, plain);
@@ -231,13 +215,25 @@ void OdoCrypt::ApplySboxes(
     }
 }
 
-void OdoCrypt::ApplyPbox(uint64_t state[STATE_SIZE], const uint64_t pbox[STATE_SIZE][STATE_SIZE])
+void OdoCrypt::ApplyMaskedSwaps(uint64_t state[STATE_SIZE], const uint64_t mask[STATE_SIZE/2])
 {
-    uint64_t next[STATE_SIZE] = {};
-    for (int i = 0; i < STATE_SIZE; i++)
-    for (int j = 0; j < STATE_SIZE; j++)
+    for (int i = 0; i < STATE_SIZE/2; i++)
     {
-        next[j] |= state[i] & pbox[i][j];
+        uint64_t& a = state[2*i];
+        uint64_t& b = state[2*i+1];
+        // For each bit set in the mask, swap the corresponding bits in `a` and `b`
+        uint64_t swp = mask[i] & (a ^ b);
+        a ^= swp;
+        b ^= swp;
+    }
+}
+
+void OdoCrypt::ApplyWordShuffle(uint64_t state[STATE_SIZE], int m)
+{
+    uint64_t next[STATE_SIZE];
+    for (int i = 0; i < STATE_SIZE; i++)
+    {
+        next[m*i % STATE_SIZE] = state[i];
     }
     std::copy(next, next+STATE_SIZE, state);
 }
@@ -245,6 +241,49 @@ void OdoCrypt::ApplyPbox(uint64_t state[STATE_SIZE], const uint64_t pbox[STATE_S
 inline uint64_t Rot(uint64_t x, int r)
 {
     return r == 0 ? x : (x << r) ^ (x >> (64-r));
+}
+
+void OdoCrypt::ApplyPboxRotations(uint64_t state[STATE_SIZE], const int rotation[STATE_SIZE/2])
+{
+    for (int i = 0; i < STATE_SIZE/2; i++)
+    {
+        // Only rotate the even words.  Rotating the odd words wouldn't actually
+        // be useful - a transformation that rotates all the words can be
+        // transformed into one that only rotates the even words, then rotates
+        // the odd words once after the final iteration.
+        state[2*i] = Rot(state[2*i], rotation[i]);
+    }
+}
+
+void OdoCrypt::ApplyPbox(uint64_t state[STATE_SIZE], const Pbox& perm)
+{
+    for (int i = 0; i < PBOX_SUBROUNDS-1; i++)
+    {
+        // Conditionally move bits between adjacent pairs of words
+        ApplyMaskedSwaps(state, perm.mask[i]);
+        // Move the words around
+        ApplyWordShuffle(state, PBOX_M);
+        // Rotate the bits within words
+        ApplyPboxRotations(state, perm.rotation[i]);
+    }
+    ApplyMaskedSwaps(state, perm.mask[PBOX_SUBROUNDS-1]);
+}
+
+void OdoCrypt::ApplyInvPbox(uint64_t state[STATE_SIZE], const Pbox& perm)
+{
+    int invM = 1;
+    while (invM * PBOX_M % STATE_SIZE != 1)
+        invM++;
+    ApplyMaskedSwaps(state, perm.mask[PBOX_SUBROUNDS-1]);
+    for (int i = PBOX_SUBROUNDS-2; i >= 0; i--)
+    {
+        int invRotation[STATE_SIZE/2];
+        for (int j = 0; j < STATE_SIZE/2; j++)
+            invRotation[j] = WORD_BITS - perm.rotation[i][j];
+        ApplyPboxRotations(state, invRotation);
+        ApplyWordShuffle(state, invM);
+        ApplyMaskedSwaps(state, perm.mask[i]);
+    }
 }
 
 void OdoCrypt::ApplyRotations(uint64_t state[STATE_SIZE], const int rotations[ROTATION_COUNT])

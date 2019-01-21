@@ -15,6 +15,8 @@ public:
     const static int ROUNDS = 84;
     const static int SMALL_SBOX_WIDTH = 6;
     const static int LARGE_SBOX_WIDTH = 10;
+    const static int PBOX_SUBROUNDS = 6;
+    const static int PBOX_M = 3;
     const static int ROTATION_COUNT = 6;
     const static int WORD_BITS = 64;
     const static int DIGEST_BITS = 8*DIGEST_SIZE;
@@ -30,10 +32,15 @@ public:
     void Decrypt(char plain[DIGEST_SIZE], const char cipher[DIGEST_SIZE]) const;
 
 private:
+    struct Pbox
+    {
+        uint64_t mask[PBOX_SUBROUNDS][STATE_SIZE/2];
+        int rotation[PBOX_SUBROUNDS-1][STATE_SIZE/2];
+    };
+
     uint8_t Sbox1[SMALL_SBOX_COUNT][1 << SMALL_SBOX_WIDTH];
     uint16_t Sbox2[LARGE_SBOX_COUNT][1 << LARGE_SBOX_WIDTH];
-    uint64_t Pbox1[STATE_SIZE][STATE_SIZE];
-    uint64_t Pbox2[STATE_SIZE][STATE_SIZE];
+    Pbox Permutation[2];
     int Rotations[ROTATION_COUNT];
     uint16_t RoundKey[ROUNDS];
 
@@ -50,8 +57,16 @@ private:
         const uint8_t sbox1[SMALL_SBOX_COUNT][1 << SMALL_SBOX_WIDTH],
         const uint16_t sbox2[LARGE_SBOX_COUNT][1 << LARGE_SBOX_WIDTH]);
 
-    // Move bits between words.
-    static void ApplyPbox(uint64_t state[STATE_SIZE], const uint64_t pbox[STATE_SIZE][STATE_SIZE]);
+    // ApplyPbox helpers
+    static void ApplyMaskedSwaps(uint64_t state[STATE_SIZE], const uint64_t mask[STATE_SIZE/2]);
+    static void ApplyWordShuffle(uint64_t state[STATE_SIZE], int m);
+    static void ApplyPboxRotations(uint64_t state[STATE_SIZE], const int rotation[STATE_SIZE/2]);
+
+    // Permute the bits.
+    static void ApplyPbox(uint64_t state[STATE_SIZE], const Pbox& perm);
+
+    // Inverse transform of ApplyPbox.
+    static void ApplyInvPbox(uint64_t state[STATE_SIZE], const Pbox& perm);
 
     // Linear mix step.
     static void ApplyRotations(uint64_t state[STATE_SIZE], const int rotations[ROTATION_COUNT]);
