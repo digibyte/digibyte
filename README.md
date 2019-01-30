@@ -58,11 +58,11 @@ DigiByte mining algorithms can be changed out in the future to prevent centraliz
 Speed: DigiByte transactions occur much faster than Bitcoin transactions.
 1-2 second transaction notifications.
 15 second DigiByte blocks vs. 10 minute Bitcoin blocks.
-DigiBytes are confirmed after 1.5 minutes vs. 1 hour with Bitcoin.
+DigiByte has 6x block confirmations 1.5 minutes vs. 1 hour with Bitcoin.
 
 Transaction Volume: DigiByte can handle many more transactions per second.
 Bitcoin can only handle 3-4 transactions per second.
-DigiByte currently can handle 280+ transactions per second.
+DigiByte currently can handle 560+ transactions per second.
 The 2015 DigiSpeed hardfork introduced changes that double the capacity of the network every two years.
 
 Total Supply: More DigiBytes, lower price, more micro transactions, better price stability.
