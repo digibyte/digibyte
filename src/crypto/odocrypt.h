@@ -11,19 +11,37 @@
 class OdoCrypt
 {
 public:
+    // Block size, in bytes
     const static int DIGEST_SIZE = 80;
+
+private:
+    // Number of rounds.
     const static int ROUNDS = 84;
+    // Odo utilizes two sbox sizes - 6-bit sboxes, which are ideally suited for
+    // FPGA logic elements, and 10-bit sboxes, which are ideally suited for FPGA
+    // RAM elements.
     const static int SMALL_SBOX_WIDTH = 6;
     const static int LARGE_SBOX_WIDTH = 10;
+    // The pboxes are constructed using 3 primitives, applied multiple times.
     const static int PBOX_SUBROUNDS = 6;
+    // This constant should be a generator for the multiplicative group of
+    // integers modulo STATE_SIZE (3 or 7 for a STATE_SIZE of 10).  It controls
+    // one part of the pbox step.
     const static int PBOX_M = 3;
+    // The multiplicative inverse of PBOX_M modulo STATE_SIZE
+    const static int INV_PBOX_M = 7;
+    // This constant must be even.  It controls the number of rotations used in
+    // the linear mixing step.
     const static int ROTATION_COUNT = 6;
+    // Odo internally operates on 64-bit words.
     const static int WORD_BITS = 64;
+
     const static int DIGEST_BITS = 8*DIGEST_SIZE;
     const static int STATE_SIZE = DIGEST_BITS / WORD_BITS;
     const static int SMALL_SBOX_COUNT = DIGEST_BITS / (SMALL_SBOX_WIDTH + LARGE_SBOX_WIDTH);
     const static int LARGE_SBOX_COUNT = STATE_SIZE;
 
+public:
     OdoCrypt(uint32_t key);
 
     void Encrypt(char cipher[DIGEST_SIZE], const char plain[DIGEST_SIZE]) const;
@@ -48,7 +66,8 @@ private:
     static void Unpack(uint64_t state[STATE_SIZE], const char bytes[DIGEST_SIZE]);
     static void Pack(const uint64_t state[STATE_SIZE], char bytes[DIGEST_SIZE]);
 
-    // Pre-mix the bits.  Involution.
+    // Pre-mix the bits.  Involution.  After this step, 95% of the bits depend
+    // on a bit from the nonce.
     static void PreMix(uint64_t state[STATE_SIZE]);
 
     // Non-linear substitution.
@@ -65,7 +84,7 @@ private:
     // Permute the bits.
     static void ApplyPbox(uint64_t state[STATE_SIZE], const Pbox& perm);
 
-    // Inverse transform of ApplyPbox.
+    // Inverse transform of ApplyPbox.  Only used by Decrypt.
     static void ApplyInvPbox(uint64_t state[STATE_SIZE], const Pbox& perm);
 
     // Linear mix step.

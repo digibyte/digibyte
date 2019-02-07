@@ -271,9 +271,6 @@ void OdoCrypt::ApplyPbox(uint64_t state[STATE_SIZE], const Pbox& perm)
 
 void OdoCrypt::ApplyInvPbox(uint64_t state[STATE_SIZE], const Pbox& perm)
 {
-    int invM = 1;
-    while (invM * PBOX_M % STATE_SIZE != 1)
-        invM++;
     ApplyMaskedSwaps(state, perm.mask[PBOX_SUBROUNDS-1]);
     for (int i = PBOX_SUBROUNDS-2; i >= 0; i--)
     {
@@ -281,7 +278,7 @@ void OdoCrypt::ApplyInvPbox(uint64_t state[STATE_SIZE], const Pbox& perm)
         for (int j = 0; j < STATE_SIZE/2; j++)
             invRotation[j] = WORD_BITS - perm.rotation[i][j];
         ApplyPboxRotations(state, invRotation);
-        ApplyWordShuffle(state, invM);
+        ApplyWordShuffle(state, INV_PBOX_M);
         ApplyMaskedSwaps(state, perm.mask[i]);
     }
 }

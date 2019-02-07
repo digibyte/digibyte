@@ -14,7 +14,6 @@ extern "C" {
 
 template<typename T1>
 inline uint256 HashOdo(const T1 pbegin, const T1 pend, uint32_t key)
-
 {
     char cipher[KeccakP800_stateSizeInBytes] = {};
     uint256 hash;
