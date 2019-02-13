@@ -18,17 +18,15 @@ Genesis Block Hash: "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M
 
 Max Total Supply: 21 Billion DigiBytes in 21 Years (2035)
 
-Current Supply: 10,958,130,206 DGB (October 2018)
-
-Yearly Supply Inflation: 12% in 2017
+Current Supply: 11,313,270,862 DGB (Jan 2019)
 
 Block Reward Reduction: 1% Monthly
 
-Current Block Reward: 891 DGB
+Current Block Reward: 704 DGB
 
 Mining Algorithms: Five - (SHA-256, Scrypt, Groestl, Skein & Qubit)
 
-Block Interval: 15 Second Blocks, (1.5 Minutes per algo)
+Block Interval: 15 Second Blocks (75 seconds per algo)
 
 Algo Block Share: 20% Block Share Per Algo (5)
 
@@ -38,7 +36,7 @@ SegWit Support: Yes. First major altcoin to successfully activate Segwit. (April
 
 Hardforks: 4. DigiShield, MultiAlgo, MultiShield, DigiSpeed
 
-Softforks: 3. SegWit, CSV, NVersionBips
+Softforks: 3. SegWit, CSV, NVersionBits
 
 You can mine DigiByte on one of five separate mining algorithms. Each algo averages out to mine 20% of new blocks. This allows for much greater decentralization than other blockchains. In order for an attacker to hardfork DigiByte the attacker would need to control 93% of the hashrate on 1 algo, and 51% of the other 4 making DigiByte much more secure against PoW attacks than other blockchains.
 
@@ -58,13 +56,13 @@ DigiByte mining is much more decentralized.
 DigiByte mining algorithms can be changed out in the future to prevent centralization.
 
 Speed: DigiByte transactions occur much faster than Bitcoin transactions.
-1-3 second transaction notifications.
+1-2 second transaction notifications.
 15 second DigiByte blocks vs. 10 minute Bitcoin blocks.
-DigiBytes are confirmed after 1.5 minutes vs. 1 hour with Bitcoin.
+DigiByte has 6x block confirmations 1.5 minutes vs. 1 hour with Bitcoin.
 
 Transaction Volume: DigiByte can handle many more transactions per second.
 Bitcoin can only handle 3-4 transactions per second.
-DigiByte currently can handle 280+ transactions per second.
+DigiByte currently can handle 560+ transactions per second.
 The 2015 DigiSpeed hardfork introduced changes that double the capacity of the network every two years.
 
 Total Supply: More DigiBytes, lower price, more micro transactions, better price stability.
