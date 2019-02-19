@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2018 The Bitcoin Core developers
+// Copyright (c) 2011-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_TRANSACTIONRECORD_H
-#define BITCOIN_QT_TRANSACTIONRECORD_H
+#ifndef DIGIBYTE_QT_TRANSACTIONRECORD_H
+#define DIGIBYTE_QT_TRANSACTIONRECORD_H
 
 #include <amount.h>
 #include <uint256.h>
@@ -145,4 +145,4 @@ public:
     bool statusUpdateNeeded(int numBlocks) const;
 };
 
-#endif // BITCOIN_QT_TRANSACTIONRECORD_H
+#endif // DIGIBYTE_QT_TRANSACTIONRECORD_H

@@ -1,6 +1,6 @@
-# Support for Output Descriptors in Bitcoin Core
+# Support for Output Descriptors in DigiByte Core
 
-Since Bitcoin Core v0.17, there is support for Output Descriptors in the
+Since DigiByte Core v0.17, there is support for Output Descriptors in the
 `scantxoutset` RPC call. This is a simple language which can be used to
 describe collections of output scripts.
 
@@ -54,8 +54,8 @@ Descriptors consist of several types of expressions. The top level expression is
 `KEY` expressions:
 - Hex encoded public keys (66 characters starting with `02` or `03`, or 130 characters starting with `04`).
   - Inside `wpkh` and `wsh`, only compressed public keys are permitted.
-- [WIF](https://en.bitcoin.it/wiki/Wallet_import_format) encoded private keys may be specified instead of the corresponding public key, with the same meaning.
--`xpub` encoded extended public key or `xprv` encoded private key (as defined in [BIP 32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)).
+- [WIF](https://en.digibyte.it/wiki/Wallet_import_format) encoded private keys may be specified instead of the corresponding public key, with the same meaning.
+-`xpub` encoded extended public key or `xprv` encoded private key (as defined in [BIP 32](https://github.com/digibyte/bips/blob/master/bip-0032.mediawiki)).
   - Followed by zero or more `/NUM` unhardened and `/NUM'` hardened BIP32 derivation steps.
   - Optionally followed by a single `/*` or `/*'` final step to denote all (direct) unhardened or hardened children.
   - The usage of hardened derivation steps requires providing the private key.
@@ -63,8 +63,8 @@ Descriptors consist of several types of expressions. The top level expression is
 
 `ADDR` expressions are any type of supported address:
 - P2PKH addresses (base58, of the form `1...`). Note that P2PKH addresses in descriptors cannot be used for P2PK outputs (use the `pk` function instead).
-- P2SH addresses (base58, of the form `3...`, defined in [BIP 13](https://github.com/bitcoin/bips/blob/master/bip-0013.mediawiki)).
-- Segwit addresses (bech32, of the form `bc1...`, defined in [BIP 173](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki)).
+- P2SH addresses (base58, of the form `3...`, defined in [BIP 13](https://github.com/digibyte/bips/blob/master/bip-0013.mediawiki)).
+- Segwit addresses (bech32, of the form `bc1...`, defined in [BIP 173](https://github.com/digibyte/bips/blob/master/bip-0173.mediawiki)).
 
 ## Explanation
 
@@ -86,7 +86,7 @@ not contain "p2" for brevity.
 ### Multisig
 
 Several pieces of software use multi-signature (multisig) scripts based
-on Bitcoin's OP_CHECKMULTISIG opcode. To support these, we introduce the
+on DigiByte's OP_CHECKMULTISIG opcode. To support these, we introduce the
 `multi(k,key_1,key_2,...,key_n)` function. It represents a *k-of-n*
 multisig policy, where any *k* out of the *n* provided public keys must
 sign.
@@ -127,7 +127,7 @@ steps, or for dumping wallet descriptors including private key material.
 ### Compatibility with old wallets
 
 In order to easily represent the sets of scripts currently supported by
-existing Bitcoin Core wallets, a convenience function `combo` is
+existing DigiByte Core wallets, a convenience function `combo` is
 provided, which takes as input a public key, and describes a set of P2PK,
 P2PKH, P2WPKH, and P2SH-P2WPH scripts for that key. In case the key is
 uncompressed, the set only includes P2PK and P2PKH scripts.

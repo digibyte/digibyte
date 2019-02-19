@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_UTILMEMORY_H
-#define BITCOIN_UTILMEMORY_H
+#ifndef DIGIBYTE_UTILMEMORY_H
+#define DIGIBYTE_UTILMEMORY_H
 
 #include <memory>
 #include <utility>

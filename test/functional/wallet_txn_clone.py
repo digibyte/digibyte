@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2018 The Bitcoin Core developers
+# Copyright (c) 2014-2018 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the wallet accounts properly when there are cloned transactions with malleated scriptsigs."""
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
     connect_nodes,
@@ -12,7 +12,7 @@ from test_framework.util import (
     sync_blocks,
 )
 
-class TxnMallTest(BitcoinTestFramework):
+class TxnMallTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
 

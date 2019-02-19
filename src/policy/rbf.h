@@ -1,9 +1,9 @@
-// Copyright (c) 2016-2018 The Bitcoin Core developers
+// Copyright (c) 2016-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_POLICY_RBF_H
-#define BITCOIN_POLICY_RBF_H
+#ifndef DIGIBYTE_POLICY_RBF_H
+#define DIGIBYTE_POLICY_RBF_H
 
 #include <txmempool.h>
 
@@ -25,4 +25,4 @@ bool SignalsOptInRBF(const CTransaction &tx);
 // as the sequence numbers of all in-mempool ancestors.
 RBFTransactionState IsRBFOptIn(const CTransaction &tx, CTxMemPool &pool) EXCLUSIVE_LOCKS_REQUIRED(pool.cs);
 
-#endif // BITCOIN_POLICY_RBF_H
+#endif // DIGIBYTE_POLICY_RBF_H

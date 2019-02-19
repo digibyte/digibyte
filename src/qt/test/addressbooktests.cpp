@@ -1,6 +1,6 @@
 #include <qt/test/addressbooktests.h>
 #include <qt/test/util.h>
-#include <test/test_bitcoin.h>
+#include <test/test_digibyte.h>
 
 #include <interfaces/node.h>
 #include <qt/addressbookpage.h>
@@ -147,7 +147,7 @@ void AddressBookTests::addressBookTests()
         // and fails to handle returned nulls
         // (https://bugreports.qt.io/browse/QTBUG-49686).
         QWARN("Skipping AddressBookTests on mac build with 'minimal' platform set due to Qt bugs. To run AppTests, invoke "
-              "with 'test_bitcoin-qt -platform cocoa' on mac, or else use a linux or windows build.");
+              "with 'test_digibyte-qt -platform cocoa' on mac, or else use a linux or windows build.");
         return;
     }
 #endif

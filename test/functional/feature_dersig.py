@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Bitcoin Core developers
+# Copyright (c) 2015-2018 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test BIP66 (DER SIG).
@@ -11,7 +11,7 @@ from test_framework.blocktools import create_coinbase, create_block, create_tran
 from test_framework.messages import msg_block
 from test_framework.mininode import mininode_lock, P2PInterface
 from test_framework.script import CScript
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal, bytes_to_hex_str, wait_until
 
 DERSIG_HEIGHT = 1251
@@ -39,7 +39,7 @@ def unDERify(tx):
 
 
 
-class BIP66Test(BitcoinTestFramework):
+class BIP66Test(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.extra_args = [['-whitelist=127.0.0.1']]
@@ -118,9 +118,9 @@ class BIP66Test(BitcoinTestFramework):
         wait_until(lambda: "reject" in self.nodes[0].p2p.last_message.keys(), lock=mininode_lock)
         with mininode_lock:
             # We can receive different reject messages depending on whether
-            # bitcoind is running with multiple script check threads. If script
+            # digibyted is running with multiple script check threads. If script
             # check threads are not in use, then transaction script validation
-            # happens sequentially, and bitcoind produces more specific reject
+            # happens sequentially, and digibyted produces more specific reject
             # reasons.
             assert self.nodes[0].p2p.last_message["reject"].code in [REJECT_INVALID, REJECT_NONSTANDARD]
             assert_equal(self.nodes[0].p2p.last_message["reject"].data, block.sha256)

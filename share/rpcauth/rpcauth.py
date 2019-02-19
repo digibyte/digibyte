@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Bitcoin Core developers
+# Copyright (c) 2015-2018 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -39,7 +39,7 @@ def main():
         password = generate_password()
     password_hmac = password_to_hmac(salt, password)
 
-    print('String to be appended to bitcoin.conf:')
+    print('String to be appended to digibyte.conf:')
     print('rpcauth={0}:{1}${2}'.format(username, salt, password_hmac))
     print('Your password:\n{0}'.format(password))
 
