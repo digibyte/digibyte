@@ -7,7 +7,7 @@
 #include <qt/forms/ui_transactiondescdialog.h>
 
 #include <qt/transactiontablemodel.h>
-#include <guiutil.h>
+#include <qt/guiutil.h>
 
 #include <QModelIndex>
 

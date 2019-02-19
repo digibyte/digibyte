@@ -6,7 +6,7 @@
 #include <qt/networkstyle.h>
 
 #include <qt/guiconstants.h>
-#include <guiutil.h>
+#include <qt/guiutil.h>
 
 #include <QApplication>
 
