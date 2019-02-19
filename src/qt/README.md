@@ -60,7 +60,7 @@ Represents the view to a single wallet.
 
 * UI elements like DigiByteAmountField, which inherit from QWidget.
 * `digibytestrings.cpp`: automatically generated
-* `digibyteunits.(h/cpp)`: BTC / mBTC / etc handling
+* `digibyteunits.(h/cpp)`: DGB / mDGB / etc handling
 * `callback.h`
 * `guiconstants.h`: UI colors, app name, etc
 * `guiutil.h`: several helper functions

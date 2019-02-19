@@ -1,10 +1,10 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_RPCPROTOCOL_H
-#define DIGIBYTE_RPCPROTOCOL_H
+#ifndef DIGIBYTE_RPC_PROTOCOL_H
+#define DIGIBYTE_RPC_PROTOCOL_H
 
 #include <fs.h>
 
@@ -106,4 +106,4 @@ void DeleteAuthCookie();
 /** Parse JSON-RPC batch reply into a vector */
 std::vector<UniValue> JSONRPCProcessBatchReply(const UniValue &in, size_t num);
 
-#endif // DIGIBYTE_RPCPROTOCOL_H
+#endif // DIGIBYTE_RPC_PROTOCOL_H

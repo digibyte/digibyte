@@ -5,7 +5,7 @@ Upstart: digibyted.conf
 OpenRC:  digibyted.openrc
          digibyted.openrcconf
 CentOS:  digibyted.init
-OS X:    org.digibyte.digibyted.plist
+macOS:    org.digibyte.digibyted.plist
 ```
 have been made available to assist packagers in creating node packages here.
 

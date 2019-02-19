@@ -38,7 +38,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>co.digibyte.DigiByte-Qt</string>
+  <string>io.digibyte.DigiByte-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>co.digibyte.DigiBytePayment</string>
+      <string>io.digibyte.DigiBytePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>digibyte</string>
@@ -58,7 +58,7 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>co.digibyte.paymentrequest</string>
+      <string>io.digibyte.paymentrequest</string>
       <key>UTTypeDescription</key>
       <string>DigiByte payment request</string>
       <key>UTTypeConformsTo</key>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>co.digibyte.paymentrequest</string>
+        <string>io.digibyte.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>
@@ -98,6 +98,9 @@
     <string>True</string>
 
   <key>LSAppNapIsDisabled</key>
+    <string>True</string>
+
+  <key>NSRequiresAquaSystemAppearance</key>
     <string>True</string>
   
   <key>LSApplicationCategoryType</key>

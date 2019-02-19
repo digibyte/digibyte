@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test running digibyted with -reindex and -reindex-chainstate options.
@@ -18,11 +19,14 @@ class ReindexTest(DigiByteTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 1
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
     def reindex(self, justchainstate=False):
         self.nodes[0].generate(3)
         blockcount = self.nodes[0].getblockcount()
         self.stop_nodes()
-        extra_args = [["-reindex-chainstate" if justchainstate else "-reindex", "-checkblockindex=1"]]
+        extra_args = [["-reindex-chainstate" if justchainstate else "-reindex"]]
         self.start_nodes(extra_args)
         wait_until(lambda: self.nodes[0].getblockcount() == blockcount)
         self.log.info("Success")

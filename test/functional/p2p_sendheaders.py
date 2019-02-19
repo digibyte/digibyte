@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test behavior of headers messages to announce blocks.
@@ -86,9 +87,9 @@ e. Announce one more that doesn't connect.
    Expect: disconnect.
 """
 from test_framework.blocktools import create_block, create_coinbase
+from test_framework.messages import CInv
 from test_framework.mininode import (
     CBlockHeader,
-    CInv,
     NODE_WITNESS,
     P2PInterface,
     mininode_lock,
@@ -207,6 +208,9 @@ class SendHeadersTest(DigiByteTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 2
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
     def mine_blocks(self, count):
         """Mine count blocks and return the new tip."""
 
@@ -241,8 +245,6 @@ class SendHeadersTest(DigiByteTestFramework):
         # Make sure NODE_NETWORK is not set for test_node, so no block download
         # will occur outside of direct fetching
         test_node = self.nodes[0].add_p2p_connection(BaseNode(), services=NODE_WITNESS)
-        inv_node.wait_for_verack()
-        test_node.wait_for_verack()
 
         # Ensure verack's have been processed by our peer
         inv_node.sync_with_ping()

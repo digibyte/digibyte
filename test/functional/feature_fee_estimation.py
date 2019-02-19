@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test fee estimation code."""
 from decimal import Decimal
 import random
 
-from test_framework.mininode import CTransaction, CTxIn, CTxOut, COutPoint, ToHex, COIN
+from test_framework.messages import CTransaction, CTxIn, CTxOut, COutPoint, ToHex, COIN
 from test_framework.script import CScript, OP_1, OP_DROP, OP_2, OP_HASH160, OP_EQUAL, hash160, OP_TRUE
-from test_framework.test_framework import DigibyteTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
@@ -126,6 +127,9 @@ class EstimateFeeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 3
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
     def setup_network(self):
         """
         We'll setup the network to have 3 nodes that all mine with different parameters.
@@ -167,6 +171,11 @@ class EstimateFeeTest(DigiByteTestFramework):
                 else:
                     newmem.append(utx)
             self.memutxo = newmem
+
+    def import_deterministic_coinbase_privkeys(self):
+        self.start_nodes()
+        super().import_deterministic_coinbase_privkeys()
+        self.stop_nodes()
 
     def run_test(self):
         self.log.info("This test is time consuming, please be patient")

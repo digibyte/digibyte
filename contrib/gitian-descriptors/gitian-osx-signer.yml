@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/digibyte/digibyte-detached-sigs.git"
+- "url": "https://github.com/digibyte-core/digibyte-detached-sigs.git"
   "dir": "signature"
 files:
 - "digibyte-osx-unsigned.tar.gz"

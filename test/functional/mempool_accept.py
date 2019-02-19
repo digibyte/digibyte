@@ -35,11 +35,13 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.extra_args = [[
-            '-checkmempool',
             '-txindex',
             '-reindex',  # Need reindex for txindex
             '-acceptnonstdtxn=0',  # Try to mimic main-net
         ]] * self.num_nodes
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def check_mempool_result(self, result_expected, *args, **kwargs):
         """Wrapper to check result of testmempoolaccept on node_0's mempool"""

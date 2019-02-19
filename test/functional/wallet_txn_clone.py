@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the wallet accounts properly when there are cloned transactions with malleated scriptsigs."""
@@ -16,11 +17,14 @@ class TxnMallTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
     def add_options(self, parser):
-        parser.add_option("--mineblock", dest="mine_block", default=False, action="store_true",
-                          help="Test double-spend of 1-confirmed transaction")
-        parser.add_option("--segwit", dest="segwit", default=False, action="store_true",
-                          help="Test behaviour with SegWit txn (which should fail")
+        parser.add_argument("--mineblock", dest="mine_block", default=False, action="store_true",
+                            help="Test double-spend of 1-confirmed transaction")
+        parser.add_argument("--segwit", dest="segwit", default=False, action="store_true",
+                            help="Test behaviour with SegWit txn (which should fail")
 
     def setup_network(self):
         # Start with split network:
@@ -70,7 +74,7 @@ class TxnMallTest(DigiByteTestFramework):
 
         # createrawtransaction randomizes the order of its outputs, so swap them if necessary.
         # output 0 is at version+#inputs+input+sigstub+sequence+#outputs
-        # 40 BTC serialized is 00286bee00000000
+        # 40 DGB serialized is 00286bee00000000
         pos0 = 2 * (4 + 1 + 36 + 1 + 4 + 1)
         hex40 = "00286bee00000000"
         output_len = 16 + 2 + 2 * int("0x" + clone_raw[pos0 + 16:pos0 + 16 + 2], 0)
