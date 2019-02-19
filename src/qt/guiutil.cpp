@@ -157,7 +157,7 @@ bool parseDigiByteURI(const QUrl &uri, SendCoinsRecipient *out)
         {
             if(!i->second.isEmpty())
             {
-                if(!DigiByteUnits::parse(DigiByteUnits::BTC, i->second, &rv.amount))
+                if(!DigiByteUnits::parse(DigiByteUnits::DGB, i->second, &rv.amount))
                 {
                     return false;
                 }
@@ -188,7 +188,7 @@ QString formatDigiByteURI(const SendCoinsRecipient &info)
 
     if (info.amount)
     {
-        ret += QString("?amount=%1").arg(DigiByteUnits::format(DigiByteUnits::BTC, info.amount, false, DigiByteUnits::separatorNever));
+        ret += QString("?amount=%1").arg(DigiByteUnits::format(DigiByteUnits::DGB, info.amount, false, DigiByteUnits::separatorNever));
         paramCount++;
     }
 

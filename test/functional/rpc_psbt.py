@@ -63,7 +63,7 @@ class PSBTTest(DigiByteTestFramework):
         connect_nodes_bi(self.nodes, 0, 2)
 
     def run_test(self):
-        # Create and fund a raw tx for sending 10 BTC
+        # Create and fund a raw tx for sending 10 DGB
         psbtx1 = self.nodes[0].walletcreatefundedpsbt([], {self.nodes[2].getnewaddress():10})['psbt']
 
         # Node 1 should not be able to add anything to it but still return the psbtx same as before

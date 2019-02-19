@@ -17,9 +17,9 @@ DigiByteUnits::DigiByteUnits(QObject *parent):
 QList<DigiByteUnits::Unit> DigiByteUnits::availableUnits()
 {
     QList<DigiByteUnits::Unit> unitlist;
-    unitlist.append(BTC);
-    unitlist.append(mBTC);
-    unitlist.append(uBTC);
+    unitlist.append(DGB);
+    unitlist.append(mDGB);
+    unitlist.append(uDGB);
     unitlist.append(SAT);
     return unitlist;
 }
@@ -28,9 +28,9 @@ bool DigiByteUnits::valid(int unit)
 {
     switch(unit)
     {
-    case BTC:
-    case mBTC:
-    case uBTC:
+    case DGB:
+    case mDGB:
+    case uDGB:
     case SAT:
         return true;
     default:
@@ -42,9 +42,9 @@ QString DigiByteUnits::longName(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("BTC");
-    case mBTC: return QString("mBTC");
-    case uBTC: return QString::fromUtf8("µBTC (bits)");
+    case DGB: return QString("DGB");
+    case mDGB: return QString("mDGB");
+    case uDGB: return QString::fromUtf8("µDGB (bits)");
     case SAT: return QString("Satoshi (sat)");
     default: return QString("???");
     }
@@ -54,7 +54,7 @@ QString DigiByteUnits::shortName(int unit)
 {
     switch(unit)
     {
-    case uBTC: return QString::fromUtf8("bits");
+    case uDGB: return QString::fromUtf8("bits");
     case SAT: return QString("sat");
     default: return longName(unit);
     }
@@ -64,9 +64,9 @@ QString DigiByteUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("DigiBytes");
-    case mBTC: return QString("Milli-DigiBytes (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Micro-DigiBytes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case DGB: return QString("DigiBytes");
+    case mDGB: return QString("Milli-DigiBytes (1 / 1" THIN_SP_UTF8 "000)");
+    case uDGB: return QString("Micro-DigiBytes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
@@ -76,9 +76,9 @@ qint64 DigiByteUnits::factor(int unit)
 {
     switch(unit)
     {
-    case BTC: return 100000000;
-    case mBTC: return 100000;
-    case uBTC: return 100;
+    case DGB: return 100000000;
+    case mDGB: return 100000;
+    case uDGB: return 100;
     case SAT: return 1;
     default: return 100000000;
     }
@@ -88,9 +88,9 @@ int DigiByteUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case BTC: return 8;
-    case mBTC: return 5;
-    case uBTC: return 2;
+    case DGB: return 8;
+    case mDGB: return 5;
+    case uDGB: return 2;
     case SAT: return 0;
     default: return 0;
     }

@@ -25,7 +25,7 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
     def run_test(self):
         node0,node1,node2 = self.nodes
 
-        # 50 BTC each, rest will be 25 BTC each
+        # 50 DGB each, rest will be 25 DGB each
         node0.generate(149)
         self.sync_all()
 

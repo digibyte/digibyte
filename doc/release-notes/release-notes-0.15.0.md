@@ -325,7 +325,7 @@ Low-level RPC changes
 - #8384 `e317c0d` Add witness data output to TxInError messages (instagibbs)
 - #9571 `4677151` RPC: getblockchaininfo returns BIP signaling statistics  (pinheadmz)
 - #10450 `ef2d062` Fix bumpfee rpc "errors" return value (ryanofsky)
-- #10475 `39039b1` [RPC] getmempoolinfo mempoolminfee is a BTC/KB feerate (instagibbs)
+- #10475 `39039b1` [RPC] getmempoolinfo mempoolminfee is a DGB/KB feerate (instagibbs)
 - #10478 `296928e` rpc: Add listen address to incoming connections in `getpeerinfo` (laanwj)
 - #10403 `08d0390` Fix importmulti failure to return rescan errors (ryanofsky)
 - #9740 `9fec4da` Add friendly output to dumpwallet (aideca)
@@ -390,7 +390,7 @@ Low-level RPC changes
 
 ### P2P protocol and network code
 - #9726 `7639d38` netbase: Do not print an error on connection timeouts through proxy (laanwj)
-- #9805 `5b583ef` Add seed.btc.petertodd.org to mainnet DNS seeds (petertodd)
+- #9805 `5b583ef` Add seed.dgb.petertodd.org to mainnet DNS seeds (petertodd)
 - #9861 `22f609f` Trivial: Debug log ambiguity fix for peer addrs (keystrike)
 - #9774 `90cb2a2` Enable host lookups for -proxy and -onion parameters (jmcorgan)
 - #9558 `7b585cf` Clarify assumptions made about when BlockCheck is called (TheBlueMatt)

@@ -134,7 +134,7 @@ public:
         vSeeds.emplace_back("dnsseed.digibyte.dashjr.org"); // Luke Dashjr
         vSeeds.emplace_back("seed.digibytestats.com"); // Christian Decker, supports x1 - xf
         vSeeds.emplace_back("seed.digibyte.jonasschnelli.ch"); // Jonas Schnelli, only supports x1, x5, x9, and xd
-        vSeeds.emplace_back("seed.btc.petertodd.org"); // Peter Todd, only supports x1, x5, x9, and xd
+        vSeeds.emplace_back("seed.dgb.petertodd.org"); // Peter Todd, only supports x1, x5, x9, and xd
         vSeeds.emplace_back("seed.digibyte.sprovoost.nl"); // Sjors Provoost
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0);
@@ -237,7 +237,7 @@ public:
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
         vSeeds.emplace_back("testnet-seed.digibyte.jonasschnelli.ch");
-        vSeeds.emplace_back("seed.tbtc.petertodd.org");
+        vSeeds.emplace_back("seed.tdgb.petertodd.org");
         vSeeds.emplace_back("seed.testnet.digibyte.sprovoost.nl");
         vSeeds.emplace_back("testnet-seed.bluematt.me"); // Just a static list of stable node(s), only supports x9
 
