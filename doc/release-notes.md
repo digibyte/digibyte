@@ -280,13 +280,13 @@ Compatibility
 DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 =======
-Bitcoin Core is extensively tested on multiple operating systems using
+DigiByte Core is extensively tested on multiple operating systems using
 <<<<<<< HEAD
 the Linux kernel, macOS 10.8+, and Windows 7 and newer (Windows XP is not supported).
 >>>>>>> 8ee5c7b747171e335793c74cd9d2f7491da58164
 =======
 the Linux kernel, macOS 10.10+, and Windows 7 and newer (Windows XP is not supported).
->>>>>>> bitcoin/master
+>>>>>>> digibyte/master
 
 DigiByte Core should also work on most other Unix-like systems but is not
 frequently tested on them.
@@ -382,7 +382,7 @@ support versions of macOS older than 10.10.
 
 Notable changes
 ===============
->>>>>>> bitcoin/master
+>>>>>>> digibyte/master
 
 GUI changes
 -----------
@@ -448,9 +448,9 @@ same as before.
 Low-level RPC changes
 ---------------------
 
-- When bitcoin is not started with any `-wallet=<path>` options, the name of
+- When digibyte is not started with any `-wallet=<path>` options, the name of
   the default wallet returned by `getwalletinfo` and `listwallets` RPCs is
-  now the empty string `""` instead of `"wallet.dat"`. If bitcoin is started
+  now the empty string `""` instead of `"wallet.dat"`. If digibyte is started
   with any `-wallet=<path>` options, there is no change in behavior, and the
   name of any wallet is just its `<path>` string.
 - Passing an empty string (`""`) as the `address_type` parameter to
@@ -474,7 +474,7 @@ Low-level RPC changes
 - The log timestamp format is now ISO 8601 (e.g. "2018-02-28T12:34:56Z").
 >>>>>>> 8ee5c7b747171e335793c74cd9d2f7491da58164
 
-- When running bitcoind with `-debug` but without `-daemon`, logging to stdout
+- When running digibyted with `-debug` but without `-daemon`, logging to stdout
   is now the default behavior. Setting `-printtoconsole=1` no longer implicitly
   disables logging to debug.log. Instead, logging to file can be explicitly disabled
   by setting `-debuglogfile=0`.

@@ -184,7 +184,7 @@ class P2PConnection(asyncio.Protocol):
             if not self._transport:
                 return
             # Python <3.4.4 does not have is_closing, so we have to check for
-            # its existence explicitly as long as Bitcoin Core supports all
+            # its existence explicitly as long as DigiByte Core supports all
             # Python 3.4 versions.
             if hasattr(self._transport, 'is_closing') and self._transport.is_closing():
                 return

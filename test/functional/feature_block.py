@@ -832,7 +832,7 @@ class FullBlockTest(DigiByteTestFramework):
         assert_equal(len(b64a.serialize()), MAX_BLOCK_BASE_SIZE + 8)
         self.sync_blocks([b64a], False, 1, b'error parsing message')
 
-        # bitcoind doesn't disconnect us for sending a bloated block, but if we subsequently
+        # digibyted doesn't disconnect us for sending a bloated block, but if we subsequently
         # resend the header message, it won't send us the getdata message again. Just
         # disconnect and reconnect and then call sync_blocks.
         # TODO: improve this test to be less dependent on P2P DOS behaviour.
