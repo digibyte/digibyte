@@ -1,10 +1,10 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_RPCSERVER_H
-#define DIGIBYTE_RPCSERVER_H
+#ifndef DIGIBYTE_RPC_SERVER_H
+#define DIGIBYTE_RPC_SERVER_H
 
 #include <amount.h>
 #include <rpc/protocol.h>
@@ -206,4 +206,4 @@ std::string JSONRPCExecBatch(const JSONRPCRequest& jreq, const UniValue& vReq);
 // Retrieves any serialization flags requested in command line argument
 int RPCSerializationFlags();
 
-#endif // DIGIBYTE_RPCSERVER_H
+#endif // DIGIBYTE_RPC_SERVER_H

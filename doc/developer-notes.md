@@ -5,8 +5,10 @@ Developer Notes
 **Table of Contents**
 
 - [Developer Notes](#developer-notes)
-    - [Coding Style](#coding-style)
+    - [Coding Style (General)](#coding-style-general)
+    - [Coding Style (C++)](#coding-style-c)
     - [Doxygen comments](#doxygen-comments)
+    - [Coding Style (Python)](#coding-style-python)
     - [Development tips and tricks](#development-tips-and-tricks)
         - [Compiling for debugging](#compiling-for-debugging)
         - [Compiling for gprof profiling](#compiling-for-gprof-profiling)
@@ -19,7 +21,7 @@ Developer Notes
     - [Threads](#threads)
     - [Ignoring IDE/editor files](#ignoring-ideeditor-files)
 - [Development guidelines](#development-guidelines)
-    - [General Bitcoin Core](#general-bitcoin-core)
+    - [General DigiByte Core](#general-digibyte-core)
     - [Wallet](#wallet)
     - [General C++](#general-c)
     - [C++ data structures](#c-data-structures)
@@ -35,8 +37,8 @@ Developer Notes
 
 <!-- markdown-toc end -->
 
-Coding Style
----------------
+Coding Style (General)
+----------------------
 
 Various coding styles have been used during the history of the codebase,
 and the result is not very consistent. However, we're now trying to converge to
@@ -45,6 +47,9 @@ style over attempting to mimic the surrounding style, except for move-only
 commits.
 
 Do not submit patches solely to modify the style of existing code.
+
+Coding Style (C++)
+------------------
 
 - **Indentation and whitespace rules** as specified in
 [src/.clang-format](/src/.clang-format). You can use the provided
@@ -174,6 +179,11 @@ but if possible use one of the above styles.
 
 Documentation can be generated with `make docs` and cleaned up with `make clean-docs`.
 
+Coding Style (Python)
+---------------------
+
+Refer to [/test/functional/README.md#style-guidelines](/test/functional/README.md#style-guidelines).
+
 Development tips and tricks
 ---------------------------
 
@@ -247,7 +257,7 @@ make cov
 
 **Sanitizers**
 
-Bitcoin Core can be compiled with various "sanitizers" enabled, which add
+DigiByte Core can be compiled with various "sanitizers" enabled, which add
 instrumentation for issues regarding things like memory safety, thread race
 conditions, or undefined behavior. This is controlled with the
 `--with-sanitizers` configure flag, which should be a comma separated list of
@@ -294,7 +304,7 @@ Additional resources:
  * [UndefinedBehaviorSanitizer](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html)
  * [GCC Instrumentation Options](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
  * [Google Sanitizers Wiki](https://github.com/google/sanitizers/wiki)
- * [Issue #12691: Enable -fsanitize flags in Travis](https://github.com/bitcoin/bitcoin/issues/12691)
+ * [Issue #12691: Enable -fsanitize flags in Travis](https://github.com/digibyte/digibyte/issues/12691)
 
 Locking/mutex usage notes
 -------------------------
@@ -637,13 +647,13 @@ namespace {
     the location of the source file actually is relevant.
 
 - Use include guards to avoid the problem of double inclusion. The header file
-  `foo/bar.h` should use the include guard identifier `BITCOIN_FOO_BAR_H`, e.g.
+  `foo/bar.h` should use the include guard identifier `DIGIBYTE_FOO_BAR_H`, e.g.
 
 ```c++
-#ifndef BITCOIN_FOO_BAR_H
-#define BITCOIN_FOO_BAR_H
+#ifndef DIGIBYTE_FOO_BAR_H
+#define DIGIBYTE_FOO_BAR_H
 ...
-#endif // BITCOIN_FOO_BAR_H
+#endif // DIGIBYTE_FOO_BAR_H
 ```
 
 GUI
@@ -711,7 +721,7 @@ you must be aware of.
 
 In most configurations we use the default LevelDB value for `max_open_files`,
 which is 1000 at the time of this writing. If LevelDB actually uses this many
-file descriptors it will cause problems with Bitcoin's `select()` loop, because
+file descriptors it will cause problems with DigiByte's `select()` loop, because
 it may cause new sockets to be created where the fd value is >= 1024. For this
 reason, on 64-bit Unix systems we rely on an internal LevelDB optimization that
 uses `mmap()` + `close()` to open table files without actually retaining
@@ -722,7 +732,7 @@ In addition to reviewing the upstream changes in `env_posix.cc`, you can use `ls
 check this. For example, on Linux this command will show open `.ldb` file counts:
 
 ```bash
-$ lsof -p $(pidof bitcoind) |\
+$ lsof -p $(pidof digibyted) |\
     awk 'BEGIN { fd=0; mem=0; } /ldb$/ { if ($4 == "mem") mem++; else fd++ } END { printf "mem = %s, fd = %s\n", mem, fd}'
 mem = 119, fd = 0
 ```
@@ -737,14 +747,14 @@ details.
 ### Consensus Compatibility
 
 It is possible for LevelDB changes to inadvertently change consensus
-compatibility between nodes. This happened in Bitcoin 0.8 (when LevelDB was
+compatibility between nodes. This happened in DigiByte 0.8 (when LevelDB was
 first introduced). When upgrading LevelDB you should review the upstream changes
 to check for issues affecting consensus compatibility.
 
 For example, if LevelDB had a bug that accidentally prevented a key from being
 returned in an edge case, and that bug was fixed upstream, the bug "fix" would
 be an incompatible consensus change. In this situation the correct behavior
-would be to revert the upstream fix before applying the updates to Bitcoin's
+would be to revert the upstream fix before applying the updates to DigiByte's
 copy of LevelDB. In general you should be wary of any upstream changes affecting
 what data is returned from LevelDB queries.
 
@@ -814,7 +824,7 @@ To create a scripted-diff:
 
 The scripted-diff is verified by the tool `test/lint/commit-script-check.sh`
 
-Commit [`bb81e173`](https://github.com/bitcoin/bitcoin/commit/bb81e173) is an example of a scripted-diff.
+Commit [`bb81e173`](https://github.com/digibyte/digibyte/commit/bb81e173) is an example of a scripted-diff.
 
 RPC interface guidelines
 --------------------------

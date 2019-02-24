@@ -1,4 +1,5 @@
-// Copyright (c) 2014-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -22,7 +23,7 @@
 #ifndef HAVE_CONFIG_H
 // While not technically a supported configuration, defaulting to defining these
 // DECLs when we were compiled without autotools makes it easier for other build
-// systems to build things like libbitcoinconsensus for strange targets.
+// systems to build things like libdigibyteconsensus for strange targets.
 #ifdef htobe16
 #define HAVE_DECL_HTOBE16 1
 #endif

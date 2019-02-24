@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,7 +29,7 @@ enum {
     BLOCK_VERSION_DEFAULT        = 2, 
 
     // algo
-    BLOCK_VERSION_ALGO           = (7 << 9),
+    BLOCK_VERSION_ALGO           = (15 << 8),
     BLOCK_VERSION_SCRYPT         = (0 << 9),
     BLOCK_VERSION_SHA256D        = (1 << 9),
     BLOCK_VERSION_GROESTL        = (2 << 9),

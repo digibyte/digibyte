@@ -1,11 +1,12 @@
-// Copyright (c) 2014-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <qt/networkstyle.h>
 
 #include <qt/guiconstants.h>
-#include <guiutil.h>
+#include <qt/guiutil.h>
 
 #include <QApplication>
 

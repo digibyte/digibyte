@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2017 The Bitcoin Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test label RPCs.
@@ -30,6 +31,9 @@ class WalletLabelsTest(DigiByteTestFramework):
         """Don't connect nodes."""
         self.setup_nodes()
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
     def run_test(self):
         """Run the test twice - once using the accounts API and once using the labels API."""
         self.log.info("Test accounts API")
@@ -48,7 +52,7 @@ class WalletLabelsTest(DigiByteTestFramework):
         assert_equal(node.getbalance(), 100)
 
         # there should be 2 address groups
-        # each with 1 address with a balance of 50 Bitcoins
+        # each with 1 address with a balance of 50 DigiBytes
         address_groups = node.listaddressgroupings()
         assert_equal(len(address_groups), 2)
         # the addresses aren't linked now, but will be after we send to the

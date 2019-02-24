@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test debug logging."""
@@ -14,6 +15,9 @@ class LoggingTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def relative_log_path(self, name):
         return os.path.join(self.nodes[0].datadir, "regtest", name)

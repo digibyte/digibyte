@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018 The Bitcoin Core developers
+# Copyright (c) 2018 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test for the ZMQ RPC methods."""
 
-from test_framework.test_framework import (
-    DigiByteTestFramework, skip_if_no_py3_zmq, skip_if_no_digibyted_zmq)
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
 
 
@@ -17,9 +16,11 @@ class RPCZMQTest(DigiByteTestFramework):
         self.num_nodes = 1
         self.setup_clean_chain = True
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_py3_zmq()
+        self.skip_if_no_digibyted_zmq()
+
     def run_test(self):
-        skip_if_no_py3_zmq()
-        skip_if_no_digibyted_zmq(self)
         self._test_getzmqnotifications()
 
     def _test_getzmqnotifications(self):

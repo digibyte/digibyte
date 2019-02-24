@@ -1,4 +1,5 @@
-// Copyright (c) 2016-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,7 +22,11 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
     {
         /*.name =*/ "nversionbips",
         /*.gbt_force =*/ true,
-    }
+    },
+    {
+        /*.name =*/ "reservealgo",
+        /*.gbt_force =*/ true,
+    },
     //{
        // /*.name =*/ "equihash",
         ///*.gbt_force =*/ true,

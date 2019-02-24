@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the rawtransaction RPCs.
@@ -13,10 +14,11 @@ Test the following RPCs:
 """
 
 from collections import OrderedDict
+from decimal import Decimal
 from io import BytesIO
 from test_framework.messages import CTransaction, ToHex
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
+from test_framework.util import assert_equal, assert_raises_rpc_error, bytes_to_hex_str, connect_nodes_bi, hex_str_to_bytes
 
 class multidict(dict):
     """Dictionary that allows duplicate keys.
@@ -42,6 +44,9 @@ class RawTransactionsTest(DigiByteTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 3
         self.extra_args = [["-addresstype=legacy"], ["-addresstype=legacy"], ["-addresstype=legacy"]]
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def setup_network(self, split=False):
         super().setup_network()
@@ -357,7 +362,7 @@ class RawTransactionsTest(DigiByteTestFramework):
 
         # decoderawtransaction tests
         # witness transaction
-        encrawtx = "010000000001010000000000000072c1a6a246ae63f74f931e8365e15a089c68d61900000000000000000000ffffffff0100e1f50500000000000000000000"
+        encrawtx = "010000000001010000000000000072c1a6a246ae63f74f931e8365e15a089c68d61900000000000000000000ffffffff0100e1f50500000000000102616100000000"
         decrawtx = self.nodes[0].decoderawtransaction(encrawtx, True) # decode as witness transaction
         assert_equal(decrawtx['vout'][0]['value'], Decimal('1.00000000'))
         assert_raises_rpc_error(-22, 'TX decode failed', self.nodes[0].decoderawtransaction, encrawtx, False) # force decode as non-witness transaction

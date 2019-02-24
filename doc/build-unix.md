@@ -74,11 +74,11 @@ Build requirements:
 
 BerkeleyDB is required for the wallet.
 
-**For Ubuntu only:** db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
+**For Ubuntu only:** db4.8 packages are available [here](https://launchpad.net/~digibyte/+archive/digibyte).
 You can add the repository and install using the following commands:
 
     sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:bitcoin/bitcoin
+    sudo add-apt-repository ppa:digibyte/digibyte
     sudo apt-get update
     sudo apt-get install libdb4.8-dev libdb4.8++-dev
 
@@ -279,6 +279,7 @@ To build executables for ARM:
     cd depends
     make HOST=arm-linux-gnueabihf NO_QT=1
     cd ..
+    ./autogen.sh
     ./configure --prefix=$PWD/depends/arm-linux-gnueabihf --enable-glibc-back-compat --enable-reduce-exports LDFLAGS=-static-libstdc++
     make
 
