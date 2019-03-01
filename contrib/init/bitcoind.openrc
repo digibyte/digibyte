@@ -1,0 +1,92 @@
+#!/sbin/openrc-run
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/digibyte/.digibyte" ]; then
+	DIGIBYTED_DEFAULT_DATADIR="/var/lib/digibyte/.digibyte"
+else
+	DIGIBYTED_DEFAULT_DATADIR="/var/lib/digibyted"
+fi
+
+DIGIBYTED_CONFIGFILE=${DIGIBYTED_CONFIGFILE:-/etc/digibyte/digibyte.conf}
+DIGIBYTED_PIDDIR=${DIGIBYTED_PIDDIR:-/var/run/digibyted}
+DIGIBYTED_PIDFILE=${DIGIBYTED_PIDFILE:-${DIGIBYTED_PIDDIR}/digibyted.pid}
+DIGIBYTED_DATADIR=${DIGIBYTED_DATADIR:-${DIGIBYTED_DEFAULT_DATADIR}}
+DIGIBYTED_USER=${DIGIBYTED_USER:-${DIGIBYTE_USER:-digibyte}}
+DIGIBYTED_GROUP=${DIGIBYTED_GROUP:-digibyte}
+DIGIBYTED_BIN=${DIGIBYTED_BIN:-/usr/bin/digibyted}
+DIGIBYTED_NICE=${DIGIBYTED_NICE:-${NICELEVEL:-0}}
+DIGIBYTED_OPTS="${DIGIBYTED_OPTS:-${DIGIBYTE_OPTS}}"
+
+name="DigiByte Core Daemon"
+description="DigiByte cryptocurrency P2P network daemon"
+
+command="/usr/bin/digibyted"
+command_args="-pid=\"${DIGIBYTED_PIDFILE}\" \
+		-conf=\"${DIGIBYTED_CONFIGFILE}\" \
+		-datadir=\"${DIGIBYTED_DATADIR}\" \
+		-daemon \
+		${DIGIBYTED_OPTS}"
+
+required_files="${DIGIBYTED_CONFIGFILE}"
+start_stop_daemon_args="-u ${DIGIBYTED_USER} \
+			-N ${DIGIBYTED_NICE} -w 2000"
+pidfile="${DIGIBYTED_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${DIGIBYTED_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${DIGIBYTED_USER}:${DIGIBYTED_GROUP}" \
+	"${DIGIBYTED_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${DIGIBYTED_USER}:${DIGIBYTED_GROUP}" \
+	"${DIGIBYTED_PIDDIR}"
+
+	checkpath -f \
+	-o ${DIGIBYTED_USER}:${DIGIBYTED_GROUP} \
+	-m 0660 \
+	${DIGIBYTED_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${DIGIBYTED_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run digibyted."
+		eerror "The setting must appear in ${DIGIBYTED_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following "
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"DigiByte Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}
