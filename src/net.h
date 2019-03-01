@@ -709,7 +709,7 @@ public:
     CCriticalSection cs_filter;
     std::unique_ptr<CBloomFilter> pfilter;
     std::atomic<int> nRefCount;
-    bool fSupportsDandelion = false
+    bool fSupportsDandelion = false;
 
     const uint64_t nKeyedNetGroup;
     std::atomic_bool fPauseRecv;
