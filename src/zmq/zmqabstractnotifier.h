@@ -1,11 +1,11 @@
-// Copyright (c) 2015-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_ZMQ_ZMQABSTRACTNOTIFIER_H
 #define DIGIBYTE_ZMQ_ZMQABSTRACTNOTIFIER_H
 
-#include <chain.h>
 #include <zmq/zmqconfig.h>
 
 class CBlockIndex;
@@ -33,7 +33,7 @@ public:
     virtual bool Initialize(void *pcontext) = 0;
     virtual void Shutdown() = 0;
 
-    virtual bool NotifyBlock(CBlockIndexConstPtr pindex);
+    virtual bool NotifyBlock(const CBlockIndex *pindex);
     virtual bool NotifyTransaction(const CTransaction &transaction);
 
 protected:

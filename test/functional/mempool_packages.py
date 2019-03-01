@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test descendant package tracking code."""
 
+from decimal import Decimal
+
+from test_framework.messages import COIN
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-from test_framework.mininode import COIN
+from test_framework.util import assert_equal, assert_raises_rpc_error, satoshi_round, sync_blocks, sync_mempools
 
 MAX_ANCESTORS = 25
 MAX_DESCENDANTS = 25
@@ -15,6 +18,9 @@ class MempoolPackagesTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [["-maxorphantx=1000"], ["-maxorphantx=1000", "-limitancestorcount=5"]]
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     # Build a transaction that spends parent_txid:vout
     # Return amount sent
@@ -32,7 +38,7 @@ class MempoolPackagesTest(DigiByteTestFramework):
         return (txid, send_value)
 
     def run_test(self):
-        ''' Mine some blocks and have them mature. '''
+        # Mine some blocks and have them mature.
         self.nodes[0].generate(101)
         utxo = self.nodes[0].listunspent(10)
         txid = utxo[0]['txid']

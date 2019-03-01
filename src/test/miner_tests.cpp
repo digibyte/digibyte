@@ -1,4 +1,5 @@
-// Copyright (c) 2011-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -370,8 +371,8 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     int nHeight = chainActive.Height();
     // Create an actual 209999-long block chain (without valid blocks).
     while (chainActive.Tip()->nHeight < 209999) {
-        CBlockIndexPtr prev = chainActive.Tip();
-        CBlockIndexPtr next = new CBlockIndex();
+        CBlockIndex* prev = chainActive.Tip();
+        CBlockIndex* next = new CBlockIndex();
         next->phashBlock = new uint256(InsecureRand256());
         pcoinsTip->SetBestBlock(next->GetBlockHash());
         next->pprev = prev;
@@ -382,8 +383,8 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     BOOST_CHECK(pblocktemplate = AssemblerForTest(chainparams).CreateNewBlock(scriptPubKey, 2));
     // Extend to a 210000-long block chain.
     while (chainActive.Tip()->nHeight < 210000) {
-        CBlockIndexPtr prev = chainActive.Tip();
-        CBlockIndexPtr next = new CBlockIndex();
+        CBlockIndex* prev = chainActive.Tip();
+        CBlockIndex* next = new CBlockIndex();
         next->phashBlock = new uint256(InsecureRand256());
         pcoinsTip->SetBestBlock(next->GetBlockHash());
         next->pprev = prev;
@@ -413,7 +414,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
 
     // Delete the dummy blocks again.
     while (chainActive.Tip()->nHeight > nHeight) {
-        CBlockIndexPtr del = chainActive.Tip();
+        CBlockIndex* del = chainActive.Tip();
         chainActive.SetTip(del->pprev);
         pcoinsTip->SetBestBlock(del->pprev->GetBlockHash());
         delete del->phashBlock;

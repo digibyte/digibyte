@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the RBF code."""
 
+from decimal import Decimal
+
+from test_framework.messages import COIN, COutPoint, CTransaction, CTxIn, CTxOut
+from test_framework.script import CScript, OP_DROP
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
-from test_framework.script import *
-from test_framework.mininode import *
+from test_framework.util import assert_equal, assert_raises_rpc_error, bytes_to_hex_str, satoshi_round
 
 MAX_REPLACEMENT_LIMIT = 100
 
@@ -59,17 +62,26 @@ def make_utxo(node, amount, confirmed=True, scriptPubKey=CScript([1])):
 
     return COutPoint(int(txid, 16), 0)
 
-class ReplaceByFeeTest(DigiByteTestFramework):
 
+class ReplaceByFeeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
-        self.extra_args= [["-maxorphantx=1000",
-                           "-whitelist=127.0.0.1",
-                           "-limitancestorcount=50",
-                           "-limitancestorsize=101",
-                           "-limitdescendantcount=200",
-                           "-limitdescendantsize=101"],
-                           ["-mempoolreplacement=0"]]
+        self.extra_args = [
+            [
+                "-maxorphantx=1000",
+                "-whitelist=127.0.0.1",
+                "-limitancestorcount=50",
+                "-limitancestorsize=101",
+                "-limitdescendantcount=200",
+                "-limitdescendantsize=101",
+            ],
+            [
+                "-mempoolreplacement=0",
+            ],
+        ]
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def run_test(self):
         # Leave IBD

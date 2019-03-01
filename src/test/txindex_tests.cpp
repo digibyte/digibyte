@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -61,6 +61,8 @@ BOOST_FIXTURE_TEST_CASE(txindex_initial_sync, TestChain100Setup)
             BOOST_ERROR("Read incorrect tx");
         }
     }
+
+    txindex.Stop(); // Stop thread before calling destructor
 }
 
 BOOST_AUTO_TEST_SUITE_END()

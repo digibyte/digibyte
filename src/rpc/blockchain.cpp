@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -56,7 +57,7 @@ static CUpdatedBlock latestblock;
 
 /* Calculate the difficulty for a given block index.
  */
-double GetDifficulty(const CChain& chain, CBlockIndexConstPtr blockindex, int algo)
+double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
 {
     unsigned int nBits;
     unsigned int powLimit = UintToArith256(Params().GetConsensus().powLimit).GetCompact();
@@ -95,12 +96,12 @@ double GetDifficulty(const CChain& chain, CBlockIndexConstPtr blockindex, int al
     return dDiff;
 }
 
-double GetDifficulty(CBlockIndexConstPtr blockindex, int algo)
+double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
     return GetDifficulty(chainActive, blockindex, algo);
 }
 
-UniValue blockheaderToJSON(CBlockIndexConstPtr blockindex)
+UniValue blockheaderToJSON(const CBlockIndex* blockindex)
 {
     AssertLockHeld(cs_main);
     UniValue result(UniValue::VOBJ);
@@ -124,13 +125,13 @@ UniValue blockheaderToJSON(CBlockIndexConstPtr blockindex)
 
     if (blockindex->pprev)
         result.pushKV("previousblockhash", blockindex->pprev->GetBlockHash().GetHex());
-    CBlockIndexPtr pnext = chainActive.Next(blockindex);
+    CBlockIndex *pnext = chainActive.Next(blockindex);
     if (pnext)
         result.pushKV("nextblockhash", pnext->GetBlockHash().GetHex());
     return result;
 }
 
-UniValue blockToJSON(const CBlock& block, CBlockIndexConstPtr blockindex, bool txDetails)
+UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool txDetails)
 {
     AssertLockHeld(cs_main);
     UniValue result(UniValue::VOBJ);
@@ -174,7 +175,7 @@ UniValue blockToJSON(const CBlock& block, CBlockIndexConstPtr blockindex, bool t
 
     if (blockindex->pprev)
         result.pushKV("previousblockhash", blockindex->pprev->GetBlockHash().GetHex());
-    CBlockIndexPtr pnext = chainActive.Next(blockindex);
+    CBlockIndex *pnext = chainActive.Next(blockindex);
     if (pnext)
         result.pushKV("nextblockhash", pnext->GetBlockHash().GetHex());
     return result;
@@ -214,7 +215,7 @@ static UniValue getbestblockhash(const JSONRPCRequest& request)
     return chainActive.Tip()->GetBlockHash().GetHex();
 }
 
-void RPCNotifyBlockChange(bool ibd, CBlockIndexConstPtr pindex)
+void RPCNotifyBlockChange(bool ibd, const CBlockIndex * pindex)
 {
     if(pindex) {
         std::lock_guard<std::mutex> lock(cs_blockchange);
@@ -697,7 +698,7 @@ static UniValue getblockhash(const JSONRPCRequest& request)
     if (nHeight < 0 || nHeight > chainActive.Height())
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Block height out of range");
 
-    CBlockIndexPtr pblockindex = chainActive[nHeight];
+    CBlockIndex* pblockindex = chainActive[nHeight];
     return pblockindex->GetBlockHash().GetHex();
 }
 
@@ -745,7 +746,7 @@ static UniValue getblockheader(const JSONRPCRequest& request)
     if (!request.params[1].isNull())
         fVerbose = request.params[1].get_bool();
 
-    CBlockIndexConstPtr pblockindex = LookupBlockIndex(hash);
+    const CBlockIndex* pblockindex = LookupBlockIndex(hash);
     if (!pblockindex) {
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
     }
@@ -761,7 +762,7 @@ static UniValue getblockheader(const JSONRPCRequest& request)
     return blockheaderToJSON(pblockindex);
 }
 
-static CBlock GetBlockChecked(CBlockIndexConstPtr pblockindex)
+static CBlock GetBlockChecked(const CBlockIndex* pblockindex)
 {
     CBlock block;
     if (IsBlockPruned(pblockindex)) {
@@ -844,7 +845,7 @@ static UniValue getblock(const JSONRPCRequest& request)
             verbosity = request.params[1].get_bool() ? 1 : 0;
     }
 
-    CBlockIndexConstPtr pblockindex = LookupBlockIndex(hash);
+    const CBlockIndex* pblockindex = LookupBlockIndex(hash);
     if (!pblockindex) {
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
     }
@@ -960,7 +961,7 @@ static UniValue pruneblockchain(const JSONRPCRequest& request)
     // too low to be a block time (corresponds to timestamp from Sep 2001).
     if (heightParam > 1000000000) {
         // Add a 2 hour buffer to include blocks which might have had old timestamps
-        CBlockIndexPtr pindex = chainActive.FindEarliestAtLeast(heightParam - TIMESTAMP_WINDOW);
+        CBlockIndex* pindex = chainActive.FindEarliestAtLeast(heightParam - TIMESTAMP_WINDOW);
         if (!pindex) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Could not find block with at least the specified timestamp.");
         }
@@ -1087,7 +1088,7 @@ UniValue gettxout(const JSONRPCRequest& request)
         }
     }
 
-    CBlockIndexConstPtr pindex = LookupBlockIndex(pcoinsTip->GetBestBlock());
+    const CBlockIndex* pindex = LookupBlockIndex(pcoinsTip->GetBestBlock());
     ret.pushKV("bestblock", pindex->GetBlockHash().GetHex());
     if (coin.nHeight == MEMPOOL_HEIGHT) {
         ret.pushKV("confirmations", 0);
@@ -1132,7 +1133,7 @@ static UniValue verifychain(const JSONRPCRequest& request)
 }
 
 /** Implementation of IsSuperMajority with better feedback */
-static UniValue SoftForkMajorityDesc(int version, CBlockIndexPtr pindex, const Consensus::Params& consensusParams)
+static UniValue SoftForkMajorityDesc(int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
 {
     UniValue rv(UniValue::VOBJ);
     bool activated = false;
@@ -1152,7 +1153,7 @@ static UniValue SoftForkMajorityDesc(int version, CBlockIndexPtr pindex, const C
     return rv;
 }
 
-static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndexPtr pindex, const Consensus::Params& consensusParams)
+static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
 {
     UniValue rv(UniValue::VOBJ);
     rv.pushKV("id", name);
@@ -1271,7 +1272,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.pushKV("size_on_disk",          CalculateCurrentUsage());
     obj.pushKV("pruned",                fPruneMode);
     if (fPruneMode) {
-        CBlockIndexPtr block = chainActive.Tip();
+        CBlockIndex* block = chainActive.Tip();
         assert(block);
         while (block->pprev && (block->pprev->nStatus & BLOCK_HAVE_DATA)) {
             block = block->pprev;
@@ -1287,7 +1288,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
         }
     }
     const Consensus::Params& consensusParams = Params().GetConsensus();
-    CBlockIndexPtr tip = chainActive.Tip();
+    CBlockIndex* tip = chainActive.Tip();
     UniValue difficulties(UniValue::VOBJ);
     UniValue softforks(UniValue::VARR);
     UniValue bip9_softforks(UniValue::VOBJ);
@@ -1314,7 +1315,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
 /** Comparison function for sorting the getchaintips heads.  */
 struct CompareBlocksByHeight
 {
-    bool operator()(CBlockIndexConstPtr a, CBlockIndexConstPtr b) const
+    bool operator()(const CBlockIndex* a, const CBlockIndex* b) const
     {
         /* Make sure that unequal blocks with the same height do not compare
            equal. Use the pointers themselves to make a distinction. */
@@ -1368,11 +1369,11 @@ static UniValue getchaintips(const JSONRPCRequest& request)
      *  - Iterate through the orphan blocks. If the block isn't pointed to by another orphan, it is a chain tip.
      *  - add chainActive.Tip()
      */
-    std::set<CBlockIndexConstPtr, CompareBlocksByHeight> setTips;
-    std::set<CBlockIndexConstPtr> setOrphans;
-    std::set<CBlockIndexConstPtr> setPrevs;
+    std::set<const CBlockIndex*, CompareBlocksByHeight> setTips;
+    std::set<const CBlockIndex*> setOrphans;
+    std::set<const CBlockIndex*> setPrevs;
 
-    for (const std::pair<const uint256, CBlockIndexPtr>& item : mapBlockIndex)
+    for (const std::pair<const uint256, CBlockIndex*>& item : mapBlockIndex)
     {
         if (!chainActive.Contains(item.second)) {
             setOrphans.insert(item.second);
@@ -1380,7 +1381,7 @@ static UniValue getchaintips(const JSONRPCRequest& request)
         }
     }
 
-    for (std::set<CBlockIndexConstPtr>::iterator it = setOrphans.begin(); it != setOrphans.end(); ++it)
+    for (std::set<const CBlockIndex*>::iterator it = setOrphans.begin(); it != setOrphans.end(); ++it)
     {
         if (setPrevs.erase(*it) == 0) {
             setTips.insert(*it);
@@ -1392,7 +1393,7 @@ static UniValue getchaintips(const JSONRPCRequest& request)
 
     /* Construct the output array.  */
     UniValue res(UniValue::VARR);
-    for (CBlockIndexConstPtr block : setTips)
+    for (const CBlockIndex* block : setTips)
     {
         UniValue obj(UniValue::VOBJ);
         obj.pushKV("height", block->nHeight);
@@ -1484,7 +1485,7 @@ static UniValue preciousblock(const JSONRPCRequest& request)
 
     std::string strHash = request.params[0].get_str();
     uint256 hash(uint256S(strHash));
-    CBlockIndexPtr pblockindex;
+    CBlockIndex* pblockindex;
 
     {
         LOCK(cs_main);
@@ -1524,7 +1525,7 @@ static UniValue invalidateblock(const JSONRPCRequest& request)
 
     {
         LOCK(cs_main);
-        CBlockIndexPtr pblockindex = LookupBlockIndex(hash);
+        CBlockIndex* pblockindex = LookupBlockIndex(hash);
         if (!pblockindex) {
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
         }
@@ -1563,7 +1564,7 @@ static UniValue reconsiderblock(const JSONRPCRequest& request)
 
     {
         LOCK(cs_main);
-        CBlockIndexPtr pblockindex = LookupBlockIndex(hash);
+        CBlockIndex* pblockindex = LookupBlockIndex(hash);
         if (!pblockindex) {
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
         }
@@ -1605,7 +1606,7 @@ static UniValue getchaintxstats(const JSONRPCRequest& request)
             + HelpExampleRpc("getchaintxstats", "2016")
         );
 
-    CBlockIndexConstPtr pindex;
+    const CBlockIndex* pindex;
     int blockcount = 30 * 24 * 60 * 60 / Params().GetConsensus().nPowTargetSpacing; // By default: 1 month
 
     if (request.params[1].isNull()) {
@@ -1635,7 +1636,7 @@ static UniValue getchaintxstats(const JSONRPCRequest& request)
         }
     }
 
-    CBlockIndexConstPtr pindexPast = pindex->GetAncestor(pindex->nHeight - blockcount);
+    const CBlockIndex* pindexPast = pindex->GetAncestor(pindex->nHeight - blockcount);
     int nTimeDiff = pindex->GetMedianTimePast() - pindexPast->GetMedianTimePast();
     int nTxDiff = pindex->nChainTx - pindexPast->nChainTx;
 
@@ -1668,6 +1669,35 @@ static T CalculateTruncatedMedian(std::vector<T>& scores)
         return (scores[size / 2 - 1] + scores[size / 2]) / 2;
     } else {
         return scores[size / 2];
+    }
+}
+
+void CalculatePercentilesByWeight(CAmount result[NUM_GETBLOCKSTATS_PERCENTILES], std::vector<std::pair<CAmount, int64_t>>& scores, int64_t total_weight)
+{
+    if (scores.empty()) {
+        return;
+    }
+
+    std::sort(scores.begin(), scores.end());
+
+    // 10th, 25th, 50th, 75th, and 90th percentile weight units.
+    const double weights[NUM_GETBLOCKSTATS_PERCENTILES] = {
+        total_weight / 10.0, total_weight / 4.0, total_weight / 2.0, (total_weight * 3.0) / 4.0, (total_weight * 9.0) / 10.0
+    };
+
+    int64_t next_percentile_index = 0;
+    int64_t cumulative_weight = 0;
+    for (const auto& element : scores) {
+        cumulative_weight += element.second;
+        while (next_percentile_index < NUM_GETBLOCKSTATS_PERCENTILES && cumulative_weight >= weights[next_percentile_index]) {
+            result[next_percentile_index] = element.first;
+            ++next_percentile_index;
+        }
+    }
+
+    // Fill any remaining percentiles with the last value.
+    for (int64_t i = next_percentile_index; i < NUM_GETBLOCKSTATS_PERCENTILES; i++) {
+        result[i] = scores.back().first;
     }
 }
 
@@ -1704,13 +1734,19 @@ static UniValue getblockstats(const JSONRPCRequest& request)
             "  \"avgfeerate\": xxxxx,      (numeric) Average feerate (in satoshis per virtual byte)\n"
             "  \"avgtxsize\": xxxxx,       (numeric) Average transaction size\n"
             "  \"blockhash\": xxxxx,       (string) The block hash (to check for potential reorgs)\n"
+            "  \"feerate_percentiles\": [  (array of numeric) Feerates at the 10th, 25th, 50th, 75th, and 90th percentile weight unit (in satoshis per virtual byte)\n"
+            "      \"10th_percentile_feerate\",      (numeric) The 10th percentile feerate\n"
+            "      \"25th_percentile_feerate\",      (numeric) The 25th percentile feerate\n"
+            "      \"50th_percentile_feerate\",      (numeric) The 50th percentile feerate\n"
+            "      \"75th_percentile_feerate\",      (numeric) The 75th percentile feerate\n"
+            "      \"90th_percentile_feerate\",      (numeric) The 90th percentile feerate\n"
+            "  ],\n"
             "  \"height\": xxxxx,          (numeric) The height of the block\n"
             "  \"ins\": xxxxx,             (numeric) The number of inputs (excluding coinbase)\n"
             "  \"maxfee\": xxxxx,          (numeric) Maximum fee in the block\n"
             "  \"maxfeerate\": xxxxx,      (numeric) Maximum feerate (in satoshis per virtual byte)\n"
             "  \"maxtxsize\": xxxxx,       (numeric) Maximum transaction size\n"
             "  \"medianfee\": xxxxx,       (numeric) Truncated median fee in the block\n"
-            "  \"medianfeerate\": xxxxx,   (numeric) Truncated median feerate (in satoshis per virtual byte)\n"
             "  \"mediantime\": xxxxx,      (numeric) The block median time past\n"
             "  \"mediantxsize\": xxxxx,    (numeric) Truncated median transaction size\n"
             "  \"minfee\": xxxxx,          (numeric) Minimum fee in the block\n"
@@ -1738,7 +1774,7 @@ static UniValue getblockstats(const JSONRPCRequest& request)
 
     LOCK(cs_main);
 
-    CBlockIndexPtr pindex;
+    CBlockIndex* pindex;
     if (request.params[0].isNum()) {
         const int height = request.params[0].get_int();
         const int current_tip = chainActive.Height();
@@ -1778,13 +1814,13 @@ static UniValue getblockstats(const JSONRPCRequest& request)
     const bool do_all = stats.size() == 0; // Calculate everything if nothing selected (default)
     const bool do_mediantxsize = do_all || stats.count("mediantxsize") != 0;
     const bool do_medianfee = do_all || stats.count("medianfee") != 0;
-    const bool do_medianfeerate = do_all || stats.count("medianfeerate") != 0;
-    const bool loop_inputs = do_all || do_medianfee || do_medianfeerate ||
+    const bool do_feerate_percentiles = do_all || stats.count("feerate_percentiles") != 0;
+    const bool loop_inputs = do_all || do_medianfee || do_feerate_percentiles ||
         SetHasKeys(stats, "utxo_size_inc", "totalfee", "avgfee", "avgfeerate", "minfee", "maxfee", "minfeerate", "maxfeerate");
     const bool loop_outputs = do_all || loop_inputs || stats.count("total_out");
     const bool do_calculate_size = do_mediantxsize ||
         SetHasKeys(stats, "total_size", "avgtxsize", "mintxsize", "maxtxsize", "swtotal_size");
-    const bool do_calculate_weight = do_all || SetHasKeys(stats, "total_weight", "avgfeerate", "swtotal_weight", "avgfeerate", "medianfeerate", "minfeerate", "maxfeerate");
+    const bool do_calculate_weight = do_all || SetHasKeys(stats, "total_weight", "avgfeerate", "swtotal_weight", "avgfeerate", "feerate_percentiles", "minfeerate", "maxfeerate");
     const bool do_calculate_sw = do_all || SetHasKeys(stats, "swtxs", "swtotal_size", "swtotal_weight");
 
     CAmount maxfee = 0;
@@ -1804,7 +1840,7 @@ static UniValue getblockstats(const JSONRPCRequest& request)
     int64_t total_weight = 0;
     int64_t utxo_size_inc = 0;
     std::vector<CAmount> fee_array;
-    std::vector<CAmount> feerate_array;
+    std::vector<std::pair<CAmount, int64_t>> feerate_array;
     std::vector<int64_t> txsize_array;
 
     for (const auto& tx : block.vtx) {
@@ -1879,12 +1915,20 @@ static UniValue getblockstats(const JSONRPCRequest& request)
 
             // New feerate uses satoshis per virtual byte instead of per serialized byte
             CAmount feerate = weight ? (txfee * WITNESS_SCALE_FACTOR) / weight : 0;
-            if (do_medianfeerate) {
-                feerate_array.push_back(feerate);
+            if (do_feerate_percentiles) {
+                feerate_array.emplace_back(std::make_pair(feerate, weight));
             }
             maxfeerate = std::max(maxfeerate, feerate);
             minfeerate = std::min(minfeerate, feerate);
         }
+    }
+
+    CAmount feerate_percentiles[NUM_GETBLOCKSTATS_PERCENTILES] = { 0 };
+    CalculatePercentilesByWeight(feerate_percentiles, feerate_array, total_weight);
+
+    UniValue feerates_res(UniValue::VARR);
+    for (int64_t i = 0; i < NUM_GETBLOCKSTATS_PERCENTILES; i++) {
+        feerates_res.push_back(feerate_percentiles[i]);
     }
 
     UniValue ret_all(UniValue::VOBJ);
@@ -1892,13 +1936,13 @@ static UniValue getblockstats(const JSONRPCRequest& request)
     ret_all.pushKV("avgfeerate", total_weight ? (totalfee * WITNESS_SCALE_FACTOR) / total_weight : 0); // Unit: sat/vbyte
     ret_all.pushKV("avgtxsize", (block.vtx.size() > 1) ? total_size / (block.vtx.size() - 1) : 0);
     ret_all.pushKV("blockhash", pindex->GetBlockHash().GetHex());
+    ret_all.pushKV("feerate_percentiles", feerates_res);
     ret_all.pushKV("height", (int64_t)pindex->nHeight);
     ret_all.pushKV("ins", inputs);
     ret_all.pushKV("maxfee", maxfee);
     ret_all.pushKV("maxfeerate", maxfeerate);
     ret_all.pushKV("maxtxsize", maxtxsize);
     ret_all.pushKV("medianfee", CalculateTruncatedMedian(fee_array));
-    ret_all.pushKV("medianfeerate", CalculateTruncatedMedian(feerate_array));
     ret_all.pushKV("mediantime", pindex->GetMedianTimePast());
     ret_all.pushKV("mediantxsize", CalculateTruncatedMedian(txsize_array));
     ret_all.pushKV("minfee", (minfee == MAX_MONEY) ? 0 : minfee);
@@ -2033,7 +2077,7 @@ UniValue scantxoutset(const JSONRPCRequest& request)
             "or more path elements separated by \"/\", and optionally ending in \"/*\" (unhardened), or \"/*'\" or \"/*h\" (hardened) to specify all\n"
             "unhardened or hardened child keys.\n"
             "In the latter case, a range needs to be specified by below if different from 1000.\n"
-            "For more information on output descriptors, see the documentation at TODO\n"
+            "For more information on output descriptors, see the documentation in the doc/descriptors.md file.\n"
             "\nArguments:\n"
             "1. \"action\"                       (string, required) The action to execute\n"
             "                                      \"start\" for starting a scan\n"

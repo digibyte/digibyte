@@ -242,10 +242,6 @@
         <translation>Teken &amp;Boodskap</translation>
     </message>
     <message>
-        <source>Sign &amp;message...</source>
-        <translation>Teken &amp;Boodskap</translation>
-    </message>
-    <message>
         <source>Synchronizing with network...</source>
         <translation>Sinchroniseer met die netwerk ...</translation>
     </message>
@@ -723,10 +719,6 @@
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>The wallet will also be stored in this directory.</source>
-        <translation>Die beursie sal ook gestoor word in hierdie lêer.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>

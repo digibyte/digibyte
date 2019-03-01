@@ -462,10 +462,6 @@
         <translation>Girilen adres "%1" DigiByte adresiyle eşleşmiyor.</translation>
     </message>
     <message>
-        <source>The entered address "%1" is already in the address book.</source>
-        <translation>Girilen adres "%1" adres defterinde zaten kayıtlı.</translation>
-    </message>
-    <message>
         <source>New key generation failed.</source>
         <translation>Yeni anahtar üretimi başarısız.</translation>
     </message>
@@ -623,6 +619,18 @@
     </context>
 <context>
     <name>OverviewPage</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
+        <translation>Gösterilen bilgi geçerli olmayabilir. Bağlantı tekrar sağlandıktan sonra cüzdanınız otomatik olarak senkronize olacaktır. Henüz senkronize olma işlemi tamamlanmadı.</translation>
+    </message>
+    <message>
+        <source>Watch-only:</source>
+        <translation>Sadece görüntülenebilir:</translation>
+    </message>
     <message>
         <source>Available:</source>
         <translation>Kullanılabilir:</translation>
@@ -1335,28 +1343,8 @@
 <context>
     <name>digibyte-core</name>
     <message>
-        <source>Options:</source>
-        <translation>Ayarlar:</translation>
-    </message>
-    <message>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation>JSON-RPC komutları ile komut satırını onaylayın</translation>
-    </message>
-    <message>
         <source>DigiByte Core</source>
         <translation>DigiByte Çekirdeği</translation>
-    </message>
-    <message>
-        <source>&lt;category&gt; can be:</source>
-        <translation>&lt;category&gt; can be:</translation>
-    </message>
-    <message>
-        <source>Block creation options:</source>
-        <translation>Blok oluşturma ayarları:</translation>
-    </message>
-    <message>
-        <source>Connection options:</source>
-        <translation>Bağlantı ayarları:</translation>
     </message>
     <message>
         <source>Copyright (C) %i-%i</source>

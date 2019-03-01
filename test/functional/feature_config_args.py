@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test various command line arguments and configuration file parameters."""
@@ -14,8 +15,32 @@ class ConfArgsTest(DigiByteTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 1
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
+    def test_config_file_parser(self):
+        # Assume node is stopped
+
+        inc_conf_file_path = os.path.join(self.nodes[0].datadir, 'include.conf')
+        with open(os.path.join(self.nodes[0].datadir, 'digibyte.conf'), 'a', encoding='utf-8') as conf:
+            conf.write('includeconf={}\n'.format(inc_conf_file_path))
+
+        with open(inc_conf_file_path, 'w', encoding='utf-8') as conf:
+            conf.write('-dash=1\n')
+        self.nodes[0].assert_start_raises_init_error(expected_msg='Error reading configuration file: parse error on line 1: -dash=1, options in configuration file must be specified without leading -')
+
+        with open(inc_conf_file_path, 'w', encoding='utf-8') as conf:
+            conf.write('nono\n')
+        self.nodes[0].assert_start_raises_init_error(expected_msg='Error reading configuration file: parse error on line 1: nono, if you intended to specify a negated option, use nono=1 instead')
+
+        with open(inc_conf_file_path, 'w', encoding='utf-8') as conf:
+            conf.write('')  # clear
+
     def run_test(self):
         self.stop_node(0)
+
+        self.test_config_file_parser()
+
         # Remove the -datadir argument so it doesn't override the config file
         self.nodes[0].args = [arg for arg in self.nodes[0].args if not arg.startswith("-datadir")]
 

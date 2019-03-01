@@ -1,11 +1,11 @@
 dnl require autoconf 2.60 (AS_ECHO/AS_ECHO_N)
 AC_PREREQ([2.60])
 define(_CLIENT_VERSION_MAJOR, 6)
-define(_CLIENT_VERSION_MINOR, 16)
-define(_CLIENT_VERSION_REVISION, 5)
+define(_CLIENT_VERSION_MINOR, 17)
+define(_CLIENT_VERSION_REVISION, 2)
 define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
-define(_COPYRIGHT_YEAR, 2018)
+define(_COPYRIGHT_YEAR, 2019)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[DigiByte Core]])
 AC_INIT([DigiByte Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[https://github.com/digibyte/digibyte/issues],[digibyte],[https://digibyte.io/])
@@ -83,7 +83,7 @@ AC_PATH_TOOL(RANLIB, ranlib)
 AC_PATH_TOOL(STRIP, strip)
 AC_PATH_TOOL(GCOV, gcov)
 AC_PATH_PROG(LCOV, lcov)
-dnl Python 3.x is supported from 3.4 on (see https://github.com/bitcoin/bitcoin/issues/7893)
+dnl Python 3.x is supported from 3.4 on (see https://github.com/digibyte/digibyte/issues/7893)
 AC_PATH_PROGS([PYTHON], [python3.7 python3.6 python3.5 python3.4 python3 python])
 AC_PATH_PROG(GENHTML, genhtml)
 AC_PATH_PROG([GIT], [git])
@@ -151,12 +151,6 @@ AC_ARG_ENABLE([hardening],
   [do not attempt to harden the resulting executables (default is to harden when possible)])],
   [use_hardening=$enableval],
   [use_hardening=auto])
-
-AC_ARG_ENABLE([low-memory-mode],
-  [AS_HELP_STRING([--enable-low-memory-mode],
-  [reduces memory usage to run on low-memory devices while decreasing performance (default is to not use this mode)])],
-  [use_low_memory_mode=$enableval],
-  [use_low_memory_mode=no])
 
 AC_ARG_ENABLE([reduce-exports],
   [AS_HELP_STRING([--enable-reduce-exports],
@@ -677,12 +671,6 @@ if test x$use_glibc_compat != xno; then
   AX_CHECK_LINK_FLAG([[-Wl,--wrap=log2f]], [COMPAT_LDFLAGS="$COMPAT_LDFLAGS -Wl,--wrap=log2f"])
 else
   AC_SEARCH_LIBS([clock_gettime],[rt])
-fi
-
-# define MEMORY_MAPPING if low_memory_mode was requested
-if test "x$use_low_memory_mode" != xno; then
-    
-    AC_DEFINE([MEMORY_MAPPING], [1], [use memory mapped files])
 fi
 
 if test "x$enable_gprof" = xyes; then
@@ -1345,7 +1333,6 @@ AM_CONDITIONAL([USE_QRCODE], [test x$use_qr = xyes])
 AM_CONDITIONAL([USE_LCOV],[test x$use_lcov = xyes])
 AM_CONDITIONAL([GLIBC_BACK_COMPAT],[test x$use_glibc_compat = xyes])
 AM_CONDITIONAL([HARDEN],[test x$use_hardening = xyes])
-AM_CONDITIONAL([MEMORY_MAPPING],[test x$use_low_memory_mode = xyes])
 AM_CONDITIONAL([ENABLE_HWCRC32],[test x$enable_hwcrc32 = xyes])
 AM_CONDITIONAL([ENABLE_SSE41],[test x$enable_sse41 = xyes])
 AM_CONDITIONAL([ENABLE_AVX2],[test x$enable_avx2 = xyes])
@@ -1477,16 +1464,15 @@ echo "  with gui / qt = $digibyte_enable_qt"
 if test x$digibyte_enable_qt != xno; then
     echo "    with qr     = $use_qr"
 fi
-echo "  with zmq        = $use_zmq"
-echo "  with test       = $use_tests"
-echo "  with bench      = $use_bench"
-echo "  with upnp       = $use_upnp"
-echo "  use asm         = $use_asm"
-echo "  sanitizers      = $use_sanitizers"
-echo "  debug enabled   = $enable_debug"
-echo "  gprof enabled   = $enable_gprof"
-echo "  werror          = $enable_werror"
-echo "  low memory mode = $use_low_memory_mode"
+echo "  with zmq      = $use_zmq"
+echo "  with test     = $use_tests"
+echo "  with bench    = $use_bench"
+echo "  with upnp     = $use_upnp"
+echo "  use asm       = $use_asm"
+echo "  sanitizers    = $use_sanitizers"
+echo "  debug enabled = $enable_debug"
+echo "  gprof enabled = $enable_gprof"
+echo "  werror        = $enable_werror"
 echo
 echo "  target os     = $TARGET_OS"
 echo "  build os      = $BUILD_OS"

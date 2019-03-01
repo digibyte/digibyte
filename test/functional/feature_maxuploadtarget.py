@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test behavior of -maxuploadtarget.
@@ -13,9 +14,10 @@ if uploadtarget has been reached.
 from collections import defaultdict
 import time
 
-from test_framework.mininode import *
+from test_framework.messages import CInv, msg_getdata
+from test_framework.mininode import P2PInterface
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
+from test_framework.util import assert_equal, mine_large_block
 
 class TestP2PConn(P2PInterface):
     def __init__(self):
@@ -39,6 +41,9 @@ class MaxUploadTest(DigiByteTestFramework):
         # Cache for utxos, as the listunspent may take a long time later in the test
         self.utxo_cache = []
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
     def run_test(self):
         # Before we connect anything, we first set the time on the node
         # to be in the past, otherwise things break because the CNode
@@ -56,11 +61,6 @@ class MaxUploadTest(DigiByteTestFramework):
 
         for _ in range(3):
             p2p_conns.append(self.nodes[0].add_p2p_connection(TestP2PConn()))
-
-        for p2pc in p2p_conns:
-            p2pc.wait_for_verack()
-
-        # Test logic begins here
 
         # Now mine a big block
         mine_large_block(self.nodes[0], self.utxo_cache)
@@ -147,7 +147,6 @@ class MaxUploadTest(DigiByteTestFramework):
 
         # Reconnect to self.nodes[0]
         self.nodes[0].add_p2p_connection(TestP2PConn())
-        self.nodes[0].p2p.wait_for_verack()
 
         #retrieve 20 blocks which should be enough to break the 1MB limit
         getdata_request.inv = [CInv(2, big_new_block)]

@@ -1,12 +1,11 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2012-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_UI_INTERFACE_H
 #define DIGIBYTE_UI_INTERFACE_H
-
-#include <chain.h>
 
 #include <memory>
 #include <stdint.h>
@@ -104,10 +103,10 @@ public:
     boost::signals2::signal<void (const std::string &title, int nProgress, bool resume_possible)> ShowProgress;
 
     /** New block has been accepted */
-    boost::signals2::signal<void (bool, CBlockIndexConstPtr )> NotifyBlockTip;
+    boost::signals2::signal<void (bool, const CBlockIndex *)> NotifyBlockTip;
 
     /** Best header has changed */
-    boost::signals2::signal<void (bool, CBlockIndexConstPtr )> NotifyHeaderTip;
+    boost::signals2::signal<void (bool, const CBlockIndex *)> NotifyHeaderTip;
 
     /** Banlist did change. */
     boost::signals2::signal<void (void)> BannedListChanged;

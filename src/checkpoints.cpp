@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,14 +14,14 @@
 
 namespace Checkpoints {
 
-    CBlockIndexRawPtr GetLastCheckpoint(const CCheckpointData& data)
+    CBlockIndex* GetLastCheckpoint(const CCheckpointData& data)
     {
         const MapCheckpoints& checkpoints = data.mapCheckpoints;
 
         for (const MapCheckpoints::value_type& i : reverse_iterate(checkpoints))
         {
             const uint256& hash = i.second;
-            CBlockIndexRawPtr pindex = LookupBlockIndex(hash);
+            CBlockIndex* pindex = LookupBlockIndex(hash);
             if (pindex) {
                 return pindex;
             }

@@ -1,11 +1,10 @@
-// Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_INDEX_BASE_H
 #define DIGIBYTE_INDEX_BASE_H
 
-#include <chain.h>
 #include <dbwrapper.h>
 #include <primitives/block.h>
 #include <primitives/transaction.h>
@@ -43,7 +42,7 @@ private:
     std::atomic<bool> m_synced{false};
 
     /// The last block in the chain that the index is in sync with.
-    std::atomic<CBlockIndexConstPtr> m_best_block_index{nullptr};
+    std::atomic<const CBlockIndex*> m_best_block_index{nullptr};
 
     std::thread m_thread_sync;
     CThreadInterrupt m_interrupt;
@@ -56,10 +55,10 @@ private:
     void ThreadSync();
 
     /// Write the current chain block locator to the DB.
-    bool WriteBestBlock(CBlockIndexConstPtr block_index);
+    bool WriteBestBlock(const CBlockIndex* block_index);
 
 protected:
-    void BlockConnected(const std::shared_ptr<const CBlock>& block, CBlockIndexConstPtr pindex,
+    void BlockConnected(const std::shared_ptr<const CBlock>& block, const CBlockIndex* pindex,
                         const std::vector<CTransactionRef>& txn_conflicted) override;
 
     void ChainStateFlushed(const CBlockLocator& locator) override;
@@ -68,7 +67,7 @@ protected:
     virtual bool Init();
 
     /// Write update index entries for a newly connected block.
-    virtual bool WriteBlock(const CBlock& block, CBlockIndexConstPtr pindex) { return true; }
+    virtual bool WriteBlock(const CBlock& block, const CBlockIndex* pindex) { return true; }
 
     virtual DB& GetDB() const = 0;
 

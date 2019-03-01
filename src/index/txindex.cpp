@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -243,7 +243,7 @@ bool TxIndex::Init()
     return BaseIndex::Init();
 }
 
-bool TxIndex::WriteBlock(const CBlock& block, CBlockIndexConstPtr pindex)
+bool TxIndex::WriteBlock(const CBlock& block, const CBlockIndex* pindex)
 {
     CDiskTxPos pos(pindex->GetBlockPos(), GetSizeOfCompactSize(block.vtx.size()));
     std::vector<std::pair<uint256, CDiskTxPos>> vPos;

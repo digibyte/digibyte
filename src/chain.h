@@ -1,12 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_CHAIN_H
 #define DIGIBYTE_CHAIN_H
-
-class CBlockTreeDB;
 
 #include <arith_uint256.h>
 #include <consensus/params.h>
@@ -165,101 +163,6 @@ enum BlockStatus: uint32_t {
     BLOCK_OPT_WITNESS       =   128, //!< block data in blk*.data was received with a witness-enforcing client
 };
 
-
-/** This templated class provides us the possibility to intercept the 
- * pointer values of pprev and pskip.
- * In order to use disk space instead of memory we have to dynamically load
- * blocks from a disk hashmap when required.
- * This proxy provides interception without having to change all occurances of ->pprev and ->pskip
- * across several files.
- *
- * It should not change the way the original digibyte daemon works.
-*/
-#if MEMORY_MAPPING
-    // only use the proxy if the low memory mode was enabled (using configure)
-
-    typedef std::shared_ptr<CBlockIndex> CBlockIndexRawPtr;
-
-    class TempAlloc {
-        public:
-            const uint256* phashBlock;
-    };
-
-    class CBlockIndexProxy {
-        public:
-            // ----- Constructors -----
-            CBlockIndexProxy(const CBlockIndexProxy* c) {
-                this->val = c->val;
-            }
-            CBlockIndexProxy(const CBlockIndex* c) {
-                // Force cast to TempAlloc, which basically should have the same memory layout as CBlockIndex.
-                // We can't forward declare CBlockIndex, because CBlockIndexProxy is used within CBlockIndex.
-                // Hence, I decided to use a DummyClass, which has the same memory layout to access the phashBlock member.
-                if (c) {
-                    const uint256* hash = ((TempAlloc*) c)->phashBlock;
-                    if (hash) val = new uint256(*hash);
-                }
-            }
-
-            CBlockIndexProxy(long c) {}
-            CBlockIndexProxy(std::nullptr_t t) {}
-            CBlockIndexProxy(std::shared_ptr<CBlockIndex> c) : CBlockIndexProxy(c.get()) {}
-            CBlockIndexProxy() {}
-
-            // ----- Operators -----
-            //! proxy getter (internal access in CBlockIndex implementation)
-            operator CBlockIndexRawPtr () const {
-                return get();
-            }
-
-            // ! proxy property reference (external access)
-            CBlockIndexRawPtr operator->() const {
-                return get();
-            }
-
-            // ! proxy property indirection (external access)
-            CBlockIndexRawPtr operator*() const {
-                return get();
-            }
-
-            //! equality operator to nullptr
-            // Note that CBlockIndexProxy is not a pointer, so we need to support nullptr
-            bool operator==(nullptr_t t) const { return val == nullptr; }
-            bool operator!=(nullptr_t t) const { return val != nullptr; }
-
-            //! load the block using it's hash from disk
-            CBlockIndexRawPtr get() const {
-                if (!val) return nullptr;
-                CBlockIndexRawPtr tmp = CBlockIndexProxy::loadFromDB(val);
-                // printf("val = %p, ptr = %p\n", (void*) val, (void*) tmp.get());
-                return tmp;
-            }
-
-            //! proxy setter
-            void operator=(const uint256& hash);
-
-            //! operator overload for syntactic sugar
-            operator bool() const {
-                return val != nullptr;
-            }
-
-            uint256* val = nullptr;
-
-        private:
-            void resetPtr();
-            static CBlockIndexRawPtr loadFromDB(const uint256* hash);
-    };
-
-    typedef CBlockIndexProxy CBlockIndexPtr;
-    typedef CBlockIndexProxy CBlockIndexConstPtr;
-
-#else 
-    // otherwise use default CBlockIndexPtr
-    typedef CBlockIndex* CBlockIndexPtr;
-    typedef CBlockIndex* CBlockIndexRawPtr;
-    typedef const CBlockIndex* CBlockIndexConstPtr;
-#endif
-
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple
  * candidates to be the next block. A blockindex may have multiple pprev pointing
@@ -272,10 +175,10 @@ public:
     const uint256* phashBlock;
 
     //! pointer to the index of the predecessor of this block
-    CBlockIndexPtr pprev;
+    CBlockIndex* pprev;
 
     //! pointer to the index of some further predecessor of this block
-    CBlockIndexPtr pskip;
+    CBlockIndex* pskip;
 
     //! height of the entry in the chain. The genesis block has height 0
     int nHeight;
@@ -356,11 +259,6 @@ public:
         nNonce         = block.nNonce;
     }
 
-    #if MEMORY_MAPPING
-        CBlockIndex(const CBlockIndexRawPtr ptr) : CBlockIndex(*(ptr.get())) {
-        }
-    #endif
-
     CDiskBlockPos GetBlockPos() const {
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_DATA) {
@@ -429,19 +327,9 @@ public:
         int64_t* pbegin = &pmedian[nMedianTimeSpan];
         int64_t* pend = &pmedian[nMedianTimeSpan];
 
-        #if !MEMORY_MAPPING
-            const CBlockIndex* pindex = this;
-            for (int i = 0; i < nMedianTimeSpan && pindex; i++, pindex = pindex->pprev)
-                *(--pbegin) = pindex->GetBlockTime();
-        #else
-            // create shared pointer, but destruct shared pointer without delete
-            struct Deleter { void operator()(CBlockIndex* p) const {} };
-            CBlockIndex* ptr = const_cast<CBlockIndex*>(this);
-            CBlockIndexRawPtr pindex = std::shared_ptr<CBlockIndex>(ptr, Deleter());
-
-            for (int i = 0; i < nMedianTimeSpan && pindex; i++, pindex = pindex->pprev)
-                *(--pbegin) = pindex->GetBlockTime();
-        #endif
+        const CBlockIndex* pindex = this;
+        for (int i = 0; i < nMedianTimeSpan && pindex; i++, pindex = pindex->pprev)
+            *(--pbegin) = pindex->GetBlockTime();
 
         std::sort(pbegin, pend);
         return pbegin[(pend - pbegin)/2];
@@ -478,20 +366,21 @@ public:
         return false;
     }
 
+
     //! Build the skiplist pointer for this entry.
     void BuildSkip();
 
     //! Efficiently find an ancestor of this block.
-    CBlockIndexPtr GetAncestor(int height);
-    CBlockIndexConstPtr GetAncestor(int height) const;
+    CBlockIndex* GetAncestor(int height);
+    const CBlockIndex* GetAncestor(int height) const;
 };
 
-arith_uint256 GetBlockProof(CBlockIndexConstPtr block);
+arith_uint256 GetBlockProof(const CBlockIndex& block);
 
 /** Return the time it would take to redo the work difference between from and to, assuming the current hashrate corresponds to the difficulty at tip, in seconds. */
-int64_t GetBlockProofEquivalentTime(CBlockIndexConstPtr to, CBlockIndexConstPtr from, CBlockIndexConstPtr tip, const Consensus::Params&);
+int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params&);
 /** Find the forking point between two chain tips. */
-CBlockIndexConstPtr LastCommonAncestor(CBlockIndexConstPtr pa, CBlockIndexConstPtr pb);
+const CBlockIndex* LastCommonAncestor(const CBlockIndex* pa, const CBlockIndex* pb);
 
 
 /** Used to marshal pointers into hashes for db storage. */
@@ -504,7 +393,7 @@ public:
         hashPrev = uint256();
     }
 
-    explicit CDiskBlockIndex(CBlockIndexConstPtr pindex) : CBlockIndex(*pindex) {
+    explicit CDiskBlockIndex(const CBlockIndex* pindex) : CBlockIndex(*pindex) {
         hashPrev = (pprev ? pprev->GetBlockHash() : uint256());
     }
 
@@ -562,21 +451,21 @@ public:
 /** An in-memory indexed chain of blocks. */
 class CChain {
 private:
-    std::vector<CBlockIndexPtr> vChain;
+    std::vector<CBlockIndex*> vChain;
 
 public:
     /** Returns the index entry for the genesis block of this chain, or nullptr if none. */
-    CBlockIndexPtr Genesis() const {
+    CBlockIndex *Genesis() const {
         return vChain.size() > 0 ? vChain[0] : nullptr;
     }
 
     /** Returns the index entry for the tip of this chain, or nullptr if none. */
-    CBlockIndexPtr Tip() const {
+    CBlockIndex *Tip() const {
         return vChain.size() > 0 ? vChain[vChain.size() - 1] : nullptr;
     }
 
     /** Returns the index entry at a particular height in this chain, or nullptr if no such height exists. */
-    CBlockIndexPtr operator[](int nHeight) const {
+    CBlockIndex *operator[](int nHeight) const {
         if (nHeight < 0 || nHeight >= (int)vChain.size())
             return nullptr;
         return vChain[nHeight];
@@ -589,12 +478,12 @@ public:
     }
 
     /** Efficiently check whether a block is present in this chain. */
-    bool Contains(CBlockIndexConstPtr pindex) const {
+    bool Contains(const CBlockIndex *pindex) const {
         return (*this)[pindex->nHeight] == pindex;
     }
 
     /** Find the successor of a block in this chain, or nullptr if the given index is not found or is the tip. */
-    CBlockIndexPtr Next(CBlockIndexConstPtr pindex) const {
+    CBlockIndex *Next(const CBlockIndex *pindex) const {
         if (Contains(pindex))
             return (*this)[pindex->nHeight + 1];
         else
@@ -607,16 +496,16 @@ public:
     }
 
     /** Set/initialize a chain with a given tip. */
-    void SetTip(CBlockIndexConstPtr pindex);
+    void SetTip(CBlockIndex *pindex);
 
     /** Return a CBlockLocator that refers to a block in this chain (by default the tip). */
-    CBlockLocator GetLocator(CBlockIndexConstPtr pindex = nullptr) const;
+    CBlockLocator GetLocator(const CBlockIndex *pindex = nullptr) const;
 
     /** Find the last common block between this chain and a block index entry. */
-    const CBlockIndexPtr FindFork(CBlockIndexConstPtr pindex) const;
+    const CBlockIndex *FindFork(const CBlockIndex *pindex) const;
 
     /** Find the earliest block with timestamp equal or greater than the given. */
-    CBlockIndexPtr FindEarliestAtLeast(int64_t nTime) const;
+    CBlockIndex* FindEarliestAtLeast(int64_t nTime) const;
 };
 
 #endif // DIGIBYTE_CHAIN_H

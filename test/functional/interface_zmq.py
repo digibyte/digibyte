@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the ZMQ notification interface."""
 import struct
 
-from test_framework.test_framework import (
-    DigiByteTestFramework, skip_if_no_digibyted_zmq, skip_if_no_py3_zmq)
-from test_framework.mininode import CTransaction
-from test_framework.util import (assert_equal,
-                                 bytes_to_hex_str,
-                                 hash256,
-                                )
+from test_framework.test_framework import DigiByteTestFramework
+from test_framework.messages import CTransaction
+from test_framework.util import (
+    assert_equal,
+    bytes_to_hex_str,
+    hash256,
+)
 from io import BytesIO
+
 
 class ZMQSubscriber:
     def __init__(self, socket, topic):
@@ -37,9 +39,18 @@ class ZMQTest (DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_py3_zmq()
+        self.skip_if_no_digibyted_zmq()
+        self.skip_if_no_wallet()
+
     def setup_nodes(self):
-        skip_if_no_py3_zmq()
-        skip_if_no_digibyted_zmq(self)
+        # Import keys
+        self.add_nodes(self.num_nodes)
+        self.start_nodes()
+        super().import_deterministic_coinbase_privkeys()
+        self.stop_nodes()
+
         import zmq
 
         # Initialize ZMQ context and socket.
@@ -59,9 +70,11 @@ class ZMQTest (DigiByteTestFramework):
         self.rawblock = ZMQSubscriber(socket, b"rawblock")
         self.rawtx = ZMQSubscriber(socket, b"rawtx")
 
-        self.extra_args = [["-zmqpub%s=%s" % (sub.topic.decode(), address) for sub in [self.hashblock, self.hashtx, self.rawblock, self.rawtx]], []]
-        self.add_nodes(self.num_nodes, self.extra_args)
+        self.nodes[0].extra_args = ["-zmqpub%s=%s" % (sub.topic.decode(), address) for sub in [self.hashblock, self.hashtx, self.rawblock, self.rawtx]]
         self.start_nodes()
+
+    def import_deterministic_coinbase_privkeys(self):
+        pass
 
     def run_test(self):
         try:

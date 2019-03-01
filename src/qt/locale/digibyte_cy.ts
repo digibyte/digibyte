@@ -38,6 +38,14 @@
         <translation>Derbyn cyfeiriadau</translation>
     </message>
     <message>
+        <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Rhain ydi eich cyfeiriadau DigiByte ar gyfer gyrru taliadau. Gwnewch yn sicr o'r swm a'r cyfeiriad derbyn cyn gyrru arian.</translation>
+    </message>
+    <message>
+        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Dyma eich cyfeiriadau DigiByte ar gyfer derbyn taliadau. Argymhellwn ddefnyddio cyfeiriad derbyn newydd ar gyfer bob trafodyn.</translation>
+    </message>
+    <message>
         <source>&amp;Copy Address</source>
         <translation>&amp;Copïo Cyfeiriad</translation>
     </message>
@@ -79,12 +87,104 @@
         <source>Repeat new passphrase</source>
         <translation>Ailadroddwch gyfrinymadrodd newydd</translation>
     </message>
-    </context>
+    <message>
+        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <translation>Ysgrifennwch y cyfrinair newydd i'r waled. &lt;br/&gt; Os gwelwch yn dda, defnyddiwch gyfrinair &lt;b&gt; deg neu fwy o gymeriadau ar hap &lt;/b&gt; , neu &lt;b&gt; wyth neu fwy o eiriau &lt;/b&gt; .</translation>
+    </message>
+    <message>
+        <source>Encrypt wallet</source>
+        <translation>Amgryptio'r Waled</translation>
+    </message>
+    <message>
+        <source>This operation needs your wallet passphrase to unlock the wallet.</source>
+        <translation>Mae'r weithred hon angen eich cyfrinair waled i ddatgloi'r waled.</translation>
+    </message>
+    <message>
+        <source>Unlock wallet</source>
+        <translation>Datgloi'r waled</translation>
+    </message>
+    <message>
+        <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
+        <translation>Mae'r weithred hon angen eich cyfrinair waled i ddatgryptio'r waled.</translation>
+    </message>
+    <message>
+        <source>Decrypt wallet</source>
+        <translation>Datgryptio waled</translation>
+    </message>
+    <message>
+        <source>Change passphrase</source>
+        <translation>Newid cyfrinair</translation>
+    </message>
+    <message>
+        <source>Enter the old passphrase and new passphrase to the wallet.</source>
+        <translation>Ysgrifennwch yr hen gyfrinair a chyfrinair newydd y waled.</translation>
+    </message>
+    <message>
+        <source>Confirm wallet encryption</source>
+        <translation>Cadarnhau amgryptio'r waled</translation>
+    </message>
+    <message>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
+        <translation>Rhybudd: Os ydych yn amgryptio'r waled ag yn colli'r cyfrinair, byddwch yn &lt;b&gt; COLLI EICH DIGIBYTES I GYD &lt;b&gt; !</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to encrypt your wallet?</source>
+        <translation>Ydych yn siwr eich bod eisiau amgryptio eich waled?</translation>
+    </message>
+    <message>
+        <source>Wallet encrypted</source>
+        <translation>Waled Wedi Amgryptio</translation>
+    </message>
+    <message>
+        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
+        <translation>Bydd %1 nawr yn gorffen y broses amgryptio. Cofiwch nad ydy amgryptio eich waled yn llawn amddiffyn eich digibytes rhag cael eu dwyn gan afiechyd yn heintio eich cyfrifiadur.</translation>
+    </message>
+    <message>
+        <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
+        <translation>PWYSIG: Mi ddylai unrhyw back ups blaenorol rydych wedi ei wneud o ffeil eich waled gael ei ddiweddaru efo'r ffeil amgryptiedig newydd ei chreu. Am resymau diogelwch, bydd back ups blaenorol o ffeil y walet heb amgryptio yn ddiwerth mor fuan ac yr ydych yn dechrau defnyddio'r waled amgryptiedig newydd.</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed</source>
+        <translation>Amgryptio waled wedi methu</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
+        <translation>Amgryptio waled wedi methu oherwydd gwall mewnol. Dydi eich waled heb amgryptio.</translation>
+    </message>
+    <message>
+        <source>The supplied passphrases do not match.</source>
+        <translation>Nid ydi'r cyfrineiriau a gyflenwyd yn cyfateb.</translation>
+    </message>
+    <message>
+        <source>Wallet unlock failed</source>
+        <translation>Dadgloi waled wedi methu</translation>
+    </message>
+    <message>
+        <source>The passphrase entered for the wallet decryption was incorrect.</source>
+        <translation>Mae'r cyfrinair ysgrifennwyd ar gyfer datgryptio'r waled yn anghywir.</translation>
+    </message>
+    <message>
+        <source>Wallet decryption failed</source>
+        <translation>Amgryptio waled wedi methu</translation>
+    </message>
+    <message>
+        <source>Wallet passphrase was successfully changed.</source>
+        <translation>Newid cyfrinair waled yn llwyddiannus. </translation>
+    </message>
+    <message>
+        <source>Warning: The Caps Lock key is on!</source>
+        <translation>Rhybudd: Mae allwedd Caps Lock ymlaen!</translation>
+    </message>
+</context>
 <context>
     <name>BanTableModel</name>
     </context>
 <context>
     <name>DigiByteGUI</name>
+    <message>
+        <source>Sign &amp;message...</source>
+        <translation>Arwyddo &amp;neges...</translation>
+    </message>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Cysoni â'r rhwydwaith...</translation>
@@ -150,8 +250,44 @@
         <translation>Agor &amp;URI...</translation>
     </message>
     <message>
+        <source>Click to disable network activity.</source>
+        <translation>Cliciwch i anablu gweithgaredd y rhwydwaith.</translation>
+    </message>
+    <message>
+        <source>Network activity disabled.</source>
+        <translation>Gweithgaredd rhwydwaith wedi anablu.</translation>
+    </message>
+    <message>
+        <source>Click to enable network activity again.</source>
+        <translation>Cliciwch i alluogi gweithgaredd y rhwydwaith eto.</translation>
+    </message>
+    <message>
+        <source>Syncing Headers (%1%)...</source>
+        <translation>Syncio pennawdau (%1%)...</translation>
+    </message>
+    <message>
+        <source>Reindexing blocks on disk...</source>
+        <translation>Ailfynegi y blociau ar ddisg...</translation>
+    </message>
+    <message>
+        <source>Send coins to a DigiByte address</source>
+        <translation>Anfon arian i gyfeiriad DigiByte</translation>
+    </message>
+    <message>
+        <source>Backup wallet to another location</source>
+        <translation>Bacio fyny'r waled i leoliad arall</translation>
+    </message>
+    <message>
         <source>Change the passphrase used for wallet encryption</source>
         <translation>Newid y cyfrinymadrodd a ddefnyddiwyd ar gyfer amgryptio'r waled</translation>
+    </message>
+    <message>
+        <source>&amp;Debug window</source>
+        <translation>&amp;Di fygio'r ffenest</translation>
+    </message>
+    <message>
+        <source>&amp;Verify message...</source>
+        <translation>&amp;Gwirio neges...</translation>
     </message>
     <message>
         <source>DigiByte</source>
@@ -174,6 +310,22 @@
         <translation>&amp;Dangos / Cuddio</translation>
     </message>
     <message>
+        <source>Show or hide the main Window</source>
+        <translation>Dangos neu guddio y brif Ffenest</translation>
+    </message>
+    <message>
+        <source>Encrypt the private keys that belong to your wallet</source>
+        <translation>Amgryptio'r allweddi preifat sy'n perthyn i'ch waled</translation>
+    </message>
+    <message>
+        <source>Sign messages with your DigiByte addresses to prove you own them</source>
+        <translation>Arwyddo negeseuon gyda eich cyfeiriadau DigiByte i brofi mae chi sy'n berchen arnynt</translation>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
+        <translation>Gwirio negeseuon i sicrhau eu bod wedi eu harwyddo gyda cyfeiriadau DigiByte penodol</translation>
+    </message>
+    <message>
         <source>&amp;File</source>
         <translation>&amp;Ffeil</translation>
     </message>
@@ -188,6 +340,46 @@
     <message>
         <source>Tabs toolbar</source>
         <translation>Bar offer tabiau</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and digibyte: URIs)</source>
+        <translation>Gofyn taliadau (creu côd QR a digibyte: URIs)</translation>
+    </message>
+    <message>
+        <source>Show the list of used sending addresses and labels</source>
+        <translation>Dangos rhestr o gyfeiriadau danfon a labelau wedi eu defnyddio</translation>
+    </message>
+    <message>
+        <source>Show the list of used receiving addresses and labels</source>
+        <translation>Dangos rhestr o gyfeiriadau derbyn a labelau wedi eu defnyddio</translation>
+    </message>
+    <message>
+        <source>Open a digibyte: URI or payment request</source>
+        <translation>Agor DigiByte: URI neu ofyn taliad</translation>
+    </message>
+    <message>
+        <source>&amp;Command-line options</source>
+        <translation>&amp;Dewisiadau Gorchymyn-llinell</translation>
+    </message>
+    <message>
+        <source>Indexing blocks on disk...</source>
+        <translation>Mynegai'r blociau ar ddisg...</translation>
+    </message>
+    <message>
+        <source>Processing blocks on disk...</source>
+        <translation>Prosesu blociau ar ddisg...</translation>
+    </message>
+    <message>
+        <source>%1 behind</source>
+        <translation>%1 Tu ôl</translation>
+    </message>
+    <message>
+        <source>Last received block was generated %1 ago.</source>
+        <translation>Cafodd y bloc olaf i'w dderbyn ei greu %1 yn ôl.</translation>
+    </message>
+    <message>
+        <source>Transactions after this will not yet be visible.</source>
+        <translation>Ni fydd trafodion ar ôl hyn yn weledol eto.</translation>
     </message>
     <message>
         <source>Error</source>
@@ -249,7 +441,11 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Mae'r waled &lt;b&gt;wedi'i amgryptio&lt;/b&gt; ac &lt;b&gt;ar glo&lt;/b&gt; ar hyn o bryd</translation>
     </message>
-    </context>
+    <message>
+        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
+        <translation>Mae gwall angheuol wedi digwydd. Ni all DigiByte barhau'n ddiogel ac mae'n cau lawr.</translation>
+    </message>
+</context>
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -303,6 +499,10 @@
     <message>
         <source>Welcome</source>
         <translation>Croeso</translation>
+    </message>
+    <message>
+        <source>DigiByte</source>
+        <translation>DigiByte</translation>
     </message>
     <message>
         <source>Error</source>

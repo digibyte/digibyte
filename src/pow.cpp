@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,7 +19,7 @@ inline unsigned int PowLimit(const Consensus::Params& params)
     return UintToArith256(params.powLimit).GetCompact();
 }
 
-unsigned int GetNextWorkRequiredV1(CBlockIndexConstPtr pindexLast, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
 {
 	int nHeight = pindexLast->nHeight + 1;
 	bool fNewDifficultyProtocol = (nHeight >= params.nDiffChangeTarget);
@@ -50,7 +51,7 @@ unsigned int GetNextWorkRequiredV1(CBlockIndexConstPtr pindexLast, const Consens
 		blockstogoback = retargetInterval;
 
 	// Go back by what we want to be 14 days worth of blocks
-	CBlockIndexConstPtr pindexFirst = pindexLast;
+	const CBlockIndex* pindexFirst = pindexLast;
 	for (int i = 0; pindexFirst && i < blockstogoback; i++)
 		pindexFirst = pindexFirst->pprev;
 	assert(pindexFirst);
@@ -86,16 +87,16 @@ unsigned int GetNextWorkRequiredV1(CBlockIndexConstPtr pindexLast, const Consens
 	return bnNew.GetCompact();
 }
 
-unsigned int GetNextWorkRequiredV2(CBlockIndexConstPtr pindexLast, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
 {
 	LogPrintf("Height (Before): %s\n", pindexLast->nHeight);
 
 	// find previous block with same algo
-	CBlockIndexConstPtr pindexPrev = GetLastBlockIndexForAlgo(pindexLast, params, algo);
+	const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, params, algo);
 
 	// find first block in averaging interval
 	// Go back by what we want to be nAveragingInterval blocks
-	CBlockIndexConstPtr pindexFirst = pindexPrev;
+	const CBlockIndex* pindexFirst = pindexPrev;
 	for (int i = 0; pindexFirst && i < params.nAveragingInterval - 1; i++)
 	{
 		pindexFirst = pindexFirst->pprev;
@@ -130,16 +131,16 @@ unsigned int GetNextWorkRequiredV2(CBlockIndexConstPtr pindexLast, const Consens
 	return bnNew.GetCompact();	
 }
 
-unsigned int GetNextWorkRequiredV3(CBlockIndexConstPtr pindexLast, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
 {
 	// find first block in averaging interval
 	// Go back by what we want to be nAveragingInterval blocks per algo
-	CBlockIndexConstPtr pindexFirst = pindexLast;
+	const CBlockIndex* pindexFirst = pindexLast;
 	for (int i = 0; pindexFirst && i < NUM_ALGOS*params.nAveragingInterval; i++)
 	{
 		pindexFirst = pindexFirst->pprev;
 	}
-	CBlockIndexConstPtr pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
+	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
 	if (pindexPrevAlgo == nullptr || pindexFirst == nullptr)
 		return PowLimit(params); // not enough blocks available
 
@@ -183,17 +184,17 @@ unsigned int GetNextWorkRequiredV3(CBlockIndexConstPtr pindexLast, const Consens
 	return bnNew.GetCompact();
 }
 
-unsigned int GetNextWorkRequiredV4(CBlockIndexConstPtr pindexLast, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
 {
 	// find first block in averaging interval
 	// Go back by what we want to be nAveragingInterval blocks per algo
-	CBlockIndexConstPtr pindexFirst = pindexLast;
+	const CBlockIndex* pindexFirst = pindexLast;
 	for (int i = 0; pindexFirst && i < NUM_ALGOS*params.nAveragingInterval; i++)
 	{
 		pindexFirst = pindexFirst->pprev;
 	}
 
-	CBlockIndexConstPtr pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
+	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
 	if (pindexPrevAlgo == nullptr || pindexFirst == nullptr)
 	{
 		return PowLimit(params);
@@ -243,7 +244,7 @@ unsigned int GetNextWorkRequiredV4(CBlockIndexConstPtr pindexLast, const Consens
 	return bnNew.GetCompact();
 }
 
-unsigned int GetNextWorkRequired(CBlockIndexConstPtr pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
     // Genesis block
     if (pindexLast == nullptr)
@@ -268,7 +269,7 @@ unsigned int GetNextWorkRequired(CBlockIndexConstPtr pindexLast, const CBlockHea
 		return GetNextWorkRequiredV4(pindexLast, params, algo);
 }
 
-unsigned int CalculateNextWorkRequired(CBlockIndexConstPtr pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
+unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
 {
     if (params.fPowNoRetargeting)
         return pindexLast->nBits;
@@ -312,7 +313,7 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
     return true;
 }
 
-CBlockIndexConstPtr GetLastBlockIndexForAlgo(CBlockIndexConstPtr pindex, const Consensus::Params& params, int algo)
+const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, const Consensus::Params& params, int algo)
 {
     for (; pindex; pindex = pindex->pprev)
     {

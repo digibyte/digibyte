@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -65,7 +65,7 @@ bool BaseIndex::Init()
     return true;
 }
 
-static CBlockIndexConstPtr NextSyncBlock(CBlockIndexConstPtr pindex_prev)
+static const CBlockIndex* NextSyncBlock(const CBlockIndex* pindex_prev)
 {
     AssertLockHeld(cs_main);
 
@@ -73,7 +73,7 @@ static CBlockIndexConstPtr NextSyncBlock(CBlockIndexConstPtr pindex_prev)
         return chainActive.Genesis();
     }
 
-    CBlockIndexConstPtr pindex = chainActive.Next(pindex_prev);
+    const CBlockIndex* pindex = chainActive.Next(pindex_prev);
     if (pindex) {
         return pindex;
     }
@@ -83,7 +83,7 @@ static CBlockIndexConstPtr NextSyncBlock(CBlockIndexConstPtr pindex_prev)
 
 void BaseIndex::ThreadSync()
 {
-    CBlockIndexConstPtr pindex = m_best_block_index.load();
+    const CBlockIndex* pindex = m_best_block_index.load();
     if (!m_synced) {
         auto& consensus_params = Params().GetConsensus();
 
@@ -97,7 +97,7 @@ void BaseIndex::ThreadSync()
 
             {
                 LOCK(cs_main);
-                CBlockIndexConstPtr pindex_next = NextSyncBlock(pindex);
+                const CBlockIndex* pindex_next = NextSyncBlock(pindex);
                 if (!pindex_next) {
                     WriteBestBlock(pindex);
                     m_best_block_index = pindex;
@@ -140,7 +140,7 @@ void BaseIndex::ThreadSync()
     }
 }
 
-bool BaseIndex::WriteBestBlock(CBlockIndexConstPtr block_index)
+bool BaseIndex::WriteBestBlock(const CBlockIndex* block_index)
 {
     LOCK(cs_main);
     if (!GetDB().WriteBestBlock(chainActive.GetLocator(block_index))) {
@@ -149,14 +149,14 @@ bool BaseIndex::WriteBestBlock(CBlockIndexConstPtr block_index)
     return true;
 }
 
-void BaseIndex::BlockConnected(const std::shared_ptr<const CBlock>& block, CBlockIndexConstPtr pindex,
+void BaseIndex::BlockConnected(const std::shared_ptr<const CBlock>& block, const CBlockIndex* pindex,
                                const std::vector<CTransactionRef>& txn_conflicted)
 {
     if (!m_synced) {
         return;
     }
 
-    CBlockIndexConstPtr best_block_index = m_best_block_index.load();
+    const CBlockIndex* best_block_index = m_best_block_index.load();
     if (!best_block_index) {
         if (pindex->nHeight != 0) {
             FatalError("%s: First block connected is not the genesis block (height=%d)",
@@ -194,7 +194,7 @@ void BaseIndex::ChainStateFlushed(const CBlockLocator& locator)
     }
 
     const uint256& locator_tip_hash = locator.vHave.front();
-    CBlockIndexConstPtr locator_tip_index;
+    const CBlockIndex* locator_tip_index;
     {
         LOCK(cs_main);
         locator_tip_index = LookupBlockIndex(locator_tip_hash);
@@ -211,7 +211,7 @@ void BaseIndex::ChainStateFlushed(const CBlockLocator& locator)
     // there is a reorg and the blocks on the stale branch are in the ValidationInterface queue
     // backlog even after the sync thread has caught up to the new chain tip. In this unlikely
     // event, log a warning and let the queue clear.
-    CBlockIndexConstPtr best_block_index = m_best_block_index.load();
+    const CBlockIndex* best_block_index = m_best_block_index.load();
     if (best_block_index->GetAncestor(locator_tip_index->nHeight) != locator_tip_index) {
         LogPrintf("%s: WARNING: Locator contains block (hash=%s) not on known best " /* Continued */
                   "chain (tip=%s); not writing index locator\n",
@@ -237,8 +237,8 @@ bool BaseIndex::BlockUntilSyncedToCurrentChain()
         // Skip the queue-draining stuff if we know we're caught up with
         // chainActive.Tip().
         LOCK(cs_main);
-        CBlockIndexConstPtr chain_tip = chainActive.Tip();
-        CBlockIndexConstPtr best_block_index = m_best_block_index.load();
+        const CBlockIndex* chain_tip = chainActive.Tip();
+        const CBlockIndex* best_block_index = m_best_block_index.load();
         if (best_block_index->GetAncestor(chain_tip->nHeight) == chain_tip) {
             return true;
         }

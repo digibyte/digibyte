@@ -24,7 +24,7 @@ Build Tools and Keys
 ### Packaging ###
 The [Debian](/contrib/debian) subfolder contains the copyright file.
 
-All other packaging related files can be found in the [bitcoin-core/packaging](https://github.com/bitcoin-core/packaging) repository.
+All other packaging related files can be found in the [digibyte-core/packaging](https://github.com/digibyte-core/packaging) repository.
 
 ### [Gitian-descriptors](/contrib/gitian-descriptors) ###
 Files used during the gitian build process. For more information about gitian, see the [the DigiByte Core documentation repository](https://github.com/digibyte-core/docs).

@@ -1,75 +1,15 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <chain.h>
 #include <chainparams.h>
 
-#include <txdb.h>
-extern std::unique_ptr<CBlockTreeDB> pblocktree;
-
-/* Low Memory Mode */
-CBlockIndexRawPtr CBlockIndexProxy::loadFromDB(const uint256* hash) {
-    std::unique_ptr<CDBIterator> pcursor(pblocktree->NewIterator());
-    pcursor->Seek(std::make_pair('b', *hash));
-    
-    if (pcursor->Valid()) {
-        std::pair<char, uint256> key;
-        if (pcursor->GetKey(key) && key.first == 'b') {
-            CDiskBlockIndex diskindex;
-            if (pcursor->GetValue(diskindex)) {
-                // Construct block index object
-
-                CBlockIndexRawPtr pindexNew(new CBlockIndex());
-
-                uint256 block_hash(diskindex.GetBlockHash());
-                pindexNew->phashBlock     = &block_hash;
-
-                pindexNew->pprev          = diskindex.hashPrev;
-                pindexNew->nHeight        = diskindex.nHeight;
-                pindexNew->nFile          = diskindex.nFile;
-                pindexNew->nDataPos       = diskindex.nDataPos;
-                pindexNew->nUndoPos       = diskindex.nUndoPos;
-                pindexNew->nVersion       = diskindex.nVersion;
-                pindexNew->hashMerkleRoot = diskindex.hashMerkleRoot;
-                pindexNew->nTime          = diskindex.nTime;
-                pindexNew->nBits          = diskindex.nBits;
-                pindexNew->nNonce         = diskindex.nNonce;
-                pindexNew->nStatus        = diskindex.nStatus;
-                pindexNew->nTx            = diskindex.nTx;
-
-                return pindexNew;
-            }
-        }
-    }
-
-    return nullptr;
-}
-
-// void CBlockIndexProxy::operator=(const CBlockIndexRawPtr newVal) {
-//     resetPtr();
-//     if (newVal) {
-//         val = new uint256(*newVal->phashBlock);
-//     }
-// }
-
-void CBlockIndexProxy::operator=(const uint256& hash) {
-    resetPtr();
-    val = new uint256(hash);
-}
-
-void CBlockIndexProxy::resetPtr() {
-    if (val) {
-        delete val;
-        val = nullptr;
-    }
-}
-
 /**
  * CChain implementation
  */
-void CChain::SetTip(CBlockIndexConstPtr pindex) {
+void CChain::SetTip(CBlockIndex *pindex) {
     if (pindex == nullptr) {
         vChain.clear();
         return;
@@ -81,7 +21,7 @@ void CChain::SetTip(CBlockIndexConstPtr pindex) {
     }
 }
 
-CBlockLocator CChain::GetLocator(CBlockIndexConstPtr pindex) const {
+CBlockLocator CChain::GetLocator(const CBlockIndex *pindex) const {
     int nStep = 1;
     std::vector<uint256> vHave;
     vHave.reserve(32);
@@ -109,7 +49,7 @@ CBlockLocator CChain::GetLocator(CBlockIndexConstPtr pindex) const {
     return CBlockLocator(vHave);
 }
 
-const CBlockIndexPtr CChain::FindFork(CBlockIndexConstPtr pindex) const {
+const CBlockIndex *CChain::FindFork(const CBlockIndex *pindex) const {
     if (pindex == nullptr) {
         return nullptr;
     }
@@ -120,10 +60,10 @@ const CBlockIndexPtr CChain::FindFork(CBlockIndexConstPtr pindex) const {
     return pindex;
 }
 
-CBlockIndexPtr CChain::FindEarliestAtLeast(int64_t nTime) const
+CBlockIndex* CChain::FindEarliestAtLeast(int64_t nTime) const
 {
-    std::vector<CBlockIndexPtr>::const_iterator lower = std::lower_bound(vChain.begin(), vChain.end(), nTime,
-        [](CBlockIndexPtr pBlock, const int64_t& time) -> bool { return pBlock->GetBlockTimeMax() < time; });
+    std::vector<CBlockIndex*>::const_iterator lower = std::lower_bound(vChain.begin(), vChain.end(), nTime,
+        [](CBlockIndex* pBlock, const int64_t& time) -> bool { return pBlock->GetBlockTimeMax() < time; });
     return (lower == vChain.end() ? nullptr : *lower);
 }
 
@@ -141,13 +81,13 @@ int static inline GetSkipHeight(int height) {
     return (height & 1) ? InvertLowestOne(InvertLowestOne(height - 1)) + 1 : InvertLowestOne(height);
 }
 
-CBlockIndexConstPtr CBlockIndex::GetAncestor(int height) const
+const CBlockIndex* CBlockIndex::GetAncestor(int height) const
 {
     if (height > nHeight || height < 0) {
         return nullptr;
     }
 
-    CBlockIndexConstPtr pindexWalk = this;
+    const CBlockIndex* pindexWalk = this;
     int heightWalk = nHeight;
     while (heightWalk > height) {
         int heightSkip = GetSkipHeight(heightWalk);
@@ -168,13 +108,9 @@ CBlockIndexConstPtr CBlockIndex::GetAncestor(int height) const
     return pindexWalk;
 }
 
-CBlockIndexPtr CBlockIndex::GetAncestor(int height)
+CBlockIndex* CBlockIndex::GetAncestor(int height)
 {
-    #if MEMORY_MAPPING
-        return static_cast<const CBlockIndex*>(this)->GetAncestor(height);
-    #else
-        return const_cast<CBlockIndexPtr>(static_cast<CBlockIndexConstPtr>(this)->GetAncestor(height));
-    #endif
+    return const_cast<CBlockIndex*>(static_cast<const CBlockIndex*>(this)->GetAncestor(height));
 }
 
 void CBlockIndex::BuildSkip()
@@ -208,12 +144,12 @@ int GetAlgoWorkFactor(int nHeight, int algo)
     }
 }
 
-arith_uint256 GetBlockProofBase(CBlockIndexConstPtr block)
+arith_uint256 GetBlockProofBase(const CBlockIndex& block)
 {
     arith_uint256 bnTarget;
     bool fNegative;
     bool fOverflow;
-    bnTarget.SetCompact(block->nBits, &fNegative, &fOverflow);
+    bnTarget.SetCompact(block.nBits, &fNegative, &fOverflow);
     if (fNegative || fOverflow || bnTarget == 0)
         return 0;
     // We need to compute 2**256 / (bnTarget+1), but we can't represent 2**256
@@ -224,10 +160,10 @@ arith_uint256 GetBlockProofBase(CBlockIndexConstPtr block)
 }
 
 // DGB 6.14.1 GetBlock Proof
-arith_uint256 GetBlockProof(CBlockIndexConstPtr block)
+arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
-    CBlockHeader header = block->GetBlockHeader();
-    int nHeight = block->nHeight;
+    CBlockHeader header = block.GetBlockHeader();
+    int nHeight = block.nHeight;
     const Consensus::Params& params = Params().GetConsensus();
 
     if (nHeight < params.workComputationChangeTarget)
@@ -243,7 +179,7 @@ arith_uint256 GetBlockProof(CBlockIndexConstPtr block)
 
         for (int i = 0; i < NUM_ALGOS; i++)
         {
-            unsigned int nBits = GetNextWorkRequired(block->pprev, &header, params, i);
+            unsigned int nBits = GetNextWorkRequired(block.pprev, &header, params, i);
             arith_uint256 bnTarget;
             bool fNegative;
             bool fOverflow;
@@ -264,14 +200,14 @@ arith_uint256 GetBlockProof(CBlockIndexConstPtr block)
     }
 }
 
-int64_t GetBlockProofEquivalentTime(CBlockIndexConstPtr to, CBlockIndexConstPtr from, CBlockIndexConstPtr tip, const Consensus::Params& params)
+int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params& params)
 {
     arith_uint256 r;
     int sign = 1;
-    if (to->nChainWork > from->nChainWork) {
-        r = to->nChainWork - from->nChainWork;
+    if (to.nChainWork > from.nChainWork) {
+        r = to.nChainWork - from.nChainWork;
     } else {
-        r = from->nChainWork - to->nChainWork;
+        r = from.nChainWork - to.nChainWork;
         sign = -1;
     }
     r = r * arith_uint256(params.nPowTargetSpacing) / GetBlockProof(tip);
@@ -283,7 +219,7 @@ int64_t GetBlockProofEquivalentTime(CBlockIndexConstPtr to, CBlockIndexConstPtr 
 
 /** Find the last common ancestor two blocks have.
  *  Both pa and pb must be non-nullptr. */
-CBlockIndexConstPtr LastCommonAncestor(CBlockIndexConstPtr pa, CBlockIndexConstPtr pb) {
+const CBlockIndex* LastCommonAncestor(const CBlockIndex* pa, const CBlockIndex* pb) {
     if (pa->nHeight > pb->nHeight) {
         pa = pa->GetAncestor(pb->nHeight);
     } else if (pb->nHeight > pa->nHeight) {

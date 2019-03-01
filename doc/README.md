@@ -28,7 +28,7 @@ Unpack the files into a directory, and then run digibyte-qt.exe.
 
 ### macOS
 
-Drag DigiByte Core to your applications folder, and then run DiugiByte Core.
+Drag DigiByte Core to your applications folder, and then run DigiByte Core.
 
 ### Need Help?
 

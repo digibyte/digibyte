@@ -9,7 +9,7 @@ packages:
 - "libssl1.0-dev"
 - "autoconf"
 remotes:
-- "url": "https://github.com/digibyte/digibyte-detached-sigs.git"
+- "url": "https://github.com/digibyte-core/digibyte-detached-sigs.git"
   "dir": "signature"
 files:
 - "osslsigncode-1.7.1.tar.gz"

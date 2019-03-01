@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -144,11 +145,11 @@ static bool rest_headers(HTTPRequest* req,
     if (!ParseHashStr(hashStr, hash))
         return RESTERR(req, HTTP_BAD_REQUEST, "Invalid hash: " + hashStr);
 
-    std::vector<CBlockIndexConstPtr > headers;
+    std::vector<const CBlockIndex *> headers;
     headers.reserve(count);
     {
         LOCK(cs_main);
-        CBlockIndexConstPtr pindex = LookupBlockIndex(hash);
+        const CBlockIndex* pindex = LookupBlockIndex(hash);
         while (pindex != nullptr && chainActive.Contains(pindex)) {
             headers.push_back(pindex);
             if (headers.size() == (unsigned long)count)
@@ -158,7 +159,7 @@ static bool rest_headers(HTTPRequest* req,
     }
 
     CDataStream ssHeader(SER_NETWORK, PROTOCOL_VERSION);
-    for (CBlockIndexConstPtr pindex : headers) {
+    for (const CBlockIndex *pindex : headers) {
         ssHeader << pindex->GetBlockHeader();
     }
 
@@ -180,7 +181,7 @@ static bool rest_headers(HTTPRequest* req,
         UniValue jsonHeaders(UniValue::VARR);
         {
             LOCK(cs_main);
-            for (CBlockIndexConstPtr pindex : headers) {
+            for (const CBlockIndex *pindex : headers) {
                 jsonHeaders.push_back(blockheaderToJSON(pindex));
             }
         }
@@ -209,7 +210,7 @@ static bool rest_block(HTTPRequest* req,
         return RESTERR(req, HTTP_BAD_REQUEST, "Invalid hash: " + hashStr);
 
     CBlock block;
-    CBlockIndexPtr pblockindex = nullptr;
+    CBlockIndex* pblockindex = nullptr;
     {
         LOCK(cs_main);
         pblockindex = LookupBlockIndex(hash);

@@ -1,4 +1,5 @@
-// Copyright (c) 2014-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,10 +27,10 @@ public:
     int64_t EndTime(const Consensus::Params& params) const override { return TestTime(20000); }
     int Period(const Consensus::Params& params) const override { return 1000; }
     int Threshold(const Consensus::Params& params) const override { return 900; }
-    bool Condition(CBlockIndexConstPtr pindex, const Consensus::Params& params) const override { return (pindex->nVersion & 0x100); }
+    bool Condition(const CBlockIndex* pindex, const Consensus::Params& params) const override { return (pindex->nVersion & 0x100); }
 
-    ThresholdState GetStateFor(CBlockIndexConstPtr pindexPrev) const { return AbstractThresholdConditionChecker::GetStateFor(pindexPrev, paramsDummy, cache); }
-    int GetStateSinceHeightFor(CBlockIndexConstPtr pindexPrev) const { return AbstractThresholdConditionChecker::GetStateSinceHeightFor(pindexPrev, paramsDummy, cache); }
+    ThresholdState GetStateFor(const CBlockIndex* pindexPrev) const { return AbstractThresholdConditionChecker::GetStateFor(pindexPrev, paramsDummy, cache); }
+    int GetStateSinceHeightFor(const CBlockIndex* pindexPrev) const { return AbstractThresholdConditionChecker::GetStateSinceHeightFor(pindexPrev, paramsDummy, cache); }
 };
 
 class TestAlwaysActiveConditionChecker : public TestConditionChecker
@@ -76,7 +77,7 @@ public:
 
     VersionBitsTester& Mine(unsigned int height, int32_t nTime, int32_t nVersion) {
         while (vpblock.size() < height) {
-            CBlockIndexPtr pindex = new CBlockIndex();
+            CBlockIndex* pindex = new CBlockIndex();
             pindex->nHeight = vpblock.size();
             pindex->pprev = vpblock.size() > 0 ? vpblock.back() : nullptr;
             pindex->nTime = nTime;
@@ -153,7 +154,7 @@ public:
         return *this;
     }
 
-    CBlockIndexPtr  Tip() { return vpblock.size() ? vpblock.back() : nullptr; }
+    CBlockIndex * Tip() { return vpblock.size() ? vpblock.back() : nullptr; }
 };
 
 BOOST_FIXTURE_TEST_SUITE(versionbits_tests, TestingSetup)
@@ -270,7 +271,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
 
     // Before MedianTimePast of the chain has crossed nStartTime, the bit
     // should not be set.
-    CBlockIndexPtr lastBlock = nullptr;
+    CBlockIndex *lastBlock = nullptr;
     lastBlock = firstChain.Mine(2016, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
     BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams, 2) & (1<<bit), 0);
 

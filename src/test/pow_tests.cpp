@@ -1,4 +1,5 @@
-// Copyright (c) 2015-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -74,9 +75,9 @@ BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
     }
 
     for (int j = 0; j < 1000; j++) {
-        CBlockIndexPtr p1 = &blocks[InsecureRandRange(10000)];
-        CBlockIndexPtr p2 = &blocks[InsecureRandRange(10000)];
-        CBlockIndexPtr p3 = &blocks[InsecureRandRange(10000)];
+        CBlockIndex *p1 = &blocks[InsecureRandRange(10000)];
+        CBlockIndex *p2 = &blocks[InsecureRandRange(10000)];
+        CBlockIndex *p3 = &blocks[InsecureRandRange(10000)];
 
         int64_t tdiff = GetBlockProofEquivalentTime(*p1, *p2, *p3, chainParams->GetConsensus());
         BOOST_CHECK_EQUAL(tdiff, p1->GetBlockTime() - p2->GetBlockTime());

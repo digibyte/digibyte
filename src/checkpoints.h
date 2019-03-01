@@ -1,15 +1,15 @@
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_CHECKPOINTS_H
 #define DIGIBYTE_CHECKPOINTS_H
 
-#include <chain.h>
 #include <uint256.h>
 
 #include <map>
 
+class CBlockIndex;
 struct CCheckpointData;
 
 /**
@@ -19,8 +19,8 @@ struct CCheckpointData;
 namespace Checkpoints
 {
 
-//! Returns last CBlockIndexPtr that is a checkpoint
-CBlockIndexRawPtr GetLastCheckpoint(const CCheckpointData& data);
+//! Returns last CBlockIndex* that is a checkpoint
+CBlockIndex* GetLastCheckpoint(const CCheckpointData& data);
 
 } //namespace Checkpoints
 

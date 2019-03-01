@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017 The Bitcoin Core developers
+# Copyright (c) 2017 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool acceptance of raw transactions."""
@@ -35,11 +35,13 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.extra_args = [[
-            '-checkmempool',
             '-txindex',
             '-reindex',  # Need reindex for txindex
             '-acceptnonstdtxn=0',  # Try to mimic main-net
         ]] * self.num_nodes
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def check_mempool_result(self, result_expected, *args, **kwargs):
         """Wrapper to check result of testmempoolaccept on node_0's mempool"""
