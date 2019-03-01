@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node responses to invalid transactions.
 
 In this test we connect to one node over p2p, and test tx requests."""
-from test_framework.blocktools import create_block, create_coinbase, create_transaction
+from test_framework.blocktools import create_block, create_coinbase, create_tx_with_script
 from test_framework.messages import (
     COIN,
     COutPoint,
@@ -26,13 +27,15 @@ class InvalidTxRequestTest(DigiByteTestFramework):
         self.num_nodes = 1
         self.setup_clean_chain = True
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
     def bootstrap_p2p(self, *, num_connections=1):
         """Add a P2P connection to the node.
 
         Helper to connect and wait for version handshake."""
         for _ in range(num_connections):
             self.nodes[0].add_p2p_connection(P2PDataStore())
-        self.nodes[0].p2p.wait_for_verack()
 
     def reconnect_p2p(self, **kwargs):
         """Tear down and bootstrap the P2P connection to the node.
@@ -68,7 +71,7 @@ class InvalidTxRequestTest(DigiByteTestFramework):
         # Transaction will be rejected with code 16 (REJECT_INVALID)
         # and we get disconnected immediately
         self.log.info('Test a transaction that is rejected')
-        tx1 = create_transaction(block1.vtx[0], 0, b'\x64' * 35, 50 * COIN - 12000)
+        tx1 = create_tx_with_script(block1.vtx[0], 0, script_sig=b'\x64' * 35, amount=50 * COIN - 12000)
         node.p2p.send_txs_and_test([tx1], node, success=False, expect_disconnect=True)
 
         # Make two p2p connections to provide the node with orphans
@@ -137,11 +140,16 @@ class InvalidTxRequestTest(DigiByteTestFramework):
 
         # restart node with sending BIP61 messages disabled, check that it disconnects without sending the reject message
         self.log.info('Test a transaction that is rejected, with BIP61 disabled')
-        self.restart_node(0, ['-enablebip61=0','-persistmempool=0'])
+        self.restart_node(0, ['-enablebip61=0', '-persistmempool=0'])
         self.reconnect_p2p(num_connections=1)
-        node.p2p.send_txs_and_test([tx1], node, success=False, expect_disconnect=True)
+        with node.assert_debug_log(expected_msgs=[
+                "{} from peer=0 was not accepted: mandatory-script-verify-flag-failed (Invalid OP_IF construction) (code 16)".format(tx1.hash),
+                "disconnecting peer=0",
+        ]):
+            node.p2p.send_txs_and_test([tx1], node, success=False, expect_disconnect=True)
         # send_txs_and_test will have waited for disconnect, so we can safely check that no reject has been received
         assert_equal(node.p2p.reject_code_received, None)
+
 
 if __name__ == '__main__':
     InvalidTxRequestTest().main()

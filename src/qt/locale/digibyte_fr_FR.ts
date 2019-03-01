@@ -406,10 +406,6 @@
         <translation>Vérifier les messages pour s'assurer qu'ils soient signés avec les adresses DigiByte spécifiées</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>Vérifier les messages pour s'assurer qu'ils soient signés avec les adresses DigiByte spécifiées</translation>
-    </message>
-    <message>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>

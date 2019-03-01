@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -493,7 +494,7 @@ BerkeleyBatch::BerkeleyBatch(BerkeleyDatabase& database, const char* pszMode, bo
             // files in the same environment have the same fileid.
             //
             // Also call CheckUniqueFileid on all the other g_dbenvs to prevent
-            // bitcoin from opening the same data file through another
+            // digibyte from opening the same data file through another
             // environment when the file is referenced through equivalent but
             // not obviously identical symlinked or hard linked or bind mounted
             // paths. In the future a more relaxed check for equal inode and
@@ -768,7 +769,7 @@ bool BerkeleyDatabase::Backup(const std::string& strDest)
                 env->mapFileUseCount.erase(strFile);
 
                 // Copy wallet file
-                fs::path pathSrc = GetWalletDir() / strFile;
+                fs::path pathSrc = env->Directory() / strFile;
                 fs::path pathDest(strDest);
                 if (fs::is_directory(pathDest))
                     pathDest /= strFile;

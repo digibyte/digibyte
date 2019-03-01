@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Run regression test suite.
@@ -116,6 +117,7 @@ BASE_SCRIPTS = [
     'wallet_keypool.py',
     'p2p_mempool.py',
     'mining_prioritisetransaction.py',
+    'p2p_invalid_locator.py',
     'p2p_invalid_block.py',
     'p2p_invalid_tx.py',
     'rpc_createmultisig.py',
@@ -124,6 +126,7 @@ BASE_SCRIPTS = [
     'wallet_importprunedfunds.py',
     'rpc_zmq.py',
     'rpc_signmessage.py',
+    'wallet_balance.py',
     'feature_nulldummy.py',
     'mempool_accept.py',
     'wallet_import_rescan.py',
@@ -152,6 +155,7 @@ BASE_SCRIPTS = [
     'p2p_node_network_limited.py',
     'feature_blocksdir.py',
     'feature_config_args.py',
+    'rpc_help.py',
     'feature_help.py',
     # Don't append tests at the end to avoid merge conflicts
     # Put them in a random line within the section that fits their approximate run-time
@@ -230,13 +234,11 @@ def main():
     logging.basicConfig(format='%(message)s', level=logging_level)
 
     # Create base test directory
-    tmpdir = "%s/digibyte_test_runner_%s" % (args.tmpdirprefix, datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
+    tmpdir = "%s/test_runner_₿_🏃_%s" % (args.tmpdirprefix, datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
     os.makedirs(tmpdir)
 
     logging.debug("Temporary test directory at %s" % tmpdir)
 
-    enable_wallet = config["components"].getboolean("ENABLE_WALLET")
-    enable_utils = config["components"].getboolean("ENABLE_UTILS")
     enable_digibyted = config["components"].getboolean("ENABLE_DIGIBYTED")
 
     if config["environment"]["EXEEXT"] == ".exe" and not args.force:
@@ -245,9 +247,9 @@ def main():
         print("Tests currently disabled on Windows by default. Use --force option to enable")
         sys.exit(0)
 
-    if not (enable_wallet and enable_utils and enable_digibyted):
-        print("No functional tests to run. Wallet, utils, and digibyted must all be enabled")
-        print("Rerun `configure` with -enable-wallet, -with-utils and -with-daemon and rerun make")
+    if not enable_digibyted:
+        print("No functional tests to run.")
+        print("Rerun ./configure with --with-daemon and then make")
         sys.exit(0)
 
     # Build list of tests
@@ -309,7 +311,7 @@ def main():
 def run_tests(test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=False, args=None, combined_logs_len=0, failfast=False):
     args = args or []
 
-    # Warn if bitcoind is already running (unix only)
+    # Warn if digibyted is already running (unix only)
     try:
         if subprocess.check_output(["pidof", "digibyted"]) is not None:
             print("%sWARNING!%s There is already a digibyted process running on this system. Tests may fail unexpectedly due to resource contention!" % (BOLD[1], BOLD[0]))

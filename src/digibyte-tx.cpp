@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -98,11 +98,10 @@ static int AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || HelpRequested(gArgs)) {
         // First part of help message is specific to this utility
-        std::string strUsage = strprintf("%s digibyte-tx utility version", PACKAGE_NAME) + " " + FormatFullVersion() + "\n\n" +
-            "Usage:\n"
-              "  digibyte-tx [options] <hex-tx> [commands]  Update hex-encoded digibyte transaction\n" +
-              "  digibyte-tx [options] -create [commands]   Create hex-encoded digibyte transaction\n" +
-              "\n";
+        std::string strUsage = PACKAGE_NAME " digibyte-tx utility version " + FormatFullVersion() + "\n\n" +
+            "Usage:  digibyte-tx [options] <hex-tx> [commands]  Update hex-encoded digibyte transaction\n" +
+            "or:     digibyte-tx [options] -create [commands]   Create hex-encoded digibyte transaction\n" +
+            "\n";
         strUsage += gArgs.GetHelpMessage();
 
         fprintf(stdout, "%s", strUsage.c_str());

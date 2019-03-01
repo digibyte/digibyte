@@ -1,5 +1,5 @@
+# TOR SUPPORT IN DIGIBYTE
 
-It is possible to run DigiByte as a Tor hidden service, and connect to such services.
 =======
 # TOR SUPPORT IN DIGIBYTE
 

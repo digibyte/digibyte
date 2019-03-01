@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test various fingerprinting protections.
@@ -11,24 +12,27 @@ the node should pretend that it does not have it to avoid fingerprinting.
 import time
 
 from test_framework.blocktools import (create_block, create_coinbase)
+from test_framework.messages import CInv
 from test_framework.mininode import (
-    CInv,
     P2PInterface,
     msg_headers,
     msg_block,
     msg_getdata,
     msg_getheaders,
-    wait_until,
 )
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
+    wait_until,
 )
 
 class P2PFingerprintTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     # Build a chain of blocks on top of given one
     def build_chain(self, nblocks, prev_hash, prev_height, prev_median_time):
@@ -75,7 +79,6 @@ class P2PFingerprintTest(DigiByteTestFramework):
     # last month but that have over a month's worth of work are also withheld.
     def run_test(self):
         node0 = self.nodes[0].add_p2p_connection(P2PInterface())
-        node0.wait_for_verack()
 
         # Set node time to 60 days ago
         self.nodes[0].setmocktime(int(time.time()) - 60 * 24 * 60 * 60)

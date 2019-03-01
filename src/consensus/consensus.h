@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,8 +16,6 @@ static const unsigned int MAX_BLOCK_SERIALIZED_SIZE = 4000000;
 static const unsigned int MAX_BLOCK_WEIGHT = 4000000;
 /** The maximum allowed size for a block excluding witness data, in bytes (network rule) */
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
-
-const int64_t multiAlgoDiffChangeTarget = 145000; // block 145000 where multi-algo work weighting starts 145000//for testing
 
 static const unsigned int MAX_BLOCK_BASE_SIZE = 2000000;
 

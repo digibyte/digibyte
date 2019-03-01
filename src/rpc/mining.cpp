@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -236,7 +236,7 @@ static UniValue getmininginfo(const JSONRPCRequest& request)
 }
 
 
-// NOTE: Unlike wallet RPC (which use BTC values), mining RPCs follow GBT (BIP 22) in using satoshi amounts
+// NOTE: Unlike wallet RPC (which use DGB values), mining RPCs follow GBT (BIP 22) in using satoshi amounts
 static UniValue prioritisetransaction(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 3)
@@ -302,7 +302,7 @@ static std::string gbt_vb_name(const Consensus::DeploymentPos pos) {
 
 static UniValue getblocktemplate(const JSONRPCRequest& request)
 {
-    if (request.fHelp || request.params.size() > 1)
+    if (request.fHelp || request.params.size() > 2)
         throw std::runtime_error(
             "getblocktemplate ( TemplateRequest )\n"
             "\nIf the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.\n"
@@ -326,6 +326,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
             "           ,...\n"
             "       ]\n"
             "     }\n"
+            "2. algo    (string, optional) The mining algorithm to use for this pow hash, 'sha256d', 'scrypt', 'groestl', 'skein', 'qubit'\n"
             "\n"
 
             "\nResult:\n"
@@ -374,8 +375,8 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
             "}\n"
 
             "\nExamples:\n"
-            + HelpExampleCli("getblocktemplate", "")
-            + HelpExampleRpc("getblocktemplate", "")
+            + HelpExampleCli("getblocktemplate", "{\"rules\": [\"segwit\"]}")
+            + HelpExampleRpc("getblocktemplate", "{\"rules\": [\"segwit\"]}")
          );
 
     LOCK(cs_main);
@@ -440,6 +441,23 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
                 nMaxVersionPreVB = uvMaxVersion.get_int64();
             }
         }
+    }
+
+    int algo = miningAlgo;
+    if (!request.params[1].isNull()) {
+        std::string strAlgo = request.params[1].get_str();
+        if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
+            algo = ALGO_SHA256D;
+        else if (strAlgo == "scrypt")
+            algo = ALGO_SCRYPT;
+        else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
+            algo = ALGO_GROESTL;
+        else if (strAlgo == "skein" || strAlgo == "skeinsha2")
+            algo = ALGO_SKEIN;
+        else if (strAlgo == "q2c" || strAlgo == "qubit")
+            algo = ALGO_QUBIT;
+        else
+            algo = miningAlgo;
     }
 
     if (strMode != "template")
@@ -515,9 +533,11 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     // Cache whether the last invocation was with segwit support, to avoid returning
     // a segwit-block to a non-segwit caller.
     static bool fLastTemplateSupportsSegwit = true;
+    static int lastAlgo;
     if (pindexPrev != chainActive.Tip() ||
         (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5) ||
-        fLastTemplateSupportsSegwit != fSupportsSegwit)
+        fLastTemplateSupportsSegwit != fSupportsSegwit ||
+        algo != lastAlgo)
     {
         // Clear pindexPrev so future calls make a new block, despite any failures from here on
         pindexPrev = nullptr;
@@ -527,10 +547,11 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
         CBlockIndex* pindexPrevNew = chainActive.Tip();
         nStart = GetTime();
         fLastTemplateSupportsSegwit = fSupportsSegwit;
+        lastAlgo = algo;
 
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, miningAlgo, fSupportsSegwit);
+        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, algo, fSupportsSegwit);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 
@@ -542,7 +563,7 @@ static UniValue getblocktemplate(const JSONRPCRequest& request)
     const Consensus::Params& consensusParams = Params().GetConsensus();
 
     // Update nTime
-    UpdateTime(pblock, consensusParams, pindexPrev, miningAlgo);
+    UpdateTime(pblock, consensusParams, pindexPrev, algo);
     pblock->nNonce = 0;
 
     // NOTE: If at some point we support pre-segwit miners post-segwit-activation, this needs to take segwit support into consideration
