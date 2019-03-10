@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2014-2016 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +10,7 @@ REVSIG=false
 IFS='
 '
 if [ "$DIGIBYTE_VERIFY_COMMITS_ALLOW_SHA1" = 1 ]; then
-	GPG_RES="$(echo "$INPUT" | gpg --trust-model always "$@" 2>/dev/null)"
+	GPG_RES="$(printf '%s\n' "$INPUT" | gpg --trust-model always "$@" 2>/dev/null)"
 else
 	# Note how we've disabled SHA1 with the --weak-digest option, disabling
 	# signatures - including selfsigs - that use SHA1. While you might think that
@@ -43,11 +43,6 @@ for LINE in $(echo "$GPG_RES"); do
 		done < ./contrib/verify-commits/trusted-keys
 		;;
 	"[GNUPG:] REVKEYSIG "*)
-		[ "$DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG" != 1 ] && exit 1
-		REVSIG=true
-		GOODREVSIG="[GNUPG:] GOODSIG ${LINE#* * *}"
-		;;
-	"[GNUPG:] EXPKEYSIG "*)
 		[ "$DIGIBYTE_VERIFY_COMMITS_ALLOW_REVSIG" != 1 ] && exit 1
 		REVSIG=true
 		GOODREVSIG="[GNUPG:] GOODSIG ${LINE#* * *}"

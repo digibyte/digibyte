@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018 The Bitcoin Core developers
+# Copyright (c) 2018 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test wallet group functionality."""
 
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.mininode import FromHex, ToHex
-from test_framework.messages import CTransaction
+from test_framework.messages import CTransaction, FromHex, ToHex
 from test_framework.util import (
     assert_equal,
 )
@@ -24,7 +23,10 @@ class WalletGroupTest(DigiByteTestFramework):
         self.extra_args = [[], [], ['-avoidpartialspends']]
         self.rpc_timewait = 120
 
-    def run_test (self):
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
+    def run_test(self):
         # Mine some coins
         self.nodes[0].generate(110)
 

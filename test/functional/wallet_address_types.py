@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test that the wallet can send and receive using all combinations of address types.
@@ -72,8 +73,11 @@ class AddressTypeTest(DigiByteTestFramework):
             ["-addresstype=p2sh-segwit", "-changetype=bech32"],
             ["-addresstype=bech32"],
             ["-changetype=p2sh-segwit"],
-            []
+            [],
         ]
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def setup_network(self):
         self.setup_nodes()

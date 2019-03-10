@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -45,7 +46,6 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "listreceivedbyaddress", 0, "minconf" },
     { "listreceivedbyaddress", 1, "include_empty" },
     { "listreceivedbyaddress", 2, "include_watchonly" },
-    { "listreceivedbyaddress", 3, "address_filter" },
     { "listreceivedbyaccount", 0, "minconf" },
     { "listreceivedbyaccount", 1, "include_empty" },
     { "listreceivedbyaccount", 2, "include_watchonly" },
@@ -113,9 +113,8 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "walletcreatefundedpsbt", 0, "inputs" },
     { "walletcreatefundedpsbt", 1, "outputs" },
     { "walletcreatefundedpsbt", 2, "locktime" },
-    { "walletcreatefundedpsbt", 3, "replaceable" },
-    { "walletcreatefundedpsbt", 4, "options" },
-    { "walletcreatefundedpsbt", 5, "bip32derivs" },
+    { "walletcreatefundedpsbt", 3, "options" },
+    { "walletcreatefundedpsbt", 4, "bip32derivs" },
     { "walletprocesspsbt", 1, "sign" },
     { "walletprocesspsbt", 3, "bip32derivs" },
     { "createpsbt", 0, "inputs" },

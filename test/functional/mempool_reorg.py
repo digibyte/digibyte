@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool re-org scenarios.
@@ -8,14 +9,17 @@ Test re-org scenarios with a mempool that contains transactions
 that spend (directly or indirectly) coinbase transactions.
 """
 
+from test_framework.blocktools import create_raw_transaction
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
+from test_framework.util import assert_equal, assert_raises_rpc_error
 
-# Create one-input, one-output, no-fee transaction:
+
 class MempoolCoinbaseTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
-        self.extra_args = [["-checkmempool"]] * 2
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     alert_filename = None  # Set by setup_network
 
@@ -39,9 +43,9 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         # and make sure the mempool code behaves correctly.
         b = [ self.nodes[0].getblockhash(n) for n in range(101, 105) ]
         coinbase_txids = [ self.nodes[0].getblock(h)['tx'][0] for h in b ]
-        spend_101_raw = create_tx(self.nodes[0], coinbase_txids[1], node1_address, 49.99)
-        spend_102_raw = create_tx(self.nodes[0], coinbase_txids[2], node0_address, 49.99)
-        spend_103_raw = create_tx(self.nodes[0], coinbase_txids[3], node0_address, 49.99)
+        spend_101_raw = create_raw_transaction(self.nodes[0], coinbase_txids[1], node1_address, amount=49.99)
+        spend_102_raw = create_raw_transaction(self.nodes[0], coinbase_txids[2], node0_address, amount=49.99)
+        spend_103_raw = create_raw_transaction(self.nodes[0], coinbase_txids[3], node0_address, amount=49.99)
 
         # Create a transaction which is time-locked to two blocks in the future
         timelock_tx = self.nodes[0].createrawtransaction([{"txid": coinbase_txids[0], "vout": 0}], {node0_address: 49.99})
@@ -57,11 +61,11 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         spend_103_id = self.nodes[0].sendrawtransaction(spend_103_raw)
         self.nodes[0].generate(1)
         # Time-locked transaction is still too immature to spend
-        assert_raises_rpc_error(-26,'non-final', self.nodes[0].sendrawtransaction, timelock_tx)
+        assert_raises_rpc_error(-26, 'non-final', self.nodes[0].sendrawtransaction, timelock_tx)
 
         # Create 102_1 and 103_1:
-        spend_102_1_raw = create_tx(self.nodes[0], spend_102_id, node1_address, 49.98)
-        spend_103_1_raw = create_tx(self.nodes[0], spend_103_id, node1_address, 49.98)
+        spend_102_1_raw = create_raw_transaction(self.nodes[0], spend_102_id, node1_address, amount=49.98)
+        spend_103_1_raw = create_raw_transaction(self.nodes[0], spend_103_id, node1_address, amount=49.98)
 
         # Broadcast and mine 103_1:
         spend_103_1_id = self.nodes[0].sendrawtransaction(spend_103_1_raw)

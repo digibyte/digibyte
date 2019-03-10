@@ -1,4 +1,5 @@
-// Copyright (c) 2016-2017 The DigiByte Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,7 +24,11 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
         /*.gbt_force =*/ true,
     },
     {
-        /*.name =*/ "odofork",
+        /*.name =*/ "reservealgo",
+        /*.gbt_force =*/ true,
+    },
+    {
+        /*.name =*/ "odo",
         /*.gbt_force =*/ true,
     },
     //{

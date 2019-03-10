@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2017 The DigiByte Core developers
+# Copyright (c) 2009-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the abandontransaction RPC.
@@ -10,14 +11,18 @@
  which are not included in a block and are not currently in the mempool. It has
  no effect on transactions which are already abandoned.
 """
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import *
+from decimal import Decimal
 
+from test_framework.test_framework import DigiByteTestFramework
+from test_framework.util import assert_equal, assert_raises_rpc_error, connect_nodes, disconnect_nodes, sync_blocks, sync_mempools
 
 class AbandonConflictTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [["-minrelaytxfee=0.00001"], []]
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def run_test(self):
         self.nodes[1].generate(100)

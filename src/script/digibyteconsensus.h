@@ -1,15 +1,15 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The DigiByte Core developers
+// Copyright (c) 2009-2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DIGIBYTE_DIGIBYTECONSENSUS_H
-#define DIGIBYTE_DIGIBYTECONSENSUS_H
+#ifndef DIGIBYTE_SCRIPT_DIGIBYTECONSENSUS_H
+#define DIGIBYTE_SCRIPT_DIGIBYTECONSENSUS_H
 
 #include <stdint.h>
 
 #if defined(BUILD_DIGIBYTE_INTERNAL) && defined(HAVE_CONFIG_H)
-#include "config/digibyte-config.h"
+#include <config/digibyte-config.h>
   #if defined(_WIN32)
     #if defined(DLL_EXPORT)
       #if defined(HAVE_FUNC_ATTRIBUTE_DLLEXPORT)
@@ -80,4 +80,4 @@ EXPORT_SYMBOL unsigned int digibyteconsensus_version();
 
 #undef EXPORT_SYMBOL
 
-#endif // DIGIBYTE_DIGIBYTECONSENSUS_H
+#endif // DIGIBYTE_SCRIPT_DIGIBYTECONSENSUS_H

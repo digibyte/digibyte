@@ -1,6 +1,9 @@
-DigiByte Core version 0.16.0 is now available from:
+DigiByte Core version 0.17.1 is now available from:
 
-  <https://digibytecore.org/bin/digibyte-core-0.16.0/>
+  <https://digibytecore.org/bin/digibyte-core-0.17.1/>
+
+This is a new major version release, including new features, various bugfixes
+and performance improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
@@ -257,6 +260,8 @@ shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over `/Applications/DigiByte-Qt` (on Mac)
 or `digibyted`/`digibyte-qt` (on Linux).
 
+If your node has a txindex, the txindex db will be migrated the first time you run 0.17.0 or newer, which may take up to a few hours. Your node will not be functional until this migration completes.
+
 The first time you run version 0.15.0 or newer, your chainstate database will be converted to a
 new format, which will take anywhere from a few minutes to half an hour,
 depending on the speed of your machine.
@@ -275,28 +280,22 @@ wallets that were created with older versions are not affected by this.
 
 Compatibility
 ==============
-
-<<<<<<< HEAD
 DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 =======
-Bitcoin Core is extensively tested on multiple operating systems using
-<<<<<<< HEAD
-the Linux kernel, macOS 10.8+, and Windows 7 and newer (Windows XP is not supported).
->>>>>>> 8ee5c7b747171e335793c74cd9d2f7491da58164
+DigiByte Core is extensively tested on multiple operating systems using
 =======
+DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.10+, and Windows 7 and newer (Windows XP is not supported).
->>>>>>> bitcoin/master
 
 DigiByte Core should also work on most other Unix-like systems but is not
 frequently tested on them.
 
-<<<<<<< HEAD
 =======
 Wallet changes
 ---------------
 
-<<<<<<< HEAD
+
 ### Segwit Wallet
 
 DigiByte Core 0.16.0 introduces full support for segwit in the wallet and user interfaces. A new `-addresstype` argument has been added, which supports `legacy`, `p2sh-segwit` (default), and `bech32` addresses. It controls what kind of addresses are produced by `getnewaddress`, `getaccountaddress`, and `createmultisigaddress`. A `-changetype` argument has also been added, with the same options, and by default equal to `-addresstype`, to control which kind of change is used.
@@ -382,7 +381,7 @@ support versions of macOS older than 10.10.
 
 Notable changes
 ===============
->>>>>>> bitcoin/master
+
 
 GUI changes
 -----------
@@ -391,10 +390,6 @@ GUI changes
 
 RPC changes
 ------------
-=======
-Example item
--------------
->>>>>>> ea2e39fd2004e83375c1703543e32a10e3b9d981
 
 Example item for a notable change.
 
@@ -448,9 +443,9 @@ same as before.
 Low-level RPC changes
 ---------------------
 
-- When bitcoin is not started with any `-wallet=<path>` options, the name of
+- When digibyte is not started with any `-wallet=<path>` options, the name of
   the default wallet returned by `getwalletinfo` and `listwallets` RPCs is
-  now the empty string `""` instead of `"wallet.dat"`. If bitcoin is started
+  now the empty string `""` instead of `"wallet.dat"`. If digibyte is started
   with any `-wallet=<path>` options, there is no change in behavior, and the
   name of any wallet is just its `<path>` string.
 - Passing an empty string (`""`) as the `address_type` parameter to
@@ -472,9 +467,8 @@ Low-level RPC changes
 ### Logging
 
 - The log timestamp format is now ISO 8601 (e.g. "2018-02-28T12:34:56Z").
->>>>>>> 8ee5c7b747171e335793c74cd9d2f7491da58164
 
-- When running bitcoind with `-debug` but without `-daemon`, logging to stdout
+- When running digibyted with `-debug` but without `-daemon`, logging to stdout
   is now the default behavior. Setting `-printtoconsole=1` no longer implicitly
   disables logging to debug.log. Instead, logging to file can be explicitly disabled
   by setting `-debuglogfile=0`.
@@ -491,63 +485,115 @@ Python Support
 --------------
 
 Support for Python 2 has been discontinued for all test files and tools.
+=======
+`listtransactions` label support
+--------------------------------
+
+The `listtransactions` RPC `account` parameter which was deprecated in 0.17.0
+and renamed to `dummy` has been un-deprecated and renamed again to `label`.
+
+When digibyte is configured with the `-deprecatedrpc=accounts` setting, specifying
+a label/account/dummy argument will return both outgoing and incoming
+transactions. Without the `-deprecatedrpc=accounts` setting, it will only return
+incoming transactions (because it used to be possible to create transactions
+spending from specific accounts, but this is no longer possible with labels).
+
+When `-deprecatedrpc=accounts` is set, it's possible to pass the empty string ""
+to list transactions that don't have any label. Without
+`-deprecatedrpc=accounts`, passing the empty string is an error because returning
+only non-labeled transactions is not generally useful behavior and can cause
+confusion.
+
+0.17.1 change log
+=================
+
+### P2P protocol and network code
+- #14685 `9406502` Fix a deserialization overflow edge case (kazcw)
+- #14728 `b901578` Fix uninitialized read when stringifying an addrLocal (kazcw)
+
+### Wallet
+- #14441 `5150acc` Restore ability to list incoming transactions by label (jnewbery)
+- #13546 `91fa15a` Fix use of uninitialized value `bnb_used` in CWallet::CreateTransaction(…) (practicalswift)
+- #14310 `bb90695` Ensure wallet is unlocked before signing (gustavonalle)
+- #14690 `5782fdc` Throw error if CPubKey is invalid during PSBT keypath serialization (instagibbs)
+- #14852 `2528443` backport: [tests] Add `wallet_balance.py` (MarcoFalke)
+- #14196 `3362a95` psbt: always drop the unnecessary utxo and convert non-witness utxo to witness when necessary (achow101)
+- #14588 `70ee1f8` Refactor PSBT signing logic to enforce invariant and fix signing bug (gwillen)
+- #14424 `89a9a9d` Stop requiring imported pubkey to sign non-PKH schemes (sipa, MeshCollider)
+
+### RPC and other APIs
+- #14417 `fb9ad04` Fix listreceivedbyaddress not taking address as a string (etscrivner)
+- #14596 `de5e48a` Bugfix: RPC: Add `address_type` named param for createmultisig (luke-jr)
+- #14618 `9666dba` Make HTTP RPC debug logging more informative (practicalswift)
+- #14197 `7bee414` [psbt] Convert non-witness UTXOs to witness if witness sig created (achow101)
+- #14377 `a3fe125` Check that a separator is found for psbt inputs, outputs, and global map (achow101)
+- #14356 `7a590d8` Fix converttopsbt permitsigdata arg, add basic test (instagibbs)
+- #14453 `75b5d8c` Fix wallet unload during walletpassphrase timeout (promag)
+
+### GUI
+- #14403 `0242b5a` Revert "Force TLS1.0+ for SSL connections" (real-or-random)
+- #14593 `df5131b` Explicitly disable "Dark Mode" appearance on macOS (fanquake)
+
+### Build system
+- #14647 `7edebed` Remove illegal spacing in darwin.mk (ch4ot1c)
+- #14698 `ec71f06` Add digibyte-tx.exe into Windows installer (ken2812221)
+
+### Tests and QA
+- #13965 `29899ec` Fix extended functional tests fail (ken2812221)
+- #14011 `9461f98` Disable wallet and address book Qt tests on macOS minimal platform (ryanofsky)
+- #14180 `86fadee` Run all tests even if wallet is not compiled (MarcoFalke)
+- #14122 `8bc1bad` Test `rpc_help.py` failed: Check whether ZMQ is enabled or not (Kvaciral)
+- #14101 `96dc936` Use named args in validation acceptance tests (MarcoFalke)
+- #14020 `24d796a` Add tests for RPC help (promag)
+- #14052 `7ff32a6` Add some actual witness in `rpc_rawtransaction` (MarcoFalke)
+- #14215 `b72fbab` Use correct python index slices in example test (sdaftuar)
+- #14024 `06544fa` Add `TestNode::assert_debug_log` (MarcoFalke)
+- #14658 `60f7a97` Add test to ensure node can generate all rpc help texts at runtime (MarcoFalke)
+- #14632 `96f15e8` Fix a comment (fridokus)
+- #14700 `f9db08e` Avoid race in `p2p_invalid_block` by waiting for the block request (MarcoFalke)
+- #14845 `67225e2` Add `wallet_balance.py` (jnewbery)
+
+### Documentation
+- #14161 `5f51fd6` doc/descriptors.md tweaks (ryanofsky)
+- #14276 `85aacc4` Add autogen.sh in ARM Cross-compilation (walterwhite81)
+>>>>>>> 0.17
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
 
-- accraze
-- adlawren
-- Alex Morcos
-- Alexey Vesnin
-- Amir Abrams
-- Anders Øyvind Urke-Sætre
-- Anditto Heristyo
-- Andrew Chow
-- anduck
-- Anthony Towns
-- Brian Deery
-- BtcDrak
-- Chris Moore
-- Chris Stewart
-- Christian Barcenas
-- Christian Decker
-- Cory Fields
-- crowning-
-- CryptAxe
-- CryptoVote
-- Dagur Valberg Johannsson
-- Daniel Cousens
-- Daniel Kraft
-- Derek Miller
-- djpnewton
-- Don Patterson
-- Doug
-- Douglas Roark
-- Ethan Heilman
-- fsb4000
-- Gaurav Rana
-- Geoffrey Tsui
-- Greg Walker
-- Gregory Maxwell
-- Gregory Sanders
-- Hampus Sjöberg
-- isle2983
-- Ivo van der Sangen
-- James White
-- Jameson Lopp
-- Jeremy Rubin
-- Jiaxing Wang
-- jnewbery
-- John Newbery
-- Johnson Lau
-- Jon Lund Steffensen
-=======
 (todo)
->>>>>>> a93234d596832862fe92c2dd0a0bf7d8febfd5f7
 =======
 (to be filled in at release time)
 >>>>>>> ea2e39fd2004e83375c1703543e32a10e3b9d981
+=======
+- Andrew Chow
+- Chun Kuan Lee
+- David A. Harding
+- Eric Scrivner
+- fanquake
+- fridokus
+- Glenn Willen
+- Gregory Sanders
+- gustavonalle
+- John Newbery
+- Jon Layton
+- Jonas Schnelli
+- João Barbosa
+- Kaz Wesley
+- Kvaciral
+- Luke Dashjr
+- MarcoFalke
+- MeshCollider
+- Pieter Wuille
+- practicalswift
+- Russell Yanofsky
+- Sjors Provoost
+- Suhas Daftuar
+- Tim Ruffing
+- Walter
+- Wladimir J. van der Laan
+>>>>>>> 0.17
 
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/digibyte/).

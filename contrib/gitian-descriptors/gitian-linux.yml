@@ -1,5 +1,5 @@
 ---
-name: "digibyte-linux-6.16"
+name: "digibyte-linux-6.17"
 enable_cache: true
 suites:
 - "bionic"
