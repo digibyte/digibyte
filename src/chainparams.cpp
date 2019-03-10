@@ -144,7 +144,7 @@ public:
         consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400000; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430000; // Block 1,430,000 DigiSpeed Hard Fork
-        consensus.algoSwapChangeTarget = 8000000; // Block 8,000,000 Odo PoW Hard Fork
+        consensus.algoSwapChangeTarget = 9000000; // Block 9,000,000 Odo PoW Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
@@ -178,8 +178,8 @@ public:
 
         // Deployment of Odo proof-of-work hardfork
         consensus.vDeployments[Consensus::DEPLOYMENT_ODO].bit = 6;
-        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nStartTime = 1542672000; // 20 Nov, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nTimeout = 1574208000;    // 20 Nov, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nStartTime = 1556668800; // 1 May, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nTimeout = 1588291200;    // 1 May, 2020
 
         // Deployment of Equihash algo softfork
         //consensus.vDeployments[Consensus::DEPLOYMENT_EQUIHASH].bit = 3;
@@ -350,7 +350,7 @@ public:
         consensus.multiAlgoDiffChangeTarget = 145; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430; // Block 1,430,000 DigiSpeed Hard Fork
-        consensus.algoSwapChangeTarget = 2000; // Block 8,000,000 Odo PoW Hard Fork
+        consensus.algoSwapChangeTarget = 2000; // Block 9,000,000 Odo PoW Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
@@ -383,7 +383,8 @@ public:
 
         // Deployment of Odo proof-of-work hardfork
         consensus.vDeployments[Consensus::DEPLOYMENT_ODO].bit = 6;
-        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
+        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nStartTime = 1551398400; // 1 Mar, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         consensus.nOdoShapechangeInterval = 1*24*60*60; // 1 day
 
@@ -499,7 +500,7 @@ public:
         consensus.multiAlgoDiffChangeTarget = 145; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430; // Block 1,430,000 DigiSpeed Hard Fork
-        consensus.algoSwapChangeTarget = 2000; // Block 8,000,000 Odo PoW Hard Fork
+        consensus.algoSwapChangeTarget = 2000; // Block 9,000,000 Odo PoW Hard Fork
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
