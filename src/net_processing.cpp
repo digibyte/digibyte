@@ -1669,7 +1669,10 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         }
     }
 
-    CheckDandelionEmbargoes(connman);
+    {
+        LOCK(cs_main);
+        CheckDandelionEmbargoes(connman);
+    }
 
     if (strCommand == NetMsgType::REJECT)
     {
