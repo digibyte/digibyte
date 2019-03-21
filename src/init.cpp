@@ -48,6 +48,7 @@
 #include <walletinitinterface.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <wallet/wallet.h>
 
 #ifndef WIN32
 #include <signal.h>
@@ -197,6 +198,9 @@ void Shutdown()
     /// module was initialized.
     RenameThread("digibyte-shutoff");
     mempool.AddTransactionsUpdated(1);
+
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.AddTransactionsUpdated(1);
 
     StopHTTPRPC();
     StopREST();
@@ -521,6 +525,8 @@ void SetupServerArgs()
 #else
     hidden_args.emplace_back("-daemon");
 #endif
+
+    gArgs.AddArg("-disable-dandelion", "Disable dandelion support (anonymous transactions)", false, OptionsCategory::OPTIONS);
 
     // Add the hidden options
     gArgs.AddHiddenArgs(hidden_args);
@@ -1004,6 +1010,9 @@ bool AppInitParameterInteraction()
     int ratio = std::min<int>(std::max<int>(gArgs.GetArg("-checkmempool", chainparams.DefaultConsistencyChecks() ? 1 : 0), 0), 1000000);
     if (ratio != 0) {
         mempool.setSanityCheck(1.0 / ratio);
+
+        // Changes to mempool should also be made to Dandelion stempool
+        stempool.setSanityCheck(1.0 / ratio);
     }
     fCheckBlockIndex = gArgs.GetBoolArg("-checkblockindex", chainparams.DefaultConsistencyChecks());
     fCheckpointsEnabled = gArgs.GetBoolArg("-checkpoints", DEFAULT_CHECKPOINTS_ENABLED);
@@ -1246,6 +1255,8 @@ bool AppInitMain()
     LogPrintf("Default data directory %s\n", GetDefaultDataDir().string());
     LogPrintf("Using data directory %s\n", GetDataDir().string());
     LogPrintf("Using config file %s\n", GetConfigFile(gArgs.GetArg("-conf", DIGIBYTE_CONF_FILENAME)).string());
+    if (!gArgs.GetBoolArg("-disable-dandelion", DEFAULT_DISABLE_DANDELION))
+        LogPrintf("Dandelion privacy protocol enabled\n");
     LogPrintf("Using at most %i automatic connections (%i file descriptors available)\n", nMaxConnections, nFD);
 
     // Warn about relative -datadir path.
