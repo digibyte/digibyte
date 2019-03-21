@@ -121,10 +121,8 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     nHeight = pindexPrev->nHeight + 1;
     pblock->nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus(), algo);
 
-    if (pindexPrev->nHeight < Params().GetConsensus().multiAlgoDiffChangeTarget && algo != ALGO_SCRYPT) {
-        error("MultiAlgo is not yet active. Current block height %d, height multialgo becomes active %d", pindexPrev->nHeight, Params().GetConsensus().multiAlgoDiffChangeTarget);
-        return nullptr;
-    }
+    if (!IsAlgoActive(pindexPrev, chainparams.GetConsensus(), algo))
+        throw std::runtime_error(strprintf("Algorithm '%s' is not currently active.", GetAlgoName(algo).c_str()));
 
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
