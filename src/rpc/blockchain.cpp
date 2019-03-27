@@ -1292,11 +1292,13 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     UniValue difficulties(UniValue::VOBJ);
     UniValue softforks(UniValue::VARR);
     UniValue bip9_softforks(UniValue::VOBJ);
-    difficulties.push_back(Pair("sha256d", (double)GetDifficulty(NULL, ALGO_SHA256D)));
-    difficulties.push_back(Pair("scrypt", (double)GetDifficulty(NULL, ALGO_SCRYPT)));
-    difficulties.push_back(Pair("groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
-    difficulties.push_back(Pair("skein", (double)GetDifficulty(NULL, ALGO_SKEIN)));
-    difficulties.push_back(Pair("qubit", (double)GetDifficulty(NULL, ALGO_QUBIT)));
+    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
+    {
+        if (IsAlgoActive(tip, consensusParams, algo))
+        {
+            difficulties.push_back(Pair(GetAlgoName(algo), (double)GetDifficulty(NULL, algo)));
+        }
+    }
     softforks.push_back(SoftForkDesc("csv", 12, tip, consensusParams));
     softforks.push_back(SoftForkDesc("segwit", 13, tip, consensusParams));
     softforks.push_back(SoftForkDesc("nversionbips", 14, tip, consensusParams));

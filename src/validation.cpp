@@ -1771,41 +1771,37 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         if (state == ThresholdState::LOCKED_IN || state == ThresholdState::STARTED) {
             nVersion |= VersionBitsMask(params, static_cast<Consensus::DeploymentPos>(i));
         }
-    } 
-    switch (algo)
-    {
-        case ALGO_SCRYPT:
-        break;
-        case ALGO_SHA256D:
-        nVersion |= BLOCK_VERSION_SHA256D;
-        break;
-        case ALGO_GROESTL:
-        nVersion |= BLOCK_VERSION_GROESTL;
-        break;
-        case ALGO_SKEIN:
-        nVersion |= BLOCK_VERSION_SKEIN;
-        break;
-        case ALGO_QUBIT:
-        nVersion |= BLOCK_VERSION_QUBIT;
-        break;
-        //case ALGO_EQUIHASH:
-        //nVersion |= BLOCK_VERSION_EQUIHASH;
-        //break;
-        //case ALGO_ETHASH:
-        //nVersion |= BLOCK_VERSION_ETHASH;
-        //break;
-        default:
-        return nVersion;
-    }  
-
+    }
+    nVersion |= GetVersionForAlgo(algo);
     return nVersion;
 }
-bool isMultiAlgoVersion(int nVersion){
-     if((nVersion & 0xfffU) == 514 || (nVersion & 0xfffU) == 1026 || (nVersion & 0xfffU) == 1538 || (nVersion & 0xfffU) == 2050) {
-         return true;
-     }
-     return false;
- }
+
+bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consensus, int algo)
+{
+    if (!pindexPrev)
+        return algo == ALGO_SCRYPT;
+    const int nHeight = pindexPrev->nHeight;
+    if (nHeight < consensus.multiAlgoDiffChangeTarget)
+        return algo == ALGO_SCRYPT;
+    else if (nHeight < consensus.algoSwapChangeTarget ||
+             VersionBitsState(pindexPrev, consensus, Consensus::DEPLOYMENT_ODO, versionbitscache) != ThresholdState::ACTIVE)
+    {
+        return algo == ALGO_SHA256D
+            || algo == ALGO_SCRYPT
+            || algo == ALGO_GROESTL
+            || algo == ALGO_SKEIN
+            || algo == ALGO_QUBIT;
+    }
+    else
+    {
+        return algo == ALGO_SHA256D
+            || algo == ALGO_SCRYPT
+            || algo == ALGO_SKEIN
+            || algo == ALGO_QUBIT
+            || algo == ALGO_ODO;
+    }
+}
+
 /**
  * Threshold condition checker that triggers when unknown versionbits are seen on the network.
  */
@@ -2367,7 +2363,7 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
         {
             int nAlgo = pindex->GetAlgo();
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0 && !isMultiAlgoVersion(pindex->nVersion))
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
@@ -3343,6 +3339,8 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
 
     // Check proof of work
     const Consensus::Params& consensusParams = params.GetConsensus();
+    if (!IsAlgoActive(pindexPrev, consensusParams, block.GetAlgo()))
+        return state.Invalid(false, REJECT_INVALID, "algo-inactive", "PoW algorithm is not active");
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams, block.GetAlgo()))
         return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
