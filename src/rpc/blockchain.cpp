@@ -150,7 +150,7 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
     int algo = block.GetAlgo();
     result.pushKV("pow_algo_id", algo);
     result.pushKV("pow_algo", GetAlgoName(algo));
-    result.pushKV("pow_hash", block.GetPoWAlgoHash(algo).GetHex());
+    result.pushKV("pow_hash", GetPoWAlgoHash(block).GetHex());
     result.pushKV("merkleroot", block.hashMerkleRoot.GetHex());
     UniValue txs(UniValue::VARR);
     for(const auto& tx : block.vtx)

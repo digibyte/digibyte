@@ -136,7 +136,7 @@ public:
 
     uint256 GetHash() const;
 
-    uint256 GetPoWAlgoHash(int algo) const;
+    uint256 GetPoWAlgoHash(const Consensus::Params& params) const;
 
     int64_t GetBlockTime() const
     {
@@ -192,7 +192,7 @@ public:
         return block;
     }
 
-    std::string ToString() const;
+    std::string ToString(const Consensus::Params& params) const;
 };
 
 /** Describes a place in the block chain to another node such that if the
