@@ -3925,7 +3925,7 @@ UniValue generate(const JSONRPCRequest& request)
     }
     int algo = miningAlgo;
     if (!request.params[2].isNull()) {
-        algo = GetAlgoByName(request.params[3].get_str(), algo);
+        algo = GetAlgoByName(request.params[2].get_str(), algo);
     }
 
     std::shared_ptr<CReserveScript> coinbase_script;
