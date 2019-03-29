@@ -1101,7 +1101,6 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
     }
 
     // Check the header
-    int nAlgo = block.GetAlgo();
     if (!CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
 

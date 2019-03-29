@@ -46,7 +46,7 @@ struct OdoRandom
     {
         for (size_t i = 0; i < sz; i++)
             arr[i] = i;
-        for (int i = 1; i < sz; i++)
+        for (size_t i = 1; i < sz; i++)
             std::swap(arr[i], arr[Next(i+1)]);
     }
 
