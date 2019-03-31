@@ -57,10 +57,9 @@ uint32_t OdoKey(const Consensus::Params& params, uint32_t nTime)
 
 }
 
-uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
+uint256 CBlockHeader::GetPoWAlgoHash(const Consensus::Params& params) const
 {
-    assert(algo == GetAlgo()); // why is this even an argument?
-    switch (algo)
+    switch (GetAlgo())
     {
         case ALGO_SHA256D:
             return GetHash();
@@ -82,7 +81,7 @@ uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
             //return HashEthash(BEGIN(nVersion), END(nNonce));
         case ALGO_ODO:
         {
-            uint32_t key = OdoKey(Params().GetConsensus(), nTime);
+            uint32_t key = OdoKey(params, nTime);
             return HashOdo(BEGIN(nVersion), END(nNonce), key);
         }
         case ALGO_UNKNOWN:
@@ -94,14 +93,14 @@ uint256 CBlockHeader::GetPoWAlgoHash(int algo) const
     return GetHash();
 }
 
-std::string CBlock::ToString() const
+std::string CBlock::ToString(const Consensus::Params& params) const
 {
     std::stringstream s;
     s << strprintf("CBlock(hash=%s, ver=0x%08x, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
         GetHash().ToString(),
         nVersion,
         GetAlgo(),
-        GetPoWAlgoHash(GetAlgo()).ToString(),
+        GetPoWAlgoHash(params).ToString(),
         hashPrevBlock.ToString(),
         hashMerkleRoot.ToString(),
         nTime, nBits, nNonce,
