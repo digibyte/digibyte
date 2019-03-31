@@ -83,6 +83,7 @@ public:
         consensus.BIP66Height = 4394880; // 
 
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
+        consensus.initialTarget[ALGO_ODO] = ArithToUint256(~arith_uint256(0) >> 40); // 256 difficulty
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 60 / 4;
 
@@ -289,6 +290,7 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
+        consensus.initialTarget[ALGO_ODO] = ArithToUint256(~arith_uint256(0) >> 36); // 16 difficulty
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 60 / 4;
 
