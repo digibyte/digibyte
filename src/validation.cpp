@@ -2344,6 +2344,7 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
     if (!IsInitialBlockDownload())
     {
         int nUpgraded = 0;
+        bool fAllAsicBoost = true;
         const CBlockIndex* pindex = pindexNew;
         for (int bit = 0; bit < VERSIONBITS_NUM_BITS; bit++) {
             WarningBitsConditionChecker checker(bit);
@@ -2363,10 +2364,17 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
             int nAlgo = pindex->GetAlgo();
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
             if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
+            {
                 ++nUpgraded;
+                // Sha256d blocks with weird versions could simply be the result
+                // of overt AsicBoost.  Don't print the first warning below unless
+                // at least one "upgraded" block is not sha256d.
+                if (nAlgo != ALGO_SHA256D)
+                    fAllAsicBoost = false;
+            }
             pindex = pindex->pprev;
         }
-        if (nUpgraded > 0)
+        if (nUpgraded > 0 && !fAllAsicBoost)
             AppendWarning(warningMessages, strprintf(_("%d of last 100 blocks have unexpected version"), nUpgraded));
         if (nUpgraded > 100/2)
         {
