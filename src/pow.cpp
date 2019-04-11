@@ -19,7 +19,7 @@ inline unsigned int PowLimit(const Consensus::Params& params)
     return UintToArith256(params.powLimit).GetCompact();
 }
 
-inline unsigned int InitialDifficulty(const Consensus::Params& params, int algo)
+unsigned int InitialDifficulty(const Consensus::Params& params, int algo)
 {
     const auto& it = params.initialTarget.find(algo);
     if (it == params.initialTarget.end())

@@ -60,7 +60,7 @@ static CUpdatedBlock latestblock;
 double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
 {
     unsigned int nBits;
-    unsigned int powLimit = UintToArith256(Params().GetConsensus().powLimit).GetCompact();
+    unsigned int powLimit = InitialDifficulty(Params().GetConsensus(), algo);
     if (blockindex == nullptr)
     {
         if (chain.Tip() == nullptr)
