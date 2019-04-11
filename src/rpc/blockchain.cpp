@@ -1299,10 +1299,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
             difficulties.push_back(Pair(GetAlgoName(algo), (double)GetDifficulty(NULL, algo)));
         }
     }
-    softforks.push_back(SoftForkDesc("csv", 12, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("segwit", 13, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("nversionbips", 14, tip, consensusParams));
-    //softforks.push_back(SoftForkDesc("equihash", 5, tip, consensusParams));
     for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
         BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
     }
