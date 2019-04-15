@@ -60,7 +60,7 @@ static CUpdatedBlock latestblock;
 double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
 {
     unsigned int nBits;
-    unsigned int powLimit = UintToArith256(Params().GetConsensus().powLimit).GetCompact();
+    unsigned int powLimit = InitialDifficulty(Params().GetConsensus(), algo);
     if (blockindex == nullptr)
     {
         if (chain.Tip() == nullptr)
@@ -1299,10 +1299,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
             difficulties.push_back(Pair(GetAlgoName(algo), (double)GetDifficulty(NULL, algo)));
         }
     }
-    softforks.push_back(SoftForkDesc("csv", 12, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("segwit", 13, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("nversionbips", 14, tip, consensusParams));
-    //softforks.push_back(SoftForkDesc("equihash", 5, tip, consensusParams));
     for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
         BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
     }
