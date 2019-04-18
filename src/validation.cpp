@@ -365,7 +365,8 @@ bool TestLockPointValidity(const LockPoints* lp)
 bool CheckSequenceLocks(const CTransaction &tx, int flags, LockPoints* lp, bool useExistingLockPoints)
 {
     AssertLockHeld(cs_main);
-    AssertLockHeld(mempool.cs);
+    // We could be calling this with only the stempool lock held, but mempool lock is required.
+    LOCK(mempool.cs);
 
     CBlockIndex* tip = chainActive.Tip();
     assert(tip != nullptr);
