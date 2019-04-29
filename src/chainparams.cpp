@@ -145,7 +145,7 @@ public:
         consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400000; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430000; // Block 1,430,000 DigiSpeed Hard Fork
-        consensus.algoSwapChangeTarget = 9000000; // Block 9,000,000 Odo PoW Hard Fork
+        consensus.algoSwapChangeTarget = 9100000; // Block 9,100,000 Odo PoW Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
