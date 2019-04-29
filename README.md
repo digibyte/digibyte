@@ -1,7 +1,7 @@
 What is DigiByte?
 ----------------
 
-DigiByte (DGB) is a rapidly growing, four year old decentralized global blockchain with a focus on cyber security, payments & secure communications technologies.
+DigiByte (DGB) is a rapidly growing decentralized, global blockchain that was founded in early 2014 with a focus on cyber security, payments & secure communications technologies.
 
 For more information, as well as an immediately useable, binary version of the DigiByte Core software, see https://digibyte.io
 
@@ -17,11 +17,11 @@ Genesis Block Hash: "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M
 
 Max Total Supply: 21 Billion DigiBytes in 21 Years (2035)
 
-Current Supply: 11,313,270,862 DGB (Jan 2019)
+Current Supply: 11,692,747,373 DGB (April 2019)
 
 Block Reward Reduction: 1% Monthly
 
-Current Block Reward: 704 DGB (Jan 2019)
+Current Block Reward: 688 DGB (April 2019)
 
 Mining Algorithms: Five individual: SHA256, Scrypt, Groestl, Skein & Qubit
 
