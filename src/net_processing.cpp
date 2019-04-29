@@ -1115,12 +1115,15 @@ static void CheckDandelionEmbargoes(CConnman* connman)
             LogPrint(BCLog::DANDELION, "dandeliontx %s embargo expired\n", iter->first.ToString());
             CValidationState state;
             CTransactionRef ptx = stempool.get(iter->first);
-            bool fMissingInputs = false;
-            std::list<CTransactionRef> lRemovedTxn;
-            AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
-            LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
-                     iter->first.ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
-            RelayTransaction(*ptx, connman);
+            if (ptx)
+            {
+                bool fMissingInputs = false;
+                std::list<CTransactionRef> lRemovedTxn;
+                AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
+                LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
+                         iter->first.ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
+                RelayTransaction(*ptx, connman);
+            }
             iter = connman->mDandelionEmbargo.erase(iter);
         } else {
             iter++;
