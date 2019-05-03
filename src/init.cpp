@@ -91,7 +91,7 @@ public:
 
 void DummyWalletInit::AddWalletOptions() const
 {
-    std::vector<std::string> opts = {"-addresstype", "-changetype", "-disablewallet", "-discardfee=<amt>", "-fallbackfee=<amt>",
+    std::vector<std::string> opts = {"-addresstype", "-changetype", "-disabledandelion", "-disablewallet", "-discardfee=<amt>", "-fallbackfee=<amt>",
         "-keypool=<n>", "-mintxfee=<amt>", "-paytxfee=<amt>", "-rescan", "-salvagewallet", "-spendzeroconfchange",  "-txconfirmtarget=<n>",
         "-upgradewallet", "-wallet=<path>", "-walletbroadcast", "-walletdir=<dir>", "-walletnotify=<cmd>", "-walletrbf", "-zapwallettxes=<mode>",
         "-dblogsize=<n>", "-flushwallet", "-privdb", "-walletrejectlongchains"};
@@ -197,6 +197,9 @@ void Shutdown()
     /// module was initialized.
     RenameThread("digibyte-shutoff");
     mempool.AddTransactionsUpdated(1);
+
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.AddTransactionsUpdated(1);
 
     StopHTTPRPC();
     StopREST();
@@ -1004,6 +1007,9 @@ bool AppInitParameterInteraction()
     int ratio = std::min<int>(std::max<int>(gArgs.GetArg("-checkmempool", chainparams.DefaultConsistencyChecks() ? 1 : 0), 0), 1000000);
     if (ratio != 0) {
         mempool.setSanityCheck(1.0 / ratio);
+
+        // Changes to mempool should also be made to Dandelion stempool
+        stempool.setSanityCheck(1.0 / ratio);
     }
     fCheckBlockIndex = gArgs.GetBoolArg("-checkblockindex", chainparams.DefaultConsistencyChecks());
     fCheckpointsEnabled = gArgs.GetBoolArg("-checkpoints", DEFAULT_CHECKPOINTS_ENABLED);
@@ -1385,23 +1391,7 @@ bool AppInitMain()
 
     // Algo
     std::string strAlgo = gArgs.GetArg("-algo", "scrypt");
-    transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
-    if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
-        miningAlgo = ALGO_SHA256D;
-    else if (strAlgo == "scrypt")
-        miningAlgo = ALGO_SCRYPT;
-    else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
-        miningAlgo = ALGO_GROESTL;
-    else if (strAlgo == "skein" || strAlgo == "skeinsha2")
-        miningAlgo = ALGO_SKEIN;
-    else if (strAlgo == "q2c" || strAlgo == "qubit")
-        miningAlgo = ALGO_QUBIT;
-    //else if (strAlgo == "equihash" || strAlgo == "equihash")
-        //miningAlgo = ALGO_EQUIHASH;
-    //else if (strAlgo == "ethash" || strAlgo == "ethash")
-        //miningAlgo = ALGO_ETHASH;
-    else
-        miningAlgo = ALGO_SCRYPT;
+    miningAlgo = GetAlgoByName(strAlgo, ALGO_SCRYPT);
 
     LogPrintf("Selected Algo: %s\n", strAlgo);
 
