@@ -1,5 +1,5 @@
 ---
-name: "digibyte-win-6.17"
+name: "digibyte-win-7.17"
 enable_cache: true
 suites:
 - "bionic"
