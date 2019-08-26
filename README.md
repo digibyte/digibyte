@@ -23,7 +23,7 @@ Block Reward Reduction: 1% Monthly
 
 Current Block Reward: 688 DGB (April 2019)
 
-Mining Algorithms: Five individual: SHA256, Scrypt, Groestl, Skein & Qubit
+Mining Algorithms: Five individual: SHA256, Scrypt, Odocrypt, Skein & Qubit
 
 Block Interval: 15 Second Blocks (75 seconds per algo)
 
