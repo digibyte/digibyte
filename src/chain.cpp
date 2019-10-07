@@ -5,6 +5,7 @@
 
 #include <chain.h>
 #include <chainparams.h>
+#include <validation.h>
 
 /**
  * CChain implementation
@@ -177,8 +178,10 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
         // Compute the geometric mean of the block targets for each individual algorithm.
         arith_uint256 bnAvgTarget(1);
 
-        for (int i = 0; i < NUM_ALGOS; i++)
+        for (int i = 0; i < NUM_ALGOS_IMPL; i++)
         {
+            if (!IsAlgoActive(block.pprev, params, i))
+                continue;
             unsigned int nBits = GetNextWorkRequired(block.pprev, &header, params, i);
             arith_uint256 bnTarget;
             bool fNegative;

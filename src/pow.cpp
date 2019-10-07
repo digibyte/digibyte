@@ -19,6 +19,14 @@ inline unsigned int PowLimit(const Consensus::Params& params)
     return UintToArith256(params.powLimit).GetCompact();
 }
 
+unsigned int InitialDifficulty(const Consensus::Params& params, int algo)
+{
+    const auto& it = params.initialTarget.find(algo);
+    if (it == params.initialTarget.end())
+        return PowLimit(params);
+    return UintToArith256(it->second).GetCompact();
+}
+
 unsigned int GetNextWorkRequiredV1(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
 {
 	int nHeight = pindexLast->nHeight + 1;
@@ -106,7 +114,7 @@ unsigned int GetNextWorkRequiredV2(const CBlockIndex* pindexLast, const Consensu
 	if (pindexFirst == nullptr)
 	{
 		LogPrintf("Use default POW Limit\n");
-		return PowLimit(params);
+		return InitialDifficulty(params, algo);
 	}
 
 	// Limit adjustment step
@@ -142,7 +150,7 @@ unsigned int GetNextWorkRequiredV3(const CBlockIndex* pindexLast, const Consensu
 	}
 	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
 	if (pindexPrevAlgo == nullptr || pindexFirst == nullptr)
-		return PowLimit(params); // not enough blocks available
+		return InitialDifficulty(params, algo); // not enough blocks available
 
 	// Limit adjustment step
 	// Use medians to prevent time-warp attacks
@@ -197,7 +205,7 @@ unsigned int GetNextWorkRequiredV4(const CBlockIndex* pindexLast, const Consensu
 	const CBlockIndex* pindexPrevAlgo = GetLastBlockIndexForAlgo(pindexLast, params, algo);
 	if (pindexPrevAlgo == nullptr || pindexFirst == nullptr)
 	{
-		return PowLimit(params);
+		return InitialDifficulty(params, algo);
 	}
 
 	// Limit adjustment step
@@ -248,7 +256,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 {
     // Genesis block
     if (pindexLast == nullptr)
-        return PowLimit(params);
+        return InitialDifficulty(params, algo);
 
     if (params.fPowAllowMinDifficultyBlocks)
     {
@@ -329,4 +337,9 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, const Con
         return pindex;
     }
     return nullptr;
+}
+
+uint256 GetPoWAlgoHash(const CBlockHeader& block)
+{
+    return block.GetPoWAlgoHash(Params().GetConsensus());
 }

@@ -27,6 +27,10 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
         /*.name =*/ "reservealgo",
         /*.gbt_force =*/ true,
     },
+    {
+        /*.name =*/ "odo",
+        /*.gbt_force =*/ true,
+    },
     //{
        // /*.name =*/ "equihash",
         ///*.gbt_force =*/ true,

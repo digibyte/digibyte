@@ -3902,13 +3902,14 @@ UniValue generate(const JSONRPCRequest& request)
         return NullUniValue;
     }
 
-    if (request.fHelp || request.params.size() < 1 || request.params.size() > 2) {
+    if (request.fHelp || request.params.size() < 1 || request.params.size() > 3) {
         throw std::runtime_error(
             "generate nblocks ( maxtries )\n"
             "\nMine up to nblocks blocks immediately (before the RPC call returns) to an address in the wallet.\n"
             "\nArguments:\n"
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
             "2. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
+            "3. algo         (string, optional) Which mining algorithm to use.\n"
             "\nResult:\n"
             "[ blockhashes ]     (array) hashes of blocks generated\n"
             "\nExamples:\n"
@@ -3921,6 +3922,10 @@ UniValue generate(const JSONRPCRequest& request)
     uint64_t max_tries = 1000000;
     if (!request.params[1].isNull()) {
         max_tries = request.params[1].get_int();
+    }
+    int algo = miningAlgo;
+    if (!request.params[2].isNull()) {
+        algo = GetAlgoByName(request.params[2].get_str(), algo);
     }
 
     std::shared_ptr<CReserveScript> coinbase_script;
@@ -3936,7 +3941,7 @@ UniValue generate(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_INTERNAL_ERROR, "No coinbase script available");
     }
 
-    return generateBlocks(coinbase_script, num_generate, max_tries, true);
+    return generateBlocks(coinbase_script, num_generate, max_tries, true, algo);
 }
 
 UniValue rescanblockchain(const JSONRPCRequest& request)

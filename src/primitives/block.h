@@ -12,7 +12,10 @@
 #include <uint256.h>
 #include <util.h>
 
+namespace Consensus { struct Params; }
+
 enum { 
+    ALGO_UNKNOWN = -1,
     ALGO_SHA256D  = 0,
     ALGO_SCRYPT   = 1,
     ALGO_GROESTL  = 2,
@@ -20,6 +23,7 @@ enum {
     ALGO_QUBIT    = 4,
     //ALGO_EQUIHASH = 5,
     //ALGO_ETHASH   = 6,
+    ALGO_ODO      = 7,
     NUM_ALGOS_IMPL };
 
 const int NUM_ALGOS = 5;
@@ -30,17 +34,47 @@ enum {
 
     // algo
     BLOCK_VERSION_ALGO           = (15 << 8),
-    BLOCK_VERSION_SCRYPT         = (0 << 9),
-    BLOCK_VERSION_SHA256D        = (1 << 9),
-    BLOCK_VERSION_GROESTL        = (2 << 9),
-    BLOCK_VERSION_SKEIN          = (3 << 9),
-    BLOCK_VERSION_QUBIT          = (4 << 9),
-    //BLOCK_VERSION_EQUIHASH       = (5 << 9),
-    //BLOCK_VERSION_ETHASH         = (6 << 9),
+    BLOCK_VERSION_SCRYPT         = (0 << 8),
+    BLOCK_VERSION_SHA256D        = (2 << 8),
+    BLOCK_VERSION_GROESTL        = (4 << 8),
+    BLOCK_VERSION_SKEIN          = (6 << 8),
+    BLOCK_VERSION_QUBIT          = (8 << 8),
+    //BLOCK_VERSION_EQUIHASH       = (10 << 8),
+    //BLOCK_VERSION_ETHASH         = (12 << 8),
+    BLOCK_VERSION_ODO            = (14 << 8),
 };
 
 std::string GetAlgoName(int Algo);
 
+int GetAlgoByName(std::string strAlgo, int fallback);
+
+inline int GetVersionForAlgo(int algo)
+{
+    switch(algo)
+    {
+        case ALGO_SHA256D:
+            return BLOCK_VERSION_SHA256D;
+        case ALGO_SCRYPT:
+            return BLOCK_VERSION_SCRYPT;
+        case ALGO_GROESTL:
+            return BLOCK_VERSION_GROESTL;
+        case ALGO_SKEIN:
+            return BLOCK_VERSION_SKEIN;
+        case ALGO_QUBIT:
+            return BLOCK_VERSION_QUBIT;
+        //case ALGO_EQUIHASH:
+            //return BLOCK_VERSION_EQUIHASH;
+        //case ALGO_ETHASH:
+            //return BLOCK_VERSION_ETHASH;
+        case ALGO_ODO:
+            return BLOCK_VERSION_ODO;
+        default:
+            assert(false);
+            return 0;
+    }
+}
+
+uint32_t OdoKey(const Consensus::Params& params, uint32_t nTime);
 
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
@@ -95,39 +129,14 @@ public:
     // Set Algo to use
     inline void SetAlgo(int algo)
     {
-        switch(algo)
-        {
-            case ALGO_SHA256D:
-                nVersion |= BLOCK_VERSION_SHA256D;
-                break;
-            case ALGO_SCRYPT:
-                nVersion |= BLOCK_VERSION_SCRYPT;
-                break;
-            case ALGO_GROESTL:
-                nVersion |= BLOCK_VERSION_GROESTL;
-                break;
-            case ALGO_SKEIN:
-                nVersion |= BLOCK_VERSION_SKEIN;
-                break;
-            case ALGO_QUBIT:
-                nVersion |= BLOCK_VERSION_QUBIT;
-                break;
-            //case ALGO_EQUIHASH:
-                //nVersion |= BLOCK_VERSION_EQUIHASH;
-                //break;
-            //case ALGO_ETHASH:
-                //nVersion |= BLOCK_VERSION_ETHASH;
-                //break;
-            default:
-                break;
-        }
+        nVersion |= GetVersionForAlgo(algo);
     }
     
     int GetAlgo() const;
 
     uint256 GetHash() const;
 
-    uint256 GetPoWAlgoHash(int algo) const;
+    uint256 GetPoWAlgoHash(const Consensus::Params& params) const;
 
     int64_t GetBlockTime() const
     {
@@ -183,7 +192,7 @@ public:
         return block;
     }
 
-    std::string ToString() const;
+    std::string ToString(const Consensus::Params& params) const;
 };
 
 /** Describes a place in the block chain to another node such that if the

@@ -5,6 +5,7 @@
 
 #include <crypto/aes.h>
 #include <crypto/chacha20.h>
+#include <crypto/odocrypt.h>
 #include <crypto/ripemd160.h>
 #include <crypto/sha1.h>
 #include <crypto/sha256.h>
@@ -199,6 +200,15 @@ static void TestChaCha20(const std::string &hexkey, uint64_t nonce, uint64_t see
     BOOST_CHECK(out == outres);
 }
 
+static void TestOdo(uint32_t key, const std::string &in, const std::string &hexout)
+{
+    assert(in.length() == OdoCrypt::DIGEST_SIZE);
+    std::vector<unsigned char> out = ParseHex(hexout);
+    std::vector<unsigned char> outres(OdoCrypt::DIGEST_SIZE);
+    OdoCrypt(key).Encrypt(reinterpret_cast<char*>(outres.data()), in.c_str());
+    BOOST_CHECK(out == outres);
+}
+
 static std::string LongTestString(void) {
     std::string ret;
     for (int i=0; i<200000; i++) {
@@ -260,7 +270,7 @@ BOOST_AUTO_TEST_CASE(sha256_testvectors) {
                "f08a78cbbaee082b052ae0708f32fa1e50c5c421aa772ba5dbb406a2ea6be342");
     TestSHA256("This is exactly 64 bytes long, not counting the terminating byte",
                "ab64eff7e88e2e46165e29f2bce41826bd4c7b3552f6b382a9e7d3af47c245f8");
-    TestSHA256("As DigiByte relies on 80 byte header hashes, we want to have an example for that.",
+    TestSHA256("As Bitcoin relies on 80 byte header hashes, we want to have an example for that.",
                "7406e8de7d6e4fffc573daef05aefb8806e7790f55eab5576f31349743cca743");
     TestSHA256(std::string(1000000, 'a'),
                "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0");
@@ -523,6 +533,28 @@ BOOST_AUTO_TEST_CASE(chacha20_testvector)
                  "fab78c9");
 }
 
+BOOST_AUTO_TEST_CASE(odo_testvector)
+{
+    TestOdo(0, "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "9724ebfef40d7808bc21b212d8645a1df4d7fc4a0d91ee8e7f747ca1383eaeb1bb264b3a3b1b1f19"
+            "a8d458616e9a19572e3ceb2f58773076e829a288c8fdb61ab619ffaa84a4ee752fea52dbb359620e");
+    TestOdo(1, "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "c659c70bd9335a0bec67e526cdf99569543ca7e258fad19d439fb8ada1bc68efa5553d270d236cf0"
+            "3b1c179c684cfc93ae15b3c239c11e384303785cc0d828114c28e08091f42ec707aba712fe999c68");
+    TestOdo(0x80808080u, "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopqopqrpqrsqrstrstustuvtuvw",
+            "dc5d9757b16bfa425f527817ee88a070595a662474d06bb96b439e25bc3097fc7068ab9d934fcd19"
+            "c9587478dd9ab8f79f2c85175c51e49306135e561561725b0aa7a44366a1135ff93194da22d1e9ba");
+    TestOdo(0x12345678, "As DigiByte relies on 80 byte header hashes, we want to have an example for that",
+            "13dddebb0d65daa0f3e4a5bd9a1b74af7ca5a7b32ef118fb1684b200e377ce504346adcd2354e818"
+            "bf530dd870386104f706f4fecde1cec5cee804aae2569821aa5b2db3ac048607be36714e2bce48c6");
+    TestOdo(1729, test1.substr(0x4ffb0, OdoCrypt::DIGEST_SIZE),
+            "de79362f40cf0c755b21cf30798fa828b21cba61222ebeccc5a1ee385183ff2a981926403529080f"
+            "6c5a650bb299770222e7dbc0bdd559f479fac21d08044d306513067f2bf6accdb8b55942a5430e1c");
+    TestOdo(0xD59, "Mora labelled me Unknown Sample, which the overseer translated as Odo'ital......",
+            "a7dd19a7fcdf3b7c0a8da1765553d903ff42687fe2f36c3930b82d7a68e426a90f49f1fc4b06263d"
+            "cf95d70a1b436337586955ef61c976f97785da2d2c8144b6767f824d53dd518c2cfdce1e9bd74fe1");
+}
+
 BOOST_AUTO_TEST_CASE(countbits_tests)
 {
     FastRandomContext ctx;
@@ -559,6 +591,19 @@ BOOST_AUTO_TEST_CASE(sha256d64)
         SHA256D64(out2, in, i);
         BOOST_CHECK(memcmp(out1, out2, 32 * i) == 0);
     }
+}
+
+BOOST_AUTO_TEST_CASE(odo_permutation)
+{
+    char buf[OdoCrypt::DIGEST_SIZE];
+    for (int i = 0; i < OdoCrypt::DIGEST_SIZE; i++)
+        buf[i] = i;
+    for (int i = 0; i < 20; i++)
+        OdoCrypt(i).Encrypt(buf, buf);
+    for (int i = 19; i >= 0; i--)
+        OdoCrypt(i).Decrypt(buf, buf);
+    for (int i = 0; i < OdoCrypt::DIGEST_SIZE; i++)
+        BOOST_CHECK(buf[i] == i);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

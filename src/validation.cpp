@@ -243,6 +243,7 @@ CAmount maxTxFee = DEFAULT_TRANSACTION_MAXFEE;
 CBlockPolicyEstimator feeEstimator;
 CTxMemPool mempool(&feeEstimator);
 std::atomic_bool g_is_mempool_loaded{false};
+CTxMemPool stempool(&feeEstimator);
 
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
@@ -364,7 +365,8 @@ bool TestLockPointValidity(const LockPoints* lp)
 bool CheckSequenceLocks(const CTransaction &tx, int flags, LockPoints* lp, bool useExistingLockPoints)
 {
     AssertLockHeld(cs_main);
-    AssertLockHeld(mempool.cs);
+    // We could be calling this with only the stempool lock held, but mempool lock is required.
+    LOCK(mempool.cs);
 
     CBlockIndex* tip = chainActive.Tip();
     assert(tip != nullptr);
@@ -496,12 +498,15 @@ static void UpdateMempoolForReorg(DisconnectedBlockTransactions &disconnectpool,
     while (it != disconnectpool.queuedTx.get<insertion_order>().rend()) {
         // ignore validation errors in resurrected transactions
         CValidationState stateDummy;
-        if (!fAddToMempool || (*it)->IsCoinBase() ||
-            !AcceptToMemoryPool(mempool, stateDummy, *it, nullptr /* pfMissingInputs */,
-                                nullptr /* plTxnReplaced */, true /* bypass_limits */, 0 /* nAbsurdFee */)) {
+        bool ret = !AcceptToMemoryPool(mempool, stateDummy, *it, nullptr, nullptr, true, 0);
+        CValidationState dandelionStateDummy;
+        AcceptToMemoryPool(stempool, dandelionStateDummy, *it, nullptr, nullptr, true, 0);
+        if (!fAddToMempool || (*it)->IsCoinBase() || ret) {
             // If the transaction doesn't make it in to the mempool, remove any
             // transactions that depend on it (which would now be orphans).
             mempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
+            // Changes to mempool should also be made to Dandelion stempool
+            stempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
         } else if (mempool.exists((*it)->GetHash())) {
             vHashUpdate.push_back((*it)->GetHash());
         }
@@ -514,11 +519,17 @@ static void UpdateMempoolForReorg(DisconnectedBlockTransactions &disconnectpool,
     // UpdateTransactionsFromBlock finds descendants of any transactions in
     // the disconnectpool that were added back and cleans up the mempool state.
     mempool.UpdateTransactionsFromBlock(vHashUpdate);
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.UpdateTransactionsFromBlock(vHashUpdate);
 
     // We also need to remove any now-immature transactions
     mempool.removeForReorg(pcoinsTip.get(), chainActive.Tip()->nHeight + 1, STANDARD_LOCKTIME_VERIFY_FLAGS);
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.removeForReorg(pcoinsTip.get(), chainActive.Tip()->nHeight + 1, STANDARD_LOCKTIME_VERIFY_FLAGS);
     // Re-limit mempool size, in case we added any transactions
     LimitMempoolSize(mempool, gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000, gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY) * 60 * 60);
+    // Changes to mempool should also be made to Dandelion stempool
+    LimitMempoolSize(stempool, gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000, gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY) * 60 * 60);
 }
 
 // Used to avoid mempool polluting consensus critical paths if CCoinsViewMempool
@@ -1091,8 +1102,7 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
     }
 
     // Check the header
-    int nAlgo = block.GetAlgo();
-    if (!CheckProofOfWork(block.GetPoWAlgoHash(nAlgo), block.nBits, consensusParams))
+    if (!CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
 
     return true;
@@ -1761,41 +1771,37 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         if (state == ThresholdState::LOCKED_IN || state == ThresholdState::STARTED) {
             nVersion |= VersionBitsMask(params, static_cast<Consensus::DeploymentPos>(i));
         }
-    } 
-    switch (algo)
-    {
-        case ALGO_SCRYPT:
-        break;
-        case ALGO_SHA256D:
-        nVersion |= BLOCK_VERSION_SHA256D;
-        break;
-        case ALGO_GROESTL:
-        nVersion |= BLOCK_VERSION_GROESTL;
-        break;
-        case ALGO_SKEIN:
-        nVersion |= BLOCK_VERSION_SKEIN;
-        break;
-        case ALGO_QUBIT:
-        nVersion |= BLOCK_VERSION_QUBIT;
-        break;
-        //case ALGO_EQUIHASH:
-        //nVersion |= BLOCK_VERSION_EQUIHASH;
-        //break;
-        //case ALGO_ETHASH:
-        //nVersion |= BLOCK_VERSION_ETHASH;
-        //break;
-        default:
-        return nVersion;
-    }  
-
+    }
+    nVersion |= GetVersionForAlgo(algo);
     return nVersion;
 }
-bool isMultiAlgoVersion(int nVersion){
-     if((nVersion & 0xfffU) == 514 || (nVersion & 0xfffU) == 1026 || (nVersion & 0xfffU) == 1538 || (nVersion & 0xfffU) == 2050) {
-         return true;
-     }
-     return false;
- }
+
+bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consensus, int algo)
+{
+    if (!pindexPrev)
+        return algo == ALGO_SCRYPT;
+    const int nHeight = pindexPrev->nHeight;
+    if (nHeight < consensus.multiAlgoDiffChangeTarget)
+        return algo == ALGO_SCRYPT;
+    else if (nHeight < consensus.algoSwapChangeTarget ||
+             VersionBitsState(pindexPrev, consensus, Consensus::DEPLOYMENT_ODO, versionbitscache) != ThresholdState::ACTIVE)
+    {
+        return algo == ALGO_SHA256D
+            || algo == ALGO_SCRYPT
+            || algo == ALGO_GROESTL
+            || algo == ALGO_SKEIN
+            || algo == ALGO_QUBIT;
+    }
+    else
+    {
+        return algo == ALGO_SHA256D
+            || algo == ALGO_SCRYPT
+            || algo == ALGO_SKEIN
+            || algo == ALGO_QUBIT
+            || algo == ALGO_ODO;
+    }
+}
+
 /**
  * Threshold condition checker that triggers when unknown versionbits are seen on the network.
  */
@@ -2326,7 +2332,9 @@ static void AppendWarning(std::string& res, const std::string& warn)
 void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainParams) {
     // New best block
     mempool.AddTransactionsUpdated(1);
-
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.AddTransactionsUpdated(1);
+    
     {
         WaitableLock lock(g_best_block_mutex);
         g_best_block = pindexNew->GetBlockHash();
@@ -2337,6 +2345,7 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
     if (!IsInitialBlockDownload())
     {
         int nUpgraded = 0;
+        bool fAllAsicBoost = true;
         const CBlockIndex* pindex = pindexNew;
         for (int bit = 0; bit < VERSIONBITS_NUM_BITS; bit++) {
             WarningBitsConditionChecker checker(bit);
@@ -2355,11 +2364,18 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
         {
             int nAlgo = pindex->GetAlgo();
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0 && !isMultiAlgoVersion(pindex->nVersion))
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
+            {
                 ++nUpgraded;
+                // Sha256d blocks with weird versions could simply be the result
+                // of overt AsicBoost.  Don't print the first warning below unless
+                // at least one "upgraded" block is not sha256d.
+                if (nAlgo != ALGO_SHA256D)
+                    fAllAsicBoost = false;
+            }
             pindex = pindex->pprev;
         }
-        if (nUpgraded > 0)
+        if (nUpgraded > 0 && !fAllAsicBoost)
             AppendWarning(warningMessages, strprintf(_("%d of last 100 blocks have unexpected version"), nUpgraded));
         if (nUpgraded > 100/2)
         {
@@ -2424,6 +2440,8 @@ bool CChainState::DisconnectTip(CValidationState& state, const CChainParams& cha
             // Drop the earliest entry, and remove its children from the mempool.
             auto it = disconnectpool->queuedTx.get<insertion_order>().begin();
             mempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
+            // Changes to mempool should also be made to Dandelion stempool
+            stempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
             disconnectpool->removeEntry(it);
         }
     }
@@ -2556,6 +2574,8 @@ bool CChainState::ConnectTip(CValidationState& state, const CChainParams& chainp
     LogPrint(BCLog::BENCH, "  - Writing chainstate: %.2fms [%.2fs (%.2fms/blk)]\n", (nTime5 - nTime4) * MILLI, nTimeChainState * MICRO, nTimeChainState * MILLI / nBlocksTotal);
     // Remove conflicting transactions from the mempool.;
     mempool.removeForBlock(blockConnecting.vtx, pindexNew->nHeight);
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.removeForBlock(blockConnecting.vtx, pindexNew->nHeight);
     disconnectpool.removeForBlock(blockConnecting.vtx);
     // Update chainActive & related variables.
     chainActive.SetTip(pindexNew);
@@ -2716,6 +2736,8 @@ bool CChainState::ActivateBestChainStep(CValidationState& state, const CChainPar
         UpdateMempoolForReorg(disconnectpool, true);
     }
     mempool.check(pcoinsTip.get());
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.check(pcoinsTip.get());
 
     // Callbacks/notifications for a new best chain.
     if (fInvalidFound)
@@ -3171,8 +3193,7 @@ static bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, 
 static bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true)
 {
     //Check proof of work matches claimed amount
-    int nAlgo = block.GetAlgo();
-    if (fCheckPOW && !CheckProofOfWork(block.GetPoWAlgoHash(nAlgo), block.nBits, consensusParams))
+    if (fCheckPOW && !CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, consensusParams))
         return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");
 
     return true;
@@ -3325,6 +3346,8 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
 
     // Check proof of work
     const Consensus::Params& consensusParams = params.GetConsensus();
+    if (!IsAlgoActive(pindexPrev, consensusParams, block.GetAlgo()))
+        return state.Invalid(false, REJECT_INVALID, "algo-inactive", "PoW algorithm is not active");
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams, block.GetAlgo()))
         return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
@@ -4379,6 +4402,8 @@ void UnloadBlockIndex()
     pindexBestInvalid = nullptr;
     pindexBestHeader = nullptr;
     mempool.clear();
+    // Changes to mempool should also be made to Dandelion stempool
+    stempool.clear();
     mapBlocksUnlinked.clear();
     vinfoBlockFile.clear();
     nLastBlockFile = 0;
@@ -4824,11 +4849,19 @@ bool LoadMempool(void)
             CAmount amountdelta = nFeeDelta;
             if (amountdelta) {
                 mempool.PrioritiseTransaction(tx->GetHash(), amountdelta);
+                // Changes to mempool should also be made to Dandelion stempool
+                stempool.PrioritiseTransaction(tx->GetHash(), amountdelta);
             }
             CValidationState state;
             if (nTime + nExpiryTimeout > nNow) {
                 LOCK(cs_main);
+                int64_t nTimeCopy = nTime; // time isn't const, need copy for Dandelion
                 AcceptToMemoryPoolWithTime(chainparams, mempool, state, tx, nullptr /* pfMissingInputs */, nTime,
+                                           nullptr /* plTxnReplaced */, false /* bypass_limits */, 0 /* nAbsurdFee */,
+                                           false /* test_accept */);
+                // Changes to mempool should also be made to Dandelion stempool
+                CValidationState dummyState;
+                AcceptToMemoryPoolWithTime(chainparams, stempool, dummyState, tx, nullptr /* pfMissingInputs */, nTimeCopy,
                                            nullptr /* plTxnReplaced */, false /* bypass_limits */, 0 /* nAbsurdFee */,
                                            false /* test_accept */);
                 if (state.IsValid()) {
@@ -4855,6 +4888,8 @@ bool LoadMempool(void)
 
         for (const auto& i : mapDeltas) {
             mempool.PrioritiseTransaction(i.first, i.second);
+            // Changes to mempool should also be made to Dandelion stempool
+            stempool.PrioritiseTransaction(i.first, i.second);
         }
     } catch (const std::exception& e) {
         LogPrintf("Failed to deserialize mempool data on disk: %s. Continuing anyway.\n", e.what());

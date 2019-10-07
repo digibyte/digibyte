@@ -61,6 +61,7 @@ BASE_SCRIPTS = [
     # Longest test should go first, to favor running tests in parallel
     'wallet_hd.py',
     'wallet_backup.py',
+    'p2p_dandelion.py', # p2p dandelion anonymous tx test
     # vv Tests less than 5m vv
     'feature_block.py',
     'rpc_fundrawtransaction.py',

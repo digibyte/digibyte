@@ -60,7 +60,7 @@ static CUpdatedBlock latestblock;
 double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
 {
     unsigned int nBits;
-    unsigned int powLimit = UintToArith256(Params().GetConsensus().powLimit).GetCompact();
+    unsigned int powLimit = InitialDifficulty(Params().GetConsensus(), algo);
     if (blockindex == nullptr)
     {
         if (chain.Tip() == nullptr)
@@ -150,7 +150,7 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
     int algo = block.GetAlgo();
     result.pushKV("pow_algo_id", algo);
     result.pushKV("pow_algo", GetAlgoName(algo));
-    result.pushKV("pow_hash", block.GetPoWAlgoHash(algo).GetHex());
+    result.pushKV("pow_hash", GetPoWAlgoHash(block).GetHex());
     result.pushKV("merkleroot", block.hashMerkleRoot.GetHex());
     UniValue txs(UniValue::VARR);
     for(const auto& tx : block.vtx)
@@ -1292,15 +1292,13 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     UniValue difficulties(UniValue::VOBJ);
     UniValue softforks(UniValue::VARR);
     UniValue bip9_softforks(UniValue::VOBJ);
-    difficulties.push_back(Pair("sha256d", (double)GetDifficulty(NULL, ALGO_SHA256D)));
-    difficulties.push_back(Pair("scrypt", (double)GetDifficulty(NULL, ALGO_SCRYPT)));
-    difficulties.push_back(Pair("groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
-    difficulties.push_back(Pair("skein", (double)GetDifficulty(NULL, ALGO_SKEIN)));
-    difficulties.push_back(Pair("qubit", (double)GetDifficulty(NULL, ALGO_QUBIT)));
-    softforks.push_back(SoftForkDesc("csv", 12, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("segwit", 13, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("nversionbips", 14, tip, consensusParams));
-    //softforks.push_back(SoftForkDesc("equihash", 5, tip, consensusParams));
+    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
+    {
+        if (IsAlgoActive(tip, consensusParams, algo))
+        {
+            difficulties.push_back(Pair(GetAlgoName(algo), (double)GetDifficulty(NULL, algo)));
+        }
+    }
     for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
         BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
     }
