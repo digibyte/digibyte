@@ -110,6 +110,12 @@ extern const char *MERKLEBLOCK;
  */
 extern const char *GETBLOCKS;
 /**
+ * The getblocks-reverse message requests an inv message that provides block header
+ * hashes ending at a particular point p in the block chain, starting from p - 2500.
+ * @see https://digibyte.org/en/developer-reference#getblocks-reverse
+ */
+extern const char *GETBLOCKS_REVERSE;
+/**
  * The getheaders message requests a headers message that provides block
  * headers starting from a particular point in the block chain.
  * @since protocol version 31800.
