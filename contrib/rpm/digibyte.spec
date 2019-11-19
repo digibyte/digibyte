@@ -243,18 +243,18 @@ install -D -p share/pixmaps/digibyte.ico %{buildroot}%{_datadir}/pixmaps/digibyt
 install -p share/pixmaps/nsis-header.bmp %{buildroot}%{_datadir}/pixmaps/
 install -p share/pixmaps/nsis-wizard.bmp %{buildroot}%{_datadir}/pixmaps/
 install -p %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte.svg
-# %{_bindir}/convert -resize 16x16 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte16.png
-# %{_bindir}/convert -resize 32x32 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte32.png
-# %{_bindir}/convert -resize 64x64 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte64.png
-# %{_bindir}/convert -resize 128x128 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte128.png
-# %{_bindir}/convert -resize 256x256 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte256.png
-# %{_bindir}/convert -resize 16x16 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte16.xpm
-# %{_bindir}/convert -resize 32x32 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte32.xpm
-# %{_bindir}/convert -resize 64x64 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte64.xpm
-# %{_bindir}/convert -resize 128x128 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte128.xpm
-# %{_bindir}/convert %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte256.xpm
-# touch %{buildroot}%{_datadir}/pixmaps/*.png -r %{SOURCE100}
-# touch %{buildroot}%{_datadir}/pixmaps/*.xpm -r %{SOURCE100}
+%{_bindir}/convert -resize 16x16 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte16.png
+%{_bindir}/convert -resize 32x32 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte32.png
+%{_bindir}/convert -resize 64x64 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte64.png
+%{_bindir}/convert -resize 128x128 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte128.png
+%{_bindir}/convert -resize 256x256 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte256.png
+%{_bindir}/convert -resize 16x16 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte16.xpm
+%{_bindir}/convert -resize 32x32 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte32.xpm
+%{_bindir}/convert -resize 64x64 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte64.xpm
+%{_bindir}/convert -resize 128x128 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte128.xpm
+%{_bindir}/convert %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte256.xpm
+touch %{buildroot}%{_datadir}/pixmaps/*.png -r %{SOURCE100}
+touch %{buildroot}%{_datadir}/pixmaps/*.xpm -r %{SOURCE100}
 
 # Desktop File - change the touch timestamp if modifying
 mkdir -p %{buildroot}%{_datadir}/applications
