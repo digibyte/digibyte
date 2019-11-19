@@ -420,6 +420,7 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_bindir}/digibyte-tx
 %attr(0755,root,root) %{_bindir}/bench_digibyte
 %attr(0644,root,root) %{_mandir}/man1/digibyte-cli.1*
+%attr(0644,root,root) %{_mandir}/man1/digibyte-tx.1*
 
 
 
