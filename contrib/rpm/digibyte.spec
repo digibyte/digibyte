@@ -39,18 +39,11 @@ Source32:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contri
 
 Source100:	http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/DigiByte-DGB-icon.png
 
-%if 0%{?_use_libressl:1}
-BuildRequires:	libressl-devel
-%else
 BuildRequires:	openssl-devel
-%endif
 BuildRequires:	boost-devel
 BuildRequires:	miniupnpc-devel
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libevent-devel
-
-
-Patch0:		digibyte-0.12.0-libressl.patch
 
 
 %description
@@ -150,7 +143,6 @@ This package contains utilities needed by the digibyte-server package.
 
 %prep
 %setup -q
-%patch0 -p1 -b .libressl
 cp -p %{SOURCE10} ./digibyte.conf.example
 tar -zxf %{SOURCE1}
 cp -p db-%{bdbv}.NC/LICENSE ./db-%{bdbv}.NC-LICENSE
