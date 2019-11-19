@@ -44,6 +44,8 @@ BuildRequires:	boost-devel
 BuildRequires:	miniupnpc-devel
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libevent-devel
+BuildRequires:	devtoolset-7-gcc
+BuildRequires:	devtoolset-7-gcc-c++
 
 
 %description
@@ -151,6 +153,7 @@ cp -p %{SOURCE30} %{SOURCE31} %{SOURCE32} SELinux/
 
 
 %build
+. /opt/rh/devtoolset-7/enable
 CWD=`pwd`
 cd db-%{bdbv}.NC/build_unix/
 ../dist/configure --enable-cxx --disable-shared --with-pic --prefix=${CWD}/db4
