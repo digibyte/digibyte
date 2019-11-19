@@ -46,6 +46,7 @@ BuildRequires:	autoconf automake libtool
 BuildRequires:	libevent-devel
 BuildRequires:	devtoolset-7-gcc
 BuildRequires:	devtoolset-7-gcc-c++
+BuildRequires:	ImageMagick
 
 
 %description
@@ -242,11 +243,11 @@ install -D -p share/pixmaps/digibyte.ico %{buildroot}%{_datadir}/pixmaps/digibyt
 install -p share/pixmaps/nsis-header.bmp %{buildroot}%{_datadir}/pixmaps/
 install -p share/pixmaps/nsis-wizard.bmp %{buildroot}%{_datadir}/pixmaps/
 install -p %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte.svg
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/digibyte16.png -w16 -h16
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/digibyte32.png -w32 -h32
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/digibyte64.png -w64 -h64
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/digibyte128.png -w128 -h128
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/digibyte256.png -w256 -h256
+%{_bindir}/convert -resize 16x16 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte16.png
+%{_bindir}/convert -resize 32x32 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte32.png
+%{_bindir}/convert -resize 64x64 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte64.png
+%{_bindir}/convert -resize 128x128 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte128.png
+%{_bindir}/convert -resize 256x256 %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/digibyte256.png
 %{_bindir}/convert -resize 16x16 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte16.xpm
 %{_bindir}/convert -resize 32x32 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte32.xpm
 %{_bindir}/convert -resize 64x64 %{buildroot}%{_datadir}/pixmaps/digibyte256.png %{buildroot}%{_datadir}/pixmaps/digibyte64.xpm
