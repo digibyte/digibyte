@@ -371,7 +371,7 @@ rm -rf %{buildroot}
 %files core
 %defattr(-,root,root,-)
 %license COPYING db-%{bdbv}.NC-LICENSE
-%doc COPYING digibyte.conf.example doc/README.md doc/bips.md doc/files.md doc/multiwallet-qt.md doc/reduce-traffic.md doc/release-notes.md doc/tor.md
+%doc COPYING digibyte.conf.example doc/README.md doc/bips.md doc/files.md doc/reduce-traffic.md doc/release-notes.md doc/tor.md
 %attr(0755,root,root) %{_bindir}/digibyte-qt
 %attr(0644,root,root) %{_datadir}/applications/digibyte-core.desktop
 %attr(0644,root,root) %{_datadir}/kde4/services/digibyte-core.protocol
