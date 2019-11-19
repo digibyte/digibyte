@@ -14,14 +14,14 @@
 %endif
 
 Name:		digibyte
-Version:	0.12.0
-Release:	2%{?dist}
+Version:	7.17.2
+Release:	1%{?dist}
 Summary:	Peer to Peer Cryptographic Currency
 
 Group:		Applications/System
 License:	MIT
 URL:		https://digibyte.org/
-Source0:	https://digibyte.org/bin/digibyte-core-%{version}/digibyte-%{version}.tar.gz
+Source0:	https://github.com/digibyte/digibyte/releases/download/v%{version}/digibyte-%{version}.tar.gz
 Source1:	http://download.oracle.com/berkeley-db/db-%{bdbv}.NC.tar.gz
 
 Source10:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contrib/debian/examples/digibyte.conf
@@ -37,7 +37,7 @@ Source30:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contri
 Source31:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contrib/rpm/digibyte.fc
 Source32:	https://raw.githubusercontent.com/digibyte/digibyte/v%{version}/contrib/rpm/digibyte.if
 
-Source100:	https://upload.wikimedia.org/wikipedia/commons/4/46/DigiByte.svg
+Source100:	http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/DigiByte-DGB-icon.png
 
 %if 0%{?_use_libressl:1}
 BuildRequires:	libressl-devel
