@@ -67,7 +67,7 @@ The 2015 DigiSpeed hardfork introduced changes that double the capacity of the n
 Total Supply: More DigiBytes, lower price, more micro transactions, better price stability.
 21 billion DigiBytes will be created over 21 years.
 Only 21 million Bitcoin will be created over 140 years.
-1:1000 ratio. 1 DigiByte for every 1000 Bitcoin.
+1000:1 ratio. 1000 DigiByte for every Bitcoin.
 
 Flexibility: Ability to quickly add new features.
 DigiByte can add new features & upgrades much quicker than Bitcoin.
