@@ -47,6 +47,8 @@ MultiShield Hardfork: Block 400k, Dec. 10th 2014
 
 DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 2015
 
+Odocrypt Hardfork: Block 9,112,320 July 22nd 2019
+
 DigiByte vs Bitcoin
 -------------------
 
