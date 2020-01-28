@@ -1,17 +1,17 @@
-# Valgrind suppressions file for Bitcoin.
+# Valgrind suppressions file for DigiByte.
 #
 # Includes known Valgrind warnings in our dependencies that cannot be fixed
 # in-tree.
 #
 # Example use:
-# $ valgrind --suppressions=contrib/valgrind.supp src/test/test_bitcoin
+# $ valgrind --suppressions=contrib/valgrind.supp src/test/test_digibyte
 # $ valgrind --suppressions=contrib/valgrind.supp --leak-check=full \
-#       --show-leak-kinds=all src/test/test_bitcoin
+#       --show-leak-kinds=all src/test/test_digibyte
 #
 # To create suppressions for found issues, use the --gen-suppressions=all option:
 # $ valgrind --suppressions=contrib/valgrind.supp --leak-check=full \
 #       --show-leak-kinds=all --gen-suppressions=all --show-reachable=yes \
-#       --error-limit=no src/test/test_bitcoin
+#       --error-limit=no src/test/test_digibyte
 #
 # Note that suppressions may depend on OS and/or library versions.
 {

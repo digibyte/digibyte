@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2019 The Bitcoin Core developers
+// Copyright (c) 2017-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_RPC_UTIL_H
-#define BITCOIN_RPC_UTIL_H
+#ifndef DIGIBYTE_RPC_UTIL_H
+#define DIGIBYTE_RPC_UTIL_H
 
 #include <node/transaction.h>
 #include <outputtype.h>
@@ -266,4 +266,4 @@ private:
     const RPCExamples m_examples;
 };
 
-#endif // BITCOIN_RPC_UTIL_H
+#endif // DIGIBYTE_RPC_UTIL_H

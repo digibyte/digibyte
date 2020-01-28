@@ -1,9 +1,9 @@
-// Copyright (c) 2019 The Bitcoin Core developers
+// Copyright (c) 2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_UTIL_STRING_H
-#define BITCOIN_UTIL_STRING_H
+#ifndef DIGIBYTE_UTIL_STRING_H
+#define DIGIBYTE_UTIL_STRING_H
 
 #include <attributes.h>
 
@@ -52,4 +52,4 @@ NODISCARD inline bool ValidAsCString(const std::string& str) noexcept
     return str.size() == strlen(str.c_str());
 }
 
-#endif // BITCOIN_UTIL_STRENCODINGS_H
+#endif // DIGIBYTE_UTIL_STRENCODINGS_H

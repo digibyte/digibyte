@@ -1,9 +1,9 @@
-// Copyright (c) 2015-2019 The Bitcoin Core developers
+// Copyright (c) 2015-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_HTTPRPC_H
-#define BITCOIN_HTTPRPC_H
+#ifndef DIGIBYTE_HTTPRPC_H
+#define DIGIBYTE_HTTPRPC_H
 
 
 /** Start HTTP RPC subsystem.

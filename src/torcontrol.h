@@ -1,12 +1,12 @@
-// Copyright (c) 2015-2019 The Bitcoin Core developers
+// Copyright (c) 2015-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 /**
  * Functionality for communicating with Tor.
  */
-#ifndef BITCOIN_TORCONTROL_H
-#define BITCOIN_TORCONTROL_H
+#ifndef DIGIBYTE_TORCONTROL_H
+#define DIGIBYTE_TORCONTROL_H
 
 
 extern const std::string DEFAULT_TOR_CONTROL;
@@ -16,4 +16,4 @@ void StartTorControl();
 void InterruptTorControl();
 void StopTorControl();
 
-#endif /* BITCOIN_TORCONTROL_H */
+#endif /* DIGIBYTE_TORCONTROL_H */

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2019 The Bitcoin Core developers
+# Copyright (c) 2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,4 +21,4 @@ export DOCKER_NAME_TAG="debian:buster"
 export RUN_UNIT_TESTS=true
 export RUN_FUNCTIONAL_TESTS=true
 export GOAL="install"
-export BITCOIN_CONFIG="--enable-reduce-exports --with-incompatible-bdb"
+export DIGIBYTE_CONFIG="--enable-reduce-exports --with-incompatible-bdb"

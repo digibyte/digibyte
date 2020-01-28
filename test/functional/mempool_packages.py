@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2019 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test descendant package tracking code."""
@@ -7,7 +7,7 @@
 from decimal import Decimal
 
 from test_framework.messages import COIN
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
@@ -20,7 +20,7 @@ MAX_DESCENDANTS = 25
 # custom limits for node1
 MAX_ANCESTORS_CUSTOM = 5
 
-class MempoolPackagesTest(BitcoinTestFramework):
+class MempoolPackagesTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [

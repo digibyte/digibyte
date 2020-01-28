@@ -651,7 +651,7 @@ anem5aq4cr2zl7tz.onion:8333
 at3w5qisczgguije.onion:8333
 auo4zjsp44vydv6c.onion:8333
 b6vrxhrrle7jxiua.onion:8333
-bitcoinranliixsu.onion:8333
+digibyteranliixsu.onion:8333
 blcktrgve5vetjsk.onion:8333
 bowg4prf63givea4.onion:8333
 cj2nexmwocyy5unq.onion:8333

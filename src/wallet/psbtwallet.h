@@ -1,9 +1,9 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2009-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_WALLET_PSBTWALLET_H
-#define BITCOIN_WALLET_PSBTWALLET_H
+#ifndef DIGIBYTE_WALLET_PSBTWALLET_H
+#define DIGIBYTE_WALLET_PSBTWALLET_H
 
 #include <psbt.h>
 #include <wallet/wallet.h>
@@ -29,4 +29,4 @@ NODISCARD TransactionError FillPSBT(const CWallet* pwallet,
               bool sign = true,
               bool bip32derivs = false);
 
-#endif // BITCOIN_WALLET_PSBTWALLET_H
+#endif // DIGIBYTE_WALLET_PSBTWALLET_H

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Copyright (c) 2018-2019 The Bitcoin Core developers
+# Copyright (c) 2018-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 export LC_ALL=C
 KNOWN_VIOLATIONS=(
-    "src/bitcoin-tx.cpp.*stoul"
-    "src/bitcoin-tx.cpp.*std::to_string"
-    "src/bitcoin-tx.cpp.*trim_right"
+    "src/digibyte-tx.cpp.*stoul"
+    "src/digibyte-tx.cpp.*std::to_string"
+    "src/digibyte-tx.cpp.*trim_right"
     "src/dbwrapper.cpp.*stoul"
     "src/dbwrapper.cpp:.*vsnprintf"
     "src/httprpc.cpp.*trim"

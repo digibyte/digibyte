@@ -1,6 +1,6 @@
-# Bootstrappable Bitcoin Core Builds
+# Bootstrappable DigiByte Core Builds
 
-This directory contains the files necessary to perform bootstrappable Bitcoin
+This directory contains the files necessary to perform bootstrappable DigiByte
 Core builds.
 
 [Bootstrappability][b17e] furthers our binary security guarantees by allowing us
@@ -15,7 +15,7 @@ Conservatively, a x86_64 machine with:
 
 - 2 or more logical cores
 - 4GB of free disk space on the partition that /gnu/store will reside in
-- 24GB of free disk space on the partition that the Bitcoin Core git repository
+- 24GB of free disk space on the partition that the DigiByte Core git repository
   resides in
 
 > Note: these requirements are slightly less onerous than those of Gitian builds
@@ -85,7 +85,7 @@ export PATH="${HOME}/.config/guix/current/bin${PATH:+:}$PATH"
 
 ### As a Development Environment
 
-For a Bitcoin Core depends development environment, simply invoke
+For a DigiByte Core depends development environment, simply invoke
 
 ```sh
 guix environment --manifest=contrib/guix/manifest.scm
@@ -96,7 +96,7 @@ a `depends` build injected into your environment.
 
 ### As a Tool for Deterministic Builds
 
-From the top of a clean Bitcoin Core repository:
+From the top of a clean DigiByte Core repository:
 
 ```sh
 ./contrib/guix/guix-build.sh
@@ -188,7 +188,7 @@ This can be overridden for all `guix` invocations by passing the
 overridden on a call-by-call basis by passing the same `--substitute-urls`
 option to client tools such at `guix environment`.
 
-To use dongcarl's substitute server for Bitcoin Core builds after having
+To use dongcarl's substitute server for DigiByte Core builds after having
 [authorized his signing key](#authorize-the-signing-keys):
 
 ```

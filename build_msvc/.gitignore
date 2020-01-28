@@ -10,5 +10,5 @@ packages/*
 *.vcxproj.user
 *.vcxproj
 */Win32
-libbitcoin_qt/QtGeneratedFiles/*
-test_bitcoin-qt/QtGeneratedFiles/*
+libdigibyte_qt/QtGeneratedFiles/*
+test_digibyte-qt/QtGeneratedFiles/*

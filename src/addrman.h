@@ -1,10 +1,10 @@
 // Copyright (c) 2012 Pieter Wuille
-// Copyright (c) 2012-2020 The Bitcoin Core developers
+// Copyright (c) 2012-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_ADDRMAN_H
-#define BITCOIN_ADDRMAN_H
+#ifndef DIGIBYTE_ADDRMAN_H
+#define DIGIBYTE_ADDRMAN_H
 
 #include <netaddress.h>
 #include <protocol.h>
@@ -619,4 +619,4 @@ public:
 
 };
 
-#endif // BITCOIN_ADDRMAN_H
+#endif // DIGIBYTE_ADDRMAN_H

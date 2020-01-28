@@ -19,7 +19,7 @@ time-machine() {
                       -- "$@"
 }
 
-# Deterministically build Bitcoin Core for HOSTs (overriable by environment)
+# Deterministically build DigiByte Core for HOSTs (overriable by environment)
 for host in ${HOSTS=i686-linux-gnu x86_64-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu riscv64-linux-gnu}; do
 
     # Display proper warning when the user interrupts the build
@@ -32,7 +32,7 @@ for host in ${HOSTS=i686-linux-gnu x86_64-linux-gnu arm-linux-gnueabihf aarch64-
                              --container \
                              --pure \
                              --no-cwd \
-                             --share="$PWD"=/bitcoin \
+                             --share="$PWD"=/digibyte \
                              ${SOURCES_PATH:+--share="$SOURCES_PATH"} \
                              ${ADDITIONAL_GUIX_ENVIRONMENT_FLAGS} \
                              -- env HOST="$host" \
@@ -40,6 +40,6 @@ for host in ${HOSTS=i686-linux-gnu x86_64-linux-gnu arm-linux-gnueabihf aarch64-
                                     SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:?unable to determine value}" \
                                     ${V:+V=1} \
                                     ${SOURCES_PATH:+SOURCES_PATH="$SOURCES_PATH"} \
-                                  bash -c "cd /bitcoin && bash contrib/guix/libexec/build.sh"
+                                  bash -c "cd /digibyte && bash contrib/guix/libexec/build.sh"
 
 done

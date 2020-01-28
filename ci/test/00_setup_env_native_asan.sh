@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2019 The Bitcoin Core developers
+# Copyright (c) 2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,4 +10,4 @@ export PACKAGES="clang-8 llvm-8 python3-zmq qtbase5-dev qttools5-dev-tools libev
 # Use clang-8 instead of default clang (which is clang-6 on Bionic) to avoid spurious segfaults when running on ppc64le
 export NO_DEPENDS=1
 export GOAL="install"
-export BITCOIN_CONFIG="--enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS='-DARENA_DEBUG -DDEBUG_LOCKORDER' --with-sanitizers=address,integer,undefined CC=clang-8 CXX=clang++-8"
+export DIGIBYTE_CONFIG="--enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS='-DARENA_DEBUG -DDEBUG_LOCKORDER' --with-sanitizers=address,integer,undefined CC=clang-8 CXX=clang++-8"

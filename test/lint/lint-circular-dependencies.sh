@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2019 The Bitcoin Core developers
+# Copyright (c) 2018-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
@@ -14,9 +14,9 @@ EXPECTED_CIRCULAR_DEPENDENCIES=(
     "policy/fees -> txmempool -> policy/fees"
     "qt/addresstablemodel -> qt/walletmodel -> qt/addresstablemodel"
     "qt/bantablemodel -> qt/clientmodel -> qt/bantablemodel"
-    "qt/bitcoingui -> qt/utilitydialog -> qt/bitcoingui"
-    "qt/bitcoingui -> qt/walletframe -> qt/bitcoingui"
-    "qt/bitcoingui -> qt/walletview -> qt/bitcoingui"
+    "qt/digibytegui -> qt/utilitydialog -> qt/digibytegui"
+    "qt/digibytegui -> qt/walletframe -> qt/digibytegui"
+    "qt/digibytegui -> qt/walletview -> qt/digibytegui"
     "qt/clientmodel -> qt/peertablemodel -> qt/clientmodel"
     "qt/recentrequeststablemodel -> qt/walletmodel -> qt/recentrequeststablemodel"
     "qt/sendcoinsdialog -> qt/walletmodel -> qt/sendcoinsdialog"

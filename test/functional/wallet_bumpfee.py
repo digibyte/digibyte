@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2019 The Bitcoin Core developers
+# Copyright (c) 2016-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the bumpfee RPC.
@@ -18,7 +18,7 @@ import io
 
 from test_framework.blocktools import add_witness_commitment, create_block, create_coinbase, send_to_witness
 from test_framework.messages import BIP125_SEQUENCE_NUMBER, CTransaction
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
@@ -30,7 +30,7 @@ from test_framework.util import (
 WALLET_PASSPHRASE = "test"
 WALLET_PASSPHRASE_TIMEOUT = 3600
 
-class BumpFeeTest(BitcoinTestFramework):
+class BumpFeeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
@@ -55,7 +55,7 @@ class BumpFeeTest(BitcoinTestFramework):
         peer_node, rbf_node = self.nodes
         rbf_node_address = rbf_node.getnewaddress()
 
-        # fund rbf node with 10 coins of 0.001 btc (100,000 satoshis)
+        # fund rbf node with 10 coins of 0.001 dgb (100,000 satoshis)
         self.log.info("Mining blocks...")
         peer_node.generate(110)
         self.sync_all()
@@ -274,7 +274,7 @@ def test_settxfee(rbf_node, dest_address):
 
 def test_maxtxfee_fails(test, rbf_node, dest_address):
     # size of bumped transaction (p2wpkh, 1 input, 2 outputs): 141 vbytes
-    # expected bumping feerate of 20 sats/vbyte => 141*20 sats = 0.00002820 btc
+    # expected bumping feerate of 20 sats/vbyte => 141*20 sats = 0.00002820 dgb
     test.restart_node(1, ['-maxtxfee=0.000025'] + test.extra_args[1])
     rbf_node.walletpassphrase(WALLET_PASSPHRASE, WALLET_PASSPHRASE_TIMEOUT)
     rbfid = spend_one_input(rbf_node, dest_address)

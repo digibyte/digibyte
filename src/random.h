@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2009-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_RANDOM_H
-#define BITCOIN_RANDOM_H
+#ifndef DIGIBYTE_RANDOM_H
+#define DIGIBYTE_RANDOM_H
 
 #include <crypto/chacha20.h>
 #include <crypto/common.h>
@@ -248,4 +248,4 @@ bool Random_SanityCheck();
  */
 void RandomInit();
 
-#endif // BITCOIN_RANDOM_H
+#endif // DIGIBYTE_RANDOM_H

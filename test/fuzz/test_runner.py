@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019 The Bitcoin Core developers
+# Copyright (c) 2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Run fuzz test targets.
@@ -12,7 +12,7 @@ import sys
 import subprocess
 import logging
 
-# Fuzzers known to lack a seed corpus in https://github.com/bitcoin-core/qa-assets/tree/master/fuzz_seed_corpus
+# Fuzzers known to lack a seed corpus in https://github.com/digibyte-core/qa-assets/tree/master/fuzz_seed_corpus
 FUZZERS_MISSING_CORPORA = [
     "addr_info_deserialize",
     "base_encode_decode",

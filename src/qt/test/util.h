@@ -1,9 +1,9 @@
-// Copyright (c) 2018 The Bitcoin Core developers
+// Copyright (c) 2018 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_TEST_UTIL_H
-#define BITCOIN_QT_TEST_UTIL_H
+#ifndef DIGIBYTE_QT_TEST_UTIL_H
+#define DIGIBYTE_QT_TEST_UTIL_H
 
 #include <QString>
 
@@ -15,4 +15,4 @@
  */
 void ConfirmMessage(QString* text = nullptr, int msec = 0);
 
-#endif // BITCOIN_QT_TEST_UTIL_H
+#endif // DIGIBYTE_QT_TEST_UTIL_H

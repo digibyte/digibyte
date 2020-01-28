@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-2019 The Bitcoin Core developers
+# Copyright (c) 2017-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test that the wallet can send and receive using all combinations of address types.
@@ -53,7 +53,7 @@ Test that the nodes generate the correct change address type:
 from decimal import Decimal
 import itertools
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import DigiByteTestFramework
 from test_framework.descriptors import (
     descsum_create,
     descsum_check,
@@ -69,7 +69,7 @@ from test_framework.segwit_addr import (
     decode,
 )
 
-class AddressTypeTest(BitcoinTestFramework):
+class AddressTypeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 6
         self.extra_args = [
