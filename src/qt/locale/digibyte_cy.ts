@@ -42,10 +42,6 @@
         <translation>Rhain ydi eich cyfeiriadau DigiByte ar gyfer gyrru taliadau. Gwnewch yn sicr o'r swm a'r cyfeiriad derbyn cyn gyrru arian.</translation>
     </message>
     <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dyma eich cyfeiriadau DigiByte ar gyfer derbyn taliadau. Argymhellwn ddefnyddio cyfeiriad derbyn newydd ar gyfer bob trafodyn.</translation>
-    </message>
-    <message>
         <source>&amp;Copy Address</source>
         <translation>&amp;Copïo Cyfeiriad</translation>
     </message>
@@ -88,10 +84,6 @@
         <translation>Ailadroddwch gyfrinymadrodd newydd</translation>
     </message>
     <message>
-        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Ysgrifennwch y cyfrinair newydd i'r waled. &lt;br/&gt; Os gwelwch yn dda, defnyddiwch gyfrinair &lt;b&gt; deg neu fwy o gymeriadau ar hap &lt;/b&gt; , neu &lt;b&gt; wyth neu fwy o eiriau &lt;/b&gt; .</translation>
-    </message>
-    <message>
         <source>Encrypt wallet</source>
         <translation>Amgryptio'r Waled</translation>
     </message>
@@ -116,10 +108,6 @@
         <translation>Newid cyfrinair</translation>
     </message>
     <message>
-        <source>Enter the old passphrase and new passphrase to the wallet.</source>
-        <translation>Ysgrifennwch yr hen gyfrinair a chyfrinair newydd y waled.</translation>
-    </message>
-    <message>
         <source>Confirm wallet encryption</source>
         <translation>Cadarnhau amgryptio'r waled</translation>
     </message>
@@ -134,10 +122,6 @@
     <message>
         <source>Wallet encrypted</source>
         <translation>Waled Wedi Amgryptio</translation>
-    </message>
-    <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>Bydd %1 nawr yn gorffen y broses amgryptio. Cofiwch nad ydy amgryptio eich waled yn llawn amddiffyn eich digibytes rhag cael eu dwyn gan afiechyd yn heintio eich cyfrifiadur.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -238,16 +222,12 @@
         <translation>&amp;Newid cyfrinymadrodd...</translation>
     </message>
     <message>
-        <source>&amp;Sending addresses...</source>
-        <translation>&amp;Cyfeiriadau anfon...</translation>
-    </message>
-    <message>
-        <source>&amp;Receiving addresses...</source>
-        <translation>&amp;Cyfeiriadau derbyn...</translation>
-    </message>
-    <message>
         <source>Open &amp;URI...</source>
         <translation>Agor &amp;URI...</translation>
+    </message>
+    <message>
+        <source>Wallet:</source>
+        <translation>Waled:</translation>
     </message>
     <message>
         <source>Click to disable network activity.</source>
@@ -288,14 +268,6 @@
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Gwirio neges...</translation>
-    </message>
-    <message>
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Waled</translation>
     </message>
     <message>
         <source>&amp;Send</source>
@@ -398,6 +370,30 @@
         <translation>Cyfamserol</translation>
     </message>
     <message>
+        <source>Open Wallet</source>
+        <translation>Agor Waled</translation>
+    </message>
+    <message>
+        <source>Open a wallet</source>
+        <translation>Agor waled</translation>
+    </message>
+    <message>
+        <source>Close Wallet...</source>
+        <translation>Cau Waled...</translation>
+    </message>
+    <message>
+        <source>Close wallet</source>
+        <translation>Cau waled</translation>
+    </message>
+    <message>
+        <source>&amp;Window</source>
+        <translation>&amp;Ffenestr</translation>
+    </message>
+    <message>
+        <source>Connecting to peers...</source>
+        <translation>Cysylltu efo cyfoedion...</translation>
+    </message>
+    <message>
         <source>Catching up...</source>
         <translation>Dal i fyny</translation>
     </message>
@@ -449,6 +445,18 @@
 <context>
     <name>CoinControlDialog</name>
     <message>
+        <source>Coin Selection</source>
+        <translation>Dewis Ceiniog</translation>
+    </message>
+    <message>
+        <source>Quantity:</source>
+        <translation>Maint:</translation>
+    </message>
+    <message>
+        <source>Bytes:</source>
+        <translation>Maint</translation>
+    </message>
+    <message>
         <source>Amount:</source>
         <translation>Maint</translation>
     </message>
@@ -468,6 +476,12 @@
         <source>(no label)</source>
         <translation>(dim label)</translation>
     </message>
+    </context>
+<context>
+    <name>CreateWalletActivity</name>
+    </context>
+<context>
+    <name>CreateWalletDialog</name>
     </context>
 <context>
     <name>EditAddressDialog</name>
@@ -528,6 +542,9 @@
     </message>
     </context>
 <context>
+    <name>OpenWalletActivity</name>
+    </context>
+<context>
     <name>OptionsDialog</name>
     <message>
         <source>Options</source>
@@ -583,9 +600,6 @@
     </message>
     </context>
 <context>
-    <name>QObject::QObject</name>
-    </context>
-<context>
     <name>QRImageWidget</name>
     </context>
 <context>
@@ -632,7 +646,7 @@
         <source>Wallet</source>
         <translation>Waled</translation>
     </message>
-    </context>
+</context>
 <context>
     <name>RecentRequestsTableModel</name>
     <message>
@@ -724,13 +738,6 @@
     </message>
     </context>
 <context>
-    <name>SplashScreen</name>
-    <message>
-        <source>[testnet]</source>
-        <translation>[testnet]</translation>
-    </message>
-</context>
-<context>
     <name>TrafficGraphWidget</name>
     </context>
 <context>
@@ -821,10 +828,33 @@
     <name>UnitDisplayStatusBarControl</name>
     </context>
 <context>
+    <name>WalletController</name>
+    <message>
+        <source>Close wallet</source>
+        <translation>Cau waled</translation>
+    </message>
+    </context>
+<context>
     <name>WalletFrame</name>
     </context>
 <context>
     <name>WalletModel</name>
+    <message>
+        <source>Send Coins</source>
+        <translation>Anfon arian</translation>
+    </message>
+    <message>
+        <source>Current fee:</source>
+        <translation>Ffi gyfredol</translation>
+    </message>
+    <message>
+        <source>Increase:</source>
+        <translation>Cynydd:</translation>
+    </message>
+    <message>
+        <source>New fee:</source>
+        <translation>Ffi newydd:</translation>
+    </message>
     </context>
 <context>
     <name>WalletView</name>
@@ -835,21 +865,5 @@
     </context>
 <context>
     <name>digibyte-core</name>
-    <message>
-        <source>DigiByte Core</source>
-        <translation>Craidd DigiByte</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Gwybodaeth</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Rhybudd</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Gwall</translation>
-    </message>
-</context>
+    </context>
 </TS>

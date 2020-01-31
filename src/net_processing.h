@@ -10,6 +10,9 @@
 #include <net.h>
 #include <validationinterface.h>
 #include <consensus/params.h>
+#include <sync.h>
+
+extern RecursiveMutex cs_main;
 
 /** Default for -maxorphantx, maximum number of orphan transactions kept in memory */
 static const unsigned int DEFAULT_MAX_ORPHAN_TRANSACTIONS = 100;
@@ -17,15 +20,18 @@ static const unsigned int DEFAULT_MAX_ORPHAN_TRANSACTIONS = 100;
 static const unsigned int DEFAULT_BLOCK_RECONSTRUCTION_EXTRA_TXN = 100;
 /** Probability (percentage) that a Dandelion transaction enters fluff phase */
 static const unsigned int DANDELION_FLUFF = 10;
-/** Default for BIP61 (sending reject messages) */
-static constexpr bool DEFAULT_ENABLE_BIP61 = true;
+
+static const bool DEFAULT_PEERBLOOMFILTERS = false;
 
 class PeerLogicValidation final : public CValidationInterface, public NetEventsInterface {
 private:
     CConnman* const connman;
+    BanMan* const m_banman;
+
+    bool CheckIfBanned(CNode* pnode) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 public:
-    explicit PeerLogicValidation(CConnman* connman, CScheduler &scheduler, bool enable_bip61);
+    PeerLogicValidation(CConnman* connman, BanMan* banman, CScheduler& scheduler);
 
     /**
      * Overridden from CValidationInterface.
@@ -38,7 +44,7 @@ public:
     /**
      * Overridden from CValidationInterface.
      */
-    void BlockChecked(const CBlock& block, const CValidationState& state) override;
+    void BlockChecked(const CBlock& block, const BlockValidationState& state) override;
     /**
      * Overridden from CValidationInterface.
      */
@@ -64,17 +70,14 @@ public:
     bool SendMessages(CNode* pto) override EXCLUSIVE_LOCKS_REQUIRED(pto->cs_sendProcessing);
 
     /** Consider evicting an outbound peer based on the amount of time they've been behind our tip */
-    void ConsiderEviction(CNode *pto, int64_t time_in_seconds);
+    void ConsiderEviction(CNode *pto, int64_t time_in_seconds) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
     /** Evict extra outbound peers. If we think our tip may be stale, connect to an extra outbound */
     void CheckForStaleTipAndEvictPeers(const Consensus::Params &consensusParams);
     /** If we have extra outbound peers, try to disconnect the one with the oldest block announcement */
-    void EvictExtraOutboundPeers(int64_t time_in_seconds);
+    void EvictExtraOutboundPeers(int64_t time_in_seconds) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
 private:
-    int64_t m_stale_tip_check_time; //! Next time to check for stale tip
-
-    /** Enable BIP61 (sending reject messages) */
-    const bool m_enable_bip61;
+    int64_t m_stale_tip_check_time; //!< Next time to check for stale tip
 };
 
 struct CNodeStateStats {
@@ -86,5 +89,8 @@ struct CNodeStateStats {
 
 /** Get statistics from node state */
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
+
+/** Relay transaction to every node */
+void RelayTransaction(const uint256&, const CConnman& connman);
 
 #endif // DIGIBYTE_NET_PROCESSING_H

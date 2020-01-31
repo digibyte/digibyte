@@ -1,4 +1,4 @@
-// Copyright (c) 2018 The DigiByte Core developers
+// Copyright (c) 2018-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +7,6 @@
 
 #include <amount.h>                    // For CAmount
 #include <pubkey.h>                    // For CKeyID and CScriptID (definitions needed in CTxDestination instantiation)
-#include <script/ismine.h>             // For isminefilter, isminetype
 #include <script/standard.h>           // For CTxDestination
 #include <support/allocators/secure.h> // For SecureString
 #include <ui_interface.h>              // For ChangeType
@@ -15,6 +14,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <psbt.h>
 #include <stdint.h>
 #include <string>
 #include <tuple>
@@ -25,14 +25,16 @@ class CCoinControl;
 class CFeeRate;
 class CKey;
 class CWallet;
+enum isminetype : unsigned int;
 enum class FeeReason;
+typedef uint8_t isminefilter;
+
 enum class OutputType;
 struct CRecipient;
 
 namespace interfaces {
 
 class Handler;
-class PendingWalletTx;
 struct WalletAddress;
 struct WalletBalances;
 struct WalletTx;
@@ -76,14 +78,14 @@ public:
     //! Get wallet name.
     virtual std::string getWalletName() = 0;
 
-    // Get key from pool.
-    virtual bool getKeyFromPool(bool internal, CPubKey& pub_key) = 0;
+    // Get a new address.
+    virtual bool getNewDestination(const OutputType type, const std::string label, CTxDestination& dest) = 0;
 
     //! Get public key.
-    virtual bool getPubKey(const CKeyID& address, CPubKey& pub_key) = 0;
+    virtual bool getPubKey(const CScript& script, const CKeyID& address, CPubKey& pub_key) = 0;
 
     //! Get private key.
-    virtual bool getPrivKey(const CKeyID& address, CKey& key) = 0;
+    virtual bool getPrivKey(const CScript& script, const CKeyID& address, CKey& key) = 0;
 
     //! Return whether wallet has private key.
     virtual bool isSpendable(const CTxDestination& dest) = 0;
@@ -132,12 +134,17 @@ public:
     virtual void listLockedCoins(std::vector<COutPoint>& outputs) = 0;
 
     //! Create transaction.
-    virtual std::unique_ptr<PendingWalletTx> createTransaction(const std::vector<CRecipient>& recipients,
+    virtual CTransactionRef createTransaction(const std::vector<CRecipient>& recipients,
         const CCoinControl& coin_control,
         bool sign,
         int& change_pos,
         CAmount& fee,
         std::string& fail_reason) = 0;
+
+    //! Commit transaction.
+    virtual void commitTransaction(CTransactionRef tx,
+        WalletValueMap value_map,
+        WalletOrderForm order_form) = 0;
 
     //! Return whether transaction can be abandoned.
     virtual bool transactionCanBeAbandoned(const uint256& txid) = 0;
@@ -179,15 +186,21 @@ public:
     virtual bool tryGetTxStatus(const uint256& txid,
         WalletTxStatus& tx_status,
         int& num_blocks,
-        int64_t& adjusted_time) = 0;
+        int64_t& block_time) = 0;
 
     //! Get transaction details.
     virtual WalletTx getWalletTxDetails(const uint256& txid,
         WalletTxStatus& tx_status,
         WalletOrderForm& order_form,
         bool& in_mempool,
-        int& num_blocks,
-        int64_t& adjusted_time) = 0;
+        int& num_blocks) = 0;
+
+    //! Fill PSBT.
+    virtual TransactionError fillPSBT(PartiallySignedTransaction& psbtx,
+        bool& complete,
+        int sighash_type = 1 /* SIGHASH_ALL */,
+        bool sign = true,
+        bool bip32derivs = false) = 0;
 
     //! Get balances.
     virtual WalletBalances getBalances() = 0;
@@ -236,6 +249,9 @@ public:
     // Return whether HD enabled.
     virtual bool hdEnabled() = 0;
 
+    // Return whether the wallet is blank.
+    virtual bool canGetAddresses() = 0;
+
     // check if a certain wallet flag is set.
     virtual bool IsWalletFlagSet(uint64_t flag) = 0;
 
@@ -244,6 +260,12 @@ public:
 
     // Get default change type.
     virtual OutputType getDefaultChangeType() = 0;
+
+    //! Get max tx fee.
+    virtual CAmount getDefaultMaxTxFee() = 0;
+
+    // Remove wallet.
+    virtual void remove() = 0;
 
     //! Register handler for unload message.
     using UnloadFn = std::function<void()>;
@@ -272,25 +294,10 @@ public:
     //! Register handler for watchonly changed messages.
     using WatchOnlyChangedFn = std::function<void(bool have_watch_only)>;
     virtual std::unique_ptr<Handler> handleWatchOnlyChanged(WatchOnlyChangedFn fn) = 0;
-};
 
-//! Tracking object returned by CreateTransaction and passed to CommitTransaction.
-class PendingWalletTx
-{
-public:
-    virtual ~PendingWalletTx() {}
-
-    //! Get transaction data.
-    virtual const CTransaction& get() = 0;
-
-    //! Get virtual transaction size.
-    virtual int64_t getVirtualSize() = 0;
-
-    //! Send pending transaction and commit to wallet.
-    virtual bool commit(WalletValueMap value_map,
-        WalletOrderForm order_form,
-        std::string from_account,
-        std::string& reject_reason) = 0;
+    //! Register handler for keypool changed messages.
+    using CanGetAddressesChangedFn = std::function<void()>;
+    virtual std::unique_ptr<Handler> handleCanGetAddressesChanged(CanGetAddressesChangedFn fn) = 0;
 };
 
 //! Information about one wallet address.
@@ -367,8 +374,8 @@ struct WalletTxOut
     bool is_spent = false;
 };
 
-//! Return implementation of Wallet interface. This function will be undefined
-//! in builds where ENABLE_WALLET is false.
+//! Return implementation of Wallet interface. This function is defined in
+//! dummywallet.cpp and throws if the wallet component is not compiled.
 std::unique_ptr<Wallet> MakeWallet(const std::shared_ptr<CWallet>& wallet);
 
 } // namespace interfaces

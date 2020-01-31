@@ -8,7 +8,7 @@ Transifex is setup to monitor the GitHub repo for updates, and when code contain
 
 Multiple language support is critical in assisting DigiByte’s global adoption, and growth. One of DigiByte’s greatest strengths is cross-border money transfers, any help making that easier is greatly appreciated.
 
-See the [Transifex DigiByte project](https://www.transifex.com/projects/p/digibyte/) to assist in translations. You should also join the translation mailing list for announcements - see details below.
+See the [Transifex DigiByte project](https://www.transifex.com/digibyte/digibyte/) to assist in translations. You should also join the translation mailing list for announcements - see details below.
 
 ### Writing code with translations
 We use automated scripts to help extract translations in both Qt, and non-Qt source files. It is rarely necessary to manually edit the files in `src/qt/locale/`. The translation source files must adhere to the following format:
@@ -43,7 +43,7 @@ git commit
 ### Creating a Transifex account
 Visit the [Transifex Signup](https://www.transifex.com/signup/) page to create an account. Take note of your username and password, as they will be required to configure the command-line tool.
 
-You can find the DigiByte translation project at [https://www.transifex.com/projects/p/digibyte/](https://www.transifex.com/projects/p/digibyte/).
+You can find the DigiByte translation project at [https://www.transifex.com/digibyte/digibyte/](https://www.transifex.com/digibyte/digibyte/).
 
 ### Installing the Transifex client command-line tool
 The client is used to fetch updated translations. If you are having problems, or need more details, see [https://docs.transifex.com/client/installing-the-client](https://docs.transifex.com/client/installing-the-client)
@@ -65,14 +65,18 @@ username = USERNAME
 The Transifex DigiByte project config file is included as part of the repo. It can be found at `.tx/config`, however you shouldn’t need to change anything.
 
 ### Synchronising translations
-To assist in updating translations, we have created a script to help.
+To assist in updating translations, a helper script is available in the [maintainer-tools repo](https://github.com/digibyte-core/digibyte-maintainer-tools).
 
-1. `python contrib/devtools/update-translations.py`
-2. Update `src/qt/digibyte_locale.qrc` manually or via
-   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(digibyte_\(.*\)\).ts/<file alias="\2">locale\/\1.qm<\/file>/'`
-3. Update `src/Makefile.qt.include` manually or via
-   `ls src/qt/locale/*ts|xargs -n1 basename|sed 's/\(digibyte_\(.*\)\).ts/  qt\/locale\/\1.ts \\/'`
-4. `git add` new translations from `src/qt/locale/`
+1. `python3 ../digibyte-maintainer-tools/update-translations.py`
+2. `git add` new translations from `src/qt/locale/`
+3. Update `src/qt/digibyte_locale.qrc` manually or via
+```bash
+git ls-files src/qt/locale/*ts|xargs -n1 basename|sed 's/\(digibyte_\(.*\)\).ts/        <file alias="\2">locale\/\1.qm<\/file>/'
+```
+4. Update `src/Makefile.qt_locale.include` manually or via
+```bash
+git ls-files src/qt/locale/*ts|xargs -n1 basename|sed 's/\(digibyte_\(.*\)\).ts/  qt\/locale\/\1.ts \\/'
+```
 
 **Do not directly download translations** one by one from the Transifex website, as we do a few post-processing steps before committing the translations.
 

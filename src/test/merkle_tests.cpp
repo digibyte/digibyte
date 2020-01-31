@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <consensus/merkle.h>
-#include <test/test_digibyte.h>
+#include <test/util/setup_common.h>
 
 #include <boost/test/unit_test.hpp>
 
@@ -14,9 +14,9 @@ static uint256 ComputeMerkleRootFromBranch(const uint256& leaf, const std::vecto
     uint256 hash = leaf;
     for (std::vector<uint256>::const_iterator it = vMerkleBranch.begin(); it != vMerkleBranch.end(); ++it) {
         if (nIndex & 1) {
-            hash = Hash(BEGIN(*it), END(*it), BEGIN(hash), END(hash));
+            hash = Hash(it->begin(), it->end(), hash.begin(), hash.end());
         } else {
-            hash = Hash(BEGIN(hash), END(hash), BEGIN(*it), END(*it));
+            hash = Hash(hash.begin(), hash.end(), it->begin(), it->end());
         }
         nIndex >>= 1;
     }
@@ -250,4 +250,104 @@ BOOST_AUTO_TEST_CASE(merkle_test)
     }
 }
 
+
+BOOST_AUTO_TEST_CASE(merkle_test_empty_block)
+{
+    bool mutated = false;
+    CBlock block;
+    uint256 root = BlockMerkleRoot(block, &mutated);
+
+    BOOST_CHECK_EQUAL(root.IsNull(), true);
+    BOOST_CHECK_EQUAL(mutated, false);
+}
+
+BOOST_AUTO_TEST_CASE(merkle_test_oneTx_block)
+{
+    bool mutated = false;
+    CBlock block;
+
+    block.vtx.resize(1);
+    CMutableTransaction mtx;
+    mtx.nLockTime = 0;
+    block.vtx[0] = MakeTransactionRef(std::move(mtx));
+    uint256 root = BlockMerkleRoot(block, &mutated);
+    BOOST_CHECK_EQUAL(root, block.vtx[0]->GetHash());
+    BOOST_CHECK_EQUAL(mutated, false);
+}
+
+BOOST_AUTO_TEST_CASE(merkle_test_OddTxWithRepeatedLastTx_block)
+{
+    bool mutated;
+    CBlock block, blockWithRepeatedLastTx;
+
+    block.vtx.resize(3);
+
+    for (std::size_t pos = 0; pos < block.vtx.size(); pos++) {
+        CMutableTransaction mtx;
+        mtx.nLockTime = pos;
+        block.vtx[pos] = MakeTransactionRef(std::move(mtx));
+    }
+
+    blockWithRepeatedLastTx = block;
+    blockWithRepeatedLastTx.vtx.push_back(blockWithRepeatedLastTx.vtx.back());
+
+    uint256 rootofBlock = BlockMerkleRoot(block, &mutated);
+    BOOST_CHECK_EQUAL(mutated, false);
+
+    uint256 rootofBlockWithRepeatedLastTx = BlockMerkleRoot(blockWithRepeatedLastTx, &mutated);
+    BOOST_CHECK_EQUAL(rootofBlock, rootofBlockWithRepeatedLastTx);
+    BOOST_CHECK_EQUAL(mutated, true);
+}
+
+BOOST_AUTO_TEST_CASE(merkle_test_LeftSubtreeRightSubtree)
+{
+    CBlock block, leftSubtreeBlock, rightSubtreeBlock;
+
+    block.vtx.resize(4);
+    std::size_t pos;
+    for (pos = 0; pos < block.vtx.size(); pos++) {
+        CMutableTransaction mtx;
+        mtx.nLockTime = pos;
+        block.vtx[pos] = MakeTransactionRef(std::move(mtx));
+    }
+
+    for (pos = 0; pos < block.vtx.size() / 2; pos++)
+        leftSubtreeBlock.vtx.push_back(block.vtx[pos]);
+
+    for (pos = block.vtx.size() / 2; pos < block.vtx.size(); pos++)
+        rightSubtreeBlock.vtx.push_back(block.vtx[pos]);
+
+    uint256 root = BlockMerkleRoot(block);
+    uint256 rootOfLeftSubtree = BlockMerkleRoot(leftSubtreeBlock);
+    uint256 rootOfRightSubtree = BlockMerkleRoot(rightSubtreeBlock);
+    std::vector<uint256> leftRight;
+    leftRight.push_back(rootOfLeftSubtree);
+    leftRight.push_back(rootOfRightSubtree);
+    uint256 rootOfLR = ComputeMerkleRoot(leftRight);
+
+    BOOST_CHECK_EQUAL(root, rootOfLR);
+}
+
+BOOST_AUTO_TEST_CASE(merkle_test_BlockWitness)
+{
+    CBlock block;
+
+    block.vtx.resize(2);
+    for (std::size_t pos = 0; pos < block.vtx.size(); pos++) {
+        CMutableTransaction mtx;
+        mtx.nLockTime = pos;
+        block.vtx[pos] = MakeTransactionRef(std::move(mtx));
+    }
+
+    uint256 blockWitness = BlockWitnessMerkleRoot(block);
+
+    std::vector<uint256> hashes;
+    hashes.resize(block.vtx.size());
+    hashes[0].SetNull();
+    hashes[1] = block.vtx[1]->GetHash();
+
+    uint256 merkleRootofHashes = ComputeMerkleRoot(hashes);
+
+    BOOST_CHECK_EQUAL(merkleRootofHashes, blockWitness);
+}
 BOOST_AUTO_TEST_SUITE_END()

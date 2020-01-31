@@ -58,7 +58,12 @@ from test_framework.blocktools import create_block, create_coinbase, create_tx_w
 from test_framework.messages import CBlockHeader, CInv, msg_block, msg_headers, msg_inv
 from test_framework.mininode import mininode_lock, P2PInterface
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_raises_rpc_error, connect_nodes, sync_blocks
+from test_framework.util import (
+    assert_equal,
+    assert_raises_rpc_error,
+    connect_nodes,
+)
+
 
 class AcceptBlockTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -85,8 +90,8 @@ class AcceptBlockTest(DigiByteTestFramework):
         min_work_node = self.nodes[1].add_p2p_connection(P2PInterface())
 
         # 1. Have nodes mine a block (leave IBD)
-        [ n.generate(1) for n in self.nodes ]
-        tips = [ int("0x" + n.getbestblockhash(), 0) for n in self.nodes ]
+        [n.generatetoaddress(1, n.get_deterministic_priv_key().address) for n in self.nodes]
+        tips = [int("0x" + n.getbestblockhash(), 0) for n in self.nodes]
 
         # 2. Send one block that builds on each tip.
         # This should be accepted by node0
@@ -117,7 +122,7 @@ class AcceptBlockTest(DigiByteTestFramework):
             if x['hash'] == block_h1f.hash:
                 assert_equal(x['status'], "headers-only")
                 tip_entry_found = True
-        assert(tip_entry_found)
+        assert tip_entry_found
         assert_raises_rpc_error(-1, "Block not found on disk", self.nodes[0].getblock, block_h1f.hash)
 
         # 4. Send another two block that build on the fork.
@@ -134,7 +139,7 @@ class AcceptBlockTest(DigiByteTestFramework):
             if x['hash'] == block_h2f.hash:
                 assert_equal(x['status'], "headers-only")
                 tip_entry_found = True
-        assert(tip_entry_found)
+        assert tip_entry_found
 
         # But this block should be accepted by node since it has equal work.
         self.nodes[0].getblock(block_h2f.hash)
@@ -153,7 +158,7 @@ class AcceptBlockTest(DigiByteTestFramework):
             if x['hash'] == block_h3.hash:
                 assert_equal(x['status'], "headers-only")
                 tip_entry_found = True
-        assert(tip_entry_found)
+        assert tip_entry_found
         self.nodes[0].getblock(block_h3.hash)
 
         # But this block should be accepted by node since it has more work.
@@ -266,7 +271,7 @@ class AcceptBlockTest(DigiByteTestFramework):
             if x['hash'] == block_292.hash:
                 assert_equal(x['status'], "headers-only")
                 tip_entry_found = True
-        assert(tip_entry_found)
+        assert tip_entry_found
         assert_raises_rpc_error(-1, "Block not found on disk", self.nodes[0].getblock, block_292.hash)
 
         test_node.send_message(msg_block(block_289f))
@@ -305,7 +310,7 @@ class AcceptBlockTest(DigiByteTestFramework):
 
         # 9. Connect node1 to node0 and ensure it is able to sync
         connect_nodes(self.nodes[0], 1)
-        sync_blocks([self.nodes[0], self.nodes[1]])
+        self.sync_blocks([self.nodes[0], self.nodes[1]])
         self.log.info("Successfully synced nodes 1 and 0")
 
 if __name__ == '__main__':

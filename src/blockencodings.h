@@ -1,4 +1,8 @@
-// Copyright (c) 2016-2018 The DigiByte Core developers
+// Copyright (c) 2016-2020 The Bitcoin Core developers
+
+// Copyright (c) 2016-2020 The DigiByte Core developers
+
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +11,6 @@
 
 #include <primitives/block.h>
 
-#include <memory>
 
 class CTxMemPool;
 

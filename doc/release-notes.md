@@ -1,9 +1,26 @@
-DigiByte Core version 0.17.1 is now available from:
+*After branching off for a major version release of DigiByte Core, use this
+template to create the initial release notes draft.*
 
-  <https://digibytecore.org/bin/digibyte-core-0.17.1/>
+*The release notes draft is a temporary file that can be added to by anyone. See
+[/doc/developer-notes.md#release-notes](/doc/developer-notes.md#release-notes)
+for the process.*
 
-This is a new major version release, including new features, various bugfixes
-and performance improvements, as well as updated translations.
+*Create the draft, named* "*version* Release Notes Draft"
+*(e.g. "0.20.0 Release Notes Draft"), as a collaborative wiki in:*
+
+https://github.com/digibyte-core/digibyte-devwiki/wiki/
+
+*Before the final release, move the notes back to this git repository.*
+
+*version* Release Notes Draft
+===============================
+
+DigiByte Core version *version* is now available from:
+
+  <https://digibytecore.org/bin/digibyte-core-*version*/>
+
+This release includes new features, various bug fixes and performance
+improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
@@ -259,27 +276,6 @@ If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over `/Applications/DigiByte-Qt` (on Mac)
 or `digibyted`/`digibyte-qt` (on Linux).
-
-If your node has a txindex, the txindex db will be migrated the first time you run 0.17.0 or newer, which may take up to a few hours. Your node will not be functional until this migration completes.
-
-The first time you run version 0.15.0 or newer, your chainstate database will be converted to a
-new format, which will take anywhere from a few minutes to half an hour,
-depending on the speed of your machine.
-
-Note that the block database format also changed in version 0.8.0 and there is no
-automatic upgrade code from before version 0.8 to version 0.15.0 or higher. Upgrading
-directly from 0.7.x and earlier without re-downloading the blockchain is not supported.
-However, as usual, old wallet versions are still supported.
-
-Downgrading warning
--------------------
-
-Wallets created in 0.16 and later are not compatible with versions prior to 0.16
-and will not work if you try to use newly created wallets in older versions. Existing
-wallets that were created with older versions are not affected by this.
-
-Compatibility
-==============
 DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 =======
@@ -378,26 +374,81 @@ GUI changes
 =======
 From 0.17.0 onwards macOS <10.10 is no longer supported. 0.17.0 is built using Qt 5.9.x, which doesn't
 support versions of macOS older than 10.10.
+=======
+
+Upgrading directly from a version of DigiByte Core that has reached its EOL is
+possible, but it might take some time if the datadir needs to be migrated. Old
+wallet versions of DigiByte Core are generally supported.
+
+Compatibility
+==============
+
+DigiByte Core is supported and extensively tested on operating systems using
+the Linux kernel, macOS 10.12+, and Windows 7 and newer. It is not recommended
+to use DigiByte Core on unsupported systems.
+
+DigiByte Core should also work on most other Unix-like systems but is not
+as frequently tested on them.
+
+From DigiByte Core 0.20.0 onwards, macOS versions earlier than 10.12 are no
+longer supported. Additionally, DigiByte Core does not yet change appearance
+when macOS "dark mode" is activated.
+
+In addition to previously supported CPU platforms, this release's pre-compiled
+distribution provides binaries for the RISC-V platform.
 
 Notable changes
 ===============
 
+Build System
+------------
+
+- OpenSSL is no longer used by DigiByte Core. The last usage of the library
+was removed in #17265.
+
+- glibc 2.17 or greater is now required to run the release binaries. This
+retains compatibility with RHEL 7, CentOS 7, Debian 8 and Ubuntu 14.04 LTS.
+Further details can be found in #17538.
+
+New RPCs
+--------
+
+New settings
+------------
+
+- RPC Whitelist system. It can give certain RPC users permissions to only some RPC calls.
+It can be set with two command line arguments (`rpcwhitelist` and `rpcwhitelistdefault`). (#12763)
+
+Updated settings
+----------------
+
+Updated RPCs
+------------
+
+Note: some low-level RPC changes mainly useful for testing are described in the
+Low-level Changes section below.
 
 GUI changes
 -----------
 
-- Block storage can be limited under Preferences, in the Main tab. Undoing this setting requires downloading the full blockchain again. This mode is incompatible with -txindex and -rescan.
+- The "Start DigiByte Core on system login" option has been removed on macOS.
 
-RPC changes
-------------
+Wallet
+------
 
-Example item for a notable change.
+- The wallet now by default uses bech32 addresses when using RPC, and creates native segwit change outputs.
+- The way that output trust was computed has been fixed in #16766, which impacts confirmed/unconfirmed balance status and coin selection.
 
-0.16.x change log
-------------------
+Low-level changes
+=================
 
-(to be filled in at release time)
-=======
+Tests
+-----
+
+- It is now an error to use an unqualified `walletdir=path` setting in the config file if running on testnet or regtest
+  networks. The setting now needs to be qualified as `chain.walletdir=path` or placed in the appropriate `[chain]`
+  section. (#17447)
+
 RPC changes
 ------------
 
@@ -556,17 +607,18 @@ confusion.
 ### Documentation
 - #14161 `5f51fd6` doc/descriptors.md tweaks (ryanofsky)
 - #14276 `85aacc4` Add autogen.sh in ARM Cross-compilation (walterwhite81)
->>>>>>> 0.17
+=======
+- `-fallbackfee` was 0 (disabled) by default for the main chain, but 0.0002 by default for the test chains. Now it is 0
+  by default for all chains. Testnet and regtest users will have to add `fallbackfee=0.0002` to their configuration if
+  they weren't setting it and they want it to keep working like before. (#16524)
+
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
 
-(todo)
-=======
 (to be filled in at release time)
->>>>>>> ea2e39fd2004e83375c1703543e32a10e3b9d981
 =======
 - Andrew Chow
 - Chun Kuan Lee
@@ -594,6 +646,9 @@ Thanks to everyone who directly contributed to this release:
 - Tim Ruffing
 - Walter
 - Wladimir J. van der Laan
->>>>>>> 0.17
 
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/digibyte/).
+=======
+
+As well as to everyone that helped with translations on
+[Transifex](https://www.transifex.com/digibyte/digibyte/).

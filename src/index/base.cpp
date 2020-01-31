@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The DigiByte Core developers
+// Copyright (c) 2017-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +7,7 @@
 #include <shutdown.h>
 #include <tinyformat.h>
 #include <ui_interface.h>
-#include <util.h>
+#include <util/system.h>
 #include <validation.h>
 #include <warnings.h>
 
@@ -41,9 +41,9 @@ bool BaseIndex::DB::ReadBestBlock(CBlockLocator& locator) const
     return success;
 }
 
-bool BaseIndex::DB::WriteBestBlock(const CBlockLocator& locator)
+void BaseIndex::DB::WriteBestBlock(CDBBatch& batch, const CBlockLocator& locator)
 {
-    return Write(DB_BEST_BLOCK, locator);
+    batch.Write(DB_BEST_BLOCK, locator);
 }
 
 BaseIndex::~BaseIndex()
@@ -60,25 +60,29 @@ bool BaseIndex::Init()
     }
 
     LOCK(cs_main);
-    m_best_block_index = FindForkInGlobalIndex(chainActive, locator);
-    m_synced = m_best_block_index.load() == chainActive.Tip();
+    if (locator.IsNull()) {
+        m_best_block_index = nullptr;
+    } else {
+        m_best_block_index = FindForkInGlobalIndex(::ChainActive(), locator);
+    }
+    m_synced = m_best_block_index.load() == ::ChainActive().Tip();
     return true;
 }
 
-static const CBlockIndex* NextSyncBlock(const CBlockIndex* pindex_prev)
+static const CBlockIndex* NextSyncBlock(const CBlockIndex* pindex_prev) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
 {
     AssertLockHeld(cs_main);
 
     if (!pindex_prev) {
-        return chainActive.Genesis();
+        return ::ChainActive().Genesis();
     }
 
-    const CBlockIndex* pindex = chainActive.Next(pindex_prev);
+    const CBlockIndex* pindex = ::ChainActive().Next(pindex_prev);
     if (pindex) {
         return pindex;
     }
 
-    return chainActive.Next(chainActive.FindFork(pindex_prev));
+    return ::ChainActive().Next(::ChainActive().FindFork(pindex_prev));
 }
 
 void BaseIndex::ThreadSync()
@@ -91,7 +95,11 @@ void BaseIndex::ThreadSync()
         int64_t last_locator_write_time = 0;
         while (true) {
             if (m_interrupt) {
-                WriteBestBlock(pindex);
+                m_best_block_index = pindex;
+                // No need to handle errors in Commit. If it fails, the error will be already be
+                // logged. The best way to recover is to continue, as index cannot be corrupted by
+                // a missed commit to disk for an advanced index state.
+                Commit();
                 return;
             }
 
@@ -99,10 +107,16 @@ void BaseIndex::ThreadSync()
                 LOCK(cs_main);
                 const CBlockIndex* pindex_next = NextSyncBlock(pindex);
                 if (!pindex_next) {
-                    WriteBestBlock(pindex);
                     m_best_block_index = pindex;
                     m_synced = true;
+                    // No need to handle errors in Commit. See rationale above.
+                    Commit();
                     break;
+                }
+                if (pindex_next->pprev != pindex && !Rewind(pindex, pindex_next->pprev)) {
+                    FatalError("%s: Failed to rewind index %s to a previous chain tip",
+                               __func__, GetName());
+                    return;
                 }
                 pindex = pindex_next;
             }
@@ -115,8 +129,10 @@ void BaseIndex::ThreadSync()
             }
 
             if (last_locator_write_time + SYNC_LOCATOR_WRITE_INTERVAL < current_time) {
-                WriteBestBlock(pindex);
+                m_best_block_index = pindex;
                 last_locator_write_time = current_time;
+                // No need to handle errors in Commit. See rationale above.
+                Commit();
             }
 
             CBlock block;
@@ -140,12 +156,35 @@ void BaseIndex::ThreadSync()
     }
 }
 
-bool BaseIndex::WriteBestBlock(const CBlockIndex* block_index)
+bool BaseIndex::Commit()
+{
+    CDBBatch batch(GetDB());
+    if (!CommitInternal(batch) || !GetDB().WriteBatch(batch)) {
+        return error("%s: Failed to commit latest %s state", __func__, GetName());
+    }
+    return true;
+}
+
+bool BaseIndex::CommitInternal(CDBBatch& batch)
 {
     LOCK(cs_main);
-    if (!GetDB().WriteBestBlock(chainActive.GetLocator(block_index))) {
-        return error("%s: Failed to write locator to disk", __func__);
+    GetDB().WriteBestBlock(batch, ::ChainActive().GetLocator(m_best_block_index));
+    return true;
+}
+
+bool BaseIndex::Rewind(const CBlockIndex* current_tip, const CBlockIndex* new_tip)
+{
+    assert(current_tip == m_best_block_index);
+    assert(current_tip->GetAncestor(new_tip->nHeight) == new_tip);
+
+    // In the case of a reorg, ensure persisted block locator is not stale.
+    m_best_block_index = new_tip;
+    if (!Commit()) {
+        // If commit fails, revert the best block index to avoid corruption.
+        m_best_block_index = current_tip;
+        return false;
     }
+
     return true;
 }
 
@@ -174,6 +213,11 @@ void BaseIndex::BlockConnected(const std::shared_ptr<const CBlock>& block, const
                       "known best chain (tip=%s); not updating index\n",
                       __func__, pindex->GetBlockHash().ToString(),
                       best_block_index->GetBlockHash().ToString());
+            return;
+        }
+        if (best_block_index != pindex->pprev && !Rewind(best_block_index, pindex->pprev)) {
+            FatalError("%s: Failed to rewind index %s to a previous chain tip",
+                       __func__, GetName());
             return;
         }
     }
@@ -220,9 +264,10 @@ void BaseIndex::ChainStateFlushed(const CBlockLocator& locator)
         return;
     }
 
-    if (!GetDB().WriteBestBlock(locator)) {
-        error("%s: Failed to write locator to disk", __func__);
-    }
+    // No need to handle errors in Commit. If it fails, the error will be already be logged. The
+    // best way to recover is to continue, as index cannot be corrupted by a missed commit to disk
+    // for an advanced index state.
+    Commit();
 }
 
 bool BaseIndex::BlockUntilSyncedToCurrentChain()
@@ -235,9 +280,9 @@ bool BaseIndex::BlockUntilSyncedToCurrentChain()
 
     {
         // Skip the queue-draining stuff if we know we're caught up with
-        // chainActive.Tip().
+        // ::ChainActive().Tip().
         LOCK(cs_main);
-        const CBlockIndex* chain_tip = chainActive.Tip();
+        const CBlockIndex* chain_tip = ::ChainActive().Tip();
         const CBlockIndex* best_block_index = m_best_block_index.load();
         if (best_block_index->GetAncestor(chain_tip->nHeight) == chain_tip) {
             return true;

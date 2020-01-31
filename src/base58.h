@@ -1,5 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2018 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+
+// Copyright (c) 2013-2020 The DigiByte Core developers
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,6 +16,8 @@
  */
 #ifndef DIGIBYTE_BASE58_H
 #define DIGIBYTE_BASE58_H
+
+#include <attributes.h>
 
 #include <string>
 #include <vector>
@@ -33,13 +38,13 @@ std::string EncodeBase58(const std::vector<unsigned char>& vch);
  * return true if decoding is successful.
  * psz cannot be nullptr.
  */
-bool DecodeBase58(const char* psz, std::vector<unsigned char>& vchRet);
+NODISCARD bool DecodeBase58(const char* psz, std::vector<unsigned char>& vchRet, int max_ret_len);
 
 /**
  * Decode a base58-encoded string (str) into a byte vector (vchRet).
  * return true if decoding is successful.
  */
-bool DecodeBase58(const std::string& str, std::vector<unsigned char>& vchRet);
+NODISCARD bool DecodeBase58(const std::string& str, std::vector<unsigned char>& vchRet, int max_ret_len);
 
 /**
  * Encode a byte vector into a base58-encoded string, including checksum
@@ -50,12 +55,12 @@ std::string EncodeBase58Check(const std::vector<unsigned char>& vchIn);
  * Decode a base58-encoded string (psz) that includes a checksum into a byte
  * vector (vchRet), return true if decoding is successful
  */
-bool DecodeBase58Check(const char* psz, std::vector<unsigned char>& vchRet);
+NODISCARD bool DecodeBase58Check(const char* psz, std::vector<unsigned char>& vchRet, int max_ret_len);
 
 /**
  * Decode a base58-encoded string (str) that includes a checksum into a byte
  * vector (vchRet), return true if decoding is successful
  */
-bool DecodeBase58Check(const std::string& str, std::vector<unsigned char>& vchRet);
+NODISCARD bool DecodeBase58Check(const std::string& str, std::vector<unsigned char>& vchRet, int max_ret_len);
 
 #endif // DIGIBYTE_BASE58_H

@@ -1,5 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2018 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+
+// Copyright (c) 2013-2020 The DigiByte Core developers
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,22 +11,16 @@
 
 #include <memory>
 #include <string>
-#include <util.h>
+#include <util/system.h>
 
-class CScheduler;
-class CWallet;
-
-class WalletInitInterface;
-extern const WalletInitInterface& g_wallet_init_interface;
-
-namespace boost
-{
+struct NodeContext;
+namespace boost {
 class thread_group;
 } // namespace boost
 
 /** Interrupt threads */
-void Interrupt();
-void Shutdown();
+void Interrupt(NodeContext& node);
+void Shutdown(NodeContext& node);
 //!Initialize the logging infrastructure
 void InitLogging();
 //!Parameter interaction: change current parameters depending on various rules
@@ -57,7 +54,7 @@ bool AppInitLockDataDirectory();
  * @note This should only be done after daemonization. Call Shutdown() if this function fails.
  * @pre Parameters should be parsed and config file should be read, AppInitLockDataDirectory should have been called.
  */
-bool AppInitMain();
+bool AppInitMain(NodeContext& node);
 
 /**
  * Setup the arguments for gArgs

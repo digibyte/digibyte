@@ -5,11 +5,7 @@
 
 #include <merkleblock.h>
 #include <uint256.h>
-#include <test/test_digibyte.h>
-
-#include <boost/test/unit_test.hpp>
-
-
+#include <test/util/setup_common.h>
 BOOST_FIXTURE_TEST_SUITE(merkleblock_tests, BasicTestingSetup)
 
 /**

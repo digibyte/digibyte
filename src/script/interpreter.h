@@ -12,7 +12,6 @@
 
 #include <vector>
 #include <stdint.h>
-#include <string>
 
 class CPubKey;
 class CScript;

@@ -13,9 +13,7 @@
 
 #include <support/events.h>
 
-#include <test/test_digibyte.h>
-
-#include <vector>
+#include <test/util/setup_common.h>
 
 #include <boost/test/unit_test.hpp>
 

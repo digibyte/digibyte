@@ -6,6 +6,8 @@
 #ifndef DIGIBYTE_QT_GUICONSTANTS_H
 #define DIGIBYTE_QT_GUICONSTANTS_H
 
+#include <cstdint>
+
 /* Milliseconds between model updates */
 static const int MODEL_UPDATE_DELAY = 250;
 
@@ -38,12 +40,6 @@ static const bool DEFAULT_SPLASHSCREEN = true;
  */
 static const int TOOLTIP_WRAP_THRESHOLD = 80;
 
-/* Maximum allowed URI length */
-static const int MAX_URI_LENGTH = 255;
-
-/* QRCodeDialog -- size of exported QR Code image */
-#define QR_IMAGE_SIZE 300
-
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
@@ -51,5 +47,12 @@ static const int MAX_URI_LENGTH = 255;
 #define QAPP_ORG_DOMAIN "digibyte.io"
 #define QAPP_APP_NAME_DEFAULT "DigiByte-Qt"
 #define QAPP_APP_NAME_TESTNET "DigiByte-Qt-testnet"
+#define QAPP_APP_NAME_REGTEST "DigiByte-Qt-regtest"
+
+/* One gigabyte (GB) in bytes */
+static constexpr uint64_t GB_BYTES{1000000000};
+
+// Default prune target displayed in GUI.
+static constexpr int DEFAULT_PRUNE_TARGET_GB{2};
 
 #endif // DIGIBYTE_QT_GUICONSTANTS_H

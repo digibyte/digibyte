@@ -107,7 +107,7 @@ class P2PLeakTest(DigiByteTestFramework):
         wait_until(lambda: no_verack_idlenode.version_received, timeout=10, lock=mininode_lock)
 
         # Mine a block and make sure that it's not sent to the connected nodes
-        self.nodes[0].generate(1)
+        self.nodes[0].generatetoaddress(1, self.nodes[0].get_deterministic_priv_key().address)
 
         #Give the node enough time to possibly leak out a message
         time.sleep(5)
@@ -121,9 +121,9 @@ class P2PLeakTest(DigiByteTestFramework):
         wait_until(lambda: len(self.nodes[0].getpeerinfo()) == 0)
 
         # Make sure no unexpected messages came in
-        assert(no_version_bannode.unexpected_msg == False)
-        assert(no_version_idlenode.unexpected_msg == False)
-        assert(no_verack_idlenode.unexpected_msg == False)
+        assert no_version_bannode.unexpected_msg == False
+        assert no_version_idlenode.unexpected_msg == False
+        assert no_verack_idlenode.unexpected_msg == False
 
 
 if __name__ == '__main__':

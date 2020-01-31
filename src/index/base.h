@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The DigiByte Core developers
+// Copyright (c) 2017-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,7 +9,6 @@
 #include <primitives/block.h>
 #include <primitives/transaction.h>
 #include <threadinterrupt.h>
-#include <uint256.h>
 #include <validationinterface.h>
 
 class CBlockIndex;
@@ -32,7 +31,7 @@ protected:
         bool ReadBestBlock(CBlockLocator& locator) const;
 
         /// Write block locator of the chain that the txindex is in sync with.
-        bool WriteBestBlock(const CBlockLocator& locator);
+        void WriteBestBlock(CDBBatch& batch, const CBlockLocator& locator);
     };
 
 private:
@@ -54,8 +53,15 @@ private:
     /// over and the sync thread exits.
     void ThreadSync();
 
-    /// Write the current chain block locator to the DB.
-    bool WriteBestBlock(const CBlockIndex* block_index);
+    /// Write the current index state (eg. chain block locator and subclass-specific items) to disk.
+    ///
+    /// Recommendations for error handling:
+    /// If called on a successor of the previous committed best block in the index, the index can
+    /// continue processing without risk of corruption, though the index state will need to catch up
+    /// from further behind on reboot. If the new state is not a successor of the previous state (due
+    /// to a chain reorganization), the index must halt until Commit succeeds or else it could end up
+    /// getting corrupted.
+    bool Commit();
 
 protected:
     void BlockConnected(const std::shared_ptr<const CBlock>& block, const CBlockIndex* pindex,
@@ -68,6 +74,14 @@ protected:
 
     /// Write update index entries for a newly connected block.
     virtual bool WriteBlock(const CBlock& block, const CBlockIndex* pindex) { return true; }
+
+    /// Virtual method called internally by Commit that can be overridden to atomically
+    /// commit more index state.
+    virtual bool CommitInternal(CDBBatch& batch);
+
+    /// Rewind index to an earlier chain tip during a chain reorg. The tip must
+    /// be an ancestor of the current best block.
+    virtual bool Rewind(const CBlockIndex* current_tip, const CBlockIndex* new_tip);
 
     virtual DB& GetDB() const = 0;
 

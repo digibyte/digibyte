@@ -6,9 +6,17 @@
 """Test the listsincelast RPC."""
 
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_array_result, assert_raises_rpc_error
+from test_framework.messages import BIP125_SEQUENCE_NUMBER
+from test_framework.util import (
+    assert_array_result,
+    assert_equal,
+    assert_raises_rpc_error,
+    connect_nodes,
+)
 
-class ListSinceBlockTest (DigiByteTestFramework):
+from decimal import Decimal
+
+class ListSinceBlockTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
         self.setup_clean_chain = True
@@ -17,6 +25,9 @@ class ListSinceBlockTest (DigiByteTestFramework):
         self.skip_if_no_wallet()
 
     def run_test(self):
+        # All nodes are in IBD from genesis, so they'll need the miner (node2) to be an outbound connection, or have
+        # only one connection. (See fPreferredDownload in net_processing)
+        connect_nodes(self.nodes[1], 2)
         self.nodes[2].generate(101)
         self.sync_all()
 
@@ -25,10 +36,12 @@ class ListSinceBlockTest (DigiByteTestFramework):
         self.test_reorg()
         self.test_double_spend()
         self.test_double_send()
+        self.double_spends_filtered()
 
     def test_no_blockhash(self):
         txid = self.nodes[2].sendtoaddress(self.nodes[0].getnewaddress(), 1)
         blockhash, = self.nodes[2].generate(1)
+        blockheight = self.nodes[2].getblockheader(blockhash)['height']
         self.sync_all()
 
         txs = self.nodes[0].listtransactions()
@@ -36,6 +49,7 @@ class ListSinceBlockTest (DigiByteTestFramework):
             "category": "receive",
             "amount": 1,
             "blockhash": blockhash,
+            "blockheight": blockheight,
             "confirmations": 1,
         })
         assert_equal(
@@ -54,8 +68,10 @@ class ListSinceBlockTest (DigiByteTestFramework):
                                 "42759cde25462784395a337460bde75f58e73d3f08bd31fdc3507cbac856a2c4")
         assert_raises_rpc_error(-5, "Block not found", self.nodes[0].listsinceblock,
                                 "0000000000000000000000000000000000000000000000000000000000000000")
-        assert_raises_rpc_error(-5, "Block not found", self.nodes[0].listsinceblock,
+        assert_raises_rpc_error(-8, "blockhash must be of length 64 (not 11, for 'invalid-hex')", self.nodes[0].listsinceblock,
                                 "invalid-hex")
+        assert_raises_rpc_error(-8, "blockhash must be hexadecimal string (not 'Z000000000000000000000000000000000000000000000000000000000000000')", self.nodes[0].listsinceblock,
+                                "Z000000000000000000000000000000000000000000000000000000000000000")
 
     def test_reorg(self):
         '''
@@ -97,7 +113,8 @@ class ListSinceBlockTest (DigiByteTestFramework):
         self.nodes[2].generate(7)
         self.log.info('lastblockhash=%s' % (lastblockhash))
 
-        self.sync_all([self.nodes[:2], self.nodes[2:]])
+        self.sync_all(self.nodes[:2])
+        self.sync_all(self.nodes[2:])
 
         self.join_network()
 
@@ -262,7 +279,8 @@ class ListSinceBlockTest (DigiByteTestFramework):
         self.sync_all()
 
         # gettransaction should work for txid1
-        self.nodes[0].gettransaction(txid1)
+        tx1 = self.nodes[0].gettransaction(txid1)
+        assert_equal(tx1['blockheight'], self.nodes[0].getblockheader(tx1['blockhash'])['height'])
 
         # listsinceblock(lastblockhash) should now include txid1 in transactions
         # as well as in removed
@@ -279,6 +297,52 @@ class ListSinceBlockTest (DigiByteTestFramework):
         for tx in lsbres['removed']:
             if tx['txid'] == txid1:
                 assert_equal(tx['confirmations'], 2)
+
+    def double_spends_filtered(self):
+        '''
+        `listsinceblock` was returning conflicted transactions even if they
+        occurred before the specified cutoff blockhash
+        '''
+        spending_node = self.nodes[2]
+        dest_address = spending_node.getnewaddress()
+
+        tx_input = dict(
+            sequence=BIP125_SEQUENCE_NUMBER, **next(u for u in spending_node.listunspent()))
+        rawtx = spending_node.createrawtransaction(
+            [tx_input], {dest_address: tx_input["amount"] - Decimal("0.00051000"),
+                         spending_node.getrawchangeaddress(): Decimal("0.00050000")})
+        signedtx = spending_node.signrawtransactionwithwallet(rawtx)
+        orig_tx_id = spending_node.sendrawtransaction(signedtx["hex"])
+        original_tx = spending_node.gettransaction(orig_tx_id)
+
+        double_tx = spending_node.bumpfee(orig_tx_id)
+
+        # check that both transactions exist
+        block_hash = spending_node.listsinceblock(
+            spending_node.getblockhash(spending_node.getblockcount()))
+        original_found = False
+        double_found = False
+        for tx in block_hash['transactions']:
+            if tx['txid'] == original_tx['txid']:
+                original_found = True
+            if tx['txid'] == double_tx['txid']:
+                double_found = True
+        assert_equal(original_found, True)
+        assert_equal(double_found, True)
+
+        lastblockhash = spending_node.generate(1)[0]
+
+        # check that neither transaction exists
+        block_hash = spending_node.listsinceblock(lastblockhash)
+        original_found = False
+        double_found = False
+        for tx in block_hash['transactions']:
+            if tx['txid'] == original_tx['txid']:
+                original_found = True
+            if tx['txid'] == double_tx['txid']:
+                double_found = True
+        assert_equal(original_found, False)
+        assert_equal(double_found, False)
 
 if __name__ == '__main__':
     ListSinceBlockTest().main()

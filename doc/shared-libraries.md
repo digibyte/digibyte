@@ -7,11 +7,11 @@ The purpose of this library is to make the verification functionality that is cr
 
 ### API
 
-The interface is defined in the C header `digibyteconsensus.h` located in  `src/script/digibyteconsensus.h`.
+The interface is defined in the C header `digibyteconsensus.h` located in `src/script/digibyteconsensus.h`.
 
 #### Version
 
-`digibyteconsensus_version` returns an `unsigned int` with the API version *(currently at an experimental `0`)*.
+`digibyteconsensus_version` returns an `unsigned int` with the API version *(currently `1`)*.
 
 #### Script Validation
 

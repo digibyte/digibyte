@@ -17,7 +17,6 @@
 #include <util.h>
 #include <hash.h>
 #include <tinyformat.h>
-#include <utilstrencodings.h>
 #include <crypto/common.h>
 #include <arith_uint256.h>
 

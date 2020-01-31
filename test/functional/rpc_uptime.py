@@ -24,7 +24,7 @@ class UptimeTest(DigiByteTestFramework):
     def _test_uptime(self):
         wait_time = 10
         self.nodes[0].setmocktime(int(time.time() + wait_time))
-        assert(self.nodes[0].uptime() >= wait_time)
+        assert self.nodes[0].uptime() >= wait_time
 
 
 if __name__ == '__main__':

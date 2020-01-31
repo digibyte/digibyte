@@ -36,7 +36,8 @@ class MaxUploadTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
-        self.extra_args = [["-maxuploadtarget=800"]]
+        self.extra_args = [["-maxuploadtarget=800", "-acceptnonstdtxn=1"]]
+        self.supports_cli = False
 
         # Cache for utxos, as the listunspent may take a long time later in the test
         self.utxo_cache = []

@@ -4,9 +4,8 @@
 
 #include <bench/bench.h>
 
-#include <validation.h>
 #include <bech32.h>
-#include <utilstrencodings.h>
+#include <util/strencodings.h>
 
 #include <vector>
 #include <string>

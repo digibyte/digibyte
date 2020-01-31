@@ -3,7 +3,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <consensus/tx_verify.h>
+#include <consensus/tx_check.h>
 #include <consensus/validation.h>
 #include <test/data/sighash.json.h>
 #include <hash.h>
@@ -11,9 +11,9 @@
 #include <script/script.h>
 #include <serialize.h>
 #include <streams.h>
-#include <test/test_digibyte.h>
-#include <util.h>
-#include <utilstrencodings.h>
+#include <test/util/setup_common.h>
+#include <util/system.h>
+#include <util/strencodings.h>
 #include <version.h>
 
 #include <iostream>
@@ -106,7 +106,7 @@ void static RandomTransaction(CMutableTransaction &tx, bool fSingle) {
         txin.prevout.hash = InsecureRand256();
         txin.prevout.n = InsecureRandBits(2);
         RandomScript(txin.scriptSig);
-        txin.nSequence = (InsecureRandBool()) ? InsecureRand32() : (unsigned int)-1;
+        txin.nSequence = (InsecureRandBool()) ? InsecureRand32() : std::numeric_limits<uint32_t>::max();
     }
     for (int out = 0; out < outs; out++) {
         tx.vout.push_back(CTxOut());
@@ -120,8 +120,6 @@ BOOST_FIXTURE_TEST_SUITE(sighash_tests, BasicTestingSetup)
 
 BOOST_AUTO_TEST_CASE(sighash_test)
 {
-    SeedInsecureRand(false);
-
     #if defined(PRINT_SIGHASH_JSON)
     std::cout << "[\n";
     std::cout << "\t[\"raw_transaction, script, input_index, hashType, signature_hash (result)\"],\n";
@@ -138,7 +136,7 @@ BOOST_AUTO_TEST_CASE(sighash_test)
         int nIn = InsecureRandRange(txTo.vin.size());
 
         uint256 sh, sho;
-        sho = SignatureHashOld(scriptCode, txTo, nIn, nHashType);
+        sho = SignatureHashOld(scriptCode, CTransaction(txTo), nIn, nHashType);
         sh = SignatureHash(scriptCode, txTo, nIn, nHashType, 0, SigVersion::BASE);
         #if defined(PRINT_SIGHASH_JSON)
         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
@@ -194,7 +192,7 @@ BOOST_AUTO_TEST_CASE(sighash_from_data)
           CDataStream stream(ParseHex(raw_tx), SER_NETWORK, PROTOCOL_VERSION);
           stream >> tx;
 
-          CValidationState state;
+          TxValidationState state;
           BOOST_CHECK_MESSAGE(CheckTransaction(*tx, state), strTest);
           BOOST_CHECK(state.IsValid());
 

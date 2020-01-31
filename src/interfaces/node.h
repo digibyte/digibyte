@@ -1,14 +1,15 @@
-// Copyright (c) 2018 The DigiByte Core developers
+// Copyright (c) 2018-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_INTERFACES_NODE_H
 #define DIGIBYTE_INTERFACES_NODE_H
 
-#include <addrdb.h>     // For banmap_t
 #include <amount.h>     // For CAmount
 #include <net.h>        // For CConnman::NumConnections
+#include <net_types.h>  // For banmap_t
 #include <netaddress.h> // For Network
+#include <support/allocators/secure.h> // For SecureString
 
 #include <functional>
 #include <memory>
@@ -18,6 +19,7 @@
 #include <tuple>
 #include <vector>
 
+class BanMan;
 class CCoinControl;
 class CFeeRate;
 class CNodeStats;
@@ -26,6 +28,8 @@ class RPCTimerInterface;
 class UniValue;
 class proxyType;
 struct CNodeStateStats;
+struct NodeContext;
+enum class WalletCreationStatus;
 
 namespace interfaces {
 class Handler;
@@ -37,8 +41,14 @@ class Node
 public:
     virtual ~Node() {}
 
+    //! Send init error.
+    virtual void initError(const std::string& message) = 0;
+
     //! Set command line arguments.
     virtual bool parseParameters(int argc, const char* const argv[], std::string& error) = 0;
+
+    //! Set a command line argument
+    virtual void forceSetArg(const std::string& arg, const std::string& value) = 0;
 
     //! Set a command line argument if it doesn't already have a value
     virtual bool softSetArg(const std::string& arg, const std::string& value) = 0;
@@ -52,6 +62,12 @@ public:
     //! Choose network parameters.
     virtual void selectParams(const std::string& network) = 0;
 
+    //! Get the (assumed) blockchain size.
+    virtual uint64_t getAssumedBlockchainSize() = 0;
+
+    //! Get the (assumed) chain state size.
+    virtual uint64_t getAssumedChainStateSize() = 0;
+
     //! Get network name.
     virtual std::string getNetwork() = 0;
 
@@ -62,7 +78,7 @@ public:
     virtual void initParameterInteraction() = 0;
 
     //! Get warnings.
-    virtual std::string getWarnings(const std::string& type) = 0;
+    virtual std::string getWarnings() = 0;
 
     // Get log flags.
     virtual uint32_t getLogCategories() = 0;
@@ -107,7 +123,10 @@ public:
     //! Unban node.
     virtual bool unban(const CSubNet& ip) = 0;
 
-    //! Disconnect node.
+    //! Disconnect node by address.
+    virtual bool disconnect(const CNetAddr& net_addr) = 0;
+
+    //! Disconnect node by id.
     virtual bool disconnect(NodeId id) = 0;
 
     //! Get total bytes recv.
@@ -149,9 +168,6 @@ public:
     //! Get network active.
     virtual bool getNetworkActive() = 0;
 
-    //! Get max tx fee.
-    virtual CAmount getMaxTxFee() = 0;
-
     //! Estimate smart fee.
     virtual CFeeRate estimateSmartFee(int num_blocks, bool conservative, int* returned_target = nullptr) = 0;
 
@@ -173,8 +189,22 @@ public:
     //! Get unspent outputs associated with a transaction.
     virtual bool getUnspentOutput(const COutPoint& output, Coin& coin) = 0;
 
+    //! Return default wallet directory.
+    virtual std::string getWalletDir() = 0;
+
+    //! Return available wallets in wallet directory.
+    virtual std::vector<std::string> listWalletDir() = 0;
+
     //! Return interfaces for accessing wallets (if any).
     virtual std::vector<std::unique_ptr<Wallet>> getWallets() = 0;
+
+    //! Attempts to load a wallet from file or directory.
+    //! The loaded wallet is also notified to handlers previously registered
+    //! with handleLoadWallet.
+    virtual std::unique_ptr<Wallet> loadWallet(const std::string& name, std::string& error, std::vector<std::string>& warnings) = 0;
+
+    //! Create a wallet from file
+    virtual WalletCreationStatus createWallet(const SecureString& passphrase, uint64_t wallet_creation_flags, const std::string& name, std::string& error, std::vector<std::string>& warnings, std::unique_ptr<Wallet>& result) = 0;
 
     //! Register handler for init messages.
     using InitMessageFn = std::function<void(const std::string& message)>;
@@ -225,6 +255,9 @@ public:
     using NotifyHeaderTipFn =
         std::function<void(bool initial_download, int height, int64_t block_time, double verification_progress)>;
     virtual std::unique_ptr<Handler> handleNotifyHeaderTip(NotifyHeaderTipFn fn) = 0;
+
+    //! Return pointer to internal chain interface, useful for testing.
+    virtual NodeContext* context() { return nullptr; }
 };
 
 //! Return implementation of Node interface.

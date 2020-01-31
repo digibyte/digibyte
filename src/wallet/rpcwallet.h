@@ -6,16 +6,30 @@
 #ifndef DIGIBYTE_WALLET_RPCWALLET_H
 #define DIGIBYTE_WALLET_RPCWALLET_H
 
+#include <memory>
 #include <string>
+#include <vector>
 
 class CRPCTable;
 class CWallet;
 class JSONRPCRequest;
+class LegacyScriptPubKeyMan;
 class UniValue;
 struct PartiallySignedTransaction;
 class CTransaction;
 
-void RegisterWalletRPCCommands(CRPCTable &t);
+namespace interfaces {
+class Chain;
+class Handler;
+}
+
+//! Pointer to chain interface that needs to be declared as a global to be
+//! accessible loadwallet and createwallet methods. Due to limitations of the
+//! RPC framework, there's currently no direct way to pass in state to RPC
+//! methods without globals.
+extern interfaces::Chain* g_rpc_chain;
+
+void RegisterWalletRPCCommands(interfaces::Chain& chain, std::vector<std::unique_ptr<interfaces::Handler>>& handlers);
 
 /**
  * Figures out what wallet, if any, to use for a JSONRPCRequest.
@@ -25,11 +39,11 @@ void RegisterWalletRPCCommands(CRPCTable &t);
  */
 std::shared_ptr<CWallet> GetWalletForJSONRPCRequest(const JSONRPCRequest& request);
 
-std::string HelpRequiringPassphrase(CWallet *);
-void EnsureWalletIsUnlocked(CWallet *);
-bool EnsureWalletIsAvailable(CWallet *, bool avoidException);
+std::string HelpRequiringPassphrase(const CWallet*);
+void EnsureWalletIsUnlocked(const CWallet*);
+bool EnsureWalletIsAvailable(const CWallet*, bool avoidException);
+LegacyScriptPubKeyMan& EnsureLegacyScriptPubKeyMan(CWallet& wallet);
 
 UniValue getaddressinfo(const JSONRPCRequest& request);
 UniValue signrawtransactionwithwallet(const JSONRPCRequest& request);
-bool FillPSBT(const CWallet* pwallet, PartiallySignedTransaction& psbtx, int sighash_type = 1 /* SIGHASH_ALL */, bool sign = true, bool bip32derivs = false);
 #endif //DIGIBYTE_WALLET_RPCWALLET_H

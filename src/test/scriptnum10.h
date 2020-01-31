@@ -7,7 +7,6 @@
 #ifndef DIGIBYTE_TEST_SCRIPTNUM10_H
 #define DIGIBYTE_TEST_SCRIPTNUM10_H
 
-#include <algorithm>
 #include <limits>
 #include <stdexcept>
 #include <stdint.h>

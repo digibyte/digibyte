@@ -8,4 +8,3 @@ Description: Library for the DigiByte consensus protocol.
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -ldigibyteconsensus
 Cflags: -I${includedir}
-Requires.private: libcrypto

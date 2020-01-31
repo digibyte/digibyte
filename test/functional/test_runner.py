@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -7,8 +6,6 @@
 
 This module calls down into individual test cases via subprocess. It will
 forward all unrecognized arguments onto the individual test scripts.
-
-Functional tests are disabled on Windows by default. Use --force to run them anyway.
 
 For a description of arguments recognized by test scripts, see
 `test/functional/test_framework/test_framework.py:DigiByteTestFramework.main`.
@@ -30,7 +27,7 @@ import re
 import logging
 
 # Formatting. Default colors to empty strings.
-BOLD, BLUE, RED, GREY = ("", ""), ("", ""), ("", ""), ("", "")
+BOLD, GREEN, RED, GREY = ("", ""), ("", ""), ("", ""), ("", "")
 try:
     # Make sure python thinks it can write unicode to its stdout
     "\u2713".encode("utf_8").decode(sys.stdout.encoding)
@@ -42,27 +39,49 @@ except UnicodeDecodeError:
     CROSS = "x "
     CIRCLE = "o "
 
-if os.name == 'posix':
+if os.name != 'nt' or sys.getwindowsversion() >= (10, 0, 14393):
+    if os.name == 'nt':
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4
+        STD_OUTPUT_HANDLE = -11
+        STD_ERROR_HANDLE = -12
+        # Enable ascii color control to stdout
+        stdout = kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
+        stdout_mode = ctypes.c_int32()
+        kernel32.GetConsoleMode(stdout, ctypes.byref(stdout_mode))
+        kernel32.SetConsoleMode(stdout, stdout_mode.value | ENABLE_VIRTUAL_TERMINAL_PROCESSING)
+        # Enable ascii color control to stderr
+        stderr = kernel32.GetStdHandle(STD_ERROR_HANDLE)
+        stderr_mode = ctypes.c_int32()
+        kernel32.GetConsoleMode(stderr, ctypes.byref(stderr_mode))
+        kernel32.SetConsoleMode(stderr, stderr_mode.value | ENABLE_VIRTUAL_TERMINAL_PROCESSING)
     # primitive formatting on supported
     # terminal via ANSI escape sequences:
     BOLD = ('\033[0m', '\033[1m')
-    BLUE = ('\033[0m', '\033[0;34m')
+    GREEN = ('\033[0m', '\033[0;32m')
     RED = ('\033[0m', '\033[0;31m')
     GREY = ('\033[0m', '\033[1;30m')
 
 TEST_EXIT_PASSED = 0
 TEST_EXIT_SKIPPED = 77
 
-# 20 minutes represented in seconds
-TRAVIS_TIMEOUT_DURATION = 20 * 60
+EXTENDED_SCRIPTS = [
+    # These tests are not run by default.
+    # Longest test should go first, to favor running tests in parallel
+    'feature_pruning.py',
+    'feature_dbcrash.py',
+]
 
 BASE_SCRIPTS = [
-    # Scripts that are run by the travis build process.
+    # Scripts that are run by default.
     # Longest test should go first, to favor running tests in parallel
     'wallet_hd.py',
     'wallet_backup.py',
     'p2p_dandelion.py', # p2p dandelion anonymous tx test
     # vv Tests less than 5m vv
+    'mining_getblocktemplate_longpoll.py',
+    'feature_maxuploadtarget.py',
     'feature_block.py',
     'rpc_fundrawtransaction.py',
     'p2p_compactblocks.py',
@@ -71,6 +90,8 @@ BASE_SCRIPTS = [
     'wallet_basic.py',
     'wallet_labels.py',
     'p2p_segwit.py',
+    'p2p_timeouts.py',
+    'p2p_tx_download.py',
     'wallet_dump.py',
     'wallet_listtransactions.py',
     # vv Tests less than 60s vv
@@ -84,27 +105,39 @@ BASE_SCRIPTS = [
     'feature_csv_activation.py',
     'rpc_rawtransaction.py',
     'wallet_address_types.py',
+    'feature_bip68_sequence.py',
+    'p2p_feefilter.py',
     'feature_reindex.py',
+    'feature_abortnode.py',
     # vv Tests less than 30s vv
     'wallet_keypool_topup.py',
+    'feature_fee_estimation.py',
     'interface_zmq.py',
     'interface_digibyte_cli.py',
     'mempool_resurrect.py',
     'wallet_txn_doublespend.py --mineblock',
+    'tool_wallet.py',
     'wallet_txn_clone.py',
     'wallet_txn_clone.py --segwit',
     'rpc_getchaintips.py',
+    'rpc_misc.py',
     'interface_rest.py',
     'mempool_spend_coinbase.py',
+    'wallet_avoidreuse.py',
     'mempool_reorg.py',
     'mempool_persist.py',
     'wallet_multiwallet.py',
     'wallet_multiwallet.py --usecli',
-    'wallet_disableprivatekeys.py',
-    'wallet_disableprivatekeys.py --usecli',
+    'wallet_createwallet.py',
+    'wallet_createwallet.py --usecli',
+    'wallet_watchonly.py',
+    'wallet_watchonly.py --usecli',
+    'wallet_reorgsrestore.py',
     'interface_http.py',
+    'interface_rpc.py',
     'rpc_psbt.py',
     'rpc_users.py',
+    'rpc_whitelist.py',
     'feature_proxy.py',
     'rpc_signrawtransaction.py',
     'wallet_groups.py',
@@ -116,25 +149,41 @@ BASE_SCRIPTS = [
     'rpc_net.py',
     'wallet_keypool.py',
     'p2p_mempool.py',
+    'rpc_setban.py',
+    'p2p_blocksonly.py',
     'mining_prioritisetransaction.py',
     'p2p_invalid_locator.py',
     'p2p_invalid_block.py',
+    'p2p_invalid_messages.py',
     'p2p_invalid_tx.py',
+    'feature_assumevalid.py',
+    'example_test.py',
+    'wallet_txn_doublespend.py',
+    'wallet_txn_clone.py --mineblock',
+    'feature_notifications.py',
+    'rpc_getblockfilter.py',
+    'rpc_invalidateblock.py',
+    'feature_rbf.py',
+    'mempool_packages.py',
+    'mempool_package_onemore.py',
     'rpc_createmultisig.py',
     'feature_versionbits_warning.py',
     'rpc_preciousblock.py',
     'wallet_importprunedfunds.py',
-    'rpc_zmq.py',
+    'p2p_leak_tx.py',
     'rpc_signmessage.py',
     'wallet_balance.py',
     'feature_nulldummy.py',
     'mempool_accept.py',
     'wallet_import_rescan.py',
+    'wallet_import_with_label.py',
     'rpc_bind.py --ipv4',
     'rpc_bind.py --ipv6',
     'rpc_bind.py --nonloopback',
     'mining_basic.py',
     'wallet_bumpfee.py',
+    'wallet_bumpfee_totalfee_deprecation.py',
+    'wallet_implicitsegwit.py',
     'rpc_named_arguments.py',
     'wallet_listsinceblock.py',
     'p2p_leak.py',
@@ -144,47 +193,32 @@ BASE_SCRIPTS = [
     'rpc_uptime.py',
     'wallet_resendwallettransactions.py',
     'wallet_fallbackfee.py',
+    'rpc_dumptxoutset.py',
     'feature_minchainwork.py',
     'rpc_getblockstats.py',
+    'wallet_create_tx.py',
     'p2p_fingerprint.py',
     'feature_uacomment.py',
+    'wallet_coinbase_category.py',
+    'feature_filelock.py',
+    'feature_loadblock.py',
+    'p2p_dos_header_tree.py',
     'p2p_unrequested_blocks.py',
     'feature_includeconf.py',
+    'rpc_deriveaddresses.py',
+    'rpc_deriveaddresses.py --usecli',
     'rpc_scantxoutset.py',
     'feature_logging.py',
     'p2p_node_network_limited.py',
+    'p2p_permissions.py',
     'feature_blocksdir.py',
     'feature_config_args.py',
+    'rpc_getaddressinfo_labels_purpose_deprecation.py',
     'rpc_help.py',
     'feature_help.py',
+    'feature_shutdown.py',
     # Don't append tests at the end to avoid merge conflicts
     # Put them in a random line within the section that fits their approximate run-time
-]
-
-EXTENDED_SCRIPTS = [
-    # These tests are not run by the travis build process.
-    # Longest test should go first, to favor running tests in parallel
-    'feature_pruning.py',
-    # vv Tests less than 20m vv
-    'feature_fee_estimation.py',
-    # vv Tests less than 5m vv
-    'feature_maxuploadtarget.py',
-    'mempool_packages.py',
-    'feature_dbcrash.py',
-    # vv Tests less than 2m vv
-    'feature_bip68_sequence.py',
-    'mining_getblocktemplate_longpoll.py',
-    'p2p_timeouts.py',
-    # vv Tests less than 60s vv
-    'p2p_feefilter.py',
-    # vv Tests less than 30s vv
-    'feature_assumevalid.py',
-    'example_test.py',
-    'wallet_txn_doublespend.py',
-    'wallet_txn_clone.py --mineblock',
-    'feature_notifications.py',
-    'rpc_invalidateblock.py',
-    'feature_rbf.py',
 ]
 
 # Place EXTENDED_SCRIPTS first since it has the 3 longest running tests
@@ -205,18 +239,27 @@ def main():
                                      epilog='''
     Help text and arguments for individual test script:''',
                                      formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('--combinedlogslen', '-c', type=int, default=0, help='print a combined log (of length n lines) from all test nodes and test framework to the console on failure.')
+    parser.add_argument('--ansi', action='store_true', default=sys.stdout.isatty(), help="Use ANSI colors and dots in output (enabled by default when standard output is a TTY)")
+    parser.add_argument('--combinedlogslen', '-c', type=int, default=0, metavar='n', help='On failure, print a log (of length n lines) to the console, combined from the test framework and all test nodes.')
     parser.add_argument('--coverage', action='store_true', help='generate a basic coverage report for the RPC interface')
+    parser.add_argument('--ci', action='store_true', help='Run checks and code that are usually only enabled in a continuous integration environment')
     parser.add_argument('--exclude', '-x', help='specify a comma-separated-list of scripts to exclude.')
     parser.add_argument('--extended', action='store_true', help='run the extended test suite in addition to the basic tests')
-    parser.add_argument('--force', '-f', action='store_true', help='run tests even on platforms where they are disabled by default (e.g. windows).')
     parser.add_argument('--help', '-h', '-?', action='store_true', help='print help text and exit')
     parser.add_argument('--jobs', '-j', type=int, default=4, help='how many test scripts to run in parallel. Default=4.')
     parser.add_argument('--keepcache', '-k', action='store_true', help='the default behavior is to flush the cache directory on startup. --keepcache retains the cache from the previous testrun.')
-    parser.add_argument('--quiet', '-q', action='store_true', help='only print results summary and failure logs')
+    parser.add_argument('--quiet', '-q', action='store_true', help='only print dots, results summary and failure logs')
     parser.add_argument('--tmpdirprefix', '-t', default=tempfile.gettempdir(), help="Root directory for datadirs")
     parser.add_argument('--failfast', action='store_true', help='stop execution after the first test failure')
+    parser.add_argument('--filter', help='filter scripts to run by regular expression')
+
     args, unknown_args = parser.parse_known_args()
+    if not args.ansi:
+        global BOLD, GREEN, RED, GREY
+        BOLD = ("", "")
+        GREEN = ("", "")
+        RED = ("", "")
+        GREY = ("", "")
 
     # args to be passed on always start with two dashes; tests are the remaining unknown args
     tests = [arg for arg in unknown_args if arg[:2] != "--"]
@@ -235,17 +278,12 @@ def main():
 
     # Create base test directory
     tmpdir = "%s/test_runner_₿_🏃_%s" % (args.tmpdirprefix, datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
+
     os.makedirs(tmpdir)
 
     logging.debug("Temporary test directory at %s" % tmpdir)
 
     enable_digibyted = config["components"].getboolean("ENABLE_DIGIBYTED")
-
-    if config["environment"]["EXEEXT"] == ".exe" and not args.force:
-        # https://github.com/digibyte/digibyte/commit/d52802551752140cf41f0d9a225a43e84404d3e9
-        # https://github.com/digibyte/digibyte/pull/5677#issuecomment-136646964
-        print("Tests currently disabled on Windows by default. Use --force option to enable")
-        sys.exit(0)
 
     if not enable_digibyted:
         print("No functional tests to run.")
@@ -256,11 +294,22 @@ def main():
     test_list = []
     if tests:
         # Individual tests have been specified. Run specified tests that exist
-        # in the ALL_SCRIPTS list. Accept the name with or without .py extension.
-        tests = [re.sub("\.py$", "", test) + ".py" for test in tests]
+        # in the ALL_SCRIPTS list. Accept names with or without a .py extension.
+        # Specified tests can contain wildcards, but in that case the supplied
+        # paths should be coherent, e.g. the same path as that provided to call
+        # test_runner.py. Examples:
+        #   `test/functional/test_runner.py test/functional/wallet*`
+        #   `test/functional/test_runner.py ./test/functional/wallet*`
+        #   `test_runner.py wallet*`
+        #   but not:
+        #   `test/functional/test_runner.py wallet*`
+        # Multiple wildcards can be passed:
+        #   `test_runner.py tool* mempool*`
         for test in tests:
-            if test in ALL_SCRIPTS:
-                test_list.append(test)
+            script = test.split("/")[-1]
+            script = script + ".py" if ".py" not in script else script
+            if script in ALL_SCRIPTS:
+                test_list.append(script)
             else:
                 print("{}WARNING!{} Test '{}' not found in full test list.".format(BOLD[1], BOLD[0], test))
     elif args.extended:
@@ -272,12 +321,17 @@ def main():
 
     # Remove the test cases that the user has explicitly asked to exclude.
     if args.exclude:
-        exclude_tests = [re.sub("\.py$", "", test) + ".py" for test in args.exclude.split(',')]
+        exclude_tests = [test.split('.py')[0] for test in args.exclude.split(',')]
         for exclude_test in exclude_tests:
-            if exclude_test in test_list:
-                test_list.remove(exclude_test)
-            else:
+            # Remove <test_name>.py and <test_name>.py --arg from the test list
+            exclude_list = [test for test in test_list if test.split('.py')[0] == exclude_test]
+            for exclude_item in exclude_list:
+                test_list.remove(exclude_item)
+            if not exclude_list:
                 print("{}WARNING!{} Test '{}' not found in current test list.".format(BOLD[1], BOLD[0], exclude_test))
+
+    if args.filter:
+        test_list = list(filter(re.compile(args.filter).search, test_list))
 
     if not test_list:
         print("No valid test scripts specified. Check that your test is in one "
@@ -290,30 +344,33 @@ def main():
         subprocess.check_call([sys.executable, os.path.join(config["environment"]["SRCDIR"], 'test', 'functional', test_list[0].split()[0]), '-h'])
         sys.exit(0)
 
-    check_script_list(config["environment"]["SRCDIR"])
+    check_script_list(src_dir=config["environment"]["SRCDIR"], fail_on_warn=args.ci)
     check_script_prefixes()
 
     if not args.keepcache:
         shutil.rmtree("%s/test/cache" % config["environment"]["BUILDDIR"], ignore_errors=True)
 
     run_tests(
-        test_list,
-        config["environment"]["SRCDIR"],
-        config["environment"]["BUILDDIR"],
-        tmpdir,
+        test_list=test_list,
+        src_dir=config["environment"]["SRCDIR"],
+        build_dir=config["environment"]["BUILDDIR"],
+        tmpdir=tmpdir,
         jobs=args.jobs,
         enable_coverage=args.coverage,
         args=passon_args,
         combined_logs_len=args.combinedlogslen,
         failfast=args.failfast,
+        runs_ci=args.ci,
+        use_term_control=args.ansi,
     )
 
-def run_tests(test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=False, args=None, combined_logs_len=0, failfast=False):
+def run_tests(*, test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=False, args=None, combined_logs_len=0, failfast=False, runs_ci, use_term_control):
     args = args or []
 
-    # Warn if digibyted is already running (unix only)
+    # Warn if digibyted is already running
+    # pidof might fail or return an empty string if digibyted is not running
     try:
-        if subprocess.check_output(["pidof", "digibyted"]) is not None:
+        if subprocess.check_output(["pidof", "digibyted"]) not in [b'']:
             print("%sWARNING!%s There is already a digibyted process running on this system. Tests may fail unexpectedly due to resource contention!" % (BOLD[1], BOLD[0]))
     except (OSError, subprocess.SubprocessError):
         pass
@@ -343,22 +400,30 @@ def run_tests(test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=Fal
             raise
 
     #Run Tests
-    job_queue = TestHandler(jobs, tests_dir, tmpdir, test_list, flags)
+    job_queue = TestHandler(
+        num_tests_parallel=jobs,
+        tests_dir=tests_dir,
+        tmpdir=tmpdir,
+        test_list=test_list,
+        flags=flags,
+        timeout_duration=40 * 60 if runs_ci else float('inf'),  # in seconds
+        use_term_control=use_term_control,
+    )
     start_time = time.time()
     test_results = []
 
     max_len_name = len(max(test_list, key=len))
-
-    for _ in range(len(test_list)):
+    test_count = len(test_list)
+    for i in range(test_count):
         test_result, testdir, stdout, stderr = job_queue.get_next()
         test_results.append(test_result)
-
+        done_str = "{}/{} - {}{}{}".format(i + 1, test_count, BOLD[1], test_result.name, BOLD[0])
         if test_result.status == "Passed":
-            logging.debug("\n%s%s%s passed, Duration: %s s" % (BOLD[1], test_result.name, BOLD[0], test_result.time))
+            logging.debug("%s passed, Duration: %s s" % (done_str, test_result.time))
         elif test_result.status == "Skipped":
-            logging.debug("\n%s%s%s skipped" % (BOLD[1], test_result.name, BOLD[0]))
+            logging.debug("%s skipped" % (done_str))
         else:
-            print("\n%s%s%s failed, Duration: %s s\n" % (BOLD[1], test_result.name, BOLD[0], test_result.time))
+            print("%s failed, Duration: %s s\n" % (done_str, test_result.time))
             print(BOLD[1] + 'stdout:\n' + BOLD[0] + stdout + '\n')
             print(BOLD[1] + 'stderr:\n' + BOLD[0] + stderr + '\n')
             if combined_logs_len and os.path.isdir(testdir):
@@ -367,7 +432,10 @@ def run_tests(test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=Fal
                 print('\n============')
                 print('{}Combined log for {}:{}'.format(BOLD[1], testdir, BOLD[0]))
                 print('============\n')
-                combined_logs, _ = subprocess.Popen([sys.executable, os.path.join(tests_dir, 'combine_logs.py'), '-c', testdir], universal_newlines=True, stdout=subprocess.PIPE).communicate()
+                combined_logs_args = [sys.executable, os.path.join(tests_dir, 'combine_logs.py'), testdir]
+                if BOLD[0]:
+                    combined_logs_args += ['--color']
+                combined_logs, _ = subprocess.Popen(combined_logs_args, universal_newlines=True, stdout=subprocess.PIPE).communicate()
                 print("\n".join(deque(combined_logs.splitlines(), combined_logs_len)))
 
             if failfast:
@@ -377,16 +445,18 @@ def run_tests(test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=Fal
     print_results(test_results, max_len_name, (int(time.time() - start_time)))
 
     if coverage:
-        coverage.report_rpc_coverage()
+        coverage_passed = coverage.report_rpc_coverage()
 
         logging.debug("Cleaning up coverage data")
         coverage.cleanup()
+    else:
+        coverage_passed = True
 
     # Clear up the temp directory if all subdirectories are gone
     if not os.listdir(tmpdir):
         os.rmdir(tmpdir)
 
-    all_passed = all(map(lambda test_result: test_result.was_successful, test_results))
+    all_passed = all(map(lambda test_result: test_result.was_successful, test_results)) and coverage_passed
 
     # This will be a no-op unless failfast is True in which case there may be dangling
     # processes which need to be killed.
@@ -421,15 +491,17 @@ class TestHandler:
     Trigger the test scripts passed in via the list.
     """
 
-    def __init__(self, num_tests_parallel, tests_dir, tmpdir, test_list=None, flags=None):
-        assert(num_tests_parallel >= 1)
+    def __init__(self, *, num_tests_parallel, tests_dir, tmpdir, test_list, flags, timeout_duration, use_term_control):
+        assert num_tests_parallel >= 1
         self.num_jobs = num_tests_parallel
         self.tests_dir = tests_dir
         self.tmpdir = tmpdir
+        self.timeout_duration = timeout_duration
         self.test_list = test_list
         self.flags = flags
         self.num_running = 0
         self.jobs = []
+        self.use_term_control = use_term_control
 
     def get_next(self):
         while self.num_running < self.num_jobs and self.test_list:
@@ -454,13 +526,20 @@ class TestHandler:
                               log_stderr))
         if not self.jobs:
             raise IndexError('pop from empty list')
+
+        # Print remaining running jobs when all jobs have been started.
+        if not self.test_list:
+            print("Remaining jobs: [{}]".format(", ".join(j[0] for j in self.jobs)))
+
+        dot_count = 0
         while True:
             # Return first proc that finishes
             time.sleep(.5)
             for job in self.jobs:
                 (name, start_time, proc, testdir, log_out, log_err) = job
-                if os.getenv('TRAVIS') == 'true' and int(time.time() - start_time) > TRAVIS_TIMEOUT_DURATION:
-                    # In travis, timeout individual tests (to stop tests hanging and not providing useful output).
+                if int(time.time() - start_time) > self.timeout_duration:
+                    # Timeout individual tests if timeout is specified (to stop
+                    # tests hanging and not providing useful output).
                     proc.send_signal(signal.SIGINT)
                 if proc.poll() is not None:
                     log_out.seek(0), log_err.seek(0)
@@ -474,9 +553,14 @@ class TestHandler:
                         status = "Failed"
                     self.num_running -= 1
                     self.jobs.remove(job)
-
+                    if self.use_term_control:
+                        clearline = '\r' + (' ' * dot_count) + '\r'
+                        print(clearline, end='', flush=True)
+                    dot_count = 0
                     return TestResult(name, status, int(time.time() - start_time)), testdir, stdout, stderr
-            print('.', end='', flush=True)
+            if self.use_term_control:
+                print('.', end='', flush=True)
+            dot_count += 1
 
     def kill_and_join(self):
         """Send SIGKILL to all jobs and block until all have ended."""
@@ -506,7 +590,7 @@ class TestResult():
 
     def __repr__(self):
         if self.status == "Passed":
-            color = BLUE
+            color = GREEN
             glyph = TICK
         elif self.status == "Failed":
             color = RED
@@ -525,7 +609,7 @@ class TestResult():
 def check_script_prefixes():
     """Check that test scripts start with one of the allowed name prefixes."""
 
-    good_prefixes_re = re.compile("(example|feature|interface|mempool|mining|p2p|rpc|wallet)_")
+    good_prefixes_re = re.compile("(example|feature|interface|mempool|mining|p2p|rpc|wallet|tool)_")
     bad_script_names = [script for script in ALL_SCRIPTS if good_prefixes_re.match(script) is None]
 
     if bad_script_names:
@@ -534,7 +618,7 @@ def check_script_prefixes():
         raise AssertionError("Some tests are not following naming convention!")
 
 
-def check_script_list(src_dir):
+def check_script_list(*, src_dir, fail_on_warn):
     """Check scripts directory.
 
     Check that there are no scripts in the functional tests directory which are
@@ -544,9 +628,10 @@ def check_script_list(src_dir):
     missed_tests = list(python_files - set(map(lambda x: x.split()[0], ALL_SCRIPTS + NON_SCRIPTS)))
     if len(missed_tests) != 0:
         print("%sWARNING!%s The following scripts are not being run: %s. Check the test lists in test_runner.py." % (BOLD[1], BOLD[0], str(missed_tests)))
-        if os.getenv('TRAVIS') == 'true':
-            # On travis this warning is an error to prevent merging incomplete commits into master
+        if fail_on_warn:
+            # On CI this warning is an error to prevent merging incomplete commits into master
             sys.exit(1)
+
 
 class RPCCoverage():
     """
@@ -577,8 +662,10 @@ class RPCCoverage():
         if uncovered:
             print("Uncovered RPC commands:")
             print("".join(("  - %s\n" % command) for command in sorted(uncovered)))
+            return False
         else:
             print("All RPC commands covered.")
+            return True
 
     def cleanup(self):
         return shutil.rmtree(self.dir)
@@ -603,7 +690,7 @@ class RPCCoverage():
         with open(coverage_ref_filename, 'r', encoding="utf8") as coverage_ref_file:
             all_cmds.update([line.strip() for line in coverage_ref_file.readlines()])
 
-        for root, dirs, files in os.walk(self.dir):
+        for root, _, files in os.walk(self.dir):
             for filename in files:
                 if filename.startswith(coverage_file_prefix):
                     coverage_filenames.add(os.path.join(root, filename))

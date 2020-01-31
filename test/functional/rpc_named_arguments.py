@@ -14,11 +14,12 @@ from test_framework.util import (
 class NamedArgumentTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
+        self.supports_cli = False
 
     def run_test(self):
         node = self.nodes[0]
         h = node.help(command='getblockchaininfo')
-        assert(h.startswith('getblockchaininfo\n'))
+        assert h.startswith('getblockchaininfo\n')
 
         assert_raises_rpc_error(-8, 'Unknown named parameter', node.help, random='getblockchaininfo')
 

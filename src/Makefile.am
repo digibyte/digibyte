@@ -42,6 +42,7 @@ LIBDIGIBYTECONSENSUS=libdigibyteconsensus.la
 endif
 if ENABLE_WALLET
 LIBDIGIBYTE_WALLET=libdigibyte_wallet.a
+LIBDIGIBYTE_WALLET_TOOL=libdigibyte_wallet_tool.a
 endif
 
 LIBDIGIBYTE_CRYPTO= $(LIBDIGIBYTE_CRYPTO_BASE)
@@ -71,6 +72,7 @@ EXTRA_LIBRARIES += \
   $(LIBDIGIBYTE_SERVER) \
   $(LIBDIGIBYTE_CLI) \
   $(LIBDIGIBYTE_WALLET) \
+  $(LIBDIGIBYTE_WALLET_TOOL) \
   $(LIBDIGIBYTE_ZMQ)
 
 lib_LTLIBRARIES = $(LIBDIGIBYTECONSENSUS)
@@ -84,8 +86,16 @@ if BUILD_DIGIBYTED
   bin_PROGRAMS += digibyted
 endif
 
-if BUILD_DIGIBYTE_UTILS
-  bin_PROGRAMS += digibyte-cli digibyte-tx
+if BUILD_DIGIBYTE_CLI
+  bin_PROGRAMS += digibyte-cli
+endif
+if BUILD_DIGIBYTE_TX
+  bin_PROGRAMS += digibyte-tx
+endif
+if ENABLE_WALLET
+if BUILD_DIGIBYTE_WALLET
+  bin_PROGRAMS += digibyte-wallet
+endif
 endif
 
 .PHONY: FORCE check-symbols check-security
@@ -93,76 +103,97 @@ endif
 DIGIBYTE_CORE_H = \
   addrdb.h \
   addrman.h \
+  attributes.h \
+  banman.h \
   base58.h \
   bech32.h \
   bloom.h \
   blockencodings.h \
+  blockfilter.h \
   chain.h \
   chainparams.h \
   chainparamsbase.h \
   chainparamsseeds.h \
-  checkpoints.h \
   checkqueue.h \
   clientversion.h \
   coins.h \
   compat.h \
+  compat/assumptions.h \
   compat/byteswap.h \
+  compat/cpuid.h \
   compat/endian.h \
   compat/sanity.h \
   compressor.h \
   consensus/consensus.h \
+  consensus/tx_check.h \
   consensus/tx_verify.h \
   core_io.h \
   core_memusage.h \
   cuckoocache.h \
+  flatfile.h \
   fs.h \
   httprpc.h \
   httpserver.h \
   index/base.h \
+  index/blockfilterindex.h \
   index/txindex.h \
   indirectmap.h \
   init.h \
+  interfaces/chain.h \
   interfaces/handler.h \
   interfaces/node.h \
   interfaces/wallet.h \
   key.h \
   key_io.h \
-  keystore.h \
   dbwrapper.h \
   limitedmap.h \
   logging.h \
+  logging/timer.h \
   memusage.h \
   merkleblock.h \
   miner.h \
   net.h \
+  net_permissions.h \
   net_processing.h \
+  net_types.h \
   netaddress.h \
   netbase.h \
   netmessagemaker.h \
+  node/coin.h \
+  node/coinstats.h \
+  node/context.h \
+  node/psbt.h \
+  node/transaction.h \
+  node/utxo_snapshot.h \
   noui.h \
+  optional.h \
   outputtype.h \
   policy/feerate.h \
   policy/fees.h \
   policy/policy.h \
   policy/rbf.h \
+  policy/settings.h \
   pow.h \
   protocol.h \
+  psbt.h \
   random.h \
+  randomenv.h \
   reverse_iterator.h \
   reverselock.h \
   rpc/blockchain.h \
   rpc/client.h \
-  rpc/mining.h \
   rpc/protocol.h \
-  rpc/server.h \
-  rpc/rawtransaction.h \
+  rpc/rawtransaction_util.h \
   rpc/register.h \
+  rpc/request.h \
+  rpc/server.h \
   rpc/util.h \
   scheduler.h \
   script/descriptor.h \
-  script/ismine.h \
+  script/keyorigin.h \
   script/sigcache.h \
   script/sign.h \
+  script/signingprovider.h \
   script/standard.h \
   shutdown.h \
   streams.h \
@@ -180,22 +211,43 @@ DIGIBYTE_CORE_H = \
   txmempool.h \
   ui_interface.h \
   undo.h \
-  util.h \
-  utilmemory.h \
-  utilmoneystr.h \
-  utiltime.h \
+  util/bip32.h \
+  util/bytevectorhash.h \
+  util/check.h \
+  util/error.h \
+  util/fees.h \
+  util/spanparsing.h \
+  util/system.h \
+  util/macros.h \
+  util/memory.h \
+  util/moneystr.h \
+  util/rbf.h \
+  util/settings.h \
+  util/string.h \
+  util/threadnames.h \
+  util/time.h \
+  util/translation.h \
+  util/url.h \
+  util/validation.h \
+  util/vector.h \
   validation.h \
   validationinterface.h \
   versionbits.h \
+  versionbitsinfo.h \
   walletinitinterface.h \
   wallet/coincontrol.h \
   wallet/crypter.h \
   wallet/db.h \
   wallet/feebumper.h \
   wallet/fees.h \
+  wallet/ismine.h \
+  wallet/load.h \
+  wallet/psbtwallet.h \
   wallet/rpcwallet.h \
+  wallet/scriptpubkeyman.h \
   wallet/wallet.h \
   wallet/walletdb.h \
+  wallet/wallettool.h \
   wallet/walletutil.h \
   wallet/coinselection.h \
   warnings.h \
@@ -213,31 +265,41 @@ obj/build.h: FORCE
 libdigibyte_util_a-clientversion.$(OBJEXT): obj/build.h
 
 # server: shared between digibyted and digibyte-qt
+# Contains code accessing mempool and chain state that is meant to be separated
+# from wallet and gui code (see node/README.md). Shared code should go in
+# libdigibyte_common or libdigibyte_util libraries, instead.
 libdigibyte_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libdigibyte_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdigibyte_server_a_SOURCES = \
   addrdb.cpp \
   addrman.cpp \
-  bloom.cpp \
+  banman.cpp \
   blockencodings.cpp \
+  blockfilter.cpp \
   chain.cpp \
-  checkpoints.cpp \
   consensus/tx_verify.cpp \
+  flatfile.cpp \
   httprpc.cpp \
   httpserver.cpp \
   index/base.cpp \
+  index/blockfilterindex.cpp \
   index/txindex.cpp \
+  interfaces/chain.cpp \
+  interfaces/node.cpp \
   init.cpp \
   dbwrapper.cpp \
-  merkleblock.cpp \
   miner.cpp \
   net.cpp \
   net_processing.cpp \
+  node/coin.cpp \
+  node/coinstats.cpp \
+  node/context.cpp \
+  node/psbt.cpp \
+  node/transaction.cpp \
   noui.cpp \
-  outputtype.cpp \
   policy/fees.cpp \
-  policy/policy.cpp \
   policy/rbf.cpp \
+  policy/settings.cpp \
   pow.cpp \
   rest.cpp \
   rpc/blockchain.cpp \
@@ -246,7 +308,6 @@ libdigibyte_server_a_SOURCES = \
   rpc/net.cpp \
   rpc/rawtransaction.cpp \
   rpc/server.cpp \
-  rpc/util.cpp \
   script/sigcache.cpp \
   shutdown.cpp \
   timedata.cpp \
@@ -259,8 +320,15 @@ libdigibyte_server_a_SOURCES = \
   versionbits.cpp \
   $(DIGIBYTE_CORE_H)
 
+if ENABLE_WALLET
+libdigibyte_server_a_SOURCES += wallet/init.cpp
+endif
+if !ENABLE_WALLET
+libdigibyte_server_a_SOURCES += dummywallet.cpp
+endif
+
 if ENABLE_ZMQ
-libdigibyte_zmq_a_CPPFLAGS = $(DIGIBYTE_INCLUDES) $(ZMQ_CFLAGS)
+libdigibyte_zmq_a_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES) $(ZMQ_CFLAGS)
 libdigibyte_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdigibyte_zmq_a_SOURCES = \
   zmq/zmqabstractnotifier.cpp \
@@ -281,13 +349,21 @@ libdigibyte_wallet_a_SOURCES = \
   wallet/db.cpp \
   wallet/feebumper.cpp \
   wallet/fees.cpp \
-  wallet/init.cpp \
+  wallet/load.cpp \
+  wallet/psbtwallet.cpp \
   wallet/rpcdump.cpp \
   wallet/rpcwallet.cpp \
+  wallet/scriptpubkeyman.cpp \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
   wallet/walletutil.cpp \
   wallet/coinselection.cpp \
+  $(DIGIBYTE_CORE_H)
+
+libdigibyte_wallet_tool_a_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES)
+libdigibyte_wallet_tool_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libdigibyte_wallet_tool_a_SOURCES = \
+  wallet/wallettool.cpp \
   $(DIGIBYTE_CORE_H)
 
 # crypto primitives library
@@ -298,15 +374,21 @@ crypto_libdigibyte_crypto_base_a_SOURCES = \
   crypto/aes_helper.c \
   crypto/aes.h \
   crypto/brg_endian.h \
+  crypto/chacha_poly_aead.h \
+  crypto/chacha_poly_aead.cpp \
   crypto/chacha20.h \
   crypto/chacha20.cpp \
   crypto/common.h \
+  crypto/hkdf_sha256_32.cpp \
+  crypto/hkdf_sha256_32.h \
   crypto/hmac_sha256.cpp \
   crypto/hmac_sha256.h \
   crypto/hmac_sha512.cpp \
   crypto/hmac_sha512.h \
   crypto/KeccakP-800-reference.c \
   crypto/KeccakP-800-SnP.h \
+  crypto/poly1305.h \
+  crypto/poly1305.cpp \
   crypto/ripemd160.cpp \
   crypto/ripemd160.h \
   crypto/sha1.cpp \
@@ -314,8 +396,9 @@ crypto_libdigibyte_crypto_base_a_SOURCES = \
   crypto/sha256.cpp \
   crypto/sha256.h \
   crypto/sha512.cpp \
-  crypto/sha512.h 
-
+  crypto/sha512.h \
+  crypto/siphash.cpp \
+  crypto/siphash.h
 
 if USE_ASM
 crypto_libdigibyte_crypto_base_a_SOURCES += crypto/sha256_sse4.cpp
@@ -349,6 +432,7 @@ libdigibyte_consensus_a_SOURCES = \
   consensus/merkle.cpp \
   consensus/merkle.h \
   consensus/params.h \
+  consensus/tx_check.cpp \
   consensus/validation.h \
   crypto/blake.c \
   crypto/bmw.c \
@@ -403,8 +487,8 @@ libdigibyte_consensus_a_SOURCES = \
   tinyformat.h \
   uint256.cpp \
   uint256.h \
-  utilstrencodings.cpp \
-  utilstrencodings.h \
+  util/strencodings.cpp \
+  util/strencodings.h \
   version.h
 
 # common: shared between digibyted, and digibyte-qt and non-server tools
@@ -413,6 +497,7 @@ libdigibyte_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdigibyte_common_a_SOURCES = \
   base58.cpp \
   bech32.cpp \
+  bloom.cpp \
   chainparams.cpp \
   coins.cpp \
   compressor.cpp \
@@ -420,16 +505,23 @@ libdigibyte_common_a_SOURCES = \
   core_write.cpp \
   key.cpp \
   key_io.cpp \
-  keystore.cpp \
+  merkleblock.cpp \
   netaddress.cpp \
   netbase.cpp \
+  net_permissions.cpp \
+  outputtype.cpp \
   policy/feerate.cpp \
+  policy/policy.cpp \
   protocol.cpp \
+  psbt.cpp \
+  rpc/rawtransaction_util.cpp \
+  rpc/util.cpp \
   scheduler.cpp \
   script/descriptor.cpp \
-  script/ismine.cpp \
   script/sign.cpp \
+  script/signingprovider.cpp \
   script/standard.cpp \
+  versionbitsinfo.cpp \
   warnings.cpp \
   $(DIGIBYTE_CORE_H)
 
@@ -442,22 +534,34 @@ libdigibyte_util_a_SOURCES = \
   support/lockedpool.cpp \
   chainparamsbase.cpp \
   clientversion.cpp \
+  compat/glibc_sanity_fdelt.cpp \
   compat/glibc_sanity.cpp \
   compat/glibcxx_sanity.cpp \
   compat/strnlen.cpp \
   fs.cpp \
   interfaces/handler.cpp \
-  interfaces/node.cpp \
   logging.cpp \
   random.cpp \
-  rpc/protocol.cpp \
+  randomenv.cpp \
+  rpc/request.cpp \
   support/cleanse.cpp \
   sync.cpp \
   threadinterrupt.cpp \
-  util.cpp \
-  utilmoneystr.cpp \
-  utilstrencodings.cpp \
-  utiltime.cpp \
+  util/bip32.cpp \
+  util/bytevectorhash.cpp \
+  util/error.cpp \
+  util/fees.cpp \
+  util/system.cpp \
+  util/moneystr.cpp \
+  util/rbf.cpp \
+  util/settings.cpp \
+  util/threadnames.cpp \
+  util/spanparsing.cpp \
+  util/strencodings.cpp \
+  util/string.cpp \
+  util/time.cpp \
+  util/url.cpp \
+  util/validation.cpp \
   $(DIGIBYTE_CORE_H)
 
 if GLIBC_BACK_COMPAT
@@ -541,10 +645,37 @@ digibyte_tx_LDADD = \
 digibyte_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
+# digibyte-wallet binary #
+digibyte_wallet_SOURCES = digibyte-wallet.cpp
+digibyte_wallet_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES)
+digibyte_wallet_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+digibyte_wallet_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+
+if TARGET_WINDOWS
+digibyte_wallet_SOURCES += digibyte-wallet-res.rc
+endif
+
+digibyte_wallet_LDADD = \
+  $(LIBDIGIBYTE_WALLET_TOOL) \
+  $(LIBDIGIBYTE_WALLET) \
+  $(LIBDIGIBYTE_COMMON) \
+  $(LIBDIGIBYTE_CONSENSUS) \
+  $(LIBDIGIBYTE_UTIL) \
+  $(LIBDIGIBYTE_CRYPTO) \
+  $(LIBDIGIBYTE_ZMQ) \
+  $(LIBLEVELDB) \
+  $(LIBLEVELDB_SSE42) \
+  $(LIBMEMENV) \
+  $(LIBSECP256K1) \
+  $(LIBUNIVALUE)
+
+digibyte_wallet_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(MINIUPNPC_LIBS) $(ZMQ_LIBS) $(CRYPTO_LIBS)
+#
+
 # digibyteconsensus library #
 if BUILD_DIGIBYTE_LIBS
 include_HEADERS = script/digibyteconsensus.h
-libdigibyteconsensus_la_SOURCES = $(crypto_libdigibyte_crypto_base_a_SOURCES) $(libdigibyte_consensus_a_SOURCES)
+libdigibyteconsensus_la_SOURCES = support/cleanse.cpp $(crypto_libdigibyte_crypto_base_a_SOURCES) $(libdigibyte_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
   libdigibyteconsensus_la_SOURCES += compat/glibc_compat.cpp
@@ -603,24 +734,27 @@ clean-local:
 	$(AM_V_GEN) $(WINDRES) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(CPPFLAGS) -DWINDRES_PREPROC -i $< -o $@
 
 check-symbols: $(bin_PROGRAMS)
+if TARGET_DARWIN
+	@echo "Checking macOS dynamic libraries..."
+	$(AM_V_at) OTOOL=$(OTOOL) $(PYTHON) $(top_srcdir)/contrib/devtools/symbol-check.py $(bin_PROGRAMS)
+endif
+
 if GLIBC_BACK_COMPAT
 	@echo "Checking glibc back compat..."
-	$(AM_V_at) READELF=$(READELF) CPPFILT=$(CPPFILT) $(top_srcdir)/contrib/devtools/symbol-check.py < $(bin_PROGRAMS)
+	$(AM_V_at) READELF=$(READELF) CPPFILT=$(CPPFILT) $(PYTHON) $(top_srcdir)/contrib/devtools/symbol-check.py $(bin_PROGRAMS)
 endif
 
 check-security: $(bin_PROGRAMS)
 if HARDEN
 	@echo "Checking binary security..."
-	$(AM_V_at) READELF=$(READELF) OBJDUMP=$(OBJDUMP) $(top_srcdir)/contrib/devtools/security-check.py < $(bin_PROGRAMS)
+	$(AM_V_at) READELF=$(READELF) OBJDUMP=$(OBJDUMP) OTOOL=$(OTOOL) $(PYTHON) $(top_srcdir)/contrib/devtools/security-check.py $(bin_PROGRAMS)
 endif
-
-%.pb.cc %.pb.h: %.proto
-	@test -f $(PROTOC)
-	$(AM_V_GEN) $(PROTOC) --cpp_out=$(@D) --proto_path=$(<D) $<
 
 if EMBEDDED_LEVELDB
 include Makefile.leveldb.include
 endif
+
+include Makefile.test_util.include
 
 if ENABLE_TESTS
 include Makefile.test.include

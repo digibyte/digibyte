@@ -1,19 +1,17 @@
-// Copyright (c) 2016-2018 The DigiByte Core developers
+// Copyright (c) 2016-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <iostream>
 
 #include <bench/bench.h>
-#include <bloom.h>
 #include <hash.h>
 #include <random.h>
 #include <uint256.h>
-#include <utiltime.h>
 #include <crypto/ripemd160.h>
 #include <crypto/sha1.h>
 #include <crypto/sha256.h>
 #include <crypto/sha512.h>
+#include <crypto/siphash.h>
 
 /* Number of bytes to hash per iteration */
 static const uint64_t BUFFER_SIZE = 1000*1000;
@@ -80,18 +78,16 @@ static void SipHash_32b(benchmark::State& state)
 static void FastRandom_32bit(benchmark::State& state)
 {
     FastRandomContext rng(true);
-    uint32_t x = 0;
     while (state.KeepRunning()) {
-        x += rng.rand32();
+        rng.rand32();
     }
 }
 
 static void FastRandom_1bit(benchmark::State& state)
 {
     FastRandomContext rng(true);
-    uint32_t x = 0;
     while (state.KeepRunning()) {
-        x += rng.randbool();
+        rng.randbool();
     }
 }
 

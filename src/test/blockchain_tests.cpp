@@ -1,9 +1,14 @@
+// Copyright (c) 2017-2019 The DigiByte Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include <boost/test/unit_test.hpp>
 
 #include <stdlib.h>
 
+#include <chain.h>
 #include <rpc/blockchain.h>
-#include <test/test_digibyte.h>
+#include <test/util/setup_common.h>
 
 /* Equality between doubles is imprecise. Comparison should be done
  * with a small threshold of tolerance, rather than exact equality.
@@ -66,13 +71,6 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_high_target)
 BOOST_AUTO_TEST_CASE(get_difficulty_for_very_high_target)
 {
     TestDifficulty(0x12345678, 5913134931067755359633408.0);
-}
-
-// Verify that difficulty is 1.0 for an empty chain.
-BOOST_AUTO_TEST_CASE(get_difficulty_for_null_tip)
-{
-    double difficulty = GetDifficulty(nullptr);
-    RejectDifficultyMismatch(difficulty, 1.0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

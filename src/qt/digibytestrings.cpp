@@ -9,14 +9,13 @@
 #define UNUSED
 #endif
 static const char UNUSED *digibyte_strings[] = {
-QT_TRANSLATE_NOOP("digibyte-core", "DigiByte Core"),
 QT_TRANSLATE_NOOP("digibyte-core", "The %s developers"),
 QT_TRANSLATE_NOOP("digibyte-core", ""
 "-maxtxfee is set very high! Fees this large could be paid on a single "
 "transaction."),
 QT_TRANSLATE_NOOP("digibyte-core", ""
-"Can't generate a change-address key. Private keys are disabled for this "
-"wallet."),
+"Can't generate a change-address key. No keys in the internal keypool and "
+"can't generate any keys."),
 QT_TRANSLATE_NOOP("digibyte-core", ""
 "Cannot obtain a lock on data directory %s. %s is probably already running."),
 QT_TRANSLATE_NOOP("digibyte-core", ""
@@ -30,8 +29,6 @@ QT_TRANSLATE_NOOP("digibyte-core", ""
 "Distributed under the MIT software license, see the accompanying file %s or "
 "%s"),
 QT_TRANSLATE_NOOP("digibyte-core", ""
-"Error loading %s: You can't enable HD on an already existing non-HD wallet"),
-QT_TRANSLATE_NOOP("digibyte-core", ""
 "Error reading %s! All keys read correctly, but transaction data or address "
 "book entries might be missing or incorrect."),
 QT_TRANSLATE_NOOP("digibyte-core", ""
@@ -39,12 +36,6 @@ QT_TRANSLATE_NOOP("digibyte-core", ""
 QT_TRANSLATE_NOOP("digibyte-core", ""
 "Fee estimation failed. Fallbackfee is disabled. Wait a few blocks or enable -"
 "fallbackfee."),
-QT_TRANSLATE_NOOP("digibyte-core", ""
-"Group outputs by address, selecting all or none, instead of selecting on a "
-"per-output basis. Privacy is improved as an address is only used once "
-"(unless someone sends to it after spending from it), but may result in "
-"slightly higher fees as suboptimal coin selection may result due to the "
-"added limitation (default: %u)"),
 QT_TRANSLATE_NOOP("digibyte-core", ""
 "Invalid amount for -maxtxfee=<amount>: '%s' (must be at least the minrelay "
 "fee of %s to prevent stuck transactions)"),
@@ -91,19 +82,10 @@ QT_TRANSLATE_NOOP("digibyte-core", ""
 "Unable to rewind the database to a pre-fork state. You will need to "
 "redownload the blockchain"),
 QT_TRANSLATE_NOOP("digibyte-core", ""
-"Unsupported argument -socks found. Setting SOCKS version isn't possible "
-"anymore, only SOCKS5 proxies are supported."),
-QT_TRANSLATE_NOOP("digibyte-core", ""
-"Unsupported argument -whitelistalwaysrelay ignored, use -whitelistrelay and/"
-"or -whitelistforcerelay."),
-QT_TRANSLATE_NOOP("digibyte-core", ""
 "Warning: Private keys detected in wallet {%s} with disabled private keys"),
 QT_TRANSLATE_NOOP("digibyte-core", ""
 "Warning: The network does not appear to fully agree! Some miners appear to "
 "be experiencing issues."),
-QT_TRANSLATE_NOOP("digibyte-core", ""
-"Warning: Unknown block versions being mined! It's possible unknown rules are "
-"in effect"),
 QT_TRANSLATE_NOOP("digibyte-core", ""
 "Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; "
 "if your balance or transactions are incorrect you should restore from a "
@@ -122,41 +104,39 @@ QT_TRANSLATE_NOOP("digibyte-core", "Cannot downgrade wallet"),
 QT_TRANSLATE_NOOP("digibyte-core", "Cannot resolve -%s address: '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Cannot write to data directory '%s'; check permissions."),
 QT_TRANSLATE_NOOP("digibyte-core", "Change index out of range"),
+QT_TRANSLATE_NOOP("digibyte-core", "Config setting for %s only applied on %s network when in [%s] section."),
 QT_TRANSLATE_NOOP("digibyte-core", "Copyright (C) %i-%i"),
 QT_TRANSLATE_NOOP("digibyte-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("digibyte-core", "Do you want to rebuild the block database now?"),
 QT_TRANSLATE_NOOP("digibyte-core", "Done loading"),
-QT_TRANSLATE_NOOP("digibyte-core", "Error creating %s: You can't create non-HD wallets with this version."),
 QT_TRANSLATE_NOOP("digibyte-core", "Error initializing block database"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error initializing wallet database environment %s!"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error loading %s"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error loading %s: Private keys can only be disabled during creation"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error loading %s: Wallet corrupted"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error loading %s: Wallet requires newer version of %s"),
-QT_TRANSLATE_NOOP("digibyte-core", "Error loading %s: You can't disable HD on an already existing HD wallet"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error loading block database"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error loading wallet %s. Duplicate -wallet filename specified."),
 QT_TRANSLATE_NOOP("digibyte-core", "Error opening block database"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error reading from database, shutting down."),
 QT_TRANSLATE_NOOP("digibyte-core", "Error upgrading chainstate database"),
-QT_TRANSLATE_NOOP("digibyte-core", "Error"),
 QT_TRANSLATE_NOOP("digibyte-core", "Error: A fatal internal error occurred, see debug.log for details"),
-QT_TRANSLATE_NOOP("digibyte-core", "Error: Disk space is low!"),
+QT_TRANSLATE_NOOP("digibyte-core", "Error: Disk space is low for %s"),
+QT_TRANSLATE_NOOP("digibyte-core", "Error: Disk space is too low!"),
 QT_TRANSLATE_NOOP("digibyte-core", "Failed to listen on any port. Use -listen=0 if you want this."),
 QT_TRANSLATE_NOOP("digibyte-core", "Failed to rescan the wallet during initialization"),
 QT_TRANSLATE_NOOP("digibyte-core", "Importing..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Incorrect or no genesis block found. Wrong datadir for network?"),
-QT_TRANSLATE_NOOP("digibyte-core", "Information"),
 QT_TRANSLATE_NOOP("digibyte-core", "Initialization sanity check failed. %s is shutting down."),
 QT_TRANSLATE_NOOP("digibyte-core", "Insufficient funds"),
 QT_TRANSLATE_NOOP("digibyte-core", "Invalid -onion address or hostname: '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Invalid -proxy address or hostname: '%s'"),
+QT_TRANSLATE_NOOP("digibyte-core", "Invalid P2P permission: '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Invalid amount for -%s=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Invalid amount for -discardfee=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Invalid amount for -fallbackfee=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Invalid amount for -paytxfee=<amount>: '%s' (must be at least %s)"),
 QT_TRANSLATE_NOOP("digibyte-core", "Invalid netmask specified in -whitelist: '%s'"),
-QT_TRANSLATE_NOOP("digibyte-core", "Keypool ran out, please call keypoolrefill first"),
 QT_TRANSLATE_NOOP("digibyte-core", "Loading P2P addresses..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Loading banlist..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Loading block index..."),
@@ -164,12 +144,14 @@ QT_TRANSLATE_NOOP("digibyte-core", "Loading wallet..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Need to specify a port with -whitebind: '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Not enough file descriptors available."),
 QT_TRANSLATE_NOOP("digibyte-core", "Prune cannot be configured with a negative value."),
+QT_TRANSLATE_NOOP("digibyte-core", "Prune mode is incompatible with -blockfilterindex."),
 QT_TRANSLATE_NOOP("digibyte-core", "Prune mode is incompatible with -txindex."),
 QT_TRANSLATE_NOOP("digibyte-core", "Pruning blockstore..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Reducing -maxconnections from %d to %d, because of system limitations."),
 QT_TRANSLATE_NOOP("digibyte-core", "Replaying blocks..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Rescanning..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Rewinding blocks..."),
+QT_TRANSLATE_NOOP("digibyte-core", "Section [%s] is not recognized."),
 QT_TRANSLATE_NOOP("digibyte-core", "Signing transaction failed"),
 QT_TRANSLATE_NOOP("digibyte-core", "Specified -walletdir \"%s\" does not exist"),
 QT_TRANSLATE_NOOP("digibyte-core", "Specified -walletdir \"%s\" is a relative path"),
@@ -177,6 +159,7 @@ QT_TRANSLATE_NOOP("digibyte-core", "Specified -walletdir \"%s\" is not a directo
 QT_TRANSLATE_NOOP("digibyte-core", "Specified blocks directory \"%s\" does not exist."),
 QT_TRANSLATE_NOOP("digibyte-core", "Starting network threads..."),
 QT_TRANSLATE_NOOP("digibyte-core", "The source code is available from %s."),
+QT_TRANSLATE_NOOP("digibyte-core", "The specified config file %s does not exist\n"),
 QT_TRANSLATE_NOOP("digibyte-core", "The transaction amount is too small to pay the fee"),
 QT_TRANSLATE_NOOP("digibyte-core", "The wallet will avoid paying less than the minimum relay fee."),
 QT_TRANSLATE_NOOP("digibyte-core", "This is experimental software."),
@@ -187,26 +170,24 @@ QT_TRANSLATE_NOOP("digibyte-core", "Transaction amounts must not be negative"),
 QT_TRANSLATE_NOOP("digibyte-core", "Transaction fee and change calculation failed"),
 QT_TRANSLATE_NOOP("digibyte-core", "Transaction has too long of a mempool chain"),
 QT_TRANSLATE_NOOP("digibyte-core", "Transaction must have at least one recipient"),
-QT_TRANSLATE_NOOP("digibyte-core", "Transaction too large for fee policy"),
 QT_TRANSLATE_NOOP("digibyte-core", "Transaction too large"),
 QT_TRANSLATE_NOOP("digibyte-core", "Unable to bind to %s on this computer (bind returned error %s)"),
 QT_TRANSLATE_NOOP("digibyte-core", "Unable to bind to %s on this computer. %s is probably already running."),
+QT_TRANSLATE_NOOP("digibyte-core", "Unable to create the PID file '%s': %s"),
 QT_TRANSLATE_NOOP("digibyte-core", "Unable to generate initial keys"),
 QT_TRANSLATE_NOOP("digibyte-core", "Unable to generate keys"),
 QT_TRANSLATE_NOOP("digibyte-core", "Unable to start HTTP server. See debug log for details."),
+QT_TRANSLATE_NOOP("digibyte-core", "Unknown -blockfilterindex value %s."),
+QT_TRANSLATE_NOOP("digibyte-core", "Unknown address type '%s'"),
+QT_TRANSLATE_NOOP("digibyte-core", "Unknown change type '%s'"),
 QT_TRANSLATE_NOOP("digibyte-core", "Unknown network specified in -onlynet: '%s'"),
-QT_TRANSLATE_NOOP("digibyte-core", "Unsupported argument -benchmark ignored, use -debug=bench."),
-QT_TRANSLATE_NOOP("digibyte-core", "Unsupported argument -debugnet ignored, use -debug=net."),
-QT_TRANSLATE_NOOP("digibyte-core", "Unsupported argument -tor found, use -onion."),
 QT_TRANSLATE_NOOP("digibyte-core", "Unsupported logging category %s=%s."),
 QT_TRANSLATE_NOOP("digibyte-core", "Upgrading UTXO database"),
 QT_TRANSLATE_NOOP("digibyte-core", "Upgrading txindex database"),
 QT_TRANSLATE_NOOP("digibyte-core", "User Agent comment (%s) contains unsafe characters."),
 QT_TRANSLATE_NOOP("digibyte-core", "Verifying blocks..."),
 QT_TRANSLATE_NOOP("digibyte-core", "Verifying wallet(s)..."),
-QT_TRANSLATE_NOOP("digibyte-core", "Wallet %s resides outside wallet directory %s"),
 QT_TRANSLATE_NOOP("digibyte-core", "Wallet needed to be rewritten: restart %s to complete"),
-QT_TRANSLATE_NOOP("digibyte-core", "Warning"),
 QT_TRANSLATE_NOOP("digibyte-core", "Warning: unknown new rules activated (versionbit %i)"),
 QT_TRANSLATE_NOOP("digibyte-core", "Zapping all transactions from wallet..."),
 };

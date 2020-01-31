@@ -114,8 +114,8 @@ public:
 OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OverviewPage),
-    clientModel(0),
-    walletModel(0),
+    clientModel(nullptr),
+    walletModel(nullptr),
     txdelegate(new TxViewDelegate(platformStyle, this))
 {
     ui->setupUi(this);
@@ -136,12 +136,12 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
     ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+    connect(ui->listTransactions, &QListView::clicked, this, &OverviewPage::handleTransactionClicked);
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
-    connect(ui->labelWalletStatus, SIGNAL(clicked()), this, SLOT(handleOutOfSyncWarningClicks()));
-    connect(ui->labelTransactionsStatus, SIGNAL(clicked()), this, SLOT(handleOutOfSyncWarningClicks()));
+    connect(ui->labelWalletStatus, &QPushButton::clicked, this, &OverviewPage::handleOutOfSyncWarningClicks);
+    connect(ui->labelTransactionsStatus, &QPushButton::clicked, this, &OverviewPage::handleOutOfSyncWarningClicks);
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
@@ -164,15 +164,21 @@ void OverviewPage::setBalance(const interfaces::WalletBalances& balances)
 {
     int unit = walletModel->getOptionsModel()->getDisplayUnit();
     m_balances = balances;
-    ui->labelBalance->setText(DigiByteUnits::formatWithUnit(unit, balances.balance, false, DigiByteUnits::separatorAlways));
-    ui->labelUnconfirmed->setText(DigiByteUnits::formatWithUnit(unit, balances.unconfirmed_balance, false, DigiByteUnits::separatorAlways));
-    ui->labelImmature->setText(DigiByteUnits::formatWithUnit(unit, balances.immature_balance, false, DigiByteUnits::separatorAlways));
-    ui->labelTotal->setText(DigiByteUnits::formatWithUnit(unit, balances.balance + balances.unconfirmed_balance + balances.immature_balance, false, DigiByteUnits::separatorAlways));
-    ui->labelWatchAvailable->setText(DigiByteUnits::formatWithUnit(unit, balances.watch_only_balance, false, DigiByteUnits::separatorAlways));
-    ui->labelWatchPending->setText(DigiByteUnits::formatWithUnit(unit, balances.unconfirmed_watch_only_balance, false, DigiByteUnits::separatorAlways));
-    ui->labelWatchImmature->setText(DigiByteUnits::formatWithUnit(unit, balances.immature_watch_only_balance, false, DigiByteUnits::separatorAlways));
-    ui->labelWatchTotal->setText(DigiByteUnits::formatWithUnit(unit, balances.watch_only_balance + balances.unconfirmed_watch_only_balance + balances.immature_watch_only_balance, false, DigiByteUnits::separatorAlways));
-
+    if (walletModel->privateKeysDisabled()) {
+        ui->labelBalance->setText(DigiByteUnits::formatWithUnit(unit, balances.watch_only_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelUnconfirmed->setText(DigiByteUnits::formatWithUnit(unit, balances.unconfirmed_watch_only_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelImmature->setText(DigiByteUnits::formatWithUnit(unit, balances.immature_watch_only_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelTotal->setText(DigiByteUnits::formatWithUnit(unit, balances.watch_only_balance + balances.unconfirmed_watch_only_balance + balances.immature_watch_only_balance, false, DigiByteUnits::separatorAlways));
+    } else {
+        ui->labelBalance->setText(DigiByteUnits::formatWithUnit(unit, balances.balance, false, DigiByteUnits::separatorAlways));
+        ui->labelUnconfirmed->setText(DigiByteUnits::formatWithUnit(unit, balances.unconfirmed_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelImmature->setText(DigiByteUnits::formatWithUnit(unit, balances.immature_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelTotal->setText(DigiByteUnits::formatWithUnit(unit, balances.balance + balances.unconfirmed_balance + balances.immature_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelWatchAvailable->setText(DigiByteUnits::formatWithUnit(unit, balances.watch_only_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelWatchPending->setText(DigiByteUnits::formatWithUnit(unit, balances.unconfirmed_watch_only_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelWatchImmature->setText(DigiByteUnits::formatWithUnit(unit, balances.immature_watch_only_balance, false, DigiByteUnits::separatorAlways));
+        ui->labelWatchTotal->setText(DigiByteUnits::formatWithUnit(unit, balances.watch_only_balance + balances.unconfirmed_watch_only_balance + balances.immature_watch_only_balance, false, DigiByteUnits::separatorAlways));
+    }
     // only show immature (newly mined) balance if it's non-zero, so as not to complicate things
     // for the non-mining users
     bool showImmature = balances.immature_balance != 0;
@@ -181,7 +187,7 @@ void OverviewPage::setBalance(const interfaces::WalletBalances& balances)
     // for symmetry reasons also show immature label when the watch-only one is shown
     ui->labelImmature->setVisible(showImmature || showWatchOnlyImmature);
     ui->labelImmatureText->setVisible(showImmature || showWatchOnlyImmature);
-    ui->labelWatchImmature->setVisible(showWatchOnlyImmature); // show watch-only immature balance
+    ui->labelWatchImmature->setVisible(!walletModel->privateKeysDisabled() && showWatchOnlyImmature); // show watch-only immature balance
 }
 
 // show/hide watch-only labels
@@ -201,10 +207,9 @@ void OverviewPage::updateWatchOnlyLabels(bool showWatchOnly)
 void OverviewPage::setClientModel(ClientModel *model)
 {
     this->clientModel = model;
-    if(model)
-    {
-        // Show warning if this is a prerelease version
-        connect(model, SIGNAL(alertsChanged(QString)), this, SLOT(updateAlerts(QString)));
+    if (model) {
+        // Show warning, for example if this is a prerelease version
+        connect(model, &ClientModel::alertsChanged, this, &OverviewPage::updateAlerts);
         updateAlerts(model->getStatusBarWarnings());
     }
 }
@@ -230,12 +235,14 @@ void OverviewPage::setWalletModel(WalletModel *model)
         interfaces::Wallet& wallet = model->wallet();
         interfaces::WalletBalances balances = wallet.getBalances();
         setBalance(balances);
-        connect(model, SIGNAL(balanceChanged(interfaces::WalletBalances)), this, SLOT(setBalance(interfaces::WalletBalances)));
+        connect(model, &WalletModel::balanceChanged, this, &OverviewPage::setBalance);
 
-        connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
+        connect(model->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &OverviewPage::updateDisplayUnit);
 
-        updateWatchOnlyLabels(wallet.haveWatchOnly());
-        connect(model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyLabels(bool)));
+        updateWatchOnlyLabels(wallet.haveWatchOnly() && !model->privateKeysDisabled());
+        connect(model, &WalletModel::notifyWatchonlyChanged, [this](bool showWatchOnly) {
+            updateWatchOnlyLabels(showWatchOnly && !walletModel->privateKeysDisabled());
+        });
     }
 
     // update the display unit, to not use the default ("DGB")
