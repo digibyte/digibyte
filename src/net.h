@@ -101,6 +101,8 @@ static const int DANDELION_EMBARGO_MINIMUM = 10;
 static const int DANDELION_EMBARGO_AVG_ADD = 20;
 
 typedef int64_t NodeId;
+
+struct AddedNodeInfo
 {
     std::string strAddedNode;
     CService resolvedAddress;
@@ -798,7 +800,6 @@ public:
     std::atomic<int> nRefCount;
     bool fSupportsDandelion = false;
 
-    std::atomic<int> nRefCount{0};
     std::atomic_bool fPauseRecv{false};
     std::atomic_bool fPauseSend{false};
 
@@ -818,6 +819,16 @@ public:
     int64_t nNextLocalAddrSend GUARDED_BY(cs_sendProcessing){0};
 
     bool IsAddrRelayPeer() const { return m_addr_known != nullptr; }
+
+    // inventory based relay
+    CRollingBloomFilter filterInventoryKnown;
+    // Set of Dandelion transactions that should be known to this peer
+    std::set<uint256> setDandelionInventoryKnown;
+    // Set of transaction ids we still have to announce.
+    // They are sorted by the mempool before relay, so the order is not important.
+    std::set<uint256> setInventoryTxToSend;
+    // List of Dandelion transaction ids to announce.
+    std::vector<uint256> vInventoryDandelionTxToSend;
 
     // List of block ids we still have announce.
     // There is no final sorting before sending, as they are always sent immediately

@@ -1621,19 +1621,6 @@ void static ProcessGetData(CNode* pfrom, const CChainParams& chainparams, CConnm
 
             // Send stream from relay memory
             bool push = false;
-<<<<<<< HEAD
-            if (inv.type == MSG_DANDELION_TX || inv.type == MSG_DANDELION_WITNESS_TX) {
-                int nSendFlags = (inv.type == MSG_DANDELION_TX ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
-                auto txinfo = stempool.info(inv.hash);
-                uint256 dandelionServiceDiscoveryHash;
-                dandelionServiceDiscoveryHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-                if (txinfo.tx && !connman->isDandelionInbound(pfrom) && pfrom->setDandelionInventoryKnown.count(inv.hash)!=0) {
-                    connman->PushMessage(pfrom, msgMaker.Make(nSendFlags, NetMsgType::DANDELIONTX, *txinfo.tx));
-                    push = true;
-                } else if (inv.hash==dandelionServiceDiscoveryHash && pfrom->setDandelionInventoryKnown.count(inv.hash)!=0) {
-                    LogPrint(BCLog::DANDELION, "Peer %d supports Dandelion\n", pfrom->GetId());
-                    pfrom->fSupportsDandelion = true;
-=======
             auto mi = mapRelay.find(inv.hash);
             int nSendFlags = (inv.type == MSG_TX ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
             if (mi != mapRelay.end()) {
@@ -1649,7 +1636,6 @@ void static ProcessGetData(CNode* pfrom, const CChainParams& chainparams, CConnm
                       || (txinfo.m_time <= longlived_mempool_time)))
                 {
                     connman->PushMessage(pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *txinfo.tx));
->>>>>>> 938d3bcbdc4f8e98ac8a83ff53d5b41af6b680fd
                     push = true;
                 }
             } else if(inv.type == MSG_TX || inv.type == MSG_WITNESS_TX) {
