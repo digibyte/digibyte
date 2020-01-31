@@ -9,6 +9,8 @@
 
 #include <uint256.h>
 #include <limits>
+#include <map>
+#include <string>
 
 namespace Consensus {
 

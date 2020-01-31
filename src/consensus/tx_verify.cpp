@@ -173,13 +173,11 @@ bool Consensus::CheckTxInputs(const CTransaction& tx, TxValidationState& state, 
             if (coin.IsCoinBase()) {
                 if (coin.nHeight < 145000) {
                     if (nSpendHeight - coin.nHeight < COINBASE_MATURITY)
-                        return state.Invalid(false,
-                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase",
+                        return state.Invalid(TxValidationResult::TX_PREMATURE_SPEND, "bad-txns-premature-spend-of-coinbase",
                             strprintf("tried to spend coinbase at depth %d", nSpendHeight - coin.nHeight));
                 } else {
                     if (nSpendHeight - coin.nHeight < COINBASE_MATURITY_2)
-                        return state.Invalid(false,
-                            REJECT_INVALID, "bad-txns-premature-spend-of-coinbase",
+                        return state.Invalid(TxValidationResult::TX_PREMATURE_SPEND, "bad-txns-premature-spend-of-coinbase",
                             strprintf("tried to spend coinbase at depth %d", nSpendHeight - coin.nHeight));
                 }
             }

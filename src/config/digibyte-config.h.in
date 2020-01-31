@@ -79,6 +79,10 @@
 /* Define this symbol if the consensus lib has been built */
 #undef HAVE_CONSENSUS_LIB
 
+/* Define this symbol if FD_ZERO is dependent of a memcpy declaration being
+   available */
+#undef HAVE_CSTRING_DEPENDENT_FD_ZERO
+
 /* define if the compiler supports basic C++11 syntax */
 #undef HAVE_CXX11
 
@@ -110,9 +114,13 @@
    */
 #undef HAVE_DECL_DAEMON
 
-/* Define to 1 if you have the declaration of `EVP_MD_CTX_new', and to 0 if
-   you don't. */
-#undef HAVE_DECL_EVP_MD_CTX_NEW
+/* Define to 1 if you have the declaration of `freeifaddrs', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FREEIFADDRS
+
+/* Define to 1 if you have the declaration of `getifaddrs', and to 0 if you
+   don't. */
+#undef HAVE_DECL_GETIFADDRS
 
 /* Define to 1 if you have the declaration of `htobe16', and to 0 if you
    don't. */
@@ -204,9 +212,6 @@
 /* Define to 1 if you have the `comdlg32' library (-lcomdlg32). */
 #undef HAVE_LIBCOMDLG32
 
-/* Define to 1 if you have the `crypt32' library (-lcrypt32). */
-#undef HAVE_LIBCRYPT32
-
 /* Define to 1 if you have the `gdi32' library (-lgdi32). */
 #undef HAVE_LIBGDI32
 
@@ -219,23 +224,11 @@
 /* Define to 1 if you have the `kernel32' library (-lkernel32). */
 #undef HAVE_LIBKERNEL32
 
-/* Define to 1 if you have the `mingwthrd' library (-lmingwthrd). */
-#undef HAVE_LIBMINGWTHRD
-
-/* Define to 1 if you have the `mswsock' library (-lmswsock). */
-#undef HAVE_LIBMSWSOCK
-
 /* Define to 1 if you have the `ole32' library (-lole32). */
 #undef HAVE_LIBOLE32
 
 /* Define to 1 if you have the `oleaut32' library (-loleaut32). */
 #undef HAVE_LIBOLEAUT32
-
-/* Define to 1 if you have the `rpcrt4' library (-lrpcrt4). */
-#undef HAVE_LIBRPCRT4
-
-/* Define to 1 if you have the `rt' library (-lrt). */
-#undef HAVE_LIBRT
 
 /* Define to 1 if you have the `shell32' library (-lshell32). */
 #undef HAVE_LIBSHELL32
@@ -254,9 +247,6 @@
 
 /* Define to 1 if you have the `winmm' library (-lwinmm). */
 #undef HAVE_LIBWINMM
-
-/* Define to 1 if you have the `winspool' library (-lwinspool). */
-#undef HAVE_LIBWINSPOOL
 
 /* Define to 1 if you have the `ws2_32' library (-lws2_32). */
 #undef HAVE_LIBWS2_32
@@ -291,6 +281,9 @@
 /* Have PTHREAD_PRIO_INHERIT. */
 #undef HAVE_PTHREAD_PRIO_INHERIT
 
+/* Define to 1 if you have the <rapidcheck.h> header file. */
+#undef HAVE_RAPIDCHECK_H
+
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
 
@@ -299,6 +292,9 @@
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
+
+/* Define to 1 if std::system is available. */
+#undef HAVE_STD__SYSTEM
 
 /* Define to 1 if you have the `strerror_r' function. */
 #undef HAVE_STRERROR_R
@@ -309,8 +305,14 @@
 /* Define to 1 if you have the <string.h> header file. */
 #undef HAVE_STRING_H
 
+/* Define this symbol if the BSD sysctl() is available */
+#undef HAVE_SYSCTL
+
 /* Define this symbol if the BSD sysctl(KERN_ARND) is available */
 #undef HAVE_SYSCTL_ARND
+
+/* std::system or ::wsystem */
+#undef HAVE_SYSTEM
 
 /* Define to 1 if you have the <sys/endian.h> header file. */
 #undef HAVE_SYS_ENDIAN_H
@@ -321,14 +323,23 @@
 /* Define to 1 if you have the <sys/prctl.h> header file. */
 #undef HAVE_SYS_PRCTL_H
 
+/* Define to 1 if you have the <sys/resources.h> header file. */
+#undef HAVE_SYS_RESOURCES_H
+
 /* Define to 1 if you have the <sys/select.h> header file. */
 #undef HAVE_SYS_SELECT_H
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #undef HAVE_SYS_STAT_H
 
+/* Define to 1 if you have the <sys/sysctl.h> header file. */
+#undef HAVE_SYS_SYSCTL_H
+
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <sys/vmmeter.h> header file. */
+#undef HAVE_SYS_VMMETER_H
 
 /* Define if thread_local is supported. */
 #undef HAVE_THREAD_LOCAL
@@ -339,11 +350,17 @@
 /* Define if the visibility attribute is supported. */
 #undef HAVE_VISIBILITY_ATTRIBUTE
 
+/* Define to 1 if you have the <vm/vm_param.h> header file. */
+#undef HAVE_VM_VM_PARAM_H
+
 /* Define this symbol if boost sleep works */
 #undef HAVE_WORKING_BOOST_SLEEP
 
 /* Define this symbol if boost sleep_for works */
 #undef HAVE_WORKING_BOOST_SLEEP_FOR
+
+/* Define to 1 if ::wsystem is available. */
+#undef HAVE_WSYSTEM
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
@@ -369,6 +386,9 @@
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
 #undef PTHREAD_CREATE_JOINABLE
+
+/* Define this symbol if the qt platform is android */
+#undef QT_QPA_PLATFORM_ANDROID
 
 /* Define this symbol if the qt platform is cocoa */
 #undef QT_QPA_PLATFORM_COCOA
