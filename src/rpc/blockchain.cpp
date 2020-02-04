@@ -110,7 +110,7 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
 
 double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
-    return GetDifficulty(chainActive, blockindex, algo);
+    return GetDifficulty(::ChainActive(), blockindex, algo);
 }
 
 static int ComputeNextBlockAndDepth(const CBlockIndex* tip, const CBlockIndex* blockindex, const CBlockIndex*& next)
@@ -1310,7 +1310,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
         }
     }
     const Consensus::Params& consensusParams = Params().GetConsensus();
-    CBlockIndex* tip = chainActive.Tip();
     UniValue difficulties(UniValue::VOBJ);
     UniValue softforks(UniValue::VARR);
     UniValue bip9_softforks(UniValue::VOBJ);
@@ -1318,11 +1317,11 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     {
         if (IsAlgoActive(tip, consensusParams, algo))
         {
-            difficulties.push_back(Pair(GetAlgoName(algo), (double)GetDifficulty(NULL, algo)));
+            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(NULL, algo));
         }
     }
     for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
-        BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
+        BIP9SoftForkDescPushBack(bip9_softforks, "difficulties", consensusParams, static_cast<Consensus::DeploymentPos>(pos));
     }
     obj.pushKV("difficulties",             difficulties);
     obj.pushKV("softforks",             softforks);

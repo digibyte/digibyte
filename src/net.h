@@ -800,6 +800,7 @@ public:
     std::atomic<int> nRefCount;
     bool fSupportsDandelion = false;
 
+    const uint64_t nKeyedNetGroup;
     std::atomic_bool fPauseRecv{false};
     std::atomic_bool fPauseSend{false};
 
@@ -820,8 +821,6 @@ public:
 
     bool IsAddrRelayPeer() const { return m_addr_known != nullptr; }
 
-    // inventory based relay
-    CRollingBloomFilter filterInventoryKnown;
     // Set of Dandelion transactions that should be known to this peer
     std::set<uint256> setDandelionInventoryKnown;
     // Set of transaction ids we still have to announce.

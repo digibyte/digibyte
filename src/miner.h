@@ -25,6 +25,7 @@ class CScript;
 namespace Consensus { struct Params; };
 
 static const bool DEFAULT_PRINTPRIORITY = false;
+extern int miningAlgo;
 
 struct CBlockTemplate
 {

@@ -13,6 +13,8 @@
 #include <string>
 #include <util/system.h>
 
+extern int miningAlgo;
+
 struct NodeContext;
 namespace boost {
 class thread_group;

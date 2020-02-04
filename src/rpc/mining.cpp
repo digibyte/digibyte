@@ -182,8 +182,11 @@ static UniValue generatetodescriptor(const JSONRPCRequest& request)
     const CTxMemPool& mempool = EnsureMemPool();
 
     CHECK_NONFATAL(coinbase_script.size() == 1);
-
-    return generateBlocks(mempool, coinbase_script.at(0), num_blocks, max_tries);
+    int algo = miningAlgo;
+    if (!request.params[3].isNull()) {
+        algo = GetAlgoByName(request.params[3].get_str(), algo);
+    }
+    return generateBlocks(mempool, coinbase_script.at(0), num_blocks, max_tries, algo);
 }
 
 static UniValue generatetoaddress(const JSONRPCRequest& request)
@@ -263,7 +266,7 @@ static UniValue getmininginfo(const JSONRPCRequest& request)
     obj.pushKV("difficulty",         (double)GetDifficulty(NULL, miningAlgo));
     for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
     {
-        if (IsAlgoActive(chainActive.Tip(), Params().GetConsensus(), algo))
+        if (IsAlgoActive(::ChainActive().Tip(), Params().GetConsensus(), algo))
         {
             std::string key = "difficulty_" + GetAlgoName(algo);
             obj.pushKV(key, (double)GetDifficulty(NULL, algo));

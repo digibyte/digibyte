@@ -156,8 +156,6 @@ DIGIBYTE_QT_H = \
   qt/winshutdownmonitor.h
 
 RES_ICONS = \
-  qt/res/icons/add.png \
-  qt/res/icons/address-book.png \
   qt/res/icons/digibyte.ico \
   qt/res/icons/digibyte_testnet.ico \
   qt/res/icons/digibyte.png \

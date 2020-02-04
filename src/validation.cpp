@@ -46,6 +46,7 @@
 #include <util/validation.h>
 #include <validationinterface.h>
 #include <warnings.h>
+#include <wallet/wallet.h>
 
 #include <string>
 
@@ -125,6 +126,7 @@ uint256 hashAssumeValid;
 arith_uint256 nMinimumChainWork;
 
 CFeeRate minRelayTxFee = CFeeRate(DEFAULT_MIN_RELAY_TX_FEE);
+CAmount maxTxFee = DEFAULT_TRANSACTION_MAXFEE;
 
 CBlockPolicyEstimator feeEstimator;
 CTxMemPool mempool(&feeEstimator);
@@ -1047,20 +1049,20 @@ bool MemPoolAccept::AcceptSingleTransaction(const CTransactionRef& ptx, ATMPArgs
 } // anon namespace
 
 /** (try to) add transaction to memory pool with a specified acceptance time **/
-static bool AcceptToMemoryPoolWithTime(const CChainParams& chainparams, CTxMemPool& pool, CValidationState &state, const CTransactionRef &tx,
-                        bool* pfMissingInputs, int64_t nAcceptTime, std::list<CTransactionRef>* plTxnReplaced,
+static bool AcceptToMemoryPoolWithTime(const CChainParams& chainparams, CTxMemPool& pool, TxValidationState &state, const CTransactionRef &tx,
+                        int64_t nAcceptTime, std::list<CTransactionRef>* plTxnReplaced,
                         bool bypass_limits, const CAmount nAbsurdFee, bool test_accept) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
 {
     std::vector<COutPoint> coins_to_uncache;
-    MemPoolAccept::ATMPArgs args { chainparams, state, pfMissingInputs, nAcceptTime, plTxnReplaced, bypass_limits, nAbsurdFee, coins_to_uncache, test_accept };
+    MemPoolAccept::ATMPArgs args { chainparams, state, nAcceptTime, plTxnReplaced, bypass_limits, nAbsurdFee, coins_to_uncache, test_accept };
     bool res;
     if (!gArgs.GetBoolArg("-disabledandelion", DEFAULT_DISABLE_DANDELION)) {
         res = MemPoolAccept(stempool).AcceptSingleTransaction(tx, args);
     } else {
         res = MemPoolAccept(mempool).AcceptSingleTransaction(tx, args);
-        CValidationState dummyState;
-        MemPoolAccept::ATMPArgs stemArgs { chainparams, dummyState, pfMissingInputs, nAcceptTime, plTxnReplaced, bypass_limits, nAbsurdFee, coins_to_uncache, test_accept };
-        ret = ::MemPoolAccept(stempool).AcceptSingleTransaction(tx, stemArgs);
+        TxValidationState dummyState;
+        MemPoolAccept::ATMPArgs stemArgs { chainparams, dummyState, nAcceptTime, plTxnReplaced, bypass_limits, nAbsurdFee, coins_to_uncache, test_accept };
+        res = ::MemPoolAccept(stempool).AcceptSingleTransaction(tx, stemArgs);
     }
     if (!res) {
         // Remove coins that were not present in the coins cache before calling ATMPW;
@@ -1072,7 +1074,7 @@ static bool AcceptToMemoryPoolWithTime(const CChainParams& chainparams, CTxMemPo
             ::ChainstateActive().CoinsTip().Uncache(hashTx);
     }
     // After we've (potentially) uncached entries, ensure our coins cache is still within its size limits
-    CValidationState stateDummy;
+    BlockValidationState stateDummy;
     ::ChainstateActive().FlushStateToDisk(chainparams, stateDummy, FlushStateMode::PERIODIC);
     return res;
 }
@@ -3583,7 +3585,7 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
         block.GetAlgo() == ALGO_SCRYPT &&
         (block.nVersion & BLOCK_VERSION_ALGO) != BLOCK_VERSION_SCRYPT)
     {
-        return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid algo id");
+        return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "invalid-algo", "invalid algo id");
     }
 
     // Check against checkpoints
@@ -3608,12 +3610,11 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
 
     // Reject outdated version blocks when 95% (75% on testnet) of the network has upgraded:
     // check for version 2, 3 and 4 upgrades
-    if((block.nVersion < VERSIONBITS_TOP_BITS && nHeight >= consensusParams.BIP34Height) ||
-       (block.nVersion < VERSIONBITS_TOP_BITS && nHeight >= consensusParams.BIP66Height) ||
-       (block.nVersion < VERSIONBITS_TOP_BITS && nHeight >= consensusParams.BIP65Height))
+    if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
+       (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
+       (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
             return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, strprintf("bad-version(0x%08x)", block.nVersion),
                                  strprintf("rejected nVersion=0x%08x block", block.nVersion));
-    }
 
     return true;
 }
@@ -5147,12 +5148,13 @@ bool LoadMempool(CTxMemPool& pool)
             TxValidationState state;
             if (nTime + nExpiryTimeout > nNow) {
                 LOCK(cs_main);
+                int64_t nTimeCopy = nTime; // time isn't const, need copy for Dandelion
                 AcceptToMemoryPoolWithTime(chainparams, pool, state, tx, nTime,
                                            nullptr /* plTxnReplaced */, false /* bypass_limits */, 0 /* nAbsurdFee */,
                                            false /* test_accept */);
                 // Changes to mempool should also be made to Dandelion stempool
-                CValidationState dummyState;
-                AcceptToMemoryPoolWithTime(chainparams, stempool, dummyState, tx, nullptr /* pfMissingInputs */, nTimeCopy,
+                TxValidationState dummyState;
+                AcceptToMemoryPoolWithTime(chainparams, stempool, dummyState, tx, nTimeCopy,
                                            nullptr /* plTxnReplaced */, false /* bypass_limits */, 0 /* nAbsurdFee */,
                                            false /* test_accept */);
                 if (state.IsValid()) {

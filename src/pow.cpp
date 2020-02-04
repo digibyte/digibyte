@@ -11,8 +11,7 @@
 #include <primitives/block.h>
 #include <uint256.h>
 #include <chainparams.h>
-
-#include "util.h" //just for logs
+#include <util/system.h> //just for logs
 
 inline unsigned int PowLimit(const Consensus::Params& params)
 {

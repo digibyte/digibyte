@@ -85,6 +85,7 @@ static const bool DEFAULT_STOPAFTERBLOCKIMPORT = false;
 
 // Dump addresses to banlist.dat every 15 minutes (900s)
 static constexpr int DUMP_BANS_INTERVAL = 60 * 15;
+int miningAlgo = 0;
 
 
 #ifdef WIN32

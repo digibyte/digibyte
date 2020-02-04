@@ -14,6 +14,7 @@
 #include <interfaces/wallet.h>
 #include <key.h>
 #include <key_io.h>
+#include <validation.h>
 #include <policy/fees.h>
 #include <policy/policy.h>
 #include <primitives/block.h>
@@ -1753,13 +1754,13 @@ void CWallet::ReacceptWalletTransactions()
 
 bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
 {
-<<<<<<< HEAD
     assert(pwallet->GetBroadcastTransactions());
-    if (!IsCoinBase() && !isAbandoned() && GetDepthInMainChain() == 0)
+    // TODO 
+    /*if (!IsCoinBase() && !isAbandoned() && GetDepthInMainChain() == 0)
     {
         LogPrintf("Inside IF Test \n");
-        CValidationState state;
-        /* GetDepthInMainChain already catches known conflicts. */
+        TxValidationState state;
+        CAmount maxTxFee = DEFAULT_TRANSACTION_MAXFEE;
         LogPrintf("Transaction in memory pool: %u, Accepted To MemoryPool: %u", InMempool(), AcceptToMemoryPool(maxTxFee, state));
         if (InMempool() || AcceptToMemoryPool(maxTxFee, state)) {
             pwallet->WalletLogPrintf("Relaying wtx %s\n", GetHash().ToString());
@@ -1781,9 +1782,7 @@ bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
                 }
             }
         }
-    }
-    return false;
-=======
+    }*/
     // Can't relay if wallet is not broadcasting
     if (!pwallet->GetBroadcastTransactions()) return false;
     // Don't relay abandoned transactions
@@ -1808,7 +1807,6 @@ bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
     bool ret = pwallet->chain().broadcastTransaction(tx, err_string, pwallet->m_default_max_tx_fee, relay);
     fInMempool |= ret;
     return ret;
->>>>>>> 938d3bcbdc4f8e98ac8a83ff53d5b41af6b680fd
 }
 
 std::set<uint256> CWalletTx::GetConflicts() const
@@ -3850,6 +3848,7 @@ std::shared_ptr<CWallet> CWallet::CreateWalletFromFile(interfaces::Chain& chain,
 
     if (gArgs.IsArgSet("-maxtxfee")) {
         CAmount nMaxFee = 0;
+        CAmount maxTxFee = DEFAULT_TRANSACTION_MAXFEE;
         if (!ParseMoney(gArgs.GetArg("-maxtxfee", ""), nMaxFee)) {
             error = AmountErrMsg("maxtxfee", gArgs.GetArg("-maxtxfee", "")).translated;
             return nullptr;
@@ -3857,6 +3856,7 @@ std::shared_ptr<CWallet> CWallet::CreateWalletFromFile(interfaces::Chain& chain,
         if (nMaxFee > HIGH_MAX_TX_FEE) {
             warnings.push_back(_("-maxtxfee is set very high! Fees this large could be paid on a single transaction.").translated);
         }
+        maxTxFee = nMaxFee;
         if (CFeeRate(nMaxFee, 1000) < chain.relayMinFee()) {
             error = strprintf(_("Invalid amount for -maxtxfee=<amount>: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)").translated,
                                        gArgs.GetArg("-maxtxfee", ""), chain.relayMinFee().ToString());
@@ -4055,6 +4055,21 @@ bool CWalletTx::IsImmatureCoinBase() const
 {
     // note GetBlocksToMaturity is 0 for non-coinbase tx
     return GetBlocksToMaturity() > 0;
+}
+
+bool CWalletTx::AcceptToMemoryPool(const CAmount& nAbsurdFee, TxValidationState& state)
+{
+    // We must set fInMempool here - while it will be re-set to true by the
+    // entered-mempool callback, if we did not there would be a race where a 
+    // user could call sendmoney in a loop and hit spurious out of funds errors
+    // because we think that this newly generated transaction's change is
+    // unavailable as we're not yet aware that it is in the mempool.
+    // TODO HERE Esotericizm
+    bool ret;
+    std::string err_string;
+    ret = pwallet->chain().broadcastTransaction(tx, err_string, pwallet->m_default_max_tx_fee, true);
+    fInMempool |= ret;
+    return ret;
 }
 
 std::vector<OutputGroup> CWallet::GroupOutputs(const std::vector<COutput>& outputs, bool single_coin) const {

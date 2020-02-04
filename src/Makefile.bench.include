@@ -43,7 +43,7 @@ bench_bench_digibyte_SOURCES = \
 
 nodist_bench_bench_digibyte_SOURCES = $(GENERATED_BENCH_FILES)
 
-bench_bench_digibyte_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES) $(EVENT_CLFAGS) $(EVENT_PTHREADS_CFLAGS) -I$(builddir)/bench/
+bench_bench_digibyte_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES) $(EVENT_CLFAGS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_PTHREADS_CFLAGS) -I$(builddir)/bench/
 bench_bench_digibyte_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 bench_bench_digibyte_LDADD = \
   $(LIBDIGIBYTE_SERVER) \
@@ -63,7 +63,7 @@ bench_bench_digibyte_LDADD = \
   $(EVENT_LIBS)
 
 if ENABLE_ZMQ
-bench_bench_digibyte_LDADD += $(LIBDIGIBYTE_ZMQ) $(ZMQ_LIBS)
+bench_bench_digibyte_LDADD += $(LIBDIGIBYTE_ZMQ) $(ZMQ_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS)
 endif
 
 if ENABLE_WALLET

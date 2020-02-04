@@ -1353,14 +1353,13 @@ static void RelayDandelionTransaction(const CTransaction& tx, CConnman* connman,
     FastRandomContext rng;
     if (rng.randrange(100)<DANDELION_FLUFF) {
         LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", tx.GetHash().ToString());
-        CValidationState state;
+        TxValidationState state;
         CTransactionRef ptx = stempool.get(tx.GetHash());
-        bool fMissingInputs = false;
         std::list<CTransactionRef> lRemovedTxn;
-        AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
+        AcceptToMemoryPool(mempool, state, ptx, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
         LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: peer=%d: accepted %s (poolsz %u txn, %u kB)\n",
                  pfrom->GetId(), tx.GetHash().ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
-        RelayTransaction(tx, connman);
+        RelayTransaction(tx.GetHash(), *connman);
     } else {
         CInv inv(MSG_DANDELION_TX, tx.GetHash());
         CNode* destination = connman->getDandelionDestination(pfrom);
@@ -1379,16 +1378,16 @@ static void CheckDandelionEmbargoes(CConnman* connman)
             iter = connman->mDandelionEmbargo.erase(iter);
         } else if (iter->second < nCurrTime) {
             LogPrint(BCLog::DANDELION, "dandeliontx %s embargo expired\n", iter->first.ToString());
-            CValidationState state;
+            TxValidationState state;
             CTransactionRef ptx = stempool.get(iter->first);
+            const CTransaction& tx = *ptx;
             if (ptx)
             {
-                bool fMissingInputs = false;
                 std::list<CTransactionRef> lRemovedTxn;
-                AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
+                AcceptToMemoryPool(mempool, state, ptx, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
                 LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
                          iter->first.ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
-                RelayTransaction(*ptx, connman);
+                RelayTransaction(tx.GetHash(), *connman);
             }
             iter = connman->mDandelionEmbargo.erase(iter);
         } else {
@@ -1626,18 +1625,6 @@ void static ProcessGetData(CNode* pfrom, const CChainParams& chainparams, CConnm
             if (mi != mapRelay.end()) {
                 connman->PushMessage(pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *mi->second));
                 push = true;
-            } else {
-                auto txinfo = mempool.info(inv.hash);
-                // To protect privacy, do not answer getdata using the mempool when
-                // that TX couldn't have been INVed in reply to a MEMPOOL request,
-                // or when it's too recent to have expired from mapRelay.
-                if (txinfo.tx && (
-                     (mempool_req.count() && txinfo.m_time <= mempool_req)
-                      || (txinfo.m_time <= longlived_mempool_time)))
-                {
-                    connman->PushMessage(pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *txinfo.tx));
-                    push = true;
-                }
             } else if(inv.type == MSG_TX || inv.type == MSG_WITNESS_TX) {
                 auto mi = mapRelay.find(inv.hash);
                 int nSendFlags = (inv.type == MSG_TX ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
@@ -1650,14 +1637,26 @@ void static ProcessGetData(CNode* pfrom, const CChainParams& chainparams, CConnm
                 } else if (mi != mapRelay.end()) {
                     connman->PushMessage(pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *mi->second));
                     push = true;
-                } else if (pfrom->timeLastMempoolReq) {
+                } else {
                     auto txinfo = mempool.info(inv.hash);
-                    // To protect privacy, do not answer getdata using the mempool when
-                    // that TX couldn't have been INVed in reply to a MEMPOOL request.
-                    if (txinfo.tx && txinfo.nTime <= pfrom->timeLastMempoolReq) {
+                    if (txinfo.tx && txinfo.m_time <= mempool_req) {
+                        // To protect privacy, do not answer getdata using the mempool when
+                        // that TX couldn't have been INVed in reply to a MEMPOOL request.
                         connman->PushMessage(pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *txinfo.tx));
                         push = true;
                     }
+                }
+            } else {
+                auto txinfo = mempool.info(inv.hash);
+                // To protect privacy, do not answer getdata using the mempool when
+                // that TX couldn't have been INVed in reply to a MEMPOOL request,
+                // or when it's too recent to have expired from mapRelay.
+                if (txinfo.tx && (
+                     (mempool_req.count() && txinfo.m_time <= mempool_req)
+                      || (txinfo.m_time <= longlived_mempool_time)))
+                {
+                    connman->PushMessage(pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *txinfo.tx));
+                    push = true;
                 }
             }
             if (!push) {
@@ -1995,32 +1994,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         CheckDandelionEmbargoes(connman);
     }
 
-    if (strCommand == NetMsgType::REJECT)
-    {
-        if (LogAcceptCategory(BCLog::NET)) {
-            try {
-                std::string strMsg; unsigned char ccode; std::string strReason;
-                vRecv >> LIMITED_STRING(strMsg, CMessageHeader::COMMAND_SIZE) >> ccode >> LIMITED_STRING(strReason, MAX_REJECT_MESSAGE_LENGTH);
-
-                std::ostringstream ss;
-                ss << strMsg << " code " << itostr(ccode) << ": " << strReason;
-
-                if (strMsg == NetMsgType::BLOCK || strMsg == NetMsgType::TX)
-                {
-                    uint256 hash;
-                    vRecv >> hash;
-                    ss << ": hash " << hash.ToString();
-                }
-                LogPrint(BCLog::NET, "Reject %s\n", SanitizeString(ss.str()));
-            } catch (const std::ios_base::failure&) {
-                // Avoid feedback loops by preventing reject messages from triggering a new reject message.
-                LogPrint(BCLog::NET, "Unparseable reject message received\n");
-            }
-        }
-        return true;
-    }
-
-    else if (strCommand == NetMsgType::VERSION)
+    if (strCommand == NetMsgType::VERSION)
     {
         // Each connection can only send one version message
         if (pfrom->nVersion != 0)
@@ -2059,7 +2033,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         int minVersion = MIN_PEER_PROTO_VERSION;
         {
             LOCK(cs_main);
-            if (IsAlgoActive(chainActive.Tip(), Params().GetConsensus(), ALGO_ODO))
+            if (IsAlgoActive(::ChainActive().Tip(), Params().GetConsensus(), ALGO_ODO))
                 minVersion = std::max(minVersion, ODO_FORK_VERSION);
         }
         
@@ -2382,8 +2356,10 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                 dandelionServiceDiscoveryHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
                 if (fBlocksOnly) {
                     LogPrint(BCLog::NET, "transaction (%s) inv sent in violation of protocol peer=%d\n", inv.hash.ToString(), pfrom->GetId());
-                } else if ((!fAlreadyHave && !fImporting && !fReindex && !IsInitialBlockDownload() && connman->isDandelionInbound(pfrom)) || (inv.hash==dandelionServiceDiscoveryHash)) {
-                    pfrom->AskFor(inv);
+                    pfrom->fDisconnect = true;
+                    return true;
+                } else if ((!fAlreadyHave && !fImporting && !fReindex && !::ChainstateActive().IsInitialBlockDownload() && connman->isDandelionInbound(pfrom)) || (inv.hash==dandelionServiceDiscoveryHash)) {
+                    RequestTx(State(pfrom->GetId()), inv.hash, current_time);
                 }
             }
             else
@@ -2762,17 +2738,16 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
     
     else if (strCommand == NetMsgType::DANDELIONTX)
     {
-        CValidationState state;
+        TxValidationState state;
         CTransactionRef ptx;
         vRecv >> ptx;
         const CTransaction& tx = *ptx;
-        bool fMissingInputs = false;
         std::list<CTransactionRef> lRemovedTxn;
         CInv inv(MSG_DANDELION_TX, tx.GetHash());
         LOCK(cs_main);
         if (connman->isDandelionInbound(pfrom)) {
             if (!stempool.exists(inv.hash)) {
-                bool ret = AcceptToMemoryPool(stempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
+                bool ret = AcceptToMemoryPool(stempool, state, ptx, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
                 if (ret) {
                     LogPrint(BCLog::MEMPOOL, "AcceptToStemPool: peer=%d: accepted %s (poolsz %u txn, %u kB)\n",
                              pfrom->GetId(), tx.GetHash().ToString(), stempool.size(), stempool.DynamicMemoryUsage() / 1000);
@@ -2782,13 +2757,15 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                     LogPrint(BCLog::DANDELION, "dandeliontx %s embargoed for %d seconds\n", tx.GetHash().ToString(), (nEmbargo-nCurrTime)/1000000);
                 }
                 int nDoS = 0;
-                if (state.IsInvalid(nDoS)) {
+                if (state.IsInvalid()) {
                     LogPrint(BCLog::MEMPOOLREJ, "%s from peer=%d was not accepted: %s\n", tx.GetHash().ToString(),
                              pfrom->GetId(), FormatStateMessage(state));
-                    if (state.GetRejectCode() > 0 && state.GetRejectCode() < REJECT_INTERNAL) { // Never send AcceptToMemoryPool's internal codes over P2P
+                    // TODO ?
+                    /*if (state.GetRejectCode() > 0 && state.GetRejectCode() < REJECT_INTERNAL) { // Never send AcceptToMemoryPool's internal codes over P2P
+                        // TODO ?
                         connman->PushMessage(pfrom, msgMaker.Make(NetMsgType::REJECT, strCommand, (unsigned char)state.GetRejectCode(),
                                                                   state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash));
-                    }
+                    }*/
                     if (nDoS > 0) {
                         Misbehaving(pfrom->GetId(), nDoS);
                     }

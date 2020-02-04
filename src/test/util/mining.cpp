@@ -42,7 +42,7 @@ std::shared_ptr<CBlock> PrepareBlock(const NodeContext& node, const CScript& coi
     assert(node.mempool);
     auto block = std::make_shared<CBlock>(
         BlockAssembler{*node.mempool, Params()}
-            .CreateNewBlock(coinbase_scriptPubKey)
+            .CreateNewBlock(coinbase_scriptPubKey, miningAlgo)
             ->block);
 
     LOCK(cs_main);

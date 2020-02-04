@@ -981,6 +981,7 @@ void DigiByteGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVe
 
     QDateTime currentDate = QDateTime::currentDateTime();
     qint64 secs = blockDate.secsTo(currentDate);
+    QString theme = GUIUtil::getThemeName();
 
     tooltip = tr("Processed %n block(s) of transaction history.", "", count);
 
@@ -1224,6 +1225,7 @@ bool DigiByteGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
 
 void DigiByteGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
 {
+    QString theme = GUIUtil::getThemeName();
     labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(privkeyDisabled ? ":/icons/" + theme + "eye" : hdEnabled ? ":/icons/" + theme + "hd_enabled" : ":/icons/" + theme + "hd_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
     labelWalletHDStatusIcon->setToolTip(privkeyDisabled ? tr("Private key <b>disabled</b>") : hdEnabled ? tr("HD key generation is <b>enabled</b>") : tr("HD key generation is <b>disabled</b>"));
     labelWalletHDStatusIcon->show();
