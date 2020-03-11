@@ -7,35 +7,23 @@ For more information, as well as an immediately useable, binary version of the D
 
 DigiByte FAQ
 -------------
-Launch Date: January 10th, 2014
-
-Blockchain Type: Public, Decentralized, UTXO based, Multi-Algorithm
-
-Ticker Symbol: DGB
-
-Genesis Block Hash: "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M customers"
-
-Max Total Supply: 21 Billion DigiBytes in 21 Years (2035)
-
-Current Supply: 11,692,747,373 DGB (April 2019)
-
-Block Reward Reduction: 1% Monthly
-
-Current Block Reward: 688 DGB (April 2019)
-
-Mining Algorithms: Five individual: SHA256, Scrypt, Odocrypt, Skein & Qubit
-
-Block Interval: 15 Second Blocks (75 seconds per algo)
-
-Algo Block Share: 20% Block Share Per Algo (5)
-
-Difficulty Retarget: Every 1 Block, 5 Separate Difficulties, independent difficulty for each Mining Algo
-
-SegWit Support: Yes. First major altcoin to successfully activate Segwit. (April 2017)
-
-Hardforks: 4. DigiShield, MultiAlgo, MultiShield, DigiSpeed
-
-Softforks: 3. SegWit, CSV, NVersionBits
+| Title | Description |
+| --- | --- |
+| Launch Date | January 10th, 2014 |
+| Blockchain Type | Public, Decentralized, UTXO based, Multi-Algorithm |
+|Ticker Symbol | DGB|
+| Genesis Block Hash | "USA Today: 10/Jan/2014, Target: Data stolen from up to 110M customers"|
+|Max Total Supply | 21 Billion DigiBytes in 21 Years (2035)|
+|Current Supply | 11,692,747,373 DGB (April 2019)|
+|Block Reward Reduction | 1% Monthly|
+|Current Block Reward | 688 DGB (April 2019)|
+|Mining Algorithms | Five individual | SHA256, Scrypt, Odocrypt, Skein & Qubit|
+|Block Interval | 15 Second Blocks (75 seconds per algo)|
+|Algo Block Share | 20% Block Share Per Algo (5)|
+|Difficulty Retarget | Every 1 Block, 5 Separate Difficulties, independent difficulty for each Mining Algo|
+|SegWit Support | Yes. First major altcoin to successfully activate Segwit. (April 2017)|
+|Hardforks | 4. DigiShield, MultiAlgo, MultiShield, DigiSpeed|
+|Softforks | 3. SegWit, CSV, NVersionBits|
 
 You can mine DigiByte on one of five separate mining algorithms. Each algo averages out to mine 20% of new blocks. This allows for much greater decentralization than other blockchains. An attacker with 99% of of any individual algorithm would still be unable to hardfork the blockchain, making DigiByte much more secure against PoW attacks than other blockchains.
 
