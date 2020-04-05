@@ -60,32 +60,48 @@ uint256 CBlockHeader::GetPoWAlgoHash(const Consensus::Params& params) const
     switch (GetAlgo())
     {
         case ALGO_SHA256D:
+        {
             return GetHash();
+        }
+
         case ALGO_SCRYPT:
         {
             uint256 thash;
             scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
             return thash;
         }
+
         case ALGO_GROESTL:
+        {
             return HashGroestl(BEGIN(nVersion), END(nNonce));
+        }
+
         case ALGO_SKEIN:
-            return HashSkein(BEGIN(nVersion), END(nNonce));
-        case ALGO_QUBIT:
+        {
+           return HashSkein(BEGIN(nVersion), END(nNonce));
+        }
+
+        case ALGO_QUBIT: {
             return HashQubit(BEGIN(nVersion), END(nNonce));
+        }
+
         //case ALGO_EQUIHASH:
             //return HashEquihash(BEGIN(nVersion), END(nNonce));
+
         //case ALGO_ETHASH:
             //return HashEthash(BEGIN(nVersion), END(nNonce));
+
         case ALGO_ODO:
         {
             uint32_t key = OdoKey(params, nTime);
             return HashOdo(BEGIN(nVersion), END(nNonce), key);
         }
-        case ALGO_UNKNOWN:
+
+        case ALGO_UNKNOWN: {
             // This block will be rejected anyway, but returning an always-invalid
             // PoW hash will allow it to be rejected sooner.
             return ArithToUint256(~arith_uint256(0));
+        }
     }
     assert(false);
     return GetHash();

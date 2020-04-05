@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // should not be set.
     CBlockIndex *lastBlock = nullptr;
     lastBlock = firstChain.Mine(mainnetParams.nMinerConfirmationWindow, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
-    BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
+    BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams, ALGO_SHA256D) & (1<<bit), 0);
 
     // Mine more blocks (4 less than the adjustment period) at the old time, and check that CBV isn't setting the bit yet.
     for (uint32_t i = 1; i < mainnetParams.nMinerConfirmationWindow - 4; i++) {
@@ -286,7 +286,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     nTime = nStartTime;
     for (uint32_t i = mainnetParams.nMinerConfirmationWindow - 4; i <= mainnetParams.nMinerConfirmationWindow; i++) {
         lastBlock = firstChain.Mine(mainnetParams.nMinerConfirmationWindow + i, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
-        BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
+        BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams, ALGO_SHA256D) & (1<<bit), 0);
     }
 
     // Advance to the next period and transition to STARTED,
@@ -330,7 +330,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // Mine one period worth of blocks, and check that the bit will be on for the
     // next period.
     lastBlock = secondChain.Mine(mainnetParams.nMinerConfirmationWindow, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
-    BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
+    BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams, ALGO_SHA256D) & (1<<bit)) != 0);
 
     // Mine another period worth of blocks, signaling the new bit.
     lastBlock = secondChain.Mine(mainnetParams.nMinerConfirmationWindow * 2, nTime, VERSIONBITS_TOP_BITS | (1<<bit)).Tip();
@@ -341,9 +341,9 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // Now check that we keep mining the block until the end of this period, and
     // then stop at the beginning of the next period.
     lastBlock = secondChain.Mine((mainnetParams.nMinerConfirmationWindow * 3) - 1, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
-    BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1 << bit)) != 0);
+    BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams, ALGO_SHA256D) & (1 << bit)) != 0);
     lastBlock = secondChain.Mine(mainnetParams.nMinerConfirmationWindow * 3, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
-    BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
+    BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams, ALGO_SHA256D) & (1<<bit), 0);
 
     // Finally, verify that after a soft fork has activated, CBV no longer uses
     // VERSIONBITS_LAST_OLD_BLOCK_VERSION.

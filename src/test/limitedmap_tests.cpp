@@ -6,6 +6,9 @@
 #include <limitedmap.h>
 
 #include <test/util/setup_common.h>
+#include <boost/test/unit_test.hpp>
+
+BOOST_FIXTURE_TEST_SUITE(limitedmap_tests, BasicTestingSetup)
 
 BOOST_AUTO_TEST_CASE(limitedmap_test)
 {

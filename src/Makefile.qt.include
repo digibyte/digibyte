@@ -394,7 +394,7 @@ RES_CSS = \
   qt/res/css/white.css \
   qt/res/css/black.css 
 
-RES_MOVIES = $(wildcard qt/res/movies/spinner-*.png)
+RES_MOVIES = $(wildcard $(srcdir)qt/res/movies/spinner-*.png)
 
 DIGIBYTE_RC = qt/res/digibyte-qt-res.rc
 
