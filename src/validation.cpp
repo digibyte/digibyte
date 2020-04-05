@@ -367,8 +367,8 @@ static void UpdateMempoolForReorg(DisconnectedBlockTransactions& disconnectpool,
         // ignore validation errors in resurrected transactions
         TxValidationState stateDummy;
         TxValidationState dandelionStateDummy;
-        bool ret = !AcceptToMemoryPool(mempool, stateDummy, *it, nullptr, true, 0);
-        if (!fAddToMempool || (*it)->IsCoinBase() ||
+        bool ret = AcceptToMemoryPool(mempool, stateDummy, *it, nullptr, true, 0);
+        if (!fAddToMempool || (*it)->IsCoinBase() || !ret ||
             !AcceptToMemoryPool(stempool, dandelionStateDummy, *it,
                                 nullptr /* plTxnReplaced */, true /* bypass_limits */, 0 /* nAbsurdFee */)) {
             // If the transaction doesn't make it in to the mempool, remove any
@@ -2143,7 +2143,7 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     // be reset before it reaches block 1,983,702 and starts doing unnecessary
     // BIP30 checking again.
     assert(pindex->pprev);
-    CBlockIndex *pindexBIP34height = pindex->pprev->GetAncestor(chainparams.GetConsensus().BIP34Height);
+    /* CBlockIndex *pindexBIP34height = */pindex->pprev->GetAncestor(chainparams.GetConsensus().BIP34Height);
     //Only continue to enforce if we're below BIP34 activation height or the block hash at that height doesn't correspond.
     //fEnforceBIP30 = fEnforceBIP30 && (!pindexBIP34height || !(pindexBIP34height->GetBlockHash() == chainparams.GetConsensus().BIP34Hash));
 

@@ -1352,6 +1352,7 @@ static void RelayDandelionTransaction(const CTransaction& tx, CConnman* connman,
 {
     FastRandomContext rng;
     if (rng.randrange(100)<DANDELION_FLUFF) {
+        LOCK(cs_main);
         LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", tx.GetHash().ToString());
         TxValidationState state;
         CTransactionRef ptx = stempool.get(tx.GetHash());
@@ -1383,6 +1384,7 @@ static void CheckDandelionEmbargoes(CConnman* connman)
             const CTransaction& tx = *ptx;
             if (ptx)
             {
+                LOCK(cs_main);
                 std::list<CTransactionRef> lRemovedTxn;
                 AcceptToMemoryPool(mempool, state, ptx, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
                 LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",

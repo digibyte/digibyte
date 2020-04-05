@@ -1161,6 +1161,7 @@ static UniValue verifychain(const JSONRPCRequest& request)
         Params(), &::ChainstateActive().CoinsTip(), nCheckLevel, nCheckDepth);
 }
 
+
 static void BuriedForkDescPushBack(UniValue& softforks, const std::string &name, int height) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
 {
     // For buried deployments.
