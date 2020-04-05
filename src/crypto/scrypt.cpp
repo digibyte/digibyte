@@ -28,7 +28,6 @@
  */
 
 #include "crypto/scrypt.h"
-#include "crypto/sha256.h"
 //#include "util.h"
 #include <stdlib.h>
 #include <stdint.h>
