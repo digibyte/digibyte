@@ -1,3 +1,9 @@
+Development is now occurring on the DigiByte-Core repo
+----------------
+As of 2020, development has now moved to the DigiByte-Core organization, under the digibyte repo
+
+You can find more over at https://github.com/digibyte-core/digibyte
+
 What is DigiByte?
 ----------------
 
