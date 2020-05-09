@@ -12,8 +12,6 @@
 #include "sph_shavite.h"
 #include "sph_simd.h"
 #include "sph_echo.h"
-
-#include <openssl/sha.h>
 #include <openssl/ripemd.h>
 #include <vector>
 
