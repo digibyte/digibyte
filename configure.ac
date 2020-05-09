@@ -226,6 +226,12 @@ AC_ARG_ENABLE([zmq],
   [use_zmq=$enableval],
   [use_zmq=yes])
 
+AC_ARG_ENABLE([sse2],
+    [AS_HELP_STRING([--enable-sse2],
+    [enable SSE2 instructions in the scrypt library. (default is disabled)])],
+    [use_sse2=$enableval],
+    [use_sse2=no])
+
 AC_ARG_ENABLE([bip70],
   [AS_HELP_STRING([--enable-bip70],
   [BIP70 (payment protocol) support in the GUI (no longer supported)])],
@@ -547,19 +553,19 @@ case $host in
          dnl It's safe to add these paths even if the functionality is disabled by
          dnl the user (--without-wallet or --without-gui for example).
 
+         openssl_prefix=$($BREW --prefix openssl 2>/dev/null)
          bdb_prefix=$($BREW --prefix berkeley-db4 2>/dev/null)
          qt5_prefix=$($BREW --prefix qt5 2>/dev/null)
-         openssl_prefix=$($BREW --prefix openssl 2>/dev/null)
+         if test x$openssl_prefix != x; then
+           PKG_CONFIG_PATH="$openssl_prefix/lib/pkgconfig:$PKG_CONFIG_PATH"
+           export PKG_CONFIG_PATH
+         fi
          if test x$bdb_prefix != x; then
            CPPFLAGS="$CPPFLAGS -I$bdb_prefix/include"
            LIBS="$LIBS -L$bdb_prefix/lib"
          fi
          if test x$qt5_prefix != x; then
            PKG_CONFIG_PATH="$qt5_prefix/lib/pkgconfig:$PKG_CONFIG_PATH"
-           export PKG_CONFIG_PATH
-         fi
-         if test x$openssl_prefix != x; then
-           PKG_CONFIG_PATH="$openssl_prefix/lib/pkgconfig:$PKG_CONFIG_PATH"
            export PKG_CONFIG_PATH
          fi
        fi
@@ -1311,6 +1317,13 @@ else
   fi
 fi
 
+save_CXXFLAGS="${CXXFLAGS}"
+CXXFLAGS="${CXXFLAGS} ${CRYPTO_CFLAGS} ${SSL_CFLAGS}"
+AC_CHECK_DECLS([EVP_MD_CTX_new],,,[AC_INCLUDES_DEFAULT
+#include <openssl/x509_vfy.h>
+])
+CXXFLAGS="${save_CXXFLAGS}"
+
 dnl RapidCheck property-based testing
 
 enable_property_tests=no
@@ -1509,6 +1522,16 @@ else
   BUILD_TEST=""
 fi
 
+AC_MSG_CHECKING([whether to enable sse2 instructions])
+if test x$use_sse2 != xno; then
+  AC_MSG_RESULT(yes)
+  AC_DEFINE([USE_SSE2],[1],[Define if SSE2 support should be compiled in])
+  use_sse2=yes
+  CPPFLAGS="$CPPFLAGS -DUSE_SSE2=1"
+else
+  AC_MSG_RESULT(no)
+fi
+
 AC_MSG_CHECKING([whether to reduce exports])
 if test x$use_reduce_exports = xyes; then
   AC_MSG_RESULT([yes])
@@ -1530,6 +1553,7 @@ AM_CONDITIONAL([ENABLE_QT],[test x$digibyte_enable_qt = xyes])
 AM_CONDITIONAL([ENABLE_QT_TESTS],[test x$BUILD_TEST_QT = xyes])
 AM_CONDITIONAL([ENABLE_BENCH],[test x$use_bench = xyes])
 AM_CONDITIONAL([USE_QRCODE], [test x$use_qr = xyes])
+AM_CONDITIONAL([USE_SSE2], [test x$use_sse2 = xyes])
 AM_CONDITIONAL([USE_LCOV],[test x$use_lcov = xyes])
 AM_CONDITIONAL([GLIBC_BACK_COMPAT],[test x$use_glibc_compat = xyes])
 AM_CONDITIONAL([HARDEN],[test x$use_hardening = xyes])
@@ -1587,6 +1611,9 @@ AC_SUBST(SHANI_CXXFLAGS)
 AC_SUBST(LIBTOOL_APP_LDFLAGS)
 AC_SUBST(USE_UPNP)
 AC_SUBST(USE_QRCODE)
+AC_SUBST(CRYPTO_LIBS)
+AC_SUBST(SSL_LIBS)
+AC_SUBST(USE_SSE2)
 AC_SUBST(BOOST_LIBS)
 AC_SUBST(TESTDEFS)
 AC_SUBST(LEVELDB_TARGET_FLAGS)
