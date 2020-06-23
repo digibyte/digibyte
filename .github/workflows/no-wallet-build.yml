@@ -18,7 +18,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: depends/
-          key: ${{ runner.os }}-${{ hashFiles('depends/packages/*.mk') }}
+          key: ${{ matrix.os }}-${{ hashFiles('depends/packages/*.mk') }}
 
       - name: Update apt repos
         run: sudo apt-get update
