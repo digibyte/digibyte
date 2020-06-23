@@ -4,10 +4,10 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
         matrix:
-            os: [ubuntu-latest, windows-latest, macos-latest]
+          os: [x86_64-linux-gnu, x86_64-apple-darwin14, x86_64-w64-mingw32]
 
     steps:
       - uses: actions/checkout@v2
@@ -17,33 +17,24 @@ jobs:
         uses: actions/cache@v2
         with:
           path: depends/
-          key: ${{ matrix.os }}-${{ hashFiles('depends/packages/*.mk') }}
+          key: ${{ runner.os }}-${{ hashFiles('depends/packages/*.mk') }}
 
       - name: Update apt repos
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'x86_64-linux-gnu'
         run: sudo apt-get update
 
       - name: Install base dependencies
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'x86_64-linux-gnu'
         run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake cmake curl g++-multilib binutils-gold python3
 
       - name: Build depends
-        if: matrix.os == 'ubuntu-latest'
-        run: cd depends/ && make -j4 HOST=x86_64-linux-gnu
-
-      - name: Build depends
-        if: matrix.os == 'macos-latest'
-        run: cd depends/ && make -j4 HOST=x86_64-apple-darwin14
-
-      - name: Build depends
-        if: matrix.os == 'windows-latest'
-        run: cd depends/ && make -j4 HOST=x86_64-w64-mingw32
+        run: cd depends/ && make -j4 HOST=${{matrix.os}}
 
       - name: Auto generate
         run: ./autogen.sh
 
       - name: configure
-        run: ./configure --disable-dependency-tracking --disable-werror --prefix=`pwd`/depends/x86_64-linux-gnu --bindir=`pwd`/release/bin --libdir=`pwd`/release/lib
+        run: ./configure --disable-dependency-tracking --disable-werror --prefix=`pwd`/depends/${{ matrix.os }} --bindir=`pwd`/release/bin --libdir=`pwd`/release/lib
 
       - name: make
         run: make -j4
