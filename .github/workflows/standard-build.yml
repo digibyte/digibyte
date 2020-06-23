@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Primes
-        id: cache-primes
+      - name: Cache depends
+        id: cache-dependencies
         uses: actions/cache@v2
         with:
           path: depends/
