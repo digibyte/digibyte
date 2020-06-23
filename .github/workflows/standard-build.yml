@@ -4,7 +4,10 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+        matrix:
+            os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -14,12 +17,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: depends/
-          key: ${{ runner.os }}-${{ hashFiles('depends/packages/*.mk') }}
+          key: ${{ matrix.os }}-${{ hashFiles('depends/packages/*.mk') }}
 
       - name: Update apt repos
+        if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get update
 
       - name: Install base dependencies
+        if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake cmake curl g++-multilib binutils-gold python3
 
       - name: Build depends
