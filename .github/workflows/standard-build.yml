@@ -20,11 +20,9 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('depends/packages/*.mk') }}
 
       - name: Update apt repos
-        if: matrix.os == 'x86_64-linux-gnu'
         run: sudo apt-get update
 
       - name: Install base dependencies
-        if: matrix.os == 'x86_64-linux-gnu'
         run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake cmake curl g++-multilib binutils-gold python3
 
       - name: Build depends
