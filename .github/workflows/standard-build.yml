@@ -23,11 +23,15 @@ jobs:
         run: sudo apt-get update
 
       - name: Install base dependencies
-        run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake cmake curl g++-multilib binutils-gold python3 libcap-dev
+        run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache
       
       - name: Install MinGW32 dependencies
         if: matrix.os == 'x86_64-w64-mingw32'
-        run: sudo apt-get install g++-mingw-w64-x86-64 && sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix 
+        run: sudo apt-get install python3 nsis g++-mingw-w64-x86-64 wine-binfmt wine64 && sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix 
+      
+      - name: Install MacOS specific dependencies
+        if: matrix.os == 'x86_64-apple-darwin14'
+        run: sudo apt-get install cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev python3-setuptools-git
 
       - name: Build depends
         run: cd depends/ && make -j4 HOST=${{matrix.os}}
