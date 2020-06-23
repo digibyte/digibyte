@@ -49,7 +49,3 @@ jobs:
 
       - name: make
         run: make -j4
-
-      - name: make check
-        if: matrix.os == 'x86_64-linux-gnu'
-        run: make check -j4
