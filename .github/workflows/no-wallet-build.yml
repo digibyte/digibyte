@@ -28,7 +28,7 @@ jobs:
       
       - name: Install MinGW32 dependencies
         if: matrix.os == 'x86_64-w64-mingw32'
-        run: sudo apt-get install g++-mingw-w64-x86-64 && && sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix 
+        run: sudo apt-get install g++-mingw-w64-x86-64 && sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix 
       
       - name: Build depends
         run: cd depends/ && make -j4 HOST=${{matrix.os}} NO_WALLET=1
