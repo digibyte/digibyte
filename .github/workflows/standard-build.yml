@@ -28,7 +28,16 @@ jobs:
         run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake cmake curl g++-multilib binutils-gold python3
 
       - name: Build depends
+        if: matrix.os == 'ubuntu-latest'
         run: cd depends/ && make -j4 HOST=x86_64-linux-gnu
+
+      - name: Build depends
+        if: matrix.os == 'macos-latest'
+        run: cd depends/ && make -j4 HOST=x86_64-apple-darwin14
+
+      - name: Build depends
+        if: matrix.os == 'windows-latest'
+        run: cd depends/ && make -j4 HOST=x86_64-w64-mingw32
 
       - name: Auto generate
         run: ./autogen.sh
