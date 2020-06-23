@@ -1,4 +1,4 @@
-name: '[NO WALLET] Ubuntu 18.04.'
+name: 'Build and Check without wallet'
 
 on: [push]
 
