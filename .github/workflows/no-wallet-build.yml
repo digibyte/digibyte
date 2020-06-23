@@ -24,11 +24,11 @@ jobs:
         run: sudo apt-get update
 
       - name: Install base dependencies
-        run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake cmake curl g++-multilib binutils-gold python3
+        run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake cmake curl g++-multilib binutils-gold python3 libcap-dev
       
       - name: Install MinGW32 dependencies
         if: matrix.os == 'x86_64-w64-mingw32'
-        run: sudo apt-get install g++-mingw-w64-x86-64 && sudo update-alternatives --config x86_64-w64-mingw32-g++
+        run: sudo apt-get install g++-mingw-w64-x86-64 && && sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix 
       
       - name: Build depends
         run: cd depends/ && make -j4 HOST=${{matrix.os}} NO_WALLET=1
