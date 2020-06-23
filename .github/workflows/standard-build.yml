@@ -32,7 +32,11 @@ jobs:
       - name: Install MacOS specific dependencies
         if: matrix.os == 'x86_64-apple-darwin14'
         run: sudo apt-get install cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev python3-setuptools-git
-
+      
+      - name: Add MacOS 10.11 SDK
+        if: matrix.os == 'x86_64-apple-darwin14'
+        run: mkdir depends/SDKs && curl -L https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.11.sdk.tar.xz --output MacOSX10.11.sdk.tar.gz && tar -C depends/SDKs -xf ./MacOSX10.11.sdk.tar.gz
+      
       - name: Build depends
         run: cd depends/ && make -j4 HOST=${{matrix.os}}
 
