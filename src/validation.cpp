@@ -1190,10 +1190,10 @@ CAmount GetDGBSubsidy(int nHeight, const Consensus::Params& consensusParams) {
 		//decrease reward by 1% every month
 		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
 	}
-	else
+	else if(nHeight<12993200)
 	{
 		//hard fork point: 1.43M
-		//subsidy at hard fork: 2157
+		//subsidy at hard fork: 1078.5
 		//monthly decay factor: 98884/100000
 		//last block number: 41668798
 		//expected years after hard fork: 19.1395
@@ -1204,6 +1204,22 @@ CAmount GetDGBSubsidy(int nHeight, const Consensus::Params& consensusParams) {
 		for(int64_t i = 0; i < months; i++)
 		{
 			qSubsidy*=98884;
+			qSubsidy/=100000;
+		}
+	} else {
+		//hard fork point: 12993200
+		//subsidy at hard fork: 513.00043026
+		//monthly decay factor: 98884/100000
+		//last block number: 116731970
+		//expected years after hard fork: 49.343
+		
+
+		qSubsidy = 51300043026*COIN/100000000;
+		int64_t blocks = nHeight - 12993200;
+		int64_t months = blocks*15/(3600*24*365/12);
+		for(int64_t i = 0; i < months; i++)
+		{
+			qSubsidy*=98652;
 			qSubsidy/=100000;
 		}
 	}
