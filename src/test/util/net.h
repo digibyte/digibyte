@@ -1,9 +1,9 @@
-// Copyright (c) 2020 The Bitcoin Core developers
+// Copyright (c) 2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_TEST_UTIL_NET_H
-#define BITCOIN_TEST_UTIL_NET_H
+#ifndef DIGIBYTE_TEST_UTIL_NET_H
+#define DIGIBYTE_TEST_UTIL_NET_H
 
 #include <net.h>
 
@@ -30,4 +30,4 @@ struct ConnmanTestMsg : public CConnman {
     bool ReceiveMsgFrom(CNode& node, CSerializedNetMsg& ser_msg) const;
 };
 
-#endif // BITCOIN_TEST_UTIL_NET_H
+#endif // DIGIBYTE_TEST_UTIL_NET_H

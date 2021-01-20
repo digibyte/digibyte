@@ -1,9 +1,9 @@
-// Copyright (c) 2019 The Bitcoin Core developers
+// Copyright (c) 2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_INDEX_DISKTXPOS_H
-#define BITCOIN_INDEX_DISKTXPOS_H
+#ifndef DIGIBYTE_INDEX_DISKTXPOS_H
+#define DIGIBYTE_INDEX_DISKTXPOS_H
 
 #include <flatfile.h>
 #include <serialize.h>
@@ -32,4 +32,4 @@ struct CDiskTxPos : public FlatFilePos
 };
 
 
-#endif // BITCOIN_INDEX_DISKTXPOS_H
+#endif // DIGIBYTE_INDEX_DISKTXPOS_H

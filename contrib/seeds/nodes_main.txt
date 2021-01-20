@@ -746,7 +746,7 @@ algpjjygd3gtnmpp.onion:8333
 alihua7rhyc452hr.onion:8333
 am3gyyfynxzwyxhx.onion:8333
 ankozzfhl2r3uc6u.onion:8333
-at3twjlbtc2lqnq5.onion:8333
+at3twjldgb2lqnq5.onion:8333
 avqobl72pmc64dyi.onion:8333
 awmdz2fs3b5h5ut5.onion:8333
 ayywpiy77butdjrj.onion:8333
@@ -758,7 +758,7 @@ be5bgcpo4ooux5qy.onion:8333
 bgla4m6zetvtv7ls.onion:8333
 bh32gzw3nyckzqut.onion:8333
 bho4kodpehn7xr3x.onion:8333
-bitcoin4rlfa4wqx.onion:8333
+digibyte4rlfa4wqx.onion:8333
 biw7s6jf6r2mf3cu.onion:8333
 bk7yp6epnmcllq72.onion:8333
 blcktrgve5vetjsk.onion:8333
