@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multiwallet.
@@ -15,15 +11,10 @@ from decimal import Decimal
 from threading import Thread
 import os
 import shutil
-<<<<<<< HEAD
-import time
-
-=======
 import stat
 import time
 
 from test_framework.authproxy import JSONRPCException
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.test_node import ErrorMatch
 from test_framework.util import (
@@ -32,8 +23,6 @@ from test_framework.util import (
     get_rpc_proxy,
 )
 
-<<<<<<< HEAD
-=======
 got_loading_error = False
 def test_load_unload(node, name):
     global got_loading_error
@@ -48,7 +37,6 @@ def test_load_unload(node, name):
                 got_loading_error = True
                 return
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class MultiWalletTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -380,15 +368,7 @@ class MultiWalletTest(DigiByteTestFramework):
 
         # Successfully unload the wallet referenced by the request endpoint
         # Also ensure unload works during walletpassphrase timeout
-<<<<<<< HEAD
-        wallets = node.listwallets()
         w2.encryptwallet('test')
-        self.restart_node(0, ['-wallet={}'.format(wallet) for wallet in wallets])
-        w1 = node.get_wallet_rpc(wallet_names[0])
-        w2 = node.get_wallet_rpc(wallet_names[1])
-=======
-        w2.encryptwallet('test')
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         w2.walletpassphrase('test', 1)
         w2.unloadwallet()
         time.sleep(1.1)

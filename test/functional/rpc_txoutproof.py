@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -10,39 +6,18 @@
 
 from test_framework.messages import CMerkleBlock, FromHex, ToHex
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import assert_equal, assert_raises_rpc_error, connect_nodes
-
-=======
 from test_framework.util import assert_equal, assert_raises_rpc_error
 from test_framework.wallet import MiniWallet
 
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class MerkleBlockTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
-<<<<<<< HEAD
-        # Nodes 0/1 are "wallet" nodes, Nodes 2/3 are used for testing
-        self.extra_args = [[], [], [], ["-txindex"]]
-
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
-
-    def setup_network(self):
-        self.setup_nodes()
-        connect_nodes(self.nodes[0], 1)
-        connect_nodes(self.nodes[0], 2)
-        connect_nodes(self.nodes[0], 3)
-
-        self.sync_all()
-=======
         self.extra_args = [
             [],
             ["-txindex"],
         ]
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def run_test(self):
         miniwallet = MiniWallet(self.nodes[0])

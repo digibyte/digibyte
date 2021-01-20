@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -57,16 +53,6 @@ class SkipTest(Exception):
         self.message = message
 
 
-<<<<<<< HEAD
-class SkipTest(Exception):
-    """This exception is raised to skip a test"""
-
-    def __init__(self, message):
-        self.message = message
-
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class DigiByteTestMetaClass(type):
     """Metaclass for DigiByteTestFramework.
 
@@ -191,8 +177,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
                             help="Attach a python debugger if test fails")
         parser.add_argument("--usecli", dest="usecli", default=False, action="store_true",
                             help="use digibyte-cli instead of RPC for all commands")
-<<<<<<< HEAD
-=======
         parser.add_argument("--perf", dest="perf", default=False, action="store_true",
                             help="profile running nodes with perf for the duration of the test")
         parser.add_argument("--valgrind", dest="valgrind", default=False, action="store_true",
@@ -207,7 +191,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
         group.add_argument("--legacy-wallet", default=False, action="store_false",
                             help="Run test using legacy wallets", dest='descriptors')
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.add_options(parser)
         self.options = parser.parse_args()
         self.options.previous_releases_path = previous_releases_path
@@ -223,10 +206,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
 
         config = configparser.ConfigParser()
         config.read_file(open(self.options.configfile))
-<<<<<<< HEAD
-        self.options.digibyted = os.getenv("DIGIBYTED", default=config["environment"]["BUILDDIR"] + '/src/digibyted' + config["environment"]["EXEEXT"])
-        self.options.digibytecli = os.getenv("DIGIBYTECLI", default=config["environment"]["BUILDDIR"] + '/src/digibyte-cli' + config["environment"]["EXEEXT"])
-=======
         self.config = config
         fname_digibyted = os.path.join(
             config["environment"]["BUILDDIR"],
@@ -240,7 +219,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
         )
         self.options.digibyted = os.getenv("DIGIBYTED", default=fname_digibyted)
         self.options.digibytecli = os.getenv("DIGIBYTECLI", default=fname_digibytecli)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         os.environ['PATH'] = os.pathsep.join([
             os.path.join(config['environment']['BUILDDIR'], 'src'),
@@ -278,27 +256,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
         if self.options.usecli:
             if not self.supports_cli:
                 raise SkipTest("--usecli specified but test does not support using CLI")
-<<<<<<< HEAD
-            self.skip_test_if_missing_module()
-            self.setup_chain()
-            self.setup_network()
-            self.import_deterministic_coinbase_privkeys()
-            self.run_test()
-            success = TestStatus.PASSED
-        except JSONRPCException as e:
-            self.log.exception("JSONRPC error")
-        except SkipTest as e:
-            self.log.warning("Test Skipped: %s" % e.message)
-            success = TestStatus.SKIPPED
-        except AssertionError as e:
-            self.log.exception("Assertion failed")
-        except KeyError as e:
-            self.log.exception("Key error")
-        except Exception as e:
-            self.log.exception("Unexpected exception caught during testing")
-        except KeyboardInterrupt as e:
-            self.log.warning("Exiting after keyboard interrupt")
-=======
             self.skip_if_no_cli()
         self.skip_test_if_missing_module()
         self.setup_chain()
@@ -308,7 +265,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
 
     def shutdown(self):
         """Call this method to shut down the test framework object."""
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         if self.success == TestStatus.FAILED and self.options.pdbonfailure:
             print("Testcase failed. Attaching python debugger. Enter ? for help")
@@ -325,9 +281,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
                 node.cleanup_on_exit = False
             self.log.info("Note: digibyteds were not stopped and may still be running")
 
-<<<<<<< HEAD
-        if not self.options.nocleanup and not self.options.noshutdown and success != TestStatus.FAILED:
-=======
         should_clean_up = (
             not self.options.nocleanup and
             not self.options.noshutdown and
@@ -335,7 +288,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
             not self.options.perf
         )
         if should_clean_up:
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             self.log.info("Cleaning up {} on exit".format(self.options.tmpdir))
             cleanup_tree_on_exit = True
         elif self.options.perf:
@@ -507,22 +459,15 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
         if versions is None:
             versions = [None] * num_nodes
         if binary is None:
-<<<<<<< HEAD
-            binary = [self.options.digibyted] * num_nodes
-=======
             binary = [get_bin_from_version(v, 'digibyted', self.options.digibyted) for v in versions]
         if binary_cli is None:
             binary_cli = [get_bin_from_version(v, 'digibyte-cli', self.options.digibytecli) for v in versions]
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         assert_equal(len(extra_confs), num_nodes)
         assert_equal(len(extra_args), num_nodes)
         assert_equal(len(versions), num_nodes)
         assert_equal(len(binary), num_nodes)
         assert_equal(len(binary_cli), num_nodes)
         for i in range(num_nodes):
-<<<<<<< HEAD
-            self.nodes.append(TestNode(i, get_datadir_path(self.options.tmpdir, i), rpchost=rpchost, timewait=self.rpc_timewait, digibyted=binary[i], digibyte_cli=self.options.digibytecli, mocktime=self.mocktime, coverage_dir=self.options.coveragedir, extra_conf=extra_confs[i], extra_args=extra_args[i], use_cli=self.options.usecli))
-=======
             test_node_i = TestNode(
                 i,
                 get_datadir_path(self.options.tmpdir, i),
@@ -550,7 +495,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
                     conf_data = conf.read()
                 with open(conf_file, 'w', encoding='utf8') as conf:
                     conf.write(conf_data.replace('[regtest]', ''))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def start_node(self, i, *args, **kwargs):
         """Start a digibyted"""
@@ -583,21 +527,12 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
             for node in self.nodes:
                 coverage.write_all_rpc_commands(self.options.coveragedir, node.rpc)
 
-<<<<<<< HEAD
-    def stop_node(self, i, expected_stderr=''):
-        """Stop a digibyted test node"""
-        self.nodes[i].stop_node(expected_stderr)
-        self.nodes[i].wait_until_stopped()
-
-    def stop_nodes(self):
-=======
     def stop_node(self, i, expected_stderr='', wait=0):
         """Stop a digibyted test node"""
         self.nodes[i].stop_node(expected_stderr, wait=wait)
         self.nodes[i].wait_until_stopped()
 
     def stop_nodes(self, wait=0):
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         """Stop multiple digibyted test nodes"""
         for node in self.nodes:
             # Issue RPC to stop nodes
@@ -766,31 +701,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
         CACHE_NODE_ID = 0  # Use node 0 to create the cache for all other nodes
         cache_node_dir = get_datadir_path(self.options.cachedir, CACHE_NODE_ID)
         assert self.num_nodes <= MAX_NODES
-<<<<<<< HEAD
-        create_cache = False
-        for i in range(MAX_NODES):
-            if not os.path.isdir(get_datadir_path(self.options.cachedir, i)):
-                create_cache = True
-                break
-
-        if create_cache:
-            self.log.debug("Creating data directories from cached datadir")
-
-            # find and delete old cache directories if any exist
-            for i in range(MAX_NODES):
-                if os.path.isdir(get_datadir_path(self.options.cachedir, i)):
-                    shutil.rmtree(get_datadir_path(self.options.cachedir, i))
-
-            # Create cache directories, run digibyteds:
-            for i in range(MAX_NODES):
-                datadir = initialize_datadir(self.options.cachedir, i)
-                args = [self.options.digibyted, "-datadir=" + datadir, '-disablewallet']
-                if i > 0:
-                    args.append("-connect=127.0.0.1:" + str(p2p_port(0)))
-                self.nodes.append(TestNode(i, get_datadir_path(self.options.cachedir, i), extra_conf=["bind=127.0.0.1"], extra_args=[], rpchost=None, timewait=self.rpc_timewait, digibyted=self.options.digibyted, digibyte_cli=self.options.digibytecli, mocktime=self.mocktime, coverage_dir=None))
-                self.nodes[i].args = args
-                self.start_node(i)
-=======
 
         if not os.path.isdir(cache_node_dir):
             self.log.debug("Creating cache directory {}".format(cache_node_dir))
@@ -814,7 +724,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
                 ))
             self.start_node(CACHE_NODE_ID)
             cache_node = self.nodes[CACHE_NODE_ID]
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
             # Wait for RPC connections to be ready
             cache_node.wait_for_rpc_connection()
@@ -824,25 +733,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
 
             # Create a 199-block-long chain; each of the 4 first nodes
             # gets 25 mature blocks and 25 immature.
-<<<<<<< HEAD
-            # Note: To preserve compatibility with older versions of
-            # initialize_chain, only 4 nodes will generate coins.
-            #
-            # blocks are created with timestamps 10 minutes apart
-            # starting from 2010 minutes in the past
-            self.enable_mocktime()
-            block_time = self.mocktime - (201 * 10 * 60)
-            for i in range(2):
-                for peer in range(4):
-                    for j in range(25):
-                        set_node_times(self.nodes, block_time)
-                        self.nodes[peer].generatetoaddress(1, self.nodes[peer].get_deterministic_priv_key()[0])
-                        block_time += 10 * 60
-                    # Must sync before next peer starts generating blocks
-                    sync_blocks(self.nodes)
-
-            # Shut them down, and clean up cache directories:
-=======
             # The 4th node gets only 24 immature blocks so that the very last
             # block in the cache does not age too much (have an old tip age).
             # This is needed so that we are out of IBD when the test starts,
@@ -856,36 +746,22 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
             assert_equal(cache_node.getblockchaininfo()["blocks"], 199)
 
             # Shut it down, and clean up cache directories:
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             self.stop_nodes()
             self.nodes = []
 
             def cache_path(*paths):
                 return os.path.join(cache_node_dir, self.chain, *paths)
 
-<<<<<<< HEAD
-            for i in range(MAX_NODES):
-                os.rmdir(cache_path(i, 'wallets'))  # Remove empty wallets dir
-                for entry in os.listdir(cache_path(i)):
-                    if entry not in ['chainstate', 'blocks']:
-                        os.remove(cache_path(i, entry))
-=======
             os.rmdir(cache_path('wallets'))  # Remove empty wallets dir
             for entry in os.listdir(cache_path()):
                 if entry not in ['chainstate', 'blocks']:  # Only keep chainstate and blocks folder
                     os.remove(cache_path(entry))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         for i in range(self.num_nodes):
             self.log.debug("Copy cache directory {} to node {}".format(cache_node_dir, i))
             to_dir = get_datadir_path(self.options.tmpdir, i)
-<<<<<<< HEAD
-            shutil.copytree(from_dir, to_dir)
-            initialize_datadir(self.options.tmpdir, i)  # Overwrite port/rpcport in digibyte.conf
-=======
             shutil.copytree(cache_node_dir, to_dir)
             initialize_datadir(self.options.tmpdir, i, self.chain)  # Overwrite port/rpcport in digibyte.conf
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def _initialize_chain_clean(self):
         """Initialize empty blockchain for use by the test.
@@ -911,8 +787,6 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
         """Skip the running test if wallet has not been compiled."""
         if not self.is_wallet_compiled():
             raise SkipTest("wallet has not been compiled.")
-<<<<<<< HEAD
-=======
         if self.options.descriptors:
             self.skip_if_no_sqlite()
 
@@ -925,35 +799,12 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
         """Skip the running test if digibyte-wallet has not been compiled."""
         if not self.is_wallet_tool_compiled():
             raise SkipTest("digibyte-wallet has not been compiled")
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def skip_if_no_cli(self):
         """Skip the running test if digibyte-cli has not been compiled."""
         if not self.is_cli_compiled():
             raise SkipTest("digibyte-cli has not been compiled.")
 
-<<<<<<< HEAD
-    def is_cli_compiled(self):
-        """Checks whether digibyte-cli was compiled."""
-        config = configparser.ConfigParser()
-        config.read_file(open(self.options.configfile))
-
-        return config["components"].getboolean("ENABLE_UTILS")
-
-    def is_wallet_compiled(self):
-        """Checks whether the wallet module was compiled."""
-        config = configparser.ConfigParser()
-        config.read_file(open(self.options.configfile))
-
-        return config["components"].getboolean("ENABLE_WALLET")
-
-    def is_zmq_compiled(self):
-        """Checks whether the zmq module was compiled."""
-        config = configparser.ConfigParser()
-        config.read_file(open(self.options.configfile))
-
-        return config["components"].getboolean("ENABLE_ZMQ")
-=======
     def skip_if_no_previous_releases(self):
         """Skip the running test if previous releases are not available."""
         if not self.has_previous_releases():
@@ -986,4 +837,3 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
     def is_sqlite_compiled(self):
         """Checks whether the wallet module was compiled."""
         return self.config["components"].getboolean("USE_SQLITE")
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

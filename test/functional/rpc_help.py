@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2018 The DigiByte Core developers
-=======
-# Copyright (c) 2018-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPC help output."""
@@ -17,19 +13,13 @@ import os
 class HelpRpcTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
-<<<<<<< HEAD
-=======
         self.supports_cli = False
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def run_test(self):
         self.test_categories()
         self.dump_help()
-<<<<<<< HEAD
-=======
         if self.is_wallet_compiled():
             self.wallet_help()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def test_categories(self):
         node = self.nodes[0]
@@ -65,14 +55,11 @@ class HelpRpcTest(DigiByteTestFramework):
                 # Make sure the node can generate the help at runtime without crashing
                 f.write(self.nodes[0].help(call))
 
-<<<<<<< HEAD
-=======
     def wallet_help(self):
         assert 'getnewaddress ( "label" "address_type" )' in self.nodes[0].help('getnewaddress')
         self.restart_node(0, extra_args=['-nowallet=1'])
         assert 'getnewaddress ( "label" "address_type" )' in self.nodes[0].help('getnewaddress')
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 if __name__ == '__main__':
     HelpRpcTest().main()

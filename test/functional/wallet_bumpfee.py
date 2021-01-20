@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the bumpfee RPC.
@@ -24,18 +20,12 @@ import io
 from test_framework.blocktools import add_witness_commitment, create_block, create_coinbase, send_to_witness
 from test_framework.messages import BIP125_SEQUENCE_NUMBER, CTransaction
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import assert_equal, assert_greater_than, assert_raises_rpc_error, bytes_to_hex_str, connect_nodes_bi, hex_str_to_bytes, sync_mempools
-
-import io
-=======
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
     assert_raises_rpc_error,
     hex_str_to_bytes,
 )
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 WALLET_PASSPHRASE = "test"
 WALLET_PASSPHRASE_TIMEOUT = 3600
@@ -53,26 +43,18 @@ class BumpFeeTest(DigiByteTestFramework):
         self.num_nodes = 2
         self.setup_clean_chain = True
         self.extra_args = [[
-<<<<<<< HEAD
-            "-deprecatedrpc=addwitnessaddress",
-            "-walletrbf={}".format(i),
-=======
             "-walletrbf={}".format(i),
             "-mintxfee=0.00002",
             "-addresstype=bech32",
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         ] for i in range(self.num_nodes)]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
-<<<<<<< HEAD
-=======
 
     def clear_mempool(self):
         # Clear mempool between subtests. The subtests may only depend on chainstate (utxos)
         self.nodes[1].generate(1)
         self.sync_all()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def run_test(self):
         # Encrypt wallet for test_locked_wallet_fails test

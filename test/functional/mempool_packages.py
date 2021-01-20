@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -11,11 +7,6 @@
 from decimal import Decimal
 
 from test_framework.messages import COIN
-<<<<<<< HEAD
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_raises_rpc_error, satoshi_round, sync_blocks, sync_mempools
-
-=======
 from test_framework.p2p import P2PTxInvStore
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
@@ -25,7 +16,6 @@ from test_framework.util import (
 )
 
 # default limits
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 MAX_ANCESTORS = 25
 MAX_DESCENDANTS = 25
 # custom limits for node1
@@ -71,10 +61,7 @@ class MempoolPackagesTest(DigiByteTestFramework):
 
     def run_test(self):
         # Mine some blocks and have them mature.
-<<<<<<< HEAD
-=======
         peer_inv_store = self.nodes[0].add_p2p_connection(P2PTxInvStore()) # keep track of invs
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.nodes[0].generate(101)
         utxo = self.nodes[0].listunspent(10)
         txid = utxo[0]['txid']

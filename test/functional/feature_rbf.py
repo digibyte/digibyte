@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -13,12 +10,8 @@ from decimal import Decimal
 from test_framework.messages import COIN, COutPoint, CTransaction, CTxIn, CTxOut
 from test_framework.script import CScript, OP_DROP
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import assert_equal, assert_raises_rpc_error, bytes_to_hex_str, satoshi_round
-=======
 from test_framework.util import assert_equal, assert_raises_rpc_error, satoshi_round
 from test_framework.script_util import DUMMY_P2WPKH_SCRIPT, DUMMY_2_P2WPKH_SCRIPT
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 MAX_REPLACEMENT_LIMIT = 100
 
@@ -73,33 +66,18 @@ def make_utxo(node, amount, confirmed=True, scriptPubKey=DUMMY_P2WPKH_SCRIPT):
 
 class ReplaceByFeeTest(DigiByteTestFramework):
     def set_test_params(self):
-<<<<<<< HEAD
-        self.num_nodes = 2
-        self.extra_args = [
-            [
-                "-maxorphantx=1000",
-                "-whitelist=127.0.0.1",
-=======
         self.num_nodes = 1
         self.extra_args = [
             [
                 "-acceptnonstdtxn=1",
                 "-maxorphantx=1000",
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                 "-limitancestorcount=50",
                 "-limitancestorsize=101",
                 "-limitdescendantcount=200",
                 "-limitdescendantsize=101",
             ],
-<<<<<<< HEAD
-            [
-                "-mempoolreplacement=0",
-            ],
-        ]
-=======
         ]
         self.supports_cli = False
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()

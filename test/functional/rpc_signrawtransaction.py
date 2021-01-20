@@ -1,18 +1,10 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2015-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test transaction signing using the signrawtransaction* RPCs."""
 
-<<<<<<< HEAD
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_raises_rpc_error
-=======
 from test_framework.address import check_script, script_to_p2sh
 from test_framework.key import ECKey
 from test_framework.test_framework import DigiByteTestFramework
@@ -21,7 +13,6 @@ from test_framework.messages import sha256
 from test_framework.script import CScript, OP_0, OP_CHECKSIG
 from test_framework.script_util import key_to_p2pkh_script, script_to_p2sh_p2wsh_script, script_to_p2wsh_script
 from test_framework.wallet_util import bytes_to_wif
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 from decimal import Decimal
 
@@ -249,11 +240,8 @@ class SignRawTransactionsTest(DigiByteTestFramework):
     def run_test(self):
         self.successful_signing_test()
         self.script_verification_error_test()
-<<<<<<< HEAD
-=======
         self.witness_script_test()
         self.OP_1NEGATE_test()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.test_with_lock_outputs()
 
 

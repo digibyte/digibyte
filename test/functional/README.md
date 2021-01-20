@@ -31,11 +31,7 @@ don't have test cases for.
 - Avoid wildcard imports
 - Use a module-level docstring to describe what the test is testing, and how it
   is testing it.
-<<<<<<< HEAD
-- When subclassing the DigiByteTestFramwork, place overrides for the
-=======
 - When subclassing the DigiByteTestFramework, place overrides for the
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   `set_test_params()`, `add_options()` and `setup_xxxx()` methods at the top of
   the subclass, then locally-defined helper methods, then the `run_test()` method.
 - Use `'{}'.format(x)` for string formatting, not `'%s' % x`.
@@ -113,14 +109,9 @@ p2p_conn = node.add_p2p_connection(P2PInterface())
 p2p_conn.send_and_ping(msg)
 ```
 
-<<<<<<< HEAD
-#### [test_framework/authproxy.py](test_framework/authproxy.py)
-Taken from the [python-digibyterpc repository](https://github.com/jgarzik/python-digibyterpc).
-=======
 They can also be referenced by indexing into a `TestNode`'s `p2ps` list, which
 contains the list of test framework `p2p` objects connected to itself
 (it does not include any `TestNode`s):
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ```python
 node.p2ps[0].sync_with_ping()
@@ -152,16 +143,6 @@ Base class for functional tests.
 #### [util.py](test_framework/util.py)
 Generally useful functions.
 
-<<<<<<< HEAD
-#### [test_framework/mininode.py](test_framework/mininode.py)
-Basic code to support P2P connectivity to a digibyted.
-
-#### [test_framework/script.py](test_framework/script.py)
-Utilities for manipulating transaction scripts (originally from python-digibytelib)
-
-#### [test_framework/key.py](test_framework/key.py)
-Wrapper around OpenSSL EC_Key (originally from python-digibytelib)
-=======
 #### [p2p.py](test_framework/p2p.py)
 Test objects for interacting with a digibyted node over the p2p interface.
 
@@ -170,7 +151,6 @@ Utilities for manipulating transaction scripts (originally from python-digibytel
 
 #### [key.py](test_framework/key.py)
 Test-only secp256k1 elliptic curve implementation
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 #### [blocktools.py](test_framework/blocktools.py)
 Helper functions for creating blocks and transactions.

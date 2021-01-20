@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test behavior of headers messages to announce blocks.
@@ -190,14 +186,9 @@ class BaseNode(P2PInterface):
         inv should be a list of block hashes."""
 
         test_function = lambda: self.block_announced
-<<<<<<< HEAD
-        wait_until(test_function, timeout=60, lock=mininode_lock)
-        with mininode_lock:
-=======
         self.wait_until(test_function)
 
         with p2p_lock:
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             compare_inv = []
             if "inv" in self.last_message:
                 compare_inv = [x.hash for x in self.last_message["inv"].inv]

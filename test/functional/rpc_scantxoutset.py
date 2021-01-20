@@ -1,29 +1,18 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2018 The DigiByte Core developers
-=======
 # Copyright (c) 2018-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the scantxoutset rpc call."""
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import assert_equal
-=======
 from test_framework.util import assert_equal, assert_raises_rpc_error
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 from decimal import Decimal
 import shutil
 import os
 
-<<<<<<< HEAD
-=======
 def descriptors(out):
     return sorted(u['desc'] for u in out['unspents'])
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class ScantxoutsetTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1

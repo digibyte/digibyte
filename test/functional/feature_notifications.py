@@ -1,19 +1,10 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the -alertnotify, -blocknotify and -walletnotify options."""
 import os
 
-<<<<<<< HEAD
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, wait_until, connect_nodes_bi
-
-=======
 from test_framework.address import ADDRESS_BCRT1_UNSPENDABLE, keyhash_to_p2pkh
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
@@ -32,7 +23,6 @@ def notify_outputname(walletname, txid):
     return txid if os.name == 'nt' else '{}_{}'.format(walletname, txid)
 
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class NotificationsTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
@@ -64,56 +54,6 @@ class NotificationsTest(DigiByteTestFramework):
     def run_test(self):
         self.log.info("test -blocknotify")
         block_count = 10
-<<<<<<< HEAD
-        blocks = self.nodes[1].generate(block_count)
-
-        # wait at most 10 seconds for expected file size before reading the content
-        wait_until(lambda: os.path.isfile(self.block_filename) and os.stat(self.block_filename).st_size >= (block_count * 65), timeout=10)
-
-        # file content should equal the generated blocks hashes
-        with open(self.block_filename, 'r', encoding="utf-8") as f:
-            assert_equal(sorted(blocks), sorted(l.strip() for l in f.read().splitlines()))
-
-        self.log.info("test -walletnotify")
-        # wait at most 10 seconds for expected file size before reading the content
-        wait_until(lambda: os.path.isfile(self.tx_filename) and os.stat(self.tx_filename).st_size >= (block_count * 65), timeout=10)
-
-        # file content should equal the generated transaction hashes
-        txids_rpc = list(map(lambda t: t['txid'], self.nodes[1].listtransactions("*", block_count)))
-        with open(self.tx_filename, 'r', encoding="ascii") as f:
-            assert_equal(sorted(txids_rpc), sorted(l.strip() for l in f.read().splitlines()))
-        os.remove(self.tx_filename)
-
-        self.log.info("test -walletnotify after rescan")
-        # restart node to rescan to force wallet notifications
-        self.restart_node(1)
-        connect_nodes_bi(self.nodes, 0, 1)
-
-        wait_until(lambda: os.path.isfile(self.tx_filename) and os.stat(self.tx_filename).st_size >= (block_count * 65), timeout=10)
-
-        # file content should equal the generated transaction hashes
-        txids_rpc = list(map(lambda t: t['txid'], self.nodes[1].listtransactions("*", block_count)))
-        with open(self.tx_filename, 'r', encoding="ascii") as f:
-            assert_equal(sorted(txids_rpc), sorted(l.strip() for l in f.read().splitlines()))
-
-        # Mine another 41 up-version blocks. -alertnotify should trigger on the 51st.
-        self.log.info("test -alertnotify")
-        self.nodes[1].generate(41)
-        self.sync_all()
-
-        # Give digibyted 10 seconds to write the alert notification
-        wait_until(lambda: os.path.isfile(self.alert_filename) and os.path.getsize(self.alert_filename), timeout=10)
-
-        with open(self.alert_filename, 'r', encoding='utf8') as f:
-            alert_text = f.read()
-
-        # Mine more up-version blocks, should not get more alerts:
-        self.nodes[1].generate(2)
-        self.sync_all()
-
-        with open(self.alert_filename, 'r', encoding='utf8') as f:
-            alert_text2 = f.read()
-=======
         blocks = self.nodes[1].generatetoaddress(block_count, self.nodes[1].getnewaddress() if self.is_wallet_compiled() else ADDRESS_BCRT1_UNSPENDABLE)
 
         # wait at most 10 seconds for expected number of files before reading the content
@@ -205,7 +145,6 @@ class NotificationsTest(DigiByteTestFramework):
         assert_equal(sorted(notify_outputname(self.wallet, tx_id) for tx_id in tx_ids), sorted(os.listdir(self.walletnotify_dir)))
         for tx_file in os.listdir(self.walletnotify_dir):
             os.remove(os.path.join(self.walletnotify_dir, tx_file))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 
 if __name__ == '__main__':

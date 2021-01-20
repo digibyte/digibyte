@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2018 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test logic for setting nMinimumChainWork on command line.
@@ -23,11 +19,7 @@ only succeeds past a given node once its nMinimumChainWork has been exceeded.
 import time
 
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import connect_nodes, assert_equal
-=======
 from test_framework.util import assert_equal
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 # 2 hashes required per regtest block (with no difficulty adjustment)
 REGTEST_WORK_PER_BLOCK = 2

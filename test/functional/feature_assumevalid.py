@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test logic for skipping signature validation on old blocks.
@@ -59,10 +55,6 @@ class BaseNode(P2PInterface):
         headers_message.headers = [CBlockHeader(b) for b in new_blocks]
         self.send_message(headers_message)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class AssumeValidTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True

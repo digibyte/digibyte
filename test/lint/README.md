@@ -21,8 +21,6 @@ maintained:
 * for `src/leveldb`: https://github.com/digibyte-core/leveldb.git (branch digibyte-fork)
 * for `src/univalue`: https://github.com/digibyte-core/univalue.git (branch master)
 * for `src/crypto/ctaes`: https://github.com/digibyte-core/ctaes.git (branch master)
-<<<<<<< HEAD
-=======
 * for `src/crc32c`: https://github.com/google/crc32c.git (branch master)
 
 To do so, add the upstream repository as remote:
@@ -30,7 +28,6 @@ To do so, add the upstream repository as remote:
 ```
 git remote add --fetch secp256k1 https://github.com/digibyte-core/secp256k1.git
 ```
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Usage: `git-subtree-check.sh DIR (COMMIT)`
 

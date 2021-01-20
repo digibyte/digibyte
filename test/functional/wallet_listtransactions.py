@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -98,18 +95,6 @@ class ListTransactionsTest(DigiByteTestFramework):
                             {"category": "receive", "amount": Decimal("0.44")},
                             {"txid": txid})
 
-<<<<<<< HEAD
-        pubkey = self.nodes[1].getaddressinfo(self.nodes[1].getnewaddress())['pubkey']
-        multisig = self.nodes[1].createmultisig(1, [pubkey])
-        self.nodes[0].importaddress(multisig["redeemScript"], "watchonly", False, True)
-        txid = self.nodes[1].sendtoaddress(multisig["address"], 0.1)
-        self.nodes[1].generate(1)
-        self.sync_all()
-        assert len(self.nodes[0].listtransactions(label="watchonly", count=100, skip=0, include_watchonly=False)) == 0
-        assert_array_result(self.nodes[0].listtransactions(label="watchonly", count=100, skip=0, include_watchonly=True),
-                            {"category": "receive", "amount": Decimal("0.1")},
-                            {"txid": txid, "label": "watchonly"})
-=======
         if not self.options.descriptors:
             # include_watchonly is a legacy wallet feature, so don't test it for descriptor wallets
             pubkey = self.nodes[1].getaddressinfo(self.nodes[1].getnewaddress())['pubkey']
@@ -124,7 +109,6 @@ class ListTransactionsTest(DigiByteTestFramework):
             assert_array_result(self.nodes[0].listtransactions(label="watchonly", count=100, include_watchonly=True),
                                 {"category": "receive", "amount": Decimal("0.1")},
                                 {"txid": txid, "label": "watchonly"})
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         self.run_rbf_opt_in_test()
 

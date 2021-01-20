@@ -1,18 +1,10 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2018 The DigiByte Core developers
-=======
 # Copyright (c) 2018-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the Partially Signed Transaction RPCs.
 """
 
-<<<<<<< HEAD
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_raises_rpc_error, find_output, disconnect_nodes, connect_nodes_bi, sync_blocks
-=======
 from decimal import Decimal
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
@@ -22,7 +14,6 @@ from test_framework.util import (
     assert_raises_rpc_error,
     find_output,
 )
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 import json
 import os
@@ -337,13 +328,8 @@ class PSBTTest(DigiByteTestFramework):
         # Error could be either "TX decode failed" (segwit inputs causes parsing to fail) or "Inputs must not have scriptSigs and scriptWitnesses"
         # We must set iswitness=True because the serialized transaction has inputs and is therefore a witness transaction
         signedtx = self.nodes[0].signrawtransactionwithwallet(rawtx['hex'])
-<<<<<<< HEAD
-        assert_raises_rpc_error(-22, "TX decode failed", self.nodes[0].converttopsbt, signedtx['hex'])
-        assert_raises_rpc_error(-22, "TX decode failed", self.nodes[0].converttopsbt, signedtx['hex'], False)
-=======
         assert_raises_rpc_error(-22, "", self.nodes[0].converttopsbt, hexstring=signedtx['hex'], iswitness=True)
         assert_raises_rpc_error(-22, "", self.nodes[0].converttopsbt, hexstring=signedtx['hex'], permitsigdata=False, iswitness=True)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         # Unless we allow it to convert and strip signatures
         self.nodes[0].converttopsbt(signedtx['hex'], True)
 
@@ -393,20 +379,6 @@ class PSBTTest(DigiByteTestFramework):
         # replaceable arg
         block_height = self.nodes[0].getblockcount()
         unspent = self.nodes[0].listunspent()[0]
-<<<<<<< HEAD
-        psbtx_info = self.nodes[0].walletcreatefundedpsbt([{"txid":unspent["txid"], "vout":unspent["vout"]}], [{self.nodes[2].getnewaddress():unspent["amount"]+1}], block_height+2, {"replaceable":True}, False)
-        decoded_psbt = self.nodes[0].decodepsbt(psbtx_info["psbt"])
-        for tx_in, psbt_in in zip(decoded_psbt["tx"]["vin"], decoded_psbt["inputs"]):
-           assert_equal(tx_in["sequence"], MAX_BIP125_RBF_SEQUENCE)
-           assert "bip32_derivs" not in psbt_in
-        assert_equal(decoded_psbt["tx"]["locktime"], block_height+2)
-
-        # Same construction with only locktime set
-        psbtx_info = self.nodes[0].walletcreatefundedpsbt([{"txid":unspent["txid"], "vout":unspent["vout"]}], [{self.nodes[2].getnewaddress():unspent["amount"]+1}], block_height, {}, True)
-        decoded_psbt = self.nodes[0].decodepsbt(psbtx_info["psbt"])
-        for tx_in, psbt_in in zip(decoded_psbt["tx"]["vin"], decoded_psbt["inputs"]):
-            assert tx_in["sequence"] > MAX_BIP125_RBF_SEQUENCE
-=======
         psbtx_info = self.nodes[0].walletcreatefundedpsbt([{"txid":unspent["txid"], "vout":unspent["vout"]}], [{self.nodes[2].getnewaddress():unspent["amount"]+1}], block_height+2, {"replaceable": False, "add_inputs": True}, False)
         decoded_psbt = self.nodes[0].decodepsbt(psbtx_info["psbt"])
         for tx_in, psbt_in in zip(decoded_psbt["tx"]["vin"], decoded_psbt["inputs"]):
@@ -419,21 +391,10 @@ class PSBTTest(DigiByteTestFramework):
         decoded_psbt = self.nodes[0].decodepsbt(psbtx_info["psbt"])
         for tx_in, psbt_in in zip(decoded_psbt["tx"]["vin"], decoded_psbt["inputs"]):
             assert_equal(tx_in["sequence"], MAX_BIP125_RBF_SEQUENCE)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             assert "bip32_derivs" in psbt_in
         assert_equal(decoded_psbt["tx"]["locktime"], block_height)
 
         # Same construction without optional arguments
-<<<<<<< HEAD
-        psbtx_info = self.nodes[0].walletcreatefundedpsbt([{"txid":unspent["txid"], "vout":unspent["vout"]}], [{self.nodes[2].getnewaddress():unspent["amount"]+1}])
-        decoded_psbt = self.nodes[0].decodepsbt(psbtx_info["psbt"])
-        for tx_in in decoded_psbt["tx"]["vin"]:
-            assert tx_in["sequence"] > MAX_BIP125_RBF_SEQUENCE
-        assert_equal(decoded_psbt["tx"]["locktime"], 0)
-
-        # Regression test for 14473 (mishandling of already-signed witness transaction):
-        psbtx_info = self.nodes[0].walletcreatefundedpsbt([{"txid":unspent["txid"], "vout":unspent["vout"]}], [{self.nodes[2].getnewaddress():unspent["amount"]+1}])
-=======
         psbtx_info = self.nodes[0].walletcreatefundedpsbt([], [{self.nodes[2].getnewaddress():unspent["amount"]+1}])
         decoded_psbt = self.nodes[0].decodepsbt(psbtx_info["psbt"])
         for tx_in, psbt_in in zip(decoded_psbt["tx"]["vin"], decoded_psbt["inputs"]):
@@ -470,20 +431,12 @@ class PSBTTest(DigiByteTestFramework):
 
         # Regression test for 14473 (mishandling of already-signed witness transaction):
         psbtx_info = self.nodes[0].walletcreatefundedpsbt([{"txid":unspent["txid"], "vout":unspent["vout"]}], [{self.nodes[2].getnewaddress():unspent["amount"]+1}], 0, {"add_inputs": True})
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         complete_psbt = self.nodes[0].walletprocesspsbt(psbtx_info["psbt"])
         double_processed_psbt = self.nodes[0].walletprocesspsbt(complete_psbt["psbt"])
         assert_equal(complete_psbt, double_processed_psbt)
         # We don't care about the decode result, but decoding must succeed.
         self.nodes[0].decodepsbt(double_processed_psbt["psbt"])
 
-<<<<<<< HEAD
-        # Make sure change address wallet does not have P2SH innerscript access to results in success
-        # when attempting BnB coin selection
-        self.nodes[0].walletcreatefundedpsbt([], [{self.nodes[2].getnewaddress():unspent["amount"]+1}], block_height+2, {"changeAddress":self.nodes[1].getnewaddress()}, False)
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         # BIP 174 Test Vectors
 
         # Check that unknown values are just passed through
@@ -517,11 +470,7 @@ class PSBTTest(DigiByteTestFramework):
 
         # Signer tests
         for i, signer in enumerate(signers):
-<<<<<<< HEAD
-            self.nodes[2].createwallet("wallet{}".format(i))
-=======
             self.nodes[2].createwallet(wallet_name="wallet{}".format(i))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             wrpc = self.nodes[2].get_wallet_rpc("wallet{}".format(i))
             for key in signer['privkeys']:
                 wrpc.importprivkey(key)
@@ -550,10 +499,6 @@ class PSBTTest(DigiByteTestFramework):
         for i, signer in enumerate(signers):
             self.nodes[2].unloadwallet("wallet{}".format(i))
 
-<<<<<<< HEAD
-        self.test_utxo_conversion()
-
-=======
         # TODO: Re-enable this for segwit v1
         # self.test_utxo_conversion()
 
@@ -679,7 +624,6 @@ class PSBTTest(DigiByteTestFramework):
         assert_equal(analysis['error'], 'PSBT is not valid. Input 0 specifies invalid prevout')
 
         assert_raises_rpc_error(-25, 'Inputs missing or spent', self.nodes[0].walletprocesspsbt, 'cHNidP8BAJoCAAAAAkvEW8NnDtdNtDpsmze+Ht2LH35IJcKv00jKAlUs21RrAwAAAAD/////S8Rbw2cO1020OmybN74e3Ysffkglwq/TSMoCVSzbVGsBAAAAAP7///8CwLYClQAAAAAWABSNJKzjaUb3uOxixsvh1GGE3fW7zQD5ApUAAAAAFgAUKNw0x8HRctAgmvoevm4u1SbN7XIAAAAAAAEAnQIAAAACczMa321tVHuN4GKWKRncycI22aX3uXgwSFUKM2orjRsBAAAAAP7///9zMxrfbW1Ue43gYpYpGdzJwjbZpfe5eDBIVQozaiuNGwAAAAAA/v///wIA+QKVAAAAABl2qRT9zXUVA8Ls5iVqynLHe5/vSe1XyYisQM0ClQAAAAAWABRmWQUcjSjghQ8/uH4Bn/zkakwLtAAAAAAAAQEfQM0ClQAAAAAWABRmWQUcjSjghQ8/uH4Bn/zkakwLtAAAAA==')
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 if __name__ == '__main__':
     PSBTTest().main()

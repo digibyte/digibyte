@@ -1,23 +1,11 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2015-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the ZMQ notification interface."""
 import struct
 
-<<<<<<< HEAD
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.messages import CTransaction
-from test_framework.util import (
-    assert_equal,
-    bytes_to_hex_str,
-    hash256,
-=======
 from test_framework.address import ADDRESS_BCRT1_UNSPENDABLE, ADDRESS_BCRT1_P2WSH_OP_TRUE
 from test_framework.blocktools import create_block, create_coinbase, add_witness_commitment
 from test_framework.test_framework import DigiByteTestFramework
@@ -25,7 +13,6 @@ from test_framework.messages import CTransaction, hash256, FromHex
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 )
 from io import BytesIO
 from time import sleep
@@ -81,39 +68,6 @@ class ZMQTest (DigiByteTestFramework):
     def skip_test_if_missing_module(self):
         self.skip_if_no_py3_zmq()
         self.skip_if_no_digibyted_zmq()
-<<<<<<< HEAD
-        self.skip_if_no_wallet()
-
-    def setup_nodes(self):
-        # Import keys
-        self.add_nodes(self.num_nodes)
-        self.start_nodes()
-        super().import_deterministic_coinbase_privkeys()
-        self.stop_nodes()
-
-        import zmq
-
-        # Initialize ZMQ context and socket.
-        # All messages are received in the same socket which means
-        # that this test fails if the publishing order changes.
-        # Note that the publishing order is not defined in the documentation and
-        # is subject to change.
-        address = "tcp://127.0.0.1:28332"
-        self.zmq_context = zmq.Context()
-        socket = self.zmq_context.socket(zmq.SUB)
-        socket.set(zmq.RCVTIMEO, 60000)
-        socket.connect(address)
-
-        # Subscribe to all available topics.
-        self.hashblock = ZMQSubscriber(socket, b"hashblock")
-        self.hashtx = ZMQSubscriber(socket, b"hashtx")
-        self.rawblock = ZMQSubscriber(socket, b"rawblock")
-        self.rawtx = ZMQSubscriber(socket, b"rawtx")
-
-        self.nodes[0].extra_args = ["-zmqpub%s=%s" % (sub.topic.decode(), address) for sub in [self.hashblock, self.hashtx, self.rawblock, self.rawtx]]
-        self.start_nodes()
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def import_deterministic_coinbase_privkeys(self):
         pass

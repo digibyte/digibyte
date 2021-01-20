@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -12,11 +9,6 @@ import time
 
 from test_framework.blocktools import create_block, NORMAL_GBT_REQUEST_PARAMS, add_witness_commitment
 from test_framework.messages import COIN, COutPoint, CTransaction, CTxIn, CTxOut, FromHex, ToHex
-<<<<<<< HEAD
-from test_framework.script import CScript
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_greater_than, assert_raises_rpc_error, bytes_to_hex_str, get_bip9_status, satoshi_round, sync_blocks
-=======
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
@@ -26,7 +18,6 @@ from test_framework.util import (
     softfork_active,
 )
 from test_framework.script_util import DUMMY_P2WPKH_SCRIPT
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 SEQUENCE_LOCKTIME_DISABLE_FLAG = (1<<31)
 SEQUENCE_LOCKTIME_TYPE_FLAG = (1<<22) # this means use time (0 means height)

@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test various command line arguments and configuration file parameters."""
@@ -174,16 +170,12 @@ class ConfArgsTest(DigiByteTestFramework):
     def run_test(self):
         self.stop_node(0)
 
-<<<<<<< HEAD
-        self.test_config_file_parser()
-=======
         self.test_log_buffer()
         self.test_args_log()
         self.test_networkactive()
 
         self.test_config_file_parser()
         self.test_invalid_command_line_options()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         # Remove the -datadir argument so it doesn't override the config file
         self.nodes[0].args = [arg for arg in self.nodes[0].args if not arg.startswith("-datadir")]
@@ -205,17 +197,6 @@ class ConfArgsTest(DigiByteTestFramework):
             f.write("datadir=" + new_data_dir + "\n")
             f.write(conf_file_contents)
 
-<<<<<<< HEAD
-        # Temporarily disabled, because this test would access the user's home dir (~/.digibyte)
-        #self.nodes[0].assert_start_raises_init_error(['-conf=' + conf_file], 'Error reading configuration file: specified data directory "' + new_data_dir + '" does not exist.')
-
-        # Create the directory and ensure the config file now works
-        os.mkdir(new_data_dir)
-        # Temporarily disabled, because this test would access the user's home dir (~/.digibyte)
-        #self.start_node(0, ['-conf='+conf_file, '-wallet=w1'])
-        #self.stop_node(0)
-        #assert os.path.exists(os.path.join(new_data_dir, 'regtest', 'wallets', 'w1'))
-=======
         self.nodes[0].assert_start_raises_init_error(['-conf=' + conf_file], 'Error: Error reading configuration file: specified data directory "' + new_data_dir + '" does not exist.')
 
         # Create the directory and ensure the config file now works
@@ -223,7 +204,6 @@ class ConfArgsTest(DigiByteTestFramework):
         self.start_node(0, ['-conf='+conf_file])
         self.stop_node(0)
         assert os.path.exists(os.path.join(new_data_dir, self.chain, 'blocks'))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         # Ensure command line argument overrides datadir in conf
         os.mkdir(new_data_dir_2)

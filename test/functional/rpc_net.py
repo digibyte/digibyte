@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPC calls related to net.
@@ -12,8 +8,6 @@
 Tests correspond to code in rpc/net.cpp.
 """
 
-<<<<<<< HEAD
-=======
 from decimal import Decimal
 from itertools import product
 import time
@@ -24,7 +18,6 @@ from test_framework.messages import (
     NODE_NETWORK,
     NODE_WITNESS,
 )
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_approx,
@@ -34,8 +27,6 @@ from test_framework.util import (
     p2p_port,
 )
 
-<<<<<<< HEAD
-=======
 
 def assert_net_servicesnames(servicesflag, servicenames):
     """Utility that checks if all flags are correctly decoded in
@@ -50,7 +41,6 @@ def assert_net_servicesnames(servicesflag, servicenames):
     assert servicesflag_generated == servicesflag
 
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class NetTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True

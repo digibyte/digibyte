@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test fee estimation code."""
@@ -139,13 +135,10 @@ def check_smart_estimates(node, fees_seen):
         else:
             assert_greater_than_or_equal(i + 1, e["blocks"])
 
-<<<<<<< HEAD
-=======
 def check_estimates(node, fees_seen):
     check_raw_estimates(node, fees_seen)
     check_smart_estimates(node, fees_seen)
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class EstimateFeeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 3

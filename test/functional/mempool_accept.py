@@ -1,23 +1,15 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2017 The DigiByte Core developers
-=======
 # Copyright (c) 2017-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool acceptance of raw transactions."""
 
 from decimal import Decimal
 from io import BytesIO
-<<<<<<< HEAD
-from test_framework.test_framework import DigiByteTestFramework
-=======
 import math
 
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.key import ECKey
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.messages import (
     BIP125_SEQUENCE_NUMBER,
     COIN,

@@ -103,8 +103,6 @@
     "description": "Tests the check for invalid locktime value"
   },
   { "exec": "./digibyte-tx",
-<<<<<<< HEAD:test/util/data/digibyte-util-test.json
-=======
     "args":
     ["-create",
      "in=Z897de6bd6027a475eadd57019d4e6872c396d0716c4875a5f1a6fcfdf385c1f:0"],
@@ -129,7 +127,6 @@
     "description": "Tests the check for an invalid txid valid hex but too long"
   },
   { "exec": "./digibyte-tx",
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/util/data/digibyte-util-test.json
     "args":
     ["-create",
      "in=5897de6bd6027a475eadd57019d4e6872c396d0716c4875a5f1a6fcfdf385c1f:0",
@@ -222,15 +219,12 @@
     "description": "Parses a transaction with no inputs and a single output script (output in json)"
   },
   { "exec": "./digibyte-tx",
-<<<<<<< HEAD:test/util/data/digibyte-util-test.json
-=======
     "args": ["-create", "outscript=0:123badscript"],
     "return_code": 1,
     "error_txt": "error: script parse error",
     "description": "Create a new transaction with an invalid output script"
   },
   { "exec": "./digibyte-tx",
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/util/data/digibyte-util-test.json
     "args": ["-create", "outscript=0:OP_DROP", "nversion=1"],
     "output_cmp": "txcreatescript1.hex",
     "description": "Create a new transaction with a single output script (OP_DROP)"
@@ -271,8 +265,6 @@
     "description": "Create a new transaction with a single output script (OP_DROP) in a P2SH, wrapped in a P2SH (output as json)"
   },
   { "exec": "./digibyte-tx",
-<<<<<<< HEAD:test/util/data/digibyte-util-test.json
-=======
     "args": ["-create", "outscript=0:9999999999"],
     "return_code": 1,
     "error_txt": "error: script parse error: decimal numeric value only allowed in the range -0xFFFFFFFF...0xFFFFFFFF",
@@ -307,7 +299,6 @@
     "description": "Try to parse an output script with a decimal number at the lower limit of the allowed range"
   },
   { "exec": "./digibyte-tx",
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/util/data/digibyte-util-test.json
     "args":
     ["-create", "nversion=1",
      "in=4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc59485:0",
@@ -354,8 +345,6 @@
     "description": "Tests the check for invalid vout index in prevtxs for sign"
   },
   { "exec": "./digibyte-tx",
-<<<<<<< HEAD:test/util/data/digibyte-util-test.json
-=======
     "args":
     ["-create",
       "in=4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc59485:0",
@@ -392,7 +381,6 @@
     "description": "Tests the check for invalid txid valid hex, but too long"
   },
   { "exec": "./digibyte-tx",
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/util/data/digibyte-util-test.json
     "args":
     ["-create", "outpubkey=0:02a5613bd857b7048924264d1e70e08fb2a7e6527d32b7ab1bb993ac59964ff397", "nversion=1"],
     "output_cmp": "txcreateoutpubkey1.hex",

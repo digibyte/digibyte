@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test NULLDUMMY softfork.
@@ -23,13 +19,7 @@ from test_framework.blocktools import NORMAL_GBT_REQUEST_PARAMS, create_block, c
 from test_framework.messages import CTransaction
 from test_framework.script import CScript
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import assert_equal, assert_raises_rpc_error, bytes_to_hex_str
-
-import time
-=======
 from test_framework.util import assert_equal, assert_raises_rpc_error
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 NULLDUMMY_ERROR = "non-mandatory-script-verify-flag (Dummy CHECKMULTISIG argument must be zero)"
 
@@ -60,15 +50,6 @@ class NULLDUMMYTest(DigiByteTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
-<<<<<<< HEAD
-
-    def run_test(self):
-        self.address = self.nodes[0].getnewaddress()
-        self.ms_address = self.nodes[0].addmultisigaddress(1, [self.address])['address']
-        self.wit_address = self.nodes[0].addwitnessaddress(self.address)
-        self.wit_ms_address = self.nodes[0].addmultisigaddress(1, [self.address], '', 'p2sh-segwit')['address']
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def run_test(self):
         self.nodes[0].createwallet(wallet_name='wmulti', disable_private_keys=True)

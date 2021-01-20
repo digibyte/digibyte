@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2015-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multiple RPC users."""
@@ -26,8 +22,6 @@ import configparser
 import sys
 
 
-<<<<<<< HEAD
-=======
 def call_with_auth(node, user, password):
     url = urllib.parse.urlparse(node.url)
     headers = {"Authorization": "Basic " + str_to_b64str('{}:{}'.format(user, password))}
@@ -40,7 +34,6 @@ def call_with_auth(node, user, password):
     return resp
 
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class HTTPBasicsTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
@@ -49,10 +42,7 @@ class HTTPBasicsTest(DigiByteTestFramework):
     def setup_chain(self):
         super().setup_chain()
         #Append rpcauth to digibyte.conf before initialization
-<<<<<<< HEAD
-=======
         self.rtpassword = "cA773lm788buwYe4g4WT+05pKyNruVKjQ25x3n0DQcM="
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         rpcauth = "rpcauth=rt:93648e835a54c573682c2eb19f882535$7681e9c5b74bdd85e78166031d2058e1069b3ed7ed967c93fc63abba06f31144"
 
         self.rpcuser = "rpcuser💻"
@@ -76,48 +66,12 @@ class HTTPBasicsTest(DigiByteTestFramework):
         self.password = lines[3]
 
         with open(os.path.join(get_datadir_path(self.options.tmpdir, 0), "digibyte.conf"), 'a', encoding='utf8') as f:
-<<<<<<< HEAD
-            f.write(rpcauth+"\n")
-            f.write(rpcauth2+"\n")
-            f.write(rpcauth3+"\n")
-        with open(os.path.join(get_datadir_path(self.options.tmpdir, 1), "digibyte.conf"), 'a', encoding='utf8') as f:
-            f.write(rpcuser+"\n")
-            f.write(rpcpassword+"\n")
-
-    def run_test(self):
-
-        ##################################################
-        # Check correctness of the rpcauth config option #
-        ##################################################
-        url = urllib.parse.urlparse(self.nodes[0].url)
-
-        #Old authpair
-        authpair = url.username + ':' + url.password
-
-        #New authpair generated via share/rpcauth tool
-        password = "cA773lm788buwYe4g4WT+05pKyNruVKjQ25x3n0DQcM="
-
-        #Second authpair with different username
-        password2 = "8/F3uMDw4KSEbw96U3CA1C4X05dkHDN2BPFjTgZW4KI="
-        authpairnew = "rt:"+password
-
-        self.log.info('Correct...')
-        headers = {"Authorization": "Basic " + str_to_b64str(authpair)}
-
-        conn = http.client.HTTPConnection(url.hostname, url.port)
-        conn.connect()
-        conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
-        resp = conn.getresponse()
-        assert_equal(resp.status, 200)
-        conn.close()
-=======
             f.write(rpcauth + "\n")
             f.write(rpcauth2 + "\n")
             f.write(rpcauth3 + "\n")
         with open(os.path.join(get_datadir_path(self.options.tmpdir, 1), "digibyte.conf"), 'a', encoding='utf8') as f:
             f.write("rpcuser={}\n".format(self.rpcuser))
             f.write("rpcpassword={}\n".format(self.rpcpassword))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def test_auth(self, node, user, password):
         self.log.info('Correct...')

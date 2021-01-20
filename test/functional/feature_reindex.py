@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2018 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test running digibyted with -reindex and -reindex-chainstate options.
@@ -15,14 +11,8 @@
 """
 
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import wait_until
-
-class ReindexTest(DigiByteTestFramework):
-=======
 from test_framework.util import assert_equal
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class ReindexTest(DigiByteTestFramework):
     def set_test_params(self):

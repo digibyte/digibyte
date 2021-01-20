@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test various net timeouts.
@@ -29,24 +25,15 @@
 from time import sleep
 
 from test_framework.messages import msg_ping
-<<<<<<< HEAD
-from test_framework.mininode import P2PInterface
-from test_framework.test_framework import DigiByteTestFramework
-=======
 from test_framework.p2p import P2PInterface
 from test_framework.test_framework import DigiByteTestFramework
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class TestP2PConn(P2PInterface):
     def on_version(self, message):
         # Don't send a verack in response
         pass
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class TimeoutsTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True

@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2013-2016 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,14 +17,9 @@ RPCAUTH=@abs_top_srcdir@/share/rpcauth/rpcauth.py
 [components]
 # Which components are enabled. These are commented out by `configure` if they were disabled when running config.
 @ENABLE_WALLET_TRUE@ENABLE_WALLET=true
-<<<<<<< HEAD
-@BUILD_DIGIBYTE_UTILS_TRUE@ENABLE_UTILS=true
-@BUILD_DIGIBYTED_TRUE@ENABLE_DIGIBYTED=true
-=======
 @USE_SQLITE_TRUE@USE_SQLITE=true
 @BUILD_DIGIBYTE_CLI_TRUE@ENABLE_CLI=true
 @BUILD_DIGIBYTE_WALLET_TRUE@ENABLE_WALLET_TOOL=true
 @BUILD_DIGIBYTED_TRUE@ENABLE_DIGIBYTED=true
 @ENABLE_FUZZ_TRUE@ENABLE_FUZZ=true
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 @ENABLE_ZMQ_TRUE@ENABLE_ZMQ=true

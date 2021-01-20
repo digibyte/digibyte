@@ -10,10 +10,7 @@ digibyted and digibyte-qt by interacting with them through the RPC and P2P
 interfaces.
 - [util](/test/util) which tests the digibyte utilities, currently only
 digibyte-tx.
-<<<<<<< HEAD
-=======
 - [lint](/test/lint/) which perform various static analysis checks.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 The util tests are run as part of `make check` target. The functional
 tests and lint scripts can be run as explained in the sections below.
@@ -104,11 +101,7 @@ killed all its digibyted nodes), then there may be a port conflict which will
 cause the test to fail. It is recommended that you run the tests on a system
 where no other digibyted processes are running.
 
-<<<<<<< HEAD
-On linux, the test_framework will warn if there is another
-=======
 On linux, the test framework will warn if there is another
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 digibyted process running when the tests are started.
 
 If there are zombie digibyted processes after test failure, you can kill them
@@ -137,11 +130,7 @@ tests will fail. If this happens, remove the cache directory (and make
 sure digibyted processes are stopped as above):
 
 ```bash
-<<<<<<< HEAD
-rm -rf cache
-=======
 rm -rf test/cache
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 killall digibyted
 ```
 
@@ -156,11 +145,7 @@ levels using the logger included in the test_framework, e.g.
   `test_framework.log` and no logs are output to the console.
 - when run directly, *all* logs are written to `test_framework.log` and INFO
   level and above are output to the console.
-<<<<<<< HEAD
-- when run on Travis, no logs are output to the console. However, if a test
-=======
 - when run by [our CI (Continuous Integration)](/ci/README.md), no logs are output to the console. However, if a test
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   fails, the `test_framework.log` and digibyted `debug.log`s will all be dumped
   to the console to help troubleshooting.
 
@@ -234,10 +219,6 @@ cat /tmp/user/1000/testo9vsdjo3/node1/regtest/digibyted.pid
 Then you can use the pid to start `gdb`:
 
 ```bash
-<<<<<<< HEAD
-cat /tmp/user/1000/testo9vsdjo3/node1/regtest/digibyted.pid
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 gdb /home/example/digibyted <pid>
 ```
 

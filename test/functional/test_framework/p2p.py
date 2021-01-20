@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 # Copyright (c) 2010 ArtForz -- public domain half-a-node
 # Copyright (c) 2012 Jeff Garzik
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-# Copyright (c) 2010-2018 The DigiByte Core developers
-# Distributed under the MIT software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""DigiByte P2P network half-a-node.
-=======
 # Copyright (c) 2010-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test objects for interacting with a digibyted node over the p2p protocol.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
 
 The P2PInterface objects interact with the digibyted nodes under test using the
 node's p2p interface. They can be used to send messages to the node, and
@@ -104,10 +97,7 @@ MESSAGEMAP = {
     b"headers": msg_headers,
     b"inv": msg_inv,
     b"mempool": msg_mempool,
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-=======
     b"merkleblock": msg_merkleblock,
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
     b"notfound": msg_notfound,
     b"ping": msg_ping,
     b"pong": msg_pong,
@@ -158,11 +148,7 @@ class P2PConnection(asyncio.Protocol):
         # The initial message to send after the connection was made:
         self.on_connection_send_msg = None
         self.recvbuf = b""
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-        self.network = net
-=======
         self.magic_bytes = MAGIC_BYTES[net]
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
         logger.debug('Connecting to DigiByte Node: %s:%d' % (self.dstaddr, self.dstport))
 
         loop = NetworkThread.network_event_loop
@@ -262,14 +248,7 @@ class P2PConnection(asyncio.Protocol):
         def maybe_write():
             if not self._transport:
                 return
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-            # Python <3.4.4 does not have is_closing, so we have to check for
-            # its existence explicitly as long as DigiByte Core supports all
-            # Python 3.4 versions.
-            if hasattr(self._transport, 'is_closing') and self._transport.is_closing():
-=======
             if self._transport.is_closing():
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
                 return
             self._transport.write(raw_message_bytes)
         NetworkThread.network_event_loop.call_soon_threadsafe(maybe_write)
@@ -392,10 +371,7 @@ class P2PInterface(P2PConnection):
     def on_getheaders(self, message): pass
     def on_headers(self, message): pass
     def on_mempool(self, message): pass
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-=======
     def on_merkleblock(self, message): pass
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
     def on_notfound(self, message): pass
     def on_pong(self, message): pass
     def on_sendaddrv2(self, message): pass
@@ -621,16 +597,7 @@ class P2PDataStore(P2PInterface):
         if response is not None:
             self.send_message(response)
 
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-    def on_reject(self, message):
-        """Store reject reason and code for testing."""
-        self.reject_code_received = message.code
-        self.reject_reason_received = message.reason
-
-    def send_blocks_and_test(self, blocks, node, *, success=True, request_block=True, reject_code=None, reject_reason=None, timeout=60):
-=======
     def send_blocks_and_test(self, blocks, node, *, success=True, force_send=False, reject_reason=None, expect_disconnect=False, timeout=60):
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
         """Send blocks to test node and test whether the tip advances.
 
          - add all blocks to our block_store
@@ -647,17 +614,6 @@ class P2PDataStore(P2PInterface):
                 self.block_store[block.sha256] = block
                 self.last_block_hash = block.sha256
 
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-        self.send_message(msg_headers([CBlockHeader(blocks[-1])]))
-
-        if request_block:
-            wait_until(lambda: blocks[-1].sha256 in self.getdata_requests, timeout=timeout, lock=mininode_lock)
-
-        if success:
-            wait_until(lambda: node.getbestblockhash() == blocks[-1].hash, timeout=timeout)
-        else:
-            assert node.getbestblockhash() != blocks[-1].hash
-=======
         reject_reason = [reject_reason] if reject_reason else []
         with node.assert_debug_log(expected_msgs=reject_reason):
             if force_send:
@@ -675,18 +631,13 @@ class P2PDataStore(P2PInterface):
                 self.wait_for_disconnect(timeout=timeout)
             else:
                 self.sync_with_ping(timeout=timeout)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
 
             if success:
                 self.wait_until(lambda: node.getbestblockhash() == blocks[-1].hash, timeout=timeout)
             else:
                 assert node.getbestblockhash() != blocks[-1].hash
 
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-    def send_txs_and_test(self, txs, node, *, success=True, expect_disconnect=False, reject_code=None, reject_reason=None):
-=======
     def send_txs_and_test(self, txs, node, *, success=True, expect_disconnect=False, reject_reason=None):
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
         """Send txs to test node and test whether they're accepted to the mempool.
 
          - add all txs to our tx_store
@@ -709,17 +660,6 @@ class P2PDataStore(P2PInterface):
             else:
                 self.sync_with_ping()
 
-<<<<<<< HEAD:test/functional/test_framework/mininode.py
-        raw_mempool = node.getrawmempool()
-        if success:
-            # Check that all txs are now in the mempool
-            for tx in txs:
-                assert tx.hash in raw_mempool, "{} not found in mempool".format(tx.hash)
-        else:
-            # Check that none of the txs are now in the mempool
-            for tx in txs:
-                assert tx.hash not in raw_mempool, "{} tx found in mempool".format(tx.hash)
-=======
             raw_mempool = node.getrawmempool()
             if success:
                 # Check that all txs are now in the mempool
@@ -735,7 +675,6 @@ class P2PTxInvStore(P2PInterface):
     def __init__(self):
         super().__init__()
         self.tx_invs_received = defaultdict(int)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:test/functional/test_framework/p2p.py
 
     def on_inv(self, message):
         super().on_inv(message) # Send getdata in response.

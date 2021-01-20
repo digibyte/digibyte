@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test message sending before handshake completion.
@@ -17,12 +13,6 @@ into sending us something it shouldn't."""
 
 import time
 
-<<<<<<< HEAD
-from test_framework.messages import msg_getaddr, msg_ping, msg_verack
-from test_framework.mininode import mininode_lock, P2PInterface
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import wait_until
-=======
 from test_framework.messages import (
     msg_getaddr,
     msg_ping,
@@ -34,7 +24,6 @@ from test_framework.util import (
     assert_equal,
     assert_greater_than_or_equal,
 )
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 DISCOURAGEMENT_THRESHOLD = 100
 
@@ -74,26 +63,6 @@ class LazyPeer(P2PInterface):
     def on_getblocktxn(self, message): self.bad_message(message)
     def on_blocktxn(self, message): self.bad_message(message)
 
-<<<<<<< HEAD
-# Node that never sends a version. We'll use this to send a bunch of messages
-# anyway, and eventually get disconnected.
-class CNodeNoVersionBan(CLazyNode):
-    # send a bunch of veracks without sending a message. This should get us disconnected.
-    # NOTE: implementation-specific check here. Remove if digibyted ban behavior changes
-    def on_open(self):
-        super().on_open()
-        for i in range(banscore):
-            self.send_message(msg_verack())
-
-    def on_reject(self, message): pass
-
-# Node that never sends a version. This one just sits idle and hopes to receive
-# any message (it shouldn't!)
-class CNodeNoVersionIdle(CLazyNode):
-    def __init__(self):
-        super().__init__()
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 # Peer that sends a version but not a verack.
 class NoVerackIdlePeer(LazyPeer):
@@ -110,8 +79,6 @@ class NoVerackIdlePeer(LazyPeer):
         self.send_message(msg_ping())
         self.send_message(msg_getaddr())
 
-<<<<<<< HEAD
-=======
 
 class P2PVersionStore(P2PInterface):
     version_received = None
@@ -122,7 +89,6 @@ class P2PVersionStore(P2PInterface):
         self.version_received = msg
 
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class P2PLeakTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1

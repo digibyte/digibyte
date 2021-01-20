@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2015-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test behavior of -maxuploadtarget.
@@ -18,13 +14,8 @@ if uploadtarget has been reached.
 from collections import defaultdict
 import time
 
-<<<<<<< HEAD
-from test_framework.messages import CInv, msg_getdata
-from test_framework.mininode import P2PInterface
-=======
 from test_framework.messages import CInv, MSG_BLOCK, msg_getdata
 from test_framework.p2p import P2PInterface
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal, mine_large_block
 

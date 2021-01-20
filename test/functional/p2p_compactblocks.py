@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test compact blocks (BIP 152).
@@ -19,11 +15,7 @@ from test_framework.messages import BlockTransactions, BlockTransactionsRequest,
 from test_framework.p2p import p2p_lock, P2PInterface
 from test_framework.script import CScript, OP_TRUE, OP_DROP
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import assert_equal, get_bip9_status, satoshi_round, sync_blocks, wait_until
-=======
 from test_framework.util import assert_equal, softfork_active
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 # TestP2PConn: A peer we use to send messages to digibyted, and store responses.
 class TestP2PConn(P2PInterface):
@@ -249,13 +241,9 @@ class CompactBlocksTest(DigiByteTestFramework):
 
     # Compare the generated shortids to what we expect based on BIP 152, given
     # digibyted's choice of nonce.
-<<<<<<< HEAD
-    def test_compactblock_construction(self, node, test_node, version, use_witness_address):
-=======
     def test_compactblock_construction(self, test_node, use_witness_address=True):
         version = test_node.cmpct_version
         node = self.nodes[0]
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         # Generate a bunch of transactions.
         node.generate(101)
         num_transactions = 25
@@ -567,13 +555,9 @@ class CompactBlocksTest(DigiByteTestFramework):
             test_node.send_and_ping(msg_no_witness_block(block))
         assert_equal(int(node.getbestblockhash(), 16), block.sha256)
 
-<<<<<<< HEAD
-    def test_getblocktxn_handler(self, node, test_node, version):
-=======
     def test_getblocktxn_handler(self, test_node):
         version = test_node.cmpct_version
         node = self.nodes[0]
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         # digibyted will not send blocktxn responses for blocks whose height is
         # more than 10 blocks deep.
         MAX_GETBLOCKTXN_DEPTH = 10

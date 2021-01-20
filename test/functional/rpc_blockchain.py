@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPCs related to blockchainstate.
@@ -27,8 +23,6 @@ from decimal import Decimal
 import http.client
 import subprocess
 
-<<<<<<< HEAD
-=======
 from test_framework.blocktools import (
     create_block,
     create_coinbase,
@@ -40,7 +34,6 @@ from test_framework.messages import (
     msg_block,
 )
 from test_framework.p2p import P2PInterface
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
@@ -57,18 +50,10 @@ class BlockchainTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
-<<<<<<< HEAD
-
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
-
-    def run_test(self):
-=======
         self.supports_cli = False
 
     def run_test(self):
         self.mine_chain()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.restart_node(0, extra_args=['-stopatheight=207', '-prune=1'])  # Set extra args with pruning after rescan is complete
 
         self._test_getblockchaininfo()

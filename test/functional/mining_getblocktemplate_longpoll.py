@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -13,12 +10,8 @@ import random
 import threading
 
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-from test_framework.util import get_rpc_proxy, random_transaction
-=======
 from test_framework.util import get_rpc_proxy
 from test_framework.wallet import MiniWallet
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 
 class LongpollThread(threading.Thread):

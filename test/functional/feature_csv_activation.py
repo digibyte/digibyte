@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2015-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test CSV soft fork activation.
@@ -153,32 +149,20 @@ class BIP68_112_113Test(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
-<<<<<<< HEAD
-        self.extra_args = [['-whitelist=127.0.0.1', '-blockversion=4', '-addresstype=legacy']]
-=======
         self.extra_args = [[
             '-whitelist=noban@127.0.0.1',
             '-addresstype=legacy',
             '-par=1',  # Use only one script thread to get the exact reject reason for testing
         ]]
         self.supports_cli = False
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
-<<<<<<< HEAD
-    def generate_blocks(self, number, version, test_blocks=None):
-        if test_blocks is None:
-            test_blocks = []
-        for i in range(number):
-            block = self.create_test_block([], version)
-=======
     def generate_blocks(self, number):
         test_blocks = []
         for _ in range(number):
             block = self.create_test_block([])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             test_blocks.append(block)
             self.last_block_time += 600
             self.tip = block.sha256

@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """An example functional test
@@ -20,13 +16,8 @@ from collections import defaultdict
 
 # Avoid wildcard * imports
 from test_framework.blocktools import (create_block, create_coinbase)
-<<<<<<< HEAD
-from test_framework.messages import CInv
-from test_framework.mininode import (
-=======
 from test_framework.messages import CInv, MSG_BLOCK
 from test_framework.p2p import (
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     P2PInterface,
     msg_block,
     msg_getdata,
@@ -93,11 +84,8 @@ class ExampleTest(DigiByteTestFramework):
 
         # self.log.info("I've finished set_test_params")  # Oops! Can't run self.log before run_test()
 
-<<<<<<< HEAD
-=======
     # Use skip_test_if_missing_module() to skip the test if your test requires certain modules to be present.
     # This test uses generate which requires wallet to be compiled
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
@@ -127,13 +115,8 @@ class ExampleTest(DigiByteTestFramework):
         # In this test, we're not connecting node2 to node0 or node1. Calls to
         # sync_all() should not include node2, since we're not expecting it to
         # sync.
-<<<<<<< HEAD
-        connect_nodes(self.nodes[0], 1)
-        self.sync_all([self.nodes[0:2]])
-=======
         self.connect_nodes(0, 1)
         self.sync_all(self.nodes[0:2])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     # Use setup_nodes() to customize the node start behaviour (for example if
     # you don't want to start all nodes at the start of the test).
@@ -157,11 +140,7 @@ class ExampleTest(DigiByteTestFramework):
 
         # Generating a block on one of the nodes will get us out of IBD
         blocks = [int(self.nodes[0].generate(nblocks=1)[0], 16)]
-<<<<<<< HEAD
-        self.sync_all([self.nodes[0:2]])
-=======
         self.sync_all(self.nodes[0:2])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         # Notice above how we called an RPC by calling a method with the same
         # name on the node object. Notice also how we used a keyword argument

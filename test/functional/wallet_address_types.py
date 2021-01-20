@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test that the wallet can send and receive using all combinations of address types.
@@ -59,13 +55,10 @@ from decimal import Decimal
 import itertools
 
 from test_framework.test_framework import DigiByteTestFramework
-<<<<<<< HEAD
-=======
 from test_framework.descriptors import (
     descsum_create,
     descsum_check,
 )
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.util import (
     assert_equal,
     assert_greater_than,

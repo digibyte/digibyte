@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-# Copyright (c) 2014-2019 The DigiByte Core developers
-# Distributed under the MIT software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test transaction signing using the signrawtransaction* RPCs."""
-
-from test_framework.test_framework import DigiByteTestFramework
-import decimal
-=======
-# Copyright (c) 2015-2019 The DigiByte Core developers
+# Copyright (c) 2015-2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multisig RPCs"""
@@ -28,7 +18,6 @@ from test_framework.util import (
     assert_equal,
 )
 from test_framework.wallet_util import bytes_to_wif
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class RpcCreateMultiSigTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -43,12 +32,6 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
         self.skip_if_no_wallet()
 
     def get_keys(self):
-<<<<<<< HEAD
-        node0, node1, node2 = self.nodes
-        self.add = [node1.getnewaddress() for _ in range(self.nkeys)]
-        self.pub = [node1.getaddressinfo(a)["pubkey"] for a in self.add]
-        self.priv = [node1.dumpprivkey(a) for a in self.add]
-=======
         self.pub = []
         self.priv = []
         node0, node1, node2 = self.nodes
@@ -57,7 +40,6 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
             k.generate()
             self.pub.append(k.get_pubkey().get_bytes().hex())
             self.priv.append(bytes_to_wif(k.get_bytes(), k.is_compressed))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.final = node2.getnewaddress()
 
     def run_test(self):
@@ -65,11 +47,7 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
 
         self.check_addmultisigaddress_errors()
 
-<<<<<<< HEAD
-        # 50 DGB each, rest will be 25 DGB each
-=======
         self.log.info('Generating blocks ...')
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         node0.generate(149)
         self.sync_all()
 

@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2015-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node responses to invalid transactions.
@@ -18,11 +14,7 @@ from test_framework.messages import (
     CTxIn,
     CTxOut,
 )
-<<<<<<< HEAD
-from test_framework.mininode import P2PDataStore
-=======
 from test_framework.p2p import P2PDataStore
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
@@ -160,19 +152,6 @@ class InvalidTxRequestTest(DigiByteTestFramework):
         self.wait_until(lambda: 1 == len(node.getpeerinfo()), timeout=12)  # p2ps[1] is no longer connected
         assert_equal(expected_mempool, set(node.getrawmempool()))
 
-<<<<<<< HEAD
-        # restart node with sending BIP61 messages disabled, check that it disconnects without sending the reject message
-        self.log.info('Test a transaction that is rejected, with BIP61 disabled')
-        self.restart_node(0, ['-enablebip61=0', '-persistmempool=0'])
-        self.reconnect_p2p(num_connections=1)
-        with node.assert_debug_log(expected_msgs=[
-                "{} from peer=0 was not accepted: mandatory-script-verify-flag-failed (Invalid OP_IF construction) (code 16)".format(tx1.hash),
-                "disconnecting peer=0",
-        ]):
-            node.p2p.send_txs_and_test([tx1], node, success=False, expect_disconnect=True)
-        # send_txs_and_test will have waited for disconnect, so we can safely check that no reject has been received
-        assert_equal(node.p2p.reject_code_received, None)
-=======
         self.log.info('Test orphan pool overflow')
         orphan_tx_pool = [CTransaction() for _ in range(101)]
         for i in range(len(orphan_tx_pool)):
@@ -189,7 +168,6 @@ class InvalidTxRequestTest(DigiByteTestFramework):
         with node.assert_debug_log(['not keeping orphan with rejected parents {}'.format(rejected_parent.hash)]):
             node.p2ps[0].send_txs_and_test([rejected_parent], node, success=False)
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 
 if __name__ == '__main__':

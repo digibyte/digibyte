@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-# Copyright (c) 2011 Sam Rushing
-"""ECC secp256k1 OpenSSL wrapper.
-
-WARNING: This module does not mlock() secrets; your private keys may end up on
-disk in swap! Use with caution!
-
-This file is modified from python-digibytelib.
-"""
-
-import ctypes
-import ctypes.util
-=======
 # Copyright (c) 2019-2020 Pieter Wuille
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -20,7 +7,6 @@ WARNING: This code is slow, uses bad randomness, does not properly protect
 keys, and is trivially vulnerable to side channel attacks. Do not use for
 anything but tests."""
 import csv
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 import hashlib
 import os
 import random

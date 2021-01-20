@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -92,13 +88,8 @@ class HTTPBasicsTest (DigiByteTestFramework):
         conn.connect()
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         out1 = conn.getresponse().read()
-<<<<<<< HEAD
-        assert(b'"error":null' in out1)
-        assert(conn.sock!=None) #connection must be closed because digibyted should use keep-alive by default
-=======
         assert b'"error":null' in out1
         assert conn.sock is not None  #connection must be closed because digibyted should use keep-alive by default
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         # Check excessive request size
         conn = http.client.HTTPConnection(urlNode2.hostname, urlNode2.port)

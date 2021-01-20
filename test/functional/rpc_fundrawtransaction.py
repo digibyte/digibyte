@@ -1,19 +1,12 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the fundrawtransaction RPC."""
 
 from decimal import Decimal
-<<<<<<< HEAD
-=======
 from test_framework.descriptors import descsum_create
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_approx,
@@ -44,11 +37,7 @@ class RawTransactionsTest(DigiByteTestFramework):
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
-<<<<<<< HEAD
-    def setup_network(self, split=False):
-=======
     def setup_network(self):
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.setup_nodes()
 
         self.connect_nodes(0, 1)
@@ -241,11 +230,7 @@ class RawTransactionsTest(DigiByteTestFramework):
         dec_tx  = self.nodes[2].decoderawtransaction(rawtx)
         assert_equal(utx['txid'], dec_tx['vin'][0]['txid'])
 
-<<<<<<< HEAD
-        assert_raises_rpc_error(-5, "changeAddress must be a valid digibyte address", self.nodes[2].fundrawtransaction, rawtx, {'changeAddress':'foobar'})
-=======
         assert_raises_rpc_error(-5, "Change address must be a valid digibyte address", self.nodes[2].fundrawtransaction, rawtx, {'changeAddress':'foobar'})
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def test_valid_change_address(self):
         self.log.info("Test fundrawtxn with a provided change address")
@@ -495,15 +480,6 @@ class RawTransactionsTest(DigiByteTestFramework):
         addr1Obj = self.nodes[2].getaddressinfo(addr1)
         addr2Obj = self.nodes[2].getaddressinfo(addr2)
 
-<<<<<<< HEAD
-        mSigObj = self.nodes[2].addmultisigaddress(2, [addr1Obj['pubkey'], addr2Obj['pubkey']])['address']
-
-
-        # send 1.2 DGB to msig addr
-        txId = self.nodes[0].sendtoaddress(mSigObj, 1.2)
-        self.sync_all()
-        self.nodes[1].generate(1)
-=======
         self.nodes[2].createwallet(wallet_name='wmulti', disable_private_keys=True)
         wmulti = self.nodes[2].get_wallet_rpc('wmulti')
         w2 = self.nodes[2].get_wallet_rpc(self.default_wallet_name)
@@ -520,7 +496,6 @@ class RawTransactionsTest(DigiByteTestFramework):
         # Send 1.2 DGB to msig addr.
         self.nodes[0].sendtoaddress(mSigObj, 1.2)
         self.nodes[0].generate(1)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.sync_all()
 
         oldBalance = self.nodes[1].getbalance()

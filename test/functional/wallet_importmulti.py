@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
@@ -9,43 +8,6 @@ from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal, assert_greater_than, assert_raises_rpc_error
 
 class ImportMultiTest (DigiByteTestFramework):
-=======
-# Copyright (c) 2014-2019 The DigiByte Core developers
-# Distributed under the MIT software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test the importmulti RPC.
-
-Test importmulti by generating keys on node0, importing the scriptPubKeys and
-addresses on node1 and then testing the address info for the different address
-variants.
-
-- `get_key()` and `get_multisig()` are called to generate keys on node0 and
-  return the privkeys, pubkeys and all variants of scriptPubKey and address.
-- `test_importmulti()` is called to send an importmulti call to node1, test
-  success, and (if unsuccessful) test the error code and error message returned.
-- `test_address()` is called to call getaddressinfo for an address on node1
-  and test the values returned."""
-
-from test_framework.script import (
-    CScript,
-    OP_NOP,
-)
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.descriptors import descsum_create
-from test_framework.util import (
-    assert_equal,
-    assert_greater_than,
-    assert_raises_rpc_error,
-)
-from test_framework.wallet_util import (
-    get_key,
-    get_multisig,
-    test_address,
-)
-
-
-class ImportMultiTest(DigiByteTestFramework):
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [["-addresstype=legacy"], ["-addresstype=legacy"]]
@@ -93,11 +55,7 @@ class ImportMultiTest(DigiByteTestFramework):
 
         # RPC importmulti -----------------------------------------------
 
-<<<<<<< HEAD
-        # DigiByte Address
-=======
         # DigiByte Address (implicit non-internal)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.log.info("Should import an address")
         key = get_key(self.nodes[0])
         self.test_importmulti({"scriptPubKey": {"address": key.p2pkh_addr},

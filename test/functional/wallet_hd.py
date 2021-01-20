@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test Hierarchical Deterministic wallet function."""
@@ -28,16 +24,6 @@ class WalletHDTest(DigiByteTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
-<<<<<<< HEAD
-
-    def run_test(self):
-        # Make sure can't switch off usehd after wallet creation
-        self.stop_node(1)
-        self.nodes[1].assert_start_raises_init_error(['-usehd=0'], "Error: Error loading : You can't disable HD on an already existing HD wallet")
-        self.start_node(1)
-        connect_nodes_bi(self.nodes, 0, 1)
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def run_test(self):
         # Make sure we use hd, keep masterkeyid

@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mining RPCs
@@ -16,12 +12,6 @@
 import copy
 from decimal import Decimal
 
-<<<<<<< HEAD
-from test_framework.blocktools import create_coinbase
-from test_framework.messages import CBlock
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_raises_rpc_error
-=======
 from test_framework.blocktools import (
     create_coinbase,
     NORMAL_GBT_REQUEST_PARAMS,
@@ -41,7 +31,6 @@ from test_framework.util import (
 
 VERSIONBITS_TOP_BITS = 0x20000000
 VERSIONBITS_DEPLOYMENT_TESTDUMMY_BIT = 28
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 
 def assert_template(node, block, expect, rehash=True):
@@ -54,10 +43,6 @@ def assert_template(node, block, expect, rehash=True):
     })
     assert_equal(rsp, expect)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class MiningTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2

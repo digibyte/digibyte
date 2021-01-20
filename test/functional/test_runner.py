@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Run regression test suite.
@@ -94,11 +90,7 @@ BASE_SCRIPTS = [
     'wallet_hd.py',
     'wallet_hd.py --descriptors',
     'wallet_backup.py',
-<<<<<<< HEAD
-    'p2p_dandelion.py', # p2p dandelion anonymous tx test
-=======
     'wallet_backup.py --descriptors',
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     # vv Tests less than 5m vv
     'mining_getblocktemplate_longpoll.py',
     'feature_maxuploadtarget.py',
@@ -223,14 +215,10 @@ BASE_SCRIPTS = [
     'p2p_leak_tx.py',
     'p2p_eviction.py',
     'rpc_signmessage.py',
-<<<<<<< HEAD
-    'wallet_balance.py',
-=======
     'rpc_generateblock.py',
     'rpc_generate.py',
     'wallet_balance.py',
     'wallet_balance.py --descriptors',
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     'feature_nulldummy.py',
     'feature_nulldummy.py --descriptors',
     'mempool_accept.py',
@@ -290,12 +278,9 @@ BASE_SCRIPTS = [
     'feature_blocksdir.py',
     'wallet_startup.py',
     'feature_config_args.py',
-<<<<<<< HEAD
-=======
     'feature_settings.py',
     'rpc_getdescriptorinfo.py',
     'rpc_getpeerinfo_deprecation.py',
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     'rpc_help.py',
     'feature_help.py',
     'feature_shutdown.py',
@@ -367,15 +352,6 @@ def main():
     logging.debug("Temporary test directory at %s" % tmpdir)
 
     enable_digibyted = config["components"].getboolean("ENABLE_DIGIBYTED")
-<<<<<<< HEAD
-
-    if config["environment"]["EXEEXT"] == ".exe" and not args.force:
-        # https://github.com/digibyte/digibyte/commit/d52802551752140cf41f0d9a225a43e84404d3e9
-        # https://github.com/digibyte/digibyte/pull/5677#issuecomment-136646964
-        print("Tests currently disabled on Windows by default. Use --force option to enable")
-        sys.exit(0)
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     if not enable_digibyted:
         print("No functional tests to run.")
@@ -458,13 +434,6 @@ def main():
 def run_tests(*, test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=False, args=None, combined_logs_len=0, failfast=False, use_term_control):
     args = args or []
 
-<<<<<<< HEAD
-    # Warn if digibyted is already running (unix only)
-    try:
-        if subprocess.check_output(["pidof", "digibyted"]) is not None:
-            print("%sWARNING!%s There is already a digibyted process running on this system. Tests may fail unexpectedly due to resource contention!" % (BOLD[1], BOLD[0]))
-    except (OSError, subprocess.SubprocessError):
-=======
     # Warn if digibyted is already running
     try:
         # pgrep exits with code zero when one or more matching processes found
@@ -472,7 +441,6 @@ def run_tests(*, test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=
             print("%sWARNING!%s There is already a digibyted process running on this system. Tests may fail unexpectedly due to resource contention!" % (BOLD[1], BOLD[0]))
     except OSError:
         # pgrep not supported
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         pass
 
     # Warn if there is a cache directory

@@ -1,20 +1,12 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2015-2017 The DigiByte Core developers
-=======
 # Copyright (c) 2015-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node responses to invalid locators.
 """
 
 from test_framework.messages import msg_getheaders, msg_getblocks, MAX_LOCATOR_SZ
-<<<<<<< HEAD
-from test_framework.mininode import P2PInterface
-=======
 from test_framework.p2p import P2PInterface
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 
 

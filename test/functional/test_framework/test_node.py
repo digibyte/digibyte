@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-# Copyright (c) 2017-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Class for digibyted node under test"""
@@ -41,12 +37,6 @@ from .util import (
     EncodeDecimal,
 )
 
-<<<<<<< HEAD
-# For Python 3.4 compatibility
-JSONDecodeError = getattr(json, "JSONDecodeError", ValueError)
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 DIGIBYTED_PROC_WAIT_TIMEOUT = 60
 
 
@@ -74,9 +64,6 @@ class TestNode():
     To make things easier for the test writer, any unrecognised messages will
     be dispatched to the RPC connection."""
 
-<<<<<<< HEAD
-    def __init__(self, i, datadir, *, rpchost, timewait, digibyted, digibyte_cli, mocktime, coverage_dir, extra_conf=None, extra_args=None, use_cli=False):
-=======
     def __init__(self, i, datadir, *, chain, rpchost, timewait, timeout_factor, digibyted, digibyte_cli, coverage_dir, cwd, extra_conf=None, extra_args=None, use_cli=False, start_perf=False, use_valgrind=False, version=None, descriptors=False):
         """
         Kwargs:
@@ -84,7 +71,6 @@ class TestNode():
                 the node starts.
         """
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.index = i
         self.datadir = datadir
         self.digibyteconf = os.path.join(self.datadir, "digibyte.conf")
@@ -116,8 +102,6 @@ class TestNode():
             "-debugexclude=leveldb",
             "-uacomment=testnode%d" % i,
         ]
-<<<<<<< HEAD
-=======
         if use_valgrind:
             default_suppressions_file = os.path.join(
                 os.path.dirname(os.path.realpath(__file__)),
@@ -130,7 +114,6 @@ class TestNode():
 
         if self.version_is_at_least(190000):
             self.args.append("-logthreadnames")
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         self.cli = TestNodeCLI(digibyte_cli, self.datadir)
         self.use_cli = use_cli
@@ -241,12 +224,9 @@ class TestNode():
 
         self.running = True
         self.log.debug("digibyted started, waiting for RPC to come up")
-<<<<<<< HEAD
-=======
 
         if self.start_perf:
             self._start_perf()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def wait_for_rpc_connection(self):
         """Sets up an RPC connection to the digibyted process. Returns False if unable to connect."""
@@ -298,13 +278,6 @@ class TestNode():
                 # -342 Service unavailable, RPC server started but is shutting down due to error
                 if e.error['code'] != -28 and e.error['code'] != -342:
                     raise  # unknown JSON RPC exception
-<<<<<<< HEAD
-            except ValueError as e:  # cookie file not found and no rpcuser or rpcassword. digibyted still starting
-                if "No RPC credentials" not in str(e):
-                    raise
-            time.sleep(1.0 / poll_per_s)
-        self._raise_assertion_error("Unable to connect to digibyted")
-=======
             except ConnectionResetError:
                 # This might happen when the RPC server is in warmup, but shut down before the call to getblockcount
                 # succeeds. Try again to properly raise the FailedToStartError
@@ -340,7 +313,6 @@ class TestNode():
     def generate(self, nblocks, maxtries=1000000):
         self.log.debug("TestNode.generate() dispatches `generate` call to `generatetoaddress`")
         return self.generatetoaddress(nblocks=nblocks, address=self.get_deterministic_priv_key().address, maxtries=maxtries)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def get_wallet_rpc(self, wallet_name):
         if self.use_cli:
@@ -404,9 +376,6 @@ class TestNode():
         return True
 
     def wait_until_stopped(self, timeout=DIGIBYTED_PROC_WAIT_TIMEOUT):
-<<<<<<< HEAD
-        wait_until(self.is_node_stopped, timeout=timeout)
-=======
         wait_until_helper(self.is_node_stopped, timeout=timeout, timeout_factor=self.timeout_factor)
 
     @contextlib.contextmanager
@@ -517,7 +486,6 @@ class TestNode():
         else:
             report_cmd = "perf report -i {}".format(output_path)
             self.log.info("See perf output by running '{}'".format(report_cmd))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     @contextlib.contextmanager
     def assert_debug_log(self, expected_msgs):
@@ -578,17 +546,6 @@ class TestNode():
                     assert_msg = "digibyted should have exited with expected error " + expected_msg
                 self._raise_assertion_error(assert_msg)
 
-<<<<<<< HEAD
-    def node_encrypt_wallet(self, passphrase):
-        """"Encrypts the wallet.
-
-        This causes digibyted to shutdown, so this method takes
-        care of cleaning up resources."""
-        self.encryptwallet(passphrase)
-        self.wait_until_stopped()
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     def add_p2p_connection(self, p2p_conn, *, wait_for_verack=True, **kwargs):
         """Add a p2p connection to the node.
 
@@ -642,11 +599,6 @@ class TestNodeCLIAttr:
     def get_request(self, *args, **kwargs):
         return lambda: self(*args, **kwargs)
 
-<<<<<<< HEAD
-class TestNodeCLI():
-    """Interface to digibyte-cli for an individual node"""
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 def arg_to_cli(arg):
     if isinstance(arg, bool):
@@ -689,13 +641,8 @@ class TestNodeCLI():
 
     def send_cli(self, command=None, *args, **kwargs):
         """Run digibyte-cli command. Deserializes returned string as python object."""
-<<<<<<< HEAD
-        pos_args = [str(arg).lower() if type(arg) is bool else str(arg) for arg in args]
-        named_args = [str(key) + "=" + str(value) for (key, value) in kwargs.items()]
-=======
         pos_args = [arg_to_cli(arg) for arg in args]
         named_args = [str(key) + "=" + arg_to_cli(value) for (key, value) in kwargs.items()]
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         assert not (pos_args and named_args), "Cannot use positional arguments and named arguments in the same digibyte-cli call"
         p_args = [self.binary, "-datadir=" + self.datadir] + self.options
         if named_args:
@@ -703,11 +650,7 @@ class TestNodeCLI():
         if command is not None:
             p_args += [command]
         p_args += pos_args + named_args
-<<<<<<< HEAD
-        self.log.debug("Running digibyte-cli command: %s" % command)
-=======
         self.log.debug("Running digibyte-cli {}".format(p_args[2:]))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         process = subprocess.Popen(p_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         cli_stdout, cli_stderr = process.communicate(input=self.input)
         returncode = process.poll()

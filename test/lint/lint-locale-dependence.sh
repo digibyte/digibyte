@@ -38,16 +38,8 @@ export LC_ALL=C
 # https://stackoverflow.com/a/34878283 for more details.
 
 KNOWN_VIOLATIONS=(
-<<<<<<< HEAD
-    "src/base58.cpp:.*isspace"
     "src/digibyte-tx.cpp.*stoul"
     "src/digibyte-tx.cpp.*trim_right"
-    "src/digibyte-tx.cpp:.*atoi"
-    "src/core_read.cpp.*is_digit"
-=======
-    "src/digibyte-tx.cpp.*stoul"
-    "src/digibyte-tx.cpp.*trim_right"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     "src/dbwrapper.cpp.*stoul"
     "src/dbwrapper.cpp:.*vsnprintf"
     "src/httprpc.cpp.*trim"

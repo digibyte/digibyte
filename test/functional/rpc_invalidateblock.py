@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -14,11 +10,6 @@ from test_framework.util import (
     assert_equal,
 )
 
-<<<<<<< HEAD
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, connect_nodes_bi, sync_blocks
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class InvalidateTest(DigiByteTestFramework):
     def set_test_params(self):
