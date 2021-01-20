@@ -1,50 +1,30 @@
-<<<<<<< HEAD
-dnl require autoconf 2.60 (AS_ECHO/AS_ECHO_N)
-AC_PREREQ([2.60])
-define(_CLIENT_VERSION_MAJOR, 7)
-define(_CLIENT_VERSION_MINOR, 17)
-define(_CLIENT_VERSION_REVISION, 2)
-define(_CLIENT_VERSION_BUILD, 0)
-define(_CLIENT_VERSION_IS_RELEASE, true)
-define(_COPYRIGHT_YEAR, 2019)
-define(_COPYRIGHT_HOLDERS,[The %s developers])
-define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[DigiByte Core]])
-AC_INIT([DigiByte Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[https://github.com/digibyte/digibyte/issues],[digibyte],[https://digibyte.io/])
-=======
 AC_PREREQ([2.69])
-define(_CLIENT_VERSION_MAJOR, 0)
+define(_CLIENT_VERSION_MAJOR, 8)
 define(_CLIENT_VERSION_MINOR, 21)
 define(_CLIENT_VERSION_REVISION, 0)
 define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_RC, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
-define(_COPYRIGHT_YEAR, 2020)
+define(_COPYRIGHT_YEAR, 2021)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[DigiByte Core]])
 AC_INIT([DigiByte Core],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/digibyte/digibyte/issues],[digibyte],[https://digibytecore.org/])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 AC_CONFIG_SRCDIR([src/validation.cpp])
 AC_CONFIG_HEADERS([src/config/digibyte-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 
-<<<<<<< HEAD
-=======
 m4_ifndef([PKG_PROG_PKG_CONFIG], [AC_MSG_ERROR([PKG_PROG_PKG_CONFIG macro not found. Please install pkg-config and re-run autogen.sh])])
 PKG_PROG_PKG_CONFIG
 if test "x$PKG_CONFIG" = x; then
   AC_MSG_ERROR([pkg-config not found])
 fi
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 DIGIBYTE_DAEMON_NAME=digibyted
 DIGIBYTE_GUI_NAME=digibyte-qt
 DIGIBYTE_CLI_NAME=digibyte-cli
 DIGIBYTE_TX_NAME=digibyte-tx
-<<<<<<< HEAD
-=======
 DIGIBYTE_WALLET_TOOL_NAME=digibyte-wallet
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 dnl Unless the user specified ARFLAGS, force it to be cr
 AC_ARG_VAR(ARFLAGS, [Flags for the archiver, defaults to <cr> if not set])
@@ -127,13 +107,8 @@ AC_PATH_TOOL(STRIP, strip)
 AC_PATH_TOOL(GCOV, gcov)
 AC_PATH_TOOL(LLVM_COV, llvm-cov)
 AC_PATH_PROG(LCOV, lcov)
-<<<<<<< HEAD
-dnl Python 3.x is supported from 3.4 on (see https://github.com/digibyte/digibyte/issues/7893)
-AC_PATH_PROGS([PYTHON], [python3.7 python3.6 python3.5 python3.4 python3 python])
-=======
 dnl Python 3.5 is specified in .python-version and should be used if available, see doc/dependencies.md
 AC_PATH_PROGS([PYTHON], [python3.5 python3.6 python3.7 python3.8 python3 python])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 AC_PATH_PROG(GENHTML, genhtml)
 AC_PATH_PROG([GIT], [git])
 AC_PATH_PROG(CCACHE,ccache)
@@ -346,9 +321,6 @@ dnl warning about something unrelated, for example about some path issue. If tha
 dnl -Werror cannot be used because all of those warnings would be turned into errors.
 AX_CHECK_COMPILE_FLAG([-Werror],[CXXFLAG_WERROR="-Werror"],[CXXFLAG_WERROR=""])
 
-<<<<<<< HEAD
-CFLAGS="$CFLAGS -fPIC"
-=======
 dnl Check for a flag to turn linker warnings into errors. When flags are passed to linkers via the
 dnl compiler driver using a -Wl,-foo flag, linker warnings may be swallowed rather than bubbling up.
 dnl See note above, the same applies here as well.
@@ -362,7 +334,6 @@ case $host in
     AX_CHECK_LINK_FLAG([-Wl,--fatal-warnings],[LDFLAG_WERROR="-Wl,--fatal-warnings"],[LDFLAG_WERROR=""])
     ;;
 esac
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 if test "x$enable_debug" = xyes; then
   dnl Clear default -g -O2 flags
@@ -583,11 +554,6 @@ CPPFLAGS="$CPPFLAGS -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS"
 
 AC_ARG_WITH([utils],
   [AS_HELP_STRING([--with-utils],
-<<<<<<< HEAD
-  [build digibyte-cli digibyte-tx (default=yes)])],
-  [build_digibyte_utils=$withval],
-  [build_digibyte_utils=yes])
-=======
   [build digibyte-cli digibyte-tx digibyte-wallet (default=yes)])],
   [build_digibyte_utils=$withval],
   [build_digibyte_utils=yes])
@@ -609,7 +575,6 @@ AC_ARG_ENABLE([util-wallet],
   [build digibyte-wallet])],
   [build_digibyte_wallet=$enableval],
   [build_digibyte_wallet=$build_digibyte_utils])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 AC_ARG_WITH([libs],
   [AS_HELP_STRING([--with-libs],
@@ -671,22 +636,7 @@ case $host in
   *darwin*)
      TARGET_OS=darwin
      if  test x$cross_compiling != xyes; then
-<<<<<<< HEAD
-       BUILD_OS=darwin   
-       AC_CHECK_PROG([PORT],port, port)
-       if test x$PORT = xport; then
-         dnl add default macports paths
-         CPPFLAGS="$CPPFLAGS -isystem /opt/local/include"
-         LIBS="$LIBS -L/opt/local/lib"
-         if test -d /opt/local/include/db48; then
-           CPPFLAGS="$CPPFLAGS -I/opt/local/include/db48"
-           LIBS="$LIBS -L/opt/local/lib/db48"
-         fi
-       fi
-
-=======
        BUILD_OS=darwin
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
        AC_PATH_PROGS([RSVG_CONVERT], [rsvg-convert rsvg],rsvg-convert)
        AC_CHECK_PROG([BREW],brew, brew)
        if test x$BREW = xbrew; then
@@ -803,15 +753,9 @@ AC_C_BIGENDIAN
 dnl Check for pthread compile/link requirements
 AX_PTHREAD
 
-<<<<<<< HEAD
-# The following macro will add the necessary defines to digibyte-config.h, but
-# they also need to be passed down to any subprojects. Pull the results out of
-# the cache and add them to CPPFLAGS.
-=======
 dnl The following macro will add the necessary defines to digibyte-config.h, but
 dnl they also need to be passed down to any subprojects. Pull the results out of
 dnl the cache and add them to CPPFLAGS.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 AC_SYS_LARGEFILE
 dnl detect POSIX or GNU variant of strerror_r
 AC_FUNC_STRERROR_R
@@ -1284,8 +1228,6 @@ fi
 if test x$enable_wallet != xno; then
     dnl Check for libdb_cxx only if wallet enabled
     DIGIBYTE_FIND_BDB48
-<<<<<<< HEAD
-=======
     if test x$suppress_external_warnings != xno ; then
         BDB_CPPFLAGS=SUPPRESS_WARNINGS($BDB_CPPFLAGS)
     fi
@@ -1309,7 +1251,6 @@ if test x$enable_wallet != xno; then
       fi
     fi
     AC_MSG_RESULT([$use_sqlite])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 fi
 
 dnl Check for libminiupnpc (optional)
@@ -1341,16 +1282,7 @@ if test x$have_miniupnpc != xno; then
 fi
 fi
 
-<<<<<<< HEAD
-DIGIBYTE_QT_INIT
-
-dnl sets $digibyte_enable_qt, $digibyte_enable_qt_test, $digibyte_enable_qt_dbus
-DIGIBYTE_QT_CONFIGURE([$use_pkgconfig])
-
-if test x$build_digibyte_utils$build_digibyted$digibyte_enable_qt$use_tests$use_bench = xnonononono; then
-=======
 if test x$build_digibyte_wallet$build_digibyte_cli$build_digibyte_tx$build_digibyted$digibyte_enable_qt$use_tests$use_bench = xnonononononono; then
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     use_boost=no
 else
     use_boost=yes
@@ -1436,27 +1368,7 @@ if test "x$use_qr" != xno; then
   DIGIBYTE_QT_CHECK([PKG_CHECK_MODULES([QR], [libqrencode], [have_qrencode=yes], [have_qrencode=no])])
 fi
 
-<<<<<<< HEAD
-if test x$use_pkgconfig = xyes; then
-  : dnl
-  m4_ifdef(
-    [PKG_CHECK_MODULES],
-    [
-      PKG_CHECK_MODULES([SSL], [libssl],, [AC_MSG_ERROR(openssl not found.)])
-      PKG_CHECK_MODULES([CRYPTO], [libcrypto],,[AC_MSG_ERROR(libcrypto not found.)])
-      DIGIBYTE_QT_CHECK([PKG_CHECK_MODULES([PROTOBUF], [protobuf], [have_protobuf=yes], [DIGIBYTE_QT_FAIL(libprotobuf not found)])])
-      if test x$use_qr != xno; then
-        DIGIBYTE_QT_CHECK([PKG_CHECK_MODULES([QR], [libqrencode], [have_qrencode=yes], [have_qrencode=no])])
-      fi
-      if test x$build_digibyte_utils$build_digibyted$digibyte_enable_qt$use_tests != xnononono; then
-        PKG_CHECK_MODULES([EVENT], [libevent],, [AC_MSG_ERROR(libevent not found.)])
-        if test x$TARGET_OS != xwindows; then
-          PKG_CHECK_MODULES([EVENT_PTHREADS], [libevent_pthreads],, [AC_MSG_ERROR(libevent_pthreads not found.)])
-        fi
-      fi
-=======
 dnl ZMQ check
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 if test "x$use_zmq" = xyes; then
   PKG_CHECK_MODULES([ZMQ], [libzmq >= 4],
@@ -1468,15 +1380,6 @@ else
   AC_DEFINE_UNQUOTED([ENABLE_ZMQ], [0], [Define to 1 to enable ZMQ functions])
 fi
 
-<<<<<<< HEAD
-  if test x$build_digibyte_utils$build_digibyted$digibyte_enable_qt$use_tests != xnononono; then
-    AC_CHECK_HEADER([event2/event.h],, AC_MSG_ERROR(libevent headers missing),)
-    AC_CHECK_LIB([event],[main],EVENT_LIBS=-levent,AC_MSG_ERROR(libevent missing))
-    if test x$TARGET_OS != xwindows; then
-      AC_CHECK_LIB([event_pthreads],[main],EVENT_PTHREADS_LIBS=-levent_pthreads,AC_MSG_ERROR(libevent_pthreads missing))
-    fi
-  fi
-=======
 if test "x$use_zmq" = xyes; then
   dnl Assume libzmq was built for static linking
   case $host in
@@ -1485,7 +1388,6 @@ if test "x$use_zmq" = xyes; then
     ;;
   esac
 fi
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 dnl univalue check
 
@@ -1505,16 +1407,9 @@ else
     fi
   fi
 
-<<<<<<< HEAD
-  DIGIBYTE_QT_CHECK(AC_CHECK_LIB([protobuf] ,[main],[PROTOBUF_LIBS=-lprotobuf], DIGIBYTE_QT_FAIL(libprotobuf not found)))
-  if test x$use_qr != xno; then
-    DIGIBYTE_QT_CHECK([AC_CHECK_LIB([qrencode], [main],[QR_LIBS=-lqrencode], [have_qrencode=no])])
-    DIGIBYTE_QT_CHECK([AC_CHECK_HEADER([qrencode.h],, have_qrencode=no)])
-=======
   if test x$need_bundled_univalue = xyes; then
     UNIVALUE_CFLAGS='-I$(srcdir)/univalue/include'
     UNIVALUE_LIBS='univalue/libunivalue.la'
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   fi
 fi
 
@@ -1524,11 +1419,6 @@ AC_SUBST(UNIVALUE_LIBS)
 
 dnl libmultiprocess library check
 
-<<<<<<< HEAD
-if test x$build_digibyte_utils$build_digibyted$digibyte_enable_qt$use_tests$use_bench = xnonononono; then
-  need_bundled_univalue=no
-else
-=======
 libmultiprocess_found=no
 if test "x$with_libmultiprocess" = xyes || test "x$with_libmultiprocess" = xauto; then
   m4_ifdef([PKG_CHECK_MODULES], [PKG_CHECK_MODULES([LIBMULTIPROCESS], [libmultiprocess], [
@@ -1540,7 +1430,6 @@ elif test "x$with_libmultiprocess" != xno; then
 fi
 AC_SUBST(LIBMULTIPROCESS_CFLAGS)
 AC_SUBST(LIBMULTIPROCESS_LIBS)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 dnl Enable multiprocess check
 
@@ -1574,17 +1463,6 @@ AC_MSG_CHECKING([whether to build digibyted])
 AM_CONDITIONAL([BUILD_DIGIBYTED], [test x$build_digibyted = xyes])
 AC_MSG_RESULT($build_digibyted)
 
-<<<<<<< HEAD
-DIGIBYTE_QT_PATH_PROGS([PROTOC], [protoc],$protoc_bin_path)
-
-AC_MSG_CHECKING([whether to build digibyted])
-AM_CONDITIONAL([BUILD_DIGIBYTED], [test x$build_digibyted = xyes])
-AC_MSG_RESULT($build_digibyted)
-
-AC_MSG_CHECKING([whether to build utils (digibyte-cli digibyte-tx)])
-AM_CONDITIONAL([BUILD_DIGIBYTE_UTILS], [test x$build_digibyte_utils = xyes])
-AC_MSG_RESULT($build_digibyte_utils)
-=======
 AC_MSG_CHECKING([whether to build digibyte-cli])
 AM_CONDITIONAL([BUILD_DIGIBYTE_CLI], [test x$build_digibyte_cli = xyes])
 AC_MSG_RESULT($build_digibyte_cli)
@@ -1596,7 +1474,6 @@ AC_MSG_RESULT($build_digibyte_tx)
 AC_MSG_CHECKING([whether to build digibyte-wallet])
 AM_CONDITIONAL([BUILD_DIGIBYTE_WALLET], [test x$build_digibyte_wallet = xyes])
 AC_MSG_RESULT($build_digibyte_wallet)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 AC_MSG_CHECKING([whether to build libraries])
 AM_CONDITIONAL([BUILD_DIGIBYTE_LIBS], [test x$build_digibyte_libs = xyes])
@@ -1718,11 +1595,7 @@ else
   AC_MSG_RESULT([no])
 fi
 
-<<<<<<< HEAD
-if test x$build_digibyte_utils$build_digibyte_libs$build_digibyted$digibyte_enable_qt$use_bench$use_tests = xnononononono; then
-=======
 if test x$build_digibyte_wallet$build_digibyte_cli$build_digibyte_tx$build_digibyte_libs$build_digibyted$digibyte_enable_qt$use_bench$use_tests = xnononononononono; then
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   AC_MSG_ERROR([No targets! Please specify at least one of: --with-utils --with-libs --with-daemon --with-gui --enable-bench or --enable-tests])
 fi
 
@@ -1733,10 +1606,7 @@ AM_CONDITIONAL([TARGET_WINDOWS], [test x$TARGET_OS = xwindows])
 AM_CONDITIONAL([ENABLE_WALLET],[test x$enable_wallet = xyes])
 AM_CONDITIONAL([USE_SQLITE], [test "x$use_sqlite" = "xyes"])
 AM_CONDITIONAL([ENABLE_TESTS],[test x$BUILD_TEST = xyes])
-<<<<<<< HEAD
-=======
 AM_CONDITIONAL([ENABLE_FUZZ],[test x$enable_fuzz = xyes])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 AM_CONDITIONAL([ENABLE_QT],[test x$digibyte_enable_qt = xyes])
 AM_CONDITIONAL([ENABLE_QT_TESTS],[test x$BUILD_TEST_QT = xyes])
 AM_CONDITIONAL([ENABLE_BENCH],[test x$use_bench = xyes])
@@ -1776,10 +1646,7 @@ AC_SUBST(DIGIBYTE_DAEMON_NAME)
 AC_SUBST(DIGIBYTE_GUI_NAME)
 AC_SUBST(DIGIBYTE_CLI_NAME)
 AC_SUBST(DIGIBYTE_TX_NAME)
-<<<<<<< HEAD
-=======
 AC_SUBST(DIGIBYTE_WALLET_TOOL_NAME)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 AC_SUBST(RELDFLAGS)
 AC_SUBST(DEBUG_CPPFLAGS)
@@ -1830,10 +1697,7 @@ AC_CONFIG_LINKS([contrib/devtools/security-check.py:contrib/devtools/security-ch
 AC_CONFIG_LINKS([contrib/devtools/test-security-check.py:contrib/devtools/test-security-check.py])
 AC_CONFIG_LINKS([contrib/filter-lcov.py:contrib/filter-lcov.py])
 AC_CONFIG_LINKS([test/functional/test_runner.py:test/functional/test_runner.py])
-<<<<<<< HEAD
-=======
 AC_CONFIG_LINKS([test/fuzz/test_runner.py:test/fuzz/test_runner.py])
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 AC_CONFIG_LINKS([test/util/digibyte-util-test.py:test/util/digibyte-util-test.py])
 AC_CONFIG_LINKS([test/util/rpcauth-test.py:test/util/rpcauth-test.py])
 
@@ -1882,12 +1746,9 @@ echo "Options used to compile and link:"
 echo "  boost process = $ax_cv_boost_process"
 echo "  multiprocess  = $build_multiprocess"
 echo "  with wallet   = $enable_wallet"
-<<<<<<< HEAD
-=======
 if test "x$enable_wallet" != "xno"; then
     echo "    with sqlite = $use_sqlite"
 fi
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 echo "  with gui / qt = $digibyte_enable_qt"
 if test x$digibyte_enable_qt != xno; then
     echo "    with qr     = $use_qr"

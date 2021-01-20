@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 What is DigiByte?
 ----------------
 
@@ -76,25 +75,6 @@ Future DigiByte upgrades will push transaction limit to several hundred thousand
 
 Marketability & Usability: DigiByte is an easy brand to market to consumers.
 DigiBytes are much cheaper to acquire.
-=======
-DigiByte Core integration/staging tree
-=====================================
-
-https://digibytecore.org
-
-What is DigiByte?
-----------------
-
-DigiByte is an experimental digital currency that enables instant payments to
-anyone, anywhere in the world. DigiByte uses peer-to-peer technology to operate
-with no central authority: managing transactions and issuing money are carried
-out collectively by the network. DigiByte Core is the name of open source
-software which enables the use of this currency.
-
-For more information, as well as an immediately usable, binary version of
-the DigiByte Core software, see https://digibytecore.org/en/download/, or read the
-[original whitepaper](https://digibytecore.org/digibyte.pdf).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 License
 -------
@@ -105,11 +85,6 @@ information or see https://opensource.org/licenses/MIT.
 Development Process
 -------------------
 
-<<<<<<< HEAD
-The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/digibyte/digibyte/tags) are created
-regularly to indicate new official, stable release versions of DigiByte Core.
-=======
 The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
 completely stable. [Tags](https://github.com/digibyte/digibyte/tags) are created
 regularly from release branches to indicate new official, stable release versions of DigiByte Core.
@@ -118,7 +93,6 @@ The https://github.com/digibyte-core/gui repository is used exclusively for the
 development of the GUI. Its master branch is identical in all monotree
 repositories. Release branches and tags do not exist, so please do not fork
 that repository unless it is for development reasons.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
 and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
@@ -146,19 +120,3 @@ code. This is especially important for large or high-risk changes. It is useful
 to add a test plan to the pull request description if testing the changes is
 not straightforward.
 
-<<<<<<< HEAD
-=======
-Translations
-------------
-
-Changes to translations as well as new translations can be submitted to
-[DigiByte Core's Transifex page](https://www.transifex.com/digibyte/digibyte/).
-
-Translations are periodically pulled from Transifex and merged into the git repository. See the
-[translation process](doc/translation_process.md) for details on how this works.
-
-**Important**: We do not accept translation changes as GitHub pull requests because the next
-pull from Transifex would automatically overwrite them again.
-
-Translators should also subscribe to the [mailing list](https://groups.google.com/forum/#!forum/digibyte-translators).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

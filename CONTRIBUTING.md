@@ -32,9 +32,6 @@ DigiByte Core and how to run the unit tests, functional tests, and fuzz tests.
 There are many open issues of varying difficulty waiting to be fixed.
 If you're looking for somewhere to start contributing, check out the
 [good first issue](https://github.com/digibyte/digibyte/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
-<<<<<<< HEAD
-list.
-=======
 list or changes that are
 [up for grabs](https://github.com/digibyte/digibyte/issues?utf8=%E2%9C%93&q=label%3A%22Up+for+grabs%22).
 Some of them might no longer be applicable. So if you are interested, but
@@ -55,35 +52,23 @@ You do not need to request permission to start working on an issue. However,
 you are encouraged to leave a comment if you are planning to work on it. This
 will help other contributors monitor which issues are actively being addressed
 and is also an effective way to request assistance if and when you need it.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Communication Channels
 ----------------------
 
 Most communication about DigiByte Core development happens on IRC, in the
-<<<<<<< HEAD
-#digibyte-core-dev channel on Freenode. The easiest way to participate on IRC is
-with the web client, [webchat.freenode.net](https://webchat.freenode.net/). Chat
-history logs can be found
-on [botbot.me](https://botbot.me/freenode/digibyte-core-dev/).
-=======
 `#digibyte-core-dev` channel on Freenode. The easiest way to participate on IRC is
 with the web client, [webchat.freenode.net](https://webchat.freenode.net/). Chat
 history logs can be found
 on [http://www.erisian.com.au/digibyte-core-dev/](http://www.erisian.com.au/digibyte-core-dev/)
 and [http://gnusha.org/digibyte-core-dev/](http://gnusha.org/digibyte-core-dev/).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Discussion about codebase improvements happens in GitHub issues and pull
 requests.
 
 The developer
 [mailing list](https://lists.linuxfoundation.org/mailman/listinfo/digibyte-dev)
-<<<<<<< HEAD
-should be used to discuss complicated or controversial changes before working on
-=======
 should be used to discuss complicated or controversial consensus or P2P protocol changes before working on
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 a patch set.
 
 
@@ -156,26 +141,6 @@ about Git.
 The title of the pull request should be prefixed by the component or area that
 the pull request affects. Valid areas as:
 
-<<<<<<< HEAD
-  - *Consensus* for changes to consensus critical code
-  - *Docs* for changes to the documentation
-  - *Qt* for changes to digibyte-qt
-  - *Mining* for changes to the mining code
-  - *Net* or *P2P* for changes to the peer-to-peer network code
-  - *RPC/REST/ZMQ* for changes to the RPC, REST or ZMQ APIs
-  - *Scripts and tools* for changes to the scripts and tools
-  - *Tests* for changes to the digibyte unit tests or QA tests
-  - *Trivial* should **only** be used for PRs that do not change generated
-    executable code. Notably, refactors (change of function arguments and code
-    reorganization) and changes in behavior should **not** be marked as trivial.
-    Examples of trivial PRs are changes to:
-    - comments
-    - whitespace
-    - variable names
-    - logging and messages
-  - *Utils and libraries* for changes to the utils and libraries
-  - *Wallet* for changes to the wallet code
-=======
   - `consensus` for changes to consensus critical code
   - `doc` for changes to the documentation
   - `qt` or `gui` for changes to digibyte-qt
@@ -189,7 +154,6 @@ the pull request affects. Valid areas as:
   - `util` or `lib` for changes to the utils or libraries
   - `wallet` for changes to the wallet code
   - `build` for changes to the GNU Autotools or reproducible builds
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Examples:
 
@@ -209,15 +173,8 @@ any users mentioned in the description will be annoyingly notified each time a
 fork of DigiByte Core copies the merge. Instead, make any username mentions in a
 subsequent comment to the PR.
 
-<<<<<<< HEAD
 Note that translations should not be submitted as pull requests, please see
 [Translation Process](https://github.com/digibyte/digibyte/blob/master/doc/translation_process.md) 
-=======
-### Translation changes
-
-Note that translations should not be submitted as pull requests. Please see
-[Translation Process](https://github.com/digibyte/digibyte/blob/master/doc/translation_process.md)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 for more information on helping with translations.
 
 ### Work in Progress Changes and Requests for Comments
