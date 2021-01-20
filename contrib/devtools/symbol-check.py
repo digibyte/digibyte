@@ -56,11 +56,7 @@ OBJDUMP_CMD = os.getenv('OBJDUMP', '/usr/bin/objdump')
 OTOOL_CMD = os.getenv('OTOOL', '/usr/bin/otool')
 
 # Allowed NEEDED libraries
-<<<<<<< HEAD
-ALLOWED_LIBRARIES = {
-=======
 ELF_ALLOWED_LIBRARIES = {
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # digibyted and digibyte-qt
 'libgcc_s.so.1', # GCC base support
 'libc.so.6', # C library
@@ -70,16 +66,10 @@ ELF_ALLOWED_LIBRARIES = {
 'libatomic.so.1',
 'ld-linux-x86-64.so.2', # 64-bit dynamic linker
 'ld-linux.so.2', # 32-bit dynamic linker
-<<<<<<< HEAD
-# digibyte-qt only
-'libX11-xcb.so.1', # part of X11
-'libX11.so.6', # part of X11
-=======
 'ld-linux-aarch64.so.1', # 64-bit ARM dynamic linker
 'ld-linux-armhf.so.3', # 32-bit ARM dynamic linker
 'ld-linux-riscv64-lp64d.so.1', # 64-bit RISC-V dynamic linker
 # digibyte-qt only
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 'libxcb.so.1', # part of X11
 'libfontconfig.so.1', # font support
 'libfreetype.so.6', # font parsing

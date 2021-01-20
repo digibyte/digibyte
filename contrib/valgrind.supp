@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-# Valgrind suppressions file for DigiByte.
-#
-# Includes known Valgrind warnings in our dependencies that cannot be fixed
-# in-tree.
-#
-# Example use:
-# $ valgrind --suppressions=contrib/valgrind.supp src/test/test_digibyte
-# $ valgrind --suppressions=contrib/valgrind.supp --leak-check=full \
-#       --show-leak-kinds=all src/test/test_digibyte --log_level=test_suite
-=======
 # This valgrind suppressions file includes known Valgrind warnings in our
 # dependencies that cannot be fixed in-tree.
 #
@@ -26,7 +15,6 @@
 # Tested on:
 # * aarch64 (Ubuntu 20.04 system libs, without gui)
 # * x86_64  (Ubuntu 18.04 system libs, without gui)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
    Suppress libstdc++ warning - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65434
    Memcheck:Leak

@@ -5,11 +5,7 @@ Upstream-Contact: Satoshi Nakamoto <satoshin@gmx.com>
 Source: https://github.com/digibyte/digibyte
 
 Files: *
-<<<<<<< HEAD
-Copyright: 2009-2018, DigiByte Core Developers
-=======
-Copyright: 2009-2020, DigiByte Core Developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+Copyright: 2009-2021, DigiByte Core Developers
 License: Expat
 Comment: The DigiByte Core Developers encompasses the current developers listed on digibyte.org,
          as well as the numerous contributors to the project.
@@ -79,12 +75,7 @@ Copyright: Stephen Hutchings, Jonas Schnelli
 License: Expat
 Comment: Modifications of Stephen Hutchings' Typicons
 
-<<<<<<< HEAD
-Files: src/qt/res/icons/about.png
-       src/qt/res/icons/digibyte.*
-=======
 Files: src/qt/res/icons/digibyte.*
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
        share/pixmaps/digibyte*
        src/qt/res/src/digibyte.svg
 Copyright: Bitboy, Jonas Schnelli

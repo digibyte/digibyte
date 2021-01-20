@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
-name: "digibyte-linux-7.17"
-=======
 name: "digibyte-core-linux-0.21"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 enable_cache: true
 distro: "ubuntu"
 suites:
@@ -42,11 +38,7 @@ script: |
   set -e -o pipefail
 
   WRAP_DIR=$HOME/wrapped
-<<<<<<< HEAD
-  HOSTS="x86_64-linux-gnu aarch64-linux-gnu"
-=======
   HOSTS="x86_64-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu riscv64-linux-gnu"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   CONFIGFLAGS="--enable-glibc-back-compat --enable-reduce-exports --disable-bench --disable-gui-tests"
   FAKETIME_HOST_PROGS="gcc g++"
   FAKETIME_PROGS="date ar ranlib nm"
@@ -99,42 +91,8 @@ script: |
   create_per-host_faketime_wrappers "2000-01-01 12:00:00"
   export PATH=${WRAP_DIR}:${PATH}
 
-<<<<<<< HEAD
-  EXTRA_INCLUDES_BASE=$WRAP_DIR/extra_includes
-  mkdir -p $EXTRA_INCLUDES_BASE
-
-  # x86 needs /usr/include/i386-linux-gnu/asm pointed to /usr/include/x86_64-linux-gnu/asm,
-  # but we can't write there. Instead, create a link here and force it to be included in the
-  # search paths by wrapping gcc/g++.
-
-  mkdir -p $EXTRA_INCLUDES_BASE/i686-pc-linux-gnu
-  rm -f $WRAP_DIR/extra_includes/i686-pc-linux-gnu/asm
-  ln -s /usr/include/x86_64-linux-gnu/asm $EXTRA_INCLUDES_BASE/i686-pc-linux-gnu/asm
-
-  for prog in gcc g++; do
-  rm -f ${WRAP_DIR}/${prog}
-  cat << EOF > ${WRAP_DIR}/${prog}
-  #!/usr/bin/env bash
-  REAL="`which -a ${prog} | grep -v ${WRAP_DIR}/${prog} | head -1`"
-  for var in "\$@"
-  do
-    if [ "\$var" = "-m32" ]; then
-      export C_INCLUDE_PATH="$EXTRA_INCLUDES_BASE/i686-pc-linux-gnu"
-      export CPLUS_INCLUDE_PATH="$EXTRA_INCLUDES_BASE/i686-pc-linux-gnu"
-      break
-    fi
-  done
-  \$REAL \$@
-  EOF
-  chmod +x ${WRAP_DIR}/${prog}
-  done
-
-  cd digibyte
-  BASEPREFIX=`pwd`/depends
-=======
   cd digibyte
   BASEPREFIX="${PWD}/depends"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   # Build dependencies for each host
   for i in $HOSTS; do
     make ${MAKEOPTS} -C ${BASEPREFIX} HOST="${i}"
@@ -146,26 +104,11 @@ script: |
   create_per-host_faketime_wrappers "${REFERENCE_DATETIME}"
   export PATH=${WRAP_DIR}:${PATH}
 
-<<<<<<< HEAD
-  # Create the release tarball using (arbitrarily) the first host
-  ./autogen.sh
-  CONFIG_SITE=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`/share/config.site ./configure --prefix=/
-  make dist
-  SOURCEDIST=`echo digibyte-*.tar.gz`
-  DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
-  # Correct tar file order
-  mkdir -p temp
-  pushd temp
-  tar xf ../$SOURCEDIST
-  find digibyte-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
-  popd
-=======
   # Define DISTNAME variable.
   # shellcheck source=contrib/gitian-descriptors/assign_DISTNAME
   source contrib/gitian-descriptors/assign_DISTNAME
 
   GIT_ARCHIVE="${OUTDIR}/src/${DISTNAME}.tar.gz"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
   # Create the source tarball
   mkdir -p "$(dirname "$GIT_ARCHIVE")"

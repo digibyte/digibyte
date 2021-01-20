@@ -8,15 +8,11 @@ $(package)_dependencies=zlib
 $(package)_linux_dependencies=freetype fontconfig libxcb
 $(package)_build_subdir=qtbase
 $(package)_qt_libs=corelib network widgets gui plugins testlib
-<<<<<<< HEAD
-$(package)_patches=fix_qt_pkgconfig.patch mac-qmake.conf fix_configure_mac.patch fix_no_printer.patch fix_rcc_determinism.patch xkb-default.patch
-=======
 $(package)_patches=fix_qt_pkgconfig.patch mac-qmake.conf fix_configure_mac.patch fix_no_printer.patch
 $(package)_patches+= fix_rcc_determinism.patch fix_riscv64_arch.patch xkb-default.patch no-xlib.patch
 $(package)_patches+= fix_android_qmake_conf.patch fix_android_jni_static.patch dont_hardcode_pwd.patch
 $(package)_patches+= freetype_back_compat.patch drop_lrelease_dependency.patch fix_powerpc_libpng.patch
 $(package)_patches+= fix_qpainter_non_determinism.patch
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 # Update OSX_QT_TRANSLATIONS when this is updated
 $(package)_qttranslations_file_name=qttranslations-$($(package)_suffix)
@@ -138,10 +134,7 @@ $(package)_config_opts_linux += -no-feature-xlib
 $(package)_config_opts_linux += -system-freetype
 $(package)_config_opts_linux += -fontconfig
 $(package)_config_opts_linux += -no-opengl
-<<<<<<< HEAD
-=======
 $(package)_config_opts_linux += -dbus-runtime
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 $(package)_config_opts_arm_linux += -platform linux-g++ -xplatform digibyte-linux-g++
 $(package)_config_opts_i686_linux  = -xplatform linux-g++-32
 $(package)_config_opts_x86_64_linux = -xplatform linux-g++-64
@@ -201,13 +194,9 @@ define $(package)_extract_cmds
 endef
 
 define $(package)_preprocess_cmds
-<<<<<<< HEAD
-  sed -i.old "s|FT_Get_Font_Format|FT_Get_X11_Font_Format|" qtbase/src/platformsupport/fontdatabases/freetype/qfontengine_ft.cpp && \
-=======
   patch -p1 -i $($(package)_patch_dir)/freetype_back_compat.patch && \
   patch -p1 -i $($(package)_patch_dir)/fix_powerpc_libpng.patch && \
   patch -p1 -i $($(package)_patch_dir)/fix_qpainter_non_determinism.patch &&\
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   sed -i.old "s|updateqm.commands = \$$$$\$$$$LRELEASE|updateqm.commands = $($(package)_extract_dir)/qttools/bin/lrelease|" qttranslations/translations/translations.pro && \
   patch -p1 -i $($(package)_patch_dir)/drop_lrelease_dependency.patch && \
   patch -p1 -i $($(package)_patch_dir)/dont_hardcode_pwd.patch &&\
@@ -223,11 +212,8 @@ define $(package)_preprocess_cmds
   patch -p1 -i $($(package)_patch_dir)/fix_no_printer.patch &&\
   patch -p1 -i $($(package)_patch_dir)/fix_rcc_determinism.patch &&\
   patch -p1 -i $($(package)_patch_dir)/xkb-default.patch &&\
-<<<<<<< HEAD
-=======
   patch -p1 -i $($(package)_patch_dir)/fix_android_qmake_conf.patch &&\
   patch -p1 -i $($(package)_patch_dir)/fix_android_jni_static.patch &&\
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   echo "!host_build: QMAKE_CFLAGS     += $($(package)_cflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
   echo "!host_build: QMAKE_CXXFLAGS   += $($(package)_cxxflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
   echo "!host_build: QMAKE_LFLAGS     += $($(package)_ldflags)" >> qtbase/mkspecs/common/gcc-base.conf && \

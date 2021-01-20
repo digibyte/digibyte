@@ -1,9 +1,5 @@
 # bash programmable completion for digibyte-cli(1)
-<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
-# Copyright (c) 2012-2016 The DigiByte Core developers
-=======
-# Copyright (c) 2012-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
+# Copyright (c) 2012-2021The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,16 +17,6 @@ _digibyte_rpc() {
     $digibyte_cli "${rpcargs[@]}" "$@"
 }
 
-<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
-# Add wallet accounts to COMPREPLY
-_digibyte_accounts() {
-    local accounts
-    accounts=$(_digibyte_rpc listaccounts | awk -F '"' '{ print $2 }')
-    COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "$accounts" -- "$cur" ) )
-}
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
 _digibyte_cli() {
     local cur prev words=() cword
     local digibyte_cli
@@ -67,10 +53,6 @@ _digibyte_cli() {
     if ((cword > 3)); then
         case ${words[cword-3]} in
             addmultisigaddress)
-<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
-                _digibyte_accounts
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
                 return 0
                 ;;
             getbalance|gettxout|importaddress|importpubkey|importprivkey|listreceivedbyaddress|listsinceblock)
@@ -94,13 +76,6 @@ _digibyte_cli() {
                 COMPREPLY=( $( compgen -W "true false" -- "$cur" ) )
                 return 0
                 ;;
-<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
-            move|setaccount)
-                _digibyte_accounts
-                return 0
-                ;;
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
         esac
     fi
 
@@ -113,12 +88,7 @@ _digibyte_cli() {
             COMPREPLY=( $( compgen -W "true false" -- "$cur" ) )
             return 0
             ;;
-<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
-        getaccountaddress|getaddressesbyaccount|getbalance|getnewaddress|getreceivedbyaccount|listtransactions|move|sendfrom|sendmany)
-            _digibyte_accounts
-=======
         getbalance|getnewaddress|listtransactions|sendmany)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
             return 0
             ;;
     esac

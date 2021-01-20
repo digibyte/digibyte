@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
-name: "digibyte-osx-7.17"
-=======
-name: "digibyte-core-osx-0.21"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+name: "digibyte-core-osx-8.21"
 enable_cache: true
 distro: "ubuntu"
 suites:
@@ -91,11 +87,7 @@ script: |
   export PATH=${WRAP_DIR}:${PATH}
 
   cd digibyte
-<<<<<<< HEAD
-  BASEPREFIX=`pwd`/depends
-=======
   BASEPREFIX="${PWD}/depends"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
   mkdir -p ${BASEPREFIX}/SDKs
   tar -C ${BASEPREFIX}/SDKs -xf ${BUILD_DIR}/Xcode-11.3.1-11C505-extracted-SDK-with-libcxx-headers.tar.gz
@@ -111,27 +103,11 @@ script: |
   create_per-host_faketime_wrappers "${REFERENCE_DATETIME}"
   export PATH=${WRAP_DIR}:${PATH}
 
-<<<<<<< HEAD
-  # Create the release tarball using (arbitrarily) the first host
-  ./autogen.sh
-  CONFIG_SITE=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`/share/config.site ./configure --prefix=/
-  make dist
-  SOURCEDIST=`echo digibyte-*.tar.gz`
-  DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
-
-  # Correct tar file order
-  mkdir -p temp
-  pushd temp
-  tar xf ../$SOURCEDIST
-  find digibyte-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
-  popd
-=======
   # Define DISTNAME variable.
   # shellcheck source=contrib/gitian-descriptors/assign_DISTNAME
   source contrib/gitian-descriptors/assign_DISTNAME
 
   GIT_ARCHIVE="${OUTDIR}/src/${DISTNAME}.tar.gz"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
   # Create the source tarball
   mkdir -p "$(dirname "$GIT_ARCHIVE")"

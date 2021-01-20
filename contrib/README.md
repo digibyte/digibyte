@@ -38,14 +38,7 @@ Scripts and notes for Mac builds.
 ### [Gitian-build](/contrib/gitian-build.py) ###
 Script for running full Gitian builds.
 
-<<<<<<< HEAD
-### [init](/contrib/init) ###
-Sample configuration files for SystemD, Upstart, OpenRC, CentOS, and OS X.
-
-Test and Verify Tools 
-=======
 Test and Verify Tools
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 ---------------------
 
 ### [TestGen](/contrib/testgen) ###

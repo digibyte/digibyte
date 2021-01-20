@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-<<<<<<< HEAD
-# Copyright (c) 2016 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -29,11 +25,7 @@ TMPFILE="hashes.tmp"
 SIGNATUREFILENAME="SHA256SUMS.asc"
 RCSUBDIR="test"
 HOST1="https://digibytecore.org"
-<<<<<<< HEAD
 HOST2="https://digibyte.io"
-=======
-HOST2="https://digibyte.org"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 BASEDIR="/bin/"
 VERSIONPREFIX="digibyte-core-"
 RCVERSIONSTRING="rc"
@@ -100,12 +92,7 @@ if ! WGETOUT=$(wget -N "$HOST1$BASEDIR$SIGNATUREFILENAME" 2>&1); then
    exit 2
 fi
 
-<<<<<<< HEAD
-WGETOUT=$(wget -N -O "$SIGNATUREFILENAME.2" "$HOST2$BASEDIR$SIGNATUREFILENAME" 2>&1)
-if [ $? -ne 0 ]; then
-=======
 if ! WGETOUT=$(wget -N -O "$SIGNATUREFILENAME.2" "$HOST2$BASEDIR$SIGNATUREFILENAME" 2>&1); then
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
    echo "digibyte.org failed to provide signature file, but digibytecore.org did?"
    echo "wget output:"
    # shellcheck disable=SC2001

@@ -98,10 +98,7 @@ make install
 echo
 echo "db4 build complete."
 echo
-<<<<<<< HEAD
-=======
 # shellcheck disable=SC2016
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 echo 'When compiling digibyted, run `./configure` in the following way:'
 echo
 echo "  export BDB_PREFIX='${BDB_PREFIX}'"

@@ -30,8 +30,4 @@
 # Note that this will be mapped as argument to start-stop-daemon's
 # '--retry' option, which means you can specify a retry schedule
 # here. For more information see man 8 start-stop-daemon.
-<<<<<<< HEAD
-DIGIBYTED_SIGTERM_TIMEOUT=60
-=======
 DIGIBYTED_SIGTERM_TIMEOUT=600
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

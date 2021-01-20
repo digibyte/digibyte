@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2016-2018 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,21 +15,6 @@ import os
 ################################################################################
 
 EXCLUDE = [
-<<<<<<< HEAD
-    # libsecp256k1:
-    'src/secp256k1/include/secp256k1.h',
-    'src/secp256k1/include/secp256k1_ecdh.h',
-    'src/secp256k1/include/secp256k1_recovery.h',
-    'src/secp256k1/include/secp256k1_schnorr.h',
-    'src/secp256k1/src/java/org_digibyte_NativeSecp256k1.c',
-    'src/secp256k1/src/java/org_digibyte_NativeSecp256k1.h',
-    'src/secp256k1/src/java/org_digibyte_Secp256k1Context.c',
-    'src/secp256k1/src/java/org_digibyte_Secp256k1Context.h',
-    # univalue:
-    'src/univalue/test/object.cpp',
-    'src/univalue/lib/univalue_escapes.h',
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     # auto generated:
     'src/qt/digibytestrings.cpp',
     'src/chainparamsseeds.h',
@@ -111,7 +92,6 @@ def compile_copyright_regex(copyright_style, year_style, name):
     return re.compile(r'%s %s,? %s( +\*)?\n' % (copyright_style, year_style, name))
 
 EXPECTED_HOLDER_NAMES = [
-<<<<<<< HEAD
     "Satoshi Nakamoto\n",
     "The DigiByte Core developers\n",
     "The DigiByte Core developers \n",
@@ -135,20 +115,6 @@ EXPECTED_HOLDER_NAMES = [
     "Jan-Klaas Kollhof\n",
     "Sam Rushing\n",
     "ArtForz -- public domain half-a-node\n",
-=======
-    r"Satoshi Nakamoto",
-    r"The DigiByte Core developers",
-    r"BitPay Inc\.",
-    r"University of Illinois at Urbana-Champaign\.",
-    r"Pieter Wuille",
-    r"Wladimir J\. van der Laan",
-    r"Jeff Garzik",
-    r"Jan-Klaas Kollhof",
-    r"ArtForz -- public domain half-a-node",
-    r"Intel Corporation ?",
-    r"The Zcash developers",
-    r"Jeremy Rubin",
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 ]
 
 DOMINANT_STYLE_COMPILED = {}
@@ -504,11 +470,7 @@ CPP_HEADER = '''
 def get_cpp_header_lines_to_insert(start_year, end_year):
     return reversed(get_header_lines(CPP_HEADER, start_year, end_year))
 
-<<<<<<< HEAD
-PYTHON_HEADER = '''
-=======
 SCRIPT_HEADER = '''
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) %s The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.

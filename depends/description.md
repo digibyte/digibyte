@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is a system of building and caching dependencies necessary for building DigiByte. 
-=======
 This is a system of building and caching dependencies necessary for building DigiByte.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 There are several features that make it different from most similar systems:
 
 ### It is designed to be builder and host agnostic

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#!/bin/bash
-=======
 #!/usr/bin/env bash
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #
 #  digibyted The digibyte core server.
 #
@@ -43,11 +39,7 @@ start() {
 
 stop() {
     echo -n $"Stopping $prog: "
-<<<<<<< HEAD
-    killproc $prog
-=======
     killproc $prog -t600
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && rm -f $lockfile

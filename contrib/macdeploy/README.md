@@ -12,11 +12,7 @@ the process will unmount the DMG and cleanup before finishing.
 
 When complete, it will have produced `DigiByte-Qt.dmg`.
 
-<<<<<<< HEAD
-When finished, it will produce `DigiByte-Core.dmg`.
-=======
 ## SDK Extraction
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ### Step 1: Obtaining `Xcode.app`
 

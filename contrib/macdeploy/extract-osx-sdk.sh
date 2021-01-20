@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-<<<<<<< HEAD
-# Copyright (c) 2016 The DigiByte Core developers
-=======
-# Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

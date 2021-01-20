@@ -1,9 +1,6 @@
 ---
 name: "digibyte-win-signer"
-<<<<<<< HEAD
-=======
 distro: "ubuntu"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 suites:
 - "bionic"
 architectures:
@@ -18,12 +15,7 @@ remotes:
 - "url": "https://github.com/digibyte-core/digibyte-detached-sigs.git"
   "dir": "signature"
 files:
-<<<<<<< HEAD
-- "osslsigncode-1.7.1.tar.gz"
-- "osslsigncode-Backports-to-1.7.1.patch"
-=======
 - "osslsigncode-2.0.tar.gz"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 - "digibyte-win-unsigned.tar.gz"
 script: |
   set -e -o pipefail

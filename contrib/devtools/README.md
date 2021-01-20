@@ -89,23 +89,6 @@ example:
 BUILDDIR=$PWD/build contrib/devtools/gen-manpages.sh
 ```
 
-<<<<<<< HEAD
-
-Run this script from the root of the repository to verify that a subtree matches the contents of
-the commit it claims to have been updated to.
-
-To use, make sure that you have fetched the upstream repository branch in which the subtree is
-maintained:
-* for `src/secp256k1`: https://github.com/digibyte-core/secp256k1.git (branch master)
-* for `src/leveldb`: https://github.com/digibyte-core/leveldb.git (branch digibyte-fork)
-* for `src/univalue`: https://github.com/digibyte-core/univalue.git (branch master)
-* for `src/crypto/ctaes`: https://github.com/digibyte-core/ctaes.git (branch master)
-
-Usage: `git-subtree-check.sh DIR (COMMIT)`
-
-`COMMIT` may be omitted, in which case `HEAD` is used.
-
-=======
 github-merge.py
 ===============
 
@@ -155,7 +138,6 @@ A script to optimize png files in the digibyte
 repository (requires pngcrush).
 
 =======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 security-check.py and test-security-check.py
 ============================================
 
@@ -172,16 +154,7 @@ This makes sure they are still compatible with the minimum supported distributio
 
 For macOS and Windows we check that the executables are only linked against libraries we allow.
 
-<<<<<<< HEAD
-If there are 'unsupported' symbols, the return value will be 1 a list like this will be printed:
-
-    .../64/test_digibyte: symbol memcpy from unsupported version GLIBC_2.14
-    .../64/test_digibyte: symbol __fdelt_chk from unsupported version GLIBC_2.15
-    .../64/test_digibyte: symbol std::out_of_range::~out_of_range() from unsupported version GLIBCXX_3.4.15
-    .../64/test_digibyte: symbol _ZNSt8__detail15_List_nod from unsupported version GLIBCXX_3.4.15
-=======
 Example usage after a gitian build:
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     find ../gitian-builder/build -type f -executable | xargs python3 contrib/devtools/symbol-check.py
 

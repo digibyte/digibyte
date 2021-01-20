@@ -1,10 +1,5 @@
 # Linearize
-<<<<<<< HEAD
-Construct a linear, no-fork, best version of the DigiByte blockchain. The scripts
-run using Python 3 but are compatible with Python 2.
-=======
 Construct a linear, no-fork, best version of the DigiByte blockchain.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ## Step 1: Download hash list
 
