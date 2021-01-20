@@ -1,7 +1,11 @@
 [main]
 host = https://www.transifex.com
 
+<<<<<<< HEAD
 [digibyte.qt-translation-017x]
+=======
+[digibyte.qt-translation-021x]
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 file_filter = src/qt/locale/digibyte_<lang>.ts
 source_file = src/qt/locale/digibyte_en.ts
 source_lang = en

@@ -1,15 +1,17 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2015-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_CONSENSUS_MERKLE_H
 #define DIGIBYTE_CONSENSUS_MERKLE_H
 
-#include <stdint.h>
 #include <vector>
 
-#include <primitives/transaction.h>
 #include <primitives/block.h>
 #include <uint256.h>
 

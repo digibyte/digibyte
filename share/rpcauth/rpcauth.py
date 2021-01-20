@@ -3,29 +3,28 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-import sys
-import os
-from random import SystemRandom
-import base64
+from argparse import ArgumentParser
+from base64 import urlsafe_b64encode
+from binascii import hexlify
+from getpass import getpass
+from os import urandom
+
 import hmac
 
-def generate_salt():
-    # This uses os.urandom() underneath
-    cryptogen = SystemRandom()
-
-    # Create 16 byte hex salt
-    salt_sequence = [cryptogen.randrange(256) for _ in range(16)]
-    return ''.join([format(r, 'x') for r in salt_sequence])
+def generate_salt(size):
+    """Create size byte hex salt"""
+    return hexlify(urandom(size)).decode()
 
 def generate_password():
     """Create 32 byte b64 password"""
-    return base64.urlsafe_b64encode(os.urandom(32)).decode('utf-8')
+    return urlsafe_b64encode(urandom(32)).decode('utf-8')
 
 def password_to_hmac(salt, password):
     m = hmac.new(bytearray(salt, 'utf-8'), bytearray(password, 'utf-8'), 'SHA256')
     return m.hexdigest()
 
 def main():
+<<<<<<< HEAD
     if len(sys.argv) < 2:
         sys.stderr.write('Please include username (and an optional password, will generate one if not provided) as an argument.\n')
         sys.exit(0)
@@ -42,6 +41,25 @@ def main():
     print('String to be appended to digibyte.conf:')
     print('rpcauth={0}:{1}${2}'.format(username, salt, password_hmac))
     print('Your password:\n{0}'.format(password))
+=======
+    parser = ArgumentParser(description='Create login credentials for a JSON-RPC user')
+    parser.add_argument('username', help='the username for authentication')
+    parser.add_argument('password', help='leave empty to generate a random password or specify "-" to prompt for password', nargs='?')
+    args = parser.parse_args()
+
+    if not args.password:
+        args.password = generate_password()
+    elif args.password == '-':
+        args.password = getpass()
+
+    # Create 16 byte hex salt
+    salt = generate_salt(16)
+    password_hmac = password_to_hmac(salt, args.password)
+
+    print('String to be appended to digibyte.conf:')
+    print('rpcauth={0}:{1}${2}'.format(args.username, salt, password_hmac))
+    print('Your password:\n{0}'.format(args.password))
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 if __name__ == '__main__':
     main()

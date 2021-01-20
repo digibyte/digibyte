@@ -1,6 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2009-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -41,7 +45,11 @@ struct secure_allocator : public std::allocator<T> {
 
     T* allocate(std::size_t n, const void* hint = 0)
     {
-        return static_cast<T*>(LockedPoolManager::Instance().alloc(sizeof(T) * n));
+        T* allocation = static_cast<T*>(LockedPoolManager::Instance().alloc(sizeof(T) * n));
+        if (!allocation) {
+            throw std::bad_alloc();
+        }
+        return allocation;
     }
 
     void deallocate(T* p, std::size_t n)

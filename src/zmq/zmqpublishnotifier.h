@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2015-2018 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +17,7 @@ class CBlockIndex;
 class CZMQAbstractPublishNotifier : public CZMQAbstractNotifier
 {
 private:
-    uint32_t nSequence; //!< upcounting per message sequence number
+    uint32_t nSequence {0U}; //!< upcounting per message sequence number
 
 public:
 
@@ -23,7 +27,7 @@ public:
           * data
           * message sequence number
     */
-    bool SendMessage(const char *command, const void* data, size_t size);
+    bool SendZmqMessage(const char *command, const void* data, size_t size);
 
     bool Initialize(void *pcontext) override;
     void Shutdown() override;
@@ -53,4 +57,16 @@ public:
     bool NotifyTransaction(const CTransaction &transaction) override;
 };
 
+<<<<<<< HEAD
+=======
+class CZMQPublishSequenceNotifier : public CZMQAbstractPublishNotifier
+{
+public:
+    bool NotifyBlockConnect(const CBlockIndex *pindex) override;
+    bool NotifyBlockDisconnect(const CBlockIndex *pindex) override;
+    bool NotifyTransactionAcceptance(const CTransaction &transaction, uint64_t mempool_sequence) override;
+    bool NotifyTransactionRemoval(const CTransaction &transaction, uint64_t mempool_sequence) override;
+};
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_ZMQ_ZMQPUBLISHNOTIFIER_H

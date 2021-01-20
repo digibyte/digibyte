@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+# Copyright (c) 2016-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Create a blockchain cache.
@@ -17,7 +21,6 @@ class CreateCache(DigiByteTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 0
-        self.supports_cli = True
 
     def setup_network(self):
         pass

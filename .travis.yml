@@ -1,17 +1,38 @@
+<<<<<<< HEAD
 dist: trusty
+=======
+# Travis caches can be manually removed if necessary. This is one of the very
+# few manual operations that is possible with Travis, and it can be done by a
+# DigiByte Core GitHub member via the Travis web interface [0].
+#
+# Travis CI uploads the cache after the script phase of the build [1].
+# However, the build is terminated without saving the cache if it takes over
+# 50 minutes [2]. Thus, if we spent too much time in early build stages, fail
+# with an error and save the cache.
+#
+# [0] https://travis-ci.org/digibyte/digibyte/caches
+# [1] https://docs.travis-ci.com/user/caching/#build-phases
+# [2] https://docs.travis-ci.com/user/customizing-the-build#build-timeouts
+
+version: ~> 1.0
+
+dist: bionic
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 os: linux
 language: minimal
+arch: amd64
 cache:
-  ccache: true
   directories:
-  - depends/built
-  - depends/sdk-sources
-  - $HOME/.ccache
+    - $TRAVIS_BUILD_DIR/depends/built
+    - $TRAVIS_BUILD_DIR/depends/sdk-sources
+    - $TRAVIS_BUILD_DIR/ci/scratch/.ccache
+    - $TRAVIS_BUILD_DIR/releases/$HOST
 stages:
   - lint
   - test
 env:
   global:
+<<<<<<< HEAD
     - MAKEJOBS=-j3
     - RUN_TESTS=false
     - RUN_BENCH=false  # Set to true for any one job that has debug enabled, to quickly check bench is not crashing or hitting assertions
@@ -26,20 +47,17 @@ env:
     - SDK_URL=https://digibytecore.org/depends-sources/sdks
     - WINEDEBUG=fixme-all
     - DOCKER_PACKAGES="build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache"
+=======
+    - CI_RETRY_EXE="travis_retry"
+    - CACHE_ERR_MSG="Error! Initial build successful, but not enough time remains to run later build stages and tests. See https://docs.travis-ci.com/user/customizing-the-build#build-timeouts . Please manually re-run this job by using the travis restart button. The next run should not time out because the build cache has been saved."
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 before_install:
-    - export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/python/d' | tr "\n" ":" | sed "s|::|:|g")
-    - BEGIN_FOLD () { echo ""; CURRENT_FOLD_NAME=$1; echo "travis_fold:start:${CURRENT_FOLD_NAME}"; }
-    - END_FOLD () { RET=$?; echo "travis_fold:end:${CURRENT_FOLD_NAME}"; return $RET; }
+  - set -o errexit; source ./ci/test/00_setup_env.sh
+  - set -o errexit; source ./ci/test/03_before_install.sh
 install:
-    - travis_retry docker pull $DOCKER_NAME_TAG
-    - env | grep -E '^(CCACHE_|WINEDEBUG|LC_ALL|BOOST_TEST_RANDOM|CONFIG_SHELL)' | tee /tmp/env
-    - if [[ $HOST = *-mingw32 ]]; then DOCKER_ADMIN="--cap-add SYS_ADMIN"; fi
-    - DOCKER_ID=$(docker run $DOCKER_ADMIN -idt --mount type=bind,src=$TRAVIS_BUILD_DIR,dst=$TRAVIS_BUILD_DIR --mount type=bind,src=$CCACHE_DIR,dst=$CCACHE_DIR -w $TRAVIS_BUILD_DIR --env-file /tmp/env $DOCKER_NAME_TAG)
-    - DOCKER_EXEC () { docker exec $DOCKER_ID bash -c "cd $PWD && $*"; }
-    - if [ -n "$DPKG_ADD_ARCH" ]; then DOCKER_EXEC dpkg --add-architecture "$DPKG_ADD_ARCH" ; fi
-    - travis_retry DOCKER_EXEC apt-get update
-    - travis_retry DOCKER_EXEC apt-get install --no-install-recommends --no-upgrade -qq $PACKAGES $DOCKER_PACKAGES
+  - set -o errexit; source ./ci/test/04_install.sh
 before_script:
+<<<<<<< HEAD
     - DOCKER_EXEC echo \> \$HOME/.digibyte  # Make sure default datadir does not exist and is never read by creating a dummy file
     - mkdir -p depends/SDKs depends/sdk-sources
     - if [ -n "$OSX_SDK" -a ! -f depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz ]; then curl --location --fail $SDK_URL/MacOSX${OSX_SDK}.sdk.tar.gz -o depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz; fi
@@ -62,11 +80,24 @@ script:
     - if [ "$RUN_BENCH" = "true" ]; then BEGIN_FOLD bench; DOCKER_EXEC LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/depends/$HOST/lib $OUTDIR/bin/bench_digibyte -scaling=0.001 ; END_FOLD; fi
     - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then extended="--extended --exclude feature_pruning,feature_dbcrash"; fi
     - if [ "$RUN_TESTS" = "true" ]; then BEGIN_FOLD functional-tests; DOCKER_EXEC test/functional/test_runner.py --combinedlogslen=4000 --coverage --quiet --failfast ${extended}; END_FOLD; fi
+=======
+  # Temporary workaround for https://github.com/digibyte/digibyte/issues/16368
+  - for i in {1..4}; do echo "$(sleep 500)" ; done &
+  - set -o errexit; source ./ci/test/05_before_script.sh &> "/dev/null"
+script:
+  - export CONTINUE=1
+  - if [ $SECONDS -gt 1200 ]; then export CONTINUE=0; fi  # Likely the depends build took very long
+  - if [ $TRAVIS_REPO_SLUG = "digibyte/digibyte" ]; then export CONTINUE=1; fi  # continue on repos with extended build time (90 minutes)
+  - if [ $CONTINUE = "1" ]; then set -o errexit; source ./ci/test/06_script_a.sh; else set +o errexit; echo "$CACHE_ERR_MSG"; false; fi
+  - if [[ $SECONDS -gt 50*60-$EXPECTED_TESTS_DURATION_IN_SECONDS ]]; then export CONTINUE=0; fi
+  - if [ $TRAVIS_REPO_SLUG = "digibyte/digibyte" ]; then export CONTINUE=1; fi  # continue on repos with extended build time (90 minutes)
+  - if [ $CONTINUE = "1" ]; then set -o errexit; source ./ci/test/06_script_b.sh; else set +o errexit; echo "$CACHE_ERR_MSG"; false; fi
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 after_script:
-    - echo $TRAVIS_COMMIT_RANGE
-    - echo $TRAVIS_COMMIT_LOG
+  - echo $TRAVIS_COMMIT_RANGE
 jobs:
   include:
+<<<<<<< HEAD
 # ARM
     - stage: test
       env: >-
@@ -140,16 +171,29 @@ jobs:
         OSX_SDK=10.11
         GOAL="all deploy"
         DIGIBYTE_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
+=======
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     - stage: lint
+      name: 'lint'
       env:
+<<<<<<< HEAD
       cache: false
+=======
+      cache: pip
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
       language: python
-      python: '3.6'
+      python: '3.5' # Oldest supported version according to doc/dependencies.md
       install:
+<<<<<<< HEAD
         - travis_retry pip install flake8==3.5.0
+=======
+        - set -o errexit; source ./ci/lint/04_install.sh
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
       before_script:
-        - git fetch --unshallow
+        - set -o errexit; source ./ci/lint/05_before_script.sh
       script:
+<<<<<<< HEAD
         - if [ "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then test/lint/commit-script-check.sh $TRAVIS_COMMIT_RANGE; fi
         - test/lint/git-subtree-check.sh src/crypto/ctaes
         - test/lint/git-subtree-check.sh src/secp256k1
@@ -162,3 +206,16 @@ jobs:
               while read LINE; do travis_retry gpg --keyserver hkp://subset.pool.sks-keyservers.net --recv-keys $LINE; done < contrib/verify-commits/trusted-keys &&
               travis_wait 50 contrib/verify-commits/verify-commits.py;
           fi
+=======
+        - set -o errexit; source ./ci/lint/06_script.sh
+
+    - stage: test
+      name: '32-bit + dash  [GOAL: install]  [CentOS 7]  [gui]'
+      env: >-
+        FILE_ENV="./ci/test/00_setup_env_i686_centos.sh"
+
+    - stage: test
+      name: 'x86_64 Linux  [GOAL: install]  [xenial]  [no wallet]'
+      env: >-
+        FILE_ENV="./ci/test/00_setup_env_native_nowallet.sh"
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

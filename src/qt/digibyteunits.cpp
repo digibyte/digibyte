@@ -1,13 +1,25 @@
+<<<<<<< HEAD:src/qt/digibyteunits.cpp
 // Copyright (c) 2011-2018 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteunits.cpp
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <qt/digibyteunits.h>
+<<<<<<< HEAD:src/qt/digibyteunits.cpp
 
 #include <primitives/transaction.h>
 
 #include <QStringList>
 
+=======
+
+#include <QStringList>
+
+#include <cassert>
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteunits.cpp
 DigiByteUnits::DigiByteUnits(QObject *parent):
         QAbstractListModel(parent),
         unitlist(availableUnits())
@@ -96,7 +108,11 @@ int DigiByteUnits::decimals(int unit)
     }
 }
 
+<<<<<<< HEAD:src/qt/digibyteunits.cpp
 QString DigiByteUnits::format(int unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators)
+=======
+QString DigiByteUnits::format(int unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators, bool justify)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteunits.cpp
 {
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
@@ -108,12 +124,13 @@ QString DigiByteUnits::format(int unit, const CAmount& nIn, bool fPlus, Separato
     qint64 n_abs = (n > 0 ? n : -n);
     qint64 quotient = n_abs / coin;
     QString quotient_str = QString::number(quotient);
+    if (justify) quotient_str = quotient_str.rightJustified(16 - num_decimals, ' ');
 
     // Use SI-style thin space separators as these are locale independent and can't be
     // confused with the decimal marker.
     QChar thin_sp(THIN_SP_CP);
     int q_size = quotient_str.size();
-    if (separators == separatorAlways || (separators == separatorStandard && q_size > 4))
+    if (separators == SeparatorStyle::ALWAYS || (separators == SeparatorStyle::STANDARD && q_size > 4))
         for (int i = 3; i < q_size; i += 3)
             quotient_str.insert(q_size - i, thin_sp);
 
@@ -152,6 +169,17 @@ QString DigiByteUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool 
     return QString("<span style='white-space: nowrap;'>%1</span>").arg(str);
 }
 
+QString DigiByteUnits::formatWithPrivacy(int unit, const CAmount& amount, SeparatorStyle separators, bool privacy)
+{
+    assert(amount >= 0);
+    QString value;
+    if (privacy) {
+        value = format(unit, 0, false, separators, true).replace('0', '#');
+    } else {
+        value = format(unit, amount, false, separators, true);
+    }
+    return value + QString(" ") + shortName(unit);
+}
 
 bool DigiByteUnits::parse(int unit, const QString &value, CAmount *val_out)
 {

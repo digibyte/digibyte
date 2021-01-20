@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#ifdef HAVE_CONFIG_H
+#include <config/digibyte-config.h>
+#endif
+
 #include <qt/walletmodeltransaction.h>
 
-#include <interfaces/node.h>
 #include <policy/policy.h>
 
 WalletModelTransaction::WalletModelTransaction(const QList<SendCoinsRecipient> &_recipients) :
@@ -19,14 +26,14 @@ QList<SendCoinsRecipient> WalletModelTransaction::getRecipients() const
     return recipients;
 }
 
-std::unique_ptr<interfaces::PendingWalletTx>& WalletModelTransaction::getWtx()
+CTransactionRef& WalletModelTransaction::getWtx()
 {
     return wtx;
 }
 
 unsigned int WalletModelTransaction::getTransactionSize()
 {
-    return wtx ? wtx->getVirtualSize() : 0;
+    return wtx ? GetVirtualTransactionSize(*wtx) : 0;
 }
 
 CAmount WalletModelTransaction::getTransactionFee() const
@@ -41,28 +48,11 @@ void WalletModelTransaction::setTransactionFee(const CAmount& newFee)
 
 void WalletModelTransaction::reassignAmounts(int nChangePosRet)
 {
-    const CTransaction* walletTransaction = &wtx->get();
+    const CTransaction* walletTransaction = wtx.get();
     int i = 0;
     for (QList<SendCoinsRecipient>::iterator it = recipients.begin(); it != recipients.end(); ++it)
     {
         SendCoinsRecipient& rcp = (*it);
-
-        if (rcp.paymentRequest.IsInitialized())
-        {
-            CAmount subtotal = 0;
-            const payments::PaymentDetails& details = rcp.paymentRequest.getDetails();
-            for (int j = 0; j < details.outputs_size(); j++)
-            {
-                const payments::Output& out = details.outputs(j);
-                if (out.amount() <= 0) continue;
-                if (i == nChangePosRet)
-                    i++;
-                subtotal += walletTransaction->vout[i].nValue;
-                i++;
-            }
-            rcp.amount = subtotal;
-        }
-        else // normal recipient (no payment request)
         {
             if (i == nChangePosRet)
                 i++;

@@ -7,6 +7,8 @@ clang-format-diff.py
 
 A script to format unified git diffs according to [.clang-format](../../src/.clang-format).
 
+Requires `clang-format`, installed e.g. via `brew install clang-format` on macOS.
+
 For instance, to format the last commit with 0 lines of context,
 the script should be called from the git root folder as follows.
 
@@ -87,6 +89,7 @@ example:
 BUILDDIR=$PWD/build contrib/devtools/gen-manpages.sh
 ```
 
+<<<<<<< HEAD
 
 Run this script from the root of the repository to verify that a subtree matches the contents of
 the commit it claims to have been updated to.
@@ -151,42 +154,45 @@ optimize-pngs.py
 A script to optimize png files in the digibyte
 repository (requires pngcrush).
 
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 security-check.py and test-security-check.py
 ============================================
 
-Perform basic ELF security checks on a series of executables.
+Perform basic security checks on a series of executables.
 
 symbol-check.py
 ===============
 
-A script to check that the (Linux) executables produced by gitian only contain
-allowed gcc, glibc and libstdc++ version symbols. This makes sure they are
-still compatible with the minimum supported Linux distribution versions.
+A script to check that the executables produced by gitian only contain
+certain symbols and are only linked against allowed libraries.
 
-Example usage after a gitian build:
+For Linux this means checking for allowed gcc, glibc and libstdc++ version symbols.
+This makes sure they are still compatible with the minimum supported distribution versions.
 
-    find ../gitian-builder/build -type f -executable | xargs python contrib/devtools/symbol-check.py 
+For macOS and Windows we check that the executables are only linked against libraries we allow.
 
-If only supported symbols are used the return value will be 0 and the output will be empty.
-
+<<<<<<< HEAD
 If there are 'unsupported' symbols, the return value will be 1 a list like this will be printed:
 
     .../64/test_digibyte: symbol memcpy from unsupported version GLIBC_2.14
     .../64/test_digibyte: symbol __fdelt_chk from unsupported version GLIBC_2.15
     .../64/test_digibyte: symbol std::out_of_range::~out_of_range() from unsupported version GLIBCXX_3.4.15
     .../64/test_digibyte: symbol _ZNSt8__detail15_List_nod from unsupported version GLIBCXX_3.4.15
+=======
+Example usage after a gitian build:
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
-update-translations.py
-======================
+    find ../gitian-builder/build -type f -executable | xargs python3 contrib/devtools/symbol-check.py
 
-Run this script from the root of the repository to update all translations from transifex.
-It will do the following automatically:
+If no errors occur the return value will be 0 and the output will be empty.
 
-- fetch all translations
-- post-process them into valid and committable format
-- add missing translations to the build system (TODO)
+If there are any errors the return value will be 1 and output like this will be printed:
 
-See doc/translation-process.md for more information.
+    .../64/test_digibyte: symbol memcpy from unsupported version GLIBC_2.14
+    .../64/test_digibyte: symbol __fdelt_chk from unsupported version GLIBC_2.15
+    .../64/test_digibyte: symbol std::out_of_range::~out_of_range() from unsupported version GLIBCXX_3.4.15
+    .../64/test_digibyte: symbol _ZNSt8__detail15_List_nod from unsupported version GLIBCXX_3.4.15
 
 circular-dependencies.py
 ========================

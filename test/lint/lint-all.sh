@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 #
+<<<<<<< HEAD
 # Copyright (c) 2017 The DigiByte Core developers
+=======
+# Copyright (c) 2017-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
@@ -16,11 +20,15 @@ set -u
 SCRIPTDIR=$(dirname "${BASH_SOURCE[0]}")
 LINTALL=$(basename "${BASH_SOURCE[0]}")
 
+EXIT_CODE=0
+
 for f in "${SCRIPTDIR}"/lint-*.sh; do
   if [ "$(basename "$f")" != "$LINTALL" ]; then
     if ! "$f"; then
       echo "^---- failure generated from $f"
-      exit 1
+      EXIT_CODE=1
     fi
   fi
 done
+
+exit ${EXIT_CODE}

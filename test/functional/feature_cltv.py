@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+# Copyright (c) 2015-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test BIP65 (CHECKLOCKTIMEVERIFY).
@@ -11,19 +15,22 @@ Test that the CHECKLOCKTIMEVERIFY soft-fork activates at (regtest) block height
 
 from test_framework.blocktools import create_coinbase, create_block, create_transaction
 from test_framework.messages import CTransaction, msg_block, ToHex
-from test_framework.mininode import mininode_lock, P2PInterface
+from test_framework.p2p import P2PInterface
 from test_framework.script import CScript, OP_1NEGATE, OP_CHECKLOCKTIMEVERIFY, OP_DROP, CScriptNum
 from test_framework.test_framework import DigiByteTestFramework
+<<<<<<< HEAD
 from test_framework.util import assert_equal, bytes_to_hex_str, hex_str_to_bytes, wait_until
+=======
+from test_framework.util import (
+    assert_equal,
+    hex_str_to_bytes,
+)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 from io import BytesIO
 
 CLTV_HEIGHT = 1351
 
-# Reject codes that we might receive in this test
-REJECT_INVALID = 16
-REJECT_OBSOLETE = 17
-REJECT_NONSTANDARD = 64
 
 def cltv_invalidate(tx):
     '''Modify the signature in vin 0 of the tx to fail CLTV
@@ -52,17 +59,40 @@ def cltv_validate(node, tx, height):
                                   list(CScript(new_tx.vin[0].scriptSig)))
     return new_tx
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class BIP65Test(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
-        self.extra_args = [['-whitelist=127.0.0.1']]
+        self.extra_args = [[
+            '-whitelist=noban@127.0.0.1',
+            '-par=1',  # Use only one script thread to get the exact reject reason for testing
+            '-acceptnonstdtxn=1',  # cltv_invalidate is nonstandard
+        ]]
         self.setup_clean_chain = True
+        self.rpc_timeout = 480
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
+    def test_cltv_info(self, *, is_active):
+        assert_equal(self.nodes[0].getblockchaininfo()['softforks']['bip65'],
+            {
+                "active": is_active,
+                "height": CLTV_HEIGHT,
+                "type": "buried",
+            },
+        )
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
     def run_test(self):
-        self.nodes[0].add_p2p_connection(P2PInterface())
+        peer = self.nodes[0].add_p2p_connection(P2PInterface())
+
+        self.test_cltv_info(is_active=False)
 
         self.log.info("Mining %d blocks", CLTV_HEIGHT - 2)
         self.coinbase_txids = [self.nodes[0].getblock(b)['tx'][0] for b in self.nodes[0].generate(CLTV_HEIGHT - 2)]
@@ -83,7 +113,9 @@ class BIP65Test(DigiByteTestFramework):
         block.hashMerkleRoot = block.calc_merkle_root()
         block.solve()
 
-        self.nodes[0].p2p.send_and_ping(msg_block(block))
+        self.test_cltv_info(is_active=False)  # Not active as of current tip and next block does not need to obey rules
+        peer.send_and_ping(msg_block(block))
+        self.test_cltv_info(is_active=True)  # Not active as of current tip, but next block must obey rules
         assert_equal(self.nodes[0].getbestblockhash(), block.hash)
 
         self.log.info("Test that blocks must now be at least version 4")
@@ -92,15 +124,11 @@ class BIP65Test(DigiByteTestFramework):
         block = create_block(tip, create_coinbase(CLTV_HEIGHT), block_time)
         block.nVersion = 3
         block.solve()
-        self.nodes[0].p2p.send_and_ping(msg_block(block))
-        assert_equal(int(self.nodes[0].getbestblockhash(), 16), tip)
 
-        wait_until(lambda: "reject" in self.nodes[0].p2p.last_message.keys(), lock=mininode_lock)
-        with mininode_lock:
-            assert_equal(self.nodes[0].p2p.last_message["reject"].code, REJECT_OBSOLETE)
-            assert_equal(self.nodes[0].p2p.last_message["reject"].reason, b'bad-version(0x00000003)')
-            assert_equal(self.nodes[0].p2p.last_message["reject"].data, block.sha256)
-            del self.nodes[0].p2p.last_message["reject"]
+        with self.nodes[0].assert_debug_log(expected_msgs=['{}, bad-version(0x00000003)'.format(block.hash)]):
+            peer.send_and_ping(msg_block(block))
+            assert_equal(int(self.nodes[0].getbestblockhash(), 16), tip)
+            peer.sync_with_ping()
 
         self.log.info("Test that invalid-according-to-cltv transactions cannot appear in a block")
         block.nVersion = 4
@@ -113,8 +141,8 @@ class BIP65Test(DigiByteTestFramework):
         # First we show that this tx is valid except for CLTV by getting it
         # rejected from the mempool for exactly that reason.
         assert_equal(
-            [{'txid': spendtx.hash, 'allowed': False, 'reject-reason': '64: non-mandatory-script-verify-flag (Negative locktime)'}],
-            self.nodes[0].testmempoolaccept(rawtxs=[bytes_to_hex_str(spendtx.serialize())], allowhighfees=True)
+            [{'txid': spendtx.hash, 'allowed': False, 'reject-reason': 'non-mandatory-script-verify-flag (Negative locktime)'}],
+            self.nodes[0].testmempoolaccept(rawtxs=[spendtx.serialize().hex()], maxfeerate=0)
         )
 
         # Now we verify that a block with this transaction is also invalid.
@@ -122,18 +150,10 @@ class BIP65Test(DigiByteTestFramework):
         block.hashMerkleRoot = block.calc_merkle_root()
         block.solve()
 
-        self.nodes[0].p2p.send_and_ping(msg_block(block))
-        assert_equal(int(self.nodes[0].getbestblockhash(), 16), tip)
-
-        wait_until(lambda: "reject" in self.nodes[0].p2p.last_message.keys(), lock=mininode_lock)
-        with mininode_lock:
-            assert self.nodes[0].p2p.last_message["reject"].code in [REJECT_INVALID, REJECT_NONSTANDARD]
-            assert_equal(self.nodes[0].p2p.last_message["reject"].data, block.sha256)
-            if self.nodes[0].p2p.last_message["reject"].code == REJECT_INVALID:
-                # Generic rejection when a block is invalid
-                assert_equal(self.nodes[0].p2p.last_message["reject"].reason, b'block-validation-failed')
-            else:
-                assert b'Negative locktime' in self.nodes[0].p2p.last_message["reject"].reason
+        with self.nodes[0].assert_debug_log(expected_msgs=['CheckInputScripts on {} failed with non-mandatory-script-verify-flag (Negative locktime)'.format(block.vtx[-1].hash)]):
+            peer.send_and_ping(msg_block(block))
+            assert_equal(int(self.nodes[0].getbestblockhash(), 16), tip)
+            peer.sync_with_ping()
 
         self.log.info("Test that a version 4 block with a valid-according-to-CLTV transaction is accepted")
         spendtx = cltv_validate(self.nodes[0], spendtx, CLTV_HEIGHT - 1)
@@ -144,7 +164,9 @@ class BIP65Test(DigiByteTestFramework):
         block.hashMerkleRoot = block.calc_merkle_root()
         block.solve()
 
-        self.nodes[0].p2p.send_and_ping(msg_block(block))
+        self.test_cltv_info(is_active=True)  # Not active as of current tip, but next block must obey rules
+        peer.send_and_ping(msg_block(block))
+        self.test_cltv_info(is_active=True)  # Active as of current tip
         assert_equal(int(self.nodes[0].getbestblockhash(), 16), block.sha256)
 
 

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,16 +12,16 @@
 #include <qt/digibyteunits.h>
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
+#include <qt/walletmodel.h>
 
 #include <clientversion.h>
 #include <streams.h>
 
+#include <utility>
 
 RecentRequestsTableModel::RecentRequestsTableModel(WalletModel *parent) :
     QAbstractTableModel(parent), walletModel(parent)
 {
-    nReceiveRequestsMaxId = 0;
-
     // Load entries from wallet
     std::vector<std::string> vReceiveRequests;
     parent->loadReceiveRequests(vReceiveRequests);
@@ -27,7 +31,7 @@ RecentRequestsTableModel::RecentRequestsTableModel(WalletModel *parent) :
     /* These columns must match the indices in the ColumnIndex enumeration */
     columns << tr("Date") << tr("Label") << tr("Message") << getAmountTitle();
 
-    connect(walletModel->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
+    connect(walletModel->getOptionsModel(), &OptionsModel::displayUnitChanged, this, &RecentRequestsTableModel::updateDisplayUnit);
 }
 
 RecentRequestsTableModel::~RecentRequestsTableModel()
@@ -83,7 +87,11 @@ QVariant RecentRequestsTableModel::data(const QModelIndex &index, int role) cons
             if (rec->recipient.amount == 0 && role == Qt::DisplayRole)
                 return tr("(no amount requested)");
             else if (role == Qt::EditRole)
+<<<<<<< HEAD
                 return DigiByteUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), rec->recipient.amount, false, DigiByteUnits::separatorNever);
+=======
+                return DigiByteUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), rec->recipient.amount, false, DigiByteUnits::SeparatorStyle::NEVER);
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             else
                 return DigiByteUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), rec->recipient.amount);
         }
@@ -205,7 +213,7 @@ void RecentRequestsTableModel::addNewRequest(RecentRequestEntry &recipient)
 
 void RecentRequestsTableModel::sort(int column, Qt::SortOrder order)
 {
-    qSort(list.begin(), list.end(), RecentRequestEntryLessThan(column, order));
+    std::sort(list.begin(), list.end(), RecentRequestEntryLessThan(column, order));
     Q_EMIT dataChanged(index(0, 0, QModelIndex()), index(list.size() - 1, NUMBER_OF_COLUMNS - 1, QModelIndex()));
 }
 
@@ -214,10 +222,10 @@ void RecentRequestsTableModel::updateDisplayUnit()
     updateAmountColumnTitle();
 }
 
-bool RecentRequestEntryLessThan::operator()(RecentRequestEntry &left, RecentRequestEntry &right) const
+bool RecentRequestEntryLessThan::operator()(const RecentRequestEntry& left, const RecentRequestEntry& right) const
 {
-    RecentRequestEntry *pLeft = &left;
-    RecentRequestEntry *pRight = &right;
+    const RecentRequestEntry* pLeft = &left;
+    const RecentRequestEntry* pRight = &right;
     if (order == Qt::DescendingOrder)
         std::swap(pLeft, pRight);
 

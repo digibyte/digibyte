@@ -1,6 +1,7 @@
 Gitian building
 ================
 
+<<<<<<< HEAD
 *Setup instructions for a Gitian build of DigiByte Core using a Debian VM or physical system.*
 
 Gitian is the deterministic build process that is used to build the DigiByte
@@ -482,3 +483,6 @@ Uploading signatures
 After building and signing you can push your signatures (both the `.assert` and `.assert.sig` files) to the
 [digibyte-core/gitian.sigs](https://github.com/digibyte-core/gitian.sigs/) repository, or if that's not possible create a pull
 request. You can also mail the files to Wladimir (laanwj@gmail.com) and he will commit them.
+=======
+This file was moved to [the DigiByte Core documentation repository](https://github.com/digibyte-core/docs/blob/master/gitian-building.md) at [https://github.com/digibyte-core/docs](https://github.com/digibyte-core/docs).
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

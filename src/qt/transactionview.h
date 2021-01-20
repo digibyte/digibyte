@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -24,7 +28,6 @@ class QFrame;
 class QLineEdit;
 class QMenu;
 class QModelIndex;
-class QSignalMapper;
 class QTableView;
 QT_END_NAMESPACE
 
@@ -36,7 +39,7 @@ class TransactionView : public QWidget
     Q_OBJECT
 
 public:
-    explicit TransactionView(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    explicit TransactionView(const PlatformStyle *platformStyle, QWidget *parent = nullptr);
 
     void setModel(WalletModel *model);
 
@@ -62,9 +65,9 @@ public:
     };
 
 private:
-    WalletModel *model;
-    TransactionFilterProxy *transactionProxyModel;
-    QTableView *transactionView;
+    WalletModel *model{nullptr};
+    TransactionFilterProxy *transactionProxyModel{nullptr};
+    QTableView *transactionView{nullptr};
 
     QComboBox *dateWidget;
     QComboBox *typeWidget;
@@ -73,21 +76,22 @@ private:
     QLineEdit *amountWidget;
 
     QMenu *contextMenu;
-    QSignalMapper *mapperThirdPartyTxUrls;
 
     QFrame *dateRangeWidget;
     QDateTimeEdit *dateFrom;
     QDateTimeEdit *dateTo;
-    QAction *abandonAction;
-    QAction *bumpFeeAction;
+    QAction *abandonAction{nullptr};
+    QAction *bumpFeeAction{nullptr};
+    QAction *copyAddressAction{nullptr};
+    QAction *copyLabelAction{nullptr};
 
     QWidget *createDateRangeWidget();
 
-    GUIUtil::TableViewLastColumnResizingFixer *columnResizingFixer;
+    GUIUtil::TableViewLastColumnResizingFixer *columnResizingFixer{nullptr};
 
-    virtual void resizeEvent(QResizeEvent* event);
+    virtual void resizeEvent(QResizeEvent* event) override;
 
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private Q_SLOTS:
     void contextualMenu(const QPoint &);
@@ -110,6 +114,8 @@ Q_SIGNALS:
 
     /**  Fired when a message should be reported to the user */
     void message(const QString &title, const QString &message, unsigned int style);
+
+    void bumpedFee(const uint256& txid);
 
 public Q_SLOTS:
     void chooseDate(int idx);

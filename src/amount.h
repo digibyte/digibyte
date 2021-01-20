@@ -1,5 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
+<<<<<<< HEAD
 // Copyright (c) 2009-2016 The DigiByte Core developers
+=======
+// Copyright (c) 2009-2018 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,7 +16,6 @@
 typedef int64_t CAmount;
 
 static const CAmount COIN = 100000000;
-static const CAmount CENT = 1000000;
 
 /** No amount larger than this (in satoshi) is valid.
  *

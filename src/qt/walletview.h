@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +14,10 @@
 
 #include <QStackedWidget>
 
+<<<<<<< HEAD
 class DigiByteGUI;
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class ClientModel;
 class OverviewPage;
 class PlatformStyle;
@@ -40,7 +47,10 @@ public:
     explicit WalletView(const PlatformStyle *platformStyle, QWidget *parent);
     ~WalletView();
 
+<<<<<<< HEAD
     void setDigiByteGUI(DigiByteGUI *gui);
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     /** Set the client model.
         The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
     */
@@ -69,7 +79,7 @@ private:
 
     TransactionView *transactionView;
 
-    QProgressDialog *progressDialog;
+    QProgressDialog* progressDialog{nullptr};
     const PlatformStyle *platformStyle;
 
 public Q_SLOTS:
@@ -86,6 +96,8 @@ public Q_SLOTS:
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
+    /** Load Partially Signed DigiByte Transaction */
+    void gotoLoadPSBT(bool from_clipboard = false);
 
     /** Show incoming transaction notification for new transactions.
 
@@ -116,8 +128,9 @@ public Q_SLOTS:
     void requestedSyncWarningInfo();
 
 Q_SIGNALS:
-    /** Signal that we want to show the main window */
-    void showNormalIfMinimized();
+    void setPrivacy(bool privacy);
+    void transactionClicked();
+    void coinsSent();
     /**  Fired when a message should be reported to the user */
     void message(const QString &title, const QString &message, unsigned int style);
     /** Encryption status of wallet changed */

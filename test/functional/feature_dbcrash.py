@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+# Copyright (c) 2017-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test recovery from a crash during chainstate writing.
@@ -29,9 +33,9 @@
 import errno
 import http.client
 import random
-import sys
 import time
 
+<<<<<<< HEAD
 from test_framework.messages import COIN, COutPoint, CTransaction, CTxIn, CTxOut, ToHex
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal, create_confirmed_utxos, hex_str_to_bytes
@@ -41,13 +45,30 @@ try:
     HTTP_DISCONNECT_ERRORS.append(http.client.RemoteDisconnected)
 except AttributeError:
     pass
+=======
+from test_framework.messages import (
+    COIN,
+    COutPoint,
+    CTransaction,
+    CTxIn,
+    CTxOut,
+    ToHex,
+)
+from test_framework.test_framework import DigiByteTestFramework
+from test_framework.util import (
+    assert_equal,
+    create_confirmed_utxos,
+    hex_str_to_bytes,
+)
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class ChainstateWriteCrashTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
         self.setup_clean_chain = False
-        # Need a bit of extra time for the nodes to start up for this test
-        self.rpc_timewait = 90
+        self.rpc_timeout = 480
+        self.supports_cli = False
 
         # Set -maxmempool=0 to turn off mempool memory sharing with dbcache
         # Set -rpcservertimeout=900 to reduce socket disconnects in this
@@ -55,13 +76,14 @@ class ChainstateWriteCrashTest(DigiByteTestFramework):
         self.base_args = ["-limitdescendantsize=0", "-maxmempool=0", "-rpcservertimeout=900", "-dbbatchsize=200000"]
 
         # Set different crash ratios and cache sizes.  Note that not all of
-        # -dbcache goes to pcoinsTip.
+        # -dbcache goes to the in-memory coins cache.
         self.node0_args = ["-dbcrashratio=8", "-dbcache=4"] + self.base_args
         self.node1_args = ["-dbcrashratio=16", "-dbcache=8"] + self.base_args
         self.node2_args = ["-dbcrashratio=24", "-dbcache=16"] + self.base_args
 
         # Node3 is a normal node with default args, except will mine full blocks
-        self.node3_args = ["-blockmaxweight=4000000"]
+        # and non-standard txs (e.g. txs with "dust" outputs)
+        self.node3_args = ["-blockmaxweight=4000000", "-acceptnonstdtxn"]
         self.extra_args = [self.node0_args, self.node1_args, self.node2_args, self.node3_args]
 
     def skip_test_if_missing_module(self):
@@ -70,6 +92,7 @@ class ChainstateWriteCrashTest(DigiByteTestFramework):
     def setup_network(self):
         self.add_nodes(self.num_nodes, extra_args=self.extra_args)
         self.start_nodes()
+        self.import_deterministic_coinbase_privkeys()
         # Leave them unconnected, we'll use submitblock directly in this test
 
     def restart_node(self, node_index, expected_tip):
@@ -110,14 +133,7 @@ class ChainstateWriteCrashTest(DigiByteTestFramework):
         try:
             self.nodes[node_index].submitblock(block)
             return True
-        except http.client.BadStatusLine as e:
-            # Prior to 3.5 BadStatusLine('') was raised for a remote disconnect error.
-            if sys.version_info[0] == 3 and sys.version_info[1] < 5 and e.line == "''":
-                self.log.debug("node %d submitblock raised exception: %s", node_index, e)
-                return False
-            else:
-                raise
-        except tuple(HTTP_DISCONNECT_ERRORS) as e:
+        except (http.client.CannotSendRequest, http.client.RemoteDisconnected) as e:
             self.log.debug("node %d submitblock raised exception: %s", node_index, e)
             return False
         except OSError as e:
@@ -196,7 +212,7 @@ class ChainstateWriteCrashTest(DigiByteTestFramework):
         while len(utxo_list) >= 2 and num_transactions < count:
             tx = CTransaction()
             input_amount = 0
-            for i in range(2):
+            for _ in range(2):
                 utxo = utxo_list.pop()
                 tx.vin.append(CTxIn(COutPoint(int(utxo['txid'], 16), utxo['vout'])))
                 input_amount += int(utxo['amount'] * COIN)
@@ -206,7 +222,7 @@ class ChainstateWriteCrashTest(DigiByteTestFramework):
                 # Sanity check -- if we chose inputs that are too small, skip
                 continue
 
-            for i in range(3):
+            for _ in range(3):
                 tx.vout.append(CTxOut(output_amount, hex_str_to_bytes(utxo['scriptPubKey'])))
 
             # Sign and send the transaction to get into the mempool
@@ -257,7 +273,11 @@ class ChainstateWriteCrashTest(DigiByteTestFramework):
             self.log.debug("Mining longer tip")
             block_hashes = []
             while current_height + 1 > self.nodes[3].getblockcount():
-                block_hashes.extend(self.nodes[3].generate(min(10, current_height + 1 - self.nodes[3].getblockcount())))
+                block_hashes.extend(self.nodes[3].generatetoaddress(
+                    nblocks=min(10, current_height + 1 - self.nodes[3].getblockcount()),
+                    # new address to avoid mining a block that has just been invalidated
+                    address=self.nodes[3].getnewaddress(),
+                ))
             self.log.debug("Syncing %d new blocks...", len(block_hashes))
             self.sync_node3blocks(block_hashes)
             utxo_list = self.nodes[3].listunspent()
@@ -280,7 +300,8 @@ class ChainstateWriteCrashTest(DigiByteTestFramework):
         # Warn if any of the nodes escaped restart.
         for i in range(3):
             if self.restart_counts[i] == 0:
-                self.log.warn("Node %d never crashed during utxo flush!", i)
+                self.log.warning("Node %d never crashed during utxo flush!", i)
+
 
 if __name__ == "__main__":
     ChainstateWriteCrashTest().main()

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2012-2018 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,20 +14,25 @@
  * network protocol versioning
  */
 
+<<<<<<< HEAD
 static const int PROTOCOL_VERSION = 70017;
+=======
+static const int PROTOCOL_VERSION = 70016;
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 //! initial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;
 
-//! In this version, 'getheaders' was introduced.
-static const int GETHEADERS_VERSION = 31800;
-
 //! disconnect from peers older than this proto version
+<<<<<<< HEAD
 static const int MIN_PEER_PROTO_VERSION = 70002;
 
 //! nTime field added to CAddress, starting with this version;
 //! if possible, avoid requesting addresses nodes older than this
 static const int CADDR_TIME_VERSION = 31402;
+=======
+static const int MIN_PEER_PROTO_VERSION = 31800;
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 //! BIP 0031, pong message, is enabled for all versions AFTER this one
 static const int BIP0031_VERSION = 60000;
@@ -43,7 +52,15 @@ static const int SHORT_IDS_BLOCKS_VERSION = 70014;
 //! not banning for invalid compact blocks starts with this version
 static const int INVALID_CB_NO_BAN_VERSION = 70015;
 
+<<<<<<< HEAD
 //! first odo version
 static const int ODO_FORK_VERSION = 70017;
+=======
+//! "wtxidrelay" command for wtxid-based relay starts with this version
+static const int WTXID_RELAY_VERSION = 70016;
+
+// Make sure that none of the values above collide with
+// `SERIALIZE_TRANSACTION_NO_WITNESS` or `ADDRV2_FORMAT`.
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 #endif // DIGIBYTE_VERSION_H

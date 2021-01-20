@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2012-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,9 +14,8 @@
 #include <fs.h>
 #include <serialize.h>
 #include <streams.h>
-#include <util.h>
-#include <utilstrencodings.h>
-#include <version.h>
+#include <util/system.h>
+#include <util/strencodings.h>
 
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
@@ -293,18 +296,6 @@ public:
 
     // Get an estimate of LevelDB memory usage (in bytes).
     size_t DynamicMemoryUsage() const;
-
-    // not available for LevelDB; provide for compatibility with BDB
-    bool Flush()
-    {
-        return true;
-    }
-
-    bool Sync()
-    {
-        CDBBatch batch(*this);
-        return WriteBatch(batch, true);
-    }
 
     CDBIterator *NewIterator()
     {

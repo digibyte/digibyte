@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright (c) 2014-2016 The DigiByte Core developers
+=======
+// Copyright (c) 2014-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,12 +21,13 @@ private:
     size_t bytes;
 
 public:
-    static const size_t OUTPUT_SIZE = 64;
+    static constexpr size_t OUTPUT_SIZE = 64;
 
     CSHA512();
     CSHA512& Write(const unsigned char* data, size_t len);
     void Finalize(unsigned char hash[OUTPUT_SIZE]);
     CSHA512& Reset();
+    uint64_t Size() const { return bytes; }
 };
 
 #endif // DIGIBYTE_CRYPTO_SHA512_H

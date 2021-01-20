@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Copyright (c) 2014-2019 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -18,9 +21,12 @@ class GetChainTipsTest (DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
 
+<<<<<<< HEAD
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     def run_test(self):
         tips = self.nodes[0].getchaintips()
         assert_equal(len(tips), 1)
@@ -30,9 +36,16 @@ class GetChainTipsTest (DigiByteTestFramework):
 
         # Split the network and build two chains of different lengths.
         self.split_network()
+<<<<<<< HEAD
         self.nodes[0].generate(10)
         self.nodes[2].generate(20)
         self.sync_all([self.nodes[:2], self.nodes[2:]])
+=======
+        self.nodes[0].generatetoaddress(10, self.nodes[0].get_deterministic_priv_key().address)
+        self.nodes[2].generatetoaddress(20, self.nodes[2].get_deterministic_priv_key().address)
+        self.sync_all(self.nodes[:2])
+        self.sync_all(self.nodes[2:])
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         tips = self.nodes[1].getchaintips ()
         assert_equal (len (tips), 1)

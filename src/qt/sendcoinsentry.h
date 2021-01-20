@@ -1,17 +1,25 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_QT_SENDCOINSENTRY_H
 #define DIGIBYTE_QT_SENDCOINSENTRY_H
 
-#include <qt/walletmodel.h>
+#include <qt/sendcoinsrecipient.h>
 
 #include <QStackedWidget>
 
 class WalletModel;
 class PlatformStyle;
+
+namespace interfaces {
+class Node;
+} // namespace interfaces
 
 namespace Ui {
     class SendCoinsEntry;
@@ -27,7 +35,7 @@ class SendCoinsEntry : public QStackedWidget
     Q_OBJECT
 
 public:
-    explicit SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    explicit SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *parent = nullptr);
     ~SendCoinsEntry();
 
     void setModel(WalletModel *model);

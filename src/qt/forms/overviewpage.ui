@@ -6,8 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>643</width>
     <height>342</height>
+=======
+    <width>798</width>
+    <height>318</height>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
    </rect>
   </property>
   <property name="windowTitle">
@@ -121,6 +126,7 @@
              <widget class="QLabel" name="labelWatchPending">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -132,7 +138,11 @@
                <string>Unconfirmed transactions to watch-only addresses</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">0.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -146,6 +156,7 @@
              <widget class="QLabel" name="labelUnconfirmed">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -157,7 +168,11 @@
                <string>Total of transactions that have yet to be confirmed, and do not yet count toward the spendable balance</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">0.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -171,6 +186,7 @@
              <widget class="QLabel" name="labelWatchImmature">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -182,7 +198,11 @@
                <string>Mined balance in watch-only addresses that has not yet matured</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">0.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -229,6 +249,7 @@
              <widget class="QLabel" name="labelImmature">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -240,7 +261,11 @@
                <string>Mined balance that has not yet matured</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">0.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -274,6 +299,7 @@
              <widget class="QLabel" name="labelTotal">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -285,7 +311,11 @@
                <string>Your current total balance</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">21 000 000.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -299,6 +329,7 @@
              <widget class="QLabel" name="labelWatchTotal">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -310,7 +341,11 @@
                <string>Current total balance in watch-only addresses</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">21 000 000.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -341,6 +376,7 @@
              <widget class="QLabel" name="labelBalance">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -352,7 +388,11 @@
                <string>Your current spendable balance</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">21 000 000.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -366,6 +406,7 @@
              <widget class="QLabel" name="labelWatchAvailable">
               <property name="font">
                <font>
+                <family>Monospace</family>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -377,7 +418,11 @@
                <string>Your current balance in watch-only addresses</string>
               </property>
               <property name="text">
+<<<<<<< HEAD
                <string notr="true">0.000 000 00 DGB</string>
+=======
+               <string notr="true">21 000 000.00000000 DGB</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

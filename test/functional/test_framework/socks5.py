@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+# Copyright (c) 2015-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Dummy Socks5 server for testing."""
@@ -55,10 +59,9 @@ class Socks5Command():
         return 'Socks5Command(%s,%s,%s,%s,%s,%s)' % (self.cmd, self.atyp, self.addr, self.port, self.username, self.password)
 
 class Socks5Connection():
-    def __init__(self, serv, conn, peer):
+    def __init__(self, serv, conn):
         self.serv = serv
         self.conn = conn
-        self.peer = peer
 
     def handle(self):
         """Handle socks5 request according to RFC192."""
@@ -138,15 +141,15 @@ class Socks5Server():
 
     def run(self):
         while self.running:
-            (sockconn, peer) = self.s.accept()
+            (sockconn, _) = self.s.accept()
             if self.running:
-                conn = Socks5Connection(self, sockconn, peer)
+                conn = Socks5Connection(self, sockconn)
                 thread = threading.Thread(None, conn.handle)
                 thread.daemon = True
                 thread.start()
 
     def start(self):
-        assert(not self.running)
+        assert not self.running
         self.running = True
         self.thread = threading.Thread(None, self.run)
         self.thread.daemon = True

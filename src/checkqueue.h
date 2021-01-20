@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright (c) 2012-2018 The DigiByte Core developers
+=======
+// Copyright (c) 2012-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -90,8 +94,7 @@ private:
                         nTotal--;
                         bool fRet = fAllOk;
                         // reset the status for new work later
-                        if (fMaster)
-                            fAllOk = true;
+                        fAllOk = true;
                         // return the current status
                         return fRet;
                     }

@@ -8,6 +8,7 @@
 
 #if defined(HAVE_CONFIG_H)
 #include <config/digibyte-config.h>
+<<<<<<< HEAD
 #endif
 
 #include <type_traits>
@@ -18,16 +19,11 @@
 #define IS_TRIVIALLY_CONSTRUCTIBLE std::is_trivial
 #else
 #define IS_TRIVIALLY_CONSTRUCTIBLE std::is_trivially_constructible
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif
 
 #ifdef WIN32
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#endif
-#define _WIN32_WINNT 0x0501
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
@@ -102,8 +98,15 @@ typedef void* sockopt_arg_type;
 typedef char* sockopt_arg_type;
 #endif
 
+// Note these both should work with the current usage of poll, but best to be safe
+// WIN32 poll is broken https://daniel.haxx.se/blog/2012/10/10/wsapoll-is-broken/
+// __APPLE__ poll is broke https://github.com/digibyte/digibyte/pull/14336#issuecomment-437384408
+#if defined(__linux__)
+#define USE_POLL
+#endif
+
 bool static inline IsSelectableSocket(const SOCKET& s) {
-#ifdef WIN32
+#if defined(USE_POLL) || defined(WIN32)
     return true;
 #else
     return (s < FD_SETSIZE);

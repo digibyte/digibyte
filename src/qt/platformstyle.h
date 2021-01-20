@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright (c) 2015 The DigiByte Core developers
+=======
+// Copyright (c) 2015-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -32,9 +36,6 @@ public:
 
     /** Colorize an icon (given object) with the icon color */
     QIcon SingleColorIcon(const QIcon& icon) const;
-
-    /** Colorize an icon (given filename) with the text color */
-    QIcon TextColorIcon(const QString& filename) const;
 
     /** Colorize an icon (given object) with the text color */
     QIcon TextColorIcon(const QIcon& icon) const;

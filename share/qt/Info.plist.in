@@ -3,7 +3,7 @@
 <plist version="0.9">
 <dict>
   <key>LSMinimumSystemVersion</key>
-  <string>10.10.0</string>
+  <string>10.12.0</string>
 
   <key>LSArchitecturePriority</key>
   <array>
@@ -16,8 +16,8 @@
   <key>CFBundlePackageType</key>
   <string>APPL</string>
 
-  <key>CFBundleGetInfoString</key>
-  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@, Copyright © 2009-@COPYRIGHT_YEAR@ @COPYRIGHT_HOLDERS_FINAL@</string>
+  <key>NSHumanReadableCopyright</key>
+  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@.@CLIENT_VERSION_BUILD@, Copyright © 2009-@COPYRIGHT_YEAR@ @COPYRIGHT_HOLDERS_FINAL@</string>
 
   <key>CFBundleShortVersionString</key>
   <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@</string>
@@ -30,7 +30,11 @@
 
   <key>CFBundleExecutable</key>
   <string>DigiByte-Qt</string>
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   <key>CFBundleName</key>
   <string>DigiByte-Qt</string>
 
@@ -38,7 +42,11 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
+<<<<<<< HEAD
   <string>io.digibyte.DigiByte-Qt</string>
+=======
+  <string>org.digibytefoundation.DigiByte-Qt</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,6 +54,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
+<<<<<<< HEAD
       <string>io.digibyte.DigiBytePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
@@ -85,9 +94,13 @@
       <key>LSItemContentTypes</key>
       <array>
         <string>io.digibyte.paymentrequest</string>
+=======
+      <string>org.digibyte.DigiBytePayment</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>digibyte</string>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
       </array>
-      <key>LSHandlerRank</key>
-      <string>Owner</string>
     </dict>
   </array>
 
@@ -97,12 +110,15 @@
   <key>NSHighResolutionCapable</key>
     <string>True</string>
 
-  <key>LSAppNapIsDisabled</key>
+  <key>NSRequiresAquaSystemAppearance</key>
     <string>True</string>
 
+<<<<<<< HEAD
   <key>NSRequiresAquaSystemAppearance</key>
     <string>True</string>
   
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   <key>LSApplicationCategoryType</key>
     <string>public.app-category.finance</string>
 </dict>

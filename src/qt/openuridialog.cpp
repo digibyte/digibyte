@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +11,7 @@
 #include <qt/forms/ui_openuridialog.h>
 
 #include <qt/guiutil.h>
-#include <qt/walletmodel.h>
+#include <qt/sendcoinsrecipient.h>
 
 #include <QUrl>
 
@@ -16,7 +20,12 @@ OpenURIDialog::OpenURIDialog(QWidget *parent) :
     ui(new Ui::OpenURIDialog)
 {
     ui->setupUi(this);
+<<<<<<< HEAD
     ui->uriEdit->setPlaceholderText("digibyte:");
+=======
+
+    GUIUtil::handleCloseWindowShortcut(this);
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 OpenURIDialog::~OpenURIDialog()
@@ -40,6 +49,7 @@ void OpenURIDialog::accept()
         ui->uriEdit->setValid(false);
     }
 }
+<<<<<<< HEAD
 
 void OpenURIDialog::on_selectFileButton_clicked()
 {
@@ -49,3 +59,5 @@ void OpenURIDialog::on_selectFileButton_clicked()
     QUrl fileUri = QUrl::fromLocalFile(filename);
     ui->uriEdit->setText("digibyte:?r=" + QUrl::toPercentEncoding(fileUri.toString()));
 }
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

@@ -1,17 +1,19 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2009-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <fs.h>
 #include <wallet/db.h>
 
-#include <addrman.h>
-#include <hash.h>
-#include <protocol.h>
-#include <utilstrencodings.h>
-#include <wallet/walletutil.h>
+#include <string>
 
+<<<<<<< HEAD
 #include <stdint.h>
 
 #ifndef WIN32
@@ -58,8 +60,10 @@ std::map<std::string, BerkeleyEnvironment> g_dbenvs GUARDED_BY(cs_db); //!< Map 
 } // namespace
 
 BerkeleyEnvironment* GetWalletEnv(const fs::path& wallet_path, std::string& database_filename)
+=======
+void SplitWalletPath(const fs::path& wallet_path, fs::path& env_directory, std::string& database_filename)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
-    fs::path env_directory;
     if (fs::is_regular_file(wallet_path)) {
         // Special case for backwards compatibility: if wallet path points to an
         // existing file, treat it as the path to a BDB data file in a parent
@@ -72,6 +76,7 @@ BerkeleyEnvironment* GetWalletEnv(const fs::path& wallet_path, std::string& data
         env_directory = wallet_path;
         database_filename = "wallet.dat";
     }
+<<<<<<< HEAD
     LOCK(cs_db);
     // Note: An ununsed temporary BerkeleyEnvironment object may be created inside the
     // emplace function if the key already exists. This is a little inefficient,
@@ -799,4 +804,6 @@ void BerkeleyDatabase::Flush(bool shutdown)
         env->Flush(shutdown);
         if (shutdown) env = nullptr;
     }
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }

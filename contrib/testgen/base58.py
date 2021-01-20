@@ -107,7 +107,11 @@ def get_bcaddress_version(strAddress):
 
 if __name__ == '__main__':
     # Test case (from http://gitorious.org/digibyte/python-base58.git)
+<<<<<<< HEAD
     assert get_bcaddress_version('15VjRaDX9zpbA8LVnbrCAFzrVzN7ixHNsC') is 0
+=======
+    assert get_bcaddress_version('15VjRaDX9zpbA8LVnbrCAFzrVzN7ixHNsC') == 0
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     _ohai = 'o hai'.encode('ascii')
     _tmp = b58encode(_ohai)
     assert _tmp == 'DYB3oMS'

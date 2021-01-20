@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2016-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,6 +11,7 @@
 #define DIGIBYTE_QT_MODALOVERLAY_H
 
 #include <QDateTime>
+#include <QPropertyAnimation>
 #include <QWidget>
 
 //! The required delta of headers to the estimated number of available headers until we show the IBD progress
@@ -22,22 +27,26 @@ class ModalOverlay : public QWidget
     Q_OBJECT
 
 public:
-    explicit ModalOverlay(QWidget *parent);
+    explicit ModalOverlay(bool enable_wallet, QWidget *parent);
     ~ModalOverlay();
 
-public Q_SLOTS:
     void tipUpdate(int count, const QDateTime& blockDate, double nVerificationProgress);
     void setKnownBestHeight(int count, const QDateTime& blockDate);
 
-    void toggleVisibility();
     // will show or hide the modal layer
     void showHide(bool hide = false, bool userRequested = false);
-    void closeClicked();
     bool isLayerVisible() const { return layerIsVisible; }
 
+public Q_SLOTS:
+    void toggleVisibility();
+    void closeClicked();
+
+Q_SIGNALS:
+    void triggered(bool hidden);
+
 protected:
-    bool eventFilter(QObject * obj, QEvent * ev);
-    bool event(QEvent* ev);
+    bool eventFilter(QObject * obj, QEvent * ev) override;
+    bool event(QEvent* ev) override;
 
 private:
     Ui::ModalOverlay *ui;
@@ -46,6 +55,8 @@ private:
     QVector<QPair<qint64, double> > blockProcessTime;
     bool layerIsVisible;
     bool userClosed;
+    QPropertyAnimation m_animation;
+    void UpdateHeaderSyncLabel();
 };
 
 #endif // DIGIBYTE_QT_MODALOVERLAY_H

@@ -1,6 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2009-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,14 +13,13 @@
 
 #include <uint256.h>
 #include <limits>
-#include <map>
-#include <string>
 
 namespace Consensus {
 
 enum DeploymentPos
 {
     DEPLOYMENT_TESTDUMMY,
+<<<<<<< HEAD
     DEPLOYMENT_CSV, // Deployment of BIP68, BIP112, and BIP113.
     DEPLOYMENT_SEGWIT, // Deployment of BIP141, BIP143, and BIP147.
     DEPLOYMENT_NVERSIONBIPS, // Deployment of BIP34, BIP65, and BIP66.
@@ -24,6 +27,9 @@ enum DeploymentPos
     DEPLOYMENT_ODO, // Odo hard fork
     //DEPLOYMENT_EQUIHASH, // Equihash algo swap
     //DEPLOYMENT_ETHASH, // Ethash algo swap
+=======
+    DEPLOYMENT_TAPROOT, // Deployment of Schnorr/Taproot (BIPs 340-342)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
     MAX_VERSION_BITS_DEPLOYMENTS
 };
@@ -64,7 +70,19 @@ struct Params {
     int BIP65Height;
     /** Block height at which BIP66 becomes active */
     int BIP66Height;
+<<<<<<< HEAD
     
+=======
+    /** Block height at which CSV (BIP68, BIP112 and BIP113) becomes active */
+    int CSVHeight;
+    /** Block height at which Segwit (BIP141, BIP143 and BIP147) becomes active.
+     * Note that segwit v0 script rules are enforced on all blocks except the
+     * BIP 16 exception blocks. */
+    int SegwitHeight;
+    /** Don't warn about unknown BIP 9 activations below this height.
+     * This prevents us from warning about the CSV and segwit activations. */
+    int MinBIP9WarningHeight;
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     /**
      * Minimum blocks including miner confirmation of the total of 2016 blocks in a retargeting period,
      * (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.
@@ -82,6 +100,7 @@ struct Params {
     int64_t nPowTargetSpacing;
     int64_t nPowTargetTimespan;
     int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacing; }
+<<<<<<< HEAD
 
     int64_t nTargetTimespan;
     int64_t nTargetSpacing;
@@ -123,9 +142,23 @@ struct Params {
 
     uint32_t nOdoShapechangeInterval;
 
+=======
+    /** The best chain should have at least this much work */
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     uint256 nMinimumChainWork;
+    /** By default assume that the signatures in ancestors of this block are valid */
     uint256 defaultAssumeValid;
+<<<<<<< HEAD
     bool EnableRBF() const { return fRbfEnabled; }
+=======
+
+    /**
+     * If true, witness commitments contain a payload equal to a DigiByte Script solution
+     * to the signet challenge. See BIP325.
+     */
+    bool signet_blocks{false};
+    std::vector<uint8_t> signet_challenge;
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 };
 } // namespace Consensus
 

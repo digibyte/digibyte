@@ -1,5 +1,9 @@
 # bash programmable completion for digibyte-cli(1)
+<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
 # Copyright (c) 2012-2016 The DigiByte Core developers
+=======
+# Copyright (c) 2012-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,6 +21,7 @@ _digibyte_rpc() {
     $digibyte_cli "${rpcargs[@]}" "$@"
 }
 
+<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
 # Add wallet accounts to COMPREPLY
 _digibyte_accounts() {
     local accounts
@@ -24,6 +29,8 @@ _digibyte_accounts() {
     COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "$accounts" -- "$cur" ) )
 }
 
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
 _digibyte_cli() {
     local cur prev words=() cword
     local digibyte_cli
@@ -50,7 +57,7 @@ _digibyte_cli() {
                 COMPREPLY=( $( compgen -W "true false" -- "$cur" ) )
                 return 0
                 ;;
-            signrawtransaction)
+            signrawtransactionwithkey|signrawtransactionwithwallet)
                 COMPREPLY=( $( compgen -W "ALL NONE SINGLE ALL|ANYONECANPAY NONE|ANYONECANPAY SINGLE|ANYONECANPAY" -- "$cur" ) )
                 return 0
                 ;;
@@ -60,10 +67,13 @@ _digibyte_cli() {
     if ((cword > 3)); then
         case ${words[cword-3]} in
             addmultisigaddress)
+<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
                 _digibyte_accounts
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
                 return 0
                 ;;
-            getbalance|gettxout|importaddress|importpubkey|importprivkey|listreceivedbyaccount|listreceivedbyaddress|listsinceblock)
+            getbalance|gettxout|importaddress|importpubkey|importprivkey|listreceivedbyaddress|listsinceblock)
                 COMPREPLY=( $( compgen -W "true false" -- "$cur" ) )
                 return 0
                 ;;
@@ -80,14 +90,17 @@ _digibyte_cli() {
                 COMPREPLY=( $( compgen -W "add remove" -- "$cur" ) )
                 return 0
                 ;;
-            fundrawtransaction|getblock|getblockheader|getmempoolancestors|getmempooldescendants|getrawtransaction|gettransaction|listaccounts|listreceivedbyaccount|listreceivedbyaddress|sendrawtransaction)
+            fundrawtransaction|getblock|getblockheader|getmempoolancestors|getmempooldescendants|getrawtransaction|gettransaction|listreceivedbyaddress|sendrawtransaction)
                 COMPREPLY=( $( compgen -W "true false" -- "$cur" ) )
                 return 0
                 ;;
+<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
             move|setaccount)
                 _digibyte_accounts
                 return 0
                 ;;
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
         esac
     fi
 
@@ -96,12 +109,16 @@ _digibyte_cli() {
             _filedir
             return 0
             ;;
-        getaddednodeinfo|getrawmempool|lockunspent|setgenerate)
+        getaddednodeinfo|getrawmempool|lockunspent)
             COMPREPLY=( $( compgen -W "true false" -- "$cur" ) )
             return 0
             ;;
+<<<<<<< HEAD:contrib/digibyte-cli.bash-completion
         getaccountaddress|getaddressesbyaccount|getbalance|getnewaddress|getreceivedbyaccount|listtransactions|move|sendfrom|sendmany)
             _digibyte_accounts
+=======
+        getbalance|getnewaddress|listtransactions|sendmany)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:contrib/digibyte-cli.bash-completion
             return 0
             ;;
     esac

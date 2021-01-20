@@ -86,6 +86,7 @@
         <translation>Taridza ruzivo rwe Qt</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>&amp;Sending addresses...</source>
         <translation>&amp;Makero ekutumira nawo</translation>
     </message>
@@ -94,10 +95,13 @@
         <translation>&amp;Makero ekutambira nawo</translation>
     </message>
     <message>
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Open &amp;URI...</source>
         <translation>Vhura &amp;URI</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <source>DigiByte</source>
         <translation>DigiByte</translation>
     </message>
@@ -106,6 +110,8 @@
         <translation>Chikwama</translation>
     </message>
     <message>
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>&amp;Send</source>
         <translation>&amp;Tumira</translation>
     </message>
@@ -142,7 +148,11 @@
     <name>CoinControlDialog</name>
     <message>
         <source>Amount</source>
+<<<<<<< HEAD
         <translation>Marii </translation>
+=======
+        <translation>Marii</translation>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     <message>
         <source>Date</source>
@@ -154,6 +164,15 @@
     </message>
     </context>
 <context>
+<<<<<<< HEAD
+=======
+    <name>CreateWalletActivity</name>
+    </context>
+<context>
+    <name>CreateWalletDialog</name>
+    </context>
+<context>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>EditAddressDialog</name>
     </context>
 <context>
@@ -176,12 +195,24 @@
     <name>OpenURIDialog</name>
     </context>
 <context>
+<<<<<<< HEAD
+=======
+    <name>OpenWalletActivity</name>
+    </context>
+<context>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>OptionsDialog</name>
     </context>
 <context>
     <name>OverviewPage</name>
     </context>
 <context>
+<<<<<<< HEAD
+=======
+    <name>PSBTOperationsDialog</name>
+    </context>
+<context>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>PaymentServer</name>
     </context>
 <context>
@@ -191,7 +222,11 @@
     <name>QObject</name>
     <message>
         <source>Amount</source>
+<<<<<<< HEAD
         <translation>Marii </translation>
+=======
+        <translation>Marii</translation>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. %1)</source>
@@ -219,6 +254,7 @@
     </message>
     <message>
         <source>N/A</source>
+<<<<<<< HEAD
         <translation>Hapana </translation>
     </message>
     </context>
@@ -226,13 +262,23 @@
     <name>QObject::QObject</name>
     </context>
 <context>
+=======
+        <translation>Hapana</translation>
+    </message>
+    </context>
+<context>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>QRImageWidget</name>
     </context>
 <context>
     <name>RPCConsole</name>
     <message>
         <source>N/A</source>
+<<<<<<< HEAD
         <translation>Hapana </translation>
+=======
+        <translation>Hapana</translation>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     </context>
 <context>
@@ -240,6 +286,7 @@
     </context>
 <context>
     <name>ReceiveRequestDialog</name>
+<<<<<<< HEAD
     <message>
         <source>Address</source>
         <translation>Kero</translation>
@@ -252,6 +299,8 @@
         <source>Label</source>
         <translation>Zita</translation>
     </message>
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
@@ -279,18 +328,24 @@
     <name>SendCoinsEntry</name>
     </context>
 <context>
+<<<<<<< HEAD
     <name>SendConfirmationDialog</name>
     </context>
 <context>
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>ShutdownWindow</name>
     </context>
 <context>
     <name>SignVerifyMessageDialog</name>
     </context>
 <context>
+<<<<<<< HEAD
     <name>SplashScreen</name>
     </context>
 <context>
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>TrafficGraphWidget</name>
     </context>
 <context>
@@ -301,7 +356,11 @@
     </message>
     <message>
         <source>Amount</source>
+<<<<<<< HEAD
         <translation>Marii </translation>
+=======
+        <translation>Marii</translation>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     </context>
 <context>
@@ -341,6 +400,12 @@
     <name>UnitDisplayStatusBarControl</name>
     </context>
 <context>
+<<<<<<< HEAD
+=======
+    <name>WalletController</name>
+    </context>
+<context>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>WalletFrame</name>
     </context>
 <context>
@@ -351,6 +416,7 @@
     </context>
 <context>
     <name>digibyte-core</name>
+<<<<<<< HEAD
     <message>
         <source>Information</source>
         <translation>Ruzivo</translation>
@@ -359,5 +425,7 @@
         <source>Warning</source>
         <translation>Hokoyo</translation>
     </message>
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 </TS>

@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+# Copyright (c) 2014-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool re-org scenarios.
@@ -17,11 +21,20 @@ from test_framework.util import assert_equal, assert_raises_rpc_error
 class MempoolCoinbaseTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
+        self.extra_args = [
+            [
+                '-whitelist=noban@127.0.0.1',  # immediate tx relay
+            ],
+            []
+        ]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
+<<<<<<< HEAD
 
     alert_filename = None  # Set by setup_network
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     def run_test(self):
         # Start with a 200 block chain
@@ -41,17 +54,21 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         # 3. Indirect (coinbase and child both in chain) : spend_103 and spend_103_1
         # Use invalidatblock to make all of the above coinbase spends invalid (immature coinbase),
         # and make sure the mempool code behaves correctly.
-        b = [ self.nodes[0].getblockhash(n) for n in range(101, 105) ]
-        coinbase_txids = [ self.nodes[0].getblock(h)['tx'][0] for h in b ]
+        b = [self.nodes[0].getblockhash(n) for n in range(101, 105)]
+        coinbase_txids = [self.nodes[0].getblock(h)['tx'][0] for h in b]
         spend_101_raw = create_raw_transaction(self.nodes[0], coinbase_txids[1], node1_address, amount=49.99)
         spend_102_raw = create_raw_transaction(self.nodes[0], coinbase_txids[2], node0_address, amount=49.99)
         spend_103_raw = create_raw_transaction(self.nodes[0], coinbase_txids[3], node0_address, amount=49.99)
 
         # Create a transaction which is time-locked to two blocks in the future
-        timelock_tx = self.nodes[0].createrawtransaction([{"txid": coinbase_txids[0], "vout": 0}], {node0_address: 49.99})
-        # Set the time lock
-        timelock_tx = timelock_tx.replace("ffffffff", "11111191", 1)
-        timelock_tx = timelock_tx[:-8] + hex(self.nodes[0].getblockcount() + 2)[2:] + "000000"
+        timelock_tx = self.nodes[0].createrawtransaction(
+            inputs=[{
+                "txid": coinbase_txids[0],
+                "vout": 0,
+            }],
+            outputs={node0_address: 49.99},
+            locktime=self.nodes[0].getblockcount() + 2,
+        )
         timelock_tx = self.nodes[0].signrawtransactionwithwallet(timelock_tx)["hex"]
         # This will raise an exception because the timelock transaction is too immature to spend
         assert_raises_rpc_error(-26, "non-final", self.nodes[0].sendrawtransaction, timelock_tx)
@@ -70,6 +87,10 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         # Broadcast and mine 103_1:
         spend_103_1_id = self.nodes[0].sendrawtransaction(spend_103_1_raw)
         last_block = self.nodes[0].generate(1)
+        # Sync blocks, so that peer 1 gets the block before timelock_tx
+        # Otherwise, peer 1 would put the timelock_tx in recentRejects
+        self.sync_all()
+
         # Time-locked transaction can now be spent
         timelock_tx_id = self.nodes[0].sendrawtransaction(timelock_tx)
 
@@ -77,9 +98,8 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         spend_101_id = self.nodes[0].sendrawtransaction(spend_101_raw)
         spend_102_1_id = self.nodes[0].sendrawtransaction(spend_102_1_raw)
 
-        self.sync_all()
-
         assert_equal(set(self.nodes[0].getrawmempool()), {spend_101_id, spend_102_1_id, timelock_tx_id})
+        self.sync_all()
 
         for node in self.nodes:
             node.invalidateblock(last_block[0])
@@ -92,10 +112,10 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         for node in self.nodes:
             node.invalidateblock(new_blocks[0])
 
-        self.sync_all()
-
         # mempool should be empty.
         assert_equal(set(self.nodes[0].getrawmempool()), set())
+        self.sync_all()
+
 
 if __name__ == '__main__':
     MempoolCoinbaseTest().main()

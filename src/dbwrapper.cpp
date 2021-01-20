@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2012-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -79,7 +83,7 @@ static void SetMaxOpenFiles(leveldb::Options *options) {
     // do not interfere with select() loops. On 64-bit Unix hosts this value is
     // also OK, because up to that amount LevelDB will use an mmap
     // implementation that does not use extra file descriptors (the fds are
-    // closed after being mmaped).
+    // closed after being mmap'ed).
     //
     // Increasing the value beyond the default is dangerous because LevelDB will
     // fall back to a non-mmap implementation when the file count is too large.
@@ -116,7 +120,7 @@ static leveldb::Options GetOptions(size_t nCacheSize)
 }
 
 CDBWrapper::CDBWrapper(const fs::path& path, size_t nCacheSize, bool fMemory, bool fWipe, bool obfuscate)
-    : m_name(fs::basename(path))
+    : m_name{path.stem().string()}
 {
     penv = nullptr;
     readoptions.verify_checksums = true;

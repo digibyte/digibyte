@@ -1,23 +1,30 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_QT_WALLETMODEL_H
 #define DIGIBYTE_QT_WALLETMODEL_H
+<<<<<<< HEAD
+=======
 
-#include <amount.h>
+#if defined(HAVE_CONFIG_H)
+#include <config/digibyte-config.h>
+#endif
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+
 #include <key.h>
-#include <serialize.h>
 #include <script/standard.h>
 
-#include <qt/paymentrequestplus.h>
 #include <qt/walletmodeltransaction.h>
 
 #include <interfaces/wallet.h>
 #include <support/allocators/secure.h>
 
-#include <map>
 #include <vector>
 
 #include <QObject>
@@ -25,9 +32,11 @@
 enum class OutputType;
 
 class AddressTableModel;
+class ClientModel;
 class OptionsModel;
 class PlatformStyle;
 class RecentRequestsTableModel;
+class SendCoinsRecipient;
 class TransactionTableModel;
 class WalletModelTransaction;
 
@@ -46,6 +55,7 @@ QT_BEGIN_NAMESPACE
 class QTimer;
 QT_END_NAMESPACE
 
+<<<<<<< HEAD
 class SendCoinsRecipient
 {
 public:
@@ -106,13 +116,15 @@ public:
     }
 };
 
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 /** Interface to DigiByte wallet from Qt view code. */
 class WalletModel : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit WalletModel(std::unique_ptr<interfaces::Wallet> wallet, interfaces::Node& node, const PlatformStyle *platformStyle, OptionsModel *optionsModel, QObject *parent = 0);
+    explicit WalletModel(std::unique_ptr<interfaces::Wallet> wallet, ClientModel& client_model, const PlatformStyle *platformStyle, QObject *parent = nullptr);
     ~WalletModel();
 
     enum StatusCode // Returned by sendCoins
@@ -124,7 +136,6 @@ public:
         AmountWithFeeExceedsBalance,
         DuplicateAddress,
         TransactionCreationFailed, // Error returned when wallet is still locked
-        TransactionCommitFailed,
         AbsurdFee,
         PaymentRequestExpired
     };
@@ -179,15 +190,18 @@ public:
 
         bool isValid() const { return valid; }
 
-        // Copy operator and constructor transfer the context
-        UnlockContext(const UnlockContext& obj) { CopyFrom(obj); }
-        UnlockContext& operator=(const UnlockContext& rhs) { CopyFrom(rhs); return *this; }
+        // Copy constructor is disabled.
+        UnlockContext(const UnlockContext&) = delete;
+        // Move operator and constructor transfer the context
+        UnlockContext(UnlockContext&& obj) { CopyFrom(std::move(obj)); }
+        UnlockContext& operator=(UnlockContext&& rhs) { CopyFrom(std::move(rhs)); return *this; }
     private:
         WalletModel *wallet;
         bool valid;
         mutable bool relock; // mutable, as it can be set to false by copying
 
-        void CopyFrom(const UnlockContext& rhs);
+        UnlockContext& operator=(const UnlockContext&) = default;
+        void CopyFrom(UnlockContext&& rhs);
     };
 
     UnlockContext requestUnlock();
@@ -195,19 +209,26 @@ public:
     void loadReceiveRequests(std::vector<std::string>& vReceiveRequests);
     bool saveReceiveRequest(const std::string &sAddress, const int64_t nId, const std::string &sRequest);
 
-    bool bumpFee(uint256 hash);
+    bool bumpFee(uint256 hash, uint256& new_hash);
 
     static bool isWalletEnabled();
-    bool privateKeysDisabled() const;
 
     interfaces::Node& node() const { return m_node; }
     interfaces::Wallet& wallet() const { return *m_wallet; }
+    ClientModel& clientModel() const { return *m_client_model; }
+    void setClientModel(ClientModel* client_model);
 
     QString getWalletName() const;
+    QString getDisplayName() const;
 
     bool isMultiwallet();
 
     AddressTableModel* getAddressTableModel() const { return addressTableModel; }
+
+    void refresh(bool pk_hash_only = false);
+
+    uint256 getLastBlockProcessed() const;
+
 private:
     std::unique_ptr<interfaces::Wallet> m_wallet;
     std::unique_ptr<interfaces::Handler> m_handler_unload;
@@ -216,10 +237,12 @@ private:
     std::unique_ptr<interfaces::Handler> m_handler_transaction_changed;
     std::unique_ptr<interfaces::Handler> m_handler_show_progress;
     std::unique_ptr<interfaces::Handler> m_handler_watch_only_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_can_get_addrs_changed;
+    ClientModel* m_client_model;
     interfaces::Node& m_node;
 
     bool fHaveWatchOnly;
-    bool fForceCheckBalanceChanged;
+    bool fForceCheckBalanceChanged{false};
 
     // Wallet has an options model for wallet-specific options
     // (transaction fee, for example)
@@ -232,9 +255,10 @@ private:
     // Cache some values to be able to detect changes
     interfaces::WalletBalances m_cached_balances;
     EncryptionStatus cachedEncryptionStatus;
-    int cachedNumBlocks;
+    QTimer* timer;
 
-    QTimer *pollTimer;
+    // Block hash denoting when the last balance update was done.
+    uint256 m_cached_last_update_tip{};
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
@@ -267,7 +291,13 @@ Q_SIGNALS:
     // Signal that wallet is about to be removed
     void unload();
 
+    // Notify that there are now keys in the keypool
+    void canGetAddressesChanged();
+
 public Q_SLOTS:
+    /* Starts a timer to periodically update the balance */
+    void startPollBalance();
+
     /* Wallet status might have changed */
     void updateStatus();
     /* New transaction, or transaction changed status */

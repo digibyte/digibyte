@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+# Copyright (c) 2015-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node responses to invalid blocks.
@@ -15,7 +19,11 @@ import copy
 
 from test_framework.blocktools import create_block, create_coinbase, create_tx_with_script
 from test_framework.messages import COIN
+<<<<<<< HEAD
 from test_framework.mininode import P2PDataStore
+=======
+from test_framework.p2p import P2PDataStore
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
 
@@ -23,7 +31,7 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
-        self.extra_args = [["-whitelist=127.0.0.1"]]
+        self.extra_args = [["-whitelist=noban@127.0.0.1"]]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
@@ -31,7 +39,7 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
     def run_test(self):
         # Add p2p connection to node0
         node = self.nodes[0]  # convenience reference to the node
-        node.add_p2p_connection(P2PDataStore())
+        peer = node.add_p2p_connection(P2PDataStore())
 
         best_block = node.getblock(node.getbestblockhash())
         tip = int(node.getbestblockhash(), 16)
@@ -46,10 +54,14 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
         # Save the coinbase for later
         block1 = block
         tip = block.sha256
+<<<<<<< HEAD
         node.p2p.send_blocks_and_test([block1], node, success=True)
+=======
+        peer.send_blocks_and_test([block1], node, success=True)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         self.log.info("Mature the block.")
-        node.generate(100)
+        node.generatetoaddress(100, node.get_deterministic_priv_key().address)
 
         best_block = node.getblock(node.getbestblockhash())
         tip = int(node.getbestblockhash(), 16)
@@ -57,10 +69,11 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
         block_time = best_block["time"] + 1
 
         # Use merkle-root malleability to generate an invalid block with
-        # same blockheader.
+        # same blockheader (CVE-2012-2459).
         # Manufacture a block with 3 transactions (coinbase, spend of prior
         # coinbase, spend of that spend).  Duplicate the 3rd transaction to
         # leave merkle root and blockheader unchanged but invalidate the block.
+        # For more information on merkle-root malleability see src/consensus/merkle.cpp.
         self.log.info("Test merkle root malleability.")
 
         block2 = create_block(tip, create_coinbase(height), block_time)
@@ -82,6 +95,7 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
         assert_equal(block2.hashMerkleRoot, block2.calc_merkle_root())
         assert_equal(orig_hash, block2.rehash())
         assert block2_orig.vtx != block2.vtx
+<<<<<<< HEAD
 
         node.p2p.send_blocks_and_test([block2], node, success=False, reject_code=16, reject_reason=b'bad-txns-duplicate')
 
@@ -94,6 +108,21 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
         block2_orig.rehash()
         block2_orig.solve()
         node.p2p.send_blocks_and_test([block2_orig], node, success=False, reject_reason=b'bad-txns-inputs-duplicate')
+=======
+
+        peer.send_blocks_and_test([block2], node, success=False, reject_reason='bad-txns-duplicate')
+
+        # Check transactions for duplicate inputs (CVE-2018-17144)
+        self.log.info("Test duplicate input block.")
+
+        block2_dup = copy.deepcopy(block2_orig)
+        block2_dup.vtx[2].vin.append(block2_dup.vtx[2].vin[0])
+        block2_dup.vtx[2].rehash()
+        block2_dup.hashMerkleRoot = block2_dup.calc_merkle_root()
+        block2_dup.rehash()
+        block2_dup.solve()
+        peer.send_blocks_and_test([block2_dup], node, success=False, reject_reason='bad-txns-inputs-duplicate')
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         self.log.info("Test very broken block.")
 
@@ -106,7 +135,38 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
         block3.rehash()
         block3.solve()
 
+<<<<<<< HEAD
         node.p2p.send_blocks_and_test([block3], node, success=False, reject_code=16, reject_reason=b'bad-cb-amount')
+=======
+        peer.send_blocks_and_test([block3], node, success=False, reject_reason='bad-cb-amount')
+
+
+        # Complete testing of CVE-2012-2459 by sending the original block.
+        # It should be accepted even though it has the same hash as the mutated one.
+
+        self.log.info("Test accepting original block after rejecting its mutated version.")
+        peer.send_blocks_and_test([block2_orig], node, success=True, timeout=5)
+
+        # Update tip info
+        height += 1
+        block_time += 1
+        tip = int(block2_orig.hash, 16)
+
+        # Complete testing of CVE-2018-17144, by checking for the inflation bug.
+        # Create a block that spends the output of a tx in a previous block.
+        block4 = create_block(tip, create_coinbase(height), block_time)
+        tx3 = create_tx_with_script(tx2, 0, script_sig=b'\x51', amount=50 * COIN)
+
+        # Duplicates input
+        tx3.vin.append(tx3.vin[0])
+        tx3.rehash()
+        block4.vtx.append(tx3)
+        block4.hashMerkleRoot = block4.calc_merkle_root()
+        block4.rehash()
+        block4.solve()
+        self.log.info("Test inflation by duplicating input")
+        peer.send_blocks_and_test([block4], node, success=False,  reject_reason='bad-txns-inputs-duplicate')
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 if __name__ == '__main__':
     InvalidBlockRequestTest().main()

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2018 The DigiByte Core developers
+=======
+# Copyright (c) 2018-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Verify that starting digibyte with -h works as expected."""
@@ -17,7 +21,7 @@ class HelpTest(DigiByteTestFramework):
         # Don't start the node
 
     def get_node_output(self, *, ret_code_expected):
-        ret_code = self.nodes[0].process.wait(timeout=5)
+        ret_code = self.nodes[0].process.wait(timeout=60)
         assert_equal(ret_code, ret_code_expected)
         self.nodes[0].stdout.seek(0)
         self.nodes[0].stderr.seek(0)

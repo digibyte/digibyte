@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
+<<<<<<< HEAD
 # Copyright (c) 2009-2019 The Bitcoin Core developers
 # Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+# Copyright (c) 2016-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the dumpwallet RPC."""
-
+import datetime
 import os
+import time
 
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
@@ -20,22 +25,36 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
     Also check that the old hd_master is inactive
     """
     with open(file_name, encoding='utf8') as inputfile:
-        found_addr = 0
+        found_comments = []
+        found_legacy_addr = 0
+        found_p2sh_segwit_addr = 0
+        found_bech32_addr = 0
         found_script_addr = 0
         found_addr_chg = 0
         found_addr_rsv = 0
-        witness_addr_ret = None
         hd_master_addr_ret = None
         for line in inputfile:
-            # only read non comment lines
-            if line[0] != "#" and len(line) > 10:
+            line = line.strip()
+            if not line:
+                continue
+            if line[0] == '#':
+                found_comments.append(line)
+            else:
                 # split out some data
                 key_date_label, comment = line.split("#")
                 key_date_label = key_date_label.split(" ")
                 # key = key_date_label[0]
                 date = key_date_label[1]
                 keytype = key_date_label[2]
+<<<<<<< HEAD
                 if not len(comment) or date.startswith('1970'):
+=======
+
+                imported_key = date == '1970-01-01T00:00:01Z'
+                if imported_key:
+                    # Imported keys have multiple addresses, no label (keypath) and timestamp
+                    # Skip them
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                     continue
 
                 addr_keypath = comment.split(" addr=")[1]
@@ -43,10 +62,17 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                 keypath = None
                 if keytype == "inactivehdseed=1":
                     # ensure the old master is still available
+<<<<<<< HEAD
                     assert (hd_master_addr_old == addr)
                 elif keytype == "hdseed=1":
                     # ensure we have generated a new hd master key
                     assert (hd_master_addr_old != addr)
+=======
+                    assert hd_master_addr_old == addr
+                elif keytype == "hdseed=1":
+                    # ensure we have generated a new hd master key
+                    assert hd_master_addr_old != addr
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                     hd_master_addr_ret = addr
                 elif keytype == "script=1":
                     # scripts don't have keypaths
@@ -57,6 +83,7 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                 # count key types
                 for addrObj in addrs:
                     if addrObj['address'] == addr.split(",")[0] and addrObj['hdkeypath'] == keypath and keytype == "label=":
+<<<<<<< HEAD
                         # a labeled entry in the wallet should contain both a native address
                         # and the p2sh-p2wpkh address that was added at wallet setup
                         if len(addr.split(",")) == 2:
@@ -65,6 +92,16 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                             assert_equal(addrs[0]['address'], addr_list[0])
                             witness_addr_ret = addr_list[1]
                         found_addr += 1
+=======
+                        if addr.startswith('m') or addr.startswith('n'):
+                            # P2PKH address
+                            found_legacy_addr += 1
+                        elif addr.startswith('2'):
+                            # P2SH-segwit address
+                            found_p2sh_segwit_addr += 1
+                        elif addr.startswith('bcrt1'):
+                            found_bech32_addr += 1
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                         break
                     elif keytype == "change=1":
                         found_addr_chg += 1
@@ -79,46 +116,81 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                         found_script_addr += 1
                         break
 
+<<<<<<< HEAD
         return found_addr, found_script_addr, found_addr_chg, found_addr_rsv, hd_master_addr_ret, witness_addr_ret
+=======
+        return found_comments, found_legacy_addr, found_p2sh_segwit_addr, found_bech32_addr, found_script_addr, found_addr_chg, found_addr_rsv, hd_master_addr_ret
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class WalletDumpTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
-        self.extra_args = [["-keypool=90", "-addresstype=legacy", "-deprecatedrpc=addwitnessaddress"]]
+        self.extra_args = [["-keypool=90", "-addresstype=legacy"]]
         self.rpc_timeout = 120
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
+<<<<<<< HEAD
     def setup_network(self, split=False):
+=======
+    def setup_network(self):
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         self.add_nodes(self.num_nodes, extra_args=self.extra_args)
         self.start_nodes()
 
     def run_test(self):
+        self.nodes[0].createwallet("dump")
+
         wallet_unenc_dump = os.path.join(self.nodes[0].datadir, "wallet.unencrypted.dump")
         wallet_enc_dump = os.path.join(self.nodes[0].datadir, "wallet.encrypted.dump")
 
-        # generate 20 addresses to compare against the dump
-        # but since we add a p2sh-p2wpkh address for the first pubkey in the
-        # wallet, we will expect 21 addresses in the dump
-        test_addr_count = 20
+        # generate 30 addresses to compare against the dump
+        # - 10 legacy P2PKH
+        # - 10 P2SH-segwit
+        # - 10 bech32
+        test_addr_count = 10
         addrs = []
-        for i in range(0,test_addr_count):
-            addr = self.nodes[0].getnewaddress()
-            vaddr= self.nodes[0].getaddressinfo(addr) #required to get hd keypath
-            addrs.append(vaddr)
-        # Should be a no-op:
+        for address_type in ['legacy', 'p2sh-segwit', 'bech32']:
+            for _ in range(test_addr_count):
+                addr = self.nodes[0].getnewaddress(address_type=address_type)
+                vaddr = self.nodes[0].getaddressinfo(addr)  # required to get hd keypath
+                addrs.append(vaddr)
+
+        # Test scripts dump by adding a 1-of-1 multisig address
+        multisig_addr = self.nodes[0].addmultisigaddress(1, [addrs[1]["address"]])["address"]
+
+        # Refill the keypool. getnewaddress() refills the keypool *before* taking a key from
+        # the keypool, so the final call to getnewaddress leaves the keypool with one key below
+        # its capacity
         self.nodes[0].keypoolrefill()
 
-        # Test scripts dump by adding a P2SH witness and a 1-of-1 multisig address
-        witness_addr = self.nodes[0].addwitnessaddress(addrs[0]["address"], True)
-        multisig_addr = self.nodes[0].addmultisigaddress(1, [addrs[1]["address"]])["address"]
-        script_addrs = [witness_addr, multisig_addr]
+        self.log.info('Mine a block one second before the wallet is dumped')
+        dump_time = int(time.time())
+        self.nodes[0].setmocktime(dump_time - 1)
+        self.nodes[0].generate(1)
+        self.nodes[0].setmocktime(dump_time)
+        dump_time_str = '# * Created on {}Z'.format(
+            datetime.datetime.fromtimestamp(
+                dump_time,
+                tz=datetime.timezone.utc,
+            ).replace(tzinfo=None).isoformat())
+        dump_best_block_1 = '# * Best block at time of backup was {} ({}),'.format(
+            self.nodes[0].getblockcount(),
+            self.nodes[0].getbestblockhash(),
+        )
+        dump_best_block_2 = '#   mined on {}Z'.format(
+            datetime.datetime.fromtimestamp(
+                dump_time - 1,
+                tz=datetime.timezone.utc,
+            ).replace(tzinfo=None).isoformat())
 
-        # dump unencrypted wallet
+        self.log.info('Dump unencrypted wallet')
         result = self.nodes[0].dumpwallet(wallet_unenc_dump)
         assert_equal(result['filename'], wallet_unenc_dump)
 
+<<<<<<< HEAD
         found_addr, found_script_addr, found_addr_chg, found_addr_rsv, hd_master_addr_unenc, witness_addr_ret = \
             read_dump(wallet_unenc_dump, addrs, script_addrs, None)
         assert_equal(found_addr, test_addr_count)  # all keys must be in the dump
@@ -131,10 +203,29 @@ class WalletDumpTest(DigiByteTestFramework):
         self.nodes[0].node_encrypt_wallet('test')
         self.start_node(0)
         self.nodes[0].walletpassphrase('test', 10)
+=======
+        found_comments, found_legacy_addr, found_p2sh_segwit_addr, found_bech32_addr, found_script_addr, found_addr_chg, found_addr_rsv, hd_master_addr_unenc = \
+            read_dump(wallet_unenc_dump, addrs, [multisig_addr], None)
+        assert '# End of dump' in found_comments  # Check that file is not corrupt
+        assert_equal(dump_time_str, next(c for c in found_comments if c.startswith('# * Created on')))
+        assert_equal(dump_best_block_1, next(c for c in found_comments if c.startswith('# * Best block')))
+        assert_equal(dump_best_block_2, next(c for c in found_comments if c.startswith('#   mined on')))
+        assert_equal(found_legacy_addr, test_addr_count)  # all keys must be in the dump
+        assert_equal(found_p2sh_segwit_addr, test_addr_count)  # all keys must be in the dump
+        assert_equal(found_bech32_addr, test_addr_count)  # all keys must be in the dump
+        assert_equal(found_script_addr, 1)  # all scripts must be in the dump
+        assert_equal(found_addr_chg, 0)  # 0 blocks where mined
+        assert_equal(found_addr_rsv, 90 * 2)  # 90 keys plus 100% internal keys
+
+        # encrypt wallet, restart, unlock and dump
+        self.nodes[0].encryptwallet('test')
+        self.nodes[0].walletpassphrase('test', 100)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         # Should be a no-op:
         self.nodes[0].keypoolrefill()
         self.nodes[0].dumpwallet(wallet_enc_dump)
 
+<<<<<<< HEAD
         found_addr, found_script_addr, found_addr_chg, found_addr_rsv, _, witness_addr_ret = \
             read_dump(wallet_enc_dump, addrs, script_addrs, hd_master_addr_unenc)
         assert_equal(found_addr, test_addr_count)
@@ -142,23 +233,42 @@ class WalletDumpTest(DigiByteTestFramework):
         assert_equal(found_addr_chg, 90 * 2)  # old reserve keys are marked as change now
         assert_equal(found_addr_rsv, 90 * 2)
         assert_equal(witness_addr_ret, witness_addr)
+=======
+        found_comments, found_legacy_addr, found_p2sh_segwit_addr, found_bech32_addr, found_script_addr, found_addr_chg, found_addr_rsv, _ = \
+            read_dump(wallet_enc_dump, addrs, [multisig_addr], hd_master_addr_unenc)
+        assert '# End of dump' in found_comments  # Check that file is not corrupt
+        assert_equal(dump_time_str, next(c for c in found_comments if c.startswith('# * Created on')))
+        assert_equal(dump_best_block_1, next(c for c in found_comments if c.startswith('# * Best block')))
+        assert_equal(dump_best_block_2, next(c for c in found_comments if c.startswith('#   mined on')))
+        assert_equal(found_legacy_addr, test_addr_count)  # all keys must be in the dump
+        assert_equal(found_p2sh_segwit_addr, test_addr_count)  # all keys must be in the dump
+        assert_equal(found_bech32_addr, test_addr_count)  # all keys must be in the dump
+        assert_equal(found_script_addr, 1)
+        assert_equal(found_addr_chg, 90 * 2)  # old reserve keys are marked as change now
+        assert_equal(found_addr_rsv, 90 * 2)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         # Overwriting should fail
         assert_raises_rpc_error(-8, "already exists", lambda: self.nodes[0].dumpwallet(wallet_enc_dump))
 
         # Restart node with new wallet, and test importwallet
-        self.stop_node(0)
-        self.start_node(0, ['-wallet=w2'])
+        self.restart_node(0)
+        self.nodes[0].createwallet("w2")
 
         # Make sure the address is not IsMine before import
         result = self.nodes[0].getaddressinfo(multisig_addr)
-        assert(result['ismine'] == False)
+        assert not result['ismine']
 
         self.nodes[0].importwallet(wallet_unenc_dump)
 
         # Now check IsMine is true
         result = self.nodes[0].getaddressinfo(multisig_addr)
-        assert(result['ismine'] == True)
+        assert result['ismine']
+
+        self.log.info('Check that wallet is flushed')
+        with self.nodes[0].assert_debug_log(['Flushing wallet.dat'], timeout=20):
+            self.nodes[0].getnewaddress()
+
 
         # Overwriting should fail
         assert_raises_rpc_error(-8, "already exists", self.nodes[0].dumpwallet, tmpdir + "/node0/wallet.unencrypted.dump")

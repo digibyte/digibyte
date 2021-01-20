@@ -2,8 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
+<<<<<<< HEAD
 #include <test/test_digibyte.h>
 #include <torcontrol.h>
+=======
+#include <test/util/setup_common.h>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 #include <boost/test/unit_test.hpp>
 
@@ -20,7 +24,6 @@ BOOST_FIXTURE_TEST_SUITE(torcontrol_tests, BasicTestingSetup)
 
 static void CheckSplitTorReplyLine(std::string input, std::string command, std::string args)
 {
-    BOOST_TEST_MESSAGE(std::string("CheckSplitTorReplyLine(") + input + ")");
     auto ret = SplitTorReplyLine(input);
     BOOST_CHECK_EQUAL(ret.first, command);
     BOOST_CHECK_EQUAL(ret.second, args);
@@ -61,7 +64,6 @@ BOOST_AUTO_TEST_CASE(util_SplitTorReplyLine)
 
 static void CheckParseTorReplyMapping(std::string input, std::map<std::string,std::string> expected)
 {
-    BOOST_TEST_MESSAGE(std::string("CheckParseTorReplyMapping(") + input + ")");
     auto ret = ParseTorReplyMapping(input);
     BOOST_CHECK_EQUAL(ret.size(), expected.size());
     auto r_it = ret.begin();
@@ -173,7 +175,6 @@ BOOST_AUTO_TEST_CASE(util_ParseTorReplyMapping)
 
     // Special handling for null case
     // (needed because string comparison reads the null as end-of-string)
-    BOOST_TEST_MESSAGE(std::string("CheckParseTorReplyMapping(Null=\"\\0\")"));
     auto ret = ParseTorReplyMapping("Null=\"\\0\"");
     BOOST_CHECK_EQUAL(ret.size(), 1U);
     auto r_it = ret.begin();

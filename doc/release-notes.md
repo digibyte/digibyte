@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 DigiByte Core version 0.17.1 is now available from:
 
   <https://digibytecore.org/bin/digibyte-core-0.17.1/>
+=======
+0.21.1 Release Notes
+====================
 
-This is a new major version release, including new features, various bugfixes
-and performance improvements, as well as updated translations.
+DigiByte Core version 0.21.1 is now available from:
+
+  <https://digibytecore.org/bin/digibyte-core-0.21.1/>
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+
+This minor release includes various bug fixes and performance
+improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
@@ -256,6 +265,7 @@ Since the changes in 0.12 to automatically limit the size of the mempool and imp
 The `-minrelaytxfee` option continues to exist but is recommended to be left unset.
 =======
 If you are running an older version, shut it down. Wait until it has completely
+<<<<<<< HEAD
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over `/Applications/DigiByte-Qt` (on Mac)
 or `digibyted`/`digibyte-qt` (on Linux).
@@ -378,10 +388,33 @@ GUI changes
 =======
 From 0.17.0 onwards macOS <10.10 is no longer supported. 0.17.0 is built using Qt 5.9.x, which doesn't
 support versions of macOS older than 10.10.
+=======
+shut down (which might take a few minutes in some cases), then run the
+installer (on Windows) or just copy over `/Applications/DigiByte-Qt` (on Mac)
+or `digibyted`/`digibyte-qt` (on Linux).
+
+Upgrading directly from a version of DigiByte Core that has reached its EOL is
+possible, but it might take some time if the data directory needs to be migrated. Old
+wallet versions of DigiByte Core are generally supported.
+
+Compatibility
+==============
+
+DigiByte Core is supported and extensively tested on operating systems
+using the Linux kernel, macOS 10.12+, and Windows 7 and newer.  DigiByte
+Core should also work on most other Unix-like systems but is not as
+frequently tested on them.  It is not recommended to use DigiByte Core on
+unsupported systems.
+
+From DigiByte Core 0.20.0 onwards, macOS versions earlier than 10.12 are no
+longer supported. Additionally, DigiByte Core does not yet change appearance
+when macOS "dark mode" is activated.
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Notable changes
 ===============
 
+<<<<<<< HEAD
 
 GUI changes
 -----------
@@ -475,15 +508,16 @@ Low-level RPC changes
 
 Miner block size removed
 ------------------------
+=======
+RPC
+---
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
-The `-blockmaxsize` option for miners to limit their blocks' sizes was
-deprecated in V0.15.1, and has now been removed. Miners should use the
-`-blockmaxweight` option if they want to limit the weight of their blocks'
-weights.
 
-Python Support
---------------
+0.21.1 change log
+=================
 
+<<<<<<< HEAD
 Support for Python 2 has been discontinued for all test files and tools.
 =======
 `listtransactions` label support
@@ -557,12 +591,15 @@ confusion.
 - #14161 `5f51fd6` doc/descriptors.md tweaks (ryanofsky)
 - #14276 `85aacc4` Add autogen.sh in ARM Cross-compilation (walterwhite81)
 >>>>>>> 0.17
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
 
+<<<<<<< HEAD
 (todo)
 =======
 (to be filled in at release time)
@@ -597,3 +634,8 @@ Thanks to everyone who directly contributed to this release:
 >>>>>>> 0.17
 
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/digibyte/).
+=======
+
+As well as to everyone that helped with translations on
+[Transifex](https://www.transifex.com/digibyte/digibyte/).
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

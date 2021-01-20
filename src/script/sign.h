@@ -1,16 +1,22 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2009-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_SCRIPT_SIGN_H
 #define DIGIBYTE_SCRIPT_SIGN_H
 
-#include <boost/optional.hpp>
+#include <coins.h>
 #include <hash.h>
 #include <pubkey.h>
 #include <script/interpreter.h>
+#include <script/keyorigin.h>
+#include <span.h>
 #include <streams.h>
 
 class CKey;
@@ -18,44 +24,9 @@ class CKeyID;
 class CScript;
 class CScriptID;
 class CTransaction;
+class SigningProvider;
 
 struct CMutableTransaction;
-
-/** An interface to be implemented by keystores that support signing. */
-class SigningProvider
-{
-public:
-    virtual ~SigningProvider() {}
-    virtual bool GetCScript(const CScriptID &scriptid, CScript& script) const { return false; }
-    virtual bool GetPubKey(const CKeyID &address, CPubKey& pubkey) const { return false; }
-    virtual bool GetKey(const CKeyID &address, CKey& key) const { return false; }
-};
-
-extern const SigningProvider& DUMMY_SIGNING_PROVIDER;
-
-class PublicOnlySigningProvider : public SigningProvider
-{
-private:
-    const SigningProvider* m_provider;
-
-public:
-    PublicOnlySigningProvider(const SigningProvider* provider) : m_provider(provider) {}
-    bool GetCScript(const CScriptID &scriptid, CScript& script) const;
-    bool GetPubKey(const CKeyID &address, CPubKey& pubkey) const;
-};
-
-struct FlatSigningProvider final : public SigningProvider
-{
-    std::map<CScriptID, CScript> scripts;
-    std::map<CKeyID, CPubKey> pubkeys;
-    std::map<CKeyID, CKey> keys;
-
-    bool GetCScript(const CScriptID& scriptid, CScript& script) const override;
-    bool GetPubKey(const CKeyID& keyid, CPubKey& pubkey) const override;
-    bool GetKey(const CKeyID& keyid, CKey& key) const override;
-};
-
-FlatSigningProvider Merge(const FlatSigningProvider& a, const FlatSigningProvider& b);
 
 /** Interface for signature creators. */
 class BaseSignatureCreator {
@@ -99,45 +70,23 @@ struct SignatureData {
     CScript witness_script; ///< The witnessScript (if any) for the input. witnessScripts are used in P2WSH outputs.
     CScriptWitness scriptWitness; ///< The scriptWitness of an input. Contains complete signatures or the traditional partial signatures format. scriptWitness is part of a transaction input per BIP 144.
     std::map<CKeyID, SigPair> signatures; ///< BIP 174 style partial signatures for the input. May contain all signatures necessary for producing a final scriptSig or scriptWitness.
-    std::map<CKeyID, CPubKey> misc_pubkeys;
+    std::map<CKeyID, std::pair<CPubKey, KeyOriginInfo>> misc_pubkeys;
+    std::vector<CKeyID> missing_pubkeys; ///< KeyIDs of pubkeys which could not be found
+    std::vector<CKeyID> missing_sigs; ///< KeyIDs of pubkeys for signatures which could not be found
+    uint160 missing_redeem_script; ///< ScriptID of the missing redeemScript (if any)
+    uint256 missing_witness_script; ///< SHA256 of the missing witnessScript (if any)
 
     SignatureData() {}
     explicit SignatureData(const CScript& script) : scriptSig(script) {}
     void MergeSignatureData(SignatureData sigdata);
 };
 
-// Magic bytes
-static constexpr uint8_t PSBT_MAGIC_BYTES[5] = {'p', 's', 'b', 't', 0xff};
-
-// Global types
-static constexpr uint8_t PSBT_GLOBAL_UNSIGNED_TX = 0x00;
-
-// Input types
-static constexpr uint8_t PSBT_IN_NON_WITNESS_UTXO = 0x00;
-static constexpr uint8_t PSBT_IN_WITNESS_UTXO = 0x01;
-static constexpr uint8_t PSBT_IN_PARTIAL_SIG = 0x02;
-static constexpr uint8_t PSBT_IN_SIGHASH = 0x03;
-static constexpr uint8_t PSBT_IN_REDEEMSCRIPT = 0x04;
-static constexpr uint8_t PSBT_IN_WITNESSSCRIPT = 0x05;
-static constexpr uint8_t PSBT_IN_BIP32_DERIVATION = 0x06;
-static constexpr uint8_t PSBT_IN_SCRIPTSIG = 0x07;
-static constexpr uint8_t PSBT_IN_SCRIPTWITNESS = 0x08;
-
-// Output types
-static constexpr uint8_t PSBT_OUT_REDEEMSCRIPT = 0x00;
-static constexpr uint8_t PSBT_OUT_WITNESSSCRIPT = 0x01;
-static constexpr uint8_t PSBT_OUT_BIP32_DERIVATION = 0x02;
-
-// The separator is 0x00. Reading this in means that the unserializer can interpret it
-// as a 0 length key which indicates that this is the separator. The separator has no value.
-static constexpr uint8_t PSBT_SEPARATOR = 0x00;
-
 // Takes a stream and multiple arguments and serializes them as if first serialized into a vector and then into the stream
 // The resulting output into the stream has the total serialized length of all of the objects followed by all objects concatenated with each other.
 template<typename Stream, typename... X>
 void SerializeToVector(Stream& s, const X&... args)
 {
-    WriteCompactSize(s, GetSerializeSizeMany(s, args...));
+    WriteCompactSize(s, GetSerializeSizeMany(s.GetVersion(), args...));
     SerializeMany(s, args...);
 }
 
@@ -156,10 +105,10 @@ void UnserializeFromVector(Stream& s, X&... args)
 
 // Deserialize HD keypaths into a map
 template<typename Stream>
-void DeserializeHDKeypaths(Stream& s, const std::vector<unsigned char>& key, std::map<CPubKey, std::vector<uint32_t>>& hd_keypaths)
+void DeserializeHDKeypaths(Stream& s, const std::vector<unsigned char>& key, std::map<CPubKey, KeyOriginInfo>& hd_keypaths)
 {
     // Make sure that the key is the size of pubkey + 1
-    if (key.size() != CPubKey::PUBLIC_KEY_SIZE + 1 && key.size() != CPubKey::COMPRESSED_PUBLIC_KEY_SIZE + 1) {
+    if (key.size() != CPubKey::SIZE + 1 && key.size() != CPubKey::COMPRESSED_SIZE + 1) {
         throw std::ios_base::failure("Size of key was not the expected size for the type BIP32 keypath");
     }
     // Read in the pubkey from key
@@ -173,33 +122,40 @@ void DeserializeHDKeypaths(Stream& s, const std::vector<unsigned char>& key, std
 
     // Read in key path
     uint64_t value_len = ReadCompactSize(s);
-    std::vector<uint32_t> keypath;
-    for (unsigned int i = 0; i < value_len; i += sizeof(uint32_t)) {
+    if (value_len % 4 || value_len == 0) {
+        throw std::ios_base::failure("Invalid length for HD key path");
+    }
+
+    KeyOriginInfo keypath;
+    s >> keypath.fingerprint;
+    for (unsigned int i = 4; i < value_len; i += sizeof(uint32_t)) {
         uint32_t index;
         s >> index;
-        keypath.push_back(index);
+        keypath.path.push_back(index);
     }
 
     // Add to map
-    hd_keypaths.emplace(pubkey, keypath);
+    hd_keypaths.emplace(pubkey, std::move(keypath));
 }
 
 // Serialize HD keypaths to a stream from a map
 template<typename Stream>
-void SerializeHDKeypaths(Stream& s, const std::map<CPubKey, std::vector<uint32_t>>& hd_keypaths, uint8_t type)
+void SerializeHDKeypaths(Stream& s, const std::map<CPubKey, KeyOriginInfo>& hd_keypaths, uint8_t type)
 {
     for (auto keypath_pair : hd_keypaths) {
         if (!keypath_pair.first.IsValid()) {
             throw std::ios_base::failure("Invalid CPubKey being serialized");
         }
         SerializeToVector(s, type, MakeSpan(keypath_pair.first));
-        WriteCompactSize(s, keypath_pair.second.size() * sizeof(uint32_t));
-        for (auto& path : keypath_pair.second) {
+        WriteCompactSize(s, (keypath_pair.second.path.size() + 1) * sizeof(uint32_t));
+        s << keypath_pair.second.fingerprint;
+        for (const auto& path : keypath_pair.second.path) {
             s << path;
         }
     }
 }
 
+<<<<<<< HEAD
 /** A structure for PSBTs which contain per-input information */
 struct PSBTInput
 {
@@ -708,6 +664,8 @@ struct PartiallySignedTransaction
     }
 };
 
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 /** Produce a script signature using a generic signature creator. */
 bool ProduceSignature(const SigningProvider& provider, const BaseSignatureCreator& creator, const CScript& scriptPubKey, SignatureData& sigdata);
 
@@ -715,12 +673,15 @@ bool ProduceSignature(const SigningProvider& provider, const BaseSignatureCreato
 bool SignSignature(const SigningProvider &provider, const CScript& fromPubKey, CMutableTransaction& txTo, unsigned int nIn, const CAmount& amount, int nHashType);
 bool SignSignature(const SigningProvider &provider, const CTransaction& txFrom, CMutableTransaction& txTo, unsigned int nIn, int nHashType);
 
+<<<<<<< HEAD
 /** Checks whether a PSBTInput is already signed. */
 bool PSBTInputSigned(PSBTInput& input);
 
 /** Signs a PSBTInput, verifying that all provided data matches what is being signed. */
 bool SignPSBTInput(const SigningProvider& provider, PartiallySignedTransaction& psbt, SignatureData& sigdata, int index, int sighash = SIGHASH_ALL);
 
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 /** Extract signature data from a transaction input, and insert it. */
 SignatureData DataFromTransaction(const CMutableTransaction& tx, unsigned int nIn, const CTxOut& txout);
 void UpdateInput(CTxIn& input, const SignatureData& data);
@@ -731,4 +692,13 @@ void UpdateInput(CTxIn& input, const SignatureData& data);
  * Solvability is unrelated to whether we consider this output to be ours. */
 bool IsSolvable(const SigningProvider& provider, const CScript& script);
 
+<<<<<<< HEAD
+=======
+/** Check whether a scriptPubKey is known to be segwit. */
+bool IsSegWitOutput(const SigningProvider& provider, const CScript& script);
+
+/** Sign the CMutableTransaction */
+bool SignTransaction(CMutableTransaction& mtx, const SigningProvider* provider, const std::map<COutPoint, Coin>& coins, int sighash, std::map<int, std::string>& input_errors);
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_SCRIPT_SIGN_H

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2018 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -40,18 +44,15 @@ public:
         MINIMUM_COLUMN_WIDTH = 130
     };
 
-    explicit ReceiveCoinsDialog(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    explicit ReceiveCoinsDialog(const PlatformStyle *platformStyle, QWidget *parent = nullptr);
     ~ReceiveCoinsDialog();
 
     void setModel(WalletModel *model);
 
 public Q_SLOTS:
     void clear();
-    void reject();
-    void accept();
-
-protected:
-    virtual void keyPressEvent(QKeyEvent *event);
+    void reject() override;
+    void accept() override;
 
 private:
     Ui::ReceiveCoinsDialog *ui;
@@ -62,7 +63,7 @@ private:
 
     QModelIndex selectedRow();
     void copyColumnToClipboard(int column);
-    virtual void resizeEvent(QResizeEvent *event);
+    virtual void resizeEvent(QResizeEvent *event) override;
 
 private Q_SLOTS:
     void on_receiveButton_clicked();

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
 // Copyright (c) 2011-2018 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,6 +10,7 @@
 
 #include <qt/digibyteunits.h>
 #include <qt/guiconstants.h>
+#include <qt/guiutil.h>
 #include <qt/qvaluecombobox.h>
 
 #include <QApplication>
@@ -23,16 +28,20 @@ class AmountSpinBox: public QAbstractSpinBox
 
 public:
     explicit AmountSpinBox(QWidget *parent):
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
         QAbstractSpinBox(parent),
         currentUnit(DigiByteUnits::DGB),
         singleStep(100000) // satoshis
+=======
+        QAbstractSpinBox(parent)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
     {
         setAlignment(Qt::AlignRight);
 
-        connect(lineEdit(), SIGNAL(textEdited(QString)), this, SIGNAL(valueChanged()));
+        connect(lineEdit(), &QLineEdit::textEdited, this, &AmountSpinBox::valueChanged);
     }
 
-    QValidator::State validate(QString &text, int &pos) const
+    QValidator::State validate(QString &text, int &pos) const override
     {
         if(text.isEmpty())
             return QValidator::Intermediate;
@@ -42,34 +51,74 @@ public:
         return valid ? QValidator::Intermediate : QValidator::Invalid;
     }
 
-    void fixup(QString &input) const
+    void fixup(QString &input) const override
     {
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
         bool valid = false;
         CAmount val = parse(input, &valid);
         if(valid)
         {
             input = DigiByteUnits::format(currentUnit, val, false, DigiByteUnits::separatorAlways);
+=======
+        bool valid;
+        CAmount val;
+
+        if (input.isEmpty() && !m_allow_empty) {
+            valid = true;
+            val = m_min_amount;
+        } else {
+            valid = false;
+            val = parse(input, &valid);
+        }
+
+        if (valid) {
+            val = qBound(m_min_amount, val, m_max_amount);
+            input = DigiByteUnits::format(currentUnit, val, false, DigiByteUnits::SeparatorStyle::ALWAYS);
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
             lineEdit()->setText(input);
         }
     }
 
-    CAmount value(bool *valid_out=0) const
+    CAmount value(bool *valid_out=nullptr) const
     {
         return parse(text(), valid_out);
     }
 
     void setValue(const CAmount& value)
     {
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
         lineEdit()->setText(DigiByteUnits::format(currentUnit, value, false, DigiByteUnits::separatorAlways));
+=======
+        lineEdit()->setText(DigiByteUnits::format(currentUnit, value, false, DigiByteUnits::SeparatorStyle::ALWAYS));
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
         Q_EMIT valueChanged();
     }
 
-    void stepBy(int steps)
+    void SetAllowEmpty(bool allow)
+    {
+        m_allow_empty = allow;
+    }
+
+    void SetMinValue(const CAmount& value)
+    {
+        m_min_amount = value;
+    }
+
+    void SetMaxValue(const CAmount& value)
+    {
+        m_max_amount = value;
+    }
+
+    void stepBy(int steps) override
     {
         bool valid = false;
         CAmount val = value(&valid);
         val = val + steps * singleStep;
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
         val = qMin(qMax(val, CAmount(0)), DigiByteUnits::maxMoney());
+=======
+        val = qBound(m_min_amount, val, m_max_amount);
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
         setValue(val);
     }
 
@@ -79,7 +128,7 @@ public:
         CAmount val = value(&valid);
 
         currentUnit = unit;
-
+        lineEdit()->setPlaceholderText(DigiByteUnits::format(currentUnit, m_min_amount, false, DigiByteUnits::SeparatorStyle::ALWAYS));
         if(valid)
             setValue(val);
         else
@@ -91,7 +140,7 @@ public:
         singleStep = step;
     }
 
-    QSize minimumSizeHint() const
+    QSize minimumSizeHint() const override
     {
         if(cachedMinimumSizeHint.isEmpty())
         {
@@ -99,7 +148,11 @@ public:
 
             const QFontMetrics fm(fontMetrics());
             int h = lineEdit()->minimumSizeHint().height();
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
             int w = fm.width(DigiByteUnits::format(DigiByteUnits::DGB, DigiByteUnits::maxMoney(), false, DigiByteUnits::separatorAlways));
+=======
+            int w = GUIUtil::TextWidth(fm, DigiByteUnits::format(DigiByteUnits::DGB, DigiByteUnits::maxMoney(), false, DigiByteUnits::SeparatorStyle::ALWAYS));
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
             w += 2; // cursor blinking space
 
             QStyleOptionSpinBox opt;
@@ -125,16 +178,19 @@ public:
     }
 
 private:
-    int currentUnit;
-    CAmount singleStep;
+    int currentUnit{DigiByteUnits::DGB};
+    CAmount singleStep{CAmount(100000)}; // satoshis
     mutable QSize cachedMinimumSizeHint;
+    bool m_allow_empty{true};
+    CAmount m_min_amount{CAmount(0)};
+    CAmount m_max_amount{DigiByteUnits::maxMoney()};
 
     /**
      * Parse a string into a number of base monetary units and
      * return validity.
      * @note Must return 0 if !valid.
      */
-    CAmount parse(const QString &text, bool *valid_out=0) const
+    CAmount parse(const QString &text, bool *valid_out=nullptr) const
     {
         CAmount val = 0;
         bool valid = DigiByteUnits::parse(currentUnit, text, &val);
@@ -149,7 +205,7 @@ private:
     }
 
 protected:
-    bool event(QEvent *event)
+    bool event(QEvent *event) override
     {
         if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)
         {
@@ -164,21 +220,24 @@ protected:
         return QAbstractSpinBox::event(event);
     }
 
-    StepEnabled stepEnabled() const
+    StepEnabled stepEnabled() const override
     {
         if (isReadOnly()) // Disable steps when AmountSpinBox is read-only
             return StepNone;
         if (text().isEmpty()) // Allow step-up with empty field
             return StepUpEnabled;
 
-        StepEnabled rv = 0;
+        StepEnabled rv = StepNone;
         bool valid = false;
         CAmount val = value(&valid);
-        if(valid)
-        {
-            if(val > 0)
+        if (valid) {
+            if (val > m_min_amount)
                 rv |= StepDownEnabled;
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
             if(val < DigiByteUnits::maxMoney())
+=======
+            if (val < m_max_amount)
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
                 rv |= StepUpEnabled;
         }
         return rv;
@@ -192,7 +251,7 @@ Q_SIGNALS:
 
 DigiByteAmountField::DigiByteAmountField(QWidget *parent) :
     QWidget(parent),
-    amount(0)
+    amount(nullptr)
 {
     amount = new AmountSpinBox(this);
     amount->setLocale(QLocale::c());
@@ -213,8 +272,8 @@ DigiByteAmountField::DigiByteAmountField(QWidget *parent) :
     setFocusProxy(amount);
 
     // If one if the widgets changes, the combined content changes as well
-    connect(amount, SIGNAL(valueChanged()), this, SIGNAL(valueChanged()));
-    connect(unit, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged(int)));
+    connect(amount, &AmountSpinBox::valueChanged, this, &DigiByteAmountField::valueChanged);
+    connect(unit, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &DigiByteAmountField::unitChanged);
 
     // Set default based on configuration
     unitChanged(unit->currentIndex());
@@ -275,6 +334,24 @@ void DigiByteAmountField::setValue(const CAmount& value)
     amount->setValue(value);
 }
 
+<<<<<<< HEAD:src/qt/digibyteamountfield.cpp
+=======
+void DigiByteAmountField::SetAllowEmpty(bool allow)
+{
+    amount->SetAllowEmpty(allow);
+}
+
+void DigiByteAmountField::SetMinValue(const CAmount& value)
+{
+    amount->SetMinValue(value);
+}
+
+void DigiByteAmountField::SetMaxValue(const CAmount& value)
+{
+    amount->SetMaxValue(value);
+}
+
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.cpp
 void DigiByteAmountField::setReadOnly(bool fReadOnly)
 {
     amount->setReadOnly(fReadOnly);

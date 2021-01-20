@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright (c) 2011-2015 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2020 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,12 +24,12 @@ class TrafficGraphWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit TrafficGraphWidget(QWidget *parent = 0);
+    explicit TrafficGraphWidget(QWidget *parent = nullptr);
     void setClientModel(ClientModel *model);
     int getGraphRangeMins() const;
 
 protected:
-    void paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *) override;
 
 public Q_SLOTS:
     void updateRates();

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2015-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
@@ -13,32 +17,7 @@ extern "C" {
 }
 
 static const int AES_BLOCKSIZE = 16;
-static const int AES128_KEYSIZE = 16;
 static const int AES256_KEYSIZE = 32;
-
-/** An encryption class for AES-128. */
-class AES128Encrypt
-{
-private:
-    AES128_ctx ctx;
-
-public:
-    explicit AES128Encrypt(const unsigned char key[16]);
-    ~AES128Encrypt();
-    void Encrypt(unsigned char ciphertext[16], const unsigned char plaintext[16]) const;
-};
-
-/** A decryption class for AES-128. */
-class AES128Decrypt
-{
-private:
-    AES128_ctx ctx;
-
-public:
-    explicit AES128Decrypt(const unsigned char key[16]);
-    ~AES128Decrypt();
-    void Decrypt(unsigned char plaintext[16], const unsigned char ciphertext[16]) const;
-};
 
 /** An encryption class for AES-256. */
 class AES256Encrypt
@@ -90,6 +69,7 @@ private:
     unsigned char iv[AES_BLOCKSIZE];
 };
 
+<<<<<<< HEAD
 class AES128CBCEncrypt
 {
 public:
@@ -116,4 +96,6 @@ private:
     unsigned char iv[AES_BLOCKSIZE];
 };
 
+=======
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_CRYPTO_AES_H

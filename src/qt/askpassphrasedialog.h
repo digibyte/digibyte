@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
+=======
+// Copyright (c) 2011-2019 The DigiByte Core developers
+>>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,6 +11,8 @@
 #define DIGIBYTE_QT_ASKPASSPHRASEDIALOG_H
 
 #include <QDialog>
+
+#include <support/allocators/secure.h>
 
 class WalletModel;
 
@@ -28,10 +34,10 @@ public:
         Decrypt     /**< Ask passphrase and decrypt wallet */
     };
 
-    explicit AskPassphraseDialog(Mode mode, QWidget *parent);
+    explicit AskPassphraseDialog(Mode mode, QWidget *parent, SecureString* passphrase_out = nullptr);
     ~AskPassphraseDialog();
 
-    void accept();
+    void accept() override;
 
     void setModel(WalletModel *model);
 
@@ -40,6 +46,7 @@ private:
     Mode mode;
     WalletModel *model;
     bool fCapsLock;
+    SecureString* m_passphrase_out;
 
 private Q_SLOTS:
     void textChanged();
@@ -47,8 +54,8 @@ private Q_SLOTS:
     void toggleShowPassword(bool);
 
 protected:
-    bool event(QEvent *event);
-    bool eventFilter(QObject *object, QEvent *event);
+    bool event(QEvent *event) override;
+    bool eventFilter(QObject *object, QEvent *event) override;
 };
 
 #endif // DIGIBYTE_QT_ASKPASSPHRASEDIALOG_H
