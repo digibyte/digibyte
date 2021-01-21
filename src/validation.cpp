@@ -381,18 +381,11 @@ static void UpdateMempoolForReorg(CTxMemPool& mempool, DisconnectedBlockTransact
     auto it = disconnectpool.queuedTx.get<insertion_order>().rbegin();
     while (it != disconnectpool.queuedTx.get<insertion_order>().rend()) {
         // ignore validation errors in resurrected transactions
-<<<<<<< HEAD
-        CValidationState stateDummy;
+        TxValidationState stateDummy;
         bool ret = !AcceptToMemoryPool(mempool, stateDummy, *it, nullptr, nullptr, true, 0);
-        CValidationState dandelionStateDummy;
+        TxValidationState dandelionStateDummy;
         AcceptToMemoryPool(stempool, dandelionStateDummy, *it, nullptr, nullptr, true, 0);
         if (!fAddToMempool || (*it)->IsCoinBase() || ret) {
-=======
-        TxValidationState stateDummy;
-        if (!fAddToMempool || (*it)->IsCoinBase() ||
-            !AcceptToMemoryPool(mempool, stateDummy, *it,
-                                nullptr /* plTxnReplaced */, true /* bypass_limits */)) {
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             // If the transaction doesn't make it in to the mempool, remove any
             // transactions that depend on it (which would now be orphans).
             mempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
@@ -2581,34 +2574,11 @@ static void UpdateTip(CTxMemPool& mempool, const CBlockIndex* pindexNew, const C
             int nAlgo = pindex->GetAlgo();
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
             if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
-<<<<<<< HEAD
-            {
-                ++nUpgraded;
-                // Sha256d blocks with weird versions could simply be the result
-                // of overt AsicBoost.  Don't print the first warning below unless
-                // at least one "upgraded" block is not sha256d.
-                if (nAlgo != ALGO_SHA256D)
-                    fAllAsicBoost = false;
-            }
-            pindex = pindex->pprev;
-        }
-        if (nUpgraded > 0 && !fAllAsicBoost)
-            AppendWarning(warningMessages, strprintf(_("%d of last 100 blocks have unexpected version"), nUpgraded));
-        if (nUpgraded > 100/2)
-        {
-            std::string strWarning = _("Warning: Unknown block versions being mined! It's possible unknown rules are in effect");
-            // notify GetWarnings(), called by Qt and the JSON-RPC code to warn the user:
-            DoWarning(strWarning);
-        }
-    }
-    LogPrintf("%s: new best=%s height=%d version=0x%08x algo=%d (%s) log2_work=%.8g tx=%lu date='%s' progress=%f cache=%.1fMiB(%utxo)", __func__, /* Continued */
-=======
                 ++num_unexpected_version;
             pindex = pindex->pprev;
         }
     }
     LogPrintf("%s: new best=%s height=%d version=0x%08x log2_work=%f tx=%lu date='%s' progress=%f cache=%.1fMiB(%utxo)%s\n", __func__,
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
       pindexNew->GetBlockHash().ToString(), pindexNew->nHeight, pindexNew->nVersion,
       pindexNew->GetAlgo(), GetAlgoName(pindexNew->GetAlgo()),
       log(pindexNew->nChainWork.getdouble())/log(2.0), (unsigned long)pindexNew->nChainTx,

@@ -1221,27 +1221,13 @@ public:
             m_tx_relay->filterInventoryKnown.insert(hash);
         }
     }
-
+//BROKEN
     void PushTxInventory(const uint256& hash)
     {
-<<<<<<< HEAD
-        LOCK(cs_inventory);
-        if (inv.type == MSG_TX) {
-            if (!filterInventoryKnown.contains(inv.hash)) {
-                setInventoryTxToSend.insert(inv.hash);
-            }
-        } else if (inv.type == MSG_DANDELION_TX) {
-            if (setDandelionInventoryKnown.count(inv.hash)==0) {
-                vInventoryDandelionTxToSend.push_back(inv.hash);
-            }
-        } else if (inv.type == MSG_BLOCK) {
-            vInventoryBlockToSend.push_back(inv.hash);
-=======
         if (m_tx_relay == nullptr) return;
         LOCK(m_tx_relay->cs_tx_inventory);
         if (!m_tx_relay->filterInventoryKnown.contains(hash)) {
             m_tx_relay->setInventoryTxToSend.insert(hash);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
     }
 

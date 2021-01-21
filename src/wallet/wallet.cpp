@@ -1867,7 +1867,6 @@ void CWallet::ReacceptWalletTransactions()
 
 bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
 {
-<<<<<<< HEAD
     assert(pwallet->GetBroadcastTransactions());
     if (!IsCoinBase() && !isAbandoned() && GetDepthInMainChain() == 0)
     {
@@ -1897,9 +1896,8 @@ bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
         }
     }
     return false;
-=======
     // Can't relay if wallet is not broadcasting
-    if (!pwallet->GetBroadcastTransactions()) return false;
+    //if (!pwallet->GetBroadcastTransactions()) return false;
     // Don't relay abandoned transactions
     if (isAbandoned()) return false;
     // Don't try to submit coinbase transactions. These would fail anyway but would
@@ -1922,7 +1920,6 @@ bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
     bool ret = pwallet->chain().broadcastTransaction(tx, pwallet->m_default_max_tx_fee, relay, err_string);
     fInMempool |= ret;
     return ret;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 std::set<uint256> CWalletTx::GetConflicts() const
@@ -4302,13 +4299,6 @@ bool CWallet::Lock()
 
 bool CWallet::Unlock(const CKeyingMaterial& vMasterKeyIn, bool accept_no_keys)
 {
-<<<<<<< HEAD
-    if (!IsCoinBase())
-        return 0;
-    int chain_depth = GetDepthInMainChain();
-    assert(chain_depth >= 0); // coinbase tx should not be conflicted
-    return std::max(0, (COINBASE_MATURITY_2+1) - chain_depth);
-=======
     {
         LOCK(cs_wallet);
         for (const auto& spk_man_pair : m_spk_managers) {
@@ -4320,7 +4310,6 @@ bool CWallet::Unlock(const CKeyingMaterial& vMasterKeyIn, bool accept_no_keys)
     }
     NotifyStatusChanged(this);
     return true;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 std::set<ScriptPubKeyMan*> CWallet::GetActiveScriptPubKeyMans() const
@@ -4339,7 +4328,6 @@ std::set<ScriptPubKeyMan*> CWallet::GetActiveScriptPubKeyMans() const
 
 std::set<ScriptPubKeyMan*> CWallet::GetAllScriptPubKeyMans() const
 {
-<<<<<<< HEAD
     // We must set fInMempool here - while it will be re-set to true by the
     // entered-mempool callback, if we did not there would be a race where a
     // user could call sendmoney in a loop and hit spurious out of funds errors
@@ -4359,13 +4347,11 @@ std::set<ScriptPubKeyMan*> CWallet::GetAllScriptPubKeyMans() const
     }
     fInMempool |= ret;
     return ret;
-=======
     std::set<ScriptPubKeyMan*> spk_mans;
     for (const auto& spk_man_pair : m_spk_managers) {
         spk_mans.insert(spk_man_pair.second.get());
     }
     return spk_mans;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 ScriptPubKeyMan* CWallet::GetScriptPubKeyMan(const OutputType& type, bool internal) const

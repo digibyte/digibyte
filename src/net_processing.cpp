@@ -1720,7 +1720,6 @@ static CTransactionRef FindTxForGetData(const CTxMemPool& mempool, const CNode& 
         }
     }
 
-<<<<<<< HEAD
         while (it != pfrom->vRecvGetData.end() &&
                (it->type == MSG_TX || it->type == MSG_WITNESS_TX || it->type == MSG_DANDELION_TX || it->type == MSG_DANDELION_WITNESS_TX)) {
             if (interruptMsgProc)
@@ -1746,7 +1745,6 @@ static CTransactionRef FindTxForGetData(const CTxMemPool& mempool, const CNode& 
                     LogPrint(BCLog::DANDELION, "Peer %d supports Dandelion\n", pfrom->GetId());
                     pfrom->fSupportsDandelion = true;
                     push = true;
-=======
     return {};
 }
 
@@ -1798,7 +1796,6 @@ void static ProcessGetData(CNode& pfrom, Peer& peer, const CChainParams& chainpa
                             parent_ids_to_add.push_back(parent.GetTx().GetHash());
                         }
                     }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                 }
             } else if(inv.type == MSG_TX || inv.type == MSG_WITNESS_TX) {
                 auto mi = mapRelay.find(inv.hash);
@@ -2796,18 +2793,15 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
         for (CInv& inv : vInv) {
             if (interruptMsgProc) return;
 
-<<<<<<< HEAD
-            if (inv.type == MSG_TX || inv.type == MSG_DANDELION_TX) {
-                inv.type |= nFetchFlags;
-=======
             // Ignore INVs that don't match wtxidrelay setting.
             // Note that orphan parent fetching always uses MSG_TX GETDATAs regardless of the wtxidrelay setting.
             // This is fine as no INV messages are involved in that process.
+
+            //BROKEN
             if (State(pfrom.GetId())->m_wtxid_relay) {
                 if (inv.IsMsgTx()) continue;
             } else {
                 if (inv.IsMsgWtx()) continue;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             }
 
             if (inv.IsMsgBlk()) {
@@ -2823,7 +2817,6 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
                     // then fetch the blocks we need to catch up.
                     best_block = &inv.hash;
                 }
-<<<<<<< HEAD
             }
             else if (inv.type == MSG_DANDELION_TX) {
                 auto result = pfrom->setDandelionInventoryKnown.insert(inv.hash);
@@ -2839,14 +2832,12 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
             else
             {
                 pfrom->AddInventoryKnown(inv);
-=======
             } else if (inv.IsGenTxMsg()) {
                 const GenTxid gtxid = ToGenTxid(inv);
                 const bool fAlreadyHave = AlreadyHaveTx(gtxid, m_mempool);
                 LogPrint(BCLog::NET, "got inv: %s  %s peer=%d\n", inv.ToString(), fAlreadyHave ? "have" : "new", pfrom.GetId());
 
                 pfrom.AddKnownTx(inv.hash);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                 if (fBlocksOnly) {
                     LogPrint(BCLog::NET, "transaction (%s) inv sent in violation of protocol, disconnecting peer=%d\n", inv.hash.ToString(), pfrom.GetId());
                     pfrom.fDisconnect = true;
@@ -3097,14 +3088,6 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
 
         LOCK2(cs_main, g_cs_orphans);
 
-<<<<<<< HEAD
-        bool fMissingInputs = false;
-        CValidationState state;
-        CValidationState dummyState; // Dummy state for Dandelion stempool
-
-        pfrom->setAskFor.erase(inv.hash);
-        mapAlreadyAskedFor.erase(inv.hash);
-=======
         CNodeState* nodestate = State(pfrom.GetId());
 
         const uint256& hash = nodestate->m_wtxid_relay ? wtxid : txid;
@@ -3147,7 +3130,6 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
             }
             return;
         }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         TxValidationState state;
         std::list<CTransactionRef> lRemovedTxn;
