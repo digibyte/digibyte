@@ -90,10 +90,6 @@ static const bool DEFAULT_FORCEDNSSEED = false;
 static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
 static const size_t DEFAULT_MAXSENDBUFFER    = 1 * 1000;
 
-<<<<<<< HEAD
-// NOTE: When adjusting this, update rpcnet:setban's help ("24h")
-static const unsigned int DEFAULT_MISBEHAVING_BANTIME = 60 * 60 * 24;  // Default 24-hour ban
-
 /** Maximum number of outbound peers designated as Dandelion destinations */
 static const int DANDELION_MAX_DESTINATIONS = 2;
 /** Expected time between Dandelion routing shuffles (in seconds). */
@@ -103,11 +99,7 @@ static const int DANDELION_EMBARGO_MINIMUM = 10;
 /** The average additional embargo time beyond the minimum amount (seconds) */
 static const int DANDELION_EMBARGO_AVG_ADD = 20;
 
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 typedef int64_t NodeId;
-
-struct AddedNodeInfo
 {
     std::string strAddedNode;
     CService resolvedAddress;
@@ -563,7 +555,6 @@ private:
      */
     std::map<uint64_t, CachedAddrResponse> m_addr_response_caches;
 
-<<<<<<< HEAD
     // Dandelion fields
     std::vector<CNode*> vDandelionInbound;
     std::vector<CNode*> vDandelionOutbound;
@@ -577,7 +568,6 @@ private:
     void DandelionShuffle();
     
     /** Services this instance offers */
-=======
     /**
      * Services this instance offers.
      *
@@ -590,7 +580,6 @@ private:
      *
      * \sa CNode::nLocalServices
      */
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     ServiceFlags nLocalServices;
 
     std::unique_ptr<CSemaphore> semOutbound;
@@ -1033,29 +1022,17 @@ public:
 
     // flood relay
     std::vector<CAddress> vAddrToSend;
-<<<<<<< HEAD
-    CRollingBloomFilter addrKnown;
-    bool fGetAddr;
-    std::set<uint256> setKnown;
-    int64_t nNextAddrSend;
-    int64_t nNextLocalAddrSend;
-
-    // inventory based relay
-    CRollingBloomFilter filterInventoryKnown;
-    // Set of Dandelion transactions that should be known to this peer
-    std::set<uint256> setDandelionInventoryKnown;
-    // Set of transaction ids we still have to announce.
-    // They are sorted by the mempool before relay, so the order is not important.
-    std::set<uint256> setInventoryTxToSend;
-    // List of Dandelion transaction ids to announce.
-    std::vector<uint256> vInventoryDandelionTxToSend;
-=======
     std::unique_ptr<CRollingBloomFilter> m_addr_known{nullptr};
     bool fGetAddr{false};
     std::chrono::microseconds m_next_addr_send GUARDED_BY(cs_sendProcessing){0};
     std::chrono::microseconds m_next_local_addr_send GUARDED_BY(cs_sendProcessing){0};
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+    // Set of Dandelion transactions that should be known to this peer
+    std::set<uint256> setDandelionInventoryKnown;
+
+    // List of Dandelion transaction ids to announce.
+    std::vector<uint256> vInventoryDandelionTxToSend;
+
     // List of block ids we still have announce.
     // There is no final sorting before sending, as they are always sent immediately
     // and in the order requested.

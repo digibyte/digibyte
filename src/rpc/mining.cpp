@@ -105,9 +105,6 @@ static RPCHelpMan getnetworkhashps()
     };
 }
 
-<<<<<<< HEAD
-UniValue generateBlocks(std::shared_ptr<CReserveScript> coinbaseScript, int nGenerate, uint64_t nMaxTries, bool keepScript, int algo)
-=======
 static bool GenerateBlock(ChainstateManager& chainman, CBlock& block, uint64_t& max_tries, unsigned int& extra_nonce, uint256& block_hash)
 {
     block_hash.SetNull();
@@ -139,8 +136,7 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock& block, uint64_t& 
     return true;
 }
 
-static UniValue generateBlocks(ChainstateManager& chainman, const CTxMemPool& mempool, const CScript& coinbase_script, int nGenerate, uint64_t nMaxTries)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+static UniValue generateBlocks(ChainstateManager& chainman, const CTxMemPool& mempool, const CScript& coinbase_script, int nGenerate, uint64_t nMaxTries,int algo)
 {
     int nHeightEnd = 0;
     int nHeight = 0;
@@ -154,11 +150,7 @@ static UniValue generateBlocks(ChainstateManager& chainman, const CTxMemPool& me
     UniValue blockHashes(UniValue::VARR);
     while (nHeight < nHeightEnd && !ShutdownRequested())
     {
-<<<<<<< HEAD
         std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(Params()).CreateNewBlock(coinbaseScript->reserveScript, algo));
-=======
-        std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(mempool, Params()).CreateNewBlock(coinbase_script));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         if (!pblocktemplate.get())
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Couldn't create new block");
         CBlock *pblock = &pblocktemplate->block;
@@ -167,16 +159,9 @@ static UniValue generateBlocks(ChainstateManager& chainman, const CTxMemPool& me
         if (!GenerateBlock(chainman, *pblock, nMaxTries, nExtraNonce, block_hash)) {
             break;
         }
-<<<<<<< HEAD
         while (nMaxTries > 0 && pblock->nNonce < nInnerLoopCount && !CheckProofOfWork(GetPoWAlgoHash(*pblock), pblock->nBits, Params().GetConsensus())) {
             ++pblock->nNonce;
             --nMaxTries;
-=======
-
-        if (!block_hash.IsNull()) {
-            ++nHeight;
-            blockHashes.push_back(block_hash.GetHex());
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
     }
     return blockHashes;
@@ -304,13 +289,9 @@ static RPCHelpMan generatetoaddress()
 
     CScript coinbase_script = GetScriptForDestination(destination);
 
-<<<<<<< HEAD
-    return generateBlocks(coinbaseScript, nGenerate, nMaxTries, false, algo);
-=======
-    return generateBlocks(chainman, mempool, coinbase_script, num_blocks, max_tries);
+    return generateBlocks(chainman, mempool, coinbase_script, num_blocks, max_tries,false, algo);
 },
     };
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 static RPCHelpMan generateblock()
@@ -449,7 +430,6 @@ static RPCHelpMan getmininginfo()
     const CTxMemPool& mempool = EnsureMemPool(request.context);
 
     UniValue obj(UniValue::VOBJ);
-<<<<<<< HEAD
     obj.pushKV("blocks",           (int)chainActive.Height());
     obj.pushKV("currentblockweight", (uint64_t)nLastBlockWeight);
     obj.pushKV("pow_algo_id",        miningAlgo);
@@ -472,16 +452,6 @@ static RPCHelpMan getmininginfo()
     } else {
         obj.pushKV("warnings",     GetWarnings("statusbar"));
     }
-=======
-    obj.pushKV("blocks",           (int)::ChainActive().Height());
-    if (BlockAssembler::m_last_block_weight) obj.pushKV("currentblockweight", *BlockAssembler::m_last_block_weight);
-    if (BlockAssembler::m_last_block_num_txs) obj.pushKV("currentblocktx", *BlockAssembler::m_last_block_num_txs);
-    obj.pushKV("difficulty",       (double)GetDifficulty(::ChainActive().Tip()));
-    obj.pushKV("networkhashps",    getnetworkhashps().HandleRequest(request));
-    obj.pushKV("pooledtx",         (uint64_t)mempool.size());
-    obj.pushKV("chain",            Params().NetworkIDString());
-    obj.pushKV("warnings",         GetWarnings(false).original);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     return obj;
 },
     };
@@ -781,19 +751,10 @@ static RPCHelpMan getblocktemplate()
     static CBlockIndex* pindexPrev;
     static int64_t nStart;
     static std::unique_ptr<CBlockTemplate> pblocktemplate;
-<<<<<<< HEAD
-    // Cache whether the last invocation was with segwit support, to avoid returning
-    // a segwit-block to a non-segwit caller.
-    static bool fLastTemplateSupportsSegwit = true;
     static int lastAlgo;
     if (pindexPrev != chainActive.Tip() ||
-        (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5) ||
-        fLastTemplateSupportsSegwit != fSupportsSegwit ||
+        (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5)
         algo != lastAlgo)
-=======
-    if (pindexPrev != ::ChainActive().Tip() ||
-        (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     {
         // Clear pindexPrev so future calls make a new block, despite any failures from here on
         pindexPrev = nullptr;
@@ -802,19 +763,10 @@ static RPCHelpMan getblocktemplate()
         nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
         CBlockIndex* pindexPrevNew = ::ChainActive().Tip();
         nStart = GetTime();
-<<<<<<< HEAD
-        fLastTemplateSupportsSegwit = fSupportsSegwit;
         lastAlgo = algo;
-
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, algo, fSupportsSegwit);
-=======
-
-        // Create new block
-        CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(mempool, Params()).CreateNewBlock(scriptDummy);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, algo);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 

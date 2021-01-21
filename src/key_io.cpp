@@ -133,7 +133,6 @@ CKey DecodeSecret(const std::string& str)
 {
     CKey key;
     std::vector<unsigned char> data;
-<<<<<<< HEAD
     if (DecodeBase58Check(str, data)) {
         if(str.at(0) == '6'|| str.at(0) == 'Q') {
             const std::vector<unsigned char>& privkey_prefix = Params().Base58Prefix(CChainParams::SECRET_KEY_OLD);
@@ -149,14 +148,6 @@ CKey DecodeSecret(const std::string& str)
                 bool compressed = data.size() == 33 + privkey_prefix.size();
                 key.Set(data.begin() + privkey_prefix.size(), data.begin() + privkey_prefix.size() + 32, compressed);
             }
-=======
-    if (DecodeBase58Check(str, data, 34)) {
-        const std::vector<unsigned char>& privkey_prefix = Params().Base58Prefix(CChainParams::SECRET_KEY);
-        if ((data.size() == 32 + privkey_prefix.size() || (data.size() == 33 + privkey_prefix.size() && data.back() == 1)) &&
-            std::equal(privkey_prefix.begin(), privkey_prefix.end(), data.begin())) {
-            bool compressed = data.size() == 33 + privkey_prefix.size();
-            key.Set(data.begin() + privkey_prefix.size(), data.begin() + privkey_prefix.size() + 32, compressed);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
     }
     if (!data.empty()) {

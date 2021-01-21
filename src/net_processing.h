@@ -28,21 +28,10 @@ extern RecursiveMutex g_cs_orphans;
 static const unsigned int DEFAULT_MAX_ORPHAN_TRANSACTIONS = 100;
 /** Default number of orphan+recently-replaced txn to keep around for block reconstruction */
 static const unsigned int DEFAULT_BLOCK_RECONSTRUCTION_EXTRA_TXN = 100;
-<<<<<<< HEAD
-/** Probability (percentage) that a Dandelion transaction enters fluff phase */
-static const unsigned int DANDELION_FLUFF = 10;
-/** Default for BIP61 (sending reject messages) */
-static constexpr bool DEFAULT_ENABLE_BIP61 = true;
-
-class PeerLogicValidation final : public CValidationInterface, public NetEventsInterface {
-private:
-    CConnman* const connman;
-=======
 static const bool DEFAULT_PEERBLOOMFILTERS = false;
 static const bool DEFAULT_PEERBLOCKFILTERS = false;
 /** Threshold for marking a node to be discouraged, e.g. disconnected and added to the discouragement filter. */
 static const int DISCOURAGEMENT_THRESHOLD{100};
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 class PeerManager final : public CValidationInterface, public NetEventsInterface {
 public:

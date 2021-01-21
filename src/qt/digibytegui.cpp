@@ -259,38 +259,22 @@ void DigiByteGUI::createActions()
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
     sendCoinsMenuAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/send"), sendCoinsAction->text(), this);
     sendCoinsMenuAction->setStatusTip(sendCoinsAction->statusTip());
     sendCoinsMenuAction->setToolTip(sendCoinsMenuAction->statusTip());
 
     receiveCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/" + theme + "/receiving_addresses"), tr("&Receive"), this);
-=======
-    sendCoinsMenuAction = new QAction(sendCoinsAction->text(), this);
-    sendCoinsMenuAction->setStatusTip(sendCoinsAction->statusTip());
-    sendCoinsMenuAction->setToolTip(sendCoinsMenuAction->statusTip());
-
-    receiveCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
     receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and digibyte: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(receiveCoinsAction);
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
     receiveCoinsMenuAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/receiving_addresses"), receiveCoinsAction->text(), this);
-=======
-    receiveCoinsMenuAction = new QAction(receiveCoinsAction->text(), this);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
     receiveCoinsMenuAction->setStatusTip(receiveCoinsAction->statusTip());
     receiveCoinsMenuAction->setToolTip(receiveCoinsMenuAction->statusTip());
 
-    historyAction = new QAction(platformStyle->SingleColorIcon(":/icons/" + theme + "/history"), tr("&Transactions"), this);
     historyAction->setStatusTip(tr("Browse transaction history"));
-    historyAction->setToolTip(historyAction->statusTip());
-    historyAction->setCheckable(true);
-    historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
 #ifdef ENABLE_WALLET
@@ -1099,13 +1083,8 @@ void DigiByteGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVe
     tooltip = tr("Processed %n block(s) of transaction history.", "", count);
 
     // Set icon state: spinning if catching up, tick otherwise
-<<<<<<< HEAD:src/qt/digibytegui.cpp
     QString theme = GUIUtil::getThemeName();
-    if(secs < 90*60)
-    {
-=======
     if (secs < MAX_BLOCK_TIME_GAP) {
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
         tooltip = tr("Up to date") + QString(".<br>") + tooltip;
         labelBlocksIcon->setPixmap(platformStyle->SingleColorIcon(":/icons/" + theme + "/synced").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
 

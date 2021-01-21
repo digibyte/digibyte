@@ -20,11 +20,7 @@
 #include <node/utxo_snapshot.h>
 #include <policy/feerate.h>
 #include <policy/policy.h>
-<<<<<<< HEAD
-#include <pow.h>
-=======
 #include <policy/rbf.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <primitives/transaction.h>
 #include <rpc/server.h>
 #include <rpc/util.h>
@@ -90,7 +86,6 @@ ChainstateManager& EnsureChainman(const util::Ref& context)
  */
 double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
 {
-<<<<<<< HEAD
     unsigned int nBits;
     unsigned int powLimit = InitialDifficulty(Params().GetConsensus(), algo);
     if (blockindex == nullptr)
@@ -111,11 +106,6 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
         nBits = blockindex->nBits;
  
     int nShift = (nBits >> 24) & 0xff;
-=======
-    CHECK_NONFATAL(blockindex);
-
-    int nShift = (blockindex->nBits >> 24) & 0xff;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     double dDiff =
         (double)0x0000ffff / (double)(nBits & 0x00ffffff);
  

@@ -1206,7 +1206,6 @@ void CConnman::DisconnectNodes()
         std::list<CNode*> vNodesDisconnectedCopy = vNodesDisconnected;
         for (CNode* pnode : vNodesDisconnectedCopy)
         {
-<<<<<<< HEAD
             // Delete disconnected nodes
             std::list<CNode*> vNodesDisconnectedCopy = vNodesDisconnected;
             for (CNode* pnode : vNodesDisconnectedCopy)
@@ -1230,15 +1229,6 @@ void CConnman::DisconnectNodes()
                                                
                         vNodesDisconnected.remove(pnode);
                         DeleteNode(pnode);
-=======
-            // wait until threads are done using it
-            if (pnode->GetRefCount() <= 0) {
-                bool fDelete = false;
-                {
-                    TRY_LOCK(pnode->cs_vSend, lockSend);
-                    if (lockSend) {
-                        fDelete = true;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                     }
                 }
                 if (fDelete) {

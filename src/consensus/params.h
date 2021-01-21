@@ -89,7 +89,6 @@ struct Params {
     int64_t nPowTargetSpacing;
     int64_t nPowTargetTimespan;
     int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacing; }
-<<<<<<< HEAD
 
     int64_t nTargetTimespan;
     int64_t nTargetSpacing;
@@ -131,9 +130,6 @@ struct Params {
 
     uint32_t nOdoShapechangeInterval;
 
-=======
-    /** The best chain should have at least this much work */
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     uint256 nMinimumChainWork;
     /** By default assume that the signatures in ancestors of this block are valid */
     uint256 defaultAssumeValid;

@@ -2968,13 +2968,9 @@ bool CChainState::ActivateBestChainStep(BlockValidationState& state, const CChai
         // any disconnected transactions back to the mempool.
         UpdateMempoolForReorg(m_mempool, disconnectpool, true);
     }
-<<<<<<< HEAD
-    mempool.check(pcoinsTip.get());
+    m_mempool.check(&CoinsTip.get());
     // Changes to mempool should also be made to Dandelion stempool
-    stempool.check(pcoinsTip.get());
-=======
-    m_mempool.check(&CoinsTip());
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+    stempool.check(&CoinsTip.get());
 
     // Callbacks/notifications for a new best chain.
     if (fInvalidFound)

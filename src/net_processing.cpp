@@ -1288,12 +1288,8 @@ void PeerManager::NewPoWValidBlock(const CBlockIndex *pindex, const std::shared_
         return;
     nHighestFastAnnounce = pindex->nHeight;
 
-<<<<<<< HEAD
-    bool fWitnessEnabled = IsWitnessEnabled(pindex->pprev, Params().GetConsensus());
-    bool fOdoActive = IsAlgoActive(pindex->pprev, Params().GetConsensus(), ALGO_ODO);
-=======
     bool fWitnessEnabled = IsWitnessEnabled(pindex->pprev, m_chainparams.GetConsensus());
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+    bool fOdoActive = IsAlgoActive(pindex->pprev, m_chainparams.GetConsensus(), ALGO_ODO);
     uint256 hashBlock(pblock->GetHash());
 
     {
@@ -1304,13 +1300,8 @@ void PeerManager::NewPoWValidBlock(const CBlockIndex *pindex, const std::shared_
         fWitnessesPresentInMostRecentCompactBlock = fWitnessEnabled;
     }
 
-<<<<<<< HEAD
-    connman->ForEachNode([this, &pcmpctblock, pindex, &msgMaker, fWitnessEnabled, fOdoActive, &hashBlock](CNode* pnode) {
-        AssertLockHeld(cs_main);
-=======
-    m_connman.ForEachNode([this, &pcmpctblock, pindex, &msgMaker, fWitnessEnabled, &hashBlock](CNode* pnode) EXCLUSIVE_LOCKS_REQUIRED(::cs_main) {
+    m_connman.ForEachNode([this, &pcmpctblock, pindex, &msgMaker, fWitnessEnabled, fOdoActive, &hashBlock](CNode* pnode) EXCLUSIVE_LOCKS_REQUIRED(::cs_main) {
         AssertLockHeld(::cs_main);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         if (fOdoActive && pnode->nVersion < ODO_FORK_VERSION)
         {
