@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2018 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,11 +8,6 @@
 
 #include <tinyformat.h>
 
-<<<<<<< HEAD
-const std::string CURRENCY_UNIT = "DGB";
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 CFeeRate::CFeeRate(const CAmount& nFeePaid, size_t nBytes_)
 {
     assert(nBytes_ <= uint64_t(std::numeric_limits<int64_t>::max()));

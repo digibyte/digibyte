@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // Copyright (c) 2018 The DigiByte Core developers
-=======
-// Copyright (c) 2018-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -42,8 +38,6 @@ class Handler;
 class WalletClient;
 struct BlockTip;
 
-<<<<<<< HEAD
-=======
 //! Block and header tip information
 struct BlockAndHeaderTipInfo
 {
@@ -54,7 +48,6 @@ struct BlockAndHeaderTipInfo
     double verification_progress;
 };
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 //! Top-level interface for a digibyte node (digibyted process).
 class Node
 {

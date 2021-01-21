@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2012-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2012-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -31,11 +27,7 @@ static void addCoin(const CAmount& nValue, const CWallet& wallet, std::vector<st
 // same one over and over isn't too useful. Generating random isn't useful
 // either for measurements."
 // (https://github.com/digibyte/digibyte/issues/7883#issuecomment-224807484)
-<<<<<<< HEAD
-static void CoinSelection(benchmark::State& state)
-=======
 static void CoinSelection(benchmark::Bench& bench)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
     NodeContext node;
     auto chain = interfaces::MakeChain(node);

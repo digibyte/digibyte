@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2015-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2015-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -64,14 +60,4 @@ public:
 #define BENCHMARK(n) \
     benchmark::BenchRunner BOOST_PP_CAT(bench_, BOOST_PP_CAT(__LINE__, n))(BOOST_PP_STRINGIZE(n), n);
 
-<<<<<<< HEAD
-
-// BENCHMARK(foo, num_iters_for_one_second) expands to:  benchmark::BenchRunner bench_11foo("foo", num_iterations);
-// Choose a num_iters_for_one_second that takes roughly 1 second. The goal is that all benchmarks should take approximately
-// the same time, and scaling factor can be used that the total time is appropriate for your system.
-#define BENCHMARK(n, num_iters_for_one_second) \
-    benchmark::BenchRunner BOOST_PP_CAT(bench_, BOOST_PP_CAT(__LINE__, n))(BOOST_PP_STRINGIZE(n), n, (num_iters_for_one_second));
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_BENCH_BENCH_H

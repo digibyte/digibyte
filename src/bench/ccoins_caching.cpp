@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2016-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,11 +16,7 @@
 // characteristics than e.g. reindex timings. But that's not a requirement of
 // every benchmark."
 // (https://github.com/digibyte/digibyte/issues/7883#issuecomment-224807484)
-<<<<<<< HEAD
-static void CCoinsCaching(benchmark::State& state)
-=======
 static void CCoinsCaching(benchmark::Bench& bench)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
     const ECCVerifyHandle verify_handle;
     ECC_Start();

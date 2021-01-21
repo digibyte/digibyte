@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2018 The DigiByte Core developers
-=======
 // Copyright (c) 2018-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -40,16 +36,6 @@
 
 #if defined(HAVE_CONFIG_H)
 #include <config/digibyte-config.h>
-<<<<<<< HEAD
-#endif
-#ifdef ENABLE_WALLET
-#include <wallet/fees.h>
-#include <wallet/wallet.h>
-#define CHECK_WALLET(x) x
-#else
-#define CHECK_WALLET(x) throw std::logic_error("Wallet function called in non-wallet build.")
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif
 
 #include <univalue.h>
