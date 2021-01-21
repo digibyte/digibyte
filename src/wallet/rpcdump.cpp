@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -228,35 +224,8 @@ RPCHelpMan abortrescan()
 
 RPCHelpMan importaddress()
 {
-<<<<<<< HEAD
-    CScript script = GetScriptForDestination(dest);
-    ImportScript(pwallet, script, strLabel, false);
-    // add to address book or update label
-    if (IsValidDestination(dest))
-        pwallet->SetAddressBook(dest, strLabel, "receive");
-}
-
-UniValue importaddress(const JSONRPCRequest& request)
-{
-    std::shared_ptr<CWallet> const wallet = GetWalletForJSONRPCRequest(request);
-    CWallet* const pwallet = wallet.get();
-    if (!EnsureWalletIsAvailable(pwallet, request.fHelp)) {
-        return NullUniValue;
-    }
-
-    if (request.fHelp || request.params.size() < 1 || request.params.size() > 4)
-        throw std::runtime_error(
-            "importaddress \"address\" ( \"label\" rescan p2sh )\n"
-            "\nAdds an address or script (in hex) that can be watched as if it were in your wallet but cannot be used to spend. Requires a new wallet backup.\n"
-            "\nArguments:\n"
-            "1. \"address\"          (string, required) The DigiByte address (or hex-encoded script)\n"
-            "2. \"label\"            (string, optional, default=\"\") An optional label\n"
-            "3. rescan               (boolean, optional, default=true) Rescan the wallet for transactions\n"
-            "4. p2sh                 (boolean, optional, default=false) Add the P2SH version of the script as well\n"
-=======
     return RPCHelpMan{"importaddress",
                 "\nAdds an address or script (in hex) that can be watched as if it were in your wallet but cannot be used to spend. Requires a new wallet backup.\n"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             "\nNote: This call can take over an hour to complete if rescan is true, during that time, other rpc calls\n"
             "may report that the imported address exists but related transactions are still missing, leading to temporarily incorrect/bogus balances and unspent outputs until rescan completes.\n"
             "If you have the full public key, you should call importpubkey instead of this.\n"
@@ -700,25 +669,6 @@ RPCHelpMan importwallet()
 
 RPCHelpMan dumpprivkey()
 {
-<<<<<<< HEAD
-    std::shared_ptr<CWallet> const wallet = GetWalletForJSONRPCRequest(request);
-    CWallet* const pwallet = wallet.get();
-    if (!EnsureWalletIsAvailable(pwallet, request.fHelp)) {
-        return NullUniValue;
-    }
-
-    if (request.fHelp || request.params.size() != 1)
-        throw std::runtime_error(
-            "dumpprivkey \"address\"\n"
-            "\nReveals the private key corresponding to 'address'.\n"
-            "Then the importprivkey can be used with this output\n"
-            "\nArguments:\n"
-            "1. \"address\"   (string, required) The digibyte address for the private key\n"
-            "\nResult:\n"
-            "\"key\"                (string) The private key\n"
-            "\nExamples:\n"
-            + HelpExampleCli("dumpprivkey", "\"myaddress\"")
-=======
     return RPCHelpMan{"dumpprivkey",
                 "\nReveals the private key corresponding to 'address'.\n"
                 "Then the importprivkey can be used with this output\n",
@@ -730,7 +680,6 @@ RPCHelpMan dumpprivkey()
                 },
                 RPCExamples{
                     HelpExampleCli("dumpprivkey", "\"myaddress\"")
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             + HelpExampleCli("importprivkey", "\"mykey\"")
             + HelpExampleRpc("dumpprivkey", "\"myaddress\"")
                 },
@@ -767,29 +716,6 @@ RPCHelpMan dumpprivkey()
 
 RPCHelpMan dumpwallet()
 {
-<<<<<<< HEAD
-    std::shared_ptr<CWallet> const wallet = GetWalletForJSONRPCRequest(request);
-    CWallet* const pwallet = wallet.get();
-    if (!EnsureWalletIsAvailable(pwallet, request.fHelp)) {
-        return NullUniValue;
-    }
-
-    if (request.fHelp || request.params.size() != 1)
-        throw std::runtime_error(
-            "dumpwallet \"filename\"\n"
-            "\nDumps all wallet keys in a human-readable format to a server-side file. This does not allow overwriting existing files.\n"
-            "Imported scripts are included in the dumpfile, but corresponding BIP173 addresses, etc. may not be added automatically by importwallet.\n"
-            "Note that if your wallet contains keys which are not derived from your HD seed (e.g. imported keys), these are not covered by\n"
-            "only backing up the seed itself, and must be backed up too (e.g. ensure you back up the whole dumpfile).\n"
-            "\nArguments:\n"
-            "1. \"filename\"    (string, required) The filename with path (either absolute or relative to digibyted)\n"
-            "\nResult:\n"
-            "{                           (json object)\n"
-            "  \"filename\" : {        (string) The filename with full absolute path\n"
-            "}\n"
-            "\nExamples:\n"
-            + HelpExampleCli("dumpwallet", "\"test\"")
-=======
     return RPCHelpMan{"dumpwallet",
                 "\nDumps all wallet keys in a human-readable format to a server-side file. This does not allow overwriting existing files.\n"
                 "Imported scripts are included in the dumpfile, but corresponding BIP173 addresses, etc. may not be added automatically by importwallet.\n"
@@ -806,7 +732,6 @@ RPCHelpMan dumpwallet()
                 },
                 RPCExamples{
                     HelpExampleCli("dumpwallet", "\"test\"")
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             + HelpExampleRpc("dumpwallet", "\"test\"")
                 },
         [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue
@@ -1519,9 +1444,6 @@ RPCHelpMan importmulti()
     }
 
     return response;
-<<<<<<< HEAD
-}
-=======
 },
     };
 }
@@ -1819,4 +1741,3 @@ RPCHelpMan importdescriptors()
 },
     };
 }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

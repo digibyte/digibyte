@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -2334,19 +2330,7 @@ void CWallet::AvailableCoins(std::vector<COutput>& vCoins, bool fOnlySafe, const
 
 std::map<CTxDestination, std::vector<COutput>> CWallet::ListCoins() const
 {
-<<<<<<< HEAD
-    // TODO: Add AssertLockHeld(cs_wallet) here.
-    //
-    // Because the return value from this function contains pointers to
-    // CWalletTx objects, callers to this function really should acquire the
-    // cs_wallet lock before calling it. However, the current caller doesn't
-    // acquire this lock yet. There was an attempt to add the missing lock in
-    // https://github.com/digibyte/digibyte/pull/10340, but that change has been
-    // postponed until after https://github.com/digibyte/digibyte/pull/10244 to
-    // avoid adding some extra complexity to the Qt code.
-=======
     AssertLockHeld(cs_wallet);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     std::map<CTxDestination, std::vector<COutput>> result;
     std::vector<COutput> availableCoins;
@@ -2830,11 +2814,7 @@ bool CWallet::CreateTransactionInternal(
             CoinSelectionParams coin_selection_params; // Parameters for coin selection, init with dummy
 
             // Create change script that will be used if we need change
-<<<<<<< HEAD
-            // TODO: pass in scriptChange instead of reservekey so
-=======
             // TODO: pass in scriptChange instead of reservedest so
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             // change transaction isn't always pay-to-digibyte-address
             CScript scriptChange;
 

@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2012-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,14 +14,10 @@
 #include <node/context.h>
 #include <policy/policy.h>
 #include <rpc/server.h>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/logging.h>
 #include <test/util/setup_common.h>
 #include <util/ref.h>
 #include <util/translation.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <validation.h>
 #include <wallet/coincontrol.h>
 #include <wallet/test/wallet_test_fixture.h>

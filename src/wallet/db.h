@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -160,8 +156,6 @@ public:
     virtual std::unique_ptr<DatabaseBatch> MakeBatch(bool flush_on_close = true) = 0;
 };
 
-<<<<<<< HEAD
-=======
 /** RAII class that provides access to a DummyDatabase. Never fails. */
 class DummyBatch : public DatabaseBatch
 {
@@ -232,5 +226,4 @@ enum class DatabaseStatus {
 
 std::unique_ptr<WalletDatabase> MakeDatabase(const fs::path& path, const DatabaseOptions& options, DatabaseStatus& status, bilingual_str& error);
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_WALLET_DB_H

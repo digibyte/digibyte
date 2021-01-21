@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2017-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,11 +9,7 @@
 #include <wallet/wallet.h>
 
 #include <boost/test/unit_test.hpp>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/setup_common.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <wallet/test/wallet_test_fixture.h>
 
 BOOST_FIXTURE_TEST_SUITE(psbt_wallet_tests, WalletTestingSetup)
@@ -66,12 +58,8 @@ BOOST_AUTO_TEST_CASE(psbt_updater_test)
     ssData >> psbtx;
 
     // Fill transaction with our data
-<<<<<<< HEAD
-    FillPSBT(&m_wallet, psbtx, SIGHASH_ALL, false, true);
-=======
     bool complete = true;
     BOOST_REQUIRE_EQUAL(TransactionError::OK, m_wallet.FillPSBT(psbtx, complete, SIGHASH_ALL, false, true));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     // Get the final tx
     CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
