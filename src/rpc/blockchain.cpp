@@ -1,10 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -1162,38 +1158,6 @@ static RPCHelpMan gettxoutsetinfo()
     };
 }
 
-<<<<<<< HEAD
-UniValue gettxout(const JSONRPCRequest& request)
-{
-    if (request.fHelp || request.params.size() < 2 || request.params.size() > 3)
-        throw std::runtime_error(
-            "gettxout \"txid\" n ( include_mempool )\n"
-            "\nReturns details about an unspent transaction output.\n"
-            "\nArguments:\n"
-            "1. \"txid\"             (string, required) The transaction id\n"
-            "2. \"n\"                (numeric, required) vout number\n"
-            "3. \"include_mempool\"  (boolean, optional) Whether to include the mempool. Default: true."
-            "     Note that an unspent output that is spent in the mempool won't appear.\n"
-            "\nResult:\n"
-            "{\n"
-            "  \"bestblock\":  \"hash\",    (string) The hash of the block at the tip of the chain\n"
-            "  \"confirmations\" : n,       (numeric) The number of confirmations\n"
-            "  \"value\" : x.xxx,           (numeric) The transaction value in " + CURRENCY_UNIT + "\n"
-            "  \"scriptPubKey\" : {         (json object)\n"
-            "     \"asm\" : \"code\",       (string) \n"
-            "     \"hex\" : \"hex\",        (string) \n"
-            "     \"reqSigs\" : n,          (numeric) Number of required signatures\n"
-            "     \"type\" : \"pubkeyhash\", (string) The type, eg pubkeyhash\n"
-            "     \"addresses\" : [          (array of string) array of digibyte addresses\n"
-            "        \"address\"     (string) digibyte address\n"
-            "        ,...\n"
-            "     ]\n"
-            "  },\n"
-            "  \"coinbase\" : true|false   (boolean) Coinbase or not\n"
-            "}\n"
-
-            "\nExamples:\n"
-=======
 static RPCHelpMan gettxout()
 {
     return RPCHelpMan{"gettxout",
@@ -1221,7 +1185,6 @@ static RPCHelpMan gettxout()
                         {RPCResult::Type::BOOL, "coinbase", "Coinbase or not"},
                     }},
                 RPCExamples{
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             "\nGet unspent transactions\n"
             + HelpExampleCli("listunspent", "") +
             "\nView the details\n"
@@ -1321,12 +1284,7 @@ static void BuriedForkDescPushBack(UniValue& softforks, const std::string &name,
     softforks.pushKV(name, rv);
 }
 
-<<<<<<< HEAD
-
-static UniValue BIP9SoftForkDesc(const Consensus::Params& consensusParams, Consensus::DeploymentPos id)
-=======
 static void BIP9SoftForkDescPushBack(UniValue& softforks, const std::string &name, const Consensus::Params& consensusParams, Consensus::DeploymentPos id) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
     // For BIP9 deployments.
     // Deployments (e.g. testdummy) with timeout value before Jan 1, 2009 are hidden.
@@ -2260,28 +2218,6 @@ public:
     }
 };
 
-<<<<<<< HEAD
-UniValue scantxoutset(const JSONRPCRequest& request)
-{
-    if (request.fHelp || request.params.size() < 1 || request.params.size() > 2)
-        throw std::runtime_error(
-            "scantxoutset <action> ( <scanobjects> )\n"
-            "\nEXPERIMENTAL warning: this call may be removed or changed in future releases.\n"
-            "\nScans the unspent transaction output set for entries that match certain output descriptors.\n"
-            "Examples of output descriptors are:\n"
-            "    addr(<address>)                      Outputs whose scriptPubKey corresponds to the specified address (does not include P2PK)\n"
-            "    raw(<hex script>)                    Outputs whose scriptPubKey equals the specified hex scripts\n"
-            "    combo(<pubkey>)                      P2PK, P2PKH, P2WPKH, and P2SH-P2WPKH outputs for the given pubkey\n"
-            "    pkh(<pubkey>)                        P2PKH outputs for the given pubkey\n"
-            "    sh(multi(<n>,<pubkey>,<pubkey>,...)) P2SH-multisig outputs for the given threshold and pubkeys\n"
-            "\nIn the above, <pubkey> either refers to a fixed public key in hexadecimal notation, or to an xpub/xprv optionally followed by one\n"
-            "or more path elements separated by \"/\", and optionally ending in \"/*\" (unhardened), or \"/*'\" or \"/*h\" (hardened) to specify all\n"
-            "unhardened or hardened child keys.\n"
-            "In the latter case, a range needs to be specified by below if different from 1000.\n"
-            "For more information on output descriptors, see the documentation in the doc/descriptors.md file.\n"
-            "\nArguments:\n"
-            "1. \"action\"                       (string, required) The action to execute\n"
-=======
 static RPCHelpMan scantxoutset()
 {
     return RPCHelpMan{"scantxoutset",
@@ -2300,7 +2236,6 @@ static RPCHelpMan scantxoutset()
                 "For more information on output descriptors, see the documentation in the doc/descriptors.md file.\n",
                 {
                     {"action", RPCArg::Type::STR, RPCArg::Optional::NO, "The action to execute\n"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             "                                      \"start\" for starting a scan\n"
             "                                      \"abort\" for aborting the current scan (returns true when abort was successful)\n"
             "                                      \"status\" for progress report (in %) of the current scan"},

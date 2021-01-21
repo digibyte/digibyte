@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -380,31 +376,6 @@ static RPCHelpMan disconnectnode()
 
 static RPCHelpMan getaddednodeinfo()
 {
-<<<<<<< HEAD
-    if (request.fHelp || request.params.size() > 1)
-        throw std::runtime_error(
-            "getaddednodeinfo ( \"node\" )\n"
-            "\nReturns information about the given added node, or all added nodes\n"
-            "(note that onetry addnodes are not listed here)\n"
-            "\nArguments:\n"
-            "1. \"node\"   (string, optional) If provided, return information about this specific node, otherwise all nodes are returned.\n"
-            "\nResult:\n"
-            "[\n"
-            "  {\n"
-            "    \"addednode\" : \"192.168.0.201\",   (string) The node IP address or name (as provided to addnode)\n"
-            "    \"connected\" : true|false,          (boolean) If connected\n"
-            "    \"addresses\" : [                    (list of objects) Only when connected = true\n"
-            "       {\n"
-            "         \"address\" : \"192.168.0.201:8333\",  (string) The digibyte server IP and port we're connected to\n"
-            "         \"connected\" : \"outbound\"           (string) connection, inbound or outbound\n"
-            "       }\n"
-            "     ]\n"
-            "  }\n"
-            "  ,...\n"
-            "]\n"
-            "\nExamples:\n"
-            + HelpExampleCli("getaddednodeinfo", "\"192.168.0.201\"")
-=======
     return RPCHelpMan{"getaddednodeinfo",
                 "\nReturns information about the given added node, or all added nodes\n"
                 "(note that onetry addnodes are not listed here)\n",
@@ -431,7 +402,6 @@ static RPCHelpMan getaddednodeinfo()
                 },
                 RPCExamples{
                     HelpExampleCli("getaddednodeinfo", "\"192.168.0.201\"")
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             + HelpExampleRpc("getaddednodeinfo", "\"192.168.0.201\"")
                 },
         [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue

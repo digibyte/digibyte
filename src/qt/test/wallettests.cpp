@@ -8,11 +8,7 @@
 #include <interfaces/chain.h>
 #include <interfaces/node.h>
 #include <qt/digibyteamountfield.h>
-<<<<<<< HEAD
-#include <qt/callback.h>
-=======
 #include <qt/clientmodel.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <qt/optionsmodel.h>
 #include <qt/platformstyle.h>
 #include <qt/qvalidatedlineedit.h>
@@ -22,11 +18,7 @@
 #include <qt/transactionview.h>
 #include <qt/walletmodel.h>
 #include <key_io.h>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/setup_common.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <validation.h>
 #include <wallet/wallet.h>
 #include <qt/overviewpage.h>
@@ -136,17 +128,10 @@ void BumpFee(TransactionView& view, const uint256& txid, bool expectDisabled, st
 //
 // This also requires overriding the default minimal Qt platform:
 //
-<<<<<<< HEAD
-//     src/qt/test/test_digibyte-qt -platform xcb      # Linux
-//     src/qt/test/test_digibyte-qt -platform windows  # Windows
-//     src/qt/test/test_digibyte-qt -platform cocoa    # macOS
-void TestGUI()
-=======
 //     QT_QPA_PLATFORM=xcb     src/qt/test/test_digibyte-qt  # Linux
 //     QT_QPA_PLATFORM=windows src/qt/test/test_digibyte-qt  # Windows
 //     QT_QPA_PLATFORM=cocoa   src/qt/test/test_digibyte-qt  # macOS
 void TestGUI(interfaces::Node& node)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
     // Set up wallet and chain with 105 blocks (5 mature blocks for spending).
     TestChain100Setup test;
@@ -218,11 +203,7 @@ void TestGUI(interfaces::Node& node)
     QString balanceText = balanceLabel->text().trimmed();
     int unit = walletModel.getOptionsModel()->getDisplayUnit();
     CAmount balance = walletModel.wallet().getBalance();
-<<<<<<< HEAD
-    QString balanceComparison = DigiByteUnits::formatWithUnit(unit, balance, false, DigiByteUnits::separatorAlways);
-=======
     QString balanceComparison = DigiByteUnits::formatWithUnit(unit, balance, false, DigiByteUnits::SeparatorStyle::ALWAYS);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     QCOMPARE(balanceText, balanceComparison);
 
     // Check Request Payment button
@@ -247,17 +228,6 @@ void TestGUI(interfaces::Node& node)
     for (QWidget* widget : QApplication::topLevelWidgets()) {
         if (widget->inherits("ReceiveRequestDialog")) {
             ReceiveRequestDialog* receiveRequestDialog = qobject_cast<ReceiveRequestDialog*>(widget);
-<<<<<<< HEAD
-            QTextEdit* rlist = receiveRequestDialog->QObject::findChild<QTextEdit*>("outUri");
-            QString paymentText = rlist->toPlainText();
-            QStringList paymentTextList = paymentText.split('\n');
-            QCOMPARE(paymentTextList.at(0), QString("Payment information"));
-            QVERIFY(paymentTextList.at(1).indexOf(QString("URI: digibyte:")) != -1);
-            QVERIFY(paymentTextList.at(2).indexOf(QString("Address:")) != -1);
-            QCOMPARE(paymentTextList.at(3), QString("Amount: 0.00000001 ") + QString::fromStdString(CURRENCY_UNIT));
-            QCOMPARE(paymentTextList.at(4), QString("Label: TEST_LABEL_1"));
-            QCOMPARE(paymentTextList.at(5), QString("Message: TEST_MESSAGE_1"));
-=======
             QCOMPARE(receiveRequestDialog->QObject::findChild<QLabel*>("payment_header")->text(), QString("Payment information"));
             QCOMPARE(receiveRequestDialog->QObject::findChild<QLabel*>("uri_tag")->text(), QString("URI:"));
             QString uri = receiveRequestDialog->QObject::findChild<QLabel*>("uri_content")->text();
@@ -275,7 +245,6 @@ void TestGUI(interfaces::Node& node)
             QCOMPARE(uri.count("message=TEST_MESSAGE_1"), 2);
             QCOMPARE(receiveRequestDialog->QObject::findChild<QLabel*>("message_tag")->text(), QString("Message:"));
             QCOMPARE(receiveRequestDialog->QObject::findChild<QLabel*>("message_content")->text(), QString("TEST_MESSAGE_1"));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
     }
 
@@ -309,17 +278,9 @@ void WalletTests::walletTests()
         // and fails to handle returned nulls
         // (https://bugreports.qt.io/browse/QTBUG-49686).
         QWARN("Skipping WalletTests on mac build with 'minimal' platform set due to Qt bugs. To run AppTests, invoke "
-<<<<<<< HEAD
-              "with 'test_digibyte-qt -platform cocoa' on mac, or else use a linux or windows build.");
-        return;
-    }
-#endif
-    TestGUI();
-=======
               "with 'QT_QPA_PLATFORM=cocoa test_digibyte-qt' on mac, or else use a linux or windows build.");
         return;
     }
 #endif
     TestGUI(m_node);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }

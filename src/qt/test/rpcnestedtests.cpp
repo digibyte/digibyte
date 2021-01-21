@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
-=======
 // Copyright (c) 2016-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,20 +7,8 @@
 #include <interfaces/node.h>
 #include <rpc/server.h>
 #include <qt/rpcconsole.h>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/setup_common.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
-#include <univalue.h>
-#include <util/system.h>
-
-#include <QDir>
-#include <QtGlobal>
-
-static UniValue rpcNestedTest_rpc(const JSONRPCRequest& request)
 {
-    if (request.fHelp) {
         return "help message";
     }
     return request.params.write(0, 0);

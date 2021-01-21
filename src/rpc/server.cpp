@@ -1,9 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-<<<<<<< HEAD
-// Copyright (c) 2009-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -171,17 +167,6 @@ static RPCHelpMan stop()
                 RPCExamples{""},
         [&](const RPCHelpMan& self, const JSONRPCRequest& jsonRequest) -> UniValue
 {
-<<<<<<< HEAD
-    // Accept the deprecated and ignored 'detach' boolean argument
-    if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
-        throw std::runtime_error(
-            "stop\n"
-            "\nStop DigiByte server.");
-    // Event loop will exit after current HTTP requests have been handled, so
-    // this reply will get back to the client.
-    StartShutdown();
-    return "DigiByte server stopping";
-=======
     // Event loop will exit after current HTTP requests have been handled, so
     // this reply will get back to the client.
     StartShutdown();
@@ -191,7 +176,6 @@ static RPCHelpMan stop()
     return RESULT;
 },
     };
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 static RPCHelpMan uptime()
@@ -495,20 +479,6 @@ std::vector<std::string> CRPCTable::listCommands() const
     return commandList;
 }
 
-<<<<<<< HEAD
-std::string HelpExampleCli(const std::string& methodname, const std::string& args)
-{
-    return "> digibyte-cli " + methodname + " " + args + "\n";
-}
-
-std::string HelpExampleRpc(const std::string& methodname, const std::string& args)
-{
-    return "> curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", "
-        "\"method\": \"" + methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:14022/\n";
-}
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 void RPCSetTimerInterfaceIfUnset(RPCTimerInterface *iface)
 {
     if (!timerInterface)

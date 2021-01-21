@@ -4,11 +4,7 @@
 
 #include <qt/test/addressbooktests.h>
 #include <qt/test/util.h>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/setup_common.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 #include <interfaces/chain.h>
 #include <interfaces/node.h>
@@ -157,17 +153,9 @@ void AddressBookTests::addressBookTests()
         // and fails to handle returned nulls
         // (https://bugreports.qt.io/browse/QTBUG-49686).
         QWARN("Skipping AddressBookTests on mac build with 'minimal' platform set due to Qt bugs. To run AppTests, invoke "
-<<<<<<< HEAD
-              "with 'test_digibyte-qt -platform cocoa' on mac, or else use a linux or windows build.");
-        return;
-    }
-#endif
-    TestAddAddressesToSendBook();
-=======
               "with 'QT_QPA_PLATFORM=cocoa test_digibyte-qt' on mac, or else use a linux or windows build.");
         return;
     }
 #endif
     TestAddAddressesToSendBook(m_node);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }

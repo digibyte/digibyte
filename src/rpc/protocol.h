@@ -1,26 +1,10 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-<<<<<<< HEAD
-// Copyright (c) 2009-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2009-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_RPC_PROTOCOL_H
 #define DIGIBYTE_RPC_PROTOCOL_H
-<<<<<<< HEAD
-
-#include <fs.h>
-
-#include <list>
-#include <map>
-#include <stdint.h>
-#include <string>
-
-#include <univalue.h>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 //! HTTP status codes
 enum HTTPStatusCode
@@ -102,21 +86,4 @@ enum RPCErrorCode
     RPC_FORBIDDEN_BY_SAFE_MODE      = -2,  //!< Server is in safe mode, and command is not allowed in safe mode
 };
 
-<<<<<<< HEAD
-UniValue JSONRPCRequestObj(const std::string& strMethod, const UniValue& params, const UniValue& id);
-UniValue JSONRPCReplyObj(const UniValue& result, const UniValue& error, const UniValue& id);
-std::string JSONRPCReply(const UniValue& result, const UniValue& error, const UniValue& id);
-UniValue JSONRPCError(int code, const std::string& message);
-
-/** Generate a new RPC authentication cookie and write it to disk */
-bool GenerateAuthCookie(std::string *cookie_out);
-/** Read the RPC authentication cookie from disk */
-bool GetAuthCookie(std::string *cookie_out);
-/** Delete RPC authentication cookie from disk */
-void DeleteAuthCookie();
-/** Parse JSON-RPC batch reply into a vector */
-std::vector<UniValue> JSONRPCProcessBatchReply(const UniValue &in, size_t num);
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_RPC_PROTOCOL_H
