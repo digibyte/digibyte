@@ -30,11 +30,6 @@
 
   <key>CFBundleExecutable</key>
   <string>DigiByte-Qt</string>
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   <key>CFBundleName</key>
   <string>DigiByte-Qt</string>
 
@@ -42,11 +37,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-<<<<<<< HEAD
-  <string>io.digibyte.DigiByte-Qt</string>
-=======
   <string>org.digibytefoundation.DigiByte-Qt</string>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -54,52 +45,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-<<<<<<< HEAD
-      <string>io.digibyte.DigiBytePayment</string>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>digibyte</string>
-      </array>
-    </dict>
-  </array>
-
-  <key>UTExportedTypeDeclarations</key>
-  <array>
-    <dict>
-      <key>UTTypeIdentifier</key>
-      <string>io.digibyte.paymentrequest</string>
-      <key>UTTypeDescription</key>
-      <string>DigiByte payment request</string>
-      <key>UTTypeConformsTo</key>
-      <array>
-        <string>public.data</string>
-      </array>
-      <key>UTTypeTagSpecification</key>
-      <dict>
-        <key>public.mime-type</key>
-        <string>application/x-digibyte-payment-request</string>
-        <key>public.filename-extension</key>
-        <array>
-          <string>digibytepaymentrequest</string>
-        </array>
-      </dict>
-    </dict>
-  </array>
-
-  <key>CFBundleDocumentTypes</key>
-  <array>
-    <dict>
-      <key>CFBundleTypeRole</key>
-      <string>Editor</string>
-      <key>LSItemContentTypes</key>
-      <array>
-        <string>io.digibyte.paymentrequest</string>
-=======
       <string>org.digibyte.DigiBytePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>digibyte</string>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
       </array>
     </dict>
   </array>
@@ -113,12 +62,6 @@
   <key>NSRequiresAquaSystemAppearance</key>
     <string>True</string>
 
-<<<<<<< HEAD
-  <key>NSRequiresAquaSystemAppearance</key>
-    <string>True</string>
-  
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   <key>LSApplicationCategoryType</key>
     <string>public.app-category.finance</string>
 </dict>

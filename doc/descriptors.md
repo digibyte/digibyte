@@ -1,13 +1,5 @@
 # Support for Output Descriptors in DigiByte Core
 
-<<<<<<< HEAD
-Since DigiByte Core v0.17, there is support for Output Descriptors in the
-`scantxoutset` RPC call. This is a simple language which can be used to
-describe collections of output scripts.
-
-This document describes the language. For the specifics on usage for scanning
-the UTXO set, see the `scantxoutset` RPC help.
-=======
 Since DigiByte Core v0.17, there is support for Output Descriptors. This is a
 simple language which can be used to describe collections of output scripts.
 Supporting RPCs are:
@@ -29,7 +21,6 @@ Supporting RPCs are:
 
 This document describes the language. For the specifics on usage, see the RPC
 documentation for the functions mentioned above.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ## Features
 
@@ -40,10 +31,7 @@ Output descriptors currently support:
 - Pay-to-script-hash scripts (P2SH), through the `sh` function.
 - Pay-to-witness-script-hash scripts (P2WSH), through the `wsh` function.
 - Multisig scripts, through the `multi` function.
-<<<<<<< HEAD
-=======
 - Multisig scripts where the public keys are sorted lexicographically, through the `sortedmulti` function.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 - Any type of supported address through the `addr` function.
 - Raw hex scripts through the `raw` function.
 - Public keys (compressed and uncompressed) in hex notation, or BIP32 extended pubkeys with derivation paths.
@@ -58,21 +46,11 @@ Output descriptors currently support:
 - `sh(wsh(pkh(02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13)))` describes an (overly complicated) P2SH-P2WSH-P2PKH output with the specified public key.
 - `multi(1,022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4,025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc)` describes a bare *1-of-2* multisig output with keys in the specified order.
 - `sh(multi(2,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe))` describes a P2SH *2-of-2* multisig output with keys in the specified order.
-<<<<<<< HEAD
-=======
 - `sh(sortedmulti(2,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01))` describes a P2SH *2-of-2* multisig output with keys sorted lexicographically in the resulting redeemScript.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 - `wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))` describes a P2WSH *2-of-3* multisig output with keys in the specified order.
 - `sh(wsh(multi(1,03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8,03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4,02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e)))` describes a P2SH-P2WSH *1-of-3* multisig output with keys in the specified order.
 - `pk(xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8)` describes a P2PK output with the public key of the specified xpub.
 - `pkh(xpub68Gmy5EdvgibQVfPdqkBBCHxA5htiqg55crXYuXoQRKfDBFA1WEjWgP6LHhwBZeNK1VTsfTFUHCdrfp1bgwQ9xv5ski8PX9rL2dZXvgGDnw/1'/2)` describes a P2PKH output with child key *1'/2* of the specified xpub.
-<<<<<<< HEAD
-- `wsh(multi(1,xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB/1/0/*,xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*))` describes a set of *1-of-2* P2WSH multisig outputs where the first multisig key is the *1/0/`i`* child of the first specified xpub and the second multisig key is the *0/0/`i`* child of the second specified xpub, and `i` is any number in a configurable range (`0-1000` by default).
-
-## Reference
-
-Descriptors consist of several types of expressions. The top level expression is always a `SCRIPT`.
-=======
 - `pkh([d34db33f/44'/0'/0']xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)` describes a set of P2PKH outputs, but additionally specifies that the specified xpub is a child of a master with fingerprint `d34db33f`, and derived using path `44'/0'/0'`.
 - `wsh(multi(1,xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB/1/0/*,xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*))` describes a set of *1-of-2* P2WSH multisig outputs where the first multisig key is the *1/0/`i`* child of the first specified xpub and the second multisig key is the *0/0/`i`* child of the second specified xpub, and `i` is any number in a configurable range (`0-1000` by default).
 - `wsh(sortedmulti(1,xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB/1/0/*,xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*))` describes a set of *1-of-2* P2WSH multisig outputs where one multisig key is the *1/0/`i`* child of the first specified xpub and the other multisig key is the *0/0/`i`* child of the second specified xpub, and `i` is any number in a configurable range (`0-1000` by default). The order of public keys in the resulting witnessScripts is determined by the lexicographic order of the public keys at that index.
@@ -80,7 +58,6 @@ Descriptors consist of several types of expressions. The top level expression is
 ## Reference
 
 Descriptors consist of several types of expressions. The top level expression is either a `SCRIPT`, or `SCRIPT#CHECKSUM` where `CHECKSUM` is an 8-character alphanumeric descriptor checksum.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 `SCRIPT` expressions:
 - `sh(SCRIPT)` (top level only): P2SH embed the argument.
@@ -90,29 +67,11 @@ Descriptors consist of several types of expressions. The top level expression is
 - `wpkh(KEY)` (not inside `wsh`): P2WPKH output for the given compressed pubkey.
 - `combo(KEY)` (top level only): an alias for the collection of `pk(KEY)` and `pkh(KEY)`. If the key is compressed, it also includes `wpkh(KEY)` and `sh(wpkh(KEY))`.
 - `multi(k,KEY_1,KEY_2,...,KEY_n)` (anywhere): k-of-n multisig script.
-<<<<<<< HEAD
-=======
 - `sortedmulti(k,KEY_1,KEY_2,...,KEY_n)` (anywhere): k-of-n multisig script with keys sorted lexicographically in the resulting script.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 - `addr(ADDR)` (top level only): the script which ADDR expands to.
 - `raw(HEX)` (top level only): the script whose hex encoding is HEX.
 
 `KEY` expressions:
-<<<<<<< HEAD
-- Hex encoded public keys (66 characters starting with `02` or `03`, or 130 characters starting with `04`).
-  - Inside `wpkh` and `wsh`, only compressed public keys are permitted.
-- [WIF](https://en.digibyte.it/wiki/Wallet_import_format) encoded private keys may be specified instead of the corresponding public key, with the same meaning.
--`xpub` encoded extended public key or `xprv` encoded private key (as defined in [BIP 32](https://github.com/digibyte/bips/blob/master/bip-0032.mediawiki)).
-  - Followed by zero or more `/NUM` unhardened and `/NUM'` hardened BIP32 derivation steps.
-  - Optionally followed by a single `/*` or `/*'` final step to denote all (direct) unhardened or hardened children.
-  - The usage of hardened derivation steps requires providing the private key.
-  - Instead of a `'`, the suffix `h` can be used to denote hardened derivation.
-
-`ADDR` expressions are any type of supported address:
-- P2PKH addresses (base58, of the form `1...`). Note that P2PKH addresses in descriptors cannot be used for P2PK outputs (use the `pk` function instead).
-- P2SH addresses (base58, of the form `3...`, defined in [BIP 13](https://github.com/digibyte/bips/blob/master/bip-0013.mediawiki)).
-- Segwit addresses (bech32, of the form `bc1...`, defined in [BIP 173](https://github.com/digibyte/bips/blob/master/bip-0173.mediawiki)).
-=======
 - Optionally, key origin information, consisting of:
   - An open bracket `[`
   - Exactly 8 hex characters for the fingerprint of the key where the derivation starts (see BIP32 for details)
@@ -133,7 +92,6 @@ Descriptors consist of several types of expressions. The top level expression is
 - P2PKH addresses (base58, of the form `1...` for mainnet or `[nm]...` for testnet). Note that P2PKH addresses in descriptors cannot be used for P2PK outputs (use the `pk` function instead).
 - P2SH addresses (base58, of the form `3...` for mainnet or `2...` for testnet, defined in [BIP 13](https://github.com/digibyte/bips/blob/master/bip-0013.mediawiki)).
 - Segwit addresses (bech32, of the form `bc1...` for mainnet or `tb1...` for testnet, defined in [BIP 173](https://github.com/digibyte/bips/blob/master/bip-0173.mediawiki)).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ## Explanation
 
@@ -145,16 +103,9 @@ imaginable, though they may not be optimal: P2SH-P2PK, P2SH-P2PKH,
 P2WSH-P2PK, P2WSH-P2PKH, P2SH-P2WSH-P2PK, P2SH-P2WSH-P2PKH.
 
 To describe these, we model these as functions. The functions `pk`
-<<<<<<< HEAD
-(P2PK), `pkh` (P2PKH) and `wpkh` (P2WPKH) take as input a public key in
-hexadecimal notation (which will be extended later), and return the
-corresponding *scriptPubKey*. The functions `sh` (P2SH) and `wsh` (P2WSH)
-take as input a script, and return the script describing P2SH and P2WSH
-=======
 (P2PK), `pkh` (P2PKH) and `wpkh` (P2WPKH) take as input a `KEY` expression, and return the
 corresponding *scriptPubKey*. The functions `sh` (P2SH) and `wsh` (P2WSH)
 take as input a `SCRIPT` expression, and return the script describing P2SH and P2WSH
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 outputs with the input as embedded script. The names of the functions do
 not contain "p2" for brevity.
 
@@ -162,20 +113,12 @@ not contain "p2" for brevity.
 
 Several pieces of software use multi-signature (multisig) scripts based
 on DigiByte's OP_CHECKMULTISIG opcode. To support these, we introduce the
-<<<<<<< HEAD
-`multi(k,key_1,key_2,...,key_n)` function. It represents a *k-of-n*
-multisig policy, where any *k* out of the *n* provided public keys must
-sign.
-
-Key order is significant. A `multi()` expression describes a multisig script
-=======
 `multi(k,key_1,key_2,...,key_n)` and `sortedmulti(k,key_1,key_2,...,key_n)`
 functions. They represent a *k-of-n*
 multisig policy, where any *k* out of the *n* provided `KEY` expressions must
 sign.
 
 Key order is significant for `multi()`. A `multi()` expression describes a multisig script
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 with keys in the specified order, and in a search for TXOs, it will not match
 outputs with multisig scriptPubKeys that have the same keys in a different
 order. Also, to prevent a combinatorial explosion of the search space, if more
@@ -184,13 +127,10 @@ or `*'`, the `multi()` expression only matches multisig scripts with the `i`th
 child key from each wildcard path in lockstep, rather than scripts with any
 combination of child keys from each wildcard path.
 
-<<<<<<< HEAD
-=======
 Key order does not matter for `sortedmulti()`. `sortedmulti()` behaves in the same way
 as `multi()` does but the keys are reordered in the resulting script such that they
 are lexicographically ordered as described in BIP67.
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 ### BIP32 derived keys and chains
 
 Most modern wallet software and hardware uses keys that are derived using
@@ -207,8 +147,6 @@ Whenever a public key is described using a hardened derivation step, the
 script cannot be computed without access to the corresponding private
 key.
 
-<<<<<<< HEAD
-=======
 ### Key origin identification
 
 In order to describe scripts whose signing keys reside on another device,
@@ -240,7 +178,6 @@ Note that the fingerprint of the parent only serves as a fast way to detect
 parent and child nodes in software, and software must be willing to deal with
 collisions.
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 ### Including private keys
 
 Often it is useful to communicate a description of scripts along with the
@@ -255,9 +192,6 @@ In order to easily represent the sets of scripts currently supported by
 existing DigiByte Core wallets, a convenience function `combo` is
 provided, which takes as input a public key, and describes a set of P2PK,
 P2PKH, P2WPKH, and P2SH-P2WPH scripts for that key. In case the key is
-<<<<<<< HEAD
-uncompressed, the set only includes P2PK and P2PKH scripts.
-=======
 uncompressed, the set only includes P2PK and P2PKH scripts.
 
 ### Checksums
@@ -276,4 +210,3 @@ All RPCs in DigiByte Core will include the checksum in their output. Only
 certain RPCs require checksums on input, including `deriveaddress` and
 `importmulti`. The checksum for a descriptor without one can be computed
 using the `getdescriptorinfo` RPC.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25

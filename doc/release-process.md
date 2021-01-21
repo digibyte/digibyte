@@ -3,17 +3,11 @@ Release Process
 
 ## Branch updates
 
-<<<<<<< HEAD
-* Update translations (ping wumpus on IRC) see [translation_process.md](https://github.com/digibyte/digibyte/blob/master/doc/translation_process.md#synchronising-translations).
-
-* Update manpages, see [gen-manpages.sh](https://github.com/digibyte/digibyte/blob/master/contrib/devtools/README.md#gen-manpagessh).
-=======
 ### Before every release candidate
 
 * Update translations (ping wumpus on IRC) see [translation_process.md](https://github.com/digibyte/digibyte/blob/master/doc/translation_process.md#synchronising-translations).
 * Update manpages, see [gen-manpages.sh](https://github.com/digibyte/digibyte/blob/master/contrib/devtools/README.md#gen-manpagessh).
 * Update release candidate version in `configure.ac` (`CLIENT_VERSION_RC`).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ### Before every major and minor release
 
@@ -54,19 +48,11 @@ Release Process
 
 #### Before final release
 
-<<<<<<< HEAD
-* Update hardcoded [seeds](/contrib/seeds/README.md), see [this pull request](https://github.com/digibyte/digibyte/pull/7415) for an example.
-* Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
-* Update `src/chainparams.cpp` chainTxData with statistics about the transaction count and rate. Use the output of the RPC `getchaintxstats`, see
-  [this pull request](https://github.com/digibyte/digibyte/pull/12270) for an example. Reviewers can verify the results by running `getchaintxstats <window_block_count> <window_last_block_hash>` with the `window_block_count` and `window_last_block_hash` from your output.
-* Update version of `contrib/gitian-descriptors/*.yml`: usually one'd want to do this on master after branching off the release - but be sure to at least do it before a new major release
-=======
 - Merge the release notes from the wiki into the branch.
 - Ensure the "Needs release note" label is removed from all relevant pull requests and issues.
 
 
 ## Building
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ### First time / New builders
 
@@ -79,17 +65,12 @@ Check out the source code in the following directory hierarchy.
     git clone https://github.com/digibyte-core/digibyte-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     git clone https://github.com/digibyte/digibyte.git
-<<<<<<< HEAD
-
-### DigiByte maintainers/release engineers, suggestion for writing release notes
-=======
 
 ### Write the release notes
 
 Open a draft of the release notes for collaborative editing at https://github.com/digibyte-core/digibyte-devwiki/wiki.
 
 For the period during which the notes are being edited on the wiki, the version on the branch should be wiped and replaced with a link to the wiki which should be used for all announcements until `-final`.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Write the release notes. `git shortlog` helps a lot, for example:
 
@@ -135,13 +116,8 @@ Ensure gitian-builder is up-to-date:
 
     pushd ./gitian-builder
     mkdir -p inputs
-<<<<<<< HEAD
-    wget -P inputs https://digibytecore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
-    wget -P inputs http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
-=======
     wget -O inputs/osslsigncode-2.0.tar.gz https://github.com/mtrojnar/osslsigncode/archive/2.0.tar.gz
     echo '5a60e0a4b3e0b4d655317b2f12a810211c50242138322b16e7e01c6fbb89d92f inputs/osslsigncode-2.0.tar.gz' | sha256sum -c
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     popd
 
 Create the macOS SDK tarball, see the [macdeploy instructions](/contrib/macdeploy/README.md#deterministic-macos-dmg-notes) for details, and copy it into the inputs directory.
@@ -268,10 +244,6 @@ Create (and optionally verify) the signed Windows binaries:
     ./bin/gsign --signer "$SIGNER" --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../digibyte/contrib/gitian-descriptors/gitian-win-signer.yml
     ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-signed ../digibyte/contrib/gitian-descriptors/gitian-win-signer.yml
     mv build/out/digibyte-*win64-setup.exe ../digibyte-${VERSION}-win64-setup.exe
-<<<<<<< HEAD
-    mv build/out/digibyte-*win32-setup.exe ../digibyte-${VERSION}-win32-setup.exe
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     popd
 
 Commit your signature for the signed macOS/Windows binaries:
@@ -295,20 +267,11 @@ The list of files should be:
 ```
 digibyte-${VERSION}-aarch64-linux-gnu.tar.gz
 digibyte-${VERSION}-arm-linux-gnueabihf.tar.gz
-<<<<<<< HEAD
-digibyte-${VERSION}-i686-pc-linux-gnu.tar.gz
-=======
 digibyte-${VERSION}-riscv64-linux-gnu.tar.gz
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 digibyte-${VERSION}-x86_64-linux-gnu.tar.gz
 digibyte-${VERSION}-osx64.tar.gz
 digibyte-${VERSION}-osx.dmg
 digibyte-${VERSION}.tar.gz
-<<<<<<< HEAD
-digibyte-${VERSION}-win32-setup.exe
-digibyte-${VERSION}-win32.zip
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 digibyte-${VERSION}-win64-setup.exe
 digibyte-${VERSION}-win64.zip
 ```
@@ -340,11 +303,7 @@ digibyte.org (see below for digibyte.org update instructions).
 
 - Update digibyte.org version
 
-<<<<<<< HEAD
-  - First, check to see if the DigiByte.io maintainers have prepared a
-=======
   - First, check to see if the DigiByte.org maintainers have prepared a
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     release: https://github.com/digibyte-dot-org/digibyte.org/labels/Core
 
       - If they have, it will have previously failed their Travis CI
@@ -364,19 +323,6 @@ digibyte.org (see below for digibyte.org update instructions).
   - digibytecore.org maintained versions update:
     [table](https://github.com/digibyte-core/digibytecore.org/commits/master/_includes/posts/maintenance-table.md)
 
-<<<<<<< HEAD
-  - digibyte-dev and digibyte-core-dev mailing list
-
-  - DigiByte Core announcements list https://digibytecore.org/en/list/announcements/join/
-
-  - digibytecore.org blog post
-
-  - Update title of #digibyte on Freenode IRC
-
-  - Optionally twitter, reddit /r/DigiByte, ... but this will usually sort out itself
-
-  - Notify BlueMatt so that he can start building [the PPAs](https://launchpad.net/~digibyte/+archive/ubuntu/digibyte)
-=======
   - digibytecore.org RPC documentation update
 
   - Update packaging repo
@@ -389,7 +335,6 @@ digibyte.org (see below for digibyte.org update instructions).
         track (if applicable), e.g. https://forum.snapcraft.io/t/track-request-for-digibyte-core-snap/10112/7
 
       - Notify MarcoFalke so that he can start building the snap package
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         - https://code.launchpad.net/~digibyte-core/digibyte-core-snap/+git/packaging (Click "Import Now" to fetch the branch)
         - https://code.launchpad.net/~digibyte-core/digibyte-core-snap/+git/packaging/+ref/0.xx (Click "Create snap package")
@@ -405,9 +350,6 @@ digibyte.org (see below for digibyte.org update instructions).
         - Click "Request builds" for every new release on this branch (after updating the snapcraft.yml in the branch to reflect the latest gitian results)
         - Promote release on https://snapcraft.io/digibyte-core/releases if it passes sanity checks
 
-<<<<<<< HEAD
-  - Create a [new GitHub release](https://github.com/digibyte/digibyte/releases/new) with a link to the archived release notes.
-=======
   - This repo
 
       - Archive the release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
@@ -423,7 +365,6 @@ digibyte.org (see below for digibyte.org update instructions).
   - Update title of #digibyte on Freenode IRC
 
   - Optionally twitter, reddit /r/DigiByte, ... but this will usually sort out itself
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
   - Celebrate
 

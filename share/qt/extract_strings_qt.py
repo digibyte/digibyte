@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
-# Copyright (c) 2012-2018 The DigiByte Core developers
-=======
 # Copyright (c) 2012-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 '''
@@ -80,14 +76,7 @@ f.write("""
 #endif
 """)
 f.write('static const char UNUSED *digibyte_strings[] = {\n')
-<<<<<<< HEAD
-f.write('QT_TRANSLATE_NOOP("digibyte-core", "%s"),\n' % (os.getenv('PACKAGE_NAME'),))
 f.write('QT_TRANSLATE_NOOP("digibyte-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS'),))
-if os.getenv('COPYRIGHT_HOLDERS_SUBSTITUTION') != os.getenv('PACKAGE_NAME'):
-    f.write('QT_TRANSLATE_NOOP("digibyte-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS_SUBSTITUTION'),))
-=======
-f.write('QT_TRANSLATE_NOOP("digibyte-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS'),))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 messages.sort(key=operator.itemgetter(0))
 for (msgid, msgstr) in messages:
     if msgid != EMPTY:

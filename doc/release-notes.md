@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-DigiByte Core version 0.17.1 is now available from:
-
-  <https://digibytecore.org/bin/digibyte-core-0.17.1/>
-=======
 0.21.1 Release Notes
 ====================
 
-DigiByte Core version 0.21.1 is now available from:
+DigiByte Core version 8.21.1 is now available from:
 
   <https://digibytecore.org/bin/digibyte-core-0.21.1/>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 This minor release includes various bug fixes and performance
 improvements, as well as updated translations.
@@ -265,31 +259,6 @@ Since the changes in 0.12 to automatically limit the size of the mempool and imp
 The `-minrelaytxfee` option continues to exist but is recommended to be left unset.
 =======
 If you are running an older version, shut it down. Wait until it has completely
-<<<<<<< HEAD
-shut down (which might take a few minutes for older versions), then run the
-installer (on Windows) or just copy over `/Applications/DigiByte-Qt` (on Mac)
-or `digibyted`/`digibyte-qt` (on Linux).
-
-If your node has a txindex, the txindex db will be migrated the first time you run 0.17.0 or newer, which may take up to a few hours. Your node will not be functional until this migration completes.
-
-The first time you run version 0.15.0 or newer, your chainstate database will be converted to a
-new format, which will take anywhere from a few minutes to half an hour,
-depending on the speed of your machine.
-
-Note that the block database format also changed in version 0.8.0 and there is no
-automatic upgrade code from before version 0.8 to version 0.15.0 or higher. Upgrading
-directly from 0.7.x and earlier without re-downloading the blockchain is not supported.
-However, as usual, old wallet versions are still supported.
-
-Downgrading warning
--------------------
-
-Wallets created in 0.16 and later are not compatible with versions prior to 0.16
-and will not work if you try to use newly created wallets in older versions. Existing
-wallets that were created with older versions are not affected by this.
-
-Compatibility
-==============
 DigiByte Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 =======
@@ -409,28 +378,10 @@ unsupported systems.
 From DigiByte Core 0.20.0 onwards, macOS versions earlier than 10.12 are no
 longer supported. Additionally, DigiByte Core does not yet change appearance
 when macOS "dark mode" is activated.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Notable changes
 ===============
 
-<<<<<<< HEAD
-
-GUI changes
------------
-
-- Block storage can be limited under Preferences, in the Main tab. Undoing this setting requires downloading the full blockchain again. This mode is incompatible with -txindex and -rescan.
-
-RPC changes
-------------
-
-Example item for a notable change.
-
-0.16.x change log
-------------------
-
-(to be filled in at release time)
-=======
 RPC changes
 ------------
 
@@ -511,15 +462,11 @@ Miner block size removed
 =======
 RPC
 ---
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 
 0.21.1 change log
 =================
 
-<<<<<<< HEAD
-Support for Python 2 has been discontinued for all test files and tools.
-=======
 `listtransactions` label support
 --------------------------------
 
@@ -590,7 +537,6 @@ confusion.
 ### Documentation
 - #14161 `5f51fd6` doc/descriptors.md tweaks (ryanofsky)
 - #14276 `85aacc4` Add autogen.sh in ARM Cross-compilation (walterwhite81)
->>>>>>> 0.17
 =======
 >>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
@@ -599,11 +545,7 @@ Credits
 
 Thanks to everyone who directly contributed to this release:
 
-<<<<<<< HEAD
-(todo)
-=======
 (to be filled in at release time)
->>>>>>> ea2e39fd2004e83375c1703543e32a10e3b9d981
 =======
 - Andrew Chow
 - Chun Kuan Lee

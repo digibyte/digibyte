@@ -24,11 +24,6 @@ pkg install python3
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
-<<<<<<< HEAD
-Download the source code:
-```
-git clone https://github.com/digibyte/digibyte
-=======
 ### Building BerkeleyDB
 
 BerkeleyDB is only necessary for the wallet functionality. To skip this, pass
@@ -37,7 +32,6 @@ BerkeleyDB is only necessary for the wallet functionality. To skip this, pass
 ```bash
 ./contrib/install_db4.sh `pwd`
 export BDB_PREFIX="$PWD/db4"
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 ```
 
 ## Building DigiByte Core

@@ -1,24 +1,11 @@
-<<<<<<< HEAD
-
-Setup
----------------------
-DigiByte Core is the original DigiByte client and it builds the backbone of the network. However, it downloads and stores the entire history of DigiByte transactions (which is currently several GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 DigiByte Core
 =============
 
 Setup
 ---------------------
-<<<<<<< HEAD
-DigiByte Core is the original DigiByte client and it builds the backbone of the network. It downloads and, by default, stores the entire history of DigiByte transactions (which is currently more than 100 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
-
-To download DigiByte Core, visit [digibytecore.org](https://digibytecore.org/en/releases/).
-=======
 DigiByte Core is the original DigiByte client and it builds the backbone of the network. It downloads and, by default, stores the entire history of DigiByte transactions, which requires a few hundred gigabytes of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
 To download DigiByte Core, visit [digibytecore.org](https://digibytecore.org/en/download/).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Running
 ---------------------
@@ -43,11 +30,7 @@ Drag DigiByte Core to your applications folder, and then run DigiByte Core.
 
 * See the documentation at the [DigiByte Wiki](https://en.digibyte.it/wiki/Main_Page)
 for help and more information.
-<<<<<<< HEAD
-* Ask for help on [#digibyte](http://webchat.freenode.net?channels=digibyte) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=digibyte).
-=======
 * Ask for help on [#digibyte](https://webchat.freenode.net/#digibyte) on Freenode. If you don't have an IRC client, use [webchat here](https://webchat.freenode.net/#digibyte).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 * Ask for help on the [DigiByteTalk](https://digibytetalk.org/) forums, in the [Technical Support board](https://digibytetalk.org/index.php?board=4.0).
 
 Building
@@ -71,11 +54,7 @@ The DigiByte repo's [root README](/README.md) contains relevant information on t
 - [Productivity Notes](productivity.md)
 - [Release Notes](release-notes.md)
 - [Release Process](release-process.md)
-<<<<<<< HEAD
-- [Source Code Documentation (External Link)](https://dev.visucore.com/digibyte/doxygen/)
-=======
 - [Source Code Documentation (External Link)](https://doxygen.digibytecore.org/)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [JSON-RPC Interface](JSON-RPC-interface.md)
@@ -87,13 +66,8 @@ The DigiByte repo's [root README](/README.md) contains relevant information on t
 
 ### Resources
 * Discuss on the [DigiByteTalk](https://digibytetalk.org/) forums, in the [Development & Technical Discussion board](https://digibytetalk.org/index.php?board=6.0).
-<<<<<<< HEAD
-* Discuss project-specific development on #digibyte-core-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=digibyte-core-dev).
-* Discuss general DigiByte development on #digibyte-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=digibyte-dev).
-=======
 * Discuss project-specific development on #digibyte-core-dev on Freenode. If you don't have an IRC client, use [webchat here](https://webchat.freenode.net/#digibyte-core-dev).
 * Discuss general DigiByte development on #digibyte-dev on Freenode. If you don't have an IRC client, use [webchat here](https://webchat.freenode.net/#digibyte-dev).
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

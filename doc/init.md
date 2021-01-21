@@ -20,15 +20,9 @@ The macOS configuration assumes digibyted will be set up for the current user.
 Configuration
 ---------------------------------
 
-<<<<<<< HEAD
-At a bare minimum, digibyted requires that the rpcpassword setting be set
-when running as a daemon.  If the configuration file does not exist or this
-setting is not set, digibyted will shutdown promptly after startup.
-=======
 Running digibyted as a daemon does not require any manual configuration. You may
 set the `rpcauth` setting in the `digibyte.conf` configuration file to override
 the default behaviour of using a special cookie for authentication.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 This password does not have to be remembered or typed as it is mostly used
 as a fixed token that digibyted and client programs read from the configuration
@@ -59,26 +53,6 @@ Paths
 
 All three configurations assume several paths that might need to be adjusted.
 
-<<<<<<< HEAD
-Binary:              `/usr/bin/digibyted`  
-Configuration file:  `/etc/digibyte/digibyte.conf`  
-Data directory:      `/var/lib/digibyted`  
-PID file:            `/var/run/digibyted/digibyted.pid` (OpenRC and Upstart) or `/var/lib/digibyted/digibyted.pid` (systemd)  
-Lock file:           `/var/lock/subsys/digibyted` (CentOS)  
-
-The configuration file, PID directory (if applicable) and data directory
-should all be owned by the digibyte user and group.  It is advised for security
-reasons to make the configuration file and data directory only readable by the
-digibyte user and group.  Access to digibyte-cli and other digibyted rpc clients
-can then be controlled by group membership.
-
-### macOS
-
-Binary:              `/usr/local/bin/digibyted`  
-Configuration file:  `~/Library/Application Support/DigiByte/digibyte.conf`  
-Data directory:      `~/Library/Application Support/DigiByte`  
-Lock file:           `~/Library/Application Support/DigiByte/.lock`  
-=======
 Binary:              `/usr/bin/digibyted`
 Configuration file:  `/etc/digibyte/digibyte.conf`
 Data directory:      `/var/lib/digibyted`
@@ -113,7 +87,6 @@ Binary:              `/usr/local/bin/digibyted`
 Configuration file:  `~/Library/Application Support/DigiByte/digibyte.conf`
 Data directory:      `~/Library/Application Support/DigiByte`
 Lock file:           `~/Library/Application Support/DigiByte/.lock`
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Installing Service Configuration
 -----------------------------------

@@ -33,15 +33,10 @@ buffering or reassembly.
 
 ## Prerequisites
 
-<<<<<<< HEAD
-The ZeroMQ feature in DigiByte Core requires ZeroMQ API version 4.x or
-newer. Typically, it is packaged by distributions as something like
-=======
 The ZeroMQ feature in DigiByte Core requires the ZeroMQ API >= 4.0.0
 [libzmq](https://github.com/zeromq/libzmq/releases).
 For version information, see [dependencies.md](dependencies.md).
 Typically, it is packaged by distributions as something like
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 *libzmq3-dev*. The C++ wrapper for ZeroMQ is *not* needed.
 
 In order to run the example Python client scripts in the `contrib/zmq/`
@@ -88,13 +83,9 @@ The high water mark value must be an integer greater than or equal to 0.
 For instance:
 
     $ digibyted -zmqpubhashtx=tcp://127.0.0.1:28332 \
-<<<<<<< HEAD
-               -zmqpubrawtx=ipc:///tmp/digibyted.tx.raw
-=======
                -zmqpubhashtx=tcp://192.168.1.2:28332 \
                -zmqpubrawtx=ipc:///tmp/digibyted.tx.raw \
                -zmqpubhashtxhwm=10000
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Each PUB notification has a topic and body, where the header
 corresponds to the notification type. For instance, for the

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Fuzz-testing DigiByte Core
-==========================
 
 A special test harness `test_digibyte_fuzzy` is provided to provide an easy
 entry point for fuzzers and the like. In this document we'll describe how to
@@ -9,7 +6,6 @@ use it with AFL.
 # Fuzzing DigiByte Core using libFuzzer
 
 ## Quickstart guide
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 To quickly get started fuzzing DigiByte Core using [libFuzzer](https://llvm.org/docs/LibFuzzer.html):
 
@@ -27,15 +23,6 @@ $ src/test/fuzz/process_message
 
 ## Fuzzing harnesses, fuzzing output and fuzzing corpora
 
-<<<<<<< HEAD
-To build DigiByte Core using AFL instrumentation (this assumes that the
-`AFLPATH` was set as above):
-```
-./configure --disable-ccache --disable-shared --enable-tests CC=${AFLPATH}/afl-gcc CXX=${AFLPATH}/afl-g++
-export AFL_HARDEN=1
-cd src/
-make test/test_digibyte_fuzzy
-=======
 [`process_message`](https://github.com/digibyte/digibyte/blob/master/src/test/fuzz/process_message.cpp) is a fuzzing harness for the [`ProcessMessage(...)` function (`net_processing`)](https://github.com/digibyte/digibyte/blob/master/src/net_processing.cpp). The available fuzzing harnesses are found in [`src/test/fuzz/`](https://github.com/digibyte/digibyte/tree/master/src/test/fuzz).
 
 The fuzzer will output `NEW` every time it has created a test input that covers new areas of the code under test. For more information on how to interpret the fuzzer output, see the [libFuzzer documentation](https://llvm.org/docs/LibFuzzer.html).
@@ -78,19 +65,9 @@ a640312c98dcc55d6744730c33e41c5168c55f09 b135de16e4709558c0797c15f86046d31c5d86d
 c000f7b41b05139de8b63f4cbf7d1ad4c6e2aa7f fc52cc00ec1eb1c08470e69f809ae4993fa70082
 $ cat --show-nonprinting process_message-seeded-from-thin-air/349ac589fc66a09abc0b72bb4ae445a7a19e2cd8
 block^@M-^?M-^?M-^?M-^?M-^?nM-^?M-^?
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 ```
 
-<<<<<<< HEAD
-The fuzzing can be sped up significantly (~200x) by using `afl-clang-fast` and
-`afl-clang-fast++` in place of `afl-gcc` and `afl-g++` when compiling. When
-compiling using `afl-clang-fast`/`afl-clang-fast++` the resulting
-`test_digibyte_fuzzy` binary will be instrumented in such a way that the AFL
-features "persistent mode" and "deferred forkserver" can be used. See
-https://github.com/mcarpenter/afl/tree/master/llvm_mode for details.
-=======
 In this case the fuzzer managed to create a `block` message which when passed to `ProcessMessage(...)` increased coverage.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 The project's collection of seed corpora is found in the [`digibyte-core/qa-assets`](https://github.com/digibyte-core/qa-assets) repo.
 
@@ -136,12 +113,7 @@ Full configure that was tested on macOS Catalina with `brew` installed `llvm`:
 
 Read the [libFuzzer documentation](https://llvm.org/docs/LibFuzzer.html) for more information. This [libFuzzer tutorial](https://github.com/google/fuzzing/blob/master/tutorial/libFuzzerTutorial.md) might also be of interest.
 
-<<<<<<< HEAD
-- https://download.visucore.com/digibyte/digibyte_fuzzy_in.tar.xz
-- http://strateman.ninja/fuzzing.tar.xz
-=======
 # Fuzzing DigiByte Core using american fuzzy lop (`afl-fuzz`)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 ## Quickstart guide
 
@@ -166,9 +138,6 @@ $ afl/afl-fuzz -i inputs/ -o outputs/ -- src/test/fuzz/bech32
 # You may have to change a few kernel parameters to test optimally - afl-fuzz
 # will print an error and suggestion if so.
 ```
-<<<<<<< HEAD
-$AFLPATH/afl-fuzz -i ${AFLIN} -o ${AFLOUT} -m52 -- test/test_digibyte_fuzzy
-=======
 
 Read the [`afl-fuzz` documentation](https://github.com/google/afl) for more information.
 
@@ -190,7 +159,6 @@ $ CC=$(pwd)/honggfuzz/hfuzz_cc/hfuzz-clang CXX=$(pwd)/honggfuzz/hfuzz_cc/hfuzz-c
 $ make
 $ mkdir -p inputs/
 $ honggfuzz/honggfuzz -i inputs/ -- src/test/fuzz/process_message
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 ```
 
 Read the [Honggfuzz documentation](https://github.com/google/honggfuzz/blob/master/docs/USAGE.md) for more information.

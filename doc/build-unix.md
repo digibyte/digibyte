@@ -6,13 +6,8 @@ Some notes on how to build DigiByte Core in Unix.
 
 Note
 ---------------------
-<<<<<<< HEAD
-Always use absolute paths to configure and compile DigiByte Core and the dependencies,
-for example, when specifying the path of the dependency:
-=======
 Always use absolute paths to configure and compile DigiByte Core and the dependencies.
 For example, when specifying the path of the dependency:
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
 
@@ -29,11 +24,7 @@ make
 make install # optional
 ```
 
-<<<<<<< HEAD
-This will build digibyte-qt as well if the dependencies are met.
-=======
 This will build digibyte-qt as well, if the dependencies are met.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 Dependencies
 ---------------------
@@ -90,12 +81,7 @@ Build requirements:
 
 Now, you can either build from self-compiled [depends](/depends/README.md) or install the required dependencies:
 
-<<<<<<< HEAD
-**For Ubuntu only:** db4.8 packages are available [here](https://launchpad.net/~digibyte/+archive/digibyte).
-You can add the repository and install using the following commands:
-=======
     sudo apt-get install libevent-dev libboost-system-dev libboost-filesystem-dev libboost-test-dev libboost-thread-dev
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 BerkeleyDB is required for the wallet.
 
@@ -104,9 +90,6 @@ BerkeleyDB 5.1 or later. This will break binary wallet compatibility with the di
 are based on BerkeleyDB 4.8. If you do not care about wallet compatibility,
 pass `--with-incompatible-bdb` to configure.
 
-<<<<<<< HEAD
-See the section "Disable-wallet mode" to build DigiByte Core without wallet.
-=======
 Otherwise, you can build from self-compiled `depends` (see above).
 
 SQLite is required for the wallet:
@@ -114,7 +97,6 @@ SQLite is required for the wallet:
     sudo apt install libsqlite3-dev
 
 To build DigiByte Core without wallet, see [*Disable-wallet mode*](/doc/build-unix.md#disable-wallet-mode)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 
 Optional (see `--with-miniupnpc` and `--enable-upnp-default`):
@@ -243,12 +225,7 @@ Hardening enables the following features:
      TYPE
     ET_DYN
 
-<<<<<<< HEAD
-* Non-executable Stack
-    If the stack is executable then trivial stack-based buffer overflow exploits are possible if
-=======
 * _Non-executable Stack_: If the stack is executable then trivial stack-based buffer overflow exploits are possible if
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     vulnerable buffers are found. By default, DigiByte Core should be built with a non-executable stack,
     but if one of the libraries it uses asks for an executable stack or someone makes a mistake
     and uses a compiler extension which requires an executable stack, it will silently build an
