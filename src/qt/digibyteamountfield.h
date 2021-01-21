@@ -26,11 +26,7 @@ class DigiByteAmountField: public QWidget
     Q_PROPERTY(qint64 value READ value WRITE setValue NOTIFY valueChanged USER true)
 
 public:
-<<<<<<< HEAD:src/qt/digibyteamountfield.h
-    explicit DigiByteAmountField(QWidget *parent = 0);
-=======
     explicit DigiByteAmountField(QWidget *parent = nullptr);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibyteamountfield.h
 
     CAmount value(bool *value=nullptr) const;
     void setValue(const CAmount& value);

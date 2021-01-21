@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2011-2017 The DigiByte Core developers
-=======
 // Copyright (c) 2011-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -35,11 +31,7 @@ class WalletFrame : public QFrame
     Q_OBJECT
 
 public:
-<<<<<<< HEAD
-    explicit WalletFrame(const PlatformStyle *platformStyle, DigiByteGUI *_gui = 0);
-=======
     explicit WalletFrame(const PlatformStyle *platformStyle, DigiByteGUI *_gui = nullptr);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     ~WalletFrame();
 
     void setClientModel(ClientModel *clientModel);

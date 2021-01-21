@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2011-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,10 +11,6 @@
 #include <qt/forms/ui_addressbookpage.h>
 
 #include <qt/addresstablemodel.h>
-<<<<<<< HEAD
-#include <qt/digibytegui.h>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <qt/csvmodelwriter.h>
 #include <qt/editaddressdialog.h>
 #include <qt/guiutil.h>
@@ -116,11 +108,7 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode _mode,
         ui->newAddress->setVisible(true);
         break;
     case ReceivingTab:
-<<<<<<< HEAD
-        ui->labelExplanation->setText(tr("These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction."));
-=======
         ui->labelExplanation->setText(tr("These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.\nSigning is only possible with addresses of the type 'legacy'."));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         ui->deleteAddress->setVisible(false);
         ui->newAddress->setVisible(false);
         break;

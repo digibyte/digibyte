@@ -17,11 +17,7 @@ class DigiByteAddressEntryValidator : public QValidator
 public:
     explicit DigiByteAddressEntryValidator(QObject *parent);
 
-<<<<<<< HEAD
-    State validate(QString &input, int &pos) const;
-=======
     State validate(QString &input, int &pos) const override;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 };
 
 /** DigiByte address widget validator, checks for a valid digibyte address.
@@ -33,11 +29,7 @@ class DigiByteAddressCheckValidator : public QValidator
 public:
     explicit DigiByteAddressCheckValidator(QObject *parent);
 
-<<<<<<< HEAD
-    State validate(QString &input, int &pos) const;
-=======
     State validate(QString &input, int &pos) const override;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 };
 
 #endif // DIGIBYTE_QT_DIGIBYTEADDRESSVALIDATOR_H

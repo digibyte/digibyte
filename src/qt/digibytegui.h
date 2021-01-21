@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/qt/digibytegui.h
-// Copyright (c) 2011-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2011-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.h
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -74,11 +70,7 @@ class DigiByteGUI : public QMainWindow
 public:
     static const std::string DEFAULT_UIPLATFORM;
 
-<<<<<<< HEAD:src/qt/digibytegui.h
-    explicit DigiByteGUI(interfaces::Node& node, const PlatformStyle *platformStyle, const NetworkStyle *networkStyle, QWidget *parent = 0);
-=======
     explicit DigiByteGUI(interfaces::Node& node, const PlatformStyle *platformStyle, const NetworkStyle *networkStyle, QWidget *parent = nullptr);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.h
     ~DigiByteGUI();
 
     /** Set the client model.

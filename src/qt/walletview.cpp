@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2011-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,10 +7,6 @@
 
 #include <qt/addressbookpage.h>
 #include <qt/askpassphrasedialog.h>
-<<<<<<< HEAD
-#include <qt/digibytegui.h>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <qt/clientmodel.h>
 #include <qt/guiutil.h>
 #include <qt/psbtoperationsdialog.h>
@@ -100,11 +92,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     connect(this, &WalletView::setPrivacy, overviewPage, &OverviewPage::setPrivacy);
 }
 
-<<<<<<< HEAD
-void WalletView::setDigiByteGUI(DigiByteGUI *gui)
-=======
 WalletView::~WalletView()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
 }
 

@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2011-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -557,11 +553,7 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         case ToAddress:
             return formatTxToAddress(rec, false);
         case Amount:
-<<<<<<< HEAD
-            return formatTxAmount(rec, true, DigiByteUnits::separatorAlways);
-=======
             return formatTxAmount(rec, true, DigiByteUnits::SeparatorStyle::ALWAYS);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
         break;
     case Qt::EditRole:
@@ -651,22 +643,14 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
                 details.append(QString::fromStdString(rec->address));
                 details.append(" ");
             }
-<<<<<<< HEAD
-            details.append(formatTxAmount(rec, false, DigiByteUnits::separatorNever));
-=======
             details.append(formatTxAmount(rec, false, DigiByteUnits::SeparatorStyle::NEVER));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             return details;
         }
     case ConfirmedRole:
         return rec->status.status == TransactionStatus::Status::Confirming || rec->status.status == TransactionStatus::Status::Confirmed;
     case FormattedAmountRole:
         // Used for copy/export, so don't include separators
-<<<<<<< HEAD
-        return formatTxAmount(rec, false, DigiByteUnits::separatorNever);
-=======
         return formatTxAmount(rec, false, DigiByteUnits::SeparatorStyle::NEVER);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     case StatusRole:
         return rec->status.status;
     }

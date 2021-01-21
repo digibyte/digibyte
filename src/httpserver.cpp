@@ -238,11 +238,7 @@ static void http_request_cb(struct evhttp_request* req, void* arg)
     if (hreq->GetRequestMethod() == HTTPRequest::UNKNOWN) {
         LogPrint(BCLog::HTTP, "HTTP request from %s rejected: Unknown HTTP request method\n",
                  hreq->GetPeer().ToString());
-<<<<<<< HEAD
-        hreq->WriteReply(HTTP_BADMETHOD);
-=======
         hreq->WriteReply(HTTP_BAD_METHOD);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         return;
     }
 
@@ -291,11 +287,7 @@ static void http_reject_request_cb(struct evhttp_request* req, void*)
 /** Event dispatcher thread */
 static bool ThreadHTTP(struct event_base* base)
 {
-<<<<<<< HEAD
-    RenameThread("digibyte-http");
-=======
     util::ThreadRename("http");
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     LogPrint(BCLog::HTTP, "Entering http event loop\n");
     event_base_dispatch(base);
     // Event loop will be interrupted by InterruptHTTPServer()
@@ -348,11 +340,7 @@ static bool HTTPBindAddresses(struct evhttp* http)
 /** Simple wrapper to set thread name and run work queue */
 static void HTTPWorkQueueRun(WorkQueue<HTTPClosure>* queue, int worker_num)
 {
-<<<<<<< HEAD
-    RenameThread("digibyte-httpworker");
-=======
     util::ThreadRename(strprintf("httpworker.%i", worker_num));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     queue->Run();
 }
 
@@ -480,23 +468,7 @@ void StopHTTPServer()
     boundSockets.clear();
     if (eventBase) {
         LogPrint(BCLog::HTTP, "Waiting for HTTP event thread to exit\n");
-<<<<<<< HEAD
-        // Exit the event loop as soon as there are no active events.
-        event_base_loopexit(eventBase, nullptr);
-        // Give event loop a few seconds to exit (to send back last RPC responses), then break it
-        // Before this was solved with event_base_loopexit, but that didn't work as expected in
-        // at least libevent 2.0.21 and always introduced a delay. In libevent
-        // master that appears to be solved, so in the future that solution
-        // could be used again (if desirable).
-        // (see discussion in https://github.com/digibyte/digibyte/pull/6990)
-        if (threadResult.valid() && threadResult.wait_for(std::chrono::milliseconds(2000)) == std::future_status::timeout) {
-            LogPrintf("HTTP event loop did not exit within allotted time, sending loopbreak\n");
-            event_base_loopbreak(eventBase);
-        }
-        threadHTTP.join();
-=======
         if (g_thread_http.joinable()) g_thread_http.join();
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     }
     if (eventHTTP) {
         evhttp_free(eventHTTP);

@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2011-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -30,14 +26,11 @@ static constexpr uint16_t DEFAULT_GUI_PROXY_PORT = 9050;
  */
 static inline int PruneMiBtoGB(int64_t mib) { return (mib * 1024 * 1024 + GB_BYTES - 1) / GB_BYTES; }
 
-<<<<<<< HEAD
-=======
 /**
  * Convert displayed prune target GB to configured MiB. Round down so roundtrip GB -> MiB -> GB conversion is stable.
  */
 static inline int64_t PruneGBtoMiB(int gb) { return gb * GB_BYTES / 1024 / 1024; }
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 /** Interface from Qt to configuration data structure for DigiByte client.
    To Qt, the options are presented as a list with the different options
    laid out vertically.

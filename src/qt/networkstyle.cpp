@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -39,11 +35,7 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     // Grab theme from settings
     QString theme = GUIUtil::getThemeName();
     // load pixmap
-<<<<<<< HEAD
     QPixmap pixmap(":/icons/" + theme + "/digibyte");
-=======
-    QPixmap pixmap(":/icons/digibyte");
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     if(iconColorHueShift != 0 && iconColorSaturationReduction != 0)
     {

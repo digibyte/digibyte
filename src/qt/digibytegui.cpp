@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-// Copyright (c) 2011-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2011-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -256,11 +252,7 @@ void DigiByteGUI::createActions()
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
     sendCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/" + theme + "/send"), tr("&Send"), this);
-=======
-    sendCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/send"), tr("&Send"), this);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
     sendCoinsAction->setStatusTip(tr("Send coins to a DigiByte address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);

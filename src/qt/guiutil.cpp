@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2011-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -181,22 +177,14 @@ bool parseDigiByteURI(QString uri, SendCoinsRecipient *out)
 
 QString formatDigiByteURI(const SendCoinsRecipient &info)
 {
-<<<<<<< HEAD
-    QString ret = QString("digibyte:%1").arg(info.address);
-=======
     bool bech_32 = info.address.startsWith(QString::fromStdString(Params().Bech32HRP() + "1"));
 
     QString ret = QString("digibyte:%1").arg(bech_32 ? info.address.toUpper() : info.address);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     int paramCount = 0;
 
     if (info.amount)
     {
-<<<<<<< HEAD
-        ret += QString("?amount=%1").arg(DigiByteUnits::format(DigiByteUnits::DGB, info.amount, false, DigiByteUnits::separatorNever));
-=======
         ret += QString("?amount=%1").arg(DigiByteUnits::format(DigiByteUnits::DGB, info.amount, false, DigiByteUnits::SeparatorStyle::NEVER));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         paramCount++;
     }
 
@@ -411,11 +399,7 @@ void openDebugLogfile()
 
 bool openDigiByteConf()
 {
-<<<<<<< HEAD
-    boost::filesystem::path pathConfig = GetConfigFile(gArgs.GetArg("-conf", DIGIBYTE_CONF_FILENAME));
-=======
     fs::path pathConfig = GetConfigFile(gArgs.GetArg("-conf", DIGIBYTE_CONF_FILENAME));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     /* Create the file */
     fsbridge::ofstream configFile(pathConfig, std::ios_base::app);
@@ -426,23 +410,15 @@ bool openDigiByteConf()
     configFile.close();
 
     /* Open digibyte.conf with the associated application */
-<<<<<<< HEAD
-    return QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
-=======
     bool res = QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
-#ifdef Q_OS_MAC
-    // Workaround for macOS-specific behavior; see #15409.
-    if (!res) {
         res = QProcess::startDetached("/usr/bin/open", QStringList{"-t", boostPathToQString(pathConfig)});
     }
 #endif
 
     return res;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 ToolTipToRichTextFilter::ToolTipToRichTextFilter(int _size_threshold, QObject *parent) :
-    QObject(parent),
     size_threshold(_size_threshold)
 {
 
@@ -691,11 +667,7 @@ fs::path static GetAutostartFilePath()
     std::string chain = gArgs.GetChainName();
     if (chain == CBaseChainParams::MAIN)
         return GetAutostartDir() / "digibyte.desktop";
-<<<<<<< HEAD
-    return GetAutostartDir() / strprintf("digibyte-%s.lnk", chain);
-=======
     return GetAutostartDir() / strprintf("digibyte-%s.desktop", chain);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 bool GetStartOnSystemStartup()
@@ -742,11 +714,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
             optionFile << "Name=DigiByte\n";
         else
             optionFile << strprintf("Name=DigiByte (%s)\n", chain);
-<<<<<<< HEAD
-        optionFile << "Exec=" << pszExePath << strprintf(" -min -testnet=%d -regtest=%d\n", gArgs.GetBoolArg("-testnet", false), gArgs.GetBoolArg("-regtest", false));
-=======
         optionFile << "Exec=" << pszExePath << strprintf(" -min -chain=%s\n", chain);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";
         optionFile.close();
@@ -754,95 +722,6 @@ bool SetStartOnSystemStartup(bool fAutoStart)
     return true;
 }
 
-<<<<<<< HEAD
-
-#elif defined(Q_OS_MAC)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-// based on: https://github.com/Mozketo/LaunchAtLoginController/blob/master/LaunchAtLoginController.m
-
-#include <CoreFoundation/CoreFoundation.h>
-#include <CoreServices/CoreServices.h>
-
-LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl);
-LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl)
-{
-    CFArrayRef listSnapshot = LSSharedFileListCopySnapshot(list, nullptr);
-    if (listSnapshot == nullptr) {
-        return nullptr;
-    }
-
-    // loop through the list of startup items and try to find the digibyte app
-    for(int i = 0; i < CFArrayGetCount(listSnapshot); i++) {
-        LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(listSnapshot, i);
-        UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
-        CFURLRef currentItemURL = nullptr;
-
-#if defined(MAC_OS_X_VERSION_MAX_ALLOWED) && MAC_OS_X_VERSION_MAX_ALLOWED >= 10100
-        if(&LSSharedFileListItemCopyResolvedURL)
-            currentItemURL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, nullptr);
-#if defined(MAC_OS_X_VERSION_MIN_REQUIRED) && MAC_OS_X_VERSION_MIN_REQUIRED < 10100
-        else
-            LSSharedFileListItemResolve(item, resolutionFlags, &currentItemURL, nullptr);
-#endif
-#else
-        LSSharedFileListItemResolve(item, resolutionFlags, &currentItemURL, nullptr);
-#endif
-
-        if(currentItemURL) {
-            if (CFEqual(currentItemURL, findUrl)) {
-                // found
-                CFRelease(listSnapshot);
-                CFRelease(currentItemURL);
-                return item;
-            }
-            CFRelease(currentItemURL);
-        }
-    }
-
-    CFRelease(listSnapshot);
-    return nullptr;
-}
-
-bool GetStartOnSystemStartup()
-{
-    CFURLRef digibyteAppUrl = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-    if (digibyteAppUrl == nullptr) {
-        return false;
-    }
-
-    LSSharedFileListRef loginItems = LSSharedFileListCreate(nullptr, kLSSharedFileListSessionLoginItems, nullptr);
-    LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, digibyteAppUrl);
-
-    CFRelease(digibyteAppUrl);
-    return !!foundItem; // return boolified object
-}
-
-bool SetStartOnSystemStartup(bool fAutoStart)
-{
-    CFURLRef digibyteAppUrl = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-    if (digibyteAppUrl == nullptr) {
-        return false;
-    }
-
-    LSSharedFileListRef loginItems = LSSharedFileListCreate(nullptr, kLSSharedFileListSessionLoginItems, nullptr);
-    LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, digibyteAppUrl);
-
-    if(fAutoStart && !foundItem) {
-        // add digibyte app to startup item list
-        LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, nullptr, nullptr, digibyteAppUrl, nullptr, nullptr);
-    }
-    else if(!fAutoStart && foundItem) {
-        // remove item
-        LSSharedFileListItemRemove(loginItems, foundItem);
-    }
-
-    CFRelease(digibyteAppUrl);
-    return true;
-}
-#pragma GCC diagnostic pop
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #else
 
 bool GetStartOnSystemStartup() { return false; }
