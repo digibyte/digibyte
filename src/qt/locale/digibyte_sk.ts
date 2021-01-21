@@ -68,13 +68,6 @@
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Toto sú Vaše DigiByte adresy pre posielanie platieb. Vždy skontrolujte sumu a prijímaciu adresu pred poslaním mincí.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Toto sú vaše DigiByte adresy pre prijímanie platieb. Odporúča sa použiť vždy novú prijímaciu adresu pre každú transakciu.</translation>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -183,10 +176,6 @@
         <translation>Peňaženka zašifrovaná</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 sa teraz zavrie, aby sa ukončil proces šifrovania. Zašifrovanie peňaženky neochráni úplne pred krádežou digibyteov škodlivými programami, ktoré prenikli do vášho počítača.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Zadajte novú prístupovú frázu pre peňaženku.&lt;br/&gt;Prosím použite frázu dlhú &lt;b&gt;desať či viac náhodných znakov&lt;/b&gt;, alebo &lt;b&gt;osem či viac slov&lt;/b&gt;.</translation>
     </message>
@@ -209,7 +198,6 @@
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Vaša peňaženka je zašifrovaná.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -386,17 +374,6 @@
         <translation>O&amp;veriť správu...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Peňaženka</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>&amp;Send</source>
         <translation>&amp;Odoslať</translation>
     </message>
@@ -453,13 +430,6 @@
         <translation>Zobraziť zoznam použitých prijímacích adries a ich popisov</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Otvoriť digibyte URI alebo výzvu k platbe</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Možnosti príkazového riadku</translation>
     </message>
@@ -508,10 +478,6 @@
         <translation>Aktualizovaný</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Ukáž %1 zoznam možných nastavení DigiByteu pomocou príkazového riadku</translation>
-=======
         <source>Node window</source>
         <translation>Uzlové okno</translation>
     </message>
@@ -574,7 +540,6 @@
     <message>
         <source>Main Window</source>
         <translation>Hlavné okno</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -660,15 +625,7 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Peňaženka je &lt;b&gt;zašifrovaná&lt;/b&gt; a momentálne &lt;b&gt;zamknutá&lt;/b&gt;</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-    <message>
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Vyskytla sa kritická chyba. DigiByte nemôže ďalej bezpečne pokračovať a ukončí sa.</translation>
-    </message>
-</context>
-=======
     </context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -911,8 +868,6 @@
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
         <translation>Vložená adresa "%1" nieje platnou adresou DigiByte.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-=======
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -921,7 +876,6 @@
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
         <translation>Zadaná adresa "%1" sa už nachádza v zozname adries s označením "%2".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1011,13 +965,10 @@
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Zahodiť bloky po ich overení, okrem posledných %1 GB (redukovanie)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1312,13 +1263,6 @@
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Pripojiť k DigiByteovej sieti cez separované SOCKS5 proxy pre skrytú službu Tor.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>&amp;Window</source>
         <translation>&amp;Okno</translation>
     </message>
@@ -1495,47 +1439,7 @@
     </message>
     </context>
 <context>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-    <name>PaymentServer</name>
-    <message>
-        <source>Payment request error</source>
-        <translation>Chyba pri vyžiadaní platby</translation>
-    </message>
-    <message>
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Nemôžeme spustiť DigiByte: obsluha click-to-pay</translation>
-    </message>
-    <message>
-        <source>URI handling</source>
-        <translation>URI manipulácia</translation>
-    </message>
-    <message>
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'digibyte://' je neplatná URI. Použite 'digibyte:'</translation>
-    </message>
-    <message>
-        <source>Payment request fetch URL is invalid: %1</source>
-        <translation>URL pre stiahnutie výzvy na zaplatenie je neplatné: %1</translation>
-    </message>
-    <message>
-        <source>Invalid payment address %1</source>
-        <translation>Neplatná adresa platby %1</translation>
-    </message>
-    <message>
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI sa nedá analyzovať! To môže byť spôsobené neplatnou DigiByte adresou alebo zle nastavenými vlastnosťami URI.</translation>
-    </message>
-    <message>
-        <source>Payment request file handling</source>
-        <translation>Obsluha súboru s požiadavkou na platbu</translation>
-    </message>
-    <message>
-        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation>Súbor s výzvou na zaplatenie sa nedá čítať! To môže byť spôsobené aj neplatným súborom s výzvou.</translation>
-    </message>
-=======
     <name>PSBTOperationsDialog</name>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
     <message>
         <source>Dialog</source>
         <translation>Dialóg</translation>
@@ -2321,17 +2225,6 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok o hodnote "100 sato
         <translation>Skryť</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Zaplatenie len minimálneho poplatku je v poriadku, pokiaľ existuje menej transakcií ako miesta v blokoch. Uvedomte si však, že ak bude vyšší dopyt po transakciách ako dokáže sieť spracovať, môže byť vaša transakcia odsúvaná a nepotvrdená donekonečna.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(prečítajte si nápovedu pod kurzorom)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>Recommended:</source>
         <translation>Odporúčaný:</translation>
     </message>
@@ -2579,13 +2472,6 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok o hodnote "100 sato
         <translation>Vybrať predtým použitú adresu</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>This is a normal payment.</source>
-        <translation>Toto je normálna platba.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>Zvoľte adresu kam poslať platbu</translation>
     </message>
@@ -2606,13 +2492,10 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok o hodnote "100 sato
         <translation>Odstrániť túto položku</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>Suma na odoslanie vo vybranej mene</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Poplatok sa odpočíta od čiastky, ktorú odosielate. Príjemca dostane menej digibyteov ako zadáte. Ak je vybraných viacero príjemcov, poplatok je rozdelený rovným dielom.</translation>
     </message>
@@ -2739,8 +2622,6 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok o hodnote "100 sato
         <translation>Adresa DigiByte, ktorou bola podpísaná správa</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-=======
         <source>The signed message to verify</source>
         <translation>Podpísaná správa na overenie</translation>
     </message>
@@ -2749,7 +2630,6 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok o hodnote "100 sato
         <translation>Poskytnutý podpis pri podpísaní správy</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Overím správy sa uistiť že bola podpísaná označenou DigiByte adresou</translation>
     </message>
@@ -3427,13 +3307,6 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok o hodnote "100 sato
         <translation>Nepodarilo sa spustiť HTTP server. Pre viac detailov zobrazte debug log.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>The %s developers</source>
         <translation>Vývojári %s</translation>
     </message>
@@ -3746,15 +3619,12 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok o hodnote "100 sato
         <translation>Uvedený -walletdir "%s" nie je priečinok</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sk.ts
-=======
         <source>The specified config file %s does not exist
 </source>
         <translation>Zadaný konfiguračný súbor %s neexistuje
 </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sk.ts
         <source>The transaction amount is too small to pay the fee</source>
         <translation>Suma transakcie je príliš malá na zaplatenie poplatku</translation>
     </message>

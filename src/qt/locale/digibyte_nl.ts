@@ -70,15 +70,10 @@
         <translation>Dit zijn uw DigiByteadressen om betalingen mee te verzenden. Controleer altijd het bedrag en het ontvangstadres voordat u uw digibytes verzendt.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dit zijn uw DigiByte-adressen waarmee u betalingen kunt ontvangen. We raden u aan om een nieuw ontvangstadres voor elke transactie te gebruiken.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Dit zijn uw DigiByte adressen voor het ontvangen van betalingen. Gebruik de 'Nieuw ontvangst adres maken' knop in de ontvangst tab om een nieuwe adres te maken.
 Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -187,10 +182,6 @@ Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation
         <translation>Portemonnee versleuteld</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen: Malware kan uw computer infecteren en uw digibytes stelen.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Voer de neuwe wachtwoordzin in voor de portemonnee.&lt;br/&gt;Gebruik a.u.b. een wachtwoordzin van &lt;b&gt;tien of meer willekeurige karakters&lt;/b&gt;, of &lt;b&gt;acht of meer woorden&lt;/b&gt;.</translation>
     </message>
@@ -213,7 +204,6 @@ Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Je portemonnee is nu versleuteld.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -390,17 +380,6 @@ Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation
         <translation>&amp;Verifiëer bericht...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Portemonnee</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>&amp;Send</source>
         <translation>&amp;Verstuur</translation>
     </message>
@@ -457,13 +436,6 @@ Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation
         <translation>Toon de lijst met gebruikte ontvangstadressen en labels</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Open een digibyte: URI of betalingsverzoek</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Opdrachtregelopties</translation>
     </message>
@@ -512,10 +484,6 @@ Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation
         <translation>Bijgewerkt</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Toon het %1 hulpbericht om een lijst te krijgen met mogelijke DigiByte commandoregelopties</translation>
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;Laad PSBT van bestand...</translation>
     </message>
@@ -610,7 +578,6 @@ Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation
     <message>
         <source>Main Window</source>
         <translation>Hoofdscherm</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -697,17 +664,12 @@ Ondertekenen is alleen mogelijk met adressen van het type 'legacy'.</translation
         <translation>Portemonnee is &lt;b&gt;versleuteld&lt;/b&gt; en momenteel &lt;b&gt;gesloten&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Een fatale fout heeft zich voorgedaan. DigiByte kan niet veilig worden verdergezet en wordt afgesloten.</translation>
-=======
         <source>Original message:</source>
         <translation>Origineel bericht:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>Er is een fatale fout opgetreden. %1 kan niet langer veilig doorgaan en wordt afgesloten.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
 </context>
 <context>
@@ -1062,13 +1024,10 @@ Dit is ideaal voor alleen-lezen portommonees.</translation>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Verwijder blokken na verificatie, uitgezonderd de meest recente %1 GB (prune)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1115,11 +1074,7 @@ Dit is ideaal voor alleen-lezen portommonees.</translation>
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the digibyte network, as detailed below.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <translation>Recente transacties zijn mogelijk nog niet zichtbaar. De balans van de portemonnee is daarom mogelijk niet correct. Deze informatie is correct van zodra de synchronisatie met het DigiByte-netwerk werd voltooid, zoals onderaan beschreven.</translation>
-=======
         <translation>Recente transacties zijn mogelijk nog niet zichtbaar. De balans van de portemonnee is daarom mogelijk niet correct. Deze informatie is correct zodra de synchronisatie met het DigiByte-netwerk is voltooid, zoals onderaan beschreven.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1367,13 +1322,6 @@ Dit is ideaal voor alleen-lezen portommonees.</translation>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Maak verbinding met DigiBytenetwerk door een aparte SOCKS5-proxy voor verborgen diensten van Tor.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>&amp;Window</source>
         <translation>&amp;Scherm</translation>
     </message>
@@ -1568,26 +1516,16 @@ Dit is ideaal voor alleen-lezen portommonees.</translation>
         <translation>Dialoog</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Kan digibyte niet starten: click-to-pay handler</translation>
-=======
         <source>Sign Tx</source>
         <translation>Signeer Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
         <translation>Zend Tx uit</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'digibyte://' is niet een geldige URI. Gebruik 'digibyte:' in plaats daarvan.</translation>
-=======
         <source>Copy to Clipboard</source>
         <translation>Kopieer naar klembord</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>Save...</source>
@@ -1598,13 +1536,8 @@ Dit is ideaal voor alleen-lezen portommonees.</translation>
         <translation>Sluiten</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kan niet verwerkt worden! Dit kan het gevolg zijn van een ongeldig DigiByte adres of misvormde URI parameters.</translation>
-=======
         <source>Failed to load transaction: %1</source>
         <translation>Laden transactie niet gelukt: %1</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>Failed to sign transaction: %1</source>
@@ -2486,17 +2419,6 @@ Notitie: Omdat de vergoeding per byte wordt gerekend, zal een vergoeding van "10
         <translation>Verbergen</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>De minimale toeslag betalen is prima mits het transactievolume kleiner is dan de ruimte in de blokken. Let wel op dat dit tot gevolg kan hebben dat een transactie nooit wordt bevestigd als er meer vraag is naar digibytetransacties dan het netwerk kan verwerken.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(lees de tooltip)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>Recommended:</source>
         <translation>Aanbevolen:</translation>
     </message>
@@ -2670,17 +2592,8 @@ Vb. een offline %1 portemonee, of een PSBT-combatiebele hardware portemonee.</tr
         <translation>Totaalbedrag</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>You can increase the fee later (signals Replace-By-Fee, BIP-125).</source>
-        <translation>Je kunt de vergoeding later verhogen (signaleert Replace-By-Fee, BIP-125).</translation>
-    </message>
-    <message>
-        <source>Not signalling Replace-By-Fee, BIP-125.</source>
-        <translation>Signaleert geen Replace-By-Fee, BIP-125.</translation>
-=======
         <source>To review recipient list click "Show Details..."</source>
         <translation>Om de lijst van ontvangers te vernieuwe klik "Bekijk details..."</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
     </message>
     <message>
         <source>Confirm send coins</source>
@@ -2774,13 +2687,6 @@ Vb. een offline %1 portemonee, of een PSBT-combatiebele hardware portemonee.</tr
         <translation>Kies een eerder gebruikt adres</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>This is a normal payment.</source>
-        <translation>Dit is een normale betaling.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>Het DigiByteadres om betaling aan te versturen</translation>
     </message>
@@ -2801,13 +2707,10 @@ Vb. een offline %1 portemonee, of een PSBT-combatiebele hardware portemonee.</tr
         <translation>Verwijder deze toevoeging</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>Het te sturen bedrag in de geselecteerde eenheid</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>De transactiekosten zal worden afgetrokken van het bedrag dat verstuurd wordt. De ontvangers zullen minder digibytes ontvangen dan ingevoerd is in het hoeveelheidsveld. Als er meerdere ontvangers geselecteerd zijn, dan worden de transactiekosten gelijk verdeeld.</translation>
     </message>
@@ -2932,10 +2835,6 @@ Vb. een offline %1 portemonee, of een PSBT-combatiebele hardware portemonee.</tr
     <message>
         <source>The DigiByte address the message was signed with</source>
         <translation>Het DigiByteadres waarmee het bericht ondertekend is</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-    </message>
-    <message>
-=======
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -2946,7 +2845,6 @@ Vb. een offline %1 portemonee, of een PSBT-combatiebele hardware portemonee.</tr
         <translation>De handtekening waarmee het bericht ondertekend werd</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Controleer een bericht om te verifiëren dat het gespecificeerde DigiByteadres het bericht heeft ondertekend.</translation>
     </message>
@@ -3660,13 +3558,6 @@ Ga naar Bestand &gt; Open portemonee om er één te openen.
         <translation>Niet mogelijk ok HTTP-server te starten. Zie debuglogboek voor details.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>The %s developers</source>
         <translation>De %s ontwikkelaars</translation>
     </message>
@@ -4076,15 +3967,12 @@ Indien dit het geval is, gelieve de software te gebruiken waarmee deze portefeui
         <translation>Opgegeven -walletdir "%s" is geen map</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nl.ts
-=======
         <source>The specified config file %s does not exist
 </source>
         <translation>Het opgegeven configuratiebestand %s bestaat niet
 </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nl.ts
         <source>The transaction amount is too small to pay the fee</source>
         <translation>Het transactiebedrag is te klein om transactiekosten in rekening te brengen</translation>
     </message>

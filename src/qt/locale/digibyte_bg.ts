@@ -67,15 +67,7 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_bg.ts
-        <translation>Това са адресите на получателите на плащания. Винаги проверявайте размера на сумата и адреса на получателя, преди да изпратите монети.</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Това са Вашите Биткойн адреси,благодарение на които ще получавате плащания.Препоръчително е да използвате нови адреси за получаване на всяка транзакция.</translation>
-=======
         <translation>Тези са вашите Биткойн адреси за изпращане на монети. Винаги проверявайте количеството и получаващия адрес преди изпращане. </translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_bg.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -362,17 +354,6 @@
         <translation>&amp;Проверка на съобщение...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_bg.ts
-        <source>DigiByte</source>
-        <translation>Биткоин</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Портфейл</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_bg.ts
         <source>&amp;Send</source>
         <translation>&amp;изпращам</translation>
     </message>
@@ -429,13 +410,6 @@
         <translation>Покажи списък с използваните адреси и имена.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_bg.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Отворете биткойн: URI  или заявка за плащане</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_bg.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Налични команди</translation>
     </message>
@@ -484,8 +458,6 @@
         <translation>Затвори портфейла</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_bg.ts
-=======
         <source>Close All Wallets...</source>
         <translation>Затвори Всички Портфейли...</translation>
     </message>
@@ -494,7 +466,6 @@
         <translation>Затвори всички портфейли</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_bg.ts
         <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation>Покажи %1 помощно съобщение за да получиш лист с възможни Биткойн команди</translation>
     </message>
@@ -576,15 +547,7 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Портфейлът е &lt;b&gt;криптиран&lt;/b&gt; и &lt;b&gt;заключен&lt;/b&gt;</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_bg.ts
-    <message>
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Възникна фатална грешка. Биткойн не може да продължи безопасно и ще се изключи.</translation>
-    </message>
-</context>
-=======
     </context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_bg.ts
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -962,8 +925,6 @@
         <translation>Отваряне на входящия порт чрез &amp;UPnP</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_bg.ts
-=======
         <source>Accept connections from outside.</source>
         <translation>Позволи външни връзки</translation>
     </message>
@@ -972,7 +933,6 @@
         <translation>Позволи входящи връзки</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_bg.ts
         <source>Connect to the DigiByte network through a SOCKS5 proxy.</source>
         <translation>Свързване с Биткойн мрежата чрез SOCKS5  прокси.</translation>
     </message>
@@ -2323,13 +2283,6 @@
     </context>
 <context>
     <name>digibyte-core</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_bg.ts
-    <message>
-        <source>DigiByte Core</source>
-        <translation>Биткойн ядро</translation>
-    </message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_bg.ts
     <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>Желаете ли да пресъздадете базата данни с блокове сега?</translation>

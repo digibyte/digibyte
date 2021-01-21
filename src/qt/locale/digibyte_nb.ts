@@ -67,20 +67,12 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <translation>Dette er dine DigiByte-adresser for sending av betalinger. Sjekk alltid beløpet og mottakeradressen før sending av mynter.</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dette er dine DigiByte-adresser for å sende betalinger med. Det er anbefalt å bruke en ny mottaksadresse for hver transaksjon.</translation>
-=======
         <translation>Dette er dine DigiByte adresser for å sende  å sende betalinger. Husk å sjekke beløp og mottager adresser før du sender mynter.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Dette er dine DigiByte adresser for å motta betalinger. Bruk 'Lag ny mottaksadresse' knappen i motta tabben for å lage nye adresser. Signering er bare mulig for adresser av typen 'legacy'.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -178,11 +170,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <translation>Advarsel: Hvis du krypterer lommeboken og mister adgangsfrasen, så vil du &lt;b&gt;MISTE ALLE DINE DIGIBYTES&lt;/b&gt;!</translation>
-=======
         <translation>Advarsel: Dersom du krypterer lommeboken og mister passordsetningen vil du &lt;b&gt;MISTE ALLE DINE DIGIBYTE&lt;/b&gt;!</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -205,10 +193,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Husk at å kryptere lommeboken ikke vil beskytte dine digibytes fullstendig fra å bli stjålet av skadevare som infiserer datamaskinen din.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 vil nå lukkes for å fullføre krypteringsprosessen. Husk at kryptering av lommeboken ikke fullt ut kan beskytte dine digibytes fra å bli stjålet om skadevare infiserer datamaskinen din.</translation>
-=======
         <source>Wallet to be encrypted</source>
         <translation>Lommebok som skal bli kryptert</translation>
     </message>
@@ -219,7 +203,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Din lommebok er nå kryptert.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -376,13 +359,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Reindekserer blokker på disken</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>Send coins to a DigiByte address</source>
-        <translation>Send til en DigiByte-adresse</translation>
-=======
         <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
         <translation>Proxy er &lt;b&gt;slått på&lt;/b&gt;: %1</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
@@ -398,19 +376,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>&amp;Verify message...</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <translation>&amp;Verifiser melding...</translation>
-    </message>
-    <message>
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Lommebok</translation>
-=======
         <translation>&amp;Verifiser meldingen...</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>&amp;Send</source>
@@ -434,19 +400,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <translation>Signer en melding med DigiByte-adressene dine for å bevise at du eier dem</translation>
-    </message>
-    <message>
-        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>Bekreft meldinger for å være sikker på at de ble signert av en angitt DigiByte-adresse</translation>
-=======
         <translation>Signer meldingene med DigiByte adresse for å bevise at diu eier dem</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
         <translation>Verifiser meldinger for å sikre at de ble signert med en angitt DigiByte adresse</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>&amp;File</source>
@@ -466,11 +424,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <translation>Forespør betalinger (genererer QR-koder og digibyte: URIer)</translation>
-=======
         <translation>Be om betalinger (genererer QR-koder og digibyte-URIer)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -478,15 +432,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <translation>Vis listen over bruke mottaksadresser og merkelapper</translation>
-    </message>
-    <message>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Åpne en DigiByte: URI eller betalingsetterspørring</translation>
-=======
         <translation>Vis lista over brukte mottakeradresser og merkelapper</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -494,11 +440,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <translation><numerusform>%n aktiv forbindelse til DigiByte-nettverket</numerusform><numerusform>%n aktive forbindelser til DigiByte-nettverket</numerusform></translation>
-=======
         <translation><numerusform>%n aktiv tilkobling til DigiByte nettverket</numerusform><numerusform>%n aktive tilkoblinger til DigiByte nettverket</numerusform></translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -541,10 +483,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Oppdatert</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Vis %1 hjelpemeldingen for å få en liste med mulige DigiByte kommandolinjevalg.</translation>
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;Last PSBT fra fil...</translation>
     </message>
@@ -639,7 +577,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Main Window</source>
         <translation>Hovedvindu</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -726,17 +663,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Lommeboken er &lt;b&gt;kryptert&lt;/b&gt; og for tiden &lt;b&gt;låst&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>En fatal feil har inntruffet. DigiByte kan ikke lenger trygt fortsette, og må derfor avslutte.</translation>
-=======
         <source>Original message:</source>
         <translation>Opprinnelig melding</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>En fatal feil har skjedd. %1 kan ikke lenger trygt fortsette og kommer til å avslutte.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
 </context>
 <context>
@@ -993,8 +925,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
         <translation>Den angitte adressen "%1" er ikke en gyldig DigiByte-adresse.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-=======
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1003,7 +933,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
         <translation>Den oppgitte adressen ''%1'' er allerede i adresseboken med etiketten ''%2''.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1093,13 +1022,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Kast blokker etter bekreftelse, bortsett fra de siste %1 GB (sviske)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1390,13 +1316,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Koble til DigiByte-nettverket gjennom en separat SOCKS5 mellomtjener for Tor skjulte tjenester.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
         <source>&amp;Window</source>
         <translation>&amp;Vindu</translation>
     </message>
@@ -1591,13 +1510,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Dialog</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Kan ikke starte digibyte: Klikk-og-betal håndterer</translation>
-=======
         <source>Sign Tx</source>
         <translation>Signer Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
@@ -1612,13 +1526,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Lagre...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kan ikke fortolkes! Dette kan være forårsaket av en ugyldig digibyte-adresse eller feilformede URI-parametre.</translation>
-=======
         <source>Close</source>
         <translation>Lukk</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
     </message>
     <message>
         <source>Failed to load transaction: %1</source>
@@ -2496,17 +2405,6 @@ Merk: Siden avgiften er beregnet per byte-basis, vil et gebyr på "100 satoshis 
         <translation>Skjul</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Betaling av bare minimumsavgiften går helt fint så lenge det er mindre transaksjonsvolum enn plass i blokkene. Men vær klar over at dette kan ende opp i en transaksjon som aldri blir bekreftet når det er mer etterspørsel etter DigiByte-transaksjoner enn nettverket kan behandle.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(les verktøytipset)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
         <source>Recommended:</source>
         <translation>Anbefalt:</translation>
     </message>
@@ -2762,13 +2660,6 @@ Merk: Siden avgiften er beregnet per byte-basis, vil et gebyr på "100 satoshis 
         <translation>Velg tidligere brukt adresse</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>This is a normal payment.</source>
-        <translation>Dette er en normal betaling.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>DigiByte-adressen betalingen skal sendes til</translation>
     </message>
@@ -2789,13 +2680,10 @@ Merk: Siden avgiften er beregnet per byte-basis, vil et gebyr på "100 satoshis 
         <translation>Fjern denne oppføringen</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>beløpet som skal sendes inn den valgte enheten.</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Gebyret vil bli trukket fra beløpet som blir sendt. Mottakeren vil motta mindre digibytes enn det du skriver inn i beløpsfeltet. Hvis det er valgt flere mottakere, deles gebyret likt.</translation>
     </message>
@@ -2920,10 +2808,6 @@ Merk: Siden avgiften er beregnet per byte-basis, vil et gebyr på "100 satoshis 
     <message>
         <source>The DigiByte address the message was signed with</source>
         <translation>DigiByte-adressen meldingen ble signert med</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-    </message>
-    <message>
-=======
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -2934,7 +2818,6 @@ Merk: Siden avgiften er beregnet per byte-basis, vil et gebyr på "100 satoshis 
         <translation>signaturen som ble gitt da meldingen ble signert</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Verifiser meldingen for å være sikker på at den ble signert av den angitte DigiByte-adressen</translation>
     </message>
@@ -3644,13 +3527,6 @@ Gå til Fil &gt; Åpne lommebok for å laste en lommebok.
         <translation>Kunne ikke starte HTTP-tjener. Se feilrettingslogg for detaljer.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_nb.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_nb.ts
         <source>The %s developers</source>
         <translation>%s-utviklerne</translation>
     </message>

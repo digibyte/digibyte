@@ -47,19 +47,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <translation>Scegli l'indirizzo a cui inviare digibyte</translation>
-    </message>
-    <message>
-        <source>Choose the address to receive coins with</source>
-        <translation>Scegli l'indirizzo con cui ricevere digibyte</translation>
-=======
         <translation>Scegli l'indirizzo al quale inviare digibyte</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
         <translation>Scegli l'indirizzo al quale ricevere digibyte.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -78,15 +70,10 @@
         <translation>Questi sono i tuoi indirizzi DigiByte per l'invio di pagamenti. Controlla sempre l'importo e l'indirizzo del beneficiario prima di inviare digibyte.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Questi sono i tuoi indirizzi DigiByte per la ricezione di pagamenti. Si raccomanda di usare un nuovo indirizzo di ricezione per ogni transazione.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Questi sono i tuoi indirizzi DigiByte per ricevere pagamenti. Usa il tasto "Crea nuovo indirizzo ricevente" nella schermata "Ricevi" per creare nuovi indirizzi.
 E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -184,11 +171,7 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <translation>Attenzione: perdendo la passphrase di un portamonete cifrato &lt;b&gt;TUTTI I PROPRI DIGIBYTE ANDRANNO PERSI&lt;/b&gt;!</translation>
-=======
         <translation>Attenzione: Se si cifra il portafoglio e si perde la passphrase &lt;b&gt;TUTTI I PROPRI DIGIBYTE ANDRANNO PERSI&lt;/b&gt;!</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -199,10 +182,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
         <translation>Portafoglio cifrato</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 verrà chiuso per completare il processo di cifratura. Ricorda che cifrare il tuo portafoglio non può proteggerlo contro potenziali furti di malware che potrebbero aver infettato il tuo computer.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Inserisci la nuova passphrase per il portafoglio. Assicurati di usare una passphrase di dieci o più caratteri casuali, oppure otto o più parole.</translation>
     </message>
@@ -225,7 +204,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Il tuo portafoglio è ora criptato.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -402,17 +380,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
         <translation>&amp;Verifica messaggio...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Portafoglio</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>&amp;Send</source>
         <translation>&amp;Invia</translation>
     </message>
@@ -469,13 +436,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
         <translation>Mostra la lista degli indirizzi di ricezione utilizzati</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Apri un digibyte: URI o una richiesta di pagamento</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>&amp;Command-line options</source>
         <translation>Opzioni della riga di &amp;comando</translation>
     </message>
@@ -524,10 +484,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
         <translation>Aggiornato</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Mostra il messaggio di aiuto di %1 per ottenere una lista di opzioni di comando per DigiByte </translation>
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;Carica PSBT da file...</translation>
     </message>
@@ -622,7 +578,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
     <message>
         <source>Main Window</source>
         <translation>Finestra principale</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -709,17 +664,12 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
         <translation>Il portamonete è &lt;b&gt;cifrato&lt;/b&gt; ed attualmente &lt;b&gt;bloccato&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Si è verificato un errore critico. DigiByte non può più funzionare in maniera sicura e verrà chiuso.</translation>
-=======
         <source>Original message:</source>
         <translation>Messaggio originale:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>Si è verificato un errore critico. %1 non può più continuare in maniera sicura e verrà chiuso.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
 </context>
 <context>
@@ -972,8 +922,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
         <translation>L'indirizzo inserito "%1" non è un indirizzo digibyte valido.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-=======
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -982,7 +930,6 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
         <translation>L'indirizzo inserito "%1" è già nella rubrica con l'etichetta "%2".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1072,13 +1019,10 @@ E' possibile firmare solo con indirizzi di tipo "legacy".</translation>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Scarta blocchi dopo la verifica, eccetto i più recenti %1 GB(prune)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1374,13 +1318,6 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Connette alla rete DigiByte attraverso un proxy SOCKS5 separato per Tor.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -1497,11 +1434,7 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <translation>Le informazioni visualizzate potrebbero non essere aggiornate. Il portamonete si sincronizza automaticamente con la rete DigiByte una volta stabilita una connessione, ma questo processo non è ancora stato completato.</translation>
-=======
         <translation>Le informazioni visualizzate potrebbero non essere aggiornate. Il portafoglio si sincronizza automaticamente con la rete DigiByte una volta stabilita una connessione, ma questo processo non è ancora stato completato.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1579,26 +1512,16 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>Dialogo</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Impossibile avviare digibyte: gestore click-to-pay</translation>
-=======
         <source>Sign Tx</source>
         <translation>Firma Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
         <translation>Trasmetti Tx</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'digibyte: //' non è un URI valido. Usa invece "digibyte:".</translation>
-=======
         <source>Copy to Clipboard</source>
         <translation>Copia negli Appunti</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Save...</source>
@@ -1609,13 +1532,8 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>Chiudi</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>Impossibile interpretare l'URI! I parametri dell'URI o l'indirizzo DigiByte potrebbero non essere corretti.</translation>
-=======
         <source>Failed to load transaction: %1</source>
         <translation>Caricamento della transazione fallito: %1</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Failed to sign transaction: %1</source>
@@ -2296,21 +2214,6 @@ Per specificare più URL separarli con una barra verticale "|".</translation>
         <translation>Cronologia pagamenti richiesti</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>&amp;Request payment</source>
-        <translation>&amp;Richiedi pagamento</translation>
-    </message>
-    <message>
-        <source>Bech32 addresses (BIP-173) are cheaper to spend from and offer better protection against typos. When unchecked a P2SH wrapped SegWit address will be created, compatible with older wallets.</source>
-        <translation>Indirizzi Bech32 (BIP-173) sono piu' economici per spendere e offrono maggior protezione contro errori di battitura. Quando non selezionati, un indirizzo di tipo P2SH wrapped SegWit sara' creato, compatibile con i portafogli precedenti. </translation>
-    </message>
-    <message>
-        <source>Create "dgb1" SegWit Prefix Address</source>
-        <translation>Genera un indirizzo Bech32</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>Show the selected request (does the same as double clicking an entry)</source>
         <translation>Mostra la richiesta selezionata (produce lo stesso effetto di un doppio click su una voce)</translation>
     </message>
@@ -2516,17 +2419,6 @@ Nota: poiché la commissione è calcolata su base per byte, una commissione di "
         <translation>Nascondi</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Non vi è alcuna controindicazione a pagare la commissione minima, a patto che il volume delle transazioni sia inferiore allo spazio disponibile nei blocchi. Occorre comunque essere consapevoli che ciò potrebbe impedire la conferma delle transazioni nel caso in cui la rete risultasse satura.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(leggi il suggerimento)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>Recommended:</source>
         <translation>Raccomandata:</translation>
     </message>
@@ -2794,13 +2686,6 @@ Nota: poiché la commissione è calcolata su base per byte, una commissione di "
         <translation>Scegli un indirizzo usato precedentemente</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>This is a normal payment.</source>
-        <translation>Questo è un normale pagamento.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>L'indirizzo DigiByte a cui vuoi inviare il pagamento</translation>
     </message>
@@ -2821,13 +2706,10 @@ Nota: poiché la commissione è calcolata su base per byte, una commissione di "
         <translation>Rimuovi questa voce</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>L'ammontare da inviare nell'unità selezionata</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>La commissione sarà sottratta dall'importo che si sta inviando. Il beneficiario riceverà un totale di digibyte inferiore al valore digitato. Nel caso in cui siano stati selezionati più beneficiari la commissione sarà suddivisa in parti uguali.</translation>
     </message>
@@ -2857,11 +2739,7 @@ Nota: poiché la commissione è calcolata su base per byte, una commissione di "
     </message>
     <message>
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <translation>Messaggio incluso nel digibyte URI e che sarà memorizzato con la transazione per vostro riferimento. Nota: Questo messaggio non sarà inviato attraverso la rete DigiByte.</translation>
-=======
         <translation>Messaggio incluso nel digibyte URI e che sarà memorizzato con la transazione per tuo riferimento. Nota: Questo messaggio non sarà inviato attraverso la rete DigiByte.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Pay To:</source>
@@ -2895,19 +2773,11 @@ Nota: poiché la commissione è calcolata su base per byte, una commissione di "
     </message>
     <message>
         <source>You can sign messages/agreements with your addresses to prove you can receive digibytes sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <translation>È possibile firmare messaggi/accordi con i propri indirizzi in modo da dimostrare di poter ricevere digibyte attraverso di essi. Si consiglia di prestare attenzione a non firmare dichiarazioni vaghe o casuali, attacchi di phishing potrebbero cercare di indurre ad apporre la firma su di esse. Si raccomanda di firmare esclusivamente dichiarazioni completamente dettagliate e delle quali si condivide in pieno il contenuto.</translation>
-    </message>
-    <message>
-        <source>The DigiByte address to sign the message with</source>
-        <translation>L'indirizzo DigiByte da utilizzare per firmare il messaggio</translation>
-=======
         <translation>È possibile firmare messaggi/accordi con i propri indirizzi in modo da dimostrare di poter ricevere digibyte attraverso di essi. Presta attenzione a non firmare dichiarazioni vaghe o casuali, perché attacchi di phishing potrebbero cercare di indurti ad apporre la firma su di esse. Firma esclusivamente dichiarazioni completamente dettagliate e delle quali condividi in pieno il contenuto.</translation>
     </message>
     <message>
         <source>The DigiByte address to sign the message with</source>
         <translation>Indirizzo DigiByte da utilizzare per firmare il messaggio</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2966,8 +2836,6 @@ Nota: poiché la commissione è calcolata su base per byte, una commissione di "
         <translation>L'indirizzo DigiByte con cui è stato contrassegnato il messaggio</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-=======
         <source>The signed message to verify</source>
         <translation>Il messaggio firmato da verificare</translation>
     </message>
@@ -2976,7 +2844,6 @@ Nota: poiché la commissione è calcolata su base per byte, una commissione di "
         <translation>La firma data al momento della firma del messaggio</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Verifica il messaggio per accertare che sia stato firmato con l'indirizzo specificato</translation>
     </message>
@@ -3690,13 +3557,6 @@ Vai su File &gt; Apri Portafoglio per caricare un portafoglio.
         <translation>Impossibile avviare il server HTTP. Dettagli nel log di debug.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
         <source>The %s developers</source>
         <translation>Sviluppatori di %s</translation>
     </message>
@@ -4073,23 +3933,10 @@ Vai su File &gt; Apri Portafoglio per caricare un portafoglio.
         <translation>-walletdir "%s" specificata non e' una directory</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_it.ts
-        <source>Specified -walletdir "%s" does not exist</source>
-        <translation>-walletdir "%s"  specificata non esiste</translation>
-    </message>
-    <message>
-        <source>Specified -walletdir "%s" is a relative path</source>
-        <translation>-walletdir "%s" specificata e' un path relativo</translation>
-    </message>
-    <message>
-        <source>Specified -walletdir "%s" is not a directory</source>
-        <translation>-walletdir "%s" specificata non e' una directory</translation>
-=======
         <source>The specified config file %s does not exist
 </source>
         <translation>Lo specificato archivio di configurazione %s non esiste
 </translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_it.ts
     </message>
     <message>
         <source>The transaction amount is too small to pay the fee</source>

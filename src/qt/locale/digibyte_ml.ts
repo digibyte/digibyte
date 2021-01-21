@@ -19,12 +19,7 @@
     </message>
     <message>
         <source>&amp;Copy</source>
-<<<<<<< HEAD
-        <translation>&amp; പകർത്തുക
-</translation>
-=======
         <translation>&amp; പകർത്തുക</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     <message>
         <source>C&amp;lose</source>
@@ -35,13 +30,10 @@
         <translation>പട്ടികയിൽ നിന്ന് നിലവിൽ തിരഞ്ഞെടുത്ത വിലാസം ഇല്ലാതാക്കുക</translation>
     </message>
     <message>
-<<<<<<< HEAD
-=======
         <source>Enter address or label to search</source>
         <translation>തിരയുന്നതിന് വിലാസമോ ലേബലോ നൽകുക</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Export the data in the current tab to a file</source>
         <translation>നിലവിലെ ടാബിൽ ഒരു ഫയലിൽ ഡാറ്റ എക്സ്പോർട്ട് ചെയ്യുക</translation>
     </message>
@@ -78,15 +70,10 @@
         <translation>പേയ്മെന്റുകൾ അയയ്ക്കുന്നതിനുള്ള നിങ്ങളുടെ ബിറ്റ്കോയിൻ വിലാസങ്ങളാണ് ഇവ. നാണയങ്ങൾ അയയ്ക്കുന്നതിനുമുമ്പ് എല്ലായ്പ്പോഴും തുകയും സ്വീകരിക്കുന്ന വിലാസവും പരിശോധിക്കുക.</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>പേയ്മെന്റ് സ്വീകരിക്കുന്നതിന് നിങ്ങളുടെ ബിറ്റ്കോയിൻ വിലാസങ്ങളാണ് ഇവ. ഓരോ ഇടപാടിനും പുതിയ സ്വീകരിക്കുന്ന വിലാസം ഉപയോഗിക്കുന്നതാണ് ഉചിതം.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>ഇവയാണ് പണം  സ്വീകരിയ്ക്കുന്നതിനായുള്ള താങ്കളുടെ ബിറ്റ്കോയിൻ വിലാസങ്ങൾ. പുതിയ വിലാസങ്ങൾ കൂട്ടിച്ചേർക്കുന്നതിനായി ' പുതിയ വിലാസം സൃഷ്ടിയ്ക്കുക ' എന്ന ബട്ടൺ അമർത്തുക.
 'ലെഗസി' തരത്തിന്റെ വിലാസങ്ങളിൽ മാത്രമേ സൈൻ ചെയ്യാൻ കഴിയൂ.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -112,15 +99,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Exporting Failed</source>
         <translation>കയറ്റുമതി പരാജയപ്പെട്ടു</translation>
     </message>
-<<<<<<< HEAD
-    </context>
-=======
     <message>
         <source>There was an error trying to save the address list to %1. Please try again.</source>
         <translation>%1 ലേക്ക് വിലാസ ലിസ്റ്റ് സംരക്ഷിക്കാൻ ശ്രമിക്കുന്നതിൽ ഒരു പിശകുണ്ടായിരുന്നു. വീണ്ടും ശ്രമിക്കുക.</translation>
     </message>
 </context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 <context>
     <name>AddressTableModel</name>
     <message>
@@ -155,13 +138,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>പുതിയ രഹസ്യപദപ്രയോഗം ആവർത്തിക്കുക</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>വാലറ്റിൽ പുതിയ രഹസ്യപദപ്രയോഗം നൽകുക. &lt;br/&gt; &lt;b&gt; പത്തോ അതിലധികമോ റാൻഡം പ്രതീകങ്ങൾ &lt;/ b&gt; അല്ലെങ്കിൽ &lt;b&gt; എട്ട് അല്ലെങ്കിൽ അതിൽ കൂടുതൽ വാക്കുകൾ &lt;/ b&gt; ഒരു രഹസ്യപദപ്രയോഗം ഉപയോഗിക്കുക.</translation>
-=======
         <source>Show passphrase</source>
         <translation>രഹസ്യപദം  കാണിക്കുക </translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     <message>
         <source>Encrypt wallet</source>
@@ -188,13 +166,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>പാസ്ഫ്രെയ്സ് മാറ്റുക</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <source>Enter the old passphrase and new passphrase to the wallet.</source>
-        <translation>പഴയ രഹസ്യപദപ്രയോഗം പുതിയ രഹസ്യപദപ്രയോഗം വാലറ്റിൽ നൽകുക.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Confirm wallet encryption</source>
         <translation>വാലറ്റ് എൻക്രിപ്ഷൻ സ്ഥിരീകരിക്കുക</translation>
     </message>
@@ -202,18 +173,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
         <translation>മുന്നറിയിപ്പ്: നിങ്ങളുടെ വാലറ്റ് എൻക്രിപ്റ്റ് ചെയ്ത് പാസ്ഫ്രെയ്സ് നഷ്ടപ്പെടുകയാണെങ്കിൽ, നിങ്ങളുടെ എല്ലാ ബിറ്റ്കൊയിനുകളും നഷ്ടപ്പെടും!</translation>
     </message>
-<<<<<<< HEAD
-    </context>
-<context>
-    <name>BanTableModel</name>
-    </context>
-<context>
-    <name>DigiByteGUI</name>
-    </context>
-<context>
-    <name>CoinControlDialog</name>
-    <message>
-=======
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>നിങ്ങളുടെ വാലറ്റ് എൻ‌ക്രിപ്റ്റ് ചെയ്യാൻ ആഗ്രഹിക്കുന്നുവെന്ന് ഉറപ്പാണോ?</translation>
@@ -796,14 +755,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>ചെലവഴിക്കാത്തത് പൂട്ടുക</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>(no label)</source>
         <translation>(ലേബൽ ഇല്ല)</translation>
     </message>
     </context>
 <context>
-<<<<<<< HEAD
-=======
     <name>CreateWalletActivity</name>
     </context>
 <context>
@@ -814,29 +770,20 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     </context>
 <context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>EditAddressDialog</name>
     </context>
 <context>
     <name>FreespaceChecker</name>
-<<<<<<< HEAD
-=======
     <message>
         <source>name</source>
         <translation>നാമധേയം / പേര് </translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>HelpMessageDialog</name>
     </context>
 <context>
     <name>Intro</name>
-<<<<<<< HEAD
-    </context>
-<context>
-    <name>ModalOverlay</name>
-=======
     <message>
         <source>Error</source>
         <translation>പിശക് </translation>
@@ -856,18 +803,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>calculating...</source>
         <translation>കണക്കായ്ക്കിക്കൊണ്ടിരിക്കുന്നു</translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>OpenURIDialog</name>
     </context>
 <context>
-<<<<<<< HEAD
-    <name>OptionsDialog</name>
-    </context>
-<context>
-    <name>OverviewPage</name>
-=======
     <name>OpenWalletActivity</name>
     <message>
         <source>default wallet</source>
@@ -902,7 +842,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </context>
 <context>
     <name>PSBTOperationsDialog</name>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>PaymentServer</name>
@@ -912,11 +851,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </context>
 <context>
     <name>QObject</name>
-<<<<<<< HEAD
-    </context>
-<context>
-    <name>QObject::QObject</name>
-=======
     <message>
         <source>Amount</source>
         <translation>തുക </translation>
@@ -925,18 +859,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Error: %1</source>
         <translation>തെറ്റ് : %1 </translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>QRImageWidget</name>
     </context>
 <context>
     <name>RPCConsole</name>
-<<<<<<< HEAD
-    </context>
-<context>
-    <name>ReceiveCoinsDialog</name>
-=======
     <message>
         <source>Node window</source>
         <translation>നോഡ് വിൻഡോ</translation>
@@ -952,38 +880,25 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Copy amount</source>
         <translation>തുക പകർത്തുക</translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
-<<<<<<< HEAD
-        <source>Address</source>
-        <translation>വിലാസം</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>ലേബൽ</translation>
-=======
         <source>Amount:</source>
         <translation>തുക:</translation>
     </message>
     <message>
         <source>Wallet:</source>
         <translation>വാലറ്റ്:</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
     <message>
-<<<<<<< HEAD
-=======
         <source>Date</source>
         <translation>തീയതി </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Label</source>
         <translation>ലേബൽ</translation>
     </message>
@@ -995,8 +910,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>SendCoinsDialog</name>
     <message>
-<<<<<<< HEAD
-=======
         <source>Quantity:</source>
         <translation>നിര്‍ദ്ധിഷ്‌ടസംഖ്യ / അളവ് :</translation>
     </message>
@@ -1033,7 +946,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>പെയ്മെന്റിനുള്ള അഭ്യർത്ഥന  കാലഹരണപ്പെട്ടു പോയിരിക്കുന്നു. </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>(no label)</source>
         <translation>(ലേബൽ ഇല്ല)</translation>
     </message>
@@ -1042,30 +954,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <name>SendCoinsEntry</name>
     </context>
 <context>
-<<<<<<< HEAD
-    <name>SendConfirmationDialog</name>
-    </context>
-<context>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>ShutdownWindow</name>
     </context>
 <context>
     <name>SignVerifyMessageDialog</name>
     </context>
 <context>
-<<<<<<< HEAD
-    <name>SplashScreen</name>
-    </context>
-<context>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>TrafficGraphWidget</name>
     </context>
 <context>
     <name>TransactionDesc</name>
-<<<<<<< HEAD
-=======
     <message>
         <source>Date</source>
         <translation>തീയതി </translation>
@@ -1074,7 +972,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Amount</source>
         <translation>തുക </translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>TransactionDescDialog</name>
@@ -1082,13 +979,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>TransactionTableModel</name>
     <message>
-<<<<<<< HEAD
-=======
         <source>Date</source>
         <translation>തീയതി </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Label</source>
         <translation>ലേബൽ</translation>
     </message>
@@ -1100,8 +994,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>TransactionView</name>
     <message>
-<<<<<<< HEAD
-=======
         <source>Copy address</source>
         <translation>വിലാസം പകർത്തുക</translation>
     </message>
@@ -1118,13 +1010,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>ഇടപാട് ഐഡി പകർത്തുക</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Comma separated file (*.csv)</source>
         <translation>കോമയാൽ വേർതിരിച്ച ഫയൽ (* .csv)</translation>
     </message>
     <message>
-<<<<<<< HEAD
-=======
         <source>Confirmed</source>
         <translation>സ്ഥിതീകരിച്ചു</translation>
     </message>
@@ -1133,7 +1022,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>തീയതി </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Label</source>
         <translation>ലേബൽ</translation>
     </message>
@@ -1150,13 +1038,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <name>UnitDisplayStatusBarControl</name>
     </context>
 <context>
-<<<<<<< HEAD
-    <name>WalletFrame</name>
-    </context>
-<context>
-    <name>WalletModel</name>
-    </context>
-=======
     <name>WalletController</name>
     <message>
         <source>Close wallet</source>
@@ -1181,7 +1062,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>സ്ഥിരം ആയ വാലറ്റ്</translation>
     </message>
 </context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 <context>
     <name>WalletView</name>
     <message>
@@ -1192,13 +1072,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Export the data in the current tab to a file</source>
         <translation>നിലവിലെ ടാബിൽ ഒരു ഫയലിൽ ഡാറ്റ എക്സ്പോർട്ട് ചെയ്യുക</translation>
     </message>
-<<<<<<< HEAD
-=======
     <message>
         <source>Error</source>
         <translation>പിശക് </translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>digibyte-core</name>

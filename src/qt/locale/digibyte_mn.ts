@@ -234,21 +234,6 @@
         <translation>Түрүйвчийг цоожлох нууц үгийг солих</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_mn.ts
-        <source>Open debugging and diagnostic console</source>
-        <translation>Оношилгоо ба засварын консолыг онгойлго</translation>
-    </message>
-    <message>
-        <source>DigiByte</source>
-        <translation>Биткойн</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Түрүйвч</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_mn.ts
         <source>&amp;Show / Hide</source>
         <translation>&amp;Харуул / Нуу</translation>
     </message>
@@ -1013,12 +998,6 @@
     </context>
 <context>
     <name>WalletView</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_mn.ts
-    </context>
-<context>
-    <name>digibyte-core</name>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_mn.ts
     <message>
         <source>&amp;Export</source>
         <translation>&amp;Экспортдлох</translation>

@@ -67,20 +67,12 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <translation>Ezek a DigiByte címeid kifizetések küldéséhez. Mindíg ellenőrizd az összeget és a fogadó címet mielőtt coinokat küldenél.</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Ezek a DigiByte címeid kifizetések fogadásához. Ajánlott új címet használni minden új fogadáshoz.</translation>
-=======
         <translation>Ezek a te  DigiByte címeid kifizetések küldéséhez. Mindíg ellenőrizd az összeget és a fogadó címet mielőtt coinokat küldenél.</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Ezek a DigiByte címeid amelyeken fogadni tudsz DigiByte utalásokat. Az "Új cím létrehozása" gombbal tudsz új címet létrehozni. Aláírni csak korábbi egyessel kezdődő címekkel lehet.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -189,10 +181,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Tárca titkosítva</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>A %1 most bezár, hogy befejezze a titkosítást. Ne feledje, hogy a tárca titkosítása nem nyújt teljes védelmet azzal szemben, hogy kártékony programok megfertőzzék a számítógépét és ellopják a digibytejait.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Írja be a tárca új jelszavát. &lt;br/&gt;A jelszó összetétele a következő: &lt;b&gt;tíz vagy annál több véletlenszerű karakter&lt;/b&gt;, vagy &lt;b&gt;nyolc vagy annál több szó&lt;/b&gt;. </translation>
     </message>
@@ -215,7 +203,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Tárcáját titkosítottuk.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -372,13 +359,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Lemezen lévő blokkok újraindexelése...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-=======
         <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
         <translation>Proxy  &lt;b&gt;aktív&lt;/b&gt;: %1</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>Send coins to a DigiByte address</source>
         <translation>DigiByte küldése megadott címre</translation>
     </message>
@@ -395,17 +379,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Üzenet &amp;valódiságának ellenőrzése</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Tárca</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>&amp;Send</source>
         <translation>&amp;Küldés</translation>
     </message>
@@ -462,13 +435,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>A használt fogadó címek és címkék megtekintése</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>"digibyte:" URI azonosító vagy fizetési kérelem megnyitása</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>&amp;Command-line options</source>
         <translation>Paran&amp;cssor kapcsolók</translation>
     </message>
@@ -517,10 +483,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Naprakész</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>A %1 súgó megjelenítése a DigiByte lehetséges parancssori kapcsolóinak listájával</translation>
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;PSBT betöltése fájlból.</translation>
     </message>
@@ -615,7 +577,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Main Window</source>
         <translation>Főablak</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -705,13 +666,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Eredeti üzenet:</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Végzetes hiba történt. A DigiByte működése nem biztonságos és hamarosan leáll.</translation>
-=======
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>Végzetes hiba történt %1 nem tud biztonságban továbblépni így most kilép.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
 </context>
 <context>
@@ -964,8 +920,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
         <translation>A megadott "%1" cím nem egy érvényes DigiByte-cím.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-=======
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -974,7 +928,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
         <translation>A megadott "%1" cím már szerepel a címjegyzékben "%2" néven.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1064,13 +1017,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Blokkok elhgyása ellenőrzés után, kivéve a legújabb %1 GB-ot (nyesés)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1117,11 +1067,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the digibyte network, as detailed below.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <translation>A legutóbbi tranzakciók még lehet, hogy nem látszanak, ezért előfordulhat, hogy a pénztárca egyenlege nem a valós állapotot mutatja. Ha a pénztárca befejezte a szinkronizációt a digibyte hálózattal, utána már az aktuális egyenleget fogja mutatni, amint alant részletesen látszik.</translation>
-=======
         <translation>A legutóbbi tranzakciók még lehet, hogy nem láthatók, és így előfordulhat, hogy a tárca egyenlege helytelen. A tárca azon nyomban az aktuális egyenleget fogja mutatni, amint befejezte a digibyte hálózattal történő szinkronizációt, amely alább van részletezve.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1369,13 +1315,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Csatlakozás a DigiByte hálózathoz külön SOCKS5 proxy használatával a Tor rejtett szolgáltatásainak eléréséhez.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>&amp;Window</source>
         <translation>&amp;Ablak</translation>
     </message>
@@ -1488,11 +1427,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <translation>A kijelzett információ lehet, hogy elavult. A pénztárcája automatikusan szinkronizálja magát a DigiByte hálózattal miután a kapcsolat létrejön, de ez e folyamat még nem fejeződött be.</translation>
-=======
         <translation>A kijelzett információ lehet, hogy elavult. A kapcsolat létrehozatalát követően tárcája automatikusan szinkronba kerül a DigiByte hálózattal, de ez a folyamat még nem fejeződött be.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1570,13 +1505,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Párbeszéd</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>A digibyte nem tud elindulni: click-to-pay kezelő</translation>
-=======
         <source>Sign Tx</source>
         <translation>Tx aláírása</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
@@ -1587,13 +1517,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Másolás vágólapra</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>Nem sikerült az URI elemzése! Ezt okozhatja érvénytelen DigiByte cím, vagy rossz URI paraméterezés.</translation>
-=======
         <source>Save...</source>
         <translation>Mentés...</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>Close</source>
@@ -2487,17 +2412,6 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
         <translation>Elrejtés</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Alacsony díj is megfelelő, ha nincs több tranzakció mint amennyi hely a blokkokban. Figyelem! Ha a hálózat túlterhelt, lehetséges, hogy a tranzakció nem lesz megerősítve.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(olvasd el a gyorstippet)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>Recommended:</source>
         <translation>Ajánlott:</translation>
     </message>
@@ -2506,11 +2420,6 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
         <translation>Egyéni:</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>normal</source>
-        <translation>normál</translation>
-        </message> 
-=======
         <source>(Smart fee not initialized yet. This usually takes a few blocks...)</source>
         <translation>(Samodejni obračun provizije še ni pripravljen. Po navadi izračun traja nekaj blokov ...)</translation>
     </message>
@@ -2518,7 +2427,6 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
         <source>Send to multiple recipients at once</source>
         <translation>Küldés több címzettnek egyszerre</translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     <message>
         <source>Add &amp;Recipient</source>
         <translation>&amp;Címzett hozzáadása</translation>
@@ -2771,13 +2679,6 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
         <translation>Válassz egy korábban már használt címet</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>This is a normal payment.</source>
-        <translation>Ez normál fizetés.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>Erre a DigiByte címre küldje az összeget</translation>
     </message>
@@ -2864,13 +2765,10 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
         <translation>Üzenet aláírása...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-=======
         <source>You can sign messages/agreements with your addresses to prove you can receive digibytes sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>S svojimi naslovi lahko podpisujete sporočila ali pogodbe in s tem dokazujete, da na teh naslovih lahko prejemate kovance. Bodite previdni in ne podpisujte ničesar nejasnega ali naključnega, ker vas zlikovci preko ribarjenja (phishing) lahko prelisičijo, da na njih prepišete svojo identiteto. Podpisujte samo podrobno opisane izjave, s katerimi se strinjate.</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>The DigiByte address to sign the message with</source>
         <translation>DigiByte cím, amivel alá kívánja írni az üzenetet</translation>
     </message>
@@ -2904,11 +2802,7 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <translation>Üzenet </translation>
-=======
         <translation>Üzenet</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2927,12 +2821,6 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
         <translation>Üzenet ellenőrzése</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>The DigiByte address the message was signed with</source>
-        <translation>DigiByte cím, amivel aláírta az üzenetet</translation>
-    </message>
-    <message>
-=======
         <source>Enter the receiver's address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack. Note that this only proves the signing party receives with the address, it cannot prove sendership of any transaction!</source>
         <translation>Da preverite verodostojnost sporočila, spodaj vnesite: prejemnikov naslov, prejeto sporočilo (pazljivo skopirajte vse prelome vrstic, presledke, tabulatorje ipd.,) in prejeti podpis. Da se izognete napadom tipa man-in-the-middle, vedite, da iz veljavnega podpisa ne sledi nič drugega, kot tisto, kar je navedeno v sporočilu. Podpis samo potrjuje dejstvo, da ima podpisnik v lasti prejemni naslov, ne more pa dokazati vira nobene transakcije!</translation>
     </message>
@@ -2949,7 +2837,6 @@ Figyelem: Mivel bájtonként lesz a dj kiszámolva ezért a "100 satoshi per kB"
         <translation>A kapott aláírás  amikor az üzenet alá lett írva.</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Ellenőrizze az üzenetet, hogy valóban a megjelölt DigiByte címmel van-e aláírva</translation>
     </message>
@@ -3658,13 +3545,8 @@ A Fájl &gt; Megnyitás menüben lehet megnyitni.
         <translation>Obrezujem ...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-=======
         <source>Unable to start HTTP server. See debug log for details.</source>
         <translation>HTTP szerver indítása sikertelen. A részleteket lásd: debug log.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>The %s developers</source>
@@ -4118,9 +4000,6 @@ A Fájl &gt; Megnyitás menüben lehet megnyitni.
     </message>
     <message>
         <source>Insufficient funds</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_hu.ts
-        <translation>Nincs elég digibyteod.</translation>
-=======
         <translation>Fedezethiány</translation>
     </message>
     <message>
@@ -4134,7 +4013,6 @@ A Fájl &gt; Megnyitás menüben lehet megnyitni.
     <message>
         <source>Cannot write to data directory '%s'; check permissions.</source>
         <translation>Nem tudok írni a '%s' könyvtárba, ellenőrizd a jogosultságokat.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_hu.ts
     </message>
     <message>
         <source>Loading block index...</source>

@@ -67,20 +67,12 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>這些是你要付款過去的 DigiByte 位址。在付錢之前，務必要檢查金額和收款位址是否正確。</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>這些是你用來收款的 DigiByte 位址。建議在每次交易時，都使用一個新的收款位址。</translation>
-=======
         <translation>這些是你要發送過去的 比特幣地址。在發送幣之前，務必要檢查金額和接收地址是否正確。</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>這些是您的比特幣接收地址。使用“接收”標籤中的“產生新的接收地址”按鈕產生新的地址。只能使用“傳統”類型的地址進行簽名。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -189,10 +181,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>錢包已加密</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 現在要關閉，好完成加密程序。請注意，加密錢包不能完全防止入侵你的電腦的惡意程式偷取錢幣。</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>輸入錢包的新密碼短語。&lt;br/&gt;請使用&lt;b&gt;個或10個以上隨機字符&lt;/b&gt;或&lt;b&gt;個8個以上單詞3的密碼。</translation>
     </message>
@@ -215,7 +203,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>你的錢包現已被加密</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -373,11 +360,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Send coins to a DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>付錢給一個 DigiByte 位址</translation>
-=======
         <translation>發送幣給一個比特幣地址</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -389,19 +372,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>&amp;Verify message...</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>驗證訊息(&amp;V)...</translation>
-    </message>
-    <message>
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>錢包</translation>
-=======
         <translation>&amp;驗證訊息...</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>&amp;Send</source>
@@ -425,19 +396,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>用 DigiByte 位址簽署訊息來證明位址是你的</translation>
-    </message>
-    <message>
-        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>驗證訊息是用來確定訊息是用指定的 DigiByte 位址簽署的</translation>
-=======
         <translation>用比特幣地址簽名訊息來證明位址是你的</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
         <translation>驗證訊息是用來確定訊息是用指定的比特幣地址簽名的</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>&amp;File</source>
@@ -465,15 +428,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>顯示已使用過的收款位址和標記的清單</translation>
-    </message>
-    <message>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>開啓 digibyte 協議的資源識別碼(URI)或付款要求</translation>
-=======
         <translation>顯示已使用過的接收地址和標籤清單</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -524,8 +479,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>最新狀態</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>從檔案中載入PSBT ...</translation>
     </message>
@@ -586,7 +539,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>關閉所有錢包</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
         <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation>顯示 %1 的說明訊息，來取得可用命令列選項的列表</translation>
     </message>
@@ -707,13 +659,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>錢包&lt;b&gt;已加密&lt;/b&gt;並且&lt;b&gt;上鎖中&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>發生了致命的錯誤。DigiByte 軟體沒辦法再繼續安全執行，只好結束。</translation>
-=======
         <source>Original message:</source>
         <translation>原始訊息：</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     </context>
 <context>
@@ -961,15 +908,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>輸入的位址 %1 並不是有效的 DigiByte 位址。</translation>
-    </message>
-    <message>
-        <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
-        <translation>%1 已經是標記為 %2 的收款位址了，不可以又是付款位址。</translation>
-=======
         <translation>輸入的地址 %1 並不是有效的比特幣地址。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
@@ -1221,13 +1160,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>如果對這種網路類型，有指定用來跟其他節點聯絡的 SOCKS5 代理伺服器的話，就會顯示在這裡。</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor hidden services:</source>
-        <translation>透過另外的 SOCKS&amp;5 代理伺服器來連線到 DigiByte 網路中的 Tor 隱藏服務:</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
         <source>Hide the icon from the system tray.</source>
         <translation>隱藏系統通知區圖示</translation>
     </message>
@@ -1360,13 +1292,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>透過另外的 SOCKS5 代理伺服器來連線到 DigiByte 網路中的 Tor 隱藏服務。</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
         <source>&amp;Window</source>
         <translation>視窗(&amp;W)</translation>
     </message>
@@ -1561,26 +1486,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>對話視窗</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>沒辦法啟動 digibyte 協議的「按就付」處理器</translation>
-=======
         <source>Sign Tx</source>
         <translation>簽名交易</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
         <translation>廣播交易</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>字首為 digibyte:// 不是有效的 URI，請改用 digibyte: 開頭。</translation>
-=======
         <source>Copy to Clipboard</source>
         <translation>複製到剪貼簿</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Save...</source>
@@ -1591,13 +1506,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>關閉</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>沒辦法解析 URI 位址！可能是因為 DigiByte 位址無效，或是 URI 參數格式錯誤。</translation>
-=======
         <source>Could not sign any more inputs.</source>
         <translation>無法再簽名 input</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Signed transaction successfully. Transaction is ready to broadcast.</source>
@@ -1742,11 +1652,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. %1)</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>輸入 DigiByte 位址 (比如說 %1)</translation>
-=======
         <translation>輸入 比特幣地址 (比如說 %1)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>%1 d</source>
@@ -2451,17 +2357,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>隱藏</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>當交易量少於區塊可容納的空間時，只付最低手續費不會有什麽問題。但是當交易量的需求成長到超過整體網路可以處理的量時，可能會造成一筆一直不會被確認的交易。</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(請看提示)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
         <source>Recommended:</source>
         <translation>建議值:</translation>
     </message>
@@ -2683,11 +2578,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>警告: DigiByte 位址無效</translation>
-=======
         <translation>警告: 比特幣地址無效</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2726,11 +2617,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>The DigiByte address to send the payment to</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>接收付款的 DigiByte 位址</translation>
-=======
         <translation>將支付發送到的比特幣地址給</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Alt+A</source>
@@ -2749,13 +2636,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>刪掉這個項目</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>以所選單位發送的金額</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>手續費會從要付款出去的金額中扣掉。因此收款人會收到比輸入的金額還要少的 digibyte。如果有多個收款人的話，手續費會平均分配來扣除。</translation>
     </message>
@@ -2819,19 +2703,11 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>You can sign messages/agreements with your addresses to prove you can receive digibytes sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>你可以用自己的位址簽署訊息或合約，來證明你可以從該位址收款。但是請小心，不要簽署語意含糊不清，或隨機產生的內容，因為釣魚式詐騙可能會用騙你簽署的手法來冒充是你。只有在語句中的細節你都同意時才簽署。</translation>
-    </message>
-    <message>
-        <source>The DigiByte address to sign the message with</source>
-        <translation>用來簽署訊息的 DigiByte 位址</translation>
-=======
         <translation>您可以使用您的地址簽名訊息/協議，以證明您可以接收發送給他們的比特幣。但是請小心，不要簽名語意含糊不清，或隨機產生的內容，因為釣魚式詐騙可能會用騙你簽名的手法來冒充是你。只有簽名您同意的詳細內容。</translation>
     </message>
     <message>
         <source>The DigiByte address to sign the message with</source>
         <translation>用來簽名訊息的 比特幣地址</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2863,11 +2739,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <translation>簽署這個訊息來證明這個 DigiByte 位址是你的</translation>
-=======
         <translation>簽名這個訊息來證明這個比特幣地址是你的</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2898,21 +2770,12 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>簽名訊息進行驗證</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>The DigiByte address the message was signed with</source>
-        <translation>簽署這個訊息的 DigiByte 位址</translation>
-    </message>
-    <message>
-        <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>驗證這個訊息來確定是用指定的 DigiByte 位址簽署的</translation>
-=======
         <source>The signature given when the message was signed</source>
         <translation>簽名訊息時給出的簽名</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>驗證這個訊息來確定是用指定的比特幣地址簽名的</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3620,13 +3483,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation>無法啟動 HTTP 伺服器。詳情請看除錯紀錄。</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
         <source>The %s developers</source>
         <translation>%s 開發人員</translation>
     </message>
@@ -3967,15 +3823,12 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation>以 -walletdir 指定的路徑 "%s" 不是個目錄</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_TW.ts
-=======
         <source>The specified config file %s does not exist
 </source>
         <translation>指定的配置文件 %s 不存在
 </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_TW.ts
         <source>The transaction amount is too small to pay the fee</source>
         <translation>交易金額太少而付不起手續費</translation>
     </message>

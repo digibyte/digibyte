@@ -70,13 +70,6 @@
         <translation>Đây là những địa chỉ đang thực hiện thanh toán. Luôn kiểm tra số lượng và địa chỉ nhận trước khi gửi coins.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Đây là địa chỉ DigiByte của bạn để nhận thanh toán. Khuyến cáo nên sử dụng địa chỉ mới cho mỗi giao dịch.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>&amp;Copy Address</source>
         <translation>&amp;Copy Địa Chỉ</translation>
     </message>
@@ -183,10 +176,6 @@
         <translation>Ví đã được mã hóa</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 sẽ đóng lúc này để kết thúc quá trình mã hóa. Nhớ rằng việc mã hóa ví không thể bảo vệ hoàn toàn số digibytes khỏi việc Malware lây nhiễm đến computer của bạn.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Nhập cụm từ mật khẩu mới cho ví điện tử. Hãy sử dụng cụm mật khẩu với mười hoặc nhiều hơn các ký tự ngẫu nhiên, hoặc nhiều hơn tám từ.</translation>
     </message>
@@ -209,7 +198,6 @@
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Ví của bạn đã được mã hóa.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -366,13 +354,10 @@
         <translation>Khôi phục các khối trên ổ đĩa...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-=======
         <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
         <translation>Proxy là &lt;b&gt; cho phép &lt;/b&gt;: %1</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>Send coins to a DigiByte address</source>
         <translation>Gửi coin đến một địa chỉ DigiByte</translation>
     </message>
@@ -389,17 +374,6 @@
         <translation>&amp;Lời nhắn xác nhận...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Ví</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>&amp;Send</source>
         <translation>&amp;Gửi</translation>
     </message>
@@ -456,13 +430,6 @@
         <translation>Hiển thị danh sách các địa chỉ và nhãn đã dùng để nhận</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Mở một digibyte: URI hoặc yêu cầu thanh toán</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Tùy chỉnh Command-line</translation>
     </message>
@@ -511,10 +478,6 @@
         <translation>Đã cập nhật</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Hiển thị %1 tin nhắn hỗ trợ để nhận được danh sách DigiByte command-line khả dụng</translation>
-=======
         <source>Node window</source>
         <translation>Cửa sổ node</translation>
     </message>
@@ -585,7 +548,6 @@
     <message>
         <source>Main Window</source>
         <translation>Màn hình chính</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -672,13 +634,8 @@
         <translation>Ví thì &lt;b&gt;encrypted&lt;/b&gt; và hiện tại &lt;b&gt;locked&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Một lỗi nghiêm trọng vừa xảy ra. DigiByte có thể không còn tiếp tục an toàn và sẽ bị bỏ.</translation>
-=======
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>Lỗi nghiêm trong. %1 không thể tiếp tục và sẽ thoát ra</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
     </message>
 </context>
 <context>
@@ -923,8 +880,6 @@
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
         <translation>Address đã nhập "%1" không valid DigiByte address.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-=======
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -933,7 +888,6 @@
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
         <translation>Địa chỉ  nhập "%1" đã có trong sổ địa chỉ với nhãn "%2".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1273,8 +1227,6 @@
         <translation>Map port using &amp;UPnP</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-=======
         <source>Accept connections from outside.</source>
         <translation>Chấp nhận kết nối từ bên ngoài</translation>
     </message>
@@ -1283,7 +1235,6 @@
         <translation>Chấp nhận  kết nối đang tới</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>Connect to the DigiByte network through a SOCKS5 proxy.</source>
         <translation>Kết nối đến DigiByte network qua một SOCKS5 proxy.</translation>
     </message>
@@ -1320,13 +1271,6 @@
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Kết nối đến DigiByte network qua một nhánh rời SOCKS5 proxy của Tor hidden services.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>&amp;Window</source>
         <translation>&amp;Window</translation>
     </message>
@@ -1509,13 +1453,8 @@
         <translation>Bảng thoại</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Không thể khởi tạo digibyte: click-to-pay handler</translation>
-=======
         <source>Sign Tx</source>
         <translation>Đăng ký Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
     </message>
     <message>
         <source>Copy to Clipboard</source>
@@ -1530,13 +1469,8 @@
         <translation>Đóng</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI không thể phân tích cú pháp! Đây có thể gây nên bởi invalid DigiByte address hoặc URI không đúng định dạng tham số.</translation>
-=======
         <source>Failed to sign transaction: %1</source>
         <translation>Đăng ký giao dịch thất bại :%1</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
     </message>
     <message>
         <source>Save Transaction Data</source>
@@ -2350,17 +2284,6 @@ Lưu ý: Vì phí được tính trên cơ sở mỗi byte, nên phí "100 satos
         <translation>Ẩn</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Chi trả chỉ số nhỏ nhất fee thì ổn cho tới khi có ít transaction volume hơn khoảng trống trong blocks. Nhưng nhận ra rằng điều này kết thúc trong việc chẳng bao giờ xác nhận transaction trừ khi có nhiều nhu cầu cho giao dịch digibyte hơn so với mạng có thể xử lý.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(đọc cái tooltip)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>Recommended:</source>
         <translation>Khuyên dùng:</translation>
     </message>
@@ -2616,13 +2539,6 @@ Lưu ý: Vì phí được tính trên cơ sở mỗi byte, nên phí "100 satos
         <translation>Chọn mới thì address</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>This is a normal payment.</source>
-        <translation>Đây là một thông thường payment.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>The DigiByte address để gửi the payment đến</translation>
     </message>
@@ -2643,13 +2559,10 @@ Lưu ý: Vì phí được tính trên cơ sở mỗi byte, nên phí "100 satos
         <translation>Xóa bỏ entry này</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>Lượng tiền để gửi trong mỗi đơn vị đã chọn</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>The fee sẽ được khấu trừ từ số tiền đang gửi. Người nhận sẽ receive ít digibytes hơn bạn gõ vào khoảng trống. Nếu nhiều người gửi được chọn, fee sẽ được chia đều.</translation>
     </message>
@@ -2776,8 +2689,6 @@ Lưu ý: Vì phí được tính trên cơ sở mỗi byte, nên phí "100 satos
         <translation>The DigiByte address tin nhắn đã ký với</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-=======
         <source>The signed message to verify</source>
         <translation>Tin nhắn đã được ký để xác nhận</translation>
     </message>
@@ -2786,7 +2697,6 @@ Lưu ý: Vì phí được tính trên cơ sở mỗi byte, nên phí "100 satos
         <translation>Chữ ký được cung cấp khi tin nhắn đã được ký</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Verify tin nhắn để chắc rằng nó đã được ký với xác định DigiByte address</translation>
     </message>
@@ -3480,13 +3390,6 @@ Lưu ý: Vì phí được tính trên cơ sở mỗi byte, nên phí "100 satos
         <translation>Unable to start HTTP server. See debug log for details.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_vi.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_vi.ts
         <source>The %s developers</source>
         <translation>The %s developers</translation>
     </message>

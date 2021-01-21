@@ -2,19 +2,14 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-<<<<<<< HEAD
-=======
         <source>Right-click to edit address or label</source>
         <translation>ලිපිනය හෝ ලේබලය සංස්කරණය කිරීමට දකුණු මූසික බොත්තම  ක්ලික් කරන්න</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Create a new address</source>
         <translation>නව ලිපිනයක් සාදන්න</translation>
     </message>
     <message>
-<<<<<<< HEAD
-=======
         <source>&amp;New</source>
         <translation>නව</translation>
     </message>
@@ -39,7 +34,6 @@
         <translation>සෙවීමට ලිපිනය හෝ ලේබලය ඇතුළත් කරන්න</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Choose the address to send coins to</source>
         <translation>කාසි යැවිය යුතු ලිපිනය තෝරන්න</translation>
     </message>
@@ -48,13 +42,10 @@
         <translation>කාසි ලැබිය යුතු ලිපිනය තෝරන්න</translation>
     </message>
     <message>
-<<<<<<< HEAD
-=======
         <source>C&amp;hoose</source>
         <translation>තෝරන්න</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Sending addresses</source>
         <translation>යවන ලිපින</translation>
     </message>
@@ -62,9 +53,6 @@
         <source>Receiving addresses</source>
         <translation>ලබන ලිපින</translation>
     </message>
-<<<<<<< HEAD
-    </context>
-=======
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>මේවා ඔබගේ ගෙවීම් යැවීම සඳහා වන බිට්කොයින් ලිපින වේ. කාසි යැවීමට පෙර සෑම විටම මුදල සහ ලැබීමේ ලිපිනය පරීක්ෂා කරන්න.</translation>
@@ -78,7 +66,6 @@
         <translation>ලිපින ලැයිස්තුව %1 ට සුරැකීමට උත්සාහ කිරීමේදී දෝෂයක් ඇතිවිය. කරුණාකර නැවත උත්සාහ කරන්න.</translation>
     </message>
 </context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 <context>
     <name>AddressTableModel</name>
     <message>
@@ -96,11 +83,6 @@
 </context>
 <context>
     <name>AskPassphraseDialog</name>
-<<<<<<< HEAD
-    </context>
-<context>
-    <name>BanTableModel</name>
-=======
     <message>
         <source>Passphrase Dialog</source>
         <translation>මුරපද කවුළුව</translation>
@@ -228,13 +210,10 @@
         <source>IP/Netmask</source>
         <translation>IP/Netmask</translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>DigiByteGUI</name>
     <message>
-<<<<<<< HEAD
-=======
         <source>Synchronizing with network...</source>
         <translation>ජාලය සමග සමමුහුර්ත ව‌ෙමින්...</translation>
     </message>
@@ -243,7 +222,6 @@
         <translation>ගනුදෙනු ඉතිහාසය පිරික්සන්න</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Warning</source>
         <translation>අවවාදය</translation>
     </message>
@@ -296,15 +274,12 @@
     </message>
 </context>
 <context>
-<<<<<<< HEAD
-=======
     <name>CreateWalletActivity</name>
     </context>
 <context>
     <name>CreateWalletDialog</name>
     </context>
 <context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>EditAddressDialog</name>
     </context>
 <context>
@@ -337,23 +312,13 @@
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
-<<<<<<< HEAD
-=======
 </context>
 <context>
     <name>OpenWalletActivity</name>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 <context>
     <name>OptionsDialog</name>
     <message>
-<<<<<<< HEAD
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>IPv4</source>
         <translation>IPv4</translation>
     </message>
@@ -370,12 +335,9 @@
     <name>OverviewPage</name>
     </context>
 <context>
-<<<<<<< HEAD
-=======
     <name>PSBTOperationsDialog</name>
     </context>
 <context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>PaymentServer</name>
     </context>
 <context>
@@ -389,12 +351,6 @@
     </message>
     </context>
 <context>
-<<<<<<< HEAD
-    <name>QObject::QObject</name>
-    </context>
-<context>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>QRImageWidget</name>
     </context>
 <context>
@@ -406,21 +362,8 @@
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
-<<<<<<< HEAD
-        <source>Address</source>
-        <translation>ලිපිනය</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation>අගය</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>ලේබලය</translation>
-=======
         <source>Amount:</source>
         <translation>අගය:</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </message>
     </context>
 <context>
@@ -465,24 +408,12 @@
     <name>SendCoinsEntry</name>
     </context>
 <context>
-<<<<<<< HEAD
-    <name>SendConfirmationDialog</name>
-    </context>
-<context>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>ShutdownWindow</name>
     </context>
 <context>
     <name>SignVerifyMessageDialog</name>
     </context>
 <context>
-<<<<<<< HEAD
-    <name>SplashScreen</name>
-    </context>
-<context>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>TrafficGraphWidget</name>
     </context>
 <context>
@@ -517,13 +448,10 @@
 <context>
     <name>TransactionView</name>
     <message>
-<<<<<<< HEAD
-=======
         <source>Comma separated file (*.csv)</source>
         <translation>කොමා වලින් වෙන් කරන ලද ගොනුව (* .csv)</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         <source>Date</source>
         <translation>දිනය</translation>
     </message>
@@ -540,12 +468,9 @@
     <name>UnitDisplayStatusBarControl</name>
     </context>
 <context>
-<<<<<<< HEAD
-=======
     <name>WalletController</name>
     </context>
 <context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     <name>WalletFrame</name>
     </context>
 <context>
@@ -556,16 +481,5 @@
     </context>
 <context>
     <name>digibyte-core</name>
-<<<<<<< HEAD
-    <message>
-        <source>Information</source>
-        <translation>තොරතුර</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>අවවාදය</translation>
-    </message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     </context>
 </TS>

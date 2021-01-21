@@ -70,15 +70,10 @@
         <translation>Aquestes són les vostres adreces de DigiByte per enviar els pagaments. Sempre reviseu l'import i l'adreça del destinatari abans de transferir monedes.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Aquestes són les vostres adreces DigiByte per rebre pagaments. Es recomana utilitzar una adreça nova de recepció per a cada transacció.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Aquestes son les teves adreces de DigiByte per rebre pagaments. Utilitza el botó "Crear nova adreça de recepció" de la pestanya de recepció per crear una nova adreça.
 Només és possible firmar amb adreces del tipus "legacy".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,11 +171,7 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <translation>Avís: si encripteu el vostre moneder i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS VOSTRES DIGIBYTES&lt;/b&gt;!</translation>
-=======
         <translation>Avís: si xifreu la cartera i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS DIGIBYTES&lt;/b&gt;!</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -203,10 +194,6 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation>Recorda que tot i xifrant la teva cartera, els teus digibytes no estan completament protegits de robatori a través de programari maliciós que estigui infectant el teu ordinador.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>Ara es tancarà el %1 per finalitzar el procés d'encriptació. Recordeu que encriptar el vostre moneder no garanteix que les vostres digibytes no puguin ser robades per programari maliciós que infecti l'ordinador.</translation>
-=======
         <source>Wallet to be encrypted</source>
         <translation>Cartera per ser encriptada</translation>
     </message>
@@ -217,7 +204,6 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>S'ha xifrat la cartera.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -394,17 +380,6 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation>&amp;Verifica el missatge...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Moneder</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
         <source>&amp;Send</source>
         <translation>&amp;Envia</translation>
     </message>
@@ -461,23 +436,12 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation>Mostra la llista d'adreces de recepció i etiquetes utilitzades</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Obre una digibyte: sol·licitud d'URI o pagament</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
         <source>&amp;Command-line options</source>
         <translation>Opcions de la &amp;línia d'ordres</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <translation><numerusform>%n connexió activa a la xarxa DigiByte</numerusform><numerusform>%n connexions actives a la xarxa DigiByte</numerusform></translation>
-=======
         <translation><numerusform>Una connexió activa a la xarxa de DigiByte</numerusform><numerusform>%n connexions actives a la xarxa de DigiByte</numerusform></translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -560,10 +524,6 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation>Obre la cartera</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Mostra el missatge d'ajuda del %1 per obtenir una llista amb les possibles opcions de línia d'ordres de DigiByte</translation>
-=======
         <source>Open a wallet</source>
         <translation>Obre una cartera</translation>
     </message>
@@ -618,7 +578,6 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
     <message>
         <source>Main Window</source>
         <translation>Finestra principal</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -705,17 +664,12 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation>La cartera està &lt;b&gt;encriptada&lt;/b&gt; i actualment &lt;b&gt;blocada&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>S'ha produït un error fatal. DigiByte no pot continuar amb seguretat i finalitzarà.</translation>
-=======
         <source>Original message:</source>
         <translation>Missatge original:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>S'ha produït un error fatal. %1 ja no pot continuar amb seguretat i sortirà.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
 </context>
 <context>
@@ -1070,13 +1024,10 @@ Això és ideal per a carteres de mode només lectura.</translation>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Descarta blocs després de la verificació, excepte el més recent %1 GB (podar)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1123,11 +1074,7 @@ Això és ideal per a carteres de mode només lectura.</translation>
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the digibyte network, as detailed below.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <translation>És possible que les transaccions recents encara no siguin visibles i, per tant, el saldo del vostre moneder podria ser incorrecte. Aquesta informació serà correcta una vegada que el vostre moneder hagi finalitzat la sincronització amb la xarxa digibyte, tal com es detalla més avall.</translation>
-=======
         <translation>És possible que les transaccions recents encara no siguin visibles i, per tant, el saldo de la vostra cartera podria ser incorrecte. Aquesta informació serà correcta una vegada que la cartera hagi finalitzat la sincronització amb la xarxa digibyte, tal com es detalla més avall.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1375,13 +1322,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Conectar a la red de DigiByte a través de un proxy SOCKS5 per als serveis ocults de Tor</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -1498,11 +1438,7 @@ Això és ideal per a carteres de mode només lectura.</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <translation>La informació mostrada pot no estar al día. El teu moneder es sincronitza automàticament amb la xarxa DigiByte un cop s'ha establert connexió, però aquest proces no s'ha completat encara.</translation>
-=======
         <translation>La informació mostrada pot no estar al dia. El vostra cartera se sincronitza automàticament amb la xarxa DigiByte un cop s'ha establert connexió, però aquest proces encara no ha finalitzat.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1580,26 +1516,16 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation>Diàleg</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>No es pot iniciar digibyte: controlador click-to-pay</translation>
-=======
         <source>Sign Tx</source>
         <translation>Signa Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
         <translation>Emet Tx</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'digibyte://' no és una URI vàlida. Usi 'digibyte:' en lloc seu.</translation>
-=======
         <source>Copy to Clipboard</source>
         <translation>Còpia al Clipboard</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>Save...</source>
@@ -1610,13 +1536,8 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation>Tanca</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>L'URI no pot ser analitzat! Això pot ser a causa d'una adreça de DigiByte no vàlida o per paràmetres URI amb mal format.</translation>
-=======
         <source>Failed to load transaction: %1</source>
         <translation>Ha fallat la càrrega de la transacció: %1</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
     </message>
     <message>
         <source>Failed to sign transaction: %1</source>
@@ -2498,17 +2419,6 @@ Nota: Com que la comissió es calcula en funció dels bytes, una comissió de "1
         <translation>Amaga</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>No hi ha cap problema en pagar només la comissió mínima sempre que hi hagi menys volum de transacció que espai en els blocs. Però tingueu present que això pot acabar en una transacció que mai es confirmi una vegada hi hagi més demanda de transaccions de digibytes que la xarxa pugui processar.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(llegiu l'indicador de funció)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
         <source>Recommended:</source>
         <translation>Recomanada:</translation>
     </message>
@@ -2796,13 +2706,10 @@ Nota: Com que la comissió es calcula en funció dels bytes, una comissió de "1
         <translation>Elimina aquesta entrada</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>L’import a enviar a la unitat seleccionada</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>La comissió es deduirà de l'import que s'enviarà. El destinatari rebrà menys digibytes que les que introduïu al camp d'import. Si se seleccionen múltiples destinataris, la comissió es dividirà per igual.</translation>
     </message>
@@ -2927,10 +2834,6 @@ Nota: Com que la comissió es calcula en funció dels bytes, una comissió de "1
     <message>
         <source>The DigiByte address the message was signed with</source>
         <translation>L'adreça DigiByte amb què va ser signat el missatge</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-    </message>
-    <message>
-=======
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -2941,7 +2844,6 @@ Nota: Com que la comissió es calcula en funció dels bytes, una comissió de "1
         <translation>La signatura donada quan es va signar el missatge</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Verificar el missatge per assegurar-se que ha estat signat amb una adreça DigiByte específica</translation>
     </message>
@@ -3655,13 +3557,6 @@ Ves a Arxiu &gt; Obrir Cartera per a carregar cartera.
         <translation>No s'ha pogut iniciar el servidor HTTP. Vegeu debug.log per a més detalls.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ca.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ca.ts
         <source>The %s developers</source>
         <translation>Els desenvolupadors %s</translation>
     </message>

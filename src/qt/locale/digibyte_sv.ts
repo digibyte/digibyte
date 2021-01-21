@@ -67,15 +67,7 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>Detta är dina DigiByte-adresser för att skicka betalningar. Kontrollera alltid summan och den mottagande adressen innan du skickar digibyte.</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Detta är dina DigiByte-adresser för att ta emot betalningar. Det rekommenderas att använda en ny mottagningsadress för varje transaktion.</translation>
-=======
         <translation>Detta är dina DigiByte-adresser för att skicka betalningar. Kontrollera alltid belopp och mottagaradress innan du skickar digibyte.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -174,11 +166,7 @@ Försök igen.</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>VARNING: Om du krypterar din plånbok och glömmer ditt lösenord, kommer du att &lt;b&gt;FÖRLORA ALLA DINA DIGIBYTE&lt;/b&gt;!</translation>
-=======
         <translation>VARNING: Om du krypterar din plånbok och glömmer din lösenfras, &lt;b&gt;FÖRLORAR DU ALLA DINA DIGIBYTE&lt;/b&gt;!</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -189,10 +177,6 @@ Försök igen.</translation>
         <translation>Plånbok krypterad</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 kommer nu att stänga ner för att slutföra krypteringen. Tänk på att en krypterad plånbok inte skyddar mot stöld om din dator är infekterad med en keylogger.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Ange den nya lösenfrasen för plånboken. &lt;br/&gt; Använd en lösenfras på &lt;b&gt;tio eller fler slumpmässiga tecken&lt;/b&gt;, eller &lt;b&gt;åtta eller fler ord&lt;/b&gt;.</translation>
     </message>
@@ -215,7 +199,6 @@ Försök igen.</translation>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Din plånbok är nu krypterad.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -372,13 +355,10 @@ Försök igen.</translation>
         <translation>Indexerar om block på disken...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-=======
         <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
         <translation>Proxy är &lt;b&gt; aktiverad &lt;/b&gt;: %1</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
         <source>Send coins to a DigiByte address</source>
         <translation>Skicka digibyte till en DigiByte-adress</translation>
     </message>
@@ -395,17 +375,6 @@ Försök igen.</translation>
         <translation>&amp;Verifiera meddelande...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Plånbok</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
         <source>&amp;Send</source>
         <translation>&amp;Skicka</translation>
     </message>
@@ -459,15 +428,7 @@ Försök igen.</translation>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>Visa listan med använda mottagningsadresser och etiketter</translation>
-    </message>
-    <message>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Öppna en digibyte: URI eller betalningsbegäran</translation>
-=======
         <translation>Visa listan med använda mottagaradresser och etiketter</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -518,10 +479,6 @@ Försök igen.</translation>
         <translation>Uppdaterad</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Visa %1 hjälpmeddelande för att få en lista med möjliga DigiByte kommandoradsalternativ.</translation>
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;Läs in PSBT från fil...</translation>
     </message>
@@ -608,7 +565,6 @@ Försök igen.</translation>
     <message>
         <source>Main Window</source>
         <translation>Huvudfönster</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -695,13 +651,8 @@ Försök igen.</translation>
         <translation>Denna plånbok är &lt;b&gt;krypterad&lt;/b&gt; och för närvarande &lt;b&gt;låst&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Ett kritiskt fel uppstod. DigiByte kan inte fortsätta att köra säkert och kommer att avslutas.</translation>
-=======
         <source>Original message:</source>
         <translation>Ursprungligt meddelande:</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     </context>
 <context>
@@ -946,8 +897,6 @@ Försök igen.</translation>
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
         <translation>Den angivna adressen "%1" är inte en giltig DigiByte-adress.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-=======
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -956,7 +905,6 @@ Försök igen.</translation>
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
         <translation>Den angivna adressen "%1" finns redan i adressboken med etikett "%2".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1046,13 +994,10 @@ Försök igen.</translation>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Släng block efter verifiering, förutom de senaste %1 GB (gallra).</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1064,11 +1009,7 @@ Försök igen.</translation>
     </message>
     <message>
         <source>%1 will download and store a copy of the DigiByte block chain.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>%1 kommer att ladda ner och lagra en kopia av DigiByte-blockkedjan.</translation>
-=======
         <translation>%1 kommer att ladda ner och lagra en kopia av DigiBytes blockkedja.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1103,19 +1044,11 @@ Försök igen.</translation>
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the digibyte network, as detailed below.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>Nyligen gjorda transaktioner visas inte korrekt och därför kan din plånboks saldo visas felaktigt. Denna information kommer att visas korrekt så snart din plånbok har synkroniserat klart med DigiByte-nätverket enligt detaljer nedan.</translation>
-    </message>
-    <message>
-        <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>Att försöka spendera digibyte som påverkas av transaktioner som ännu inte visas kommer inte accepteras av nätverket. </translation>
-=======
         <translation>Nyligen gjorda transaktioner visas inte korrekt och därför kan din plånboks saldo visas felaktigt. Denna information kommer att visas korrekt så snart din plånbok har synkroniserats med DigiByte-nätverket enligt informationen nedan.</translation>
     </message>
     <message>
         <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>Att försöka spendera digibyte som påverkas av transaktioner som ännu inte visas kommer inte accepteras av nätverket.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1355,13 +1288,6 @@ Försök igen.</translation>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Anslut till DigiByte-nätverket genom en separat SOCKS5-proxy för dolda tjänster i Tor.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -1538,47 +1464,7 @@ Försök igen.</translation>
     </message>
     </context>
 <context>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-    <name>PaymentServer</name>
-    <message>
-        <source>Payment request error</source>
-        <translation>Fel vid betalningsbegäran</translation>
-    </message>
-    <message>
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Kan inte starta digibyte: klicka-och-betala hanteraren</translation>
-    </message>
-    <message>
-        <source>URI handling</source>
-        <translation>URI-hantering</translation>
-    </message>
-    <message>
-        <source>Payment request fetch URL is invalid: %1</source>
-        <translation>Hämtningsadressen för betalningsbegäran är ogiltig: %1</translation>
-    </message>
-    <message>
-        <source>Invalid payment address %1</source>
-        <translation>Ogiltig betalningsadress %1</translation>
-    </message>
-    <message>
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kan inte parsas! Detta kan orsakas av en ogiltig DigiByte-adress eller felaktiga URI-parametrar.</translation>
-    </message>
-    <message>
-        <source>Payment request file handling</source>
-        <translation>Hantering av betalningsbegäransfil</translation>
-    </message>
-    <message>
-        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation>Betalningsbegäransfilen kan inte läsas! Detta kan orsakas av en ogiltig betalningsbegäransfil.</translation>
-    </message>
-    <message>
-        <source>Payment request rejected</source>
-        <translation>Betalningsbegäran avslogs</translation>
-    </message>
-=======
     <name>PSBTOperationsDialog</name>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     <message>
         <source>Dialog</source>
         <translation>Dialog</translation>
@@ -2340,19 +2226,7 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
     </message>
     <message>
         <source>Hide</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>Göm</translation>
-    </message>
-    <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Att bara betala den minsta avgiften är helt ok så länge transaktionsvolymen är mindre än ledigt utrymme i blocken. Men tänk på att det kan bli en en transaktion som aldrig bekräftas om efterfrågan på digibyte-transaktioner är större än vad nätverket kan hantera.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(läs verktygstips)</translation>
-=======
         <translation>Dölj</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Recommended:</source>
@@ -2594,13 +2468,6 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
         <translation>Välj tidigare använda adresser</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <source>This is a normal payment.</source>
-        <translation>Detta är en normal betalning.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>DigiByte-adress att sända betalning till</translation>
     </message>
@@ -2621,17 +2488,12 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
         <translation>Ta bort denna post</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>Avgiften dras från beloppet som skickas. Mottagaren kommer att ta emot mindre digibyte än du angivit i beloppsfältet. Om flera mottagare valts kommer avgiften att fördelas jämt.</translation>
-=======
         <source>The amount to send in the selected unit</source>
         <translation>Beloppett att skicka i vald enhet</translation>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Avgiften dras från beloppet som skickas. Mottagaren kommer att ta emot mindre digibyte än du angivit i beloppsfältet. Om flera mottagare väljs kommer avgiften att fördelas jämt.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2659,11 +2521,7 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
     </message>
     <message>
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>Ett meddelande som bifogades digibyte: -URIn och som lagras med transaktionen som referens. NB: Meddelandet kommer inte att sändas över DigiByte-nätverket.</translation>
-=======
         <translation>Ett meddelande som bifogades digibyte: -URIn och som sparas med transaktionen som referens. Obs: Meddelandet sänds inte över DigiByte-nätverket.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Pay To:</source>
@@ -2758,13 +2616,10 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
     <message>
         <source>The DigiByte address the message was signed with</source>
         <translation>DigiByte-adress som meddelandet signerades med</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-=======
     </message>
     <message>
         <source>The signed message to verify</source>
         <translation>Signerat meddelande som ska verifieras</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -3328,13 +3183,10 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
     <message>
         <source>Send Coins</source>
         <translation>Skicka DigiBytes</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-=======
     </message>
     <message>
         <source>Fee bump error</source>
         <translation>Avgiftsökningsfel</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Increasing transaction fee failed</source>
@@ -3444,15 +3296,7 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
     </message>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-        <translation>Kunde inte starta HTTP-server. Se avlusningsloggen för detaljer.</translation>
-    </message>
-    <message>
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-=======
         <translation>Kunde inte starta HTTP-server. Se felsökningsloggen för detaljer.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>The %s developers</source>
@@ -3855,8 +3699,6 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
     <message>
         <source>Insufficient funds</source>
         <translation>Otillräckligt med digibytes</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sv.ts
-=======
     </message>
     <message>
         <source>Fee estimation failed. Fallbackfee is disabled. Wait a few blocks or enable -fallbackfee.</source>
@@ -3869,7 +3711,6 @@ Notera: Då avgiften beräknas per byte kommer en avgift på 50 satoshi tas ut f
     <message>
         <source>Cannot write to data directory '%s'; check permissions.</source>
         <translation>Kan inte skriva till mapp "%s", var vänlig se över filbehörigheter.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sv.ts
     </message>
     <message>
         <source>Loading block index...</source>

@@ -70,12 +70,8 @@
         <translation>Jen viaj Bitmon-adresoj por sendi pagojn. Zorge kontrolu la sumon kaj la alsendan adreson antaŭ ol sendi.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_eo.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_eo.ts
         <translation>Jen viaj bitmonaj adresoj por ricevi pagojn. Estas konsilinde uzi apartan ricevan adreson por ĉiu transakcio.</translation>
     </message>
     <message>
@@ -185,10 +181,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>La monujo estas ĉifrita</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_eo.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 nun fermiĝos por fini la ĉifradon. Memoru, ke eĉ ĉifrado ne protektas kontraŭ ĉiu atako, ekz. se viruso infektus vian komputilon.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Enigi la novan pasfrazon por la monujo. &lt;br/&gt;Bonvolu uzi pasfrazon de &lt;b&gt;dek aŭ pli hazardaj signoj&lt;/b&gt;, aŭ &lt;b&gt;ok aŭ pli vortoj&lt;/b&gt;.</translation>
     </message>
@@ -207,7 +199,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Via monujo ĵus estas ĉifrata.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_eo.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -372,17 +363,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>&amp;Kontroli mesaĝon...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_eo.ts
-        <source>DigiByte</source>
-        <translation>Bitmono</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Monujo</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_eo.ts
         <source>&amp;Send</source>
         <translation>&amp;Sendi</translation>
     </message>
@@ -439,13 +419,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Vidigi la liston de uzitaj ricevaj adresoj kaj etikedoj</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_eo.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Malfermi digibyte:-URI-on aŭ pagpeton</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_eo.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Komandliniaj agordaĵoj</translation>
     </message>
@@ -2289,13 +2262,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </context>
 <context>
     <name>digibyte-core</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_eo.ts
-    <message>
-        <source>DigiByte Core</source>
-        <translation>Kerno de Bitmono</translation>
-    </message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_eo.ts
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation>Tiu ĉi estas antaŭeldona testa versio - uzu laŭ via propra risko - ne uzu por minado aŭ por aplikaĵoj por vendistoj</translation>

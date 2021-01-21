@@ -68,13 +68,6 @@
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Disse er dine DigiByte-adresser til afsendelse af betalinger. Tjek altid beløb og modtagelsesadresse, inden du sender digibytes.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dette er dine DigiByte-adresser til modtagelse af betalinger. Det anbefales at bruge en ny modtagelsesadresse for hver transaktion.</translation>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -183,10 +176,6 @@
         <translation>Tegnebog krypteret</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 vil nu lukke for at færdiggøre krypteringsprocessen. Husk at kryptering af din tegnebog kan ikke beskytte dine digibyte fuldt ud mod at blive stjålet af eventuel malware, der måtte have inficeret din computer.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Indtast den nye adgangskode til tegnebogen.&lt;br/&gt;Brug venligst en adgangskode på &lt;b&gt;ti eller flere tilfældige tegn&lt;/b&gt; eller &lt;b&gt;otte eller flere ord&lt;/b&gt;.</translation>
     </message>
@@ -209,7 +198,6 @@
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Din tegnebog er nu krypteret.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -386,17 +374,6 @@
         <translation>&amp;Verificér besked…</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Tegnebog</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>&amp;Send</source>
         <translation>&amp;Send</translation>
     </message>
@@ -453,13 +430,6 @@
         <translation>Vis listen over brugte modtagelsesadresser og -mærkater</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Åbn en “digibyte:”-URI eller betalingsanmodning</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>&amp;Command-line options</source>
         <translation>Tilvalg for &amp;kommandolinje</translation>
     </message>
@@ -508,10 +478,6 @@
         <translation>Opdateret</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Vis %1 hjælpebesked for at få en liste over mulige tilvalg for DigiByte kommandolinje</translation>
-=======
         <source>Node window</source>
         <translation>Knudevindue</translation>
     </message>
@@ -574,7 +540,6 @@
     <message>
         <source>Main Window</source>
         <translation>Hoved Vindue</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -660,15 +625,7 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Tegnebog er &lt;b&gt;krypteret&lt;/b&gt; og i øjeblikket &lt;b&gt;låst&lt;/b&gt;</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-    <message>
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Der opstod en fatal fejl. DigiByte kan ikke længere fortsætte sikkert og vil afslutte.</translation>
-    </message>
-</context>
-=======
     </context>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -1008,13 +965,10 @@
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Kassér blokke efter verificering, undtaget de seneste %1 GB (beskær)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1309,13 +1263,6 @@
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Forbind til DigiByte-netværket gennem en separat SOCKS5-proxy for Tors skjulte tjenester.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -1492,51 +1439,7 @@
     </message>
     </context>
 <context>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-    <name>PaymentServer</name>
-    <message>
-        <source>Payment request error</source>
-        <translation>Fejl i betalingsanmodning</translation>
-    </message>
-    <message>
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Kan ikke starte digibyte: click-to-pay-håndtering</translation>
-    </message>
-    <message>
-        <source>URI handling</source>
-        <translation>URI-håndtering</translation>
-    </message>
-    <message>
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'digibyte://' er ikke et gyldigt URI. Brug 'digibyte:' istedet. </translation>
-    </message>
-    <message>
-        <source>Payment request fetch URL is invalid: %1</source>
-        <translation>Hentnings-URL for betalingsanmodning er ugyldig: %1</translation>
-    </message>
-    <message>
-        <source>Invalid payment address %1</source>
-        <translation>Ugyldig betalingsadresse %1</translation>
-    </message>
-    <message>
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kan ikke tolkes! Dette kan skyldes en ugyldig DigiByte-adresse eller forkert udformede URL-parametre.</translation>
-    </message>
-    <message>
-        <source>Payment request file handling</source>
-        <translation>Filhåndtering for betalingsanmodninger</translation>
-    </message>
-    <message>
-        <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation>Fil for betalingsanmodning kan ikke læses! Dette kan skyldes en ugyldig fil for betalingsanmodning.</translation>
-    </message>
-    <message>
-        <source>Payment request rejected</source>
-        <translation>Betalingsanmodning afvist</translation>
-    </message>
-=======
     <name>PSBTOperationsDialog</name>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
     <message>
         <source>Dialog</source>
         <translation>Dialog</translation>
@@ -2317,17 +2220,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
         <translation>Skjul</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Det er helt fint kun at betale det minimale gebyr, så længe den totale transaktionsvolumen er mindre end den plads, der er tilgængelig i blokkene. Men vær opmærksom på, at dette kan ende ud i transaktioner, der aldrig bliver bekræftet, når der bliver større forespørgsel efter digibyte-transaktioner, end hvad netværket kan bearbejde.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(læs værktøjstippet)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>Recommended:</source>
         <translation>Anbefalet:</translation>
     </message>
@@ -2482,8 +2374,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
     <message>
         <source>Confirm send coins</source>
         <translation>Bekræft afsendelse af digibytes</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-=======
     </message>
     <message>
         <source>Confirm transaction proposal</source>
@@ -2496,7 +2386,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
     <message>
         <source>Watch-only balance:</source>
         <translation>Kiggebalance:</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
@@ -2574,13 +2463,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
         <translation>Vælg tidligere brugt adresse</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>This is a normal payment.</source>
-        <translation>Dette er en normal betaling.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>DigiByte-adresse, som betalingen skal sendes til</translation>
     </message>
@@ -2601,13 +2483,10 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
         <translation>Fjern denne indgang</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>Beløbet der skal afsendes i den valgte enhed</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Gebyret vil blive trukket fra det sendte beløb. Modtageren vil modtage færre digibyte, end du indtaster i beløbfeltet. Hvis flere modtagere vælges, vil gebyret deles ligeligt.</translation>
     </message>
@@ -2732,8 +2611,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
     <message>
         <source>The DigiByte address the message was signed with</source>
         <translation>DigiByte-adressen, som beskeden blev signeret med</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-=======
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -2742,7 +2619,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
     <message>
         <source>The signature given when the message was signed</source>
         <translation>Signaturen som blev givet da meddelelsen blev signeret</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -3422,13 +3298,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
         <translation>Kunne ikke starte HTTP-server. Se fejlretningslog for detaljer.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>The %s developers</source>
         <translation>Udviklerne af %s</translation>
     </message>
@@ -3597,8 +3466,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
         <translation>Angivet blokmappe “%s” eksisterer ikke.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-=======
         <source>Unknown address type '%s'</source>
         <translation>Ukendt adressetype ‘%s’</translation>
     </message>
@@ -3607,7 +3474,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
         <translation>Ukendt byttepengetype ‘%s’</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>Upgrading txindex database</source>
         <translation>Opgraderer txindex database</translation>
     </message>
@@ -3740,8 +3606,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
         <translation>Signering af transaktion mislykkedes</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_da.ts
-=======
         <source>Specified -walletdir "%s" does not exist</source>
         <translation>Angivet -walletdir “%s” eksisterer ikke</translation>
     </message>
@@ -3760,7 +3624,6 @@ Note: Siden gebyret er kalkuleret på en per-byte basis, et gebyr på "100 satos
 </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_da.ts
         <source>The transaction amount is too small to pay the fee</source>
         <translation>Transaktionsbeløbet er for lille til at betale gebyret</translation>
     </message>

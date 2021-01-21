@@ -67,13 +67,6 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <translation>هذه هي عناوين DigiByte التابعة لك من أجل إرسال الدفعات. تحقق دائما من المبلغ و عنوان المرسل المستقبل قبل إرسال العملات</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>هذه هي عناوين DigiByte التابعة لك من أجل إستقبال الدفعات. ينصح استخدام عنوان جديد من أجل كل صفقة</translation>
-=======
         <translation>هذه هي عناوين البيتكوين لإرسال المدفوعات. دائما تحقق من المبلغ وعنوان المستلم قبل الإرسال.</translation>
     </message>
     <message>
@@ -81,7 +74,6 @@
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>هذه هي عناوين بتكوين الخاصة بك لتلقي المدفوعات. استخدم الزر "إنشاء عنوان استلام جديد" في علامة تبويب الاستلام لإنشاء عناوين جديدة.
 التوقيع ممكن فقط مع عناوين من النوع "قديم".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -175,11 +167,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <translation>تحذير: إذا قمت بتشفير محفظتك وفقدت كلمة المرور الخاص بك, ستفقد كل عملات DIGIBYTES الخاصة بك.</translation>
-=======
         <translation>إذا شفرت محفظتك وفقدت كلمة المرور، ستفقد كل ما تملك من البيتكوين.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -194,10 +182,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>أدخل كلمة المرور الجديدة للمحفظة. &lt;br/&gt; الرجاء استخدام  كلمة مرور تتكون من &lt;b&gt; عشرة أحرف عشوائية أو أكثر &lt;/b&gt; ، أو &lt;b&gt; ثماني كلمات أو أكثر&lt;/b&gt; .</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>سيتم إغلاق %1 الآن لإنهاء عملية التشفير. تذكر أن تشفير محفظتك لا يمكن أن يحمي البتكوين الخاص بك بالكامل من السرقة عبر البرامج الضارة التي بامكانها أن تصيب جهاز الكمبيوتر الخاص بك.</translation>
-=======
         <source>Enter the old passphrase and new passphrase for the wallet.</source>
         <translation>ادخل كملة المرور القديمة وكلمة المرور الجديدة للمحفظة.</translation>
     </message>
@@ -216,7 +200,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>محفظتك ألان مشفرة</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -373,13 +356,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>إعادة فهرسة الكتل على القرص ...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-=======
         <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
         <translation>%1 اتصال نشط بشبكة البيتكوين</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>Send coins to a DigiByte address</source>
         <translation>ارسل عملات الى عنوان بيتكوين</translation>
     </message>
@@ -396,17 +376,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>&amp;التحقق من الرسالة...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>DigiByte</source>
-        <translation>بتكوين</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>محفظة</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>&amp;Send</source>
         <translation>&amp;ارسل</translation>
     </message>
@@ -463,13 +432,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>عرض قائمة عناوين الإستقبال المستخدمة والملصقات</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>فتح URI : DigiByte أو طلب دفع</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;خيارات سطر الأوامر</translation>
     </message>
@@ -514,8 +476,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>محدث</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp; تحميل PSBT من ملف ...</translation>
     </message>
@@ -576,7 +536,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>إغلاق جميع المحافظ ...</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation>بين اشارة المساعدة %1 للحصول على قائمة من خيارات اوامر البت كوين المحتملة </translation>
     </message>
@@ -698,17 +657,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>المحفظة &lt;b&gt;مشفرة&lt;/b&gt; و &lt;b&gt;مقفلة&lt;/b&gt; حاليا</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>خطأ فادح حدث . لا يمكن اتمام بيتكوين بامان سيتم الخروج</translation>
-=======
         <source>Original message:</source>
         <translation>الرسالة الأصلية:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>حدث خطأ فادح. لم يعد بإمكان %1 المتابعة بأمان وسيتم الإنهاء.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     </message>
 </context>
 <context>
@@ -1320,13 +1274,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>تور</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>قم بالاتصال بشبكة بتكوين عبر وكيل SOCKS5 منفصل لخدمات تور المخفية.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>&amp;Window</source>
         <translation>نافذه</translation>
     </message>
@@ -1521,13 +1468,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>حوار</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>لا يمكن تشغيل بتكوين: معالج النقر للدفع</translation>
-=======
         <source>Sign Tx</source>
         <translation>تسجيل Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
@@ -1538,13 +1480,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>نسخ إلى الحافظة</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>لا يمكن تحليل العنوان (URI)! يمكن أن يحدث هذا بسبب عنوان بتكوين غير صالح أو معلمات عنوان (URI) غير صحيحة.</translation>
-=======
         <source>Save...</source>
         <translation>حفظ...</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     </message>
     <message>
         <source>Close</source>
@@ -2298,17 +2235,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>إخفاء</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>إن دفع الحد الأدنى فقط من الرسوم يجوز طالما أن حجم المعاملات أقل من المساحة الموجودة في الكتل. ولكن كن على علم بأن هذا يمكن أن ينتهي في معاملة غير مؤكدة أبداً عندما يكون هناك طلب أكبر على معاملات البتكوين مما تستطيع الشبكة معالجته.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(اقرأ تلميح الأدوات)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>Recommended:</source>
         <translation>موصى به:</translation>
     </message>
@@ -2477,13 +2403,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>انتهاء صلاحية طلب الدفع.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>Pay only the required fee of %1</source>
-        <translation>دفع فقط الرسوم المطلوبة ل %1</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>Warning: Invalid DigiByte address</source>
         <translation>تحذير: عنوان بتكوين غير صالح</translation>
     </message>
@@ -2519,13 +2438,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>اختر عنوانا مستخدم سابقا</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>This is a normal payment.</source>
-        <translation>هذا دفع اعتيادي</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>عنوان البت كوين المرسل اليه الدفع</translation>
     </message>
@@ -3257,12 +3169,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>The wallet data was successfully saved to %1.</source>
         <translation>تم حفظ بيانات المحفظة بنجاح إلى %1.</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-    </context>
-<context>
-    <name>digibyte-core</name>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     <message>
         <source>Cancel</source>
         <translation>إلغاء</translation>
@@ -3279,13 +3185,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>غير قادر على بدء خادم ال HTTP. راجع سجل تصحيح الأخطاء للحصول على التفاصيل.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ar.ts
-        <source>DigiByte Core</source>
-        <translation>جوهر بيتكوين</translation>
-=======
         <source>The %s developers</source>
         <translation>%s المبرمجون</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ar.ts
     </message>
     <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>

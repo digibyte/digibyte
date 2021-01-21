@@ -70,15 +70,10 @@
         <translation>אלו הן כתובות הביטקוין שלך לשליחת תשלומים. חשוב לבדוק את הסכום ואת הכתובת המקבלת לפני שליחת מטבעות.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>אלו הן כתובות הביטקוין שלך לקבלת תשלומים. מומלץ להשתמש בכתובת חדשה לכל העברה.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>אלו כתובת ביטקוין שלך לקבלת תשלומים. ניתן להשתמש בכפתור 'יצירת כתובת קבלה חדשה' בלשונית הקבלה ליצירת כתובות חדשות.
 חתימה אפשרית רק עבור כתובות מסוג 'legacy'.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,11 +171,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <translation>אזהרה: איבוד מילת הצופן לאחר הצפנת הארנק עשויה לגרום לכך &lt;b&gt;שכל הביטקוינים שלך יאבדו&lt;/b&gt;!</translation>
-=======
         <translation>אזהרה: אם אתה מצפין את הארנק ומאבד את הסיסמה, אתה &lt;b&gt;תאבד את כל הביטקוינים שלך&lt;/b&gt;!</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -191,10 +182,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>הארנק מוצפן</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 ייסגר כעת כדי לסיים את תהליך ההצפנה. נא לשים לב כי הצפנת הארנק שלך לא יכול להגן על הביטקוינים שלך מפני גניבה או נוזקה שתוקפת את מחשבך.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>הקש סיסמה חדשה לארנק.
 השתמש בסיסמה הכוללת עשרה או יותר תווים אקראים, או שמונה או יותר מילים.</translation>
@@ -218,7 +205,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>הארנק שלך מוצפן כעת.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -395,17 +381,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>&amp;אימות הודעה…</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>DigiByte</source>
-        <translation>ביטקוין</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>ארנק</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>&amp;Send</source>
         <translation>&amp;שליחה</translation>
     </message>
@@ -462,13 +437,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>הצגת רשימת הכתובות והתוויות הנמצאות בשימוש</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>פתיחת ביטקוין: כתובת משאב או בקשת תשלום</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>&amp;Command-line options</source>
         <translation>אפשרויות &amp;שורת הפקודה</translation>
     </message>
@@ -517,8 +485,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>עדכני</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;העלה PSBT מקובץ...</translation>
     </message>
@@ -579,7 +545,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>סגירת כל הארנקים</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation>יש להציג את הודעת העזרה של %1 כדי להציג רשימה עם אפשרויות שורת פקודה לביטקוין</translation>
     </message>
@@ -697,17 +662,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>הארנק &lt;b&gt;מוצפן&lt;/b&gt; ו&lt;b&gt;נעול&lt;/b&gt; כרגע</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>אירעה שגיאה חמורה. אין אפשרות להשתמש עוד בביטקוין באופן מאובטח והיישום ייסגר.</translation>
-=======
         <source>Original message:</source>
         <translation>הודעה מקורית:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>אירעה שגיאה חמורה, %1 לא יכול להמשיך בבטחון ולכן יופסק.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
 </context>
 <context>
@@ -1351,13 +1311,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>התחברות לרשת ביטקוין דרך מתווך SOCKS5 נפרד לשירותי Tor נסתרים.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>&amp;Window</source>
         <translation>&amp;חלון</translation>
     </message>
@@ -1552,26 +1505,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>שיח</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>לא ניתן להפעיל את המקשר digibyte: click-to-pay</translation>
-=======
         <source>Sign Tx</source>
         <translation>חתימת עיסקה</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
         <translation>שידור עיסקה</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'//:digibyte' אינה כתובת URI תקינה. השתמשו במקום ב ':digibyte'.</translation>
-=======
         <source>Copy to Clipboard</source>
         <translation>העתקה ללוח הגזירים</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>Save...</source>
@@ -1582,13 +1525,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>סגירה</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>לא ניתן לנתח את כתובת המשאב! מצב זה יכול לקרות עקב כתובת ביטקוין שגויה או פרמטרים שגויים בכתובת המשאב.</translation>
-=======
         <source>Failed to load transaction: %1</source>
         <translation>כשלון בטעינת העיסקה: %1</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>Failed to sign transaction: %1</source>
@@ -2474,13 +2412,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>הסתר</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>זה בסדר לשלם את העמלה המינימלית כל עוד נפח הטרנזקציות קטן מנפח הבלוקים. אבל יש להיזהר כיוון שבמידה והעומס ברשת גדל, העיסקה עלולה לא להיות מאושרת לעולם.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>Recommended:</source>
         <translation>מומלץ:</translation>
     </message>
@@ -2748,13 +2679,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>בחירת כתובת שהייתה בשימוש</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>This is a normal payment.</source>
-        <translation>זהו תשלום רגיל.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>כתובת הביטקוין של המוטב</translation>
     </message>
@@ -2775,13 +2699,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>הסרת רשומה זו</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>הסכום לשליחה במטבע הנבחר</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>העמלה תנוכה מהסכום שנשלח. הנמען יקבל פחות ביטקוינים ממה שהזנת בשדה הסכום. אם נבחרו מספר נמענים, העמלה תחולק באופן שווה.</translation>
     </message>
@@ -2881,11 +2802,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <translation>ניתן לחתום על ההודעה כדי להוכיח שכתובת הביטקוין הזו בבעלותך.</translation>
-=======
         <translation>ניתן לחתום על ההודעה כדי להוכיח שכתובת ביטקוין זו בבעלותך</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2904,19 +2821,14 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>&amp;אימות הודעה</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-=======
         <source>Enter the receiver's address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack. Note that this only proves the signing party receives with the address, it cannot prove sendership of any transaction!</source>
         <translation>יש להזין את כתובת הנמען, ההודעה (נא לוודא שמעתיקים במדויק את תווי קפיצות השורה, רווחים, טאבים וכדומה). והחותימה מתחת אשר מאמתת את ההודעה. יש להזהר שלא לקרוא לתוך החתימה יותר מאשר בהודעה החתומה עצמה, כדי להמנע מניצול לרעה של המתווך שבדרך. יש לשים לב שהדגר רק מוכיח שהצד החותם מקבל עם הכתובת. הדבר אינו מוכיח משלוח כלשהו של עיסקה!</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>The DigiByte address the message was signed with</source>
         <translation>כתובת הביטקוין שאתה נחתמה ההודעה</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-=======
         <source>The signed message to verify</source>
         <translation>ההודעה החתומה לאימות</translation>
     </message>
@@ -2925,7 +2837,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>החתימה שניתנת כאשר ההודעה נחתמה</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>ניתן לאמת את ההודעה כדי להבטיח שהיא נחתמה עם כתובת הביטקוין הנתונה</translation>
     </message>
@@ -3627,10 +3538,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation>הגיזום הוגדר כפחות מהמינימום של  %d MiB. נא להשתמש במספר גבוה יותר.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_he.ts
-        <source>DigiByte Core</source>
-        <translation>ליבת ביטקוין</translation>
-=======
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
         <translation>גיזום: הסינכרון האחרון של הארנק עובר את היקף הנתונים שנגזמו. יש לבצע חידוש אידקסציה (נא להוריד את כל שרשרת הבלוקים שוב במקרה של צומת מקוצצת)</translation>
     </message>
@@ -3641,7 +3548,6 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
         <translation>שרת ה HTTP לא עלה. ראו את ה debug לוג לפרטים.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_he.ts
     </message>
     <message>
         <source>The %s developers</source>

@@ -70,15 +70,10 @@
         <translation>Dies sind Ihre DigiByte-Adressen zum Tätigen von Überweisungen. Bitte prüfen Sie den Betrag und die Adresse des Empfängers, bevor Sie DigiBytes überweisen.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dies sind Ihre DigiByte-Adressen zum Empfangen von Zahlungen. Es wird empfohlen, für jede Transaktion eine neue Empfangsadresse zu verwenden.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Dies sind Ihre DigiByte-Adressen für den Empfang von Zahlungen. Verwenden Sie die 'Neue Empfangsadresse erstellen' Taste auf der Registerkarte "Empfangen", um neue Adressen zu erstellen.
 Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,11 +171,7 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <translation>Warnung: Wenn Sie Ihre Brieftasche verschlüsseln und Ihre Passphrase verlieren, werden Sie &lt;b&gt;alle Ihre DigiBytes verlieren&lt;/b&gt;!</translation>
-=======
         <translation>Warnung: Wenn Sie Ihre Wallet verschlüsseln und Ihre Passphrase verlieren, werden Sie &lt;b&gt;ALLE IHRE DIGIBYTES VERLIEREN&lt;/b&gt;!</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -203,10 +194,6 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Beachten Sie, dass das Verschlüsseln Ihrer Wallet nicht komplett vor Diebstahl Ihrer DigiBytes durch Malware schützt, die Ihren Computer infiziert hat.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 wird jetzt beendet, um den Verschlüsselungsprozess abzuschließen. Bitte beachten Sie, dass die Brieftaschen-Verschlüsselung nicht vollständig vor Diebstahl Ihrer DigiBytes durch Schadprogramme schützt, die Ihren Computer befällt.</translation>
-=======
         <source>Wallet to be encrypted</source>
         <translation>Wallet zu verschlüsseln</translation>
     </message>
@@ -217,7 +204,6 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Deine Wallet ist jetzt verschlüsselt.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -394,17 +380,6 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Nachricht &amp;verifizieren...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Wallet</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>&amp;Send</source>
         <translation>&amp;Überweisen</translation>
     </message>
@@ -461,13 +436,6 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Liste verwendeter Empfangsadressen und Bezeichnungen anzeigen</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Eine "digibyte:"-URI oder Zahlungsanforderung öffnen</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Kommandozeilenoptionen</translation>
     </message>
@@ -516,8 +484,6 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Auf aktuellem Stand</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;Lade PSBT aus Datei...</translation>
     </message>
@@ -578,7 +544,6 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Schließe alle Brieftaschen</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation>Zeige den "%1"-Hilfetext, um eine Liste mit möglichen Kommandozeilenoptionen zu erhalten</translation>
     </message>
@@ -699,17 +664,12 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Wallet ist &lt;b&gt;verschlüsselt&lt;/b&gt; und aktuell &lt;b&gt;gesperrt&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Ein schwerer Fehler ist aufgetreten. DigiByte kann nicht stabil weiter ausgeführt werden und wird beendet.</translation>
-=======
         <source>Original message:</source>
         <translation>Original-Nachricht:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>Ein fataler Fehler ist aufgetreten. %1 kann nicht länger sicher fortfahren und wird beendet.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
 </context>
 <context>
@@ -1063,13 +1023,10 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Verwerfe Blöcke nachdem sie verifiziert worden sind, ausser die %1 GB (prune)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1081,11 +1038,7 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
     </message>
     <message>
         <source>%1 will download and store a copy of the DigiByte block chain.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <translation>%1 wird heruntergeladen und als eine Kopie von dem DigiByte Blockchain gespeichert.</translation>
-=======
         <translation>%1 wird eine Kopie der DigiByte-Blockchain herunterladen und speichern.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1368,13 +1321,6 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Über einen separaten SOCKS5 Proxy für Tor Services mit dem DigiByte Netzwerk verbinden.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>&amp;Window</source>
         <translation>&amp;Programmfenster</translation>
     </message>
@@ -1565,26 +1511,16 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Dialog</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>Kann DigiByte nicht starten: Klicken-zum-Bezahlen-Handler</translation>
-=======
         <source>Sign Tx</source>
         <translation>Signiere Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
         <translation>Rundsende Tx</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'digibyte://' ist kein gültiger URL. Bitte 'digibyte:' nutzen.</translation>
-=======
         <source>Copy to Clipboard</source>
         <translation>Kopiere in Zwischenablage</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>Save...</source>
@@ -1595,13 +1531,8 @@ Das Signieren ist nur mit Adressen vom Typ 'Legacy' möglich.</translation>
         <translation>Schließen</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI kann nicht analysiert werden! Dies kann durch eine ungültige DigiByte-Adresse oder fehlerhafte URI-Parameter verursacht werden.</translation>
-=======
         <source>Failed to load transaction: %1</source>
         <translation>Laden der Transaktion fehlgeschlagen: %1</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>Failed to sign transaction: %1</source>
@@ -2487,17 +2418,6 @@ Hinweis: Eine Gebühr von "100 Satoshis pro kB" bei einer Größe der Transaktio
         <translation>Ausblenden</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>Nur die minimale Gebühr zu bezahlen ist so lange in Ordnung, wie weniger Transaktionsvolumen als Platz in den Blöcken vorhanden ist. Aber Vorsicht, diese Option kann dazu führen, dass Transaktionen nicht bestätigt werden, wenn mehr Bedarf an DigiByte-Transaktionen besteht als das Netzwerk verarbeiten kann.</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(den Hinweistext lesen)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>Recommended:</source>
         <translation>Empfehlungen:</translation>
     </message>
@@ -2761,13 +2681,6 @@ Hinweis: Eine Gebühr von "100 Satoshis pro kB" bei einer Größe der Transaktio
         <translation>Bereits verwendete Adresse auswählen</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>This is a normal payment.</source>
-        <translation>Dies ist eine normale Überweisung.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>Die Zahlungsadresse der Überweisung</translation>
     </message>
@@ -2788,13 +2701,10 @@ Hinweis: Eine Gebühr von "100 Satoshis pro kB" bei einer Größe der Transaktio
         <translation>Diesen Eintrag entfernen</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>Zu sendender Betrag in der ausgewählten Einheit</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Die Gebühr wird vom zu überweisenden Betrag abgezogen. Der Empfänger wird also weniger DigiBytes erhalten, als Sie im Betrags-Feld eingegeben haben. Falls mehrere Empfänger ausgewählt wurden, wird die Gebühr gleichmäßig verteilt.</translation>
     </message>
@@ -2921,12 +2831,6 @@ Hinweis: Eine Gebühr von "100 Satoshis pro kB" bei einer Größe der Transaktio
         <translation>Die DigiByte-Adresse mit der die Nachricht signiert wurde</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>The DigiByte address the message was signed with</source>
-        <translation>Die DigiByte-Adresse mit der die Nachricht signiert wurde</translation>
-    </message>
-    <message>
-=======
         <source>The signed message to verify</source>
         <translation>Die zu überprüfende signierte Nachricht</translation>
     </message>
@@ -2935,7 +2839,6 @@ Hinweis: Eine Gebühr von "100 Satoshis pro kB" bei einer Größe der Transaktio
         <translation>Die beim Signieren der Nachricht geleistete Signatur</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Die Nachricht verifizieren, um sicherzustellen, dass diese mit der angegebenen DigiByte-Adresse signiert wurde</translation>
     </message>
@@ -3155,11 +3058,7 @@ Hinweis: Eine Gebühr von "100 Satoshis pro kB" bei einer Größe der Transaktio
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <translation>Erzeugte DigiBytes müssen %1 Blöcke lang reifen, bevor sie ausgegeben werden können. Als Sie diesen Block erzeugten, wurde er an das Netzwerk übertragen, um ihn der Blockkette hinzuzufügen. Falls dies fehlschlägt wird der Status in "nicht angenommen" geändert und Sie werden keine DigiBytes gutgeschrieben bekommen. Das kann gelegentlich passieren, wenn ein anderer Knoten einen Block fast zeitgleich erzeugt.</translation>
-=======
         <translation>Erzeugte DigiBytes müssen %1 Blöcke lang reifen, bevor sie ausgegeben werden können. Als Sie diesen Block erzeugten, wurde er an das Netzwerk übertragen, um ihn der Blockchain hinzuzufügen. Falls dies fehlschlägt wird der Status in "nicht angenommen" geändert und Sie werden keine DigiBytes gutgeschrieben bekommen. Das kann gelegentlich passieren, wenn ein anderer Knoten einen Block fast zeitgleich erzeugt.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
     </message>
     <message>
         <source>Debug information</source>
@@ -3653,13 +3552,6 @@ Gehen Sie zu Datei &gt; Öffnen Sie die Brieftasche, um eine Brieftasche zu lade
         <translation>Kann HTTP Server nicht starten. Siehe debug log für Details.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>The %s developers</source>
         <translation>Die %s-Entwickler</translation>
     </message>
@@ -3841,8 +3733,6 @@ Gehen Sie zu Datei &gt; Öffnen Sie die Brieftasche, um eine Brieftasche zu lade
         <translation>Ungültiger Betrag für -fallbackfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-=======
         <source>SQLiteDatabase: Failed to execute statement to verify database: %s</source>
         <translation>SQLite-Datenbank: Anweisung, die Datenbank zu verifizieren fehlgeschlagen: %s</translation>
     </message>
@@ -3868,13 +3758,10 @@ Verifikations-Error: %s</translation>
         <translation>SQLiteDatabase: Unerwartete Anwendungs-ID. %u statt %u erhalten.</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>Specified blocks directory "%s" does not exist.</source>
         <translation>Angegebener Blöcke-Ordner "%s" existiert nicht.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-=======
         <source>Unknown address type '%s'</source>
         <translation>Unbekannter Adresstyp '%s'</translation>
     </message>
@@ -3883,7 +3770,6 @@ Verifikations-Error: %s</translation>
         <translation>Unbekannter Änderungstyp '%s'</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>Upgrading txindex database</source>
         <translation>Erneuern der txindex Datenbank</translation>
     </message>
@@ -4072,15 +3958,12 @@ Verifikations-Error: %s</translation>
         <translation>Angegebenes Verzeichnis "%s" ist kein Verzeichnis</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_de.ts
-=======
         <source>The specified config file %s does not exist
 </source>
         <translation>Die spezifische Konfigurationsdatei %s existiert nicht.
 </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_de.ts
         <source>The transaction amount is too small to pay the fee</source>
         <translation>Der Transaktionsbetrag ist zu niedrig, um die Gebühr zu bezahlen.</translation>
     </message>

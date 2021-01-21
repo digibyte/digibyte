@@ -68,13 +68,6 @@
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Ovo su Vaše DigiByte adrese na koju se vrše uplate. Uvek proverite iznos i prijemnu adresu pre slanja novčića.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_sr@latin.ts
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Ovo su Vaše DigiByte adrese za primanje uplata. Preporučuje se upotreba nove adrese za svaku transakciju.</translation>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sr@latin.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -183,10 +176,6 @@
         <translation>Novčanik je šifrovan</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sr@latin.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 će se ugasiti da bi dovršio proces enkriptovanja. Imajte u vidu da enkripcija novčanika ne garantuje potpunu zaštitu digibytea od krađe od strane nekog virusa koji bi zarazio vaš kompjuter.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Unesite lozinku u novčanik. &lt;br/&gt;Molimo, koristite lozinku koja ima &lt;b&gt; deset ili više nasumičnih znakova&lt;/b&gt;, ili &lt;b&gt;osam ili više reči&lt;/b&gt;.</translation>
     </message>
@@ -201,7 +190,6 @@
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Vaš novčanik je sada šifrovan.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sr@latin.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -358,17 +346,6 @@
         <translation>&amp;Proveri poruku...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sr@latin.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Novčanik</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sr@latin.ts
         <source>&amp;Send</source>
         <translation>&amp;Pošalji</translation>
     </message>
@@ -875,18 +852,9 @@
     </context>
 <context>
     <name>WalletView</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_sr@latin.ts
-    </context>
-<context>
-    <name>digibyte-core</name>
-    <message>
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-=======
     <message>
         <source>&amp;Export</source>
         <translation>&amp;Izvoz</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sr@latin.ts
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>

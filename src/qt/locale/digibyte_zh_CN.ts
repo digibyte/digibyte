@@ -67,13 +67,6 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>这些是你要付款过去的比特币地址。在付钱之前，务必要检查金额和收款地址是否正确。</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>这些是你用来收款的比特币地址。建议在每次交易时，都使用一个新的收款地址。</translation>
-=======
         <translation>您可以给这些比特币地址付款。在付款之前，务必要检查金额和收款地址是否正确。</translation>
     </message>
     <message>
@@ -81,7 +74,6 @@
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>这是您用来收款的比特币地址。使用“接收”标签页中的“创建新收款地址”按钮来创建新的收款地址。
 只有“传统（legacy）”类型的地址支持签名。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -190,10 +182,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>钱包已加密</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 现在要关闭，以完成加密过程。请注意，加密钱包不能完全防止入侵你的电脑的恶意程序偷取钱币。</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>为此钱包输入新密码。&lt;br/&gt;请使用由&lt;b&gt;十个或更多的随机字符&lt;/b&gt;，或者&lt;b&gt;八个或更多单词&lt;/b&gt;组成的密码。</translation>
     </message>
@@ -216,7 +204,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>您的钱包现在已被加密。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -370,15 +357,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Reindexing blocks on disk...</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>正在为数据块重建索引...</translation>
-    </message>
-    <message>
-        <source>Send coins to a DigiByte address</source>
-        <translation>向一个比特币地址发送比特币</translation>
-=======
         <translation>正在为磁盘上的区块数据重建索引...</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
@@ -401,17 +380,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>验证消息(&amp;V)...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>DigiByte</source>
-        <translation>比特币</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>钱包</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
         <source>&amp;Send</source>
         <translation>发送(&amp;S)</translation>
     </message>
@@ -465,15 +433,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>显示用过的接收地址和标签的列表</translation>
-    </message>
-    <message>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>打开一个 digibyte: URI 或支付请求</translation>
-=======
         <translation>显示用过的收款地址和标签的列表</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -524,8 +484,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>已是最新</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>从文件加载PSBT...(&amp;L)</translation>
     </message>
@@ -586,7 +544,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>关闭所有钱包</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
         <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
         <translation>显示 %1 帮助信息，获取可用命令行选项列表</translation>
     </message>
@@ -707,17 +664,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>钱包已被&lt;b&gt;加密&lt;/b&gt;，当前为&lt;b&gt;锁定&lt;/b&gt;状态</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>发生严重错误。客户端无法安全地继续运行，即将退出。</translation>
-=======
         <source>Original message:</source>
         <translation>原消息:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>发生致命错误。%1 已经无法继续安全运行并即将退出。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
 </context>
 <context>
@@ -1318,11 +1270,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>自动在路由器中打开比特币端口。只有当您的路由器开启了 UPnP 选项时此功能才有效。</translation>
-=======
         <translation>自动在路由器中为比特币客户端打开端口。只有当您的路由器开启了 UPnP 选项时此功能才会有用。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1373,13 +1321,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>在 Tor 匿名网络下通过不同的 SOCKS5 代理连接比特币网络</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
         <source>&amp;Window</source>
         <translation>窗口(&amp;W)</translation>
     </message>
@@ -1574,14 +1515,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>会话</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>无法启动 digibyte 协议的“
-一键支付”处理器</translation>
-=======
         <source>Sign Tx</source>
         <translation>签名交易</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
@@ -1596,13 +1531,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>保存...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>无法解析 URI 地址！可能是因为比特币地址无效，或是 URI 参数格式错误。</translation>
-=======
         <source>Close</source>
         <translation>关闭</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Failed to load transaction: %1</source>
@@ -2240,11 +2170,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>可在付款请求上备注一条信息，在打开付款请求时可以看到。注意：该消息不是通过比特币网络传送。</translation>
-=======
         <translation>可在支付请求上备注一条信息，在打开支付请求时可以看到。注意:该消息不是通过比特币网络传送。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2496,17 +2422,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>隐藏</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>交易量小时允许只支付最小交易费。但是请注意，当交易量大到超出网络可处理时您的交易可能永远无法确认。</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>(请注意提示信息)</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
         <source>Recommended:</source>
         <translation>推荐:</translation>
     </message>
@@ -2774,13 +2689,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>选择以前用过的地址</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>This is a normal payment.</source>
-        <translation>这是笔正常的支付。</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>付款目的地址</translation>
     </message>
@@ -2801,17 +2709,12 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>移除此项</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>交易费将从发送总额中扣除。接收人将收到比您在金额框中输入的更少的比特币。如果选中了多个收件人，交易费平分。</translation>
-=======
         <source>The amount to send in the selected unit</source>
         <translation>用被选单位表示的待发送金额</translation>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>交易费将从发送金额中扣除。接收人收到的比特币将会比您在金额框中输入的更少。如果选中了多个收件人，交易费平分。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2839,11 +2742,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>digibyte:URI 附带的备注信息，将会和交易一起存储，备查。 注意：该消息不会通过比特币网络传输。</translation>
-=======
         <translation>digibyte: URI 附带的备注信息，将会和交易一起存储，备查。 注意：该消息不会通过比特币网络传输。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Pay To:</source>
@@ -2881,11 +2780,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>The DigiByte address to sign the message with</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>用来对消息签名的地址 </translation>
-=======
         <translation>用来对消息签名的地址</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2917,11 +2812,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <translation>签名消息，证明这个地址属于您。</translation>
-=======
         <translation>签名消息，以证明这个地址属于您</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2952,13 +2843,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>待验证的已签名消息</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>The DigiByte address the message was signed with</source>
-        <translation>消息使用的签名地址</translation>
-=======
         <source>The signature given when the message was signed</source>
         <translation>对消息进行签署得到的签名数据</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
@@ -3678,13 +3564,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation>无法启动HTTP服务，查看日志获取更多信息</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_zh_CN.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_zh_CN.ts
         <source>The %s developers</source>
         <translation>%s 开发者</translation>
     </message>

@@ -22,8 +22,6 @@
         <translation>C&amp;au</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
         <source>Delete the currently selected address from the list</source>
         <translation>Dileu'r cyfeiriad presennol wedi ei ddewis o'r rhestr</translation>
     </message>
@@ -36,7 +34,6 @@
         <translation>Allforio'r data yn y tab presennol i ffeil</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>&amp;Export</source>
         <translation>&amp;Allforio</translation>
     </message>
@@ -45,8 +42,6 @@
         <translation>&amp;Dileu</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
         <source>Choose the address to send coins to</source>
         <translation>Dewis y cyfeiriad i yrru'r arian</translation>
     </message>
@@ -59,7 +54,6 @@
         <translation>D&amp;ewis</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>Sending addresses</source>
         <translation>Anfon cyfeiriadau</translation>
     </message>
@@ -70,13 +64,6 @@
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Rhain ydi eich cyfeiriadau DigiByte ar gyfer gyrru taliadau. Gwnewch yn sicr o'r swm a'r cyfeiriad derbyn cyn gyrru arian.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dyma eich cyfeiriadau DigiByte ar gyfer derbyn taliadau. Argymhellwn ddefnyddio cyfeiriad derbyn newydd ar gyfer bob trafodyn.</translation>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -161,13 +148,8 @@
         <translation>Waled wedi amgryptio</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>Bydd %1 nawr yn gorffen y broses amgryptio. Cofiwch nad ydy amgryptio eich waled yn llawn amddiffyn eich digibytes rhag cael eu dwyn gan afiechyd yn heintio eich cyfrifiadur.</translation>
-=======
         <source>Wallet to be encrypted</source>
         <translation>Waled i'w amgryptio</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -312,17 +294,6 @@
         <translation>&amp;Gwirio neges...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Waled</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>&amp;Send</source>
         <translation>&amp;Anfon</translation>
     </message>
@@ -379,13 +350,6 @@
         <translation>Dangos rhestr o gyfeiriadau derbyn a labelau wedi eu defnyddio</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Agor DigiByte: URI neu ofyn taliad</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Dewisiadau Gorchymyn-llinell</translation>
     </message>
@@ -426,8 +390,6 @@
         <translation>Cyfamserol</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
         <source>Open Wallet</source>
         <translation>Agor Waled</translation>
     </message>
@@ -452,7 +414,6 @@
         <translation>Cysylltu efo cyfoedion...</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>Catching up...</source>
         <translation>Dal i fyny</translation>
     </message>
@@ -471,8 +432,6 @@
 </translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
         <source>Amount: %1
 </source>
         <translation>Cyfanswm: %1
@@ -485,7 +444,6 @@
 </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>Type: %1
 </source>
         <translation>Math: %1
@@ -519,18 +477,6 @@
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Mae'r waled &lt;b&gt;wedi'i amgryptio&lt;/b&gt; ac &lt;b&gt;ar glo&lt;/b&gt; ar hyn o bryd</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-    <message>
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Mae gwall angheuol wedi digwydd. Ni all DigiByte barhau'n ddiogel ac mae'n cau lawr.</translation>
-    </message>
-</context>
-<context>
-    <name>CoinControlDialog</name>
-    <message>
-        <source>Amount:</source>
-        <translation>Maint</translation>
-=======
     </context>
 <context>
     <name>CoinControlDialog</name>
@@ -577,7 +523,6 @@
     <message>
         <source>Received with address</source>
         <translation>Derbynwyd gyda chyfeiriad</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     </message>
     <message>
         <source>Date</source>
@@ -592,13 +537,10 @@
         <translation>Copïo label</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
         <source>Copy amount</source>
         <translation>Copïo cyfanswm</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>(no label)</source>
         <translation>(dim label)</translation>
     </message>
@@ -780,16 +722,10 @@
         <source>Copy label</source>
         <translation>Copïo label</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-    </context>
-<context>
-    <name>ReceiveRequestDialog</name>
-=======
     <message>
         <source>Copy amount</source>
         <translation>Copïo Cyfanswm</translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     <message>
         <source>Could not unlock wallet.</source>
         <translation>Methodd ddatgloi'r waled.</translation>
@@ -802,17 +738,12 @@
         <translation>Maint</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-        <source>Label</source>
-        <translation>Label</translation>
-=======
         <source>Message:</source>
         <translation>Neges:</translation>
     </message>
     <message>
         <source>Wallet:</source>
         <translation>Waled:</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     </message>
     <message>
         <source>Copy &amp;Address</source>
@@ -861,8 +792,6 @@
         <translation>Cadarnhau'r gweithrediad anfon</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
         <source>Copy amount</source>
         <translation>Copïo Cyfanswm</translation>
     </message>
@@ -871,7 +800,6 @@
         <translation>%1 i %2</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
         <source>(no label)</source>
         <translation>(dim label)</translation>
     </message>
@@ -934,8 +862,6 @@
         <source>Date</source>
         <translation>Dyddiad</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
     <message>
         <source>Message</source>
         <translation>Neges</translation>
@@ -944,7 +870,6 @@
         <source>Amount</source>
         <translation>Cyfanswm</translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     </context>
 <context>
     <name>TransactionDescDialog</name>
@@ -1042,8 +967,6 @@
     </context>
 <context>
     <name>WalletModel</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-=======
     <message>
         <source>Send Coins</source>
         <translation>Anfon arian</translation>
@@ -1060,7 +983,6 @@
         <source>New fee:</source>
         <translation>Ffi newydd:</translation>
     </message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     </context>
 <context>
     <name>WalletView</name>
@@ -1068,26 +990,9 @@
         <source>&amp;Export</source>
         <translation>&amp;Allforio</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_cy.ts
-    </context>
-<context>
-    <name>digibyte-core</name>
-    <message>
-        <source>DigiByte Core</source>
-        <translation>Craidd DigiByte</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Gwybodaeth</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Rhybudd</translation>
-=======
     <message>
         <source>Export the data in the current tab to a file</source>
         <translation>Allforio'r data yn y tab presennol i ffeil</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_cy.ts
     </message>
     <message>
         <source>Error</source>

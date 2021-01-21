@@ -242,17 +242,6 @@
         <translation>&amp;Verifica nuntium...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_la.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Cassidile</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_la.ts
         <source>&amp;Send</source>
         <translation>&amp;Mitte</translation>
     </message>
@@ -1345,13 +1334,8 @@
 <context>
     <name>digibyte-core</name>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_la.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte Nucleus</translation>
-=======
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation>Hoc est prae-dimittum experimentala aedes - utere eo periculo tuo proprio - nolite utere fodendo vel applicationibus mercatoriis</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_la.ts
     </message>
     <message>
         <source>Corrupted block database detected</source>

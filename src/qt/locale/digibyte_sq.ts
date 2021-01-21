@@ -70,14 +70,9 @@
         <translation>Këto janë DigiByte adresat e juaja për të dërguar pagesa. Gjithmon kontrolloni shumën dhe adresën pranuese para se të dërgoni monedha.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sq.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Këto janë DigiByte adresat e juaja për të pranuar pagesa. Rekomandohet që gjithmon të përdorni një adresë të re për çdo transaksion.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Këto janë adresat tuaja të DigiByte për të marrë pagesa. Përdorni butonin 'Krijo adresë të re marrëse' në skedën e marrjes për të krijuar adresa të reja. Nënshkrimi është i mundur vetëm me adresa të tipit 'trashëgimi'.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sq.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -268,17 +263,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Ndrysho frazkalimin e përdorur per enkriptimin e portofolit</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sq.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Portofol</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sq.ts
         <source>&amp;Send</source>
         <translation>&amp;Dergo</translation>
     </message>
@@ -819,18 +803,9 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>&amp;Export</source>
         <translation>&amp;Eksporto</translation>
     </message>
-<<<<<<< HEAD:src/qt/locale/digibyte_sq.ts
-    </context>
-<context>
-    <name>digibyte-core</name>
-    <message>
-        <source>DigiByte Core</source>
-        <translation>Berthama DigiByte</translation>
-=======
     <message>
         <source>Export the data in the current tab to a file</source>
         <translation>Eksporto të dhënat e skedës korrente në një skedar</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_sq.ts
     </message>
     <message>
         <source>Error</source>

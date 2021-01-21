@@ -38,17 +38,6 @@
         <translation>Билдирүүнү &amp;текшерүү...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ky.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Капчык</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ky.ts
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
@@ -341,20 +330,6 @@
     </context>
 <context>
     <name>WalletView</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_ky.ts
-    </context>
-<context>
-    <name>digibyte-core</name>
-    <message>
-        <source>Information</source>
-        <translation>Маалымат</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Эскертүү</translation>
-    </message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ky.ts
     <message>
         <source>Error</source>
         <translation>Ката</translation>

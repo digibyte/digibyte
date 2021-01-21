@@ -70,13 +70,6 @@
         <translation>ეს არის თქვენი ბიტკოინ-მისამართები, რომელთაგანაც შეგიძლიათ გადახდა. აუცილებლად შეამოწმეთ თანხა და მიმღები მისამართი გაგზავნამდე.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ka.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>ეს არის თქვენი ბიტკოინ-მისამართები, რომლებზეც შეგიძლიათ მიიღოთ თანხები. რეკომენდებულია ყოველი ტრანსაქციისათვის ახალი მიმღები მისამართის გამოყენება.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ka.ts
         <source>&amp;Copy Address</source>
         <translation>მისამართის კოპირება</translation>
     </message>
@@ -179,13 +172,6 @@
         <translation>საფულე დაშიფრულია</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ka.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 ახლა დაიხურება დაშიფრვის პროცესის დასასრულებლად. გახსოვდეთ, რომ თქვენი საფული დაშიფრვა სრულად არ იცავს თქვენს ბიტკოინებს მოპარვისგან მავნე პროგრამების მიერ თქვენი კომპიუტერის ინფიცირების საშუალებით.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ka.ts
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
         <translation>მნიშვნელოვანი: ნებისმიერი საფულის წინა სარეზერვო კოპია, რომელიც თქვენ შექმენით, უნდა იყოს ჩანაცვლებული ახლად გენერირებული, დაშიფრული საფულის ფაილით. უსაფრთხოების მიზნებისთვის, დაუშიფრავი საფულის ფაილის წინა სარეზევო კოპიები გახდება გამოუყენებული იმ წამსვე, როდესაც დაიწყებთ ახალი, დაშიფრული საფულის გამოყენებას.</translation>
     </message>
@@ -336,17 +322,6 @@
         <translation>&amp;ვერიფიკაცია</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ka.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>საფულე</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ka.ts
         <source>&amp;Send</source>
         <translation>&amp;გაგზავნა</translation>
     </message>
@@ -403,13 +378,6 @@
         <translation>გამოყენებული მიღების მისამართებისა და ნიშნულების სიის ჩვენება</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ka.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>digibyte: URI-ის ან გადახდის მოთხოვნის გახსნა</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ka.ts
         <source>&amp;Command-line options</source>
         <translation>საკომანდო სტრიქონის ოპ&amp;ციები</translation>
     </message>
@@ -2073,11 +2041,6 @@
     </context>
 <context>
     <name>digibyte-core</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_ka.ts
-    <message>
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-=======
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation>ეს არის წინასწარი სატესტო ვერსია - გამოიყენეთ საკუთარი რისკით - არ გამოიყენოთ მოპოვებისა ან კომერციული მიზნებისათვის</translation>
@@ -2089,7 +2052,6 @@
     <message>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
         <translation>ყურადღება: ჩვენ არ ვეთანხმებით ყველა პირს. შესაძლოა თქვენ ან სხვა კვანძებს განახლება გჭირდებათ.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ka.ts
     </message>
     <message>
         <source>Corrupted block database detected</source>

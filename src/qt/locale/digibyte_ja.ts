@@ -67,20 +67,12 @@
     </message>
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>これらは支払いを送信するためのあなたの DigiByte アドレスです。コインを送信する前に、常に額と受信アドレスを確認してください。</translation>
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>これらは支払いを受け取るためのビットコインアドレスです。トランザクションごとに新しい受け取り用アドレスを作成することが推奨されます。</translation>
-=======
         <translation>これらは、あなたが知っている送信先の DigiByte アドレスです。コインを送る前に必ず、金額と受取用アドレスを確認してください。</translation>
     </message>
     <message>
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>これらは支払いを受け取るための、あなたの DigiByte アドレスです。新しいアドレスを作成するには受取タブ内の「新しい受取用アドレスを作成」ボタンを使用します。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -178,11 +170,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DIGIBYTES&lt;/b&gt;!</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>警告: もしもあなたのウォレットを暗号化してパスフレーズを失ってしまったなら、&lt;b&gt;あなたの DigiByte はすべて失われます&lt;/b&gt;!</translation>
-=======
         <translation>警告: ウォレットの暗号化後にパスフレーズを忘れてしまった場合、&lt;b&gt;あなたの DigiByte はすべて失われます&lt;/b&gt;！</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -210,17 +198,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>暗号化するウォレット</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>暗号化処理を完了させるため %1 をいますぐ終了します。ウォレットの暗号化では、コンピュータに感染したマルウェアなどによるビットコインの盗難から完全に守ることはできないことにご注意ください。</translation>
-=======
         <source>Your wallet is about to be encrypted. </source>
         <translation>ウォレットは暗号化されようとしています。</translation>
     </message>
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>ウォレットは暗号化されました。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -394,19 +377,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>&amp;Verify message...</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>メッセージの検証... (&amp;V)</translation>
-    </message>
-    <message>
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>ウォレット</translation>
-=======
         <translation>メッセージの検証(&amp;V)...</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>&amp;Send</source>
@@ -430,19 +401,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Sign messages with your DigiByte addresses to prove you own them</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>あなたが所有していることを証明するために、あなたの DigiByte アドレスでメッセージに署名してください</translation>
-    </message>
-    <message>
-        <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
-        <translation>指定された DigiByte アドレスで署名されたことを確認するためにメッセージを検証します</translation>
-=======
         <translation>DigiByte アドレスでメッセージに署名することで、そのアドレスの所有権を証明する</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DigiByte addresses</source>
         <translation>メッセージを検証して、指定された DigiByte アドレスで署名されたことを確認する</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>&amp;File</source>
@@ -462,11 +425,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>支払いを要求する (QRコードとdigibyte:ではじまるURIを生成する)</translation>
-=======
         <translation>支払いをリクエストする（QRコードと digibyte:で始まるURIを生成する）</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -474,15 +433,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>支払いを受け取るアドレスとラベルのリストを表示する</translation>
-    </message>
-    <message>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>digibyte: URIまたは支払いリクエストを開く</translation>
-=======
         <translation>受け取ったことがあるアドレスとラベルの一覧を表示する</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -490,11 +441,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to DigiByte network</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation><numerusform>%n の DigiByte ネットワークへのアクティブな接続</numerusform></translation>
-=======
         <translation><numerusform>DigiByte ネットワークへのアクティブな接続は %n 個</numerusform></translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -613,17 +560,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>最小化</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>有効な DigiByte のコマンドライン オプションを見るために %1 のヘルプメッセージを表示します。</translation>
-=======
         <source>Zoom</source>
         <translation>拡大／縮小</translation>
     </message>
     <message>
         <source>Main Window</source>
         <translation>メインウィンドウ</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -710,13 +652,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>ウォレットは&lt;b&gt;暗号化済み&lt;/b&gt;・&lt;b&gt;ロック状態&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>致命的なエラーが発生しました。DigiByte は安全に継続することができず終了するでしょう。</translation>
-=======
         <source>Original message:</source>
         <translation>オリジナルメッセージ：</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     </context>
 <context>
@@ -1058,13 +995,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>最新の%1 GBを除き、検証後にブロックを破棄する（剪定する）</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1076,11 +1010,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>%1 will download and store a copy of the DigiByte block chain.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>%1はDigiByteのブロックチェーンの複製をダウンロードし保存します。</translation>
-=======
         <translation>%1 は DigiByte ブロックチェーンのコピーをダウンロードし保存します。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1115,19 +1045,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the digibyte network, as detailed below.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>確認できない最近のトランザクションがあるかもしれません。これによりウォレットの残高は不正確なものである可能性があります。この情報はウォレットが一度ビットコインネットワークへの同期が完了すると正確なものとなります。詳細は下記を参照してください。</translation>
-    </message>
-    <message>
-        <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>まだ表示されていないトランザクションが影響するビットコインを使用しようとすると、ネットワークから認証がなされないでしょう。</translation>
-=======
         <translation>最近の取引がまだ表示されていない可能性があります。そのため、ウォレットの残高が正しく表示されていないかもしれません。この情報は、ウォレットが DigiByte ネットワークへの同期が完了すると正確なものとなります。詳細は下記を参照してください。</translation>
     </message>
     <message>
         <source>Attempting to spend digibytes that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>まだ表示されていない取引が関係する DigiByte の使用を試みた場合、ネットワークから認証を受けられません。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1320,11 +1242,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Automatically open the DigiByte client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>自動的にルーター上の DigiByte クライアントのポートを開きます。あなたのルーターが UPnP に対応していて、それが有効になっている場合に作動します。</translation>
-=======
         <translation>自動的にルーター上の DigiByte クライアントのポートを開放します。あなたのルーターが UPnP に対応していて、それが有効になっている場合のみ動作します。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1340,11 +1258,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Connect to the DigiByte network through a SOCKS5 proxy.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>SOCKS5 プロキシ経由でDigiByteネットワークに接続する</translation>
-=======
         <translation>SOCKS5 プロキシ経由で DigiByte ネットワークに接続する。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1379,13 +1293,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Tor秘匿サービスを利用するため、独立なSOCKS5プロキシ経由でDigiByteネットワークに接続する</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
         <source>&amp;Window</source>
         <translation>ウインドウ(&amp;W)</translation>
     </message>
@@ -1494,11 +1401,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DigiByte network after a connection is established, but this process has not completed yet.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>表示された情報は古いかもしれません。接続が確立されると、あなたのウォレットは DigiByte ネットワークと自動的に同期しますが、このプロセスはまだ完了していません。</translation>
-=======
         <translation>表示されている情報は古い可能性があります。ウォレットは接続確立後に DigiByte ネットワークと自動的に同期しますが、同期処理はまだ完了していません。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1572,26 +1475,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>ダイアログ</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>DigiByte を起動できません: click-to-pay handler</translation>
-=======
         <source>Sign Tx</source>
         <translation>署名されたトランザクション</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Copy to Clipboard</source>
         <translation>クリップボードにコピー</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>'digibyte://' is not a valid URI. Use 'digibyte:' instead.</source>
-        <translation>'digibyte://' は正しいURIではありません｡ 'digibyte:'を利用してください｡</translation>
-=======
         <source>Save...</source>
         <translation>保存</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Close</source>
@@ -1602,13 +1495,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>%1 : トランザクションの読込失敗</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URI を解析できません! これは無効な DigiByte アドレスあるいは不正な形式の URI パラメーターによって引き起こされる場合があります。</translation>
-=======
         <source>Failed to sign transaction: %1</source>
         <translation>%1 : トランザクション署名失敗</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Signed transaction successfully. Transaction is ready to broadcast.</source>
@@ -1729,11 +1617,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Enter a DigiByte address (e.g. %1)</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>DigiByteアドレスを入力してください (例 %1)</translation>
-=======
         <translation>DigiByte アドレスを入力してください (例: %1)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>%1 d</source>
@@ -2186,11 +2070,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DigiByte network.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>支払リクエストが開始された時に表示される、支払リクエストに添える任意のメッセージです。注意：メッセージはDigiByteネットワークを通じて、支払と共に送られるわけではありません。</translation>
-=======
         <translation>支払いリクエストに添付するメッセージ（任意）。支払リクエスト開始時に表示されます。注意: メッセージは DigiByte ネットワーク上へ送信されません。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2434,17 +2314,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>隠す</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for digibyte transactions than the network can process.</source>
-        <translation>ブロックの容量に比べてトランザクション流量が少ないうちは最小手数料のみの支払で十分です。しかしながらネットワークが処理しきれないほどdigibyteトランザクションの需要がひとたび生まれてしまった場合には、永遠に検証がされないトランザクションになってしまう可能性があることに注意してください。</translation>
-    </message>
-    <message>
-        <source>(read the tooltip)</source>
-        <translation>（ツールチップをお読みください）</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
         <source>Recommended:</source>
         <translation>推奨:</translation>
     </message>
@@ -2613,17 +2482,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>合計</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>You can increase the fee later (signals Replace-By-Fee, BIP-125).</source>
-        <translation>手数料は後から上乗せすることができます(Replace-By-Feeのシグナル: BIP-125を参照)。</translation>
-    </message>
-    <message>
-        <source>Not signalling Replace-By-Fee, BIP-125.</source>
-        <translation>BIP-125による手数料上乗せ機能を利用していません。</translation>
-=======
         <source>To review recipient list click "Show Details..."</source>
         <translation>受信者の一覧を確認するには "詳細を表示..." をクリック</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Confirm send coins</source>
@@ -2679,11 +2539,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>警告：無効なDigiByteアドレスです</translation>
-=======
         <translation>警告: 無効な DigiByte アドレス</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2722,11 +2578,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>The DigiByte address to send the payment to</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>支払の送金先DigiByteアドレス</translation>
-=======
         <translation>支払い先 DigiByte アドレス</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Alt+A</source>
@@ -2745,17 +2597,12 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>この項目を削除</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>送金する金額から手数料が差し引かれます。受取人は数量フィールドで指定した量よりも少ないビットコインを受け取ります。受取人が複数いる場合には、手数料は均等割されます。</translation>
-=======
         <source>The amount to send in the selected unit</source>
         <translation>送金する金額の単位を選択</translation>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>手数料は送金する金額から差し引かれます。送金先には金額欄で指定した額よりも少ない DigiByte が送られます。送金先が複数ある場合は、手数料は均等に分けられます。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2783,11 +2630,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>A message that was attached to the digibyte: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DigiByte network.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>digibyte: URIに添付されていたメッセージです。これは参照用としてトランザクションとともに保存されます。注意：このメッセージはDigiByteネットワークを通して送信されるわけではありません。</translation>
-=======
         <translation>digibyte: URIに添付されていたメッセージです。これは参照用として取引とともに保存されます。注意: メッセージは DigiByte ネットワーク上へ送信されません。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Pay To:</source>
@@ -2821,19 +2664,11 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>You can sign messages/agreements with your addresses to prove you can receive digibytes sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>あなたの所有しているアドレスによりメッセージや合意書に署名をすることで、それらアドレスに対して送られたビットコインを受け取ることができることを証明できます。フィッシング攻撃により不正にあなたの識別情報を署名させられてしまうことを防ぐために、不明確なものやランダムなものに対して署名しないよう注意してください。あなたが同意した、よく詳細の記された文言にのみ署名するようにしてください。</translation>
-    </message>
-    <message>
-        <source>The DigiByte address to sign the message with</source>
-        <translation>メッセージを署名するDigiByteアドレス</translation>
-=======
         <translation>あなたが所有しているアドレスでメッセージや契約書に署名をすることで、それらのアドレスへ送られた DigiByte を受け取ることができることを証明できます。フィッシング攻撃者があなたを騙して、あなたの身分情報に署名させようとしている可能性があるため、よくわからないものやランダムな文字列に対して署名しないでください。あなたが同意した、よく詳細の記された文言にのみ署名するようにしてください。</translation>
     </message>
     <message>
         <source>The DigiByte address to sign the message with</source>
         <translation>メッセージの署名に使用する DigiByte アドレス</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2865,11 +2700,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Sign the message to prove you own this DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>この DigiByte アドレスを所有していることを証明するためにメッセージに署名</translation>
-=======
         <translation>メッセージに署名してこの DigiByte アドレスを所有していることを証明</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2896,14 +2727,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>メッセージの署名に使われた DigiByte アドレス</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <source>The DigiByte address the message was signed with</source>
-        <translation>メッセージの署名に使われたDigiByteアドレス</translation>
-    </message>
-    <message>
-        <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
-        <translation>指定された DigiByte アドレスで署名されたことを保証するメッセージを検証</translation>
-=======
         <source>The signed message to verify</source>
         <translation>検証したい署名済みメッセージ</translation>
     </message>
@@ -2914,7 +2737,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     <message>
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>メッセージを検証して指定された DigiByte アドレスで署名されたことを確認</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3611,15 +3433,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-        <translation>HTTPサーバを開始できませんでした。詳細はデバッグログをご確認ください。</translation>
-    </message>
-    <message>
-        <source>DigiByte Core</source>
-        <translation>DigiByte のコア</translation>
-=======
         <translation>HTTPサーバを開始できませんでした。詳細は debug.log を参照してください。</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
     </message>
     <message>
         <source>The %s developers</source>
@@ -3946,8 +3760,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>取引の署名に失敗しました</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_ja.ts
-=======
         <source>Specified -walletdir "%s" does not exist</source>
         <translation>指定された -walletdir "%s" は存在しません。</translation>
     </message>
@@ -3966,7 +3778,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
 </translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_ja.ts
         <source>The transaction amount is too small to pay the fee</source>
         <translation>取引の手数料差引後金額が小さすぎるため、送金できません。</translation>
     </message>

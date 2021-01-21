@@ -70,15 +70,10 @@
         <translation>Nämä ovat DigiByte-osoitteesi maksujen lähettämistä varten. Tarkista aina määrä ja vastaanotto-osoite ennen kolikoiden lähettämistä.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Tässä ovat DigiByte vastaanotto-osoitteesi. On suositeltavaa käyttää uutta vastaanotto-osoitetta jokaista lähetystä varten.</translation>
-=======
         <source>These are your DigiByte addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation>Nämä ovat DigiByte-osoitteesi maksujen vastaanottoa varten. Käytä painiketta "Luo uusi vastaanotto-osoite" vastaanottovälilehdessä luodaksesi uusia osoitteita.
 Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -187,10 +182,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Lompakko salattiin</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your digibytes from being stolen by malware infecting your computer.</source>
-        <translation>%1 sulkeutuu lopettaakseen salausprosessin. Muista, että salattukaan lompakko ei täysin suojaa sitä haittaohjelmien aiheuttamilta varkauksilta.</translation>
-=======
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Syötä uusi salasanalause lompakolle &lt;br/&gt;Ole hyvä ja käytä salasanalausetta, jossa on &lt;b&gt;kymmenen tai enemmän sattumanvaraisia merkkjä tai &lt;b&gt;kahdeksan tai enemmän sanoja&lt;/b&gt; .</translation>
     </message>
@@ -213,7 +204,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Your wallet is now encrypted. </source>
         <translation>Lompakkosi on nyt salattu.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -398,17 +388,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Varmista &amp;viesti...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Lompakko</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
         <source>&amp;Send</source>
         <translation>&amp;Lähetä</translation>
     </message>
@@ -465,13 +444,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Näytä vastaanottamiseen käytettyjen osoitteiden ja nimien lista</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Avaa digibyte: URI tai maksupyyntö</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Komentorivin valinnat</translation>
     </message>
@@ -520,10 +492,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Rahansiirtohistoria on ajan tasalla</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>Show the %1 help message to get a list with possible DigiByte command-line options</source>
-        <translation>Näytä %1 ohjeet saadaksesi listan mahdollisista DigiBytein komentorivivalinnoista</translation>
-=======
         <source>&amp;Load PSBT from file...</source>
         <translation>&amp;Lataa PSBT (osittain allekirjoitettu digibyte-siirto) tiedostosta...</translation>
     </message>
@@ -618,7 +586,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Main Window</source>
         <translation>Pääikkuna</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>%1 client</source>
@@ -705,17 +672,12 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Lompakko on &lt;b&gt;salattu&lt;/b&gt; ja tällä hetkellä &lt;b&gt;lukittuna&lt;/b&gt;</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>A fatal error occurred. DigiByte can no longer continue safely and will quit.</source>
-        <translation>Peruuttamaton virhe on tapahtunut. DigiByte ei voi enää jatkaa turvallisesti ja sammutetaan.</translation>
-=======
         <source>Original message:</source>
         <translation>Alkuperäinen viesti:</translation>
     </message>
     <message>
         <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
         <translation>Peruuttamaton virhe on tapahtunut. %1 ei voi enää jatkaa turvallisesti ja sammutetaan.</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
 </context>
 <context>
@@ -972,8 +934,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>The entered address "%1" is not a valid DigiByte address.</source>
         <translation>Antamasi osoite "%1" ei ole kelvollinen DigiByte-osoite.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-=======
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -982,7 +942,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>The entered address "%1" is already in the address book with label "%2".</source>
         <translation>Syötetty osoite "%1" on jo osoitekirjassa nimellä "%2".</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1072,13 +1031,10 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>DigiByte</source>
         <translation>DigiByte</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-=======
     </message>
     <message>
         <source>Discard blocks after verification, except most recent %1 GB (prune)</source>
         <translation>Hävitä lohkot varmistuksen jälkeen, poislukien viimeiset %1 GB (karsinta)</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1373,13 +1329,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Tor</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>Connect to the DigiByte network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Yhdistä DigiByte-verkkoon erillisen SOCKS5-välityspalvelimen kautta piilotettuja Tor-palveluja varten.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
         <source>&amp;Window</source>
         <translation>&amp;Ikkuna</translation>
     </message>
@@ -1574,13 +1523,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Dialogi</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>Cannot start digibyte: click-to-pay handler</source>
-        <translation>DigiByteia ei voi käynnistää: klikkaa-maksaaksesi -käsittelijän virhe</translation>
-=======
         <source>Sign Tx</source>
         <translation>Allekirjoita Tx</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>Broadcast Tx</source>
@@ -1595,13 +1539,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation>Tallenna...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>URI cannot be parsed! This can be caused by an invalid DigiByte address or malformed URI parameters.</source>
-        <translation>URIa ei voitu jäsentää! Tämä voi johtua virheellisestä DigiByte-osoitteesta tai väärin muotoilluista URI parametreista.</translation>
-=======
         <source>Close</source>
         <translation>Sulje</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>Failed to load transaction: %1</source>
@@ -2720,11 +2659,7 @@ Huom: Koska siirtomaksu lasketaan tavujen mukaan, niin määrittelemällä 500 t
     </message>
     <message>
         <source>Warning: Invalid DigiByte address</source>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <translation>Varoitus: Virheellinen DigiByte-osoite </translation>
-=======
         <translation>Varoitus: Virheellinen DigiByte-osoite</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2762,13 +2697,6 @@ Huom: Koska siirtomaksu lasketaan tavujen mukaan, niin määrittelemällä 500 t
         <translation>Valitse aikaisemmin käytetty osoite</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>This is a normal payment.</source>
-        <translation>Tämä on normaali maksu.</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
         <source>The DigiByte address to send the payment to</source>
         <translation>DigiByte-osoite johon maksu lähetetään</translation>
     </message>
@@ -2789,13 +2717,10 @@ Huom: Koska siirtomaksu lasketaan tavujen mukaan, niin määrittelemällä 500 t
         <translation>Poista tämä alkio</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-=======
         <source>The amount to send in the selected unit</source>
         <translation>Lähetettävä summa valitussa yksikössä</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
         <source>The fee will be deducted from the amount being sent. The recipient will receive less digibytes than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Kulu vähennetään lähetettävästä määrästä. Saaja vastaanottaa vähemmän digibyteeja kuin merkitset Määrä-kenttään. Jos saajia on monia, kulu jaetaan tasan.</translation>
     </message>
@@ -2920,10 +2845,6 @@ Huom: Koska siirtomaksu lasketaan tavujen mukaan, niin määrittelemällä 500 t
     <message>
         <source>The DigiByte address the message was signed with</source>
         <translation>DigiByte-osoite jolla viesti on allekirjoitettu</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-    </message>
-    <message>
-=======
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -2934,7 +2855,6 @@ Huom: Koska siirtomaksu lasketaan tavujen mukaan, niin määrittelemällä 500 t
         <translation>Viestin allekirjoittamisen yhteydessä annettu allekirjoitus</translation>
     </message>
     <message>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
         <source>Verify the message to ensure it was signed with the specified DigiByte address</source>
         <translation>Tarkista viestin allekirjoitus varmistaaksesi, että se allekirjoitettiin tietyllä DigiByte-osoitteella</translation>
     </message>
@@ -3644,13 +3564,6 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
         <translation>HTTP-palvelinta ei voitu käynnistää. Katso debug-lokista lisätietoja.</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_fi.ts
-        <source>DigiByte Core</source>
-        <translation>DigiByte-ydin</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_fi.ts
         <source>The %s developers</source>
         <translation>%s kehittäjät</translation>
     </message>

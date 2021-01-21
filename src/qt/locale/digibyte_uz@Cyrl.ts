@@ -294,17 +294,6 @@
         <translation>Хабарни &amp;тасдиқлаш...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_uz@Cyrl.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Ҳамён</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_uz@Cyrl.ts
         <source>&amp;Send</source>
         <translation>&amp;Жўнатиш</translation>
     </message>
@@ -361,13 +350,6 @@
         <translation>Фойдаланилган қабул қилинган манзиллар ва ёрлиқлар рўйхатини кўрсатиш</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_uz@Cyrl.ts
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>DigiByte’ни очиш: URI ёки тўлов сўрови</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_uz@Cyrl.ts
         <source>&amp;Command-line options</source>
         <translation>&amp;Буйруқлар сатри мосламалари</translation>
     </message>
@@ -1796,18 +1778,9 @@
     </context>
 <context>
     <name>WalletView</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_uz@Cyrl.ts
-    </context>
-<context>
-    <name>digibyte-core</name>
-    <message>
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-=======
     <message>
         <source>&amp;Export</source>
         <translation>&amp;Экспорт</translation>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_uz@Cyrl.ts
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>

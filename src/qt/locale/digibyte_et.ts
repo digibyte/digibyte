@@ -68,13 +68,6 @@
     <message>
         <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Need on sinu DigiByte aadressid maksete saatmiseks. Ennem müntide saatmist kontrolli alati summat ja makse saaja aadressi.</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_et.ts
-    </message>
-    <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Need on sinu DigiByte aadressid sisenevate maksete vastu võtmiseks. Soovitav on iga tehingu tarbeks kasutada uut aadressi.</translation>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_et.ts
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -361,17 +354,6 @@
         <translation>&amp;Kontrolli sõnumit...</translation>
     </message>
     <message>
-<<<<<<< HEAD:src/qt/locale/digibyte_et.ts
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Rahakott</translation>
-    </message>
-    <message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_et.ts
         <source>&amp;Send</source>
         <translation>&amp;Saada</translation>
     </message>
@@ -418,13 +400,6 @@
     <message>
         <source>Request payments (generates QR codes and digibyte: URIs)</source>
         <translation>Loo maksepäring (genereerib QR koodid ja digibytei: URId)</translation>
-<<<<<<< HEAD:src/qt/locale/digibyte_et.ts
-    </message>
-    <message>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Ava digibytei: URI või maksepäring</translation>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_et.ts
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -1964,13 +1939,6 @@
     </context>
 <context>
     <name>digibyte-core</name>
-<<<<<<< HEAD:src/qt/locale/digibyte_et.ts
-    <message>
-        <source>DigiByte Core</source>
-        <translation>DigiBytei tuumik</translation>
-    </message>
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/locale/digibyte_et.ts
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation>See on test-versioon - kasutamine omal riisikol - ära kasuta mining'uks ega kaupmeeste programmides</translation>
