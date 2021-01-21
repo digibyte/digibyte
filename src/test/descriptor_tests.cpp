@@ -1,21 +1,13 @@
-<<<<<<< HEAD
-// Copyright (c) 2018 The DigiByte Core developers
-=======
 // Copyright (c) 2018-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <script/descriptor.h>
 #include <script/sign.h>
 #include <script/standard.h>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/setup_common.h>
 #include <util/strencodings.h>
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <boost/test/unit_test.hpp>
 
 #include <string>

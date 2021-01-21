@@ -8,12 +8,8 @@
 
 #include <chain.h>
 #include <rpc/blockchain.h>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/setup_common.h>
 #include <util/string.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 /* Equality between doubles is imprecise. Comparison should be done
  * with a small threshold of tolerance, rather than exact equality.
