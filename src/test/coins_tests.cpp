@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -15,14 +11,7 @@
 #include <txdb.h>
 #include <uint256.h>
 #include <undo.h>
-<<<<<<< HEAD
-#include <utilstrencodings.h>
-#include <test/test_digibyte.h>
-#include <validation.h>
-#include <consensus/validation.h>
-=======
 #include <util/strencodings.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 #include <map>
 #include <vector>

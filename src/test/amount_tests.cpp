@@ -1,19 +1,11 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2016-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <amount.h>
 #include <policy/feerate.h>
-<<<<<<< HEAD
-#include <test/test_digibyte.h>
-=======
 #include <test/util/setup_common.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 #include <boost/test/unit_test.hpp>
 
@@ -107,11 +99,7 @@ BOOST_AUTO_TEST_CASE(BinaryOperatorTest)
     BOOST_CHECK(a <= a);
     BOOST_CHECK(b >= a);
     BOOST_CHECK(b >= b);
-<<<<<<< HEAD
-    // a should be 0.00000002 DGB/kB now
-=======
     // a should be 0.00000002 DGB/kvB now
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     a += a;
     BOOST_CHECK(a == b);
 }
@@ -120,13 +108,9 @@ BOOST_AUTO_TEST_CASE(ToStringTest)
 {
     CFeeRate feeRate;
     feeRate = CFeeRate(1);
-<<<<<<< HEAD
-    BOOST_CHECK_EQUAL(feeRate.ToString(), "0.00000001 DGB/kB");
-=======
     BOOST_CHECK_EQUAL(feeRate.ToString(), "0.00000001 DGB/kvB");
     BOOST_CHECK_EQUAL(feeRate.ToString(FeeEstimateMode::DGB_KVB), "0.00000001 DGB/kvB");
     BOOST_CHECK_EQUAL(feeRate.ToString(FeeEstimateMode::SAT_VB), "0.001 sat/vB");
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 BOOST_AUTO_TEST_SUITE_END()

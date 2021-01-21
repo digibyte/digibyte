@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
-=======
 // Copyright (c) 2011-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,12 +9,6 @@
 #include <key.h>  // For CKey
 #include <optional.h>
 #include <sync.h>
-<<<<<<< HEAD
-#include <utilstrencodings.h>
-#include <utilmoneystr.h>
-#include <test/test_digibyte.h>
-
-=======
 #include <test/util/logging.h>
 #include <test/util/setup_common.h>
 #include <test/util/str.h>
@@ -33,7 +22,6 @@
 #include <util/vector.h>
 
 #include <array>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <stdint.h>
 #include <thread>
 #include <univalue.h>

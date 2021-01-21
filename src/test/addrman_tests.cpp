@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
@@ -8,16 +7,6 @@
 #include <string>
 #include <boost/test/unit_test.hpp>
 
-=======
-// Copyright (c) 2012-2020 The DigiByte Core developers
-// Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#include <addrman.h>
-#include <test/data/asmap.raw.h>
-#include <test/util/setup_common.h>
-#include <util/asmap.h>
-#include <util/string.h>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #include <hash.h>
 #include <netbase.h>
 #include <random.h>

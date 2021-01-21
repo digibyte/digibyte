@@ -1,9 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD:src/util.h
-// Copyright (c) 2009-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/util/system.h
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,13 +7,8 @@
  * Server/client environment: argument handling, config file parsing,
  * thread wrappers, startup time
  */
-<<<<<<< HEAD:src/util.h
-#ifndef DIGIBYTE_UTIL_H
-#define DIGIBYTE_UTIL_H
-=======
 #ifndef DIGIBYTE_UTIL_SYSTEM_H
 #define DIGIBYTE_UTIL_SYSTEM_H
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/util/system.h
 
 #if defined(HAVE_CONFIG_H)
 #include <config/digibyte-config.h>
@@ -51,35 +42,8 @@ class UniValue;
 // Application startup time (used for uptime calculation)
 int64_t GetStartupTime();
 
-<<<<<<< HEAD:src/util.h
-/** Signals for translation. */
-class CTranslationInterface
-{
-public:
-    /** Translate a message to the native language of the user. */
-    boost::signals2::signal<std::string (const char* psz)> Translate;
-};
-
-extern CTranslationInterface translationInterface;
-
-extern const char * const DIGIBYTE_CONF_FILENAME;
-extern const char * const DIGIBYTE_PID_FILENAME;
-
-extern int miningAlgo;
-
-/**
- * Translation function: Call Translate signal on UI interface, which returns a boost::optional result.
- * If no translation slot is registered, nothing is returned, and simply return the input.
- */
-inline std::string _(const char* psz)
-{
-    boost::optional<std::string> rv = translationInterface.Translate(psz);
-    return rv ? (*rv) : psz;
-}
-=======
 extern const char * const DIGIBYTE_CONF_FILENAME;
 extern const char * const DIGIBYTE_SETTINGS_FILENAME;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/util/system.h
 
 void SetupEnvironment();
 bool SetupNetworking();
@@ -467,12 +431,7 @@ int GetNumCores();
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-<<<<<<< HEAD:src/util.h
-    std::string s = strprintf("digibyte-%s", name);
-    RenameThread(s.c_str());
-=======
     util::ThreadRename(name);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/util/system.h
     try
     {
         LogPrintf("%s thread start\n", name);
@@ -532,8 +491,4 @@ private:
 
 } // namespace util
 
-<<<<<<< HEAD:src/util.h
-#endif // DIGIBYTE_UTIL_H
-=======
 #endif // DIGIBYTE_UTIL_SYSTEM_H
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/util/system.h
