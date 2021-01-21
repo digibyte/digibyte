@@ -90,6 +90,7 @@ static const bool DEFAULT_FORCEDNSSEED = false;
 static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
 static const size_t DEFAULT_MAXSENDBUFFER    = 1 * 1000;
 
+
 /** Maximum number of outbound peers designated as Dandelion destinations */
 static const int DANDELION_MAX_DESTINATIONS = 2;
 /** Expected time between Dandelion routing shuffles (in seconds). */
@@ -100,6 +101,8 @@ static const int DANDELION_EMBARGO_MINIMUM = 10;
 static const int DANDELION_EMBARGO_AVG_ADD = 20;
 
 typedef int64_t NodeId;
+
+struct AddedNodeInfo
 {
     std::string strAddedNode;
     CService resolvedAddress;

@@ -2011,8 +2011,8 @@ static unsigned int GetBlockScriptFlags(const CBlockIndex* pindex, const Consens
     }
 
     // Start enforcing Taproot using versionbits logic.
-    if (VersionBitsState(pindex->pprev, consensusparams, Consensus::DEPLOYMENT_TAPROOT, versionbitscache) == ThresholdState::ACTIVE) {
-        flags |= SCRIPT_VERIFY_TAPROOT;
+    //if (VersionBitsState(pindex->pprev, consensusparams, Consensus::DEPLOYMENT_TAPROOT, versionbitscache) == ThresholdState::ACTIVE) {
+    //   flags |= SCRIPT_VERIFY_TAPROOT;
     }
 
     // Start enforcing BIP147 NULLDUMMY (activated simultaneously with segwit)
