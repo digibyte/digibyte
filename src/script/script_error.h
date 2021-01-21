@@ -5,11 +5,8 @@
 
 #ifndef DIGIBYTE_SCRIPT_SCRIPT_ERROR_H
 #define DIGIBYTE_SCRIPT_SCRIPT_ERROR_H
-<<<<<<< HEAD
-=======
 
 #include <string>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 typedef enum ScriptError_t
 {

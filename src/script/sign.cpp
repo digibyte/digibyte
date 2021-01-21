@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -80,14 +76,10 @@ static bool CreateSig(const BaseSignatureCreator& creator, SignatureData& sigdat
         sig_out = it->second.second;
         return true;
     }
-<<<<<<< HEAD
-    sigdata.misc_pubkeys.emplace(keyid, pubkey);
-=======
     KeyOriginInfo info;
     if (provider.GetKeyOrigin(keyid, info)) {
         sigdata.misc_pubkeys.emplace(keyid, std::make_pair(pubkey, std::move(info)));
     }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     if (creator.CreateSig(provider, sig_out, keyid, scriptcode, sigversion)) {
         auto i = sigdata.signatures.emplace(keyid, SigPair(pubkey, sig_out));
         assert(i.second);
@@ -122,26 +114,18 @@ static bool SignStep(const SigningProvider& provider, const BaseSignatureCreator
     case TxoutType::WITNESS_UNKNOWN:
     case TxoutType::WITNESS_V1_TAPROOT:
         return false;
-<<<<<<< HEAD
-    case TX_PUBKEY:
-=======
     case TxoutType::PUBKEY:
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         if (!CreateSig(creator, sigdata, provider, sig, CPubKey(vSolutions[0]), scriptPubKey, sigversion)) return false;
         ret.push_back(std::move(sig));
         return true;
     case TxoutType::PUBKEYHASH: {
         CKeyID keyID = CKeyID(uint160(vSolutions[0]));
         CPubKey pubkey;
-<<<<<<< HEAD
-        GetPubKey(provider, sigdata, keyID, pubkey);
-=======
         if (!GetPubKey(provider, sigdata, keyID, pubkey)) {
             // Pubkey could not be found, add to missing
             sigdata.missing_pubkeys.push_back(keyID);
             return false;
         }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         if (!CreateSig(creator, sigdata, provider, sig, pubkey, scriptPubKey, sigversion)) return false;
         ret.push_back(std::move(sig));
         ret.push_back(ToByteVector(pubkey));
@@ -162,10 +146,6 @@ static bool SignStep(const SigningProvider& provider, const BaseSignatureCreator
         ret.push_back(valtype()); // workaround CHECKMULTISIG bug
         for (size_t i = 1; i < vSolutions.size() - 1; ++i) {
             CPubKey pubkey = CPubKey(vSolutions[i]);
-<<<<<<< HEAD
-            if (ret.size() < required + 1 && CreateSig(creator, sigdata, provider, sig, pubkey, scriptPubKey, sigversion)) {
-                ret.push_back(std::move(sig));
-=======
             // We need to always call CreateSig in order to fill sigdata with all
             // possible signatures that we can create. This will allow further PSBT
             // processing to work as it needs all possible signature and pubkey pairs
@@ -173,7 +153,6 @@ static bool SignStep(const SigningProvider& provider, const BaseSignatureCreator
                 if (ret.size() < required + 1) {
                     ret.push_back(std::move(sig));
                 }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             }
         }
         bool ok = ret.size() == required + 1;
@@ -274,70 +253,7 @@ bool ProduceSignature(const SigningProvider& provider, const BaseSignatureCreato
     return sigdata.complete;
 }
 
-<<<<<<< HEAD
-bool PSBTInputSigned(PSBTInput& input)
-{
-    return !input.final_script_sig.empty() || !input.final_script_witness.IsNull();
-}
-
-bool SignPSBTInput(const SigningProvider& provider, PartiallySignedTransaction& psbt, SignatureData& sigdata, int index, int sighash)
-{
-    PSBTInput& input = psbt.inputs.at(index);
-    const CMutableTransaction& tx = *psbt.tx;
-
-    if (PSBTInputSigned(input)) {
-        return true;
-    }
-
-    // Fill SignatureData with input info
-    input.FillSignatureData(sigdata);
-
-    // Get UTXO
-    bool require_witness_sig = false;
-    CTxOut utxo;
-
-    // Verify input sanity, which checks that at most one of witness or non-witness utxos is provided.
-    if (!input.IsSane()) {
-        return false;
-    }
-
-    if (input.non_witness_utxo) {
-        // If we're taking our information from a non-witness UTXO, verify that it matches the prevout.
-        COutPoint prevout = tx.vin[index].prevout;
-        if (input.non_witness_utxo->GetHash() != prevout.hash) {
-            return false;
-        }
-        utxo = input.non_witness_utxo->vout[prevout.n];
-    } else if (!input.witness_utxo.IsNull()) {
-        utxo = input.witness_utxo;
-        // When we're taking our information from a witness UTXO, we can't verify it is actually data from
-        // the output being spent. This is safe in case a witness signature is produced (which includes this
-        // information directly in the hash), but not for non-witness signatures. Remember that we require
-        // a witness signature in this situation.
-        require_witness_sig = true;
-    } else {
-        return false;
-    }
-
-    MutableTransactionSignatureCreator creator(&tx, index, utxo.nValue, sighash);
-    sigdata.witness = false;
-    bool sig_complete = ProduceSignature(provider, creator, utxo.scriptPubKey, sigdata);
-    // Verify that a witness signature was produced in case one was required.
-    if (require_witness_sig && !sigdata.witness) return false;
-    input.FromSignatureData(sigdata);
-
-    // If we have a witness signature, use the smaller witness UTXO.
-    if (sigdata.witness) {
-        input.witness_utxo = utxo;
-        input.non_witness_utxo = nullptr;
-    }
-
-    return sig_complete;
-}
-
-=======
 namespace {
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 class SignatureExtractorChecker final : public BaseSignatureChecker
 {
 private:
@@ -538,72 +454,7 @@ bool IsSolvable(const SigningProvider& provider, const CScript& script)
     return false;
 }
 
-<<<<<<< HEAD
-PartiallySignedTransaction::PartiallySignedTransaction(const CTransaction& tx) : tx(tx)
-{
-    inputs.resize(tx.vin.size());
-    outputs.resize(tx.vout.size());
-}
-
-bool PartiallySignedTransaction::IsNull() const
-{
-    return !tx && inputs.empty() && outputs.empty() && unknown.empty();
-}
-
-void PartiallySignedTransaction::Merge(const PartiallySignedTransaction& psbt)
-{
-    for (unsigned int i = 0; i < inputs.size(); ++i) {
-        inputs[i].Merge(psbt.inputs[i]);
-    }
-    for (unsigned int i = 0; i < outputs.size(); ++i) {
-        outputs[i].Merge(psbt.outputs[i]);
-    }
-    unknown.insert(psbt.unknown.begin(), psbt.unknown.end());
-}
-
-bool PartiallySignedTransaction::IsSane() const
-{
-    for (PSBTInput input : inputs) {
-        if (!input.IsSane()) return false;
-    }
-    return true;
-}
-
-bool PSBTInput::IsNull() const
-{
-    return !non_witness_utxo && witness_utxo.IsNull() && partial_sigs.empty() && unknown.empty() && hd_keypaths.empty() && redeem_script.empty() && witness_script.empty();
-}
-
-void PSBTInput::FillSignatureData(SignatureData& sigdata) const
-{
-    if (!final_script_sig.empty()) {
-        sigdata.scriptSig = final_script_sig;
-        sigdata.complete = true;
-    }
-    if (!final_script_witness.IsNull()) {
-        sigdata.scriptWitness = final_script_witness;
-        sigdata.complete = true;
-    }
-    if (sigdata.complete) {
-        return;
-    }
-
-    sigdata.signatures.insert(partial_sigs.begin(), partial_sigs.end());
-    if (!redeem_script.empty()) {
-        sigdata.redeem_script = redeem_script;
-    }
-    if (!witness_script.empty()) {
-        sigdata.witness_script = witness_script;
-    }
-    for (const auto& key_pair : hd_keypaths) {
-        sigdata.misc_pubkeys.emplace(key_pair.first.GetID(), key_pair.first);
-    }
-}
-
-void PSBTInput::FromSignatureData(const SignatureData& sigdata)
-=======
 bool IsSegWitOutput(const SigningProvider& provider, const CScript& script)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
     std::vector<valtype> solutions;
     auto whichtype = Solver(script, solutions);
