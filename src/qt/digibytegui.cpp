@@ -294,7 +294,6 @@ void DigiByteGUI::createActions()
     connect(historyAction, &QAction::triggered, this, &DigiByteGUI::gotoHistoryPage);
 #endif // ENABLE_WALLET
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
     quitAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/quit"), tr("E&xit"), this);
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
@@ -324,52 +323,17 @@ void DigiByteGUI::createActions()
     signMessageAction->setStatusTip(tr("Sign messages with your DigiByte addresses to prove you own them"));
     verifyMessageAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/verify"), tr("&Verify message..."), this);
     verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified DigiByte addresses"));
-
-    openRPCConsoleAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/debugwindow"), tr("&Debug window"), this);
-    openRPCConsoleAction->setStatusTip(tr("Open debugging and diagnostic console"));
-=======
-    quitAction = new QAction(tr("E&xit"), this);
-    quitAction->setStatusTip(tr("Quit application"));
-    quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
-    quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(tr("&About %1").arg(PACKAGE_NAME), this);
-    aboutAction->setStatusTip(tr("Show information about %1").arg(PACKAGE_NAME));
-    aboutAction->setMenuRole(QAction::AboutRole);
-    aboutAction->setEnabled(false);
-    aboutQtAction = new QAction(tr("About &Qt"), this);
-    aboutQtAction->setStatusTip(tr("Show information about Qt"));
-    aboutQtAction->setMenuRole(QAction::AboutQtRole);
-    optionsAction = new QAction(tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for %1").arg(PACKAGE_NAME));
-    optionsAction->setMenuRole(QAction::PreferencesRole);
-    optionsAction->setEnabled(false);
-    toggleHideAction = new QAction(tr("&Show / Hide"), this);
-    toggleHideAction->setStatusTip(tr("Show or hide the main Window"));
-
-    encryptWalletAction = new QAction(tr("&Encrypt Wallet..."), this);
-    encryptWalletAction->setStatusTip(tr("Encrypt the private keys that belong to your wallet"));
-    encryptWalletAction->setCheckable(true);
-    backupWalletAction = new QAction(tr("&Backup Wallet..."), this);
-    backupWalletAction->setStatusTip(tr("Backup wallet to another location"));
-    changePassphraseAction = new QAction(tr("&Change Passphrase..."), this);
-    changePassphraseAction->setStatusTip(tr("Change the passphrase used for wallet encryption"));
-    signMessageAction = new QAction(tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your DigiByte addresses to prove you own them"));
-    verifyMessageAction = new QAction(tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified DigiByte addresses"));
     m_load_psbt_action = new QAction(tr("&Load PSBT from file..."), this);
     m_load_psbt_action->setStatusTip(tr("Load Partially Signed DigiByte Transaction"));
     m_load_psbt_clipboard_action = new QAction(tr("Load PSBT from clipboard..."), this);
     m_load_psbt_clipboard_action->setStatusTip(tr("Load Partially Signed DigiByte Transaction from clipboard"));
 
-    openRPCConsoleAction = new QAction(tr("Node window"), this);
-    openRPCConsoleAction->setStatusTip(tr("Open node debugging and diagnostic console"));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
+    openRPCConsoleAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/debugwindow"), tr("&Debug window"), this);
+    openRPCConsoleAction->setStatusTip(tr("Open debugging and diagnostic console"));
     // initially disable the debug window menu item
     openRPCConsoleAction->setEnabled(false);
     openRPCConsoleAction->setObjectName("openRPCConsoleAction");
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
     usedSendingAddressesAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/address-book"), tr("&Sending addresses..."), this);
     usedSendingAddressesAction->setStatusTip(tr("Show the list of used sending addresses and labels"));
     usedReceivingAddressesAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/address-book"), tr("&Receiving addresses..."), this);
@@ -377,26 +341,6 @@ void DigiByteGUI::createActions()
 
     openAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/open"), tr("Open &URI..."), this);
     openAction->setStatusTip(tr("Open a digibyte: URI or payment request"));
-
-    showHelpMessageAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/info"), tr("&Command-line options"), this);
-    showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible DigiByte command-line options").arg(tr(PACKAGE_NAME)));
-
-    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
-    connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
-    connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
-    connect(showHelpMessageAction, SIGNAL(triggered()), this, SLOT(showHelpMessageClicked()));
-    connect(openRPCConsoleAction, SIGNAL(triggered()), this, SLOT(showDebugWindow()));
-=======
-    usedSendingAddressesAction = new QAction(tr("&Sending addresses"), this);
-    usedSendingAddressesAction->setStatusTip(tr("Show the list of used sending addresses and labels"));
-    usedReceivingAddressesAction = new QAction(tr("&Receiving addresses"), this);
-    usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
-
-    openAction = new QAction(tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a digibyte: URI"));
 
     m_open_wallet_action = new QAction(tr("Open Wallet"), this);
     m_open_wallet_action->setEnabled(false);
@@ -413,9 +357,9 @@ void DigiByteGUI::createActions()
     m_close_all_wallets_action = new QAction(tr("Close All Wallets..."), this);
     m_close_all_wallets_action->setStatusTip(tr("Close all wallets"));
 
-    showHelpMessageAction = new QAction(tr("&Command-line options"), this);
+    showHelpMessageAction = new QAction(platformStyle->TextColorIcon(":/icons/" + theme + "/info"), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible DigiByte command-line options").arg(PACKAGE_NAME));
+    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible DigiByte command-line options").arg(tr(PACKAGE_NAME)));
 
     m_mask_values_action = new QAction(tr("&Mask values"), this);
     m_mask_values_action->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_M));
@@ -429,7 +373,6 @@ void DigiByteGUI::createActions()
     connect(toggleHideAction, &QAction::triggered, this, &DigiByteGUI::toggleHidden);
     connect(showHelpMessageAction, &QAction::triggered, this, &DigiByteGUI::showHelpMessageClicked);
     connect(openRPCConsoleAction, &QAction::triggered, this, &DigiByteGUI::showDebugWindow);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
     // prevents an open debug window from becoming stuck/unusable on client shutdown
     connect(quitAction, &QAction::triggered, rpcConsole, &QWidget::hide);
 
@@ -1319,21 +1262,14 @@ bool DigiByteGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
     return false;
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-void DigiByteGUI::setHDStatus(int hdEnabled)
+void DigiByteGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
 {
     QString theme = GUIUtil::getThemeName();
 
-    labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(hdEnabled ? ":/icons/" + theme + "/hd_enabled" : ":/icons/" + theme + "/hd_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelWalletHDStatusIcon->setToolTip(hdEnabled ? tr("HD key generation is <b>enabled</b>") : tr("HD key generation is <b>disabled</b>"));
-
-=======
-void DigiByteGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
-{
-    labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(privkeyDisabled ? ":/icons/eye" : hdEnabled ? ":/icons/hd_enabled" : ":/icons/hd_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+    labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(privkeyDisabled ? ":/icons/eye" : hdEnabled ? ":/icons/" + theme + "/hd_enabled" : ":/icons/" + theme + "/hd_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
     labelWalletHDStatusIcon->setToolTip(privkeyDisabled ? tr("Private key <b>disabled</b>") : hdEnabled ? tr("HD key generation is <b>enabled</b>") : tr("HD key generation is <b>disabled</b>"));
     labelWalletHDStatusIcon->show();
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
+
     // eventually disable the QLabel to set its opacity to 50%
     labelWalletHDStatusIcon->setEnabled(hdEnabled);
 }

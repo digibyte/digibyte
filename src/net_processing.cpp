@@ -1422,18 +1422,6 @@ bool static AlreadyHaveTx(const GenTxid& gtxid, const CTxMemPool& mempool) EXCLU
         } else if (gtxid.IsWtxid() && g_orphans_by_wtxid.count(hash)) {
             return true;
         }
-<<<<<<< HEAD
-    case MSG_BLOCK:
-    case MSG_WITNESS_BLOCK:
-        return LookupBlockIndex(inv.hash) != nullptr;
-
-    case MSG_DANDELION_TX:
-    case MSG_DANDELION_WITNESS_TX:
-        // Do not use AlreadyHave for Dandelion transactions
-        // If accidentally used, returns false so tx is requested
-        return false;        
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     }
 
     {
@@ -2217,22 +2205,11 @@ static bool PrepareBlockFilterRequest(CNode& peer, const CChainParams& chain_par
         }
     }
 
-<<<<<<< HEAD
     {
         LOCK(cs_main);
         CheckDandelionEmbargoes(connman);
     }
 
-    if (strCommand == NetMsgType::REJECT)
-    {
-        if (LogAcceptCategory(BCLog::NET)) {
-            try {
-                std::string strMsg; unsigned char ccode; std::string strReason;
-                vRecv >> LIMITED_STRING(strMsg, CMessageHeader::COMMAND_SIZE) >> ccode >> LIMITED_STRING(strReason, MAX_REJECT_MESSAGE_LENGTH);
-
-                std::ostringstream ss;
-                ss << strMsg << " code " << itostr(ccode) << ": " << strReason;
-=======
     uint32_t stop_height = stop_index->nHeight;
     if (start_height > stop_height) {
         LogPrint(BCLog::NET, "peer %d sent invalid getcfilters/getcfheaders with " /* Continued */
@@ -2247,7 +2224,6 @@ static bool PrepareBlockFilterRequest(CNode& peer, const CChainParams& chain_par
         peer.fDisconnect = true;
         return false;
     }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     filter_index = GetBlockFilterIndex(filter_type);
     if (!filter_index) {
@@ -2452,30 +2428,17 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
             return;
         }
 
-<<<<<<< HEAD
         int minVersion = MIN_PEER_PROTO_VERSION;
         {
             LOCK(cs_main);
             if (IsAlgoActive(chainActive.Tip(), Params().GetConsensus(), ALGO_ODO))
                 minVersion = std::max(minVersion, ODO_FORK_VERSION);
         }
-        if (nVersion < minVersion)
-        {
-            // disconnect from peers older than this proto version
-            LogPrint(BCLog::NET, "peer=%d using obsolete version %i; disconnecting\n", pfrom->GetId(), nVersion);
-            if (enable_bip61) {
-                connman->PushMessage(pfrom, CNetMsgMaker(INIT_PROTO_VERSION).Make(NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,
-                                   strprintf("Version must be %d or greater", minVersion)));
-            }
-            pfrom->fDisconnect = true;
-            return false;
-=======
         if (nVersion < MIN_PEER_PROTO_VERSION) {
             // disconnect from peers older than this proto version
             LogPrint(BCLog::NET, "peer=%d using obsolete version %i; disconnecting\n", pfrom.GetId(), nVersion);
             pfrom.fDisconnect = true;
             return;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
 
         if (!vRecv.empty())
@@ -2965,17 +2928,10 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
 
         // Send the rest of the chain
         if (pindex)
-<<<<<<< HEAD
-            pindex = chainActive.Next(pindex);
-        int nLimit = 2500;
-        LogPrint(BCLog::NET, "getblocks %d to %s limit %d from peer=%d\n", (pindex ? pindex->nHeight : -1), hashStop.IsNull() ? "end" : hashStop.ToString(), nLimit, pfrom->GetId());
-        for (; pindex; pindex = chainActive.Next(pindex))
-=======
             pindex = ::ChainActive().Next(pindex);
         int nLimit = 500;
         LogPrint(BCLog::NET, "getblocks %d to %s limit %d from peer=%d\n", (pindex ? pindex->nHeight : -1), hashStop.IsNull() ? "end" : hashStop.ToString(), nLimit, pfrom.GetId());
         for (; pindex; pindex = ::ChainActive().Next(pindex))
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         {
             if (pindex->GetBlockHash() == hashStop)
             {
@@ -3196,28 +3152,23 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
         TxValidationState state;
         std::list<CTransactionRef> lRemovedTxn;
 
-<<<<<<< HEAD
         if (!AlreadyHave(inv) &&
-            AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */)) {
+            AcceptToMemoryPool(m_mempool, state, ptx, &lRemovedTxn, false /* bypass_limits */)) {
             // Changes to mempool should also be made to Dandelion stempool
             AcceptToMemoryPool(stempool, dummyState, ptx, nullptr, nullptr, false, 0);
             if (connman->isTxDandelionEmbargoed(tx.GetHash())) {
                 LogPrint(BCLog::DANDELION, "Embargoed dandeliontx %s found in mempool; removing from embargo map\n", tx.GetHash().ToString());
                 connman->removeDandelionEmbargo(tx.GetHash());
             }
-            mempool.check(pcoinsTip.get());
-            // Changes to mempool should also be made to Dandelion stempool
-            stempool.check(pcoinsTip.get());
-            RelayTransaction(tx, connman);
-=======
-        if (AcceptToMemoryPool(m_mempool, state, ptx, &lRemovedTxn, false /* bypass_limits */)) {
             m_mempool.check(&::ChainstateActive().CoinsTip());
-            // As this version of the transaction was acceptable, we can forget about any
+            // Changes to mempool should also be made to Dandelion stempool
+            stempool.check(&::ChainstateActive().CoinsTip());
+
+             // As this version of the transaction was acceptable, we can forget about any
             // requests for it.
             m_txrequest.ForgetTxHash(tx.GetHash());
             m_txrequest.ForgetTxHash(tx.GetWitnessHash());
             RelayTransaction(tx.GetHash(), tx.GetWitnessHash(), m_connman);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             for (unsigned int i = 0; i < tx.vout.size(); i++) {
                 auto it_by_prev = mapOrphanTransactionsByPrev.find(COutPoint(txid, i));
                 if (it_by_prev != mapOrphanTransactionsByPrev.end()) {
@@ -3234,71 +3185,8 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
                 tx.GetHash().ToString(),
                 m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
 
-<<<<<<< HEAD
-            // Recursively process any orphan transactions that depended on this one
-            std::set<NodeId> setMisbehaving;
-            while (!vWorkQueue.empty()) {
-                auto itByPrev = mapOrphanTransactionsByPrev.find(vWorkQueue.front());
-                vWorkQueue.pop_front();
-                if (itByPrev == mapOrphanTransactionsByPrev.end())
-                    continue;
-                for (auto mi = itByPrev->second.begin();
-                     mi != itByPrev->second.end();
-                     ++mi)
-                {
-                    const CTransactionRef& porphanTx = (*mi)->second.tx;
-                    const CTransaction& orphanTx = *porphanTx;
-                    const uint256& orphanHash = orphanTx.GetHash();
-                    NodeId fromPeer = (*mi)->second.fromPeer;
-                    bool fMissingInputs2 = false;
-                    // Use a dummy CValidationState so someone can't setup nodes to counter-DoS based on orphan
-                    // resolution (that is, feeding people an invalid transaction based on LegitTxX in order to get
-                    // anyone relaying LegitTxX banned)
-                    CValidationState stateDummy;
-                    CValidationState stateDummyDandelion;
-
-                    if (setMisbehaving.count(fromPeer))
-                        continue;
-                    if (AcceptToMemoryPool(mempool, stateDummy, porphanTx, &fMissingInputs2, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */)) {
-                        // Changes to mempool should also be made to Dandelion stempool
-                        AcceptToMemoryPool(stempool, stateDummyDandelion, porphanTx, nullptr, nullptr, false, 0);
-                        LogPrint(BCLog::MEMPOOL, "   accepted orphan tx %s\n", orphanHash.ToString());
-                        RelayTransaction(orphanTx, connman);
-                        for (unsigned int i = 0; i < orphanTx.vout.size(); i++) {
-                            vWorkQueue.emplace_back(orphanHash, i);
-                        }
-                        vEraseQueue.push_back(orphanHash);
-                    }
-                    else if (!fMissingInputs2)
-                    {
-                        int nDos = 0;
-                        if (stateDummy.IsInvalid(nDos) && nDos > 0)
-                        {
-                            // Punish peer that gave us an invalid orphan tx
-                            Misbehaving(fromPeer, nDos);
-                            setMisbehaving.insert(fromPeer);
-                            LogPrint(BCLog::MEMPOOL, "   invalid orphan tx %s\n", orphanHash.ToString());
-                        }
-                        // Has inputs but not accepted to mempool
-                        // Probably non-standard or insufficient fee
-                        LogPrint(BCLog::MEMPOOL, "   removed orphan tx %s\n", orphanHash.ToString());
-                        vEraseQueue.push_back(orphanHash);
-                        if (!orphanTx.HasWitness() && !stateDummy.CorruptionPossible()) {
-                            // Do not use rejection cache for witness transactions or
-                            // witness-stripped transactions, as they can have been malleated.
-                            // See https://github.com/digibyte/digibyte/issues/8279 for details.
-                            assert(recentRejects);
-                            recentRejects->insert(orphanHash);
-                        }
-                    }
-                    mempool.check(pcoinsTip.get());
-                    // Changes to mempool should also be made to Dandelion stempool
-                    stempool.check(pcoinsTip.get());
-                }
-=======
             for (const CTransactionRef& removedTx : lRemovedTxn) {
                 AddToCompactExtraTransactions(removedTx);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             }
 
             // Recursively process any orphan transactions that depended on this one
@@ -3423,7 +3311,6 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
         }
         return;
     }
-<<<<<<< HEAD
     
     else if (strCommand == NetMsgType::DANDELIONTX)
     {
@@ -3465,11 +3352,7 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
         }
     }
 
-    else if (strCommand == NetMsgType::CMPCTBLOCK && !fImporting && !fReindex) // Ignore blocks received while importing
-=======
-
-    if (msg_type == NetMsgType::CMPCTBLOCK)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+    else if (msg_type == NetMsgType::CMPCTBLOCK)
     {
         // Ignore cmpctblock received while importing
         if (fImporting || fReindex) {

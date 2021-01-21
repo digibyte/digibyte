@@ -123,26 +123,12 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
     return dDiff;
 }
 
-<<<<<<< HEAD
 double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
     return GetDifficulty(chainActive, blockindex, algo);
 }
 
 UniValue blockheaderToJSON(const CBlockIndex* blockindex)
-=======
-static int ComputeNextBlockAndDepth(const CBlockIndex* tip, const CBlockIndex* blockindex, const CBlockIndex*& next)
-{
-    next = tip->GetAncestor(blockindex->nHeight + 1);
-    if (next && next->pprev == blockindex) {
-        return tip->nHeight - blockindex->nHeight + 1;
-    }
-    next = nullptr;
-    return blockindex == tip ? 1 : -1;
-}
-
-UniValue blockheaderToJSON(const CBlockIndex* tip, const CBlockIndex* blockindex)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 {
     // Serialize passed information without accessing chain state of the active chain!
     AssertLockNotHeld(cs_main); // For performance reasons
@@ -435,41 +421,9 @@ static RPCHelpMan getdifficulty()
         [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue
 {
     LOCK(cs_main);
-<<<<<<< HEAD
     return GetDifficulty(nullptr, miningAlgo);
-}
-
-static std::string EntryDescriptionString()
-{
-    return "    \"size\" : n,             (numeric) virtual transaction size as defined in BIP 141. This is different from actual serialized size for witness transactions as witness data is discounted.\n"
-           "    \"fee\" : n,              (numeric) transaction fee in " + CURRENCY_UNIT + " (DEPRECATED)\n"
-           "    \"modifiedfee\" : n,      (numeric) transaction fee with fee deltas used for mining priority (DEPRECATED)\n"
-           "    \"time\" : n,             (numeric) local time transaction entered pool in seconds since 1 Jan 1970 GMT\n"
-           "    \"height\" : n,           (numeric) block height when transaction entered pool\n"
-           "    \"descendantcount\" : n,  (numeric) number of in-mempool descendant transactions (including this one)\n"
-           "    \"descendantsize\" : n,   (numeric) virtual transaction size of in-mempool descendants (including this one)\n"
-           "    \"descendantfees\" : n,   (numeric) modified fees (see above) of in-mempool descendants (including this one) (DEPRECATED)\n"
-           "    \"ancestorcount\" : n,    (numeric) number of in-mempool ancestor transactions (including this one)\n"
-           "    \"ancestorsize\" : n,     (numeric) virtual transaction size of in-mempool ancestors (including this one)\n"
-           "    \"ancestorfees\" : n,     (numeric) modified fees (see above) of in-mempool ancestors (including this one) (DEPRECATED)\n"
-           "    \"wtxid\" : hash,         (string) hash of serialized transaction, including witness data\n"
-           "    \"fees\" : {\n"
-           "        \"base\" : n,         (numeric) transaction fee in " + CURRENCY_UNIT + "\n"
-           "        \"modified\" : n,     (numeric) transaction fee with fee deltas used for mining priority in " + CURRENCY_UNIT + "\n"
-           "        \"ancestor\" : n,     (numeric) modified fees (see above) of in-mempool ancestors (including this one) in " + CURRENCY_UNIT + "\n"
-           "        \"descendant\" : n,   (numeric) modified fees (see above) of in-mempool descendants (including this one) in " + CURRENCY_UNIT + "\n"
-           "    }\n"
-           "    \"depends\" : [           (array) unconfirmed transactions used as inputs for this transaction\n"
-           "        \"transactionid\",    (string) parent transaction id\n"
-           "       ... ]\n"
-           "    \"spentby\" : [           (array) unconfirmed transactions spending outputs from this transaction\n"
-           "        \"transactionid\",    (string) child transaction id\n"
-           "       ... ]\n";
-=======
-    return GetDifficulty(::ChainActive().Tip());
 },
     };
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 static std::vector<RPCResult> MempoolEntryDescription() { return {
@@ -1409,7 +1363,6 @@ RPCHelpMan getblockchaininfo()
         }
     }
     const Consensus::Params& consensusParams = Params().GetConsensus();
-<<<<<<< HEAD
     CBlockIndex* tip = chainActive.Tip();
     UniValue difficulties(UniValue::VOBJ);
     UniValue softforks(UniValue::VARR);
@@ -1425,16 +1378,6 @@ RPCHelpMan getblockchaininfo()
         BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
     }
     obj.pushKV("difficulties",             difficulties);
-=======
-    UniValue softforks(UniValue::VOBJ);
-    BuriedForkDescPushBack(softforks, "bip34", consensusParams.BIP34Height);
-    BuriedForkDescPushBack(softforks, "bip66", consensusParams.BIP66Height);
-    BuriedForkDescPushBack(softforks, "bip65", consensusParams.BIP65Height);
-    BuriedForkDescPushBack(softforks, "csv", consensusParams.CSVHeight);
-    BuriedForkDescPushBack(softforks, "segwit", consensusParams.SegwitHeight);
-    BIP9SoftForkDescPushBack(softforks, "testdummy", consensusParams, Consensus::DEPLOYMENT_TESTDUMMY);
-    BIP9SoftForkDescPushBack(softforks, "taproot", consensusParams, Consensus::DEPLOYMENT_TAPROOT);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     obj.pushKV("softforks",             softforks);
 
     obj.pushKV("warnings", GetWarnings(false).original);
