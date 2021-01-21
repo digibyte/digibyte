@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -210,10 +206,7 @@ private:
 void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned int& nExtraNonce);
 int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev, int algo);
 
-<<<<<<< HEAD
-=======
 /** Update an old GenerateCoinbaseCommitment from CreateNewBlock after the block txs have changed */
 void RegenerateCommitments(CBlock& block);
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_MINER_H

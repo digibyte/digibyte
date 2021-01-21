@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Copyright (c) 2016-2018 The DigiByte Core developers
-=======
 // Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -46,45 +42,9 @@ public:
     uint256 blockhash;
     std::vector<uint16_t> indexes;
 
-<<<<<<< HEAD
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(blockhash);
-        uint64_t indexes_size = (uint64_t)indexes.size();
-        READWRITE(COMPACTSIZE(indexes_size));
-        if (ser_action.ForRead()) {
-            size_t i = 0;
-            while (indexes.size() < indexes_size) {
-                indexes.resize(std::min((uint64_t)(1000 + indexes.size()), indexes_size));
-                for (; i < indexes.size(); i++) {
-                    uint64_t index = 0;
-                    READWRITE(COMPACTSIZE(index));
-                    if (index > std::numeric_limits<uint16_t>::max())
-                        throw std::ios_base::failure("index overflowed 16 bits");
-                    indexes[i] = index;
-                }
-            }
-
-            int32_t offset = 0;
-            for (size_t j = 0; j < indexes.size(); j++) {
-                if (int32_t(indexes[j]) + offset > std::numeric_limits<uint16_t>::max())
-                    throw std::ios_base::failure("indexes overflowed 16 bits");
-                indexes[j] = indexes[j] + offset;
-                offset = int32_t(indexes[j]) + 1;
-            }
-        } else {
-            for (size_t i = 0; i < indexes.size(); i++) {
-                uint64_t index = indexes[i] - (i == 0 ? 0 : (indexes[i - 1] + 1));
-                READWRITE(COMPACTSIZE(index));
-            }
-        }
-=======
     SERIALIZE_METHODS(BlockTransactionsRequest, obj)
     {
         READWRITE(obj.blockhash, Using<VectorFormatter<DifferenceFormatter>>(obj.indexes));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     }
 };
 
@@ -159,17 +119,6 @@ public:
             }
             obj.FillShortTxIDSelector();
         }
-<<<<<<< HEAD
-
-        READWRITE(prefilledtxn);
-
-        if (BlockTxCount() > std::numeric_limits<uint16_t>::max())
-            throw std::ios_base::failure("indexes overflowed 16 bits");
-
-        if (ser_action.ForRead())
-            FillShortTxIDSelector();
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     }
 };
 

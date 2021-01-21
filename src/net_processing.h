@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -171,10 +167,7 @@ struct CNodeStateStats {
 /** Get statistics from node state */
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
 
-<<<<<<< HEAD
-=======
 /** Relay transaction to every node */
 void RelayTransaction(const uint256& txid, const uint256& wtxid, const CConnman& connman) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_NET_PROCESSING_H

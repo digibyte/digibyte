@@ -1,18 +1,11 @@
-<<<<<<< HEAD
-// Copyright (c) 2016 The DigiByte Core developers
-=======
 // Copyright (c) 2016-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_INDIRECTMAP_H
 #define DIGIBYTE_INDIRECTMAP_H
-<<<<<<< HEAD
-=======
 
 #include <map>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 template <class T>
 struct DereferencingComparator { bool operator()(const T a, const T b) const { return *a < *b; } };

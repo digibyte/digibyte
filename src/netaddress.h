@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -124,10 +120,6 @@ static constexpr size_t ADDR_INTERNAL_SIZE = 10;
 class CNetAddr
 {
     protected:
-<<<<<<< HEAD
-        unsigned char ip[16]; // in network byte order
-        uint32_t scopeId{0}; // for scoped/link-local ipv6 addresses
-=======
         /**
          * Raw representation of the network address.
          * In network byte order (big endian) for IPv4 and IPv6.
@@ -144,7 +136,6 @@ class CNetAddr
          * See https://tools.ietf.org/html/rfc4007
          */
         uint32_t m_scope_id{0};
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     public:
         CNetAddr();
@@ -539,9 +530,6 @@ class CService : public CNetAddr
         }
 };
 
-<<<<<<< HEAD
-=======
 bool SanityCheckASMap(const std::vector<bool>& asmap);
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_NETADDRESS_H

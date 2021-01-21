@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -65,10 +61,7 @@ public:
     int GetVersion() const { return nVersion; }
     int GetType() const { return nType; }
     size_t size() const { return stream->size(); }
-<<<<<<< HEAD
-=======
     void ignore(size_t size) { return stream->ignore(size); }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 };
 
 /* Minimal stream for overwriting and/or appending to an existing byte vector

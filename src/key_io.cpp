@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Copyright (c) 2014-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -77,11 +73,7 @@ CTxDestination DecodeDestination(const std::string& str, const CChainParams& par
 {
     std::vector<unsigned char> data;
     uint160 hash;
-<<<<<<< HEAD
-    if (DecodeBase58Check(str, data)) {
-=======
     if (DecodeBase58Check(str, data, 21)) {
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         // base58-encoded DigiByte addresses.
         // Public-key-hash-addresses have version 0 (or 111 testnet).
         // The data vector contains RIPEMD160(SHA256(pubkey)), where pubkey is the serialized public key.

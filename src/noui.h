@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // Copyright (c) 2013-2014 The DigiByte Core developers
-=======
-// Copyright (c) 2013-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,8 +7,6 @@
 
 #include <string>
 
-<<<<<<< HEAD
-=======
 struct bilingual_str;
 
 /** Non-GUI handler, which logs and prints messages. */
@@ -31,5 +25,4 @@ void noui_test_redirect();
 /** Reconnects the regular Non-GUI handlers after having used noui_test_redirect */
 void noui_reconnect();
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_NOUI_H

@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,19 +22,11 @@
 #include <iterator>
 #include <tuple>
 
-<<<<<<< HEAD
-// 0xFD + sha256("digibyte")[0:5]
-static const unsigned char g_internal_prefix[] = { 0xFD, 0x6B, 0x88, 0xC0, 0x87, 0x24 };
-=======
 constexpr size_t CNetAddr::V1_SERIALIZATION_SIZE;
 constexpr size_t CNetAddr::MAX_ADDRV2_SIZE;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 CNetAddr::BIP155Network CNetAddr::GetBIP155Network() const
 {
-<<<<<<< HEAD
-    memset(ip, 0, sizeof(ip));
-=======
     switch (m_net) {
     case NET_IPV4:
         return BIP155Network::IPV4;
@@ -123,7 +111,6 @@ bool CNetAddr::SetNetFromBIP155Network(uint8_t possible_bip155_net, size_t addre
     // Instead silently drop them and have the unserialization code consume
     // subsequent ones which may be known to us.
     return false;
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }
 
 /**

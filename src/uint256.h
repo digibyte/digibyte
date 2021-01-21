@@ -1,10 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
-=======
 // Copyright (c) 2009-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,14 +18,6 @@ class base_blob
 {
 public:
     static constexpr int WIDTH = BITS / 8;
-<<<<<<< HEAD
-    uint8_t data[WIDTH];
-
-    base_blob()
-    {
-        memset(data, 0, sizeof(data));
-    }
-=======
     uint8_t m_data[WIDTH];
 public:
     /* construct 0 value by default */
@@ -38,7 +25,6 @@ public:
 
     /* constructor for constants between 1 and 255 */
     constexpr explicit base_blob(uint8_t v) : m_data{v} {}
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     explicit base_blob(const std::vector<unsigned char>& vch);
 

@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2014-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -41,14 +37,6 @@ int64_t GetAdjustedTime()
     return GetTime() + GetTimeOffset();
 }
 
-<<<<<<< HEAD
-static int64_t abs64(int64_t n)
-{
-    return (n >= 0 ? n : -n);
-}
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #define DIGIBYTE_TIMEDATA_MAX_SAMPLES 200
 
 void AddTimeData(const CNetAddr& ip, int64_t nOffsetSample)

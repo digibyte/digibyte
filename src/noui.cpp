@@ -1,10 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2019 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,12 +59,6 @@ void noui_InitMessage(const std::string& message)
 
 void noui_connect()
 {
-<<<<<<< HEAD
-    // Connect digibyted signal handlers
-    uiInterface.ThreadSafeMessageBox.connect(noui_ThreadSafeMessageBox);
-    uiInterface.ThreadSafeQuestion.connect(noui_ThreadSafeQuestion);
-    uiInterface.InitMessage.connect(noui_InitMessage);
-=======
     noui_ThreadSafeMessageBoxConn = uiInterface.ThreadSafeMessageBox_connect(noui_ThreadSafeMessageBox);
     noui_ThreadSafeQuestionConn = uiInterface.ThreadSafeQuestion_connect(noui_ThreadSafeQuestion);
     noui_InitMessageConn = uiInterface.InitMessage_connect(noui_InitMessage);
@@ -107,5 +97,4 @@ void noui_reconnect()
     noui_ThreadSafeQuestionConn.disconnect();
     noui_InitMessageConn.disconnect();
     noui_connect();
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 }

@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -622,15 +618,9 @@ void CNode::copyStats(CNodeStats &stats, const std::vector<bool> &m_asmap)
     }
 
     // Raw ping time is in microseconds, but show it to user as whole seconds (DigiByte users should be well used to small numbers with many decimal places by now :)
-<<<<<<< HEAD
-    stats.dPingTime = (((double)nPingUsecTime) / 1e6);
-    stats.dMinPing  = (((double)nMinPingUsecTime) / 1e6);
-    stats.dPingWait = (((double)nPingUsecWait) / 1e6);
-=======
     stats.m_ping_usec = nPingUsecTime;
     stats.m_min_ping_usec  = nMinPingUsecTime;
     stats.m_ping_wait_usec = count_microseconds(ping_wait);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     // Leave string empty if addrLocal invalid (not filled in yet)
     CService addrLocalUnlocked = GetAddrLocal();
@@ -1951,11 +1941,7 @@ static void ThreadMapPort()
             }
         }
 
-<<<<<<< HEAD
-        std::string strDesc = "DigiByte " + FormatFullVersion();
-=======
         std::string strDesc = PACKAGE_NAME " " + FormatFullVersion();
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
         do {
             r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype, port.c_str(), port.c_str(), lanaddr, strDesc.c_str(), "TCP", 0, "0");
@@ -2960,12 +2946,8 @@ void CConnman::StopThreads()
         threadDNSAddressSeed.join();
     if (threadSocketHandler.joinable())
         threadSocketHandler.join();
-<<<<<<< HEAD
     if (threadDandelionShuffle.joinable())
         threadDandelionShuffle.join();
-=======
-}
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 void CConnman::StopNodes()
 {
