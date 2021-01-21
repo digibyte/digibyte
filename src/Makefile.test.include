@@ -2,10 +2,6 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-<<<<<<< HEAD
-bin_PROGRAMS += test/test_digibyte
-noinst_PROGRAMS += test/test_digibyte_fuzzy
-=======
 FUZZ_TARGETS = \
   test/fuzz/addition_overflow \
   test/fuzz/addr_info_deserialize \
@@ -169,7 +165,6 @@ else
 bin_PROGRAMS += test/test_digibyte
 endif
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 TEST_SRCDIR = test
 TEST_BINARY=test/test_digibyte$(EXEEXT)
 
@@ -190,11 +185,6 @@ RAW_TEST_FILES = \
 GENERATED_TEST_FILES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
 
 DIGIBYTE_TEST_SUITE = \
-<<<<<<< HEAD
-  test/test_digibyte_main.cpp \
-  test/test_digibyte.h \
-  test/test_digibyte.cpp
-=======
   test/main.cpp \
   $(TEST_UTIL_H)
 
@@ -215,7 +205,6 @@ FUZZ_SUITE_LD_COMMON = \
  $(LIBSECP256K1) \
  $(EVENT_LIBS) \
  $(EVENT_PTHREADS_LIBS)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 # test_digibyte binary #
 DIGIBYTE_TESTS =\
@@ -303,11 +292,7 @@ DIGIBYTE_TESTS =\
 
 if ENABLE_WALLET
 DIGIBYTE_TESTS += \
-<<<<<<< HEAD
-  wallet/test/accounting_tests.cpp \
-=======
   wallet/test/db_tests.cpp \
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
   wallet/test/psbt_wallet_tests.cpp \
   wallet/test/wallet_tests.cpp \
   wallet/test/wallet_crypto_tests.cpp \
@@ -325,11 +310,7 @@ endif
 
 test_test_digibyte_SOURCES = $(DIGIBYTE_TEST_SUITE) $(DIGIBYTE_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
 test_test_digibyte_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES) $(TESTDEFS) $(EVENT_CFLAGS)
-<<<<<<< HEAD
-test_test_digibyte_LDADD =
-=======
 test_test_digibyte_LDADD = $(LIBTEST_UTIL)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 if ENABLE_WALLET
 test_test_digibyte_LDADD += $(LIBDIGIBYTE_WALLET)
 endif
@@ -338,54 +319,13 @@ test_test_digibyte_LDADD += $(LIBDIGIBYTE_SERVER) $(LIBDIGIBYTE_CLI) $(LIBDIGIBY
   $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) $(BOOST_LIBS) $(BOOST_UNIT_TEST_FRAMEWORK_LIB) $(LIBSECP256K1) $(EVENT_LIBS) $(EVENT_PTHREADS_LIBS)
 test_test_digibyte_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
-<<<<<<< HEAD
-test_test_digibyte_LDADD += $(LIBDIGIBYTE_CONSENSUS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
-test_test_digibyte_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) -static
-
-if ENABLE_ZMQ
-test_test_digibyte_LDADD += $(ZMQ_LIBS)
-=======
 test_test_digibyte_LDADD += $(BDB_LIBS) $(MINIUPNPC_LIBS) $(SQLITE_LIBS)
 test_test_digibyte_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) $(PTHREAD_FLAGS) -static
 
 if ENABLE_ZMQ
 test_test_digibyte_LDADD += $(LIBDIGIBYTE_ZMQ) $(ZMQ_LIBS)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 endif
 
-<<<<<<< HEAD
-# test_digibyte_fuzzy binary #
-test_test_digibyte_fuzzy_SOURCES = test/test_digibyte_fuzzy.cpp
-test_test_digibyte_fuzzy_CPPFLAGS = $(AM_CPPFLAGS) $(DIGIBYTE_INCLUDES)
-test_test_digibyte_fuzzy_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-test_test_digibyte_fuzzy_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-
-test_test_digibyte_fuzzy_LDADD = \
-  $(LIBUNIVALUE) \
-  $(LIBDIGIBYTE_SERVER) \
-  $(LIBDIGIBYTE_COMMON) \
-  $(LIBDIGIBYTE_UTIL) \
-  $(LIBDIGIBYTE_CONSENSUS) \
-  $(LIBDIGIBYTE_CRYPTO) \
-  $(LIBDIGIBYTE_CRYPTO_SSE41) \
-  $(LIBDIGIBYTE_CRYPTO_AVX2) \
-  $(LIBDIGIBYTE_CRYPTO_SHANI) \
-  $(LIBSECP256K1)
-
-test_test_digibyte_fuzzy_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
-#
-
-nodist_test_test_digibyte_SOURCES = $(GENERATED_TEST_FILES)
-
-$(DIGIBYTE_TESTS): $(GENERATED_TEST_FILES)
-
-CLEAN_DIGIBYTE_TEST = test/*.gcda test/*.gcno $(GENERATED_TEST_FILES)
-
-CLEANFILES += $(CLEAN_DIGIBYTE_TEST)
-
-digibyte_test: $(TEST_BINARY)
-
-=======
 if ENABLE_FUZZ
 
 FUZZ_SUITE_LDFLAGS_COMMON = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) $(PTHREAD_FLAGS)
@@ -1340,7 +1280,6 @@ digibyte_test: $(TEST_BINARY)
 endif
 endif
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 digibyte_test_check: $(TEST_BINARY) FORCE
 	$(MAKE) check-TESTS TESTS=$^
 
@@ -1348,15 +1287,10 @@ digibyte_test_clean : FORCE
 	rm -f $(CLEAN_DIGIBYTE_TEST) $(test_test_digibyte_OBJECTS) $(TEST_BINARY)
 
 check-local: $(DIGIBYTE_TESTS:.cpp=.cpp.test)
-<<<<<<< HEAD
-	@echo "Running test/util/digibyte-util-test.py..."
-	$(PYTHON) $(top_builddir)/test/util/digibyte-util-test.py
-=======
 if BUILD_DIGIBYTE_TX
 	@echo "Running test/util/digibyte-util-test.py..."
 	$(PYTHON) $(top_builddir)/test/util/digibyte-util-test.py
 endif
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 	@echo "Running test/util/rpcauth-test.py..."
 	$(PYTHON) $(top_builddir)/test/util/rpcauth-test.py
 if TARGET_WINDOWS

@@ -945,14 +945,7 @@ public:
     std::atomic_bool fDisconnect{false};
     bool fSentAddr{false};
     CSemaphoreGrant grantOutbound;
-<<<<<<< HEAD
-    CCriticalSection cs_filter;
-    std::unique_ptr<CBloomFilter> pfilter;
-    std::atomic<int> nRefCount;
-    bool fSupportsDandelion = false;
-=======
     std::atomic<int> nRefCount{0};
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     const uint64_t nKeyedNetGroup;
     std::atomic_bool fPauseRecv{false};
@@ -1294,13 +1287,10 @@ public:
 /** Return a timestamp in the future (in microseconds) for exponentially distributed events. */
 int64_t PoissonNextSend(int64_t now, int average_interval_seconds);
 
-<<<<<<< HEAD
-=======
 /** Wrapper to return mockable type */
 inline std::chrono::microseconds PoissonNextSend(std::chrono::microseconds now, std::chrono::seconds average_interval)
 {
     return std::chrono::microseconds{PoissonNextSend(now.count(), average_interval.count())};
 }
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_NET_H

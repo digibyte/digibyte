@@ -647,11 +647,7 @@ void DigiByteGUI::createToolBars()
     }
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-void DigiByteGUI::setClientModel(ClientModel *_clientModel)
-=======
 void DigiByteGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAndHeaderTipInfo* tip_info)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     this->clientModel = _clientModel;
     if(_clientModel)
@@ -718,11 +714,7 @@ void DigiByteGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAnd
 }
 
 #ifdef ENABLE_WALLET
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-bool DigiByteGUI::addWallet(WalletModel *walletModel)
-=======
 void DigiByteGUI::setWalletController(WalletController* wallet_controller)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     assert(!m_wallet_controller);
     assert(wallet_controller);
@@ -761,11 +753,7 @@ void DigiByteGUI::addWallet(WalletModel* walletModel)
     m_wallet_selector->addItem(display_name, QVariant::fromValue(walletModel));
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-bool DigiByteGUI::removeWallet(WalletModel* walletModel)
-=======
 void DigiByteGUI::removeWallet(WalletModel* walletModel)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     if (!walletFrame) return;
 
@@ -786,11 +774,7 @@ void DigiByteGUI::removeWallet(WalletModel* walletModel)
     updateWindowTitle();
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-bool DigiByteGUI::setCurrentWallet(const QString& name)
-=======
 void DigiByteGUI::setCurrentWallet(WalletModel* wallet_model)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     if (!walletFrame) return;
     walletFrame->setCurrentWallet(wallet_model);
@@ -803,11 +787,7 @@ void DigiByteGUI::setCurrentWallet(WalletModel* wallet_model)
     updateWindowTitle();
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-bool DigiByteGUI::setCurrentWalletBySelectorIndex(int index)
-=======
 void DigiByteGUI::setCurrentWalletBySelectorIndex(int index)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     WalletModel* wallet_model = m_wallet_selector->itemData(index).value<WalletModel*>();
     if (wallet_model) setCurrentWallet(wallet_model);
@@ -842,11 +822,7 @@ void DigiByteGUI::setWalletActionsEnabled(bool enabled)
     m_close_all_wallets_action->setEnabled(enabled);
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-void DigiByteGUI::createTrayIcon(const NetworkStyle *networkStyle)
-=======
 void DigiByteGUI::createTrayIcon()
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     assert(QSystemTrayIcon::isSystemTrayAvailable());
 
@@ -1051,9 +1027,6 @@ void DigiByteGUI::updateHeadersSyncProgressLabel()
         progressBarLabel->setText(tr("Syncing Headers (%1%)...").arg(QString::number(100.0 / (headersTipHeight+estHeadersLeft)*headersTipHeight, 'f', 1)));
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-void DigiByteGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool header)
-=======
 void DigiByteGUI::openOptionsDialogWithTab(OptionsDialog::Tab tab)
 {
     if (!clientModel || !clientModel->getOptionsModel())
@@ -1066,7 +1039,6 @@ void DigiByteGUI::openOptionsDialogWithTab(OptionsDialog::Tab tab)
 }
 
 void DigiByteGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool header, SynchronizationState sync_state)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
 // Disabling macOS App Nap on initial sync, disk and reindex operations.
 #ifdef Q_OS_MAC
@@ -1190,16 +1162,10 @@ void DigiByteGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVe
     progressBar->setToolTip(tooltip);
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-void DigiByteGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
-{
-    QString strTitle = tr("DigiByte"); // default title
-=======
 void DigiByteGUI::message(const QString& title, QString message, unsigned int style, bool* ret, const QString& detailed_message)
 {
     // Default title. On macOS, the window title is ignored (as required by the macOS Guidelines).
     QString strTitle{PACKAGE_NAME};
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1225,13 +1191,8 @@ void DigiByteGUI::message(const QString& title, QString message, unsigned int st
             break;
         }
     }
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-    // Append title to "DigiByte - "
-    if (!msgType.isEmpty())
-=======
 
     if (!msgType.isEmpty()) {
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
         strTitle += " - " + msgType;
     }
 
@@ -1322,11 +1283,7 @@ void DigiByteGUI::incomingTransaction(const QString& date, int unit, const CAmou
     // On new transaction, make an info balloon
     QString msg = tr("Date: %1\n").arg(date) +
                   tr("Amount: %1\n").arg(DigiByteUnits::formatWithUnit(unit, amount, true));
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-    if (m_node.getWallets().size() > 1 && !walletName.isEmpty()) {
-=======
     if (m_node.walletClient().getWallets().size() > 1 && !walletName.isEmpty()) {
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
         msg += tr("Wallet: %1\n").arg(walletName);
     }
     msg += tr("Type: %1\n").arg(type);
@@ -1465,8 +1422,6 @@ void DigiByteGUI::updateProxyIcon()
     }
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-=======
 void DigiByteGUI::updateWindowTitle()
 {
     QString window_title = PACKAGE_NAME;
@@ -1484,7 +1439,6 @@ void DigiByteGUI::updateWindowTitle()
     setWindowTitle(window_title);
 }
 
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 void DigiByteGUI::showNormalIfMinimized(bool fToggleHidden)
 {
     if(!clientModel)
@@ -1546,11 +1500,7 @@ void DigiByteGUI::showModalOverlay()
         modalOverlay->toggleVisibility();
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-static bool ThreadSafeMessageBox(DigiByteGUI *gui, const std::string& message, const std::string& caption, unsigned int style)
-=======
 static bool ThreadSafeMessageBox(DigiByteGUI* gui, const bilingual_str& message, const std::string& caption, unsigned int style)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     bool modal = (style & CClientUIInterface::MODAL);
     // The SECURE flag has no effect in the Qt GUI.
@@ -1589,11 +1539,7 @@ void DigiByteGUI::unsubscribeFromCoreSignals()
     m_handler_question->disconnect();
 }
 
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-void DigiByteGUI::toggleNetworkActive()
-=======
 bool DigiByteGUI::isPrivacyModeActivated() const
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
 {
     assert(m_mask_values_action);
     return m_mask_values_action->isChecked();
@@ -1610,11 +1556,7 @@ UnitDisplayStatusBarControl::UnitDisplayStatusBarControl(const PlatformStyle *pl
     const QFontMetrics fm(font());
     for (const DigiByteUnits::Unit unit : units)
     {
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-        max_width = qMax(max_width, fm.width(DigiByteUnits::longName(unit)));
-=======
         max_width = qMax(max_width, GUIUtil::TextWidth(fm, DigiByteUnits::longName(unit)));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
     }
     setMinimumSize(max_width, 0);
     setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -1631,11 +1573,7 @@ void UnitDisplayStatusBarControl::mousePressEvent(QMouseEvent *event)
 void UnitDisplayStatusBarControl::createContextMenu()
 {
     menu = new QMenu(this);
-<<<<<<< HEAD:src/qt/digibytegui.cpp
-    for (DigiByteUnits::Unit u : DigiByteUnits::availableUnits())
-=======
     for (const DigiByteUnits::Unit u : DigiByteUnits::availableUnits())
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/qt/digibytegui.cpp
     {
         QAction *menuAction = new QAction(QString(DigiByteUnits::longName(u)), this);
         menuAction->setData(QVariant(u));

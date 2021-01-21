@@ -39,9 +39,7 @@ const char *SENDCMPCT="sendcmpct";
 const char *CMPCTBLOCK="cmpctblock";
 const char *GETBLOCKTXN="getblocktxn";
 const char *BLOCKTXN="blocktxn";
-<<<<<<< HEAD
 const char *DANDELIONTX="dandeliontx";
-=======
 const char *GETCFILTERS="getcfilters";
 const char *CFILTER="cfilter";
 const char *GETCFHEADERS="getcfheaders";
@@ -49,7 +47,6 @@ const char *CFHEADERS="cfheaders";
 const char *GETCFCHECKPT="getcfcheckpt";
 const char *CFCHECKPT="cfcheckpt";
 const char *WTXIDRELAY="wtxidrelay";
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 } // namespace NetMsgType
 
 /** All known message types. Keep this in the same order as the list of
@@ -83,9 +80,7 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::CMPCTBLOCK,
     NetMsgType::GETBLOCKTXN,
     NetMsgType::BLOCKTXN,
-<<<<<<< HEAD
     NetMsgType::DANDELIONTX,
-=======
     NetMsgType::GETCFILTERS,
     NetMsgType::CFILTER,
     NetMsgType::GETCFHEADERS,
@@ -93,7 +88,6 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::GETCFCHECKPT,
     NetMsgType::CFCHECKPT,
     NetMsgType::WTXIDRELAY,
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 };
 const static std::vector<std::string> allNetMessageTypesVec(allNetMessageTypes, allNetMessageTypes+ARRAYLEN(allNetMessageTypes));
 

@@ -154,11 +154,8 @@ const CLogCategoryDesc LogCategories[] =
     {BCLog::COINDB, "coindb"},
     {BCLog::QT, "qt"},
     {BCLog::LEVELDB, "leveldb"},
-<<<<<<< HEAD
     {BCLog::DANDELION, "dandelion"},
-=======
     {BCLog::VALIDATION, "validation"},
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     {BCLog::ALL, "1"},
     {BCLog::ALL, "all"},
 };

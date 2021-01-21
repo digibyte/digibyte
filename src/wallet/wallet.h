@@ -67,9 +67,6 @@ static const CAmount DEFAULT_FALLBACK_FEE = 0;
 //! -discardfee default
 static const CAmount DEFAULT_DISCARD_FEE = 10000;
 //! -mintxfee default
-<<<<<<< HEAD
-static const CAmount DEFAULT_TRANSACTION_MINFEE = 100000;
-=======
 static const CAmount DEFAULT_TRANSACTION_MINFEE = 1000;
 /**
  * maximum fee increase allowed to do partial spend avoidance, even for nodes with this feature disabled by default
@@ -81,7 +78,6 @@ static const CAmount DEFAULT_TRANSACTION_MINFEE = 1000;
 static const CAmount DEFAULT_MAX_AVOIDPARTIALSPEND_FEE = 0;
 //! discourage APS fee higher than this amount
 constexpr CAmount HIGH_APS_FEE{COIN / 10000};
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 //! minimum recommended increment for BIP 125 replacement txs
 static const CAmount WALLET_INCREMENTAL_RELAY_FEE = 5000;
 //! Default for -spendzeroconfchange
@@ -94,16 +90,13 @@ static const unsigned int DEFAULT_TX_CONFIRM_TARGET = 6;
 static const bool DEFAULT_WALLET_RBF = false;
 static const bool DEFAULT_WALLETBROADCAST = true;
 static const bool DEFAULT_DISABLE_WALLET = false;
-<<<<<<< HEAD
 static const bool DEFAULT_DISABLE_DANDELION = false;
-=======
 //! -maxtxfee default
 constexpr CAmount DEFAULT_TRANSACTION_MAXFEE{COIN / 10};
 //! Discourage users to set fees higher than this amount (in satoshis) per kB
 constexpr CAmount HIGH_TX_FEE_PER_KB{COIN / 100};
 //! -maxtxfee will warn if called with a higher fee than this amount (in satoshis)
 constexpr CAmount HIGH_MAX_TX_FEE{100 * HIGH_TX_FEE_PER_KB};
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 //! Pre-calculated constants for input size estimation in *virtual size*
 static constexpr size_t DUMMY_NESTED_P2WPKH_INPUT_SIZE = 91;
@@ -114,40 +107,6 @@ class CScript;
 class CWalletTx;
 struct FeeCalculation;
 enum class FeeEstimateMode;
-<<<<<<< HEAD
-
-/** (client) version numbers for particular wallet features */
-enum WalletFeature
-{
-    FEATURE_BASE = 10500, // the earliest version new wallets supports (only useful for getwalletinfo's clientversion output)
-
-    FEATURE_WALLETCRYPT = 40000, // wallet encryption
-    FEATURE_COMPRPUBKEY = 60000, // compressed public keys
-
-    FEATURE_HD = 60001, // Hierarchical key derivation after BIP32 (HD Wallet)
-
-    FEATURE_HD_SPLIT = 139900, // Wallet with HD chain split (change outputs will use m/0'/1'/k)
-
-    FEATURE_NO_DEFAULT_KEY = 159900, // Wallet without a default key written
-
-    FEATURE_PRE_SPLIT_KEYPOOL = 169900, // Upgraded to HD SPLIT and can have a pre-split keypool
-
-    FEATURE_LATEST = FEATURE_PRE_SPLIT_KEYPOOL
-};
-
-//! Default for -addresstype
-constexpr OutputType DEFAULT_ADDRESS_TYPE{OutputType::LEGACY};
-
-//! Default for -changetype
-constexpr OutputType DEFAULT_CHANGE_TYPE{OutputType::CHANGE_AUTO};
-
-enum WalletFlags : uint64_t {
-    // wallet flags in the upper section (> 1 << 31) will lead to not opening the wallet if flag is unknown
-    // unknown wallet flags in the lower section <= (1 << 31) will be tolerated
-
-    // will enforce the rule that the wallet can't contain any private keys (only watch-only/pubkeys)
-    WALLET_FLAG_DISABLE_PRIVATE_KEYS = (1ULL << 32),
-=======
 class ReserveDestination;
 
 //! Default for -addresstype
@@ -169,7 +128,6 @@ static const std::map<std::string,WalletFlags> WALLET_FLAG_MAP{
     {"key_origin_metadata", WALLET_FLAG_KEY_ORIGIN_METADATA},
     {"disable_private_keys", WALLET_FLAG_DISABLE_PRIVATE_KEYS},
     {"descriptor_wallet", WALLET_FLAG_DESCRIPTORS},
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 };
 
 extern const std::map<uint64_t,std::string> WALLET_FLAG_CAVEATS;

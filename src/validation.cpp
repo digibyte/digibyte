@@ -52,14 +52,6 @@
 #include <string>
 
 #include <boost/algorithm/string/replace.hpp>
-<<<<<<< HEAD
-#include <boost/thread.hpp>
-
-#if defined(NDEBUG)
-# error "DigiByte cannot be compiled without assertions."
-#endif
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 #define MICRO 0.000001
 #define MILLI 0.001
@@ -157,17 +149,6 @@ arith_uint256 nMinimumChainWork;
 CFeeRate minRelayTxFee = CFeeRate(DEFAULT_MIN_RELAY_TX_FEE);
 
 CBlockPolicyEstimator feeEstimator;
-<<<<<<< HEAD
-CTxMemPool mempool(&feeEstimator);
-std::atomic_bool g_is_mempool_loaded{false};
-CTxMemPool stempool(&feeEstimator);
-
-/** Constant stuff for coinbase transactions we create: */
-CScript COINBASE_FLAGS;
-
-const std::string strMessageMagic = "DigiByte Signed Message:\n";
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 // Internal stuff
 namespace {
@@ -275,12 +256,7 @@ bool TestLockPointValidity(const LockPoints* lp)
 bool CheckSequenceLocks(const CTxMemPool& pool, const CTransaction& tx, int flags, LockPoints* lp, bool useExistingLockPoints)
 {
     AssertLockHeld(cs_main);
-<<<<<<< HEAD
-    // We could be calling this with only the stempool lock held, but mempool lock is required.
-    LOCK(mempool.cs);
-=======
     AssertLockHeld(pool.cs);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     CBlockIndex* tip = ::ChainActive().Tip();
     assert(tip != nullptr);
@@ -957,21 +933,11 @@ bool MemPoolAccept::PreChecks(ATMPArgs& args, Workspace& ws)
         CAmount nDeltaFees = nModifiedFees - nConflictingFees;
         if (nDeltaFees < ::incrementalRelayFee.GetFee(nSize))
         {
-<<<<<<< HEAD
-            LogPrint(BCLog::MEMPOOL, "replacing tx %s with %s for %s DGB additional fees, %d delta bytes\n",
-                    it->GetTx().GetHash().ToString(),
-                    hash.ToString(),
-                    FormatMoney(nModifiedFees - nConflictingFees),
-                    (int)nSize - (int)nConflictingSize);
-            if (plTxnReplaced)
-                plTxnReplaced->push_back(it->GetSharedTx());
-=======
             return state.Invalid(TxValidationResult::TX_MEMPOOL_POLICY, "insufficient fee",
                     strprintf("rejecting replacement %s, not enough additional fees to relay; %s < %s",
                         hash.ToString(),
                         FormatMoney(nDeltaFees),
                         FormatMoney(::incrementalRelayFee.GetFee(nSize))));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
     }
     return true;
@@ -1935,13 +1901,8 @@ static bool WriteUndoDataForBlock(const CBlockUndo& blockundo, BlockValidationSt
 
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
-<<<<<<< HEAD
-void ThreadScriptCheck() {
-    RenameThread("digibyte-scriptch");
-=======
 void ThreadScriptCheck(int worker_num) {
     util::ThreadRename(strprintf("scriptch.%i", worker_num));
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     scriptcheckqueue.Thread();
 }
 
@@ -2611,11 +2572,6 @@ static void UpdateTip(CTxMemPool& mempool, const CBlockIndex* pindexNew, const C
     int num_unexpected_version = 0;
     if (!::ChainstateActive().IsInitialBlockDownload())
     {
-<<<<<<< HEAD
-        int nUpgraded = 0;
-        bool fAllAsicBoost = true;
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         const CBlockIndex* pindex = pindexNew;
         for (int bit = 0; bit < VERSIONBITS_NUM_BITS; bit++) {
             WarningBitsConditionChecker checker(bit);
@@ -2667,16 +2623,8 @@ static void UpdateTip(CTxMemPool& mempool, const CBlockIndex* pindexNew, const C
       pindexNew->GetAlgo(), GetAlgoName(pindexNew->GetAlgo()),
       log(pindexNew->nChainWork.getdouble())/log(2.0), (unsigned long)pindexNew->nChainTx,
       FormatISO8601DateTime(pindexNew->GetBlockTime()),
-<<<<<<< HEAD
-      GuessVerificationProgress(chainParams.TxData(), pindexNew), pcoinsTip->DynamicMemoryUsage() * (1.0 / (1<<20)), pcoinsTip->GetCacheSize());
-
-    if (!warningMessages.empty())
-        LogPrintf(" warning='%s'", warningMessages); /* Continued */
-    LogPrintf("\n");
-=======
       GuessVerificationProgress(chainParams.TxData(), pindexNew), ::ChainstateActive().CoinsTip().DynamicMemoryUsage() * (1.0 / (1<<20)), ::ChainstateActive().CoinsTip().GetCacheSize(),
       !warning_messages.empty() ? strprintf(" warning='%s'", warning_messages.original) : "");
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     if (num_unexpected_version > 0) {
         LogPrint(BCLog::VALIDATION, "%d of last 100 blocks have unexpected version\n", num_unexpected_version);
@@ -3547,15 +3495,9 @@ static bool FindUndoPos(BlockValidationState &state, int nFile, FlatFilePos &pos
 
 static bool CheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true)
 {
-<<<<<<< HEAD
-    //Check proof of work matches claimed amount
-    if (fCheckPOW && !CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, consensusParams))
-        return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");
-=======
     // Check proof of work matches claimed amount
     if (fCheckPOW && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
         return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash", "proof of work failed");
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
     return true;
 }
@@ -3609,13 +3551,6 @@ bool CheckBlock(const CBlock& block, BlockValidationState& state, const Consensu
             return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-cb-multiple", "more than one coinbase");
 
     // Check transactions
-<<<<<<< HEAD
-    for (const auto& tx : block.vtx)
-        if (!CheckTransaction(*tx, state, true))
-            return state.Invalid(false, state.GetRejectCode(), state.GetRejectReason(),
-                                 strprintf("Transaction check failed (tx hash %s) %s", tx->GetHash().ToString(), state.GetDebugMessage()));
-
-=======
     // Must check for duplicate inputs (see CVE-2018-17144)
     for (const auto& tx : block.vtx) {
         TxValidationState tx_state;
@@ -3627,7 +3562,6 @@ bool CheckBlock(const CBlock& block, BlockValidationState& state, const Consensu
                                  strprintf("Transaction check failed (tx hash %s) %s", tx->GetHash().ToString(), tx_state.GetDebugMessage()));
         }
     }
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     unsigned int nSigOps = 0;
     for (const auto& tx : block.vtx)
     {
@@ -3759,18 +3693,12 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
     if (block.GetBlockTime() > nAdjustedTime + MAX_FUTURE_BLOCK_TIME)
         return state.Invalid(BlockValidationResult::BLOCK_TIME_FUTURE, "time-too-new", "block timestamp too far in the future");
 
-<<<<<<< HEAD
-    if(block.nVersion < VERSIONBITS_TOP_BITS && IsWitnessEnabled(pindexPrev, consensusParams))
-    {
-            return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
-=======
     // Reject outdated version blocks when 95% (75% on testnet) of the network has upgraded:
     // check for version 2, 3 and 4 upgrades
     if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
        (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
        (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
             return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, strprintf("bad-version(0x%08x)", block.nVersion),
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                                  strprintf("rejected nVersion=0x%08x block", block.nVersion));
     }
 
@@ -4847,14 +4775,7 @@ void UnloadBlockIndex(CTxMemPool* mempool, ChainstateManager& chainman)
     chainman.Unload();
     pindexBestInvalid = nullptr;
     pindexBestHeader = nullptr;
-<<<<<<< HEAD
-    mempool.clear();
-    // Changes to mempool should also be made to Dandelion stempool
-    stempool.clear();
-    mapBlocksUnlinked.clear();
-=======
     if (mempool) mempool->clear();
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
     vinfoBlockFile.clear();
     nLastBlockFile = 0;
     setDirtyBlockIndex.clear();
@@ -5331,25 +5252,13 @@ bool LoadMempool(CTxMemPool& pool)
 
             CAmount amountdelta = nFeeDelta;
             if (amountdelta) {
-<<<<<<< HEAD
-                mempool.PrioritiseTransaction(tx->GetHash(), amountdelta);
-                // Changes to mempool should also be made to Dandelion stempool
-                stempool.PrioritiseTransaction(tx->GetHash(), amountdelta);
-=======
                 pool.PrioritiseTransaction(tx->GetHash(), amountdelta);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
             }
             TxValidationState state;
             if (nTime > nNow - nExpiryTimeout) {
                 LOCK(cs_main);
-<<<<<<< HEAD
-                int64_t nTimeCopy = nTime; // time isn't const, need copy for Dandelion
-                AcceptToMemoryPoolWithTime(chainparams, mempool, state, tx, nullptr /* pfMissingInputs */, nTime,
-                                           nullptr /* plTxnReplaced */, false /* bypass_limits */, 0 /* nAbsurdFee */,
-=======
                 AcceptToMemoryPoolWithTime(chainparams, pool, state, tx, nTime,
                                            nullptr /* plTxnReplaced */, false /* bypass_limits */,
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                                            false /* test_accept */);
                 // Changes to mempool should also be made to Dandelion stempool
                 CValidationState dummyState;
@@ -5379,11 +5288,6 @@ bool LoadMempool(CTxMemPool& pool)
         file >> mapDeltas;
 
         for (const auto& i : mapDeltas) {
-<<<<<<< HEAD
-            mempool.PrioritiseTransaction(i.first, i.second);
-            // Changes to mempool should also be made to Dandelion stempool
-            stempool.PrioritiseTransaction(i.first, i.second);
-=======
             pool.PrioritiseTransaction(i.first, i.second);
         }
 
@@ -5400,7 +5304,6 @@ bool LoadMempool(CTxMemPool& pool)
             // Ensure transactions were accepted to mempool then add to
             // unbroadcast set.
             if (pool.get(txid) != nullptr) pool.AddUnbroadcastTx(txid);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         }
     } catch (const std::exception& e) {
         LogPrintf("Failed to deserialize mempool data on disk: %s. Continuing anyway.\n", e.what());

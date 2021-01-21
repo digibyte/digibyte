@@ -55,11 +55,8 @@ namespace BCLog {
         COINDB      = (1 << 18),
         QT          = (1 << 19),
         LEVELDB     = (1 << 20),
-<<<<<<< HEAD
         DANDELION   = (1 << 21),
-=======
-        VALIDATION  = (1 << 21),
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
+        VALIDATION  = (1 << 22),
         ALL         = ~(uint32_t)0,
     };
 
@@ -190,31 +187,4 @@ static inline void LogPrintf(const char* fmt, const Args&... args)
         }                                    \
     } while (0)
 
-<<<<<<< HEAD
-#ifdef USE_COVERAGE
-#define LogPrintf(...) do { MarkUsed(__VA_ARGS__); } while(0)
-#define LogPrint(category, ...) do { MarkUsed(__VA_ARGS__); } while(0)
-#else
-#define LogPrintf(...) do { \
-    if (g_logger->Enabled()) { \
-        std::string _log_msg_; /* Unlikely name to avoid shadowing variables */ \
-        try { \
-            _log_msg_ = tfm::format(__VA_ARGS__); \
-        } catch (tinyformat::format_error &fmterr) { \
-            /* Original format string will have newline so don't add one here */ \
-            _log_msg_ = "Error \"" + std::string(fmterr.what()) + "\" while formatting log message: " + FormatStringFromLogArgs(__VA_ARGS__); \
-        } \
-        g_logger->LogPrintStr(_log_msg_); \
-    } \
-} while(0)
-
-#define LogPrint(category, ...) do { \
-    if (LogAcceptCategory((category))) { \
-        LogPrintf(__VA_ARGS__); \
-    } \
-} while(0)
-#endif
-
-=======
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 #endif // DIGIBYTE_LOGGING_H

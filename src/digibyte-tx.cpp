@@ -34,13 +34,9 @@ static bool fCreateBlank;
 static std::map<std::string,UniValue> registers;
 static const int CONTINUE_EXECUTION=-1;
 
-<<<<<<< HEAD:src/digibyte-tx.cpp
-static void SetupDigiByteTxArgs()
-=======
 const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
 
 static void SetupDigiByteTxArgs(ArgsManager &argsman)
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/digibyte-tx.cpp
 {
     SetupHelpOptions(argsman);
 
@@ -82,14 +78,7 @@ static void SetupDigiByteTxArgs(ArgsManager &argsman)
 //
 static int AppInitRawTx(int argc, char* argv[])
 {
-<<<<<<< HEAD:src/digibyte-tx.cpp
-    //
-    // Parameters
-    //
-    SetupDigiByteTxArgs();
-=======
     SetupDigiByteTxArgs(gArgs);
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25:src/digibyte-tx.cpp
     std::string error;
     if (!gArgs.ParseParameters(argc, argv, error)) {
         tfm::format(std::cerr, "Error parsing command line arguments: %s\n", error);

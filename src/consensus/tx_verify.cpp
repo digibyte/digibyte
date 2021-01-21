@@ -169,7 +169,6 @@ bool Consensus::CheckTxInputs(const CTransaction& tx, TxValidationState& state, 
         const COutPoint &prevout = tx.vin[i].prevout;
         const Coin& coin = inputs.AccessCoin(prevout);
         assert(!coin.IsSpent());
-<<<<<<< HEAD
             // If prev is coinbase, check that it's matured
             if (coin.IsCoinBase()) {
                 if (coin.nHeight < 145000) {
@@ -184,15 +183,6 @@ bool Consensus::CheckTxInputs(const CTransaction& tx, TxValidationState& state, 
                             strprintf("tried to spend coinbase at depth %d", nSpendHeight - coin.nHeight));
                 }
             }
-=======
-
-        // If prev is coinbase, check that it's matured
-        if (coin.IsCoinBase() && nSpendHeight - coin.nHeight < COINBASE_MATURITY) {
-            return state.Invalid(TxValidationResult::TX_PREMATURE_SPEND, "bad-txns-premature-spend-of-coinbase",
-                strprintf("tried to spend coinbase at depth %d", nSpendHeight - coin.nHeight));
-        }
-
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
         // Check for negative or overflow input values
         nValueIn += coin.out.nValue;
         if (!MoneyRange(coin.out.nValue) || !MoneyRange(nValueIn)) {

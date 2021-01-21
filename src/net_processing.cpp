@@ -1,10 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-<<<<<<< HEAD
 // Copyright (c) 2009-2019 The Bitcoin Core developers
 // Copyright (c) 2014-2019 The DigiByte Core developers
-=======
-// Copyright (c) 2009-2020 The DigiByte Core developers
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,14 +33,7 @@
 #include <validation.h>
 
 #include <memory>
-<<<<<<< HEAD
-
-#if defined(NDEBUG)
-# error "DigiByte cannot be compiled without assertions."
-#endif
-=======
 #include <typeinfo>
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
 
 /** Expiration time for orphan transactions in seconds */
 static constexpr int64_t ORPHAN_TX_EXPIRE_TIME = 20 * 60;
@@ -3383,12 +3372,6 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
                 m_txrequest.ForgetTxHash(tx.GetWitnessHash());
             }
         } else {
-<<<<<<< HEAD
-            if (!tx.HasWitness() && !state.CorruptionPossible()) {
-                // Do not use rejection cache for witness transactions or
-                // witness-stripped transactions, as they can have been malleated.
-                // See https://github.com/digibyte/digibyte/issues/8279 for details.
-=======
             if (state.GetResult() != TxValidationResult::TX_WITNESS_STRIPPED) {
                 // We can add the wtxid of this transaction to our reject filter.
                 // Do not add txids of witness transactions or witness-stripped
@@ -3403,7 +3386,6 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
                 // See also comments in https://github.com/digibyte/digibyte/pull/18044#discussion_r443419034
                 // for concerns around weakening security of unupgraded nodes
                 // if we start doing this too early.
->>>>>>> 5358de127d898d4bb197e4d8dc2db4113391bb25
                 assert(recentRejects);
                 recentRejects->insert(tx.GetWitnessHash());
                 m_txrequest.ForgetTxHash(tx.GetWitnessHash());
