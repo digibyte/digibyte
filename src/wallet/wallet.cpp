@@ -1871,7 +1871,7 @@ bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
     if (!IsCoinBase() && !isAbandoned() && GetDepthInMainChain() == 0)
     {
         LogPrintf("Inside IF Test \n");
-        CValidationState state;
+        TxValidationState state;
         /* GetDepthInMainChain already catches known conflicts. */
         LogPrintf("Transaction in memory pool: %u, Accepted To MemoryPool: %u", InMempool(), AcceptToMemoryPool(maxTxFee, state));
         if (InMempool() || AcceptToMemoryPool(maxTxFee, state)) {
@@ -1883,12 +1883,12 @@ bool CWalletTx::SubmitMemoryPoolAndRelay(std::string& err_string, bool relay)
                     connman->insertDandelionEmbargo(GetHash(),nEmbargo);
                     LogPrint(BCLog::DANDELION, "dandeliontx %s embargoed for %d seconds\n", GetHash().ToString(), (nEmbargo-nCurrTime)/1000000);
                     CInv inv(MSG_DANDELION_TX, GetHash());
-                    return connman->localDandelionDestinationPushInventory(inv);
+                    return connman->localDandelionDestinationPushTxInventory(inv);
                 } else {
                     CInv inv(MSG_TX, GetHash());
                     connman->ForEachNode([&inv](CNode* pnode)
                     {
-                        pnode->PushInventory(inv);
+                        pnode->PushTxInventory(inv);
                     });
                     return true;
                 }
@@ -4341,7 +4341,7 @@ std::set<ScriptPubKeyMan*> CWallet::GetAllScriptPubKeyMans() const
         ret = ::AcceptToMemoryPool(mempool, state, tx, nullptr /* pfMissingInputs */,
                                    nullptr /* plTxnReplaced */, false /* bypass_limits */, nAbsurdFee);
         // Changes to mempool should also be made to Dandelion stempool
-        CValidationState dummyState;
+        TxValidationState dummyState;
         ret = ::AcceptToMemoryPool(stempool, dummyState, tx, nullptr /* pfMissingInputs */,
                                    nullptr /* plTxnReplaced */, false /* bypass_limits */, nAbsurdFee);
     }

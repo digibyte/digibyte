@@ -1206,29 +1206,13 @@ void CConnman::DisconnectNodes()
         std::list<CNode*> vNodesDisconnectedCopy = vNodesDisconnected;
         for (CNode* pnode : vNodesDisconnectedCopy)
         {
-            // Delete disconnected nodes
-            std::list<CNode*> vNodesDisconnectedCopy = vNodesDisconnected;
-            for (CNode* pnode : vNodesDisconnectedCopy)
-            {
-                // wait until threads are done using it
-                if (pnode->GetRefCount() <= 0) {
-                    bool fDelete = false;
-                    {
-                        TRY_LOCK(pnode->cs_inventory, lockInv);
-                        if (lockInv) {
-                            TRY_LOCK(pnode->cs_vSend, lockSend);
-                            if (lockSend) {
-                                fDelete = true;
-                            }
-                        }
-                    }
-                    if (fDelete) {
-                        // Dandelion: close connection
-                        CloseDandelionConnections(pnode);
-                        LogPrint(BCLog::DANDELION, "Removed Dandelion connection:\n%s", GetDandelionRoutingDataDebugString()); 
-                                               
-                        vNodesDisconnected.remove(pnode);
-                        DeleteNode(pnode);
+            // wait until threads are done using it
+            if (pnode->GetRefCount() <= 0) {
+                bool fDelete = false;
+                {
+                    TRY_LOCK(pnode->cs_vSend, lockSend);
+                    if (lockSend) {
+                        fDelete = true;
                     }
                 }
                 if (fDelete) {
@@ -1627,18 +1611,20 @@ CNode* CConnman::getDandelionDestination(CNode* pfrom) {
     return newPto;
 }
 
-bool CConnman::localDandelionDestinationPushInventory(const CInv& inv) {
+//FIX
+/**
+bool CConnman::localDandelionDestinationPushTxInventory(const CInv& inv) {
     if(isLocalDandelionDestinationSet()) {
-        localDandelionDestination->PushInventory(inv);
+        localDandelionDestination->PushTxInventory(inv);
         return true;
     } else if (setLocalDandelionDestination()) {
-        localDandelionDestination->PushInventory(inv);
+        localDandelionDestination->PushTxInventory(inv);
         return true;
     } else {
         return false;
     }
 }
-
+**/
 bool CConnman::insertDandelionEmbargo(const uint256& hash, const int64_t& embargo) {
     auto pair = mDandelionEmbargo.insert(std::make_pair(hash, embargo));
     return pair.second;
@@ -2527,10 +2513,11 @@ void CConnman::OpenNetworkConnection(const CAddress& addrConnect, bool fCountFai
         LogPrint(BCLog::DANDELION, "Added outbound Dandelion connection:\n%s", GetDandelionRoutingDataDebugString());
         
         // Dandelion service discovery
-        uint256 dummyHash;
-        dummyHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        CInv dummyInv(MSG_DANDELION_TX, dummyHash);
-        pnode->PushInventory(dummyInv);
+        //uint256 dummyHash;
+        //dummyHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        //FIX
+        //CInv dummyInv(MSG_DANDELION_TX, dummyHash);
+        //pnode->PushTxInventory(dummyInv);
     }
 }
 
@@ -2938,6 +2925,7 @@ void CConnman::StopThreads()
         threadSocketHandler.join();
     if (threadDandelionShuffle.joinable())
         threadDandelionShuffle.join();
+}
 
 void CConnman::StopNodes()
 {

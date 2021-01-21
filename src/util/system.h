@@ -45,6 +45,8 @@ int64_t GetStartupTime();
 extern const char * const DIGIBYTE_CONF_FILENAME;
 extern const char * const DIGIBYTE_SETTINGS_FILENAME;
 
+extern int miningAlgo;
+
 void SetupEnvironment();
 bool SetupNetworking();
 

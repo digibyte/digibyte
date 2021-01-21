@@ -1451,17 +1451,18 @@ void RelayTransaction(const uint256& txid, const uint256& wtxid, const CConnman&
         }
     });
 }
-    
-static void RelayDandelionTransaction(const CTransaction& tx, CConnman* connman, CNode* pfrom)
+//FIX    
+/**
+static void RelayDandelionTransaction(const uint256& txid, const uint256& wtxid, CConnman* connman, CNode* pfrom)
 {
     FastRandomContext rng;
     if (rng.randrange(100)<DANDELION_FLUFF) {
-        LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", tx.GetHash().ToString());
-        CValidationState state;
-        CTransactionRef ptx = stempool.get(tx.GetHash());
+        //LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", tx.GetHash().ToString());
+        TxValidationState state;
+        CTransactionRef ptx = stempool.get(txid.GetHash());
         bool fMissingInputs = false;
         std::list<CTransactionRef> lRemovedTxn;
-        AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
+        AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false , 0 );
         LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: peer=%d: accepted %s (poolsz %u txn, %u kB)\n",
                  pfrom->GetId(), tx.GetHash().ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
         RelayTransaction(tx, connman);
@@ -1483,13 +1484,13 @@ static void CheckDandelionEmbargoes(CConnman* connman)
             iter = connman->mDandelionEmbargo.erase(iter);
         } else if (iter->second < nCurrTime) {
             LogPrint(BCLog::DANDELION, "dandeliontx %s embargo expired\n", iter->first.ToString());
-            CValidationState state;
+            TxValidationState state;
             CTransactionRef ptx = stempool.get(iter->first);
             if (ptx)
             {
                 bool fMissingInputs = false;
                 std::list<CTransactionRef> lRemovedTxn;
-                AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false /* bypass_limits */, 0 /* nAbsurdFee */);
+                AcceptToMemoryPool(mempool, state, ptx, &fMissingInputs, &lRemovedTxn, false , 0 );
                 LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
                          iter->first.ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
                 RelayTransaction(*ptx, connman);
@@ -1500,7 +1501,7 @@ static void CheckDandelionEmbargoes(CConnman* connman)
         }
     }
 }
-
+**/
 
 static void RelayAddress(const CAddress& addr, bool fReachable, const CConnman& connman)
 {
@@ -3296,7 +3297,7 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
     
     else if (strCommand == NetMsgType::DANDELIONTX)
     {
-        CValidationState state;
+        TxValidationState state;
         CTransactionRef ptx;
         vRecv >> ptx;
         const CTransaction& tx = *ptx;

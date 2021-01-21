@@ -5204,7 +5204,7 @@ bool LoadMempool(CTxMemPool& pool)
                                            nullptr /* plTxnReplaced */, false /* bypass_limits */,
                                            false /* test_accept */);
                 // Changes to mempool should also be made to Dandelion stempool
-                CValidationState dummyState;
+                TxValidationState dummyState;
                 AcceptToMemoryPoolWithTime(chainparams, stempool, dummyState, tx, nullptr /* pfMissingInputs */, nTimeCopy,
                                            nullptr /* plTxnReplaced */, false /* bypass_limits */, 0 /* nAbsurdFee */,
                                            false /* test_accept */);
