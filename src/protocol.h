@@ -117,6 +117,10 @@ extern const char* GETBLOCKS;
 extern const char* GETHEADERS;
 /**
  * The tx message transmits a single transaction.
+ * 	 */	
+extern const char* TX;	
+/**	
+ * The headers message sends one or more block headers to a node which
  * previously requested certain headers with a getheaders message.
  * @since protocol version 31800.
  */
@@ -124,9 +128,14 @@ extern const char* HEADERS;
 /**
  * The block message transmits a single serialized block.
  */
+
 extern const char* BLOCK;
 /**
  * The getaddr message requests an addr message from the receiving node,
+ *  */	
+extern const char* GETADDR;	
+/**	
+ * The mempool message requests the TXIDs of transactions that the receiving
  * preferably one with lots of IP addresses of other receiving nodes.
  * node has verified as valid but which have not yet appeared in a block.
  * @since protocol version 60002.
