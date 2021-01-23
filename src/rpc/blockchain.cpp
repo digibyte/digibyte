@@ -122,13 +122,24 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
  
     return dDiff;
 }
-
+//FIX
+/**
 double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
-    return GetDifficulty(chainActive, blockindex, algo);
+    return GetDifficulty(ChainActive, blockindex, algo);
+}
+**/
+static int ComputeNextBlockAndDepth(const CBlockIndex* tip, const CBlockIndex* blockindex, const CBlockIndex*& next)
+{
+    next = tip->GetAncestor(blockindex->nHeight + 1);
+    if (next && next->pprev == blockindex) {
+        return tip->nHeight - blockindex->nHeight + 1;
+    }
+    next = nullptr;
+    return blockindex == tip ? 1 : -1;
 }
 
-UniValue blockheaderToJSON(const CBlockIndex* blockindex)
+UniValue blockheaderToJSON(const CBlockIndex* tip, const CBlockIndex* blockindex)
 {
     // Serialize passed information without accessing chain state of the active chain!
     AssertLockNotHeld(cs_main); // For performance reasons
@@ -146,7 +157,7 @@ UniValue blockheaderToJSON(const CBlockIndex* blockindex)
     result.pushKV("mediantime", (int64_t)blockindex->GetMedianTimePast());
     result.pushKV("nonce", (uint64_t)blockindex->nNonce);
     result.pushKV("bits", strprintf("%08x", blockindex->nBits));
-    result.pushKV("difficulty", GetDifficulty(blockindex, miningAlgo));
+    result.pushKV("difficulty", GetDifficulty(blockindex,miningAlgo));
     result.pushKV("chainwork", blockindex->nChainWork.GetHex());
     result.pushKV("nTx", (uint64_t)blockindex->nTx);
 
@@ -1363,23 +1374,17 @@ RPCHelpMan getblockchaininfo()
         }
     }
     const Consensus::Params& consensusParams = Params().GetConsensus();
-    CBlockIndex* tip = chainActive.Tip();
-    UniValue difficulties(UniValue::VOBJ);
-    UniValue softforks(UniValue::VARR);
-    UniValue bip9_softforks(UniValue::VOBJ);
-    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
-    {
-        if (IsAlgoActive(tip, consensusParams, algo))
-        {
-            difficulties.push_back(Pair(GetAlgoName(algo), (double)GetDifficulty(NULL, algo)));
-        }
-    }
-    for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
-        BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
-    }
-    obj.pushKV("difficulties",             difficulties);
+	UniValue softforks(UniValue::VOBJ);	
+    BuriedForkDescPushBack(softforks, "bip34", consensusParams.BIP34Height);	
+    BuriedForkDescPushBack(softforks, "bip66", consensusParams.BIP66Height);	
+    BuriedForkDescPushBack(softforks, "bip65", consensusParams.BIP65Height);	
+    BuriedForkDescPushBack(softforks, "csv", consensusParams.CSVHeight);	
+    BuriedForkDescPushBack(softforks, "segwit", consensusParams.SegwitHeight);	
+    //FIX
+    //BIP9SoftForkDescPushBack(softforks, "testdummy", consensusParams, Consensus::DEPLOYMENT_TESTDUMMY);	
+   // BIP9SoftForkDescPushBack(softforks, "taproot", consensusParams, Consensus::DEPLOYMENT_TAPROOT);
+    //obj.pushKV("difficulties",             difficulties);
     obj.pushKV("softforks",             softforks);
-
     obj.pushKV("warnings", GetWarnings(false).original);
     return obj;
 },

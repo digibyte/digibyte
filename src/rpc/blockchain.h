@@ -8,9 +8,9 @@
 
 #include <amount.h>
 #include <sync.h>
-
 #include <stdint.h>
 #include <vector>
+
 
 extern RecursiveMutex cs_main;
 

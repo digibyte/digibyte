@@ -11,6 +11,7 @@
 #include <primitives/block.h>
 #include <uint256.h>
 #include <chainparams.h>
+#include <logging.h>
 
 #include "util.h" //just for logs
 
