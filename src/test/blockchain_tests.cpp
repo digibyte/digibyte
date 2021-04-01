@@ -69,6 +69,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_very_high_target)
 }
 
 // Verify that difficulty is 0.00024414 for an empty chain.
+// Genesis Block (scrypt pow) has 0x1e0ffff0 set as difficulty.
 BOOST_AUTO_TEST_CASE(get_difficulty_for_null_tip)
 {
     double difficulty = GetDifficulty(nullptr);
