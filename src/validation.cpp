@@ -46,6 +46,7 @@
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/thread.hpp>
+#include <boost/bind.hpp>
 
 #if defined(NDEBUG)
 # error "DigiByte cannot be compiled without assertions."
