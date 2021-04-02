@@ -32,6 +32,15 @@
 
 #include <atomic>
 
+// The following constants are used in GetDGBSubsidy()
+#define BLOCK_TIME_SECONDS 15
+#define MINUTES 60
+#define SECONDS 60
+#define HOURS 24
+#define MONTHS_PER_YEAR 12
+#define DAYS_PER_YEAR 365
+#define SECONDS_PER_MONTH (SECONDS * MINUTES * HOURS * DAYS_PER_YEAR / MONTHS_PER_YEAR);
+
 class CBlockIndex;
 class CBlockTreeDB;
 class CChainParams;
