@@ -38,6 +38,13 @@
     #define DEBUG(x,y) (void) (x)
 #endif
 
+#ifndef BLOCK_TIME_SECONDS
+    #define BLOCK_TIME_SECONDS 15
+#endif
+
+#ifndef SECONDS_PER_MONTH
+    #define SECONDS_PER_MONTH (60 * 60 * 24 * 365 / 12)
+#endif    
 
 BOOST_FIXTURE_TEST_SUITE(main_tests, TestingSetup)
 
@@ -122,30 +129,44 @@ static void TestBlockSubsidy(const Consensus::Params& consensusParams, int nMaxB
         DEBUG(nBlocks, nSubsidy);
     }
 
-    // Updated dynamic mining rewards from block height 1,430,000 to max block height (41.6 million)
-    for (int nBlocks = consensusParams.workComputationChangeTarget; nBlocks < nMaxBlocks; ++nBlocks) {
-        int nHeight = nBlocks;
-        CAmount nSubsidy = GetBlockSubsidy(nHeight, consensusParams);
+    {
+        // Updated dynamic mining rewards from block height 1,430,000 to max block height.
+        // Intended blockheight: 41.6 million
+        // Actual blockheight: 110.5 million
+        CAmount nExpectedSubsidyStart = 2157 * COIN / 2;
+        CAmount nExpectedSubsidy = nExpectedSubsidyStart;
+        int nMonthsConsidered = 0;
 
-        CAmount nExpectedSubsidy = 2157 * COIN / 2;
-        int nHeightWithinFork = (nHeight - consensusParams.workComputationChangeTarget);
+        for (int nBlocks = consensusParams.workComputationChangeTarget; nBlocks < nMaxBlocks; ++nBlocks) {
+            int nHeight = nBlocks;
+            CAmount nSubsidy = GetBlockSubsidy(nHeight, consensusParams);
 
-        int nMonths = nHeightWithinFork * BLOCK_TIME_SECONDS / SECONDS_PER_MONTH;
-        pow
-        for (int i = 0; i < nMonths; ++i) {
-            // Decay factor: 98884/100000
-            nExpectedSubsidy *= 98884; 
-            nExpectedSubsidy /= 100000; 
+            int nHeightWithinFork = (nHeight - consensusParams.workComputationChangeTarget);
+            int nMonths = nHeightWithinFork * BLOCK_TIME_SECONDS / SECONDS_PER_MONTH;
+
+            if (nMonthsConsidered < nMonths) {
+                // Calculate new subsidy for number of months `nMonths`.
+                // This is a major optimization in order to reduce the
+                // number of inner loops
+
+                // Recalculate subsidy
+                for (int i = nMonthsConsidered; i < nMonths; ++i) {
+                    // Decay factor: 98884/100000
+                    nExpectedSubsidy *= 98884; 
+                    nExpectedSubsidy /= 100000; 
+                    ++nMonthsConsidered;
+                }
+            }
+
+            if (nExpectedSubsidy < COIN) { // ToDo: Alter consensus
+                nExpectedSubsidy = COIN;
+            }
+
+            BOOST_CHECK_EQUAL(nSubsidy, nExpectedSubsidy);
+
+            nSum += nSubsidy;
+            DEBUG(nBlocks, nSubsidy);
         }
-
-        if (nExpectedSubsidy < COIN) {
-            nExpectedSubsidy = COIN;
-        }
-
-        BOOST_CHECK_EQUAL(nSubsidy, nExpectedSubsidy);
-
-        nSum += nSubsidy;
-        DEBUG(nBlocks, nSubsidy);
     }
 
     CAmount nSubsidy = GetBlockSubsidy(nMaxBlocks, consensusParams);
@@ -169,6 +190,7 @@ BOOST_AUTO_TEST_CASE(block_subsidy_test)
     BOOST_CHECK_EQUAL(sum, nExpectedTotalSupply);
 
 #if OUTPUT_SUPPLY_SAMPLES_ENABLED
+    // Output the accumulated supply until END_OF_SUPPLY_CURVE
     std::cout << "(mainnet): MAXIMUM SUPPLY: " << sum << " dgbSATS (" << (sum / COIN) << " DGB)";
 #else
     // Only perform test on TESTNET too, if we are not
