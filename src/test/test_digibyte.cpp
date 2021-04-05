@@ -128,8 +128,8 @@ TestChain100Setup::TestChain100Setup() : TestingSetup(CBaseChainParams::REGTEST)
 {
     // Generate a 100-block chain:
     coinbaseKey.MakeNewKey(true);
-    CScript scriptPubKey = CScript() <<  ToByteVector(coinbaseKey.GetPubKey()) << OP_CHECKSIG;
-    for (int i = 0; i < COINBASE_MATURITY; i++)
+    CScript scriptPubKey = CScript() << ToByteVector(coinbaseKey.GetPubKey()) << OP_CHECKSIG;
+    for (int i = 0; i < COINBASE_MATURITY_2; i++)
     {
         std::vector<CMutableTransaction> noTxns;
         CBlock b = CreateAndProcessBlock(noTxns, scriptPubKey);
@@ -145,7 +145,7 @@ CBlock
 TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>& txns, const CScript& scriptPubKey)
 {
     const CChainParams& chainparams = Params();
-    std::unique_ptr<CBlockTemplate> pblocktemplate = BlockAssembler(chainparams).CreateNewBlock(scriptPubKey, 2, true);
+    std::unique_ptr<CBlockTemplate> pblocktemplate = BlockAssembler(chainparams).CreateNewBlock(scriptPubKey, ALGO_SCRYPT, true);
     CBlock& block = pblocktemplate->block;
 
     // Replace mempool-selected txns with just coinbase plus passed-in txns:
@@ -159,10 +159,12 @@ TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>&
         IncrementExtraNonce(&block, chainActive.Tip(), extraNonce);
     }
 
-    while (!CheckProofOfWork(block.GetHash(), block.nBits, chainparams.GetConsensus())) ++block.nNonce;
+    while (!CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, chainparams.GetConsensus())) ++block.nNonce;
 
     std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(block);
-    ProcessNewBlock(chainparams, shared_pblock, true, nullptr);
+    if (!ProcessNewBlock(chainparams, shared_pblock, true, nullptr)) {
+        throw new std::runtime_error("Could not process new test block");
+    }
 
     CBlock result = block;
     return result;
