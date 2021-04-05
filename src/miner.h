@@ -195,6 +195,7 @@ private:
 };
 
 /** Modify the extranonce in a block */
+void RegenerateCommitments(CBlock& block, const CBlockIndex* pindexPrev, const Consensus::Params& consensusParams);
 void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned int& nExtraNonce);
 int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev, int algo);
 
