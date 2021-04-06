@@ -38,15 +38,6 @@ static constexpr int NO_WITNESS_COMMITMENT{-1};
 /** Minimum size of a witness commitment structure. Defined in BIP 141. **/
 static constexpr size_t MINIMUM_WITNESS_COMMITMENT{38};
 
-// The following constants are used in GetDGBSubsidy()
-#define BLOCK_TIME_SECONDS 15
-#define MINUTES 60
-#define SECONDS 60
-#define HOURS 24
-#define MONTHS_PER_YEAR 12
-#define DAYS_PER_YEAR 365
-#define SECONDS_PER_MONTH (SECONDS * MINUTES * HOURS * DAYS_PER_YEAR / MONTHS_PER_YEAR);
-
 class CBlockIndex;
 class CBlockTreeDB;
 class CChainParams;
