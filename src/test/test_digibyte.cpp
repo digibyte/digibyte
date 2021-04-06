@@ -157,7 +157,9 @@ TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>&
     // IncrementExtraNonce creates a valid coinbase and merkleRoot
     {
         LOCK(cs_main);
-        unsigned int extraNonce = 0;
+        unsigned int extraNonce = 0; 
+        
+        RegenerateCommitments(block, chainActive.Tip(), chainparams.GetConsensus());
         IncrementExtraNonce(&block, chainActive.Tip(), extraNonce);
     }
 
@@ -165,6 +167,10 @@ TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>&
 
     std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(block);
     ProcessNewBlock(chainparams, shared_pblock, true, nullptr);
+    if (!ProcessNewBlock(chainparams, shared_pblock, true, nullptr)) {
+        // Uncomment this to catch potential errors. Use lldb/gdb to break on std::runtime_error.
+        // throw new std::runtime_error("Could not process new test block");
+    }
 
     CBlock result = block;
     return result;

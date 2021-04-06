@@ -32,6 +32,21 @@
 
 #include <atomic>
 
+/** Index marker for when no witness commitment is present in a coinbase transaction. */
+static constexpr int NO_WITNESS_COMMITMENT{-1};
+
+/** Minimum size of a witness commitment structure. Defined in BIP 141. **/
+static constexpr size_t MINIMUM_WITNESS_COMMITMENT{38};
+
+// The following constants are used in GetDGBSubsidy()
+#define BLOCK_TIME_SECONDS 15
+#define MINUTES 60
+#define SECONDS 60
+#define HOURS 24
+#define MONTHS_PER_YEAR 12
+#define DAYS_PER_YEAR 365
+#define SECONDS_PER_MONTH (SECONDS * MINUTES * HOURS * DAYS_PER_YEAR / MONTHS_PER_YEAR);
+
 class CBlockIndex;
 class CBlockTreeDB;
 class CChainParams;
@@ -506,6 +521,27 @@ bool DumpMempool();
 
 /** Load the mempool from disk. */
 bool LoadMempool();
+
+/** Compute at which vout of the block's coinbase transaction the witness commitment occurs, or -1 if not found */
+inline int GetWitnessCommitmentIndex(const CBlock& block)
+{
+    int commitpos = NO_WITNESS_COMMITMENT;
+    if (!block.vtx.empty()) {
+        for (size_t o = 0; o < block.vtx[0]->vout.size(); o++) {
+            const CTxOut& vout = block.vtx[0]->vout[o];
+            if (vout.scriptPubKey.size() >= MINIMUM_WITNESS_COMMITMENT &&
+                vout.scriptPubKey[0] == OP_RETURN &&
+                vout.scriptPubKey[1] == 0x24 &&
+                vout.scriptPubKey[2] == 0xaa &&
+                vout.scriptPubKey[3] == 0x21 &&
+                vout.scriptPubKey[4] == 0xa9 &&
+                vout.scriptPubKey[5] == 0xed) {
+                commitpos = o;
+            }
+        }
+    }
+    return commitpos;
+}
 
 //! Check whether the block associated with this index entry is pruned or not.
 inline bool IsBlockPruned(const CBlockIndex* pblockindex)

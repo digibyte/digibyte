@@ -298,6 +298,7 @@ public:
         std::string error;
         CCoinControl dummy;
         BOOST_CHECK(wallet->CreateTransaction({recipient}, tx, reservekey, fee, changePos, error, dummy));
+
         CValidationState state;
         BOOST_CHECK(wallet->CommitTransaction(tx, {}, {}, {}, reservekey, nullptr, state));
         CMutableTransaction blocktx;
@@ -334,7 +335,7 @@ BOOST_FIXTURE_TEST_CASE(ListCoins, ListCoinsTestingSetup)
     // returns the coin associated with the change address underneath the
     // coinbaseKey pubkey, even though the change address has a different
     // pubkey.
-    AddTx(CRecipient{GetScriptForRawPubKey({}), 1 * COIN, false /* subtract fee */});
+    AddTx(CRecipient{GetScriptForRawPubKey({}), 2 * COIN, false /* subtract fee */});
     list = wallet->ListCoins();
     BOOST_CHECK_EQUAL(list.size(), 1U);
     BOOST_CHECK_EQUAL(boost::get<CKeyID>(list.begin()->first).ToString(), coinbaseAddress);
