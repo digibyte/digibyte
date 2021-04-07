@@ -504,6 +504,7 @@ public:
         consensus.alwaysUpdateDiffChangeTarget = 400; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430; // Block 1,430,000 DigiSpeed Hard Fork
         consensus.algoSwapChangeTarget = 2000; // Block 9,000,000 Odo PoW Hard Fork
+        consensus.nMinerConfirmationWindow = 3600; // 1 hour in RegTest
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
