@@ -150,12 +150,16 @@ TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>&
 
     // Replace mempool-selected txns with just coinbase plus passed-in txns:
     block.vtx.resize(1);
-    for (const CMutableTransaction& tx : txns)
+    for (const CMutableTransaction& tx : txns) {
         block.vtx.push_back(MakeTransactionRef(tx));
+    }
+
     // IncrementExtraNonce creates a valid coinbase and merkleRoot
     {
         LOCK(cs_main);
-        unsigned int extraNonce = 0;
+        unsigned int extraNonce = 0; 
+        
+        RegenerateCommitments(block, chainActive.Tip(), chainparams.GetConsensus());
         IncrementExtraNonce(&block, chainActive.Tip(), extraNonce);
     }
 
@@ -163,7 +167,8 @@ TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>&
 
     std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(block);
     if (!ProcessNewBlock(chainparams, shared_pblock, true, nullptr)) {
-        throw new std::runtime_error("Could not process new test block");
+        // Uncomment this to catch potential errors. Use lldb/gdb to break on std::runtime_error.
+        // throw new std::runtime_error("Could not process new test block");
     }
 
     CBlock result = block;
