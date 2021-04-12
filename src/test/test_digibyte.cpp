@@ -150,12 +150,15 @@ TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>&
 
     // Replace mempool-selected txns with just coinbase plus passed-in txns:
     block.vtx.resize(1);
-    for (const CMutableTransaction& tx : txns)
+    for (const CMutableTransaction& tx : txns) {
         block.vtx.push_back(MakeTransactionRef(tx));
+    }
+
     // IncrementExtraNonce creates a valid coinbase and merkleRoot
     {
         LOCK(cs_main);
         unsigned int extraNonce = 0;
+        RegenerateCommitments(block, chainActive.Tip(), chainparams.GetConsensus());
         IncrementExtraNonce(&block, chainActive.Tip(), extraNonce);
     }
 
@@ -163,7 +166,14 @@ TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>&
 
     std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(block);
     if (!ProcessNewBlock(chainparams, shared_pblock, true, nullptr)) {
-        throw new std::runtime_error("Could not process new test block");
+        // Uncomment this to catch potential errors. Use lldb/gdb to break on std::runtime_error. 
+        // Previously, if ProcessNewBlock failed, the return code wasn't checked at all, that is,
+        // as a developer you had to manually step throught the code to see where it was broken.
+        // In our case, the merkle tree (witness) commitments weren't updated properly,
+        // which caused a rejection of the block. If `wallet_tests` ever fail again,
+        // uncommenting this line might help with the investigation.
+
+        // throw new std::runtime_error("Could not process new test block");
     }
 
     CBlock result = block;
