@@ -1,0 +1,42 @@
+name: 'Build and check with wallet'
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          os: [x86_64-linux-gnu]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache depends
+        id: cache-dependencies
+        uses: actions/cache@v2
+        with:
+          path: depends/
+          key: ${{ matrix.os }}-${{ hashFiles('depends/packages/*.mk') }}
+
+      - name: Update apt repos
+        run: sudo apt-get update
+
+      - name: Install base dependencies
+        run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache
+      
+      - name: Build depends
+        run: cd depends/ && make -j4 HOST=${{matrix.os}}
+
+      - name: Auto generate
+        run: ./autogen.sh
+
+      - name: configure
+        run: ./configure --with-incompatible-bdb --prefix=`pwd`/depends/${{ matrix.os }}
+
+      - name: make
+        run: make -j4
+
+      - name: check
+        run: make check
+        
