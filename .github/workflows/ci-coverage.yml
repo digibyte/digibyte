@@ -1,4 +1,4 @@
-name: 'Build and check with wallet'
+name: 'Build and check'
 
 on: [push]
 
@@ -12,21 +12,36 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache apt depencenies
+        uses: actions/cache@2
+        id: cache-apt
+        with:
+          path: "~/apt-cache"
+
       - name: Cache depends
         id: cache-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v2        
         with:
           path: depends/${{ matrix.os }}
           key: ${{ matrix.os }}-${{ hashFiles('depends/packages/*.mk') }}
+          
+      - name: Install apt dependencies
+        env:
+          CACHE_HIT: ${{steps.cache-apt.outputs.cache-hit}}
+          DEPS: build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache
+        run: |
+          if [[ "$CACHE_HIT" == 'true' ]]; then
+            sudo cp --force --recursive ~/apt-cache/* /
+          else
+            sudo apt-get update && sudo apt-get install -yq $DEPS
+            mkdir -p ~/apt-cache
+            for dep in $DEPS; do
+                dpkg -L $dep | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/apt-cache/
+            done
+          fi
 
-      - name: Update apt repos
-        run: sudo apt-get update
-
-      - name: Install base dependencies
-        run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache
-      
       - name: Build depends
-        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        if: steps.cache-dependencies.outputs.cache-hit != 'true' && steps.cache-apt.outputs.cache-hit != 'true'
         run: cd depends/ && make -j4 HOST=${{matrix.os}}
 
       - name: Auto generate
