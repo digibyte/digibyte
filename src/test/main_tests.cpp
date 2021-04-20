@@ -46,6 +46,10 @@
     #define SECONDS_PER_MONTH (60 * 60 * 24 * 365 / 12)
 #endif    
 
+#ifndef ENABLE_TESTNET_SUBSIDY_TESTS
+    #define ENABLE_TESTNET_SUBSIDY_TESTS 0
+#endif
+
 BOOST_FIXTURE_TEST_SUITE(main_tests, TestingSetup)
 
 static void TestBlockSubsidy(const Consensus::Params& consensusParams, int nMaxBlocks, CAmount* nSumOut)
@@ -192,9 +196,8 @@ BOOST_AUTO_TEST_CASE(block_subsidy_test)
 #if OUTPUT_SUPPLY_SAMPLES_ENABLED
     // Output the accumulated supply until END_OF_SUPPLY_CURVE
     std::cout << "(mainnet): MAXIMUM SUPPLY: " << sum << " dgbSATS (" << (sum / COIN) << " DGB)";
-#else
-    // Only perform test on TESTNET too, if we are not
-    // outputting the sampled supply data.
+#elif ENABLE_TESTNET_SUBSIDY_TESTS != 0
+    // Only perform test on TESTNET too if requested so.
     TestBlockSubsidy(testChainParams->GetConsensus(), END_OF_SUPPLY_CURVE, NULL); // Testnet
 #endif
 }
