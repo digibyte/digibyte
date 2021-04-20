@@ -17,6 +17,7 @@ jobs:
         id: cache-apt
         with:
           path: "~/apt-cache"
+          key: apt-cache
 
       - name: Cache depends
         id: cache-dependencies
