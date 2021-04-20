@@ -16,7 +16,7 @@ jobs:
         id: cache-dependencies
         uses: actions/cache@v2
         with:
-          path: depends/
+          path: depends/${{ matrix.os }}
           key: ${{ matrix.os }}-${{ hashFiles('depends/packages/*.mk') }}
 
       - name: Update apt repos
@@ -26,6 +26,7 @@ jobs:
         run: sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache
       
       - name: Build depends
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: cd depends/ && make -j4 HOST=${{matrix.os}}
 
       - name: Auto generate
