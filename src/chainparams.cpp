@@ -218,14 +218,13 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("seed1.digibyte.io");
-        vSeeds.emplace_back("seed2.digibyte.io");
-        vSeeds.emplace_back("seed3.digibyte.io");
-        vSeeds.emplace_back("seed.digibyte.io");
-        vSeeds.emplace_back("digihash.co");
-        vSeeds.emplace_back("digiexplorer.info");
-        vSeeds.emplace_back("seed.digibyteprojects.com");
-
+        vSeeds.emplace_back("seed.digibyte.org"); // Website collective
+        vSeeds.emplace_back("seed.digibyteservers.io"); // ChillingSilence
+	vSeeds.emplace_back("seed.digibyte.io"); // JaredTate
+	vSeeds.emplace_back("seed.digibyteblockchain.com"); // JS555
+	vSeeds.emplace_back("dnsseed.esotericizm.site"); // DigiContributor
+	vSeeds.emplace_back("seed.digibytefoundation.org"); // DigiByteFoundation
+	vSeeds.emplace_back("seed.digibyte.host"); // SashaD
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
@@ -412,11 +411,8 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed1.digibyte.io");
-        vSeeds.emplace_back("seed2.digibyte.io");
-        vSeeds.emplace_back("seed3.digibyte.io");
-        vSeeds.emplace_back("testnet-seed.digibyteprojects.com");
-        vSeeds.emplace_back("testnet-1.us.digibyteservers.io");
+        vSeeds.emplace_back("seed.testnet-1.us.digibyteservers.io");
+        vSeeds.emplace_back("seed.testnetexplorer.digibyteservers.io");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,126);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,140);
