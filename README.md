@@ -1,7 +1,7 @@
 [![Build Status](https://img.shields.io/github/workflow/status/DigiByte-Core/digibyte/Build%20and%20check/develop)](https://github.com/DigiByte-Core/digibyte/actions/workflows/ci-coverage.yml)
 [![Version](https://img.shields.io/github/v/release/DigiByte-Core/digibyte?include_prereleases)](https://github.com/DigiByte-Core/digibyte/releases)
 [![Release date](https://img.shields.io/github/release-date/DigiByte-core/digibyte)](https://github.com/DigiByte-Core/digibyte/releases)
-[![Status](https://img.shields.io/badge/status-stable-brightgreen)](https://github.com/DigiByte-Core/digibyte/tree/master)
+[![Status](https://img.shields.io/badge/status-stable-brightgreen)](https://github.com/DigiByte-Core/digibyte/tree/develop)
 [![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20x86_64%20%7C%20ARM%20Linux%20%7C%20OSX-lightgrey)](https://github.com/DigiByte-Core/digibyte/releases)
 [![Downloads](https://img.shields.io/github/downloads/DigiByte-Core/digibyte/total?style=social)](https://github.com/DigiByte-Core/digibyte/releases)
 [![Repo size](https://img.shields.io/github/repo-size/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte)
