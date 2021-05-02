@@ -8,7 +8,7 @@
 [![Issues](https://img.shields.io/github/issues-raw/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/issues)
 [![Open PRs](https://img.shields.io/github/issues-pr/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/pulls)
 [![Closed PRs](https://img.shields.io/github/issues-pr-closed/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/pulls)
-[![Commits](https://img.shields.io/github/commit-activity/y/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/commits/dev)
+[![Commits](https://img.shields.io/github/commit-activity/y/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/commits/develop)
 [![Contributors](https://img.shields.io/github/contributors/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/contributors)
 [![Last Commit](https://img.shields.io/github/last-commit/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/commit-activity)
 [![License](https://img.shields.io/github/license/DigiByte-Core/digibyte”)](https://github.com/DigiByte-Core/digibyte/blob/develop/COPYING)
