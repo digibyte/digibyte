@@ -1,3 +1,18 @@
+[![Build Status](https://img.shields.io/github/workflow/status/DigiByte-Core/digibyte/Build%20and%20check/develop)](https://github.com/DigiByte-Core/digibyte/actions/workflows/ci-coverage.yml)
+[![Version](https://img.shields.io/github/v/release/DigiByte-Core/digibyte?include_prereleases)](https://github.com/DigiByte-Core/digibyte/releases)
+[![Release date](https://img.shields.io/github/release-date/DigiByte-core/digibyte)](https://github.com/DigiByte-Core/digibyte/releases)
+[![Status](https://img.shields.io/badge/status-stable-brightgreen)](https://github.com/DigiByte-Core/digibyte/tree/develop)
+[![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20x86_64%20%7C%20ARM%20Linux%20%7C%20OSX-lightgrey)](https://github.com/DigiByte-Core/digibyte/releases)
+[![Downloads](https://img.shields.io/github/downloads/DigiByte-Core/digibyte/total?style=social)](https://github.com/DigiByte-Core/digibyte/releases)
+[![Repo size](https://img.shields.io/github/repo-size/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte)
+[![Issues](https://img.shields.io/github/issues-raw/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/issues)
+[![Open PRs](https://img.shields.io/github/issues-pr/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/pulls)
+[![Closed PRs](https://img.shields.io/github/issues-pr-closed/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/pulls)
+[![Commits](https://img.shields.io/github/commit-activity/y/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/commits/develop)
+[![Contributors](https://img.shields.io/github/contributors/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/contributors)
+[![Last Commit](https://img.shields.io/github/last-commit/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/commit-activity)
+[![License](https://img.shields.io/github/license/DigiByte-Core/digibyte”)](https://github.com/DigiByte-Core/digibyte/blob/develop/COPYING)
+
 # Development is now occurring on the DigiByte-Core repo
 
 As of 2020, development has now moved to the DigiByte-Core organization, under the digibyte repo
