@@ -13,6 +13,8 @@
 [![Last Commit](https://img.shields.io/github/last-commit/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/commit-activity)
 [![License](https://img.shields.io/github/license/DigiByte-Core/digibyte”)](https://github.com/DigiByte-Core/digibyte/blob/develop/COPYING)
 
+<img width="450" type="image/svg+xml" src="./doc/logo_horizontal_github.svg" />
+
 # Development is now occurring on the DigiByte-Core repo
 
 As of 2020, development has now moved to the DigiByte-Core organization, under the digibyte repo
