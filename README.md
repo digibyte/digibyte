@@ -21,9 +21,9 @@ You can find more over at <https://github.com/digibyte-core/digibyte>
 
 ## What is DigiByte?
 
-DigiByte (DGB) is a rapidly growing decentralized, global blockchain that was founded in early 2014 with a focus on cyber security, payments & secure communications technologies.
+DigiByte (DGB) is a highly secure, decentralized, distributed and time-tested global blockchain that was founded in early 2014 with a focus on cyber security, payments & secure communications technologies.
 
-For more information, as well as an immediately useable, binary version of the DigiByte Core software, see <https://digibyte.io>
+For more information, as well as an immediately useable, binary version of the DigiByte Core software, see <https://digibyte.org>
 
 ## DigiByte FAQ
 
@@ -37,11 +37,11 @@ For more information, as well as an immediately useable, binary version of the D
 
 **Max Total Supply**: 21 Billion DigiBytes in 21 Years (2035)
 
-**Current Supply**: 11,692,747,373 DGB (April 2019)
+**Current Supply**: 14,293,304,147 DGB (May 2021)
 
 **Block Reward Reduction**: 1% Monthly
 
-**Current Block Reward**: 688 DGB (April 2019)
+**Current Block Reward**: 520 DGB (May 2021)
 
 **Mining Algorithms**: Five individual: SHA256, Scrypt, Odocrypt, Skein & Qubit
 
@@ -53,7 +53,7 @@ For more information, as well as an immediately useable, binary version of the D
 
 **SegWit Support**: Yes. First major altcoin to successfully activate Segwit. (April 2017)
 
-**Hardforks**: 4. DigiShield, MultiAlgo, MultiShield, DigiSpeed
+**Hardforks**: 5. DigiShield, MultiAlgo, MultiShield, DigiSpeed, Odocrypt
 
 **Softforks**: 3. SegWit, CSV, NVersionBits
 
@@ -89,20 +89,12 @@ You can mine DigiByte on one of five separate mining algorithms. Each algo avera
 - DigiByte can handle many more transactions per second.
 - Bitcoin can only handle 3-4 transactions per second.
 - DigiByte currently can handle 560+ transactions per second.
-- The 2015 DigiSpeed hardfork introduced changes that double the capacity of the network every two years.
 
 **Total Supply**:
 
-- More DigiBytes, lower price, more micro transactions, better price stability.
 - 21 billion DigiBytes will be created over 21 years.
 - Only 21 million Bitcoin will be created over 140 years.
 - 1000:1 ratio. 1000 DigiByte for every Bitcoin.
-
-**Flexibility**:
-
-- Ability to quickly add new features.
-- DigiByte can add new features & upgrades much quicker than Bitcoin.
-- Future DigiByte upgrades will push transaction limit to several hundred thousand per second.
 
 **Marketability & Usability**:
 
