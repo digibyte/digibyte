@@ -11,7 +11,9 @@
 [![Commits](https://img.shields.io/github/commit-activity/y/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/commits/develop)
 [![Contributors](https://img.shields.io/github/contributors/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/contributors)
 [![Last Commit](https://img.shields.io/github/last-commit/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/commit-activity)
-[![License](https://img.shields.io/github/license/DigiByte-Core/digibyte”)](https://github.com/DigiByte-Core/digibyte/blob/develop/COPYING)
+[![License](https://img.shields.io/github/license/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/blob/develop/COPYING)
+
+<img width="450" type="image/svg+xml" src="./doc/logo_horizontal_github.svg" />
 
 # Development is now occurring on the DigiByte-Core repo
 
