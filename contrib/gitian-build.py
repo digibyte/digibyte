@@ -29,7 +29,7 @@ def setup():
     if not os.path.isdir('gitian-builder'):
         subprocess.check_call(['git', 'clone', 'https://github.com/devrandom/gitian-builder.git'])
     if not os.path.isdir('digibyte'):
-        subprocess.check_call(['git', 'clone', 'https://github.com/digibyte/digibyte.git'])
+        subprocess.check_call(['git', 'clone', 'https://github.com/digibyte-core/digibyte.git'])
     os.chdir('gitian-builder')
     make_image_prog = ['bin/make-base-vm', '--suite', 'bionic', '--arch', 'amd64']
     if args.docker:
@@ -51,8 +51,8 @@ def build():
     os.chdir('gitian-builder')
     os.makedirs('inputs', exist_ok=True)
 
-    subprocess.check_call(['wget', '-N', '-P', 'inputs', 'http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz'])
-    subprocess.check_call(['wget', '-N', '-P', 'inputs', 'https://digibytecore.org/cfields/osslsigncode-Backports-to-1.7.1.patch'])
+    subprocess.check_call(['wget', '-N', '-P', 'inputs', 'https://github.com/DigiByte-Core/osslsigncode-1.7.1.tar.gz-1/raw/master/osslsigncode-1.7.1.tar.gz'])
+    subprocess.check_call(['wget', '-N', '-P', 'inputs', 'https://raw.githubusercontent.com/DigiByte-Core/osslsigncode-1.7.1.tar.gz-1/master/osslsigncode-Backports-to-1.7.1.patch'])
     subprocess.check_call(['make', '-C', '../digibyte/depends', 'download', 'SOURCES_PATH=' + os.getcwd() + '/cache/common'])
 
     if args.linux:
