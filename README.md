@@ -12,6 +12,7 @@
 [![Contributors](https://img.shields.io/github/contributors/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/contributors)
 [![Last Commit](https://img.shields.io/github/last-commit/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/graphs/commit-activity)
 [![License](https://img.shields.io/github/license/DigiByte-Core/digibyte)](https://github.com/DigiByte-Core/digibyte/blob/develop/COPYING)
+[![Gitter](https://badges.gitter.im/DigiByte-Core/protocol.svg)](https://gitter.im/DigiByte-Core/protocol?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 <img width="450" type="image/svg+xml" src="./doc/logo_horizontal_github.svg" />
 
