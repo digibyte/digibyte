@@ -9,7 +9,7 @@ If you're looking for somewhere to start contributing, check out the [good first
 ## Communication Channels
 
 Most communication about DigiByte Core development happens in the
-[DigiByte Official Developers](https://t.me/DigiByteDevelopers) channel on Telegram. The easiest way to participate on Telegram one of the freely available clients, [www.telegram.org](https://telegram.org/).
+[Protocol](https://gitter.im/DigiByte-Core/protocol) channel on Gitter. The easiest way to participate on Gitter is via one of the freely available clients, [Gitter Apps](https://gitter.im/apps).
 
 Discussion about code base improvements happens in GitHub issues and on pull requests.
 
@@ -134,7 +134,7 @@ Patches that change DigiByte consensus rules are considerably more involved than
 
 ### Peer Review
 
-Anyone may participate in peer review which is expressed by comments in the pull request. Typically reviewers will review the code for obvious errors, as well as test out the patch set and opine on the technical merits of the patch. Project maintainers take into account the peer review when determining if there is consensus to merge a pull request (remember that discussions may have been spread out over GitHub, mailing list and IRC discussions). The following language is used within pull-request comments:
+Anyone may participate in peer review which is expressed by comments in the pull request. Typically reviewers will review the code for obvious errors, as well as test out the patch set and opine on the technical merits of the patch. Project maintainers take into account the peer review when determining if there is consensus to merge a pull request (remember that discussions may have been spread out over GitHub, Gitter, Telegram, and mailing lists). The following language is used within pull-request comments:
 
 - ACK means "I have tested the code and I agree it should be merged";
 - NACK means "I disagree this should be merged", and must be accompanied by sound technical justification (or in certain cases of copyright/patent/licensing issues, legal justification). NACKs without accompanying reasoning may be disregarded;
@@ -148,16 +148,16 @@ Project maintainers reserve the right to weigh the opinions of peer reviewers us
 
 Where a patch set affects consensus critical code, the bar will be set much higher in terms of discussion and peer review requirements, keeping in mind that mistakes could be very costly to the wider community. This includes refactoring of consensus critical code.
 
-Where a patch set proposes to change the DigiByte consensus, it must have been discussed extensively on the mailing list and IRC, be accompanied by a widely discussed BIP and have a generally widely perceived technical consensus of being a worthwhile change based on the judgement of the maintainers.
+Where a patch set proposes to change the DigiByte consensus, it must have been discussed extensively on GitHub & Gitter, be accompanied by a widely discussed DIP and have a generally widely perceived technical consensus of being a worthwhile change based on the judgement of the maintainers.
 
 ### Finding Reviewers
 
 As most reviewers are themselves developers with their own projects, the review process can be quite lengthy, and some amount of patience is required. If you find that you've been waiting for a pull request to be given attention for several months, there may be a number of reasons for this, some of which you can do something about:
 
 - It may be because of a feature freeze due to an upcoming release. During this time, only bug fixes are taken into consideration. If your pull request is a new feature, it will not be prioritized until the release is over. Wait for release.
-- It may be because the changes you are suggesting do not appeal to people. Rather than nits and critique, which require effort and means they care enough to spend time on your contribution, thundering silence is a good sign of widespread (mild) dislike of a given change (because people don't assume *others* won't actually like the proposal). Don't take that personally, though! Instead, take another critical look at what you are suggesting and see if it: changes too much, is too broad, doesn't adhere to the [developer notes](doc/developer-notes.md), is dangerous or insecure, is messily written, etc. Identify and address any of the issues you find. Then ask e.g. on IRC if someone could give their opinion on the concept itself.
+- It may be because the changes you are suggesting do not appeal to people. Rather than nits and critique, which require effort and means they care enough to spend time on your contribution, thundering silence is a good sign of widespread (mild) dislike of a given change (because people don't assume *others* won't actually like the proposal). Don't take that personally, though! Instead, take another critical look at what you are suggesting and see if it: changes too much, is too broad, doesn't adhere to the [developer notes](doc/developer-notes.md), is dangerous or insecure, is messily written, etc. Identify and address any of the issues you find. Then ask e.g. on Gitter if someone could give their opinion on the concept itself.
 - It may be because your code is too complex for all but a few people. And those people may not have realized your pull request even exists. A great way to find people who are qualified and care about the code you are touching is the [Git Blame feature](https://help.github.com/articles/tracing-changes-in-a-file/). Simply find the person touching the code you are touching before you and see if you can find them and give them a nudge. Don't be incessant about the nudging though.
-- Finally, if all else fails, ask on IRC or elsewhere for someone to give your pull request a look. If you think you've been waiting an unreasonably long amount of time (month+) for no particular reason (few lines changed, etc), this is totally fine. Try to return the favor when someone else is asking for feedback on their code, and universe balances out.
+- Finally, if all else fails, ask on Gitter or elsewhere for someone to give your pull request a look. If you think you've been waiting an unreasonably long amount of time (month+) for no particular reason (few lines changed, etc), this is totally fine. Try to return the favor when someone else is asking for feedback on their code, and universe balances out.
 
 ## Release Policy
 
