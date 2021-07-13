@@ -3,7 +3,7 @@ Release Process
 
 Before every release candidate:
 
-* Update translations (ping wumpus on IRC) see [translation_process.md](https://github.com/digibyte/digibyte/blob/master/doc/translation_process.md#synchronising-translations).
+* Update translations see [translation_process.md](https://github.com/digibyte/digibyte/blob/master/doc/translation_process.md#synchronising-translations).
 
 * Update manpages, see [gen-manpages.sh](https://github.com/digibyte/digibyte/blob/master/contrib/devtools/README.md#gen-manpagessh).
 
@@ -44,9 +44,6 @@ Check out the source code in the following directory hierarchy.
 Write release notes. git shortlog helps a lot, for example:
 
     git shortlog --no-merges v(current version, e.g. 0.7.2)..v(new version, e.g. 0.8.0)
-
-(or ping @wumpus on IRC, he has specific tooling to generate the list of merged pulls
-and sort them into categories based on labels)
 
 Generate list of authors:
 
@@ -295,8 +292,6 @@ digibyte.org (see below for digibyte.org update instructions).
   - DigiByte Core announcements list https://digibytecore.org/en/list/announcements/join/
 
   - digibytecore.org blog post
-
-  - Update title of #digibyte on Freenode IRC
 
   - Optionally twitter, reddit /r/DigiByte, ... but this will usually sort out itself
 
