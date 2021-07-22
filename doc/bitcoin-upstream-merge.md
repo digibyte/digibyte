@@ -74,9 +74,11 @@ Key Areas to look out for Merge Conflict / Compiler Bugs:
 
 8. Go error by error and fix each compiler bug and make a commit that clearly explains what was wrong and how it was fixed and how it was broken in the merge. This will help educate everyone else on what to look out for in the future and if there were any other major changes Bitcoin made that break other things in DGB.
 
-9. Once the client is compiling from the command line, now try the GUI and test, test and test some more. Now it's time to get gitian building working.
+9. If your commit contains any Unit Tests ensure they are all passing before sumbission and take particular care not just to fix the test so that it passes but to fix the code thats being tested against. Only change the test as a last resort and clearly explain your reasoning for doing so.
 
-10. Now that you have a compiling upgraded version of DGB core, pat everyone on the back and go enjoy an ice-cold beer and celebrate.
+10. Once the client is compiling from the command line, now try the GUI and test, test and test some more. Now it's time to get gitian building working.
+
+11. Now that you have a compiling upgraded version of DGB core, pat everyone on the back and go enjoy an ice-cold beer and celebrate.
 	
 
 {"mode":"full","isActive":false}
