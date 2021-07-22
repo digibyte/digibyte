@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,7 +12,6 @@
 #include <chain.h>
 #include <primitives/block.h>
 
-#include <map>
 #include <memory>
 #include <string>
 #include <utility>
@@ -22,8 +21,6 @@ class CBlockIndex;
 class CCoinsViewDBCursor;
 class uint256;
 
-//! No need to periodic flush if at least this much space still available.
-static constexpr int MAX_BLOCK_COINSDB_USAGE = 10;
 //! -dbcache default (MiB)
 static const int64_t nDefaultDbCache = 450;
 //! -dbbatchsize default (bytes)
@@ -38,49 +35,40 @@ static const int64_t nMaxBlockDBCache = 2;
 // Unlike for the UTXO database, for the txindex scenario the leveldb cache make
 // a meaningful difference: https://github.com/digibyte/digibyte/pull/8273#issuecomment-229601991
 static const int64_t nMaxTxIndexCache = 1024;
+//! Max memory allocated to all block filter index caches combined in MiB.
+static const int64_t max_filter_index_cache = 1024;
 //! Max memory allocated to coin DB specific cache (MiB)
 static const int64_t nMaxCoinsDBCache = 8;
+
+// Actually declared in validation.cpp; can't include because of circular dependency.
+extern RecursiveMutex cs_main;
 
 /** CCoinsView backed by the coin database (chainstate/) */
 class CCoinsViewDB final : public CCoinsView
 {
 protected:
-    CDBWrapper db;
+    std::unique_ptr<CDBWrapper> m_db;
+    fs::path m_ldb_path;
+    bool m_is_memory;
 public:
-    explicit CCoinsViewDB(size_t nCacheSize, bool fMemory = false, bool fWipe = false);
+    /**
+     * @param[in] ldb_path    Location in the filesystem where leveldb data will be stored.
+     */
+    explicit CCoinsViewDB(fs::path ldb_path, size_t nCacheSize, bool fMemory, bool fWipe);
 
     bool GetCoin(const COutPoint &outpoint, Coin &coin) const override;
     bool HaveCoin(const COutPoint &outpoint) const override;
     uint256 GetBestBlock() const override;
     std::vector<uint256> GetHeadBlocks() const override;
     bool BatchWrite(CCoinsMap &mapCoins, const uint256 &hashBlock) override;
-    CCoinsViewCursor *Cursor() const override;
+    std::unique_ptr<CCoinsViewCursor> Cursor() const override;
 
     //! Attempt to update from an older database format. Returns whether an error occurred.
     bool Upgrade();
     size_t EstimateSize() const override;
-};
 
-/** Specialization of CCoinsViewCursor to iterate over a CCoinsViewDB */
-class CCoinsViewDBCursor: public CCoinsViewCursor
-{
-public:
-    ~CCoinsViewDBCursor() {}
-
-    bool GetKey(COutPoint &key) const override;
-    bool GetValue(Coin &coin) const override;
-    unsigned int GetValueSize() const override;
-
-    bool Valid() const override;
-    void Next() override;
-
-private:
-    CCoinsViewDBCursor(CDBIterator* pcursorIn, const uint256 &hashBlockIn):
-        CCoinsViewCursor(hashBlockIn), pcursor(pcursorIn) {}
-    std::unique_ptr<CDBIterator> pcursor;
-    std::pair<char, COutPoint> keyTmp;
-
-    friend class CCoinsViewDB;
+    //! Dynamically alter the underlying leveldb cache size.
+    void ResizeCache(size_t new_cache_size) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 };
 
 /** Access to the block database (blocks/index/) */
