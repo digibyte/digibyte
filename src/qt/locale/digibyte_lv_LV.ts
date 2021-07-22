@@ -1,4 +1,4 @@
-<TS language="lv_LV" version="2.1">
+<TS language="lv" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -48,6 +48,18 @@
     <message>
         <source>Choose the address to receive coins with</source>
         <translation>Izvēlies adresi ar kuru saņemt digibytes</translation>
+    </message>
+    <message>
+        <source>C&amp;hoose</source>
+        <translation>Izvēlēties</translation>
+    </message>
+    <message>
+        <source>Sending addresses</source>
+        <translation>Adrešu nosūtīšana</translation>
+    </message>
+    <message>
+        <source>Receiving addresses</source>
+        <translation>Adrešu saņemšana</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -104,7 +116,7 @@
         <translation>Jaunā parole vēlreiz</translation>
     </message>
     <message>
-        <source>Show password</source>
+        <source>Show passphrase</source>
         <translation>Rādīt paroli</translation>
     </message>
     <message>
@@ -120,12 +132,24 @@
         <translation>Atšifrēt maciņu</translation>
     </message>
     <message>
+        <source>Change passphrase</source>
+        <translation>Mainīt paroli</translation>
+    </message>
+    <message>
         <source>Confirm wallet encryption</source>
         <translation>Apstiprināt maciņa šifrēšanu</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Vai tu tiešām vēlies šifrēt savu maciņu?</translation>
+    </message>
+    <message>
+        <source>Wallet encrypted</source>
+        <translation>Maciņš šifrēts</translation>
+    </message>
+    <message>
+        <source>Your wallet is now encrypted. </source>
+        <translation>Maciņš tagad šifrēts</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -148,10 +172,6 @@
     <message>
         <source>&amp;Overview</source>
         <translation>&amp;Pārskats</translation>
-    </message>
-    <message>
-        <source>Node</source>
-        <translation>Node</translation>
     </message>
     <message>
         <source>Show general overview of wallet</source>
@@ -198,16 +218,12 @@
         <translation>Mainīt &amp;Paroli...</translation>
     </message>
     <message>
-        <source>&amp;Sending addresses...</source>
-        <translation>&amp;Sūtīšanas adreses...</translation>
-    </message>
-    <message>
-        <source>&amp;Receiving addresses...</source>
-        <translation>Saņemšanas &amp;adreses...</translation>
-    </message>
-    <message>
         <source>Open &amp;URI...</source>
         <translation>Atvērt &amp;URI...</translation>
+    </message>
+    <message>
+        <source>Wallet:</source>
+        <translation>Maciņš:</translation>
     </message>
     <message>
         <source>Reindexing blocks on disk...</source>
@@ -226,24 +242,8 @@
         <translation>Mainīt maciņa šifrēšanas paroli</translation>
     </message>
     <message>
-        <source>&amp;Debug window</source>
-        <translation>&amp;Atkļūdošanas logs</translation>
-    </message>
-    <message>
-        <source>Open debugging and diagnostic console</source>
-        <translation>Atvērt atkļūdošanas un diagnostikas konsoli</translation>
-    </message>
-    <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Pārbaudīt ziņojumu...</translation>
-    </message>
-    <message>
-        <source>DigiByte</source>
-        <translation>DigiByte</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Maciņš</translation>
     </message>
     <message>
         <source>&amp;Send</source>
@@ -294,10 +294,6 @@
         <translation>Pieprasīt maksājumus (izveido QR kodu un digibyte: URIs)</translation>
     </message>
     <message>
-        <source>Open a digibyte: URI or payment request</source>
-        <translation>Atvērt digibyte URI vai maksājuma pieprasījumu</translation>
-    </message>
-    <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Komandrindas iespējas</translation>
     </message>
@@ -324,6 +320,10 @@
     <message>
         <source>Up to date</source>
         <translation>Sinhronizēts</translation>
+    </message>
+    <message>
+        <source>&amp;Window</source>
+        <translation>&amp;Logs</translation>
     </message>
     <message>
         <source>Catching up...</source>
@@ -406,6 +406,12 @@
     </message>
     </context>
 <context>
+    <name>CreateWalletActivity</name>
+    </context>
+<context>
+    <name>CreateWalletDialog</name>
+    </context>
+<context>
     <name>EditAddressDialog</name>
     <message>
         <source>Edit Address</source>
@@ -444,10 +450,6 @@
     <message>
         <source>version</source>
         <translation>versija</translation>
-    </message>
-    <message>
-        <source>(%1-bit)</source>
-        <translation>(%1-biti)</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -491,21 +493,12 @@
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open URI</source>
-        <translation>Atvērt URI</translation>
-    </message>
-    <message>
-        <source>Open payment request from URI or file</source>
-        <translation>Atvērt maksājuma pieprasījumu no URI vai datnes</translation>
-    </message>
-    <message>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
-    <message>
-        <source>Select payment request file</source>
-        <translation>Izvēlies maksājuma pieprasījuma datni</translation>
-    </message>
+</context>
+<context>
+    <name>OpenWalletActivity</name>
     </context>
 <context>
     <name>OptionsDialog</name>
@@ -522,10 +515,6 @@
         <translation>&amp;Datubāzes kešatmiņas izmērs</translation>
     </message>
     <message>
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-    <message>
         <source>Number of script &amp;verification threads</source>
         <translation>Skriptu &amp;pārbaudes pavedienu skaits</translation>
     </message>
@@ -536,10 +525,6 @@
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
         <translation>Minimizēt nevis aizvērt aplikāciju, kad logs tiek aizvērts. Kad šī iespēja ir ieslēgta, aplikācija tiks aizvērta, izvēloties Aizvērt izvēlnē.</translation>
-    </message>
-    <message>
-        <source>Active command-line options that override above options:</source>
-        <translation>Aktīvās komandrindas opcijas, kuras pārspēko šos iestatījumus:</translation>
     </message>
     <message>
         <source>Reset all client options to default.</source>
@@ -694,6 +679,9 @@
     </message>
     </context>
 <context>
+    <name>PSBTOperationsDialog</name>
+    </context>
+<context>
     <name>PaymentServer</name>
     </context>
 <context>
@@ -743,10 +731,11 @@
     </message>
 </context>
 <context>
-    <name>QObject::QObject</name>
-    </context>
-<context>
     <name>QRImageWidget</name>
+    <message>
+        <source>&amp;Save Image...</source>
+        <translation>&amp;Saglabāt Attēlu...</translation>
+    </message>
     </context>
 <context>
     <name>RPCConsole</name>
@@ -761,10 +750,6 @@
     <message>
         <source>&amp;Information</source>
         <translation>&amp;Informācija</translation>
-    </message>
-    <message>
-        <source>Debug window</source>
-        <translation>Atkļūdošanas logs</translation>
     </message>
     <message>
         <source>General</source>
@@ -789,10 +774,6 @@
     <message>
         <source>Block chain</source>
         <translation>Bloku virkne</translation>
-    </message>
-    <message>
-        <source>Current number of blocks</source>
-        <translation>Pašreizējais bloku skaits</translation>
     </message>
     <message>
         <source>Last block time</source>
@@ -858,10 +839,6 @@
         <translation>Pieprasīto maksājumu vēsture</translation>
     </message>
     <message>
-        <source>&amp;Request payment</source>
-        <translation>&amp;Pieprasīt maksājumu</translation>
-    </message>
-    <message>
         <source>Show the selected request (does the same as double clicking an entry)</source>
         <translation>Parādīt atlasītos pieprasījumus (tas pats, kas dubultklikšķis uz ieraksta)</translation>
     </message>
@@ -881,8 +858,16 @@
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
-        <source>QR Code</source>
-        <translation>QR Kods</translation>
+        <source>Amount:</source>
+        <translation>Daudzums:</translation>
+    </message>
+    <message>
+        <source>Message:</source>
+        <translation>Ziņojums:</translation>
+    </message>
+    <message>
+        <source>Wallet:</source>
+        <translation>Maciņš:</translation>
     </message>
     <message>
         <source>Copy &amp;URI</source>
@@ -896,21 +881,13 @@
         <source>&amp;Save Image...</source>
         <translation>&amp;Saglabāt Attēlu...</translation>
     </message>
-    <message>
-        <source>Address</source>
-        <translation>Adrese</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Nosaukums</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Maciņš</translation>
-    </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Datums</translation>
+    </message>
     <message>
         <source>Label</source>
         <translation>Nosaukums</translation>
@@ -1030,10 +1007,6 @@
         <translation>Izvēlies iepriekš izmantoto adresi</translation>
     </message>
     <message>
-        <source>This is a normal payment.</source>
-        <translation>Šis ir parasts maksājums.</translation>
-    </message>
-    <message>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
@@ -1061,10 +1034,7 @@
         <source>Memo:</source>
         <translation>Memo:</translation>
     </message>
-    </context>
-<context>
-    <name>SendConfirmationDialog</name>
-    </context>
+</context>
 <context>
     <name>ShutdownWindow</name>
     <message>
@@ -1140,13 +1110,6 @@
     </message>
     </context>
 <context>
-    <name>SplashScreen</name>
-    <message>
-        <source>[testnet]</source>
-        <translation>[testnets]</translation>
-    </message>
-</context>
-<context>
     <name>TrafficGraphWidget</name>
     <message>
         <source>KB/s</source>
@@ -1155,6 +1118,22 @@
 </context>
 <context>
     <name>TransactionDesc</name>
+    <message>
+        <source>Date</source>
+        <translation>Datums</translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation>nav zināms</translation>
+    </message>
+    <message>
+        <source>Transaction fee</source>
+        <translation>Transakcijas maksa</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Daudzums</translation>
+    </message>
     </context>
 <context>
     <name>TransactionDescDialog</name>
@@ -1166,6 +1145,10 @@
 <context>
     <name>TransactionTableModel</name>
     <message>
+        <source>Date</source>
+        <translation>Datums</translation>
+    </message>
+    <message>
         <source>Label</source>
         <translation>Nosaukums</translation>
     </message>
@@ -1176,6 +1159,14 @@
     </context>
 <context>
     <name>TransactionView</name>
+    <message>
+        <source>Confirmed</source>
+        <translation>Apstiprināts</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datums</translation>
+    </message>
     <message>
         <source>Label</source>
         <translation>Nosaukums</translation>
@@ -1193,27 +1184,38 @@
     <name>UnitDisplayStatusBarControl</name>
     </context>
 <context>
+    <name>WalletController</name>
+    </context>
+<context>
     <name>WalletFrame</name>
     </context>
 <context>
     <name>WalletModel</name>
+    <message>
+        <source>Send Coins</source>
+        <translation>Sūtīt Bitkoinus</translation>
+    </message>
     </context>
 <context>
     <name>WalletView</name>
+    <message>
+        <source>&amp;Export</source>
+        <translation>&amp;Eksportēt</translation>
+    </message>
+    <message>
+        <source>Export the data in the current tab to a file</source>
+        <translation>Datus no tekošā ieliktņa eksportēt uz failu</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Kļūda</translation>
+    </message>
     </context>
 <context>
     <name>digibyte-core</name>
     <message>
-        <source>DigiByte Core</source>
-        <translation>DigiByte Core</translation>
-    </message>
-    <message>
         <source>Error loading block database</source>
         <translation>Kļūda ielādējot bloku datubāzi</translation>
-    </message>
-    <message>
-        <source>Error: Disk space is low!</source>
-        <translation>Kļūda: Zema diska vieta!</translation>
     </message>
     <message>
         <source>Importing...</source>
@@ -1222,10 +1224,6 @@
     <message>
         <source>Verifying blocks...</source>
         <translation>Pārbauda blokus...</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Informācija</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>
@@ -1238,10 +1236,6 @@
     <message>
         <source>Transaction too large</source>
         <translation>Transakcija ir pārāk liela</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Brīdinājums</translation>
     </message>
     <message>
         <source>Unknown network specified in -onlynet: '%s'</source>
@@ -1270,10 +1264,6 @@
     <message>
         <source>Done loading</source>
         <translation>Ielāde pabeigta</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Kļūda</translation>
     </message>
 </context>
 </TS>
