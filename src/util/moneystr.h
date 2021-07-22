@@ -7,19 +7,19 @@
 /**
  * Money parsing/formatting utilities.
  */
-#ifndef DIGIBYTE_UTILMONEYSTR_H
-#define DIGIBYTE_UTILMONEYSTR_H
-
-#include <stdint.h>
-#include <string>
+#ifndef DIGIBYTE_UTIL_MONEYSTR_H
+#define DIGIBYTE_UTIL_MONEYSTR_H
 
 #include <amount.h>
+#include <attributes.h>
+
+#include <string>
 
 /* Do not use these functions to represent or parse monetary amounts to or from
  * JSON but use AmountFromValue and ValueFromAmount for that.
  */
-std::string FormatMoney(const CAmount& n);
-bool ParseMoney(const std::string& str, CAmount& nRet);
-bool ParseMoney(const char* pszIn, CAmount& nRet);
+std::string FormatMoney(const CAmount n);
+/** Parse an amount denoted in full coins. E.g. "0.0034" supplied on the command line. **/
+[[nodiscard]] bool ParseMoney(const std::string& str, CAmount& nRet);
 
-#endif // DIGIBYTE_UTILMONEYSTR_H
+#endif // DIGIBYTE_UTIL_MONEYSTR_H
