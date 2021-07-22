@@ -1,12 +1,17 @@
 *.tar.gz
 
 *.exe
+*.pdb
 src/digibyte
 src/digibyted
 src/digibyte-cli
+src/digibyte-gui
+src/digibyte-node
 src/digibyte-tx
+src/digibyte-util
+src/digibyte-wallet
+src/test/fuzz/fuzz
 src/test/test_digibyte
-src/test/test_digibyte_fuzzy
 src/qt/test/test_digibyte-qt
 
 # autoreconf
@@ -26,6 +31,7 @@ build-aux/m4/ltversion.m4
 build-aux/missing
 build-aux/compile
 build-aux/test-driver
+config.cache
 config.log
 config.status
 configure
@@ -33,6 +39,7 @@ libtool
 src/config/digibyte-config.h
 src/config/digibyte-config.h.in
 src/config/stamp-h1
+src/obj
 share/setup.nsi
 share/qt/Info.plist
 
@@ -54,24 +61,29 @@ src/qt/digibyte-qt.includes
 .dirstamp
 .libs
 .*.swp
-*.*~*
+*~
 *.bak
 *.rej
 *.orig
 *.pyc
 *.o
 *.o-*
-*.patch
 *.a
 *.pb.cc
 *.pb.h
+*.dat
 
 *.log
 *.trs
 *.dmg
+*.iso
 
 *.json.h
 *.raw.h
+
+# Only ignore unexpected patches
+*.patch
+!depends/patches/**/*.patch
 
 #libtool object files
 *.lo
@@ -80,9 +92,13 @@ src/qt/digibyte-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-digibyte-qt
+!depends/Makefile
+src/qt/digibyte-qt
 DigiByte-Qt.app
 background.tiff*
+
+# Qt Creator
+Makefile.am.user
 
 # Unit-tests
 Makefile.test
@@ -95,13 +111,19 @@ qrc_*.cpp
 .DS_Store
 build
 
+# Previous releases
+releases
+
 #lcov
 *.gcno
 *.gcda
 /*.info
 test_digibyte.coverage/
 total.coverage/
+fuzz.coverage/
 coverage_percent.txt
+/cov_tool_wrapper.sh
+qa-assets/
 
 #build tests
 linux-coverage-build
@@ -109,6 +131,7 @@ linux-build
 win32-build
 test/config.ini
 test/cache/*
+test/.mypy_cache/
 
 !src/leveldb*/Makefile
 
@@ -116,3 +139,15 @@ test/cache/*
 
 libdigibyteconsensus.pc
 contrib/devtools/split-debug.sh
+
+# Output from running db4 installation
+db4/
+
+# clang-check
+*.plist
+
+osx_volname
+dist/
+*.background.tiff
+
+/guix-build-*
