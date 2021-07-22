@@ -1,10 +1,10 @@
 Bitcoin Upstream Merge Guide
 ====================================
-DigiByte was originally forked from the Bitcoin & Litecoin UTXO codebase. Since 2014 many unique changes have been made to DGB that separate it from the latest BTC codebase. However, there is a tremendous amount of improvements continually being made by talented open-source blockchain developers from around the world to the Bitcoin codebase that DigiByte can quite often benefit from.
+DigiByte was originally forked from the Bitcoin & Litecoin UTXO codebase. Since 2014 many unique changes have been made to DGB that separate it from the latest BTC codebase. However, there are a tremendous amount of improvements continuously being made by talented open-source blockchain developers from around the world to the Bitcoin codebase that DigiByte can quite often benefit from.
 
 Therefore it is important for us to routinely take a look at how some of these improvements can be integrated into the DigiByte codebase in a safe, auditable, reviewable manner. This document is an attempt to document how to best take advantage of those code improvements from Bitcoin with a clearly defined process the community can follow. 
 
-An upstream merge from Bitcoin to DigiByte can be a very complex undertaking for any one person to do alone. There have been several major merge events in DigiBytes history and in the past mistakes have been made during many of these upstream merge events and bugs inadvertently introduced into code. By following the process below many of these issues can be avoided, and the community united in the development process.
+An upstream merge from Bitcoin to DigiByte can be a very complex undertaking for any one person to do alone. There have been several major merge events in DigiBytes history and in the past mistakes have been made during many of these upstream merge events and bugs inadvertently introduced into code. By following the process below many of these issues can be avoided and the community can be united in the development process.
 
 3 Approaches To Upstream BTC Merges
 ------------------------------------
