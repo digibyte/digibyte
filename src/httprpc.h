@@ -1,18 +1,17 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2015-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_HTTPRPC_H
 #define DIGIBYTE_HTTPRPC_H
 
-#include <string>
-#include <map>
+#include <any>
 
 /** Start HTTP RPC subsystem.
  * Precondition; HTTP and RPC has been started.
  */
-bool StartHTTPRPC();
+bool StartHTTPRPC(const std::any& context);
 /** Interrupt HTTP RPC subsystem.
  */
 void InterruptHTTPRPC();
@@ -24,7 +23,7 @@ void StopHTTPRPC();
 /** Start HTTP REST subsystem.
  * Precondition; HTTP and RPC has been started.
  */
-bool StartREST();
+void StartREST(const std::any& context);
 /** Interrupt RPC REST subsystem.
  */
 void InterruptREST();
