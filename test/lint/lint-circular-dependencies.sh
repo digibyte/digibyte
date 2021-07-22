@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018 The DigiByte Core developers
+# Copyright (c) 2009-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
@@ -9,38 +10,25 @@
 export LC_ALL=C
 
 EXPECTED_CIRCULAR_DEPENDENCIES=(
-    "chainparamsbase -> util -> chainparamsbase"
-    "checkpoints -> validation -> checkpoints"
+    "chainparamsbase -> util/system -> chainparamsbase"
     "index/txindex -> validation -> index/txindex"
+    "node/blockstorage -> validation -> node/blockstorage"
+    "index/blockfilterindex -> node/blockstorage -> validation -> index/blockfilterindex"
+    "index/base -> validation -> index/blockfilterindex -> index/base"
+    "index/coinstatsindex -> node/coinstats -> index/coinstatsindex"
     "policy/fees -> txmempool -> policy/fees"
-    "policy/policy -> validation -> policy/policy"
     "qt/addresstablemodel -> qt/walletmodel -> qt/addresstablemodel"
-    "qt/bantablemodel -> qt/clientmodel -> qt/bantablemodel"
-    "qt/digibytegui -> qt/utilitydialog -> qt/digibytegui"
-    "qt/digibytegui -> qt/walletframe -> qt/digibytegui"
-    "qt/digibytegui -> qt/walletview -> qt/digibytegui"
-    "qt/clientmodel -> qt/peertablemodel -> qt/clientmodel"
-    "qt/paymentserver -> qt/walletmodel -> qt/paymentserver"
     "qt/recentrequeststablemodel -> qt/walletmodel -> qt/recentrequeststablemodel"
     "qt/sendcoinsdialog -> qt/walletmodel -> qt/sendcoinsdialog"
     "qt/transactiontablemodel -> qt/walletmodel -> qt/transactiontablemodel"
-    "qt/walletmodel -> qt/walletmodeltransaction -> qt/walletmodel"
-    "rpc/rawtransaction -> wallet/rpcwallet -> rpc/rawtransaction"
     "txmempool -> validation -> txmempool"
-    "validation -> validationinterface -> validation"
-    "wallet/coincontrol -> wallet/wallet -> wallet/coincontrol"
     "wallet/fees -> wallet/wallet -> wallet/fees"
-    "wallet/rpcwallet -> wallet/wallet -> wallet/rpcwallet"
     "wallet/wallet -> wallet/walletdb -> wallet/wallet"
-    "policy/fees -> policy/policy -> validation -> policy/fees"
-    "policy/rbf -> txmempool -> validation -> policy/rbf"
-    "qt/addressbookpage -> qt/digibytegui -> qt/walletview -> qt/addressbookpage"
-    "qt/guiutil -> qt/walletmodel -> qt/optionsmodel -> qt/guiutil"
-    "txmempool -> validation -> validationinterface -> txmempool"
-    "qt/addressbookpage -> qt/digibytegui -> qt/walletview -> qt/receivecoinsdialog -> qt/addressbookpage"
-    "qt/addressbookpage -> qt/digibytegui -> qt/walletview -> qt/signverifymessagedialog -> qt/addressbookpage"
-    "qt/guiutil -> qt/walletmodel -> qt/optionsmodel -> qt/intro -> qt/guiutil"
-    "qt/addressbookpage -> qt/digibytegui -> qt/walletview -> qt/sendcoinsdialog -> qt/sendcoinsentry -> qt/addressbookpage"
+    "node/coinstats -> validation -> node/coinstats"
+    # Temporary circular dependencies that allow wallet.h/wallet.cpp to be
+    # split up in a MOVEONLY commit. These are removed in #21206.
+    "wallet/receive -> wallet/wallet -> wallet/receive"
+    "wallet/spend -> wallet/wallet -> wallet/spend"
 )
 
 EXIT_CODE=0
@@ -49,7 +37,7 @@ CIRCULAR_DEPENDENCIES=()
 
 IFS=$'\n'
 for CIRC in $(cd src && ../contrib/devtools/circular-dependencies.py {*,*/*,*/*/*}.{h,cpp} | sed -e 's/^Circular dependency: //'); do
-    CIRCULAR_DEPENDENCIES+=($CIRC)
+    CIRCULAR_DEPENDENCIES+=( "$CIRC" )
     IS_EXPECTED_CIRC=0
     for EXPECTED_CIRC in "${EXPECTED_CIRCULAR_DEPENDENCIES[@]}"; do
         if [[ "${CIRC}" == "${EXPECTED_CIRC}" ]]; then
