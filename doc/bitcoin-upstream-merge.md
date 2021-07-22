@@ -29,7 +29,7 @@ Part 1: Pre-Merge Setup (Managed from Source Tree GUI to save time)
 
         make clean
 
-3.  Rename any text or code string containing: "BTC", "btc," "Bitcoin," "BITCOIN," "bitcoin" w "DGB," "dgb," "DigiByte," "DIGIBYTE," "digibyte" throughout entire codebase with case sensitivity. This is easily done with find & replace inside visual studio code. Should be about 20,000 changes or more. Save each separately and then commit while making sure case sensitivity is on.
+3.  Rename any text or code string containing: "BTC", "btc," "Bitcoin," "BITCOIN," "bitcoin" w "DGB," "dgb," "DigiByte," "DIGIBYTE," "digibyte" and any copyright information throughout entire codebase with case sensitivity. This is easily done with find & replace inside visual studio code. Should be about 20,000 changes or more. Save each separately and then commit while making sure case sensitivity is on.
 
 4. Commit each separate name swap as its own commit. The idea is to break down the sheer # of name changes in a documented, easy-to-follow process. Not following a consistent naming convention throughout the code easily breaks things and can cause hours of compiler errors later on.
 
