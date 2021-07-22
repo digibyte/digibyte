@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,6 +8,9 @@
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
 
+#include <chainparamsbase.h>
+#include <tinyformat.h>
+
 #include <QApplication>
 
 static const struct {
@@ -15,13 +18,12 @@ static const struct {
     const char *appName;
     const int iconColorHueShift;
     const int iconColorSaturationReduction;
-    const char *titleAddText;
 } network_styles[] = {
-    {"main", QAPP_APP_NAME_DEFAULT, 0, 0, ""},
-    {"test", QAPP_APP_NAME_TESTNET, 70, 30, QT_TRANSLATE_NOOP("SplashScreen", "[testnet]")},
-    {"regtest", QAPP_APP_NAME_TESTNET, 160, 30, "[regtest]"}
+    {"main", QAPP_APP_NAME_DEFAULT, 0, 0},
+    {"test", QAPP_APP_NAME_TESTNET, 70, 30},
+    {"signet", QAPP_APP_NAME_SIGNET, 35, 15},
+    {"regtest", QAPP_APP_NAME_REGTEST, 160, 30},
 };
-static const unsigned network_styles_count = sizeof(network_styles)/sizeof(*network_styles);
 
 // titleAddText needs to be const char* for tr()
 NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift, const int iconColorSaturationReduction, const char *_titleAddText):
@@ -81,18 +83,17 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     trayAndWindowIcon   = QIcon(pixmap.scaled(QSize(256,256)));
 }
 
-const NetworkStyle *NetworkStyle::instantiate(const QString &networkId)
+const NetworkStyle* NetworkStyle::instantiate(const std::string& networkId)
 {
-    for (unsigned x=0; x<network_styles_count; ++x)
-    {
-        if (networkId == network_styles[x].networkId)
-        {
+    std::string titleAddText = networkId == CBaseChainParams::MAIN ? "" : strprintf("[%s]", networkId);
+    for (const auto& network_style : network_styles) {
+        if (networkId == network_style.networkId) {
             return new NetworkStyle(
-                    network_styles[x].appName,
-                    network_styles[x].iconColorHueShift,
-                    network_styles[x].iconColorSaturationReduction,
-                    network_styles[x].titleAddText);
+                    network_style.appName,
+                    network_style.iconColorHueShift,
+                    network_style.iconColorSaturationReduction,
+                    titleAddText.c_str());
         }
     }
-    return 0;
+    return nullptr;
 }
