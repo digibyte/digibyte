@@ -1,21 +1,12 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <policy/rbf.h>
+#include <util/rbf.h>
 
-bool SignalsOptInRBF(const CTransaction &tx)
-{
-    for (const CTxIn &txin : tx.vin) {
-        if (txin.nSequence < std::numeric_limits<unsigned int>::max()-1) {
-            return true;
-        }
-    }
-    return false;
-}
-
-RBFTransactionState IsRBFOptIn(const CTransaction &tx, CTxMemPool &pool)
+RBFTransactionState IsRBFOptIn(const CTransaction& tx, const CTxMemPool& pool)
 {
     AssertLockHeld(pool.cs);
 
@@ -45,4 +36,10 @@ RBFTransactionState IsRBFOptIn(const CTransaction &tx, CTxMemPool &pool)
         }
     }
     return RBFTransactionState::FINAL;
+}
+
+RBFTransactionState IsRBFOptInEmptyMempool(const CTransaction& tx)
+{
+    // If we don't have a local mempool we can only check the transaction itself.
+    return SignalsOptInRBF(tx) ? RBFTransactionState::REPLACEABLE_BIP125 : RBFTransactionState::UNKNOWN;
 }
