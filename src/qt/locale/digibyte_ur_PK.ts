@@ -1,21 +1,21 @@
-<TS language="ur_PK" version="2.1">
+<TS language="ur" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
-        <translation>پتہ تبدیل کرے کے لیے دائیاں کلک کریں</translation>
+        <translation>پتہ یا لیبل کی تصیح کیلیئے داہنا کلک</translation>
     </message>
     <message>
         <source>Create a new address</source>
-        <translation>نیا ایڈریس بنائیں</translation>
+        <translation>نیا پتہ تخلیق کریں</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>نیا</translation>
+        <translation>&amp;نیا</translation>
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>سلیکٹڈ پتے کو کمپوٹر کی عارضی جگہ رکھیں</translation>
+        <translation>موجودہ چنے ہوئے پتے کو نقل کریں سسٹم کلپ بورڈ پر</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -53,16 +53,68 @@
         <source>C&amp;hoose</source>
         <translation>چننا</translation>
     </message>
-    </context>
+    <message>
+        <source>Sending addresses</source>
+        <translation>پتے ارسال کیے جارہے ہیں</translation>
+    </message>
+    <message>
+        <source>Receiving addresses</source>
+        <translation>پتے موصول ہورہے ہیں</translation>
+    </message>
+    <message>
+        <source>These are your DigiByte addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>یہ آپ کے ادائیگی بھیجنے کے لئے بٹ کوائن ایڈریس ہیں.سکے بھیجنے سے پہلے ہمیشہ رقم اور وصول کنندہ پتہ چیک کریں۔</translation>
+    </message>
+    <message>
+        <source>&amp;Copy Address</source>
+        <translation>&amp;پتا نقل کریں</translation>
+    </message>
+    <message>
+        <source>Copy &amp;Label</source>
+        <translation>&amp;لیبل نقل کریں</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;تدوین</translation>
+    </message>
+    <message>
+        <source>Export Address List</source>
+        <translation>پتا فہرست ایکسپورٹ کریں</translation>
+    </message>
+    <message>
+        <source>Comma separated file (*.csv)</source>
+        <translation>کاما سے جدا فائلیں (*.csv)</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>ایکسپورٹ ناکام ہوا</translation>
+    </message>
+    <message>
+        <source>There was an error trying to save the address list to %1. Please try again.</source>
+        <translation>پتا فہرست محفوظ کرتے ہوئے %1 نقص کا سامنا ہوا۔ دوبارہ کوشش کریں۔</translation>
+    </message>
+</context>
 <context>
     <name>AddressTableModel</name>
     <message>
-        <source>Address</source>
-        <translation> پتہ</translation>
+        <source>Label</source>
+        <translation>لیبل</translation>
     </message>
-    </context>
+    <message>
+        <source>Address</source>
+        <translation>پتہ</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(کوئی لیبل نہیں)</translation>
+    </message>
+</context>
 <context>
     <name>AskPassphraseDialog</name>
+    <message>
+        <source>Passphrase Dialog</source>
+        <translation>پاسفریج ڈائیلاگ</translation>
+    </message>
     <message>
         <source>Enter passphrase</source>
         <translation>پاس فریز داخل کریں</translation>
@@ -74,6 +126,26 @@
     <message>
         <source>Repeat new passphrase</source>
         <translation>نیا پاس فریز دہرائیں</translation>
+    </message>
+    <message>
+        <source>Show passphrase</source>
+        <translation>پاسفریز دکھائیں</translation>
+    </message>
+    <message>
+        <source>Encrypt wallet</source>
+        <translation>بٹوے کو خفیہ کریں</translation>
+    </message>
+    <message>
+        <source>Decrypt wallet</source>
+        <translation>ڈکرپٹ والیٹ</translation>
+    </message>
+    <message>
+        <source>Change passphrase</source>
+        <translation>پاسفریز تبدیل کریں</translation>
+    </message>
+    <message>
+        <source>Confirm wallet encryption</source>
+        <translation>پرس کی خفیہ کاری کی تصدیق کریں</translation>
     </message>
     </context>
 <context>
@@ -100,6 +172,16 @@
         <source>Date</source>
         <translation>تاریخ</translation>
     </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(کوئی لیبل نہیں)</translation>
+    </message>
+    </context>
+<context>
+    <name>CreateWalletActivity</name>
+    </context>
+<context>
+    <name>CreateWalletDialog</name>
     </context>
 <context>
     <name>EditAddressDialog</name>
@@ -109,7 +191,7 @@
     </message>
     <message>
         <source>&amp;Address</source>
-        <translation> پتہ</translation>
+        <translation>پتہ</translation>
     </message>
     </context>
 <context>
@@ -132,6 +214,9 @@
     <name>OpenURIDialog</name>
     </context>
 <context>
+    <name>OpenWalletActivity</name>
+    </context>
+<context>
     <name>OptionsDialog</name>
     <message>
         <source>Error</source>
@@ -140,6 +225,9 @@
     </context>
 <context>
     <name>OverviewPage</name>
+    </context>
+<context>
+    <name>PSBTOperationsDialog</name>
     </context>
 <context>
     <name>PaymentServer</name>
@@ -155,9 +243,6 @@
     </message>
     </context>
 <context>
-    <name>QObject::QObject</name>
-    </context>
-<context>
     <name>QRImageWidget</name>
     </context>
 <context>
@@ -169,16 +254,28 @@
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
-        <source>Copy &amp;Address</source>
-        <translation>کاپی پتہ</translation>
+        <source>Amount:</source>
+        <translation>رقم:</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation> پتہ</translation>
+        <source>Copy &amp;Address</source>
+        <translation>کاپی پتہ</translation>
     </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>تاریخ</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>لیبل</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(کوئی لیبل نہیں)</translation>
+    </message>
     </context>
 <context>
     <name>SendCoinsDialog</name>
@@ -194,12 +291,13 @@
         <source>Balance:</source>
         <translation>بیلنس:</translation>
     </message>
-    </context>
+    <message>
+        <source>(no label)</source>
+        <translation>(کوئی لیبل نہیں)</translation>
+    </message>
+</context>
 <context>
     <name>SendCoinsEntry</name>
-    </context>
-<context>
-    <name>SendConfirmationDialog</name>
     </context>
 <context>
     <name>ShutdownWindow</name>
@@ -208,29 +306,69 @@
     <name>SignVerifyMessageDialog</name>
     </context>
 <context>
-    <name>SplashScreen</name>
-    </context>
-<context>
     <name>TrafficGraphWidget</name>
     </context>
 <context>
     <name>TransactionDesc</name>
+    <message>
+        <source>Date</source>
+        <translation>تاریخ</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>رقم</translation>
+    </message>
     </context>
 <context>
     <name>TransactionDescDialog</name>
     </context>
 <context>
     <name>TransactionTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>تاریخ</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>لیبل</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(کوئی لیبل نہیں)</translation>
+    </message>
     </context>
 <context>
     <name>TransactionView</name>
     <message>
+        <source>Other</source>
+        <translation>Other</translation>
+    </message>
+    <message>
+        <source>Comma separated file (*.csv)</source>
+        <translation>کاما سے جدا فائلیں (*.csv)</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>تاریخ</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>لیبل</translation>
+    </message>
+    <message>
         <source>Address</source>
-        <translation> پتہ</translation>
+        <translation>پتہ</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>ایکسپورٹ ناکام ہوا</translation>
     </message>
     </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
+    </context>
+<context>
+    <name>WalletController</name>
     </context>
 <context>
     <name>WalletFrame</name>
@@ -240,6 +378,18 @@
     </context>
 <context>
     <name>WalletView</name>
+    <message>
+        <source>&amp;Export</source>
+        <translation>برآمد</translation>
+    </message>
+    <message>
+        <source>Export the data in the current tab to a file</source>
+        <translation>موجودہ ڈیٹا کو فائیل میں محفوظ کریں</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>نقص</translation>
+    </message>
     </context>
 <context>
     <name>digibyte-core</name>
@@ -247,9 +397,5 @@
         <source>Insufficient funds</source>
         <translation>ناکافی فنڈز</translation>
     </message>
-    <message>
-        <source>Error</source>
-        <translation>نقص</translation>
-    </message>
-</context>
+    </context>
 </TS>
