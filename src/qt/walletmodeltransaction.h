@@ -1,14 +1,15 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_QT_WALLETMODELTRANSACTION_H
 #define DIGIBYTE_QT_WALLETMODELTRANSACTION_H
 
-#include <qt/walletmodel.h>
+#include <primitives/transaction.h>
+#include <qt/sendcoinsrecipient.h>
 
-#include <memory>
+#include <amount.h>
 
 #include <QObject>
 
@@ -16,7 +17,6 @@ class SendCoinsRecipient;
 
 namespace interfaces {
 class Node;
-class PendingWalletTx;
 }
 
 /** Data model for a walletmodel transaction. */
@@ -27,7 +27,9 @@ public:
 
     QList<SendCoinsRecipient> getRecipients() const;
 
-    std::unique_ptr<interfaces::PendingWalletTx>& getWtx();
+    CTransactionRef& getWtx();
+    void setWtx(const CTransactionRef&);
+
     unsigned int getTransactionSize();
 
     void setTransactionFee(const CAmount& newFee);
@@ -39,7 +41,7 @@ public:
 
 private:
     QList<SendCoinsRecipient> recipients;
-    std::unique_ptr<interfaces::PendingWalletTx> wtx;
+    CTransactionRef wtx;
     CAmount fee;
 };
 
