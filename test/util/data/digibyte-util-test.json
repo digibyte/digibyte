@@ -1,4 +1,34 @@
 [
+  { "exec": "./digibyte-util",
+    "args": ["foo"],
+    "return_code": 1,
+    "error_txt": "Error parsing command line arguments: Invalid command 'foo'",
+    "description": ""
+  },
+  { "exec": "./digibyte-util",
+    "args": ["help"],
+    "return_code": 1,
+    "error_txt": "Error parsing command line arguments: Invalid command 'help'",
+    "description": "`help` raises an error. Use `-help`"
+  },
+  { "exec": "./digibyte-util",
+    "args": ["grind"],
+    "return_code": 1,
+    "error_txt": "Must specify block header to grind",
+    "description": ""
+  },
+  { "exec": "./digibyte-util",
+    "args": ["grind", "1", "2"],
+    "return_code": 1,
+    "error_txt": "Must specify block header to grind",
+    "description": ""
+  },
+  { "exec": "./digibyte-util",
+    "args": ["grind", "aa"],
+    "return_code": 1,
+    "error_txt": "Could not decode block header",
+    "description": ""
+  },
   { "exec": "./digibyte-tx",
     "args": ["-create", "nversion=1"],
     "output_cmp": "blanktxv1.hex",
@@ -16,7 +46,7 @@
     "description": "Creates a blank transaction when nothing is piped into digibyte-tx"
   },
   { "exec": "./digibyte-tx",
-    "args": ["-json","-create","nversion=2"],
+    "args": ["-json","-create"],
     "output_cmp": "blanktxv2.json",
     "description": "Creates a blank transaction (output in json)"
   },
@@ -101,6 +131,30 @@
     "return_code": 1,
     "error_txt": "error: Invalid TX locktime requested",
     "description": "Tests the check for invalid locktime value"
+  },
+  { "exec": "./digibyte-tx",
+    "args":
+    ["-create",
+     "in=Z897de6bd6027a475eadd57019d4e6872c396d0716c4875a5f1a6fcfdf385c1f:0"],
+    "return_code": 1,
+    "error_txt": "error: invalid TX input txid",
+    "description": "Tests the check for an invalid txid invalid hex"
+  },
+  { "exec": "./digibyte-tx",
+    "args":
+    ["-create",
+     "in=5897de6bd6:0"],
+    "return_code": 1,
+    "error_txt": "error: invalid TX input txid",
+    "description": "Tests the check for an invalid txid valid hex but too short"
+  },
+  { "exec": "./digibyte-tx",
+    "args":
+    ["-create",
+     "in=5897de6bd6027a475eadd57019d4e6872c396d0716c4875a5f1a6fcfdf385c1f12:0"],
+    "return_code": 1,
+    "error_txt": "error: invalid TX input txid",
+    "description": "Tests the check for an invalid txid valid hex but too long"
   },
   { "exec": "./digibyte-tx",
     "args":
@@ -197,6 +251,12 @@
     "description": "Parses a transaction with no inputs and a single output script (output in json)"
   },
   { "exec": "./digibyte-tx",
+    "args": ["-create", "outscript=0:123badscript"],
+    "return_code": 1,
+    "error_txt": "error: script parse error: unknown opcode",
+    "description": "Create a new transaction with an invalid output script"
+  },
+  { "exec": "./digibyte-tx",
     "args": ["-create", "outscript=0:OP_DROP", "nversion=1"],
     "output_cmp": "txcreatescript1.hex",
     "description": "Create a new transaction with a single output script (OP_DROP)"
@@ -235,6 +295,40 @@
     "args": ["-json", "-create", "outscript=0:OP_DROP:WS", "nversion=1"],
     "output_cmp": "txcreatescript4.json",
     "description": "Create a new transaction with a single output script (OP_DROP) in a P2SH, wrapped in a P2SH (output as json)"
+  },
+  { "exec": "./digibyte-tx",
+    "args": ["-create", "outscript=0:9999999999"],
+    "return_code": 1,
+    "error_txt": "error: script parse error: decimal numeric value only allowed in the range -0xFFFFFFFF...0xFFFFFFFF",
+    "description": "Try to parse an output script with a decimal number above the allowed range"
+  },
+  { "exec": "./digibyte-tx",
+    "args": ["-create", "outscript=0:4294967296"],
+    "return_code": 1,
+    "error_txt": "error: script parse error: decimal numeric value only allowed in the range -0xFFFFFFFF...0xFFFFFFFF",
+    "description": "Try to parse an output script with a decimal number just above the allowed range"
+  },
+  { "exec": "./digibyte-tx",
+    "args": ["-create", "outscript=0:4294967295"],
+    "output_cmp": "txcreatescript5.hex",
+    "description": "Try to parse an output script with a decimal number at the upper limit of the allowed range"
+  },
+  { "exec": "./digibyte-tx",
+    "args": ["-create", "outscript=0:-9999999999"],
+    "return_code": 1,
+    "error_txt": "error: script parse error: decimal numeric value only allowed in the range -0xFFFFFFFF...0xFFFFFFFF",
+    "description": "Try to parse an output script with a decimal number below the allowed range"
+  },
+  { "exec": "./digibyte-tx",
+    "args": ["-create", "outscript=0:-4294967296"],
+    "return_code": 1,
+    "error_txt": "error: script parse error: decimal numeric value only allowed in the range -0xFFFFFFFF...0xFFFFFFFF",
+    "description": "Try to parse an output script with a decimal number just below the allowed range"
+  },
+  { "exec": "./digibyte-tx",
+    "args": ["-create", "outscript=0:-4294967295"],
+    "output_cmp": "txcreatescript6.hex",
+    "description": "Try to parse an output script with a decimal number at the lower limit of the allowed range"
   },
   { "exec": "./digibyte-tx",
     "args":
@@ -282,6 +376,42 @@
     "return_code": 1,
     "error_txt": "error: prevtxs internal object typecheck fail",
     "description": "Tests the check for invalid vout index in prevtxs for sign"
+  },
+  { "exec": "./digibyte-tx",
+    "args":
+    ["-create",
+      "in=4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc59485:0",
+      "set=privatekeys:[\"5HpHagT65TZzG1PH3CSu63k8DbpvD8s5ip4nEB3kEsreAnchuDf\"]",
+      "set=prevtxs:[{\"txid\":\"Zd49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc59412\",\"vout\":0,\"scriptPubKey\":\"76a91491b24bf9f5288532960ac687abb035127b1d28a588ac\"}]",
+      "sign=ALL",
+      "outaddr=0.001:193P6LtvS4nCnkDvM9uXn1gsSRqh4aDAz7"],
+    "return_code": 1,
+    "error_txt": "error: txid must be hexadecimal string (not 'Zd49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc59412')",
+    "description": "Tests the check for invalid txid due to invalid hex"
+  },
+  { "exec": "./digibyte-tx",
+    "args":
+    ["-create",
+      "in=4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc59485:0",
+      "set=privatekeys:[\"5HpHagT65TZzG1PH3CSu63k8DbpvD8s5ip4nEB3kEsreAnchuDf\"]",
+      "set=prevtxs:[{\"txid\":\"4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc594\",\"vout\":0,\"scriptPubKey\":\"76a91491b24bf9f5288532960ac687abb035127b1d28a588ac\"}]",
+      "sign=ALL",
+      "outaddr=0.001:193P6LtvS4nCnkDvM9uXn1gsSRqh4aDAz7"],
+    "return_code": 1,
+    "error_txt": "error: txid must be hexadecimal string (not '4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc594')",
+    "description": "Tests the check for invalid txid valid hex, but too short"
+  },
+  { "exec": "./digibyte-tx",
+    "args":
+    ["-create",
+      "in=4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc59485:0",
+      "set=privatekeys:[\"5HpHagT65TZzG1PH3CSu63k8DbpvD8s5ip4nEB3kEsreAnchuDf\"]",
+      "set=prevtxs:[{\"txid\":\"4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc5948512\",\"vout\":0,\"scriptPubKey\":\"76a91491b24bf9f5288532960ac687abb035127b1d28a588ac\"}]",
+      "sign=ALL",
+      "outaddr=0.001:193P6LtvS4nCnkDvM9uXn1gsSRqh4aDAz7"],
+    "return_code": 1,
+    "error_txt": "error: txid must be hexadecimal string (not '4d49a71ec9da436f71ec4ee231d04f292a29cd316f598bb7068feccabdc5948512')",
+    "description": "Tests the check for invalid txid valid hex, but too long"
   },
   { "exec": "./digibyte-tx",
     "args":
@@ -459,7 +589,7 @@
     "description": "Creates a new transaction with a single 2-of-3 multisig in a P2WSH output, wrapped in P2SH (output in json)"
   },
   { "exec": "./digibyte-tx",
-    "args": ["-json", "-create", "nversion=2", "outmultisig=1:2:3:02a5613bd857b7048924264d1e70e08fb2a7e6527d32b7ab1bb993ac59964ff397:021ac43c7ff740014c3b33737ede99c967e4764553d1b2b83db77c83b8715fa72d:047d1368ba7ae01c94bc32293efd70bd7e3be7aa7912d07d0b1c659c1008d179b8642f5fb90f47580feb29f045e216ff5a4716d3a0fed36da414d332046303c44a:S"],
+    "args": ["-json", "-create", "outmultisig=1:2:3:02a5613bd857b7048924264d1e70e08fb2a7e6527d32b7ab1bb993ac59964ff397:021ac43c7ff740014c3b33737ede99c967e4764553d1b2b83db77c83b8715fa72d:047d1368ba7ae01c94bc32293efd70bd7e3be7aa7912d07d0b1c659c1008d179b8642f5fb90f47580feb29f045e216ff5a4716d3a0fed36da414d332046303c44a:S"],
     "output_cmp": "txcreatemultisig5.json",
     "description": "Uncompressed pubkeys should work just fine for non-witness outputs"
   },
