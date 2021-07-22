@@ -1,4 +1,5 @@
-// Copyright (c) 2017-2018 The DigiByte Core developers
+// Copyright (c) 2017-2020 The Bitcoin Core developers
+// Copyright (c) 2017-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,10 +10,16 @@
 #include <primitives/block.h>
 #include <primitives/transaction.h>
 #include <threadinterrupt.h>
-#include <uint256.h>
 #include <validationinterface.h>
 
 class CBlockIndex;
+class CChainState;
+
+struct IndexSummary {
+    std::string name;
+    bool synced{false};
+    int best_block_height{0};
+};
 
 /**
  * Base class for indices of blockchain data. This implements
@@ -22,6 +29,13 @@ class CBlockIndex;
 class BaseIndex : public CValidationInterface
 {
 protected:
+    /**
+     * The database stores a block locator of the chain the database is synced to
+     * so that the index can efficiently determine the point it last stopped at.
+     * A locator is used instead of a simple hash of the chain tip because blocks
+     * and block index entries may not be flushed to disk until after this database
+     * is updated.
+    */
     class DB : public CDBWrapper
     {
     public:
@@ -32,7 +46,7 @@ protected:
         bool ReadBestBlock(CBlockLocator& locator) const;
 
         /// Write block locator of the chain that the txindex is in sync with.
-        bool WriteBestBlock(const CBlockLocator& locator);
+        void WriteBestBlock(CDBBatch& batch, const CBlockLocator& locator);
     };
 
 private:
@@ -54,20 +68,37 @@ private:
     /// over and the sync thread exits.
     void ThreadSync();
 
-    /// Write the current chain block locator to the DB.
-    bool WriteBestBlock(const CBlockIndex* block_index);
-
+    /// Write the current index state (eg. chain block locator and subclass-specific items) to disk.
+    ///
+    /// Recommendations for error handling:
+    /// If called on a successor of the previous committed best block in the index, the index can
+    /// continue processing without risk of corruption, though the index state will need to catch up
+    /// from further behind on reboot. If the new state is not a successor of the previous state (due
+    /// to a chain reorganization), the index must halt until Commit succeeds or else it could end up
+    /// getting corrupted.
+    bool Commit();
 protected:
-    void BlockConnected(const std::shared_ptr<const CBlock>& block, const CBlockIndex* pindex,
-                        const std::vector<CTransactionRef>& txn_conflicted) override;
+    CChainState* m_chainstate{nullptr};
+
+    void BlockConnected(const std::shared_ptr<const CBlock>& block, const CBlockIndex* pindex) override;
 
     void ChainStateFlushed(const CBlockLocator& locator) override;
 
+    const CBlockIndex* CurrentIndex() { return m_best_block_index.load(); };
+
     /// Initialize internal state from the database and block index.
-    virtual bool Init();
+    [[nodiscard]] virtual bool Init();
 
     /// Write update index entries for a newly connected block.
     virtual bool WriteBlock(const CBlock& block, const CBlockIndex* pindex) { return true; }
+
+    /// Virtual method called internally by Commit that can be overridden to atomically
+    /// commit more index state.
+    virtual bool CommitInternal(CDBBatch& batch);
+
+    /// Rewind index to an earlier chain tip during a chain reorg. The tip must
+    /// be an ancestor of the current best block.
+    virtual bool Rewind(const CBlockIndex* current_tip, const CBlockIndex* new_tip);
 
     virtual DB& GetDB() const = 0;
 
@@ -83,16 +114,19 @@ public:
     /// sync once and only needs to process blocks in the ValidationInterface
     /// queue. If the index is catching up from far behind, this method does
     /// not block and immediately returns false.
-    bool BlockUntilSyncedToCurrentChain();
+    bool BlockUntilSyncedToCurrentChain() const LOCKS_EXCLUDED(::cs_main);
 
     void Interrupt();
 
     /// Start initializes the sync state and registers the instance as a
     /// ValidationInterface so that it stays in sync with blockchain updates.
-    void Start();
+    [[nodiscard]] bool Start(CChainState& active_chainstate);
 
     /// Stops the instance from staying in sync with blockchain updates.
     void Stop();
+
+    /// Get a summary of the index and its state.
+    IndexSummary GetSummary() const;
 };
 
 #endif // DIGIBYTE_INDEX_BASE_H
