@@ -22,13 +22,10 @@
             "value": 0.00100000,
             "n": 0,
             "scriptPubKey": {
-                "asm": "OP_DUP OP_HASH160 e0b5cf07d580200c56c4f98a09223924cb5a64af OP_EQUALVERIFY OP_CHECKSIG",
-                "hex": "76a914e0b5cf07d580200c56c4f98a09223924cb5a64af88ac",
-                "reqSigs": 1,
-                "type": "pubkeyhash",
-                "addresses": [
-                    "DRdFhX5DamBnxgF8rTiRdUwLjt3xHRFLe4"
-                ]
+                "asm": "OP_DUP OP_HASH160 5834479edbbe0539b31ffd3a8f8ebadc2165ed01 OP_EQUALVERIFY OP_CHECKSIG",
+                "hex": "76a9145834479edbbe0539b31ffd3a8f8ebadc2165ed0188ac",
+                "address": "193P6LtvS4nCnkDvM9uXn1gsSRqh4aDAz7",
+                "type": "pubkeyhash"
             }
         }
     ],
