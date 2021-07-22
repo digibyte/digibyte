@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-# Copyright (c) 2014-2019 The DigiByte Core developers
+# Copyright (c) 2009-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the wallet accounts properly when there is a double-spend conflict."""
@@ -9,15 +9,16 @@ from decimal import Decimal
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
-    connect_nodes,
-    disconnect_nodes,
     find_output,
-    sync_blocks,
 )
 
 class TxnMallTest(DigiByteTestFramework):
     def set_test_params(self):
-        self.num_nodes = 4
+        self.num_nodes = 3
+        self.supports_cli = False
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
@@ -29,15 +30,21 @@ class TxnMallTest(DigiByteTestFramework):
     def setup_network(self):
         # Start with split network:
         super().setup_network()
-        disconnect_nodes(self.nodes[1], 2)
-        disconnect_nodes(self.nodes[2], 1)
+        self.disconnect_nodes(1, 2)
 
     def run_test(self):
         # All nodes should start with 1,250 DGB:
         starting_balance = 1250
-        for i in range(4):
+
+        # All nodes should be out of IBD.
+        # If the nodes are not all out of IBD, that can interfere with
+        # blockchain sync later in the test when nodes are connected, due to
+        # timing issues.
+        for n in self.nodes:
+            assert n.getblockchaininfo()["initialblockdownload"] == False
+
+        for i in range(3):
             assert_equal(self.nodes[i].getbalance(), starting_balance)
-            self.nodes[i].getnewaddress("")  # bug workaround, coins generated assigned to first getnewaddress!
 
         # Assign coins to foo and bar addresses:
         node0_address_foo = self.nodes[0].getnewaddress()
@@ -79,7 +86,7 @@ class TxnMallTest(DigiByteTestFramework):
         # Have node0 mine a block:
         if (self.options.mine_block):
             self.nodes[0].generate(1)
-            sync_blocks(self.nodes[0:2])
+            self.sync_blocks(self.nodes[0:2])
 
         tx1 = self.nodes[0].gettransaction(txid1)
         tx2 = self.nodes[0].gettransaction(txid2)
@@ -110,9 +117,9 @@ class TxnMallTest(DigiByteTestFramework):
         self.nodes[2].generate(1)
 
         # Reconnect the split network, and sync chain:
-        connect_nodes(self.nodes[1], 2)
+        self.connect_nodes(1, 2)
         self.nodes[2].generate(1)  # Mine another block to make sure we sync
-        sync_blocks(self.nodes)
+        self.sync_blocks()
         assert_equal(self.nodes[0].gettransaction(doublespend_txid)["confirmations"], 2)
 
         # Re-fetch transaction info:
@@ -131,6 +138,7 @@ class TxnMallTest(DigiByteTestFramework):
 
         # Node1's balance should be its initial balance (1250 for 25 block rewards) plus the doublespend:
         assert_equal(self.nodes[1].getbalance(), 1250 + 1240)
+
 
 if __name__ == '__main__':
     TxnMallTest().main()
