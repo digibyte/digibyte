@@ -7,3 +7,5 @@ check: FORCE
 	$(MAKE) -C .. test_digibyte_qt_check
 digibyte-qt digibyte-qt.exe: FORCE
 	 $(MAKE) -C .. digibyte_qt
+apk: FORCE
+	$(MAKE) -C .. digibyte_qt_apk
