@@ -1,23 +1,36 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-# Copyright (c) 2014-2019 The DigiByte Core developers
+# Copyright (c) 2009-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test fee estimation code."""
 from decimal import Decimal
 import random
 
-from test_framework.messages import CTransaction, CTxIn, CTxOut, COutPoint, ToHex, COIN
-from test_framework.script import CScript, OP_1, OP_DROP, OP_2, OP_HASH160, OP_EQUAL, hash160, OP_TRUE
+from test_framework.messages import (
+    COIN,
+    COutPoint,
+    CTransaction,
+    CTxIn,
+    CTxOut,
+)
+from test_framework.script import (
+    CScript,
+    OP_1,
+    OP_2,
+    OP_DROP,
+    OP_TRUE,
+)
+from test_framework.script_util import (
+    script_to_p2sh_script,
+)
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
     assert_greater_than_or_equal,
-    connect_nodes,
+    assert_raises_rpc_error,
     satoshi_round,
-    sync_blocks,
-    sync_mempools,
 )
 
 # Construct 2 trivial P2SH's and the ScriptSigs that spend them
@@ -25,11 +38,12 @@ from test_framework.util import (
 # time signing.
 REDEEM_SCRIPT_1 = CScript([OP_1, OP_DROP])
 REDEEM_SCRIPT_2 = CScript([OP_2, OP_DROP])
-P2SH_1 = CScript([OP_HASH160, hash160(REDEEM_SCRIPT_1), OP_EQUAL])
-P2SH_2 = CScript([OP_HASH160, hash160(REDEEM_SCRIPT_2), OP_EQUAL])
+P2SH_1 = script_to_p2sh_script(REDEEM_SCRIPT_1)
+P2SH_2 = script_to_p2sh_script(REDEEM_SCRIPT_2)
 
 # Associated ScriptSig's to spend satisfy P2SH_1 and P2SH_2
 SCRIPT_SIG = [CScript([OP_TRUE, REDEEM_SCRIPT_1]), CScript([OP_TRUE, REDEEM_SCRIPT_2])]
+
 
 def small_txpuzzle_randfee(from_node, conflist, unconflist, amount, min_fee, fee_increment):
     """Create and send a transaction with a random fee.
@@ -66,11 +80,12 @@ def small_txpuzzle_randfee(from_node, conflist, unconflist, amount, min_fee, fee
     # the ScriptSig that will satisfy the ScriptPubKey.
     for inp in tx.vin:
         inp.scriptSig = SCRIPT_SIG[inp.prevout.n]
-    txid = from_node.sendrawtransaction(ToHex(tx), True)
+    txid = from_node.sendrawtransaction(hexstring=tx.serialize().hex(), maxfeerate=0)
     unconflist.append({"txid": txid, "vout": 0, "amount": total_in - amount - fee})
     unconflist.append({"txid": txid, "vout": 1, "amount": amount})
 
-    return (ToHex(tx), fee)
+    return (tx.serialize().hex(), fee)
+
 
 def split_inputs(from_node, txins, txouts, initial_split=False):
     """Generate a lot of inputs so we can generate a ton of transactions.
@@ -92,15 +107,28 @@ def split_inputs(from_node, txins, txouts, initial_split=False):
     # If this is the initial split we actually need to sign the transaction
     # Otherwise we just need to insert the proper ScriptSig
     if (initial_split):
-        completetx = from_node.signrawtransactionwithwallet(ToHex(tx))["hex"]
+        completetx = from_node.signrawtransactionwithwallet(tx.serialize().hex())["hex"]
     else:
         tx.vin[0].scriptSig = SCRIPT_SIG[prevtxout["vout"]]
-        completetx = ToHex(tx)
-    txid = from_node.sendrawtransaction(completetx, True)
+        completetx = tx.serialize().hex()
+    txid = from_node.sendrawtransaction(hexstring=completetx, maxfeerate=0)
     txouts.append({"txid": txid, "vout": 0, "amount": half_change})
     txouts.append({"txid": txid, "vout": 1, "amount": rem_change})
 
-def check_estimates(node, fees_seen):
+def check_raw_estimates(node, fees_seen):
+    """Call estimaterawfee and verify that the estimates meet certain invariants."""
+
+    delta = 1.0e-6  # account for rounding error
+    for i in range(1, 26):
+        for _, e in node.estimaterawfee(i).items():
+            feerate = float(e["feerate"])
+            assert_greater_than(feerate, 0)
+
+            if feerate + delta < min(fees_seen) or feerate - delta > max(fees_seen):
+                raise AssertionError("Estimated fee (%f) out of range (%f,%f)"
+                                     % (feerate, min(fees_seen), max(fees_seen)))
+
+def check_smart_estimates(node, fees_seen):
     """Call estimatesmartfee and verify that the estimates meet certain invariants."""
 
     delta = 1.0e-6  # account for rounding error
@@ -123,9 +151,23 @@ def check_estimates(node, fees_seen):
         else:
             assert_greater_than_or_equal(i + 1, e["blocks"])
 
+def check_estimates(node, fees_seen):
+    check_raw_estimates(node, fees_seen)
+    check_smart_estimates(node, fees_seen)
+
 class EstimateFeeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 3
+        # mine non-standard txs (e.g. txs with "dust" outputs)
+        # Force fSendTrickle to true (via whitelist.noban)
+        self.extra_args = [
+            ["-acceptnonstdtxn", "-whitelist=noban@127.0.0.1"],
+            ["-acceptnonstdtxn", "-whitelist=noban@127.0.0.1", "-blockmaxweight=68000"],
+            ["-acceptnonstdtxn", "-whitelist=noban@127.0.0.1", "-blockmaxweight=32000"],
+        ]
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
@@ -136,15 +178,16 @@ class EstimateFeeTest(DigiByteTestFramework):
         But first we need to use one node to create a lot of outputs
         which we will use to generate our transactions.
         """
-        self.add_nodes(3, extra_args=[["-maxorphantx=1000", "-whitelist=127.0.0.1"],
-                                      ["-blockmaxweight=68000", "-maxorphantx=1000"],
-                                      ["-blockmaxweight=32000", "-maxorphantx=1000"]])
+        self.add_nodes(3, extra_args=self.extra_args)
         # Use node0 to mine blocks for input splitting
         # Node1 mines small blocks but that are bigger than the expected transaction rate.
         # NOTE: the CreateNewBlock code starts counting block weight at 4,000 weight,
         # (68k weight is room enough for 120 or so transactions)
         # Node2 is a stingy miner, that
         # produces too small blocks (room for only 55 or so transactions)
+        self.start_nodes()
+        self.import_deterministic_coinbase_privkeys()
+        self.stop_nodes()
 
     def transact_and_mine(self, numblocks, mining_node):
         min_fee = Decimal("0.00001")
@@ -152,17 +195,17 @@ class EstimateFeeTest(DigiByteTestFramework):
         # We shuffle our confirmed txout set before each set of transactions
         # small_txpuzzle_randfee will use the transactions that have inputs already in the chain when possible
         # resorting to tx's that depend on the mempool when those run out
-        for i in range(numblocks):
+        for _ in range(numblocks):
             random.shuffle(self.confutxo)
-            for j in range(random.randrange(100 - 50, 100 + 50)):
+            for _ in range(random.randrange(100 - 50, 100 + 50)):
                 from_index = random.randint(1, 2)
                 (txhex, fee) = small_txpuzzle_randfee(self.nodes[from_index], self.confutxo,
                                                       self.memutxo, Decimal("0.005"), min_fee, min_fee)
                 tx_kbytes = (len(txhex) // 2) / 1000.0
                 self.fees_per_kb.append(float(fee) / tx_kbytes)
-            sync_mempools(self.nodes[0:3], wait=.1)
+            self.sync_mempools(wait=.1)
             mined = mining_node.getblock(mining_node.generate(1)[0], True)["tx"]
-            sync_blocks(self.nodes[0:3], wait=.1)
+            self.sync_blocks(wait=.1)
             # update which txouts are confirmed
             newmem = []
             for utx in self.memutxo:
@@ -189,22 +232,22 @@ class EstimateFeeTest(DigiByteTestFramework):
         split_inputs(self.nodes[0], self.nodes[0].listunspent(0), self.txouts, True)
 
         # Mine
-        while (len(self.nodes[0].getrawmempool()) > 0):
+        while len(self.nodes[0].getrawmempool()) > 0:
             self.nodes[0].generate(1)
 
         # Repeatedly split those 2 outputs, doubling twice for each rep
         # Use txouts to monitor the available utxo, since these won't be tracked in wallet
         reps = 0
-        while (reps < 5):
+        while reps < 5:
             # Double txouts to txouts2
-            while (len(self.txouts) > 0):
+            while len(self.txouts) > 0:
                 split_inputs(self.nodes[0], self.txouts, self.txouts2)
-            while (len(self.nodes[0].getrawmempool()) > 0):
+            while len(self.nodes[0].getrawmempool()) > 0:
                 self.nodes[0].generate(1)
             # Double txouts2 to txouts
-            while (len(self.txouts2) > 0):
+            while len(self.txouts2) > 0:
                 split_inputs(self.nodes[0], self.txouts2, self.txouts)
-            while (len(self.nodes[0].getrawmempool()) > 0):
+            while len(self.nodes[0].getrawmempool()) > 0:
                 self.nodes[0].generate(1)
             reps += 1
         self.log.info("Finished splitting")
@@ -213,9 +256,9 @@ class EstimateFeeTest(DigiByteTestFramework):
         # so the estimates would not be affected by the splitting transactions
         self.start_node(1)
         self.start_node(2)
-        connect_nodes(self.nodes[1], 0)
-        connect_nodes(self.nodes[0], 2)
-        connect_nodes(self.nodes[2], 1)
+        self.connect_nodes(1, 0)
+        self.connect_nodes(0, 2)
+        self.connect_nodes(2, 1)
 
         self.sync_all()
 
@@ -224,7 +267,7 @@ class EstimateFeeTest(DigiByteTestFramework):
         self.confutxo = self.txouts  # Start with the set of confirmed txouts after splitting
         self.log.info("Will output estimates for 1/2/3/6/15/25 blocks")
 
-        for i in range(2):
+        for _ in range(2):
             self.log.info("Creating transactions and mining them with a block size that can't keep up")
             # Create transactions and mine 10 small blocks with node 2, but create txs faster than we can mine
             self.transact_and_mine(10, self.nodes[2])
@@ -240,9 +283,15 @@ class EstimateFeeTest(DigiByteTestFramework):
         while len(self.nodes[1].getrawmempool()) > 0:
             self.nodes[1].generate(1)
 
-        sync_blocks(self.nodes[0:3], wait=.1)
+        self.sync_blocks(self.nodes[0:3], wait=.1)
         self.log.info("Final estimates after emptying mempools")
         check_estimates(self.nodes[1], self.fees_per_kb)
+
+        self.log.info("Testing that fee estimation is disabled in blocksonly.")
+        self.restart_node(0, ["-blocksonly"])
+        assert_raises_rpc_error(-32603, "Fee estimation disabled",
+                                self.nodes[0].estimatesmartfee, 2)
+
 
 if __name__ == '__main__':
     EstimateFeeTest().main()
