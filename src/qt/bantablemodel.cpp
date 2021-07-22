@@ -1,20 +1,20 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <qt/bantablemodel.h>
 
-#include <qt/clientmodel.h>
-#include <qt/guiconstants.h>
-#include <qt/guiutil.h>
-
 #include <interfaces/node.h>
-#include <sync.h>
-#include <utiltime.h>
+#include <net_types.h> // For banmap_t
 
-#include <QDebug>
+#include <utility>
+
+#include <QDateTime>
 #include <QList>
+#include <QLocale>
+#include <QModelIndex>
+#include <QVariant>
 
 bool BannedNodeLessThan::operator()(const CCombinedBan& left, const CCombinedBan& right) const
 {
@@ -24,15 +24,13 @@ bool BannedNodeLessThan::operator()(const CCombinedBan& left, const CCombinedBan
     if (order == Qt::DescendingOrder)
         std::swap(pLeft, pRight);
 
-    switch(column)
-    {
+    switch (static_cast<BanTableModel::ColumnIndex>(column)) {
     case BanTableModel::Address:
         return pLeft->subnet.ToString().compare(pRight->subnet.ToString()) < 0;
     case BanTableModel::Bantime:
         return pLeft->banEntry.nBanUntil < pRight->banEntry.nBanUntil;
-    }
-
-    return false;
+    } // no default case, so the compiler can warn about missing cases
+    assert(false);
 }
 
 // private implementation
@@ -41,8 +39,8 @@ class BanTablePriv
 public:
     /** Local cache of peer information */
     QList<CCombinedBan> cachedBanlist;
-    /** Column to sort nodes by */
-    int sortColumn;
+    /** Column to sort nodes by (default to unsorted) */
+    int sortColumn{-1};
     /** Order (ascending or descending) to sort nodes by */
     Qt::SortOrder sortOrder;
 
@@ -64,7 +62,7 @@ public:
 
         if (sortColumn >= 0)
             // sort cachedBanlist (use stable sort to prevent rows jumping around unnecessarily)
-            qStableSort(cachedBanlist.begin(), cachedBanlist.end(), BannedNodeLessThan(sortColumn, sortOrder));
+            std::stable_sort(cachedBanlist.begin(), cachedBanlist.end(), BannedNodeLessThan(sortColumn, sortOrder));
     }
 
     int size() const
@@ -77,19 +75,16 @@ public:
         if (idx >= 0 && idx < cachedBanlist.size())
             return &cachedBanlist[idx];
 
-        return 0;
+        return nullptr;
     }
 };
 
-BanTableModel::BanTableModel(interfaces::Node& node, ClientModel *parent) :
+BanTableModel::BanTableModel(interfaces::Node& node, QObject* parent) :
     QAbstractTableModel(parent),
-    m_node(node),
-    clientModel(parent)
+    m_node(node)
 {
     columns << tr("IP/Netmask") << tr("Banned Until");
     priv.reset(new BanTablePriv());
-    // default to unsorted
-    priv->sortColumn = -1;
 
     // load initial data
     refresh();
@@ -102,13 +97,17 @@ BanTableModel::~BanTableModel()
 
 int BanTableModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    if (parent.isValid()) {
+        return 0;
+    }
     return priv->size();
 }
 
 int BanTableModel::columnCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    if (parent.isValid()) {
+        return 0;
+    }
     return columns.length();
 }
 
@@ -119,16 +118,17 @@ QVariant BanTableModel::data(const QModelIndex &index, int role) const
 
     CCombinedBan *rec = static_cast<CCombinedBan*>(index.internalPointer());
 
+    const auto column = static_cast<ColumnIndex>(index.column());
     if (role == Qt::DisplayRole) {
-        switch(index.column())
-        {
+        switch (column) {
         case Address:
             return QString::fromStdString(rec->subnet.ToString());
         case Bantime:
             QDateTime date = QDateTime::fromMSecsSinceEpoch(0);
             date = date.addSecs(rec->banEntry.nBanUntil);
-            return date.toString(Qt::SystemLocaleLongDate);
-        }
+            return QLocale::system().toString(date, QLocale::LongFormat);
+        } // no default case, so the compiler can warn about missing cases
+        assert(false);
     }
 
     return QVariant();
@@ -148,8 +148,7 @@ QVariant BanTableModel::headerData(int section, Qt::Orientation orientation, int
 
 Qt::ItemFlags BanTableModel::flags(const QModelIndex &index) const
 {
-    if(!index.isValid())
-        return 0;
+    if (!index.isValid()) return Qt::NoItemFlags;
 
     Qt::ItemFlags retval = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
     return retval;
