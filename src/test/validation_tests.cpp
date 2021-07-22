@@ -183,24 +183,24 @@ static void TestBlockSubsidy(const Consensus::Params& consensusParams, int nMaxB
     }
 }
 
-// BOOST_AUTO_TEST_CASE(block_subsidy_test)
-// {
-//     CAmount sum;
-//     const auto chainParams = CreateChainParams(*m_node.args, CBaseChainParams::MAIN);
-//     const auto testChainParams = CreateChainParams(*m_node.args, CBaseChainParams::TESTNET);
-//     TestBlockSubsidy(chainParams->GetConsensus(), END_OF_SUPPLY_CURVE, &sum); // Mainnet
+BOOST_AUTO_TEST_CASE(block_subsidy_test)
+{
+    CAmount sum;
+    const auto chainParams = CreateChainParams(*m_node.args, CBaseChainParams::MAIN);
+    const auto testChainParams = CreateChainParams(*m_node.args, CBaseChainParams::TESTNET);
+    TestBlockSubsidy(chainParams->GetConsensus(), END_OF_SUPPLY_CURVE, &sum); // Mainnet
 
-//     CAmount nExpectedTotalSupply = 2239167398214795680ULL;
-//     BOOST_CHECK_EQUAL(sum, nExpectedTotalSupply);
+    CAmount nExpectedTotalSupply = 2239167398214795680ULL;
+    BOOST_CHECK_EQUAL(sum, nExpectedTotalSupply);
 
-// #if OUTPUT_SUPPLY_SAMPLES_ENABLED
-//     // Output the accumulated supply until END_OF_SUPPLY_CURVE
-//     std::cout << "(mainnet): MAXIMUM SUPPLY: " << sum << " dgbSATS (" << (sum / COIN) << " DGB)";
-// #elif ENABLE_TESTNET_SUBSIDY_TESTS != 0
-//     // Only perform test on TESTNET too if requested so.
-//     TestBlockSubsidy(testChainParams->GetConsensus(), END_OF_SUPPLY_CURVE, NULL); // Testnet
-// #endif
-// }
+#if OUTPUT_SUPPLY_SAMPLES_ENABLED
+    // Output the accumulated supply until END_OF_SUPPLY_CURVE
+    std::cout << "(mainnet): MAXIMUM SUPPLY: " << sum << " dgbSATS (" << (sum / COIN) << " DGB)";
+#elif ENABLE_TESTNET_SUBSIDY_TESTS != 0
+    // Only perform test on TESTNET too if requested so.
+    TestBlockSubsidy(testChainParams->GetConsensus(), END_OF_SUPPLY_CURVE, NULL); // Testnet
+#endif
+}
 
 BOOST_AUTO_TEST_CASE(signet_parse_tests)
 {
