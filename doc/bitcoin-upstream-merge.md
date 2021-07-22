@@ -10,7 +10,7 @@ An upstream merge from Bitcoin to DigiByte can be a very complex undertaking for
 ------------------------------------
 There are roughly 3 different ways to keep DigiByte core up to date with the latest improvements and enhancements to Bitcoin core.
 
-1. Cherry Pick Relelvent commits every 2-4 weeks. By setting a specific day each month, devs can come together and cherry-pick relevant commits that can benefit DGB. If this is done routinely it can prevent mass merge events that are needed after upstream merges are not done for several years.
+1. Cherry Pick relevant commits every 2-4 weeks. By setting a specific day each month, devs can come together and cherry-pick relevant commits that can benefit DGB. If this is done routinely it can prevent mass merge events that are needed after upstream merges are not done for several years.
 
 2. The Bitcoin Rebase. A simple rebase of DGB specific changes onto a fresh Bitcoin clone. While this approach may have worked several years ago that is no longer the case and not recommended. There is a possibility of missing and breaking 100s of things and the only way to verify a release and commit is not breaking unknown and unseen parts of the code is to do a detailed diff comparison between the current stable DGB release and the new rebase, which pretty well leaves you at the third option anyways.
 
