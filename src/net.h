@@ -548,6 +548,12 @@ public:
         bool fRelayTxes GUARDED_BY(cs_filter){false};
         std::unique_ptr<CBloomFilter> pfilter PT_GUARDED_BY(cs_filter) GUARDED_BY(cs_filter){nullptr};
 
+        // Dandelion tx mutex
+        mutable RecursiveMutex cs_dtx_inventory; 
+        // Set of transaction ids we still have to announce.
+        std::set<uint256> setDandelionInventoryTxToSend;
+        CRollingBloomFilter filterDandelionInventoryKnown GUARDED_BY(cs_dtx_inventory){50000, 0.000001};
+
         mutable RecursiveMutex cs_tx_inventory;
         CRollingBloomFilter filterInventoryKnown GUARDED_BY(cs_tx_inventory){50000, 0.000001};
         // Set of transaction ids we still have to announce.
@@ -649,6 +655,15 @@ public:
             LOCK(m_tx_relay->cs_tx_inventory);
             m_tx_relay->filterInventoryKnown.insert(hash);
         }
+    }
+
+    void PushDandelionServiceDiscovery(const uint256& hash)
+    {
+        if (m_tx_relay == nullptr) return;
+        LOCK(m_tx_relay->cs_dtx_inventory);
+        if (!m_tx_relay->filterDandelionInventoryKnown.contains(hash)) {
+            m_tx_relay->setDandelionInventoryTxToSend.insert(hash);
+        }      
     }
 
     void PushTxInventory(const uint256& hash)
