@@ -190,7 +190,7 @@ void Shutdown(NodeContext& node)
     if (node.mempool) node.mempool->AddTransactionsUpdated(1);
 
     // Changes to mempool should also be made to Dandelion stempool
-    stempool.AddTransactionsUpdated(1);
+    if (node.stempool) node.stempool.AddTransactionsUpdated(1);
 
     StopHTTPRPC();
     StopREST();
@@ -1271,7 +1271,6 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
     // see Step 2: parameter interactions for more information about these
     fListen = args.GetBoolArg("-listen", DEFAULT_LISTEN);
     fDiscover = args.GetBoolArg("-discover", true);
-    fRelayTxes = !args.GetBoolArg("-blocksonly", DEFAULT_BLOCKSONLY);
 
     for (const std::string& strAddr : args.GetArgs("-externalip")) {
         CService addrLocal;
