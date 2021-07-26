@@ -17,7 +17,7 @@
 template<unsigned int BITS>
 class base_blob
 {
-public:
+protected:
     static constexpr int WIDTH = BITS / 8;
     uint8_t m_data[WIDTH];
 public:
@@ -143,8 +143,10 @@ public:
     uint256 trim256() const
     {
         uint256 ret;
-        for (unsigned int i = 0; i < uint256::WIDTH; i++){
-            ret.data[i] = data[i];
+        unsigned char* data = ret.data();
+        
+        for (unsigned int i = 0; i < ret.size(); i++){
+            data[i] = m_data[i];
         }
         return ret;
     }	
