@@ -190,6 +190,15 @@ static void TestHKDF_SHA256_32(const std::string &ikm_hex, const std::string &sa
     BOOST_CHECK(HexStr(out) == okm_check_hex);
 }
 
+static void TestOdo(uint32_t key, const std::string &in, const std::string &hexout)
+{
+    assert(in.length() == OdoCrypt::DIGEST_SIZE);
+    std::vector<unsigned char> out = ParseHex(hexout);
+    std::vector<unsigned char> outres(OdoCrypt::DIGEST_SIZE);
+    OdoCrypt(key).Encrypt(reinterpret_cast<char*>(outres.data()), in.c_str());
+    BOOST_CHECK(out == outres);
+}
+
 static std::string LongTestString()
 {
     std::string ret;
