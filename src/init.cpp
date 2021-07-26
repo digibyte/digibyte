@@ -190,7 +190,7 @@ void Shutdown(NodeContext& node)
     if (node.mempool) node.mempool->AddTransactionsUpdated(1);
 
     // Changes to mempool should also be made to Dandelion stempool
-    if (node.stempool) node.stempool.AddTransactionsUpdated(1);
+    if (node.stempool) node.stempool->AddTransactionsUpdated(1);
 
     StopHTTPRPC();
     StopREST();
