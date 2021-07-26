@@ -326,7 +326,7 @@ BOOST_AUTO_TEST_CASE(witness_commitment_index)
 {
     CScript pubKey;
     pubKey << 1 << OP_TRUE;
-    auto ptemplate = BlockAssembler(m_node.chainman->ActiveChainstate(), *m_node.mempool, Params()).CreateNewBlock(pubKey);
+    auto ptemplate = BlockAssembler(m_node.chainman->ActiveChainstate(), *m_node.mempool, Params()).CreateNewBlock(pubKey, ALGO_SCRYPT);
     CBlock pblock = ptemplate->block;
 
     CTxOut witness;
