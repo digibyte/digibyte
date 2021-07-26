@@ -1294,24 +1294,13 @@ void CConnman::DisconnectNodes()
         std::list<CNode*> vNodesDisconnectedCopy = vNodesDisconnected;
         for (CNode* pnode : vNodesDisconnectedCopy)
         {
-            // Destroy the object only after other threads have stopped using it.
             if (pnode->GetRefCount() <= 0) {
-                    bool fDelete = false;
-                    {
-                        TRY_LOCK(pnode->cs_inventory, lockInv);
-                        if (lockInv) {
-                            TRY_LOCK(pnode->cs_vSend, lockSend);
-                            if (lockSend) {
-                                fDelete = true;
-                            }
-                        }
-                    }
-                    if (fDelete) {
-                        // Dandelion: close connection
-                        CloseDandelionConnections(pnode);
-                        LogPrint(BCLog::DANDELION, "Removed Dandelion connection:\n%s", GetDandelionRoutingDataDebugString()); 
-                                               
                 vNodesDisconnected.remove(pnode);
+
+                // close Dandelion connection, too
+                CloseDandelionConnections(pnode);
+                LogPrint(BCLog::DANDELION, "Removed Dandelion connection:\n%s", GetDandelionRoutingDataDebugString()); 
+
                 DeleteNode(pnode);
             }
         }
