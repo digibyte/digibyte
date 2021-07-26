@@ -2932,7 +2932,7 @@ bool CConnman::Start(CScheduler& scheduler, const Options& connOptions)
     }
 
     // Dandelion shuffle
-    threadDandelionShuffle = std::thread(&TraceThread<std::function<void()> >, "dandelion", std::function<void()>(std::bind(&CConnman::ThreadDandelionShuffle, this)));
+    threadDandelionShuffle = std::thread(&util::TraceThread, "dandelion", [this] { ThreadDandelionShuffle(); });
 
     // Dump network addresses
     scheduler.scheduleEvery([this] { DumpAddresses(); }, DUMP_PEERS_INTERVAL);
