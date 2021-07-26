@@ -150,7 +150,7 @@ void MinerTestingSetup::TestPackageSelection(const CChainParams& chainparams, co
     tx.vout[0].nValue = 5000000000LL - 1000 - 50000 - feeToUse;
     uint256 hashLowFeeTx = tx.GetHash();
     m_node.mempool->addUnchecked(entry.Fee(feeToUse).FromTx(tx));
-    pblocktemplate = AssemblerForTest(chainparams).CreateNewBlock(scriptPubKey, ALGO_SCRYPT));
+    pblocktemplate = AssemblerForTest(chainparams).CreateNewBlock(scriptPubKey, ALGO_SCRYPT);
     // Verify that the free tx and the low fee tx didn't get selected
     for (size_t i=0; i<pblocktemplate->block.vtx.size(); ++i) {
         BOOST_CHECK(pblocktemplate->block.vtx[i]->GetHash() != hashFreeTx);
