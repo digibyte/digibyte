@@ -4892,9 +4892,30 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
                     // Produce a vector with all candidates for sending
                     std::vector<std::set<uint256>::iterator> vInvTx;
                     vInvTx.reserve(pto->m_tx_relay->setInventoryTxToSend.size());
-                    for (std::set<uint256>::iterator it = pto->m_tx_relay->setInventoryTxToSend.begin(); it != pto->m_tx_relay->setInventoryTxToSend.end(); it++) {
-                        vInvTx.push_back(it);
+
+                    if (gArgs.GetBoolArg("-disable-dandelion", DEFAULT_DISABLE_DANDELION) == false) {
+                        // Embargo the transaction
+                        int64_t nCurrTime = GetTimeMicros();
+                        int64_t nEmbargo = 1000000 * DANDELION_EMBARGO_MINIMUM + PoissonNextSend(nCurrTime, DANDELION_EMBARGO_AVG_ADD);
+                        m_connman.insertDandelionEmbargo(GetHash(), nEmbargo);
+                        LogPrint(
+                            BCLog::DANDELION,
+                            "dandeliontx %s embargoed for %d seconds\n",
+                            GetHash().ToString(),
+                            (nEmbargo - nCurrTime) / 1000000
+                        );
+                        CInv inv(MSG_DANDELION_TX, GetHash());
+                        m_connman.localDandelionDestinationPushInventory(inv);                        
+
+                    } else {
+                        // When Dandelion is disabled, send inventory for 
+                        // all transactions in the set.
+                        // This is default behavior.
+                        for (std::set<uint256>::iterator it = pto->m_tx_relay->setInventoryTxToSend.begin(); it != pto->m_tx_relay->setInventoryTxToSend.end(); it++) {
+                            vInvTx.push_back(it);
+                        }
                     }
+
                     const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
                     // Topologically and fee-rate sort the inventory we send for privacy and priority reasons.
                     // A heap is used so that not all items need sorting if only a few are being sent.

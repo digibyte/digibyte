@@ -75,14 +75,23 @@ TransactionError BroadcastTransaction(NodeContext& node, const CTransactionRef t
                     return TransactionError::MAX_FEE_EXCEEDED;
                 }
             }
+
             // Try to submit the transaction to the mempool.
-            const MempoolAcceptResult result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false /* bypass_limits */,
-                                                                  false /* test_accept */);
+            MempoolAcceptResult result;
+            result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false /* bypass_limits */,
+                                        false /* test_accept */);
+
             if (result.m_result_type != MempoolAcceptResult::ResultType::VALID) {
                 return HandleATMPError(result.m_state, err_string);
             }
 
-            // Transaction was accepted to the mempool.
+            if (DANDELION_DISABLED == false) {
+                // Add transaction to stempool too
+                AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.stempool, tx, false /* bypass_limits */,
+                                   false /* test_accept */);                   
+            }            
+
+            // Transaction was accepted to the mempool and optionally into the stempool.
 
             if (relay) {
                 // the mempool tracks locally submitted transactions to make a
