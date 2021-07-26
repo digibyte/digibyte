@@ -96,7 +96,7 @@ public:
 
     /** Determine what nVersion a new block should use
      */
-    int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params);
+    int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, int algo);
 
     void Clear();
 };
