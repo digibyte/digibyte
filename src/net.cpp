@@ -2926,15 +2926,13 @@ bool CConnman::Start(CScheduler& scheduler, const Options& connOptions)
     // Process messages
     threadMessageHandler = std::thread(&util::TraceThread, "msghand", [this] { ThreadMessageHandler(); });
 
-    if (connOptions.m_i2p_accept_incoming && m_i2p_sam_session.get() != nullptr) {
-    threadMessageHandler = std::thread(&TraceThread<std::function<void()> >, "msghand", std::function<void()>(std::bind(&CConnman::ThreadMessageHandler, this)));
-    
+    if (connOptions.m_i2p_accept_incoming && m_i2p_sam_session.get() != nullptr) {    
         threadI2PAcceptIncoming =
             std::thread(&util::TraceThread, "i2paccept", [this] { ThreadI2PAcceptIncoming(); });
+    }
 
     // Dandelion shuffle
     threadDandelionShuffle = std::thread(&TraceThread<std::function<void()> >, "dandelion", std::function<void()>(std::bind(&CConnman::ThreadDandelionShuffle, this)));
-    }
 
     // Dump network addresses
     scheduler.scheduleEvery([this] { DumpAddresses(); }, DUMP_PEERS_INTERVAL);
