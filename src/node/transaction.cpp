@@ -77,20 +77,20 @@ TransactionError BroadcastTransaction(NodeContext& node, const CTransactionRef t
             }
 
             // Try to submit the transaction to the mempool.
-            MempoolAcceptResult result;
-            result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false /* bypass_limits */,
-                                        false /* test_accept */);
-
+            const MempoolAcceptResult result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false /* bypass_limits */,
+                                                                  false /* test_accept */);
             if (result.m_result_type != MempoolAcceptResult::ResultType::VALID) {
                 return HandleATMPError(result.m_state, err_string);
             }
 
+//FIXDANDELION
+/*
             if (DANDELION_DISABLED == false) {
                 // Add transaction to stempool too
-                AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.stempool, tx, false /* bypass_limits */,
-                                   false /* test_accept */);                   
+                AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.stempool, tx, false ,
+                                   false );                   
             }            
-
+*/
             // Transaction was accepted to the mempool and optionally into the stempool.
 
             if (relay) {
