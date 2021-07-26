@@ -210,10 +210,6 @@ UniValue blockheaderToJSON(const CBlockIndex* tip, const CBlockIndex* blockindex
     result.pushKV("nonce", (uint64_t)blockindex->nNonce);
     result.pushKV("bits", strprintf("%08x", blockindex->nBits));
     result.pushKV("difficulty", GetDifficulty(blockindex, miningAlgo));
-    int algo = block.GetAlgo();
-    result.pushKV("pow_algo_id", algo);
-    result.pushKV("pow_algo", GetAlgoName(algo));
-    result.pushKV("pow_hash", GetPoWAlgoHash(block).GetHex());
     result.pushKV("chainwork", blockindex->nChainWork.GetHex());
     result.pushKV("nTx", (uint64_t)blockindex->nTx);
 
@@ -232,6 +228,14 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* tip, const CBlockIn
     result.pushKV("size", (int)::GetSerializeSize(block, PROTOCOL_VERSION));
     result.pushKV("weight", (int)::GetBlockWeight(block));
     UniValue txs(UniValue::VARR);
+    result.pushKV("height", blockindex->nHeight);
+    result.pushKV("version", block.nVersion);
+    result.pushKV("versionHex", strprintf("%08x", block.nVersion));
+    int algo = block.GetAlgo();
+    result.pushKV("pow_algo_id", algo);
+    result.pushKV("pow_algo", GetAlgoName(algo));
+    result.pushKV("pow_hash", GetPoWAlgoHash(block).GetHex());
+    result.pushKV("merkleroot", block.hashMerkleRoot.GetHex());
     if (txDetails) {
         CBlockUndo blockUndo;
         const bool have_undo = !IsBlockPruned(blockindex) && UndoReadFromDisk(blockUndo, blockindex);
@@ -1526,20 +1530,15 @@ RPCHelpMan getblockchaininfo()
         }
     }
     const Consensus::Params& consensusParams = Params().GetConsensus();
-    CBlockIndex* tip = chainActive.Tip();
     UniValue difficulties(UniValue::VOBJ);
     for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
     {
         if (IsAlgoActive(tip, consensusParams, algo))
         {
-            difficulties.push_back(Pair(GetAlgoName(algo), (double)GetDifficulty(NULL, algo)));
+            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(NULL, algo));
         }
     }
-    for (int pos = Consensus::DEPLOYMENT_CSV; pos != Consensus::MAX_VERSION_BITS_DEPLOYMENTS; ++pos) {
-        BIP9SoftForkDescPushBack(bip9_softforks, consensusParams, static_cast<Consensus::DeploymentPos>(pos));
-    }
-
-    UniValue softforks(UniValue::VOBJ);
+    UniValue softforks(UniValue::VARR);
     SoftForkDescPushBack(tip, softforks, consensusParams, Consensus::DEPLOYMENT_HEIGHTINCB);
     SoftForkDescPushBack(tip, softforks, consensusParams, Consensus::DEPLOYMENT_DERSIG);
     SoftForkDescPushBack(tip, softforks, consensusParams, Consensus::DEPLOYMENT_CLTV);
