@@ -241,7 +241,7 @@ CBlock TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransa
 {
     const CChainParams& chainparams = Params();
     CTxMemPool empty_pool;
-    CBlock block = BlockAssembler(m_node.chainman->ActiveChainstate(), empty_pool, chainparams).CreateNewBlock(scriptPubKey)->block;
+    CBlock block = BlockAssembler(m_node.chainman->ActiveChainstate(), empty_pool, chainparams).CreateNewBlock(scriptPubKey, ALGO_SCRYPT)->block;
 
     Assert(block.vtx.size() == 1);
     for (const CMutableTransaction& tx : txns) {
