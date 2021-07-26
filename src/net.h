@@ -486,69 +486,10 @@ public:
     bool IsFullOutboundConn() const {
         return m_conn_type == ConnectionType::OUTBOUND_FULL_RELAY;
     }
-    bool IsManualConn() const {
 
+    bool IsManualConn() const {
         return m_conn_type == ConnectionType::MANUAL;
     }
-
-    uint256 hashContinue;
-    std::atomic<int> nStartingHeight;
-
-    // flood relay
-    std::vector<CAddress> vAddrToSend;
-    CRollingBloomFilter addrKnown;
-
-    bool fGetAddr;
-    std::set<uint256> setKnown;
-    int64_t nNextAddrSend;
-    int64_t nNextLocalAddrSend;
-
-    // inventory based relay
-    CRollingBloomFilter filterInventoryKnown;
-    // Set of Dandelion transactions that should be known to this peer
-    std::set<uint256> setDandelionInventoryKnown;
-    // Set of transaction ids we still have to announce.
-    // They are sorted by the mempool before relay, so the order is not important.
-    std::set<uint256> setInventoryTxToSend;
-    // List of Dandelion transaction ids to announce.
-    std::vector<uint256> vInventoryDandelionTxToSend;
-    // List of block ids we still have announce.
-    // There is no final sorting before sending, as they are always sent immediately
-    // and in the order requested.
-    std::vector<uint256> vInventoryBlockToSend;
-    CCriticalSection cs_inventory;
-    std::set<uint256> setAskFor;
-    std::multimap<int64_t, CInv> mapAskFor;
-    int64_t nNextInvSend;
-    // Used for headers announcements - unfiltered blocks to relay
-    // Also protected by cs_inventory
-    std::vector<uint256> vBlockHashesToAnnounce;
-    // Used for BIP35 mempool sending, also protected by cs_inventory
-    bool fSendMempool;
-
-    // Last time a "MEMPOOL" request was serviced.
-    std::atomic<int64_t> timeLastMempoolReq;
-
-    // Block and TXN accept times
-    std::atomic<int64_t> nLastBlockTime;
-    std::atomic<int64_t> nLastTXTime;
-
-    // Ping time measurement:
-    // The pong reply we're expecting, or 0 if no pong expected.
-    std::atomic<uint64_t> nPingNonceSent;
-    // Time (in usec) the last ping was sent, or 0 if no ping was ever sent.
-    std::atomic<int64_t> nPingUsecStart;
-    // Last measured round-trip time.
-    std::atomic<int64_t> nPingUsecTime;
-    // Best measured round-trip time.
-    std::atomic<int64_t> nMinPingUsecTime;
-    // Whether a ping is requested.
-    std::atomic<bool> fPingQueued;
-    // Minimum fee rate with which to filter inv's to this node
-    CAmount minFeeFilter;
-    CCriticalSection cs_feeFilter;
-    CAmount lastSentFeeFilter;
-    int64_t nextSendTimeFeeFilter;
 
     bool IsBlockOnlyConn() const {
         return m_conn_type == ConnectionType::BLOCK_RELAY;
