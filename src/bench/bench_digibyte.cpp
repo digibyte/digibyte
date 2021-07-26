@@ -8,7 +8,6 @@
 #include <key.h>
 #include <random.h>
 #include <util.h>
-#include <utilstrencodings.h>
 #include <validation.h>
 
 #include <memory>

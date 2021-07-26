@@ -9,8 +9,6 @@
 #include <hash.h> // For Hash()
 #include <key.h>  // For CKey
 #include <sync.h>
-#include <utilstrencodings.h>
-#include <test/test_digibyte.h>
 #include <test/util/logging.h>
 #include <test/util/setup_common.h>
 #include <test/util/str.h>

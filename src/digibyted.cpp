@@ -18,7 +18,6 @@
 #include <util.h>
 #include <httpserver.h>
 #include <httprpc.h>
-#include <utilstrencodings.h>
 #include <walletinitinterface.h>
 
 #include <stdio.h>

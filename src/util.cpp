@@ -9,7 +9,6 @@
 #include <chainparamsbase.h>
 #include <random.h>
 #include <serialize.h>
-#include <utilstrencodings.h>
 
 #include <stdarg.h>
 
