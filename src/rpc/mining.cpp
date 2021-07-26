@@ -121,7 +121,7 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock& block, uint64_t& 
 
     CChainParams chainparams(Params());
 
-    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(GetPoWAlgoHash(*pblock), block.nBits, chainparams.GetConsensus()) && !ShutdownRequested()) {
+    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, chainparams.GetConsensus()) && !ShutdownRequested()) {
         ++block.nNonce;
         --max_tries;
     }
@@ -216,7 +216,7 @@ static RPCHelpMan generatetodescriptor()
             {"num_blocks", RPCArg::Type::NUM, RPCArg::Optional::NO, "How many blocks are generated immediately."},
             {"descriptor", RPCArg::Type::STR, RPCArg::Optional::NO, "The descriptor to send the newly generated digibyte to."},
             {"maxtries", RPCArg::Type::NUM, RPCArg::Default{DEFAULT_MAX_TRIES}, "How many iterations to try."},
-            {"algo", RPCArg::Type::STR, RPCArg::Optional::YES, "Which mining algorithm to use."},
+            {"algo", RPCArg::Type::STR, RPCArg::Default{ALGO_SCRYPT}, "Which mining algorithm to use."},
         },
         RPCResult{
             RPCResult::Type::ARR, "", "hashes of blocks generated",
@@ -265,7 +265,7 @@ static RPCHelpMan generatetoaddress()
                     {"nblocks", RPCArg::Type::NUM, RPCArg::Optional::NO, "How many blocks are generated immediately."},
                     {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The address to send the newly generated digibyte to."},
                     {"maxtries", RPCArg::Type::NUM, RPCArg::Default{DEFAULT_MAX_TRIES}, "How many iterations to try."},
-                    {"algo", RPCArg::Type::STR, RPCArg::Optional::YES, "Which mining algorithm to use."},
+                    {"algo", RPCArg::Type::STR, RPCArg::Default{ALGO_SCRYPT}, "Which mining algorithm to use."},
                 },
                 RPCResult{
                     RPCResult::Type::ARR, "", "hashes of blocks generated",
@@ -378,7 +378,9 @@ static RPCHelpMan generateblock()
         LOCK(cs_main);
 
         CTxMemPool empty_mempool;
-        std::unique_ptr<CBlockTemplate> blocktemplate(BlockAssembler(chainman.ActiveChainstate(), empty_mempool, chainparams).CreateNewBlock(coinbase_script));
+
+//  Passing Generate Default DGB BLock Type of Scrypt
+        std::unique_ptr<CBlockTemplate> blocktemplate(BlockAssembler(chainman.ActiveChainstate(), empty_mempool, chainparams).CreateNewBlock(coinbase_script,ALGO_SCRYPT));
         if (!blocktemplate) {
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Couldn't create new block");
         }
@@ -453,7 +455,7 @@ static RPCHelpMan getmininginfo()
     obj.pushKV("difficulty",         (double)GetDifficulty(NULL, miningAlgo));
     for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
     {
-        if (IsAlgoActive(chainActive.Tip(), Params().GetConsensus(), algo))
+        if (IsAlgoActive(chainman.ActiveChain().Tip(), Params().GetConsensus(), algo))
         {
             std::string key = "difficulty_" + GetAlgoName(algo);
             obj.pushKV(key, (double)GetDifficulty(NULL, algo));
@@ -790,7 +792,7 @@ static RPCHelpMan getblocktemplate()
         lastAlgo = algo;
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(active_chainstate, mempool, Params()).CreateNewBlock(scriptDummy, algo,);
+        pblocktemplate = BlockAssembler(active_chainstate, mempool, Params()).CreateNewBlock(scriptDummy, algo);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 

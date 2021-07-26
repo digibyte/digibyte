@@ -533,7 +533,7 @@ void CTxMemPool::removeForReorg(CChainState& active_chainstate, int flags)
                     txToRemove.insert(it);
                     break;
                 }
-                } else {
+                 else {
                     if (coin.IsSpent() || (coin.IsCoinBase() && ((signed long)nMemPoolHeight) - coin.nHeight < COINBASE_MATURITY_2)) {
                     txToRemove.insert(it);
                     break;
