@@ -4,7 +4,6 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <script/script.h>
-#include <test/test_digibyte.h>
 #include <test/scriptnum10.h>
 #include <test/util/setup_common.h>
 

@@ -3,12 +3,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <test/test_digibyte.h>
-#include <utilstrencodings.h>
-// Copyright (c) 2014-2020 The DigiByte Core developers
-// Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
 #include <test/util/setup_common.h>
 #include <util/strencodings.h>
 #include <wallet/crypter.h>

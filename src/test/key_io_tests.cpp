@@ -9,7 +9,6 @@
 #include <key.h>
 #include <key_io.h>
 #include <script/script.h>
-#include <test/test_digibyte.h>
 #include <test/util/setup_common.h>
 #include <util/strencodings.h>
 

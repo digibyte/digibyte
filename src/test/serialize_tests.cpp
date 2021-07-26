@@ -7,7 +7,6 @@
 #include <serialize.h>
 #include <streams.h>
 #include <hash.h>
-#include <test/test_digibyte.h>
 #include <test/util/setup_common.h>
 #include <util/strencodings.h>
 

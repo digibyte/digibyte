@@ -8,7 +8,6 @@
 #include <clientversion.h>
 #include <key.h>
 #include <key_io.h>
-#include <test/test_digibyte.h>
 #include <streams.h>
 #include <test/util/setup_common.h>
 #include <util/strencodings.h>

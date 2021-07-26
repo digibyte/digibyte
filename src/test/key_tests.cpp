@@ -9,7 +9,6 @@
 #include <streams.h>
 #include <test/util/setup_common.h>
 #include <uint256.h>
-#include <test/test_digibyte.h>
 #include <util/strencodings.h>
 #include <util/string.h>
 #include <util/system.h>

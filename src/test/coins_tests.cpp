@@ -12,7 +12,6 @@
 #include <txdb.h>
 #include <uint256.h>
 #include <undo.h>
-#include <test/test_digibyte.h>
 #include <util/strencodings.h>
 
 #include <map>

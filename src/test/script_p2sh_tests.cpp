@@ -10,7 +10,6 @@
 #include <script/script.h>
 #include <script/script_error.h>
 #include <script/sign.h>
-#include <test/test_digibyte.h>
 #include <script/signingprovider.h>
 #include <test/util/setup_common.h>
 #include <validation.h>

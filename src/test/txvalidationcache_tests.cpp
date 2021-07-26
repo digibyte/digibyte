@@ -6,7 +6,6 @@
 #include <consensus/validation.h>
 #include <key.h>
 #include <script/sign.h>
-#include <test/test_digibyte.h>
 #include <script/signingprovider.h>
 #include <script/standard.h>
 #include <test/util/setup_common.h>

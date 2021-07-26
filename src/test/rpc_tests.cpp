@@ -13,7 +13,6 @@
 #include <test/util/setup_common.h>
 #include <util/time.h>
 
-#include <test/test_digibyte.h>
 #include <any>
 
 #include <boost/algorithm/string.hpp>

@@ -4,11 +4,6 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <utilstrencodings.h>
-#include <test/test_digibyte.h>
-// Copyright (c) 2012-2020 The DigiByte Core developers
-// Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
 #include <util/strencodings.h>
 
 #include <boost/test/unit_test.hpp>

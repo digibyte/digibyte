@@ -6,7 +6,6 @@
 #include <net_permissions.h>
 #include <netaddress.h>
 #include <netbase.h>
-#include <test/test_digibyte.h>
 #include <protocol.h>
 #include <serialize.h>
 #include <streams.h>

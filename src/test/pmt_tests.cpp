@@ -11,7 +11,6 @@
 #include <test/util/setup_common.h>
 #include <uint256.h>
 #include <version.h>
-#include <test/test_digibyte.h>
 
 #include <vector>
 

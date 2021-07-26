@@ -7,8 +7,6 @@
 #include <scheduler.h>
 #include <util/time.h>
 
-#include <test/test_digibyte.h>
-
 #include <boost/test/unit_test.hpp>
 
 #include <functional>

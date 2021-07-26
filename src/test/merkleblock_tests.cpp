@@ -6,7 +6,6 @@
 #include <merkleblock.h>
 #include <test/util/setup_common.h>
 #include <uint256.h>
-#include <test/test_digibyte.h>
 
 #include <boost/test/unit_test.hpp>
 

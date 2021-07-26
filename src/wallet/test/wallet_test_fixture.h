@@ -6,7 +6,6 @@
 #ifndef DIGIBYTE_WALLET_TEST_WALLET_TEST_FIXTURE_H
 #define DIGIBYTE_WALLET_TEST_WALLET_TEST_FIXTURE_H
 
-#include <test/test_digibyte.h>
 #include <test/util/setup_common.h>
 
 #include <interfaces/chain.h>

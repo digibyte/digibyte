@@ -18,7 +18,6 @@
 #include <crypto/sha512.h>
 #include <crypto/muhash.h>
 #include <random.h>
-#include <test/test_digibyte.h>
 #include <streams.h>
 #include <test/util/setup_common.h>
 #include <util/strencodings.h>

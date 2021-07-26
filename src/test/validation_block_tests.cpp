@@ -11,7 +11,6 @@
 #include <miner.h>
 #include <pow.h>
 #include <random.h>
-#include <test/test_digibyte.h>
 #include <script/standard.h>
 #include <test/util/script.h>
 #include <test/util/setup_common.h>

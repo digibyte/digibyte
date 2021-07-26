@@ -23,8 +23,6 @@
 #include <util/time.h>
 #include <validation.h>
 
-#include <test/test_digibyte.h>
-
 #include <array>
 #include <stdint.h>
 

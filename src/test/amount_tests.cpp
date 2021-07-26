@@ -5,7 +5,6 @@
 
 #include <amount.h>
 #include <policy/feerate.h>
-#include <test/test_digibyte.h>
 
 #include <limits>
 

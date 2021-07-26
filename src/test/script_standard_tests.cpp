@@ -8,7 +8,6 @@
 #include <script/script.h>
 #include <script/signingprovider.h>
 #include <script/standard.h>
-#include <test/test_digibyte.h>
 #include <test/util/setup_common.h>
 #include <util/strencodings.h>
 

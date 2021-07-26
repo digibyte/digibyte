@@ -4,11 +4,6 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <reverselock.h>
-#include <test/test_digibyte.h>
-// Copyright (c) 2015-2020 The DigiByte Core developers
-// Distributed under the MIT software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
 #include <sync.h>
 #include <test/util/setup_common.h>
 

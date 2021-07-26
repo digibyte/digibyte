@@ -4,7 +4,6 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <compat/byteswap.h>
-#include <test/test_digibyte.h>
 
 #include <boost/test/unit_test.hpp>
 

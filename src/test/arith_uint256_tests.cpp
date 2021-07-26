@@ -15,7 +15,6 @@
 #include <sstream>
 #include <string>
 #include <version.h>
-#include <test/test_digibyte.h>
 #include <vector>
 
 BOOST_AUTO_TEST_SUITE(arith_uint256_tests)

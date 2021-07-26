@@ -9,7 +9,6 @@
 #include <wallet/wallet.h>
 
 #include <boost/test/unit_test.hpp>
-#include <test/test_digibyte.h>
 #include <test/util/setup_common.h>
 #include <wallet/test/wallet_test_fixture.h>
 

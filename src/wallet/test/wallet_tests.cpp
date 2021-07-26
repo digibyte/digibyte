@@ -16,7 +16,6 @@
 #include <node/context.h>
 #include <policy/policy.h>
 #include <rpc/server.h>
-#include <test/test_digibyte.h>
 #include <test/util/logging.h>
 #include <test/util/setup_common.h>
 #include <util/translation.h>

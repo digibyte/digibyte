@@ -8,7 +8,6 @@
 
 #include <chain.h>
 #include <rpc/blockchain.h>
-#include <test/test_digibyte.h>
 #include <test/util/setup_common.h>
 #include <util/string.h>
 

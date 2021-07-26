@@ -13,7 +13,6 @@
 #include <script/script_error.h>
 #include <script/sigcache.h>
 #include <script/sign.h>
-#include <test/test_digibyte.h>
 #include <script/signingprovider.h>
 #include <streams.h>
 #include <test/util/setup_common.h>

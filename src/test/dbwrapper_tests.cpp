@@ -6,7 +6,6 @@
 #include <dbwrapper.h>
 #include <test/util/setup_common.h>
 #include <uint256.h>
-#include <test/test_digibyte.h>
 
 #include <memory>
 
