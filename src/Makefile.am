@@ -681,7 +681,6 @@ if TARGET_WINDOWS
 digibyte_daemon_sources += digibyted-res.rc
 endif
 
-digibyted_LDADD = \
 digibyte_bin_ldadd = \
   $(LIBDIGIBYTE_WALLET) \
   $(LIBDIGIBYTE_COMMON) \
