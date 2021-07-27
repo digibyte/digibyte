@@ -4310,7 +4310,7 @@ void CChainState::UnloadBlockIndex() {
 // May NOT be used after any connections are up as much
 // of the peer-processing logic assumes a consistent
 // block index state
-void UnloadBlockIndex(CTxMemPool* mempool, ChainstateManager& chainman)
+void UnloadBlockIndex(CTxMemPool* mempool, CTxMemPool* stempool, ChainstateManager& chainman)
 {
     LOCK(cs_main);
     chainman.Unload();
@@ -4319,7 +4319,7 @@ void UnloadBlockIndex(CTxMemPool* mempool, ChainstateManager& chainman)
 
     if (mempool) mempool->clear();
     // Changes to mempool should also be made to Dandelion stempool
-    stempool.clear();
+    if (stempool) stempool.clear();
 
     vinfoBlockFile.clear();
     nLastBlockFile = 0;

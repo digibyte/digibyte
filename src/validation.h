@@ -145,7 +145,7 @@ extern CBlockIndex *pindexBestHeader;
 extern const std::vector<std::string> CHECKLEVEL_DOC;
 
 /** Unload database information */
-void UnloadBlockIndex(CTxMemPool* mempool, ChainstateManager& chainman);
+void UnloadBlockIndex(CTxMemPool* mempool, CTxMemPool* stempool, ChainstateManager& chainman);
 /** Run instances of script checking worker threads */
 void StartScriptCheckWorkerThreads(int threads_num);
 /** Stop all of the script checking worker threads */
@@ -1057,7 +1057,7 @@ public:
 
     ~ChainstateManager() {
         LOCK(::cs_main);
-        UnloadBlockIndex(/* mempool */ nullptr, *this);
+        UnloadBlockIndex(/* mempool */ nullptr, /* stempool*/ nullptr, *this);
         Reset();
     }
 };
