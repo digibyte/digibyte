@@ -2507,7 +2507,7 @@ bool CChainState::DisconnectTip(BlockValidationState& state, DisconnectedBlockTr
             auto it = disconnectpool->queuedTx.get<insertion_order>().begin();
             m_mempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
             // Changes to mempool should also be made to Dandelion stempool
-            stempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
+            m_stempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
             disconnectpool->removeEntry(it);
         }
     }

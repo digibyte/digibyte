@@ -601,6 +601,7 @@ protected:
     //! Optional mempool that is kept in sync with the chain.
     //! Only the active chainstate has a mempool.
     CTxMemPool* m_mempool;
+    CTxMemPool* m_stempool;
 
     const CChainParams& m_params;
 
