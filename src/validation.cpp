@@ -2507,7 +2507,7 @@ bool CChainState::DisconnectTip(BlockValidationState& state, DisconnectedBlockTr
             auto it = disconnectpool->queuedTx.get<insertion_order>().begin();
             m_mempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
             // Changes to mempool should also be made to Dandelion stempool
-            m_stempool.removeRecursive(**it, MemPoolRemovalReason::REORG);
+            m_stempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
             disconnectpool->removeEntry(it);
         }
     }
@@ -2805,7 +2805,7 @@ bool CChainState::ActivateBestChainStep(BlockValidationState& state, CBlockIndex
     }
     if (m_mempool) m_mempool->check(*this);
     // Changes to mempool should also be made to Dandelion stempool
-    if (stempool) stempool->check(*this);
+    if (m_stempool) m_stempool->check(*this);
 
     CheckForkWarningConditions();
 
