@@ -818,6 +818,12 @@ private:
         return m_mempool ? &m_mempool->cs : nullptr;
     }
 
+    //! Indirection necessary to make lock annotations work with an optional mempool.
+    RecursiveMutex* StempoolMutex() const LOCK_RETURNED(m_stempool->cs)
+    {
+        return m_stempool ? &m_stempool->cs : nullptr;
+    }
+
     /**
      * Make mempool consistent after a reorg, by re-adding or recursively erasing
      * disconnected block transactions from the mempool, and also removing any
