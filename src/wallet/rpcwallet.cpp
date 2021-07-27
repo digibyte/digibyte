@@ -1310,12 +1310,6 @@ static void ListTransactions(const CWallet& wallet, const CWalletTx& wtx, int nM
 
     bool involvesWatchonly = wtx.IsFromMe(ISMINE_WATCH_ONLY);
 
-    bool list_sent = fAllAccounts;
-
-    if (IsDeprecatedRPCEnabled("accounts")) {
-        list_sent |= strAccount == strSentAccount;
-    }
-
     // Sent
     if (!filter_label)
     {
