@@ -8,8 +8,6 @@
 
 #include <tinyformat.h>
 
-const std::string CURRENCY_UNIT = "DGB";
-
 CFeeRate::CFeeRate(const CAmount& nFeePaid, uint32_t num_bytes)
 {
     const int64_t nSize{num_bytes};
