@@ -2437,12 +2437,13 @@ void CChainState::UpdateTip(const CBlockIndex* pindexNew)
         }
         if (nUpgraded > 0 && !fAllAsicBoost)
         {
-            AppendWarning(warningMessages, strprintf(_("%d of last 100 blocks have unexpected version"), nUpgraded));
+            const bilingual_str warning = strprintf(_("%d of last 100 blocks have unexpected version"), nUpgraded);
+            AppendWarning(warning_messages, warning);
         }
 
         if (nUpgraded > 100/2)
         {
-            std::string strWarning = _("Warning: Unknown block versions being mined! It's possible unknown rules are in effect");
+            const bilingual_str strWarning = _("Warning: Unknown block versions being mined! It's possible unknown rules are in effect");
             // notify GetWarnings(), called by Qt and the JSON-RPC code to warn the user:
             DoWarning(strWarning);
         }
