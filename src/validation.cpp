@@ -4320,7 +4320,7 @@ void UnloadBlockIndex(CTxMemPool* mempool, CTxMemPool* stempool, ChainstateManag
 
     if (mempool) mempool->clear();
     // Changes to mempool should also be made to Dandelion stempool
-    if (stempool) stempool.clear();
+    if (stempool) stempool->clear();
 
     vinfoBlockFile.clear();
     nLastBlockFile = 0;
