@@ -4044,7 +4044,7 @@ void CChainState::LoadMempool(const ArgsManager& args)
     if (!m_mempool) return;
     if (args.GetArg("-persistmempool", DEFAULT_PERSIST_MEMPOOL)) {
         // We will intentionally not save the stempool for dandelion
-        ::LoadMempool(*m_mempool, "mempool.dat", *this);
+        ::LoadMempool(*m_mempool, *this);
     }
     m_mempool->SetIsLoaded(!ShutdownRequested());
 }
