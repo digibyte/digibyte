@@ -2381,7 +2381,7 @@ static void AppendWarning(bilingual_str& res, const bilingual_str& warn)
     res += warn;
 }
 
-void CChainState::UpdateTip(const CBlockIndex* pindexNew, const CChainParams& chainParams)
+void CChainState::UpdateTip(const CBlockIndex* pindexNew)
 {
     // New best block
     if (m_mempool) {
@@ -2423,7 +2423,7 @@ void CChainState::UpdateTip(const CBlockIndex* pindexNew, const CChainParams& ch
         for (int i = 0; i < 100 && pindex != nullptr; i++)
         {
             int nAlgo = pindex->GetAlgo();
-            int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), nAlgo);
+            int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, m_params.GetConsensus(), nAlgo);
             if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
             {
                 ++nUpgraded;
