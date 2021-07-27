@@ -359,6 +359,7 @@ void CChainState::MaybeUpdateMempoolForReorg(
 
     AssertLockHeld(cs_main);
     AssertLockHeld(m_mempool->cs);
+    AssertLockHeld(m_stempool->cs);
     std::vector<uint256> vHashUpdate;
     // disconnectpool's insertion_order index sorts the entries from
     // oldest to newest, but the oldest entry will be the last tx from the
@@ -2472,6 +2473,7 @@ bool CChainState::DisconnectTip(BlockValidationState& state, DisconnectedBlockTr
 {
     AssertLockHeld(cs_main);
     if (m_mempool) AssertLockHeld(m_mempool->cs);
+    if (m_stempool) AssertLockHeld(m_stempool->cs);
 
     CBlockIndex *pindexDelete = m_chain.Tip();
     assert(pindexDelete);
@@ -2577,6 +2579,7 @@ bool CChainState::ConnectTip(BlockValidationState& state, CBlockIndex* pindexNew
 {
     AssertLockHeld(cs_main);
     if (m_mempool) AssertLockHeld(m_mempool->cs);
+    if (m_stempool) AssertLockHeld(m_stempool->cs);
 
     assert(pindexNew->pprev == m_chain.Tip());
     // Read block from disk.
@@ -2729,6 +2732,7 @@ bool CChainState::ActivateBestChainStep(BlockValidationState& state, CBlockIndex
 {
     AssertLockHeld(cs_main);
     if (m_mempool) AssertLockHeld(m_mempool->cs);
+    if (m_stempool) AssertLockHeld(m_stempool->cs);
 
     const CBlockIndex* pindexOldTip = m_chain.Tip();
     const CBlockIndex* pindexFork = m_chain.FindFork(pindexMostWork);
