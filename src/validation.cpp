@@ -3378,7 +3378,7 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
         block.GetAlgo() == ALGO_SCRYPT &&
         (block.nVersion & BLOCK_VERSION_ALGO) != BLOCK_VERSION_SCRYPT)
     {
-        return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid algo id");
+        return state.Invalid(false, BlockValidationResult::BLOCK_INVALID_ALGO, "invalid-algo", "invalid algo id");
     }
 
     // Check against checkpoints
