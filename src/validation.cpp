@@ -2363,8 +2363,8 @@ void CChainState::UpdateTip(const CBlockIndex* pindexNew)
     }
 
     // Changes to mempool should also be made to Dandelion stempool
-    if (stempool) {
-        stempool->AddTransactionsUpdated(1);
+    if (m_stempool) {
+        m_stempool->AddTransactionsUpdated(1);
     }
 
     {
