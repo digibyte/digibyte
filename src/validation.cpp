@@ -52,6 +52,7 @@
 #include <util/translation.h>
 #include <validationinterface.h>
 #include <warnings.h>
+#include <versionbits.h>
 
 #include <numeric>
 #include <optional>
@@ -129,17 +130,21 @@ uint256 hashAssumeValid;
 arith_uint256 nMinimumChainWork;
 
 CFeeRate minRelayTxFee = CFeeRate(DEFAULT_MIN_RELAY_TX_FEE);
-CAmount maxTxFee = DEFAULT_TRANSACTION_MAXFEE;
+
+//FIXDANDELION  Pretty sure this code was depricated
+/*
+CAmount maxTxFee = DEFAULT_MIN_RELAY_TX_FEE;
 
 CBlockPolicyEstimator feeEstimator;
 
 std::atomic_bool g_is_mempool_loaded{false};
 CTxMemPool stempool(&feeEstimator);
 
-/** Constant stuff for coinbase transactions we create: */
+
 CScript COINBASE_FLAGS;
 
 const std::string strMessageMagic = "DigiByte Signed Message:\n";
+*//** Constant stuff for coinbase transactions we create: */
 
 // Internal stuff
 namespace {
@@ -248,11 +253,11 @@ bool CheckSequenceLocks(CBlockIndex* tip,
                         LockPoints* lp,
                         bool useExistingLockPoints)
 {
-    AssertLockHeld(cs_main);
+    //FIXDANDELION
+    //AssertLockHeld(cs_main);
     // We could be calling this with only the stempool lock held, but mempool lock is required.
-    LOCK(mempool.cs);
+//    LOCK(mempool.cs);
 
-    CBlockIndex* tip = chainActive.Tip();
     assert(tip != nullptr);
 
     CBlockIndex index;
@@ -365,8 +370,10 @@ void CChainState::MaybeUpdateMempoolForReorg(
     while (it != disconnectpool.queuedTx.get<insertion_order>().rend()) {
         // ignore validation errors in resurrected transactions
 
-        const MempoolAcceptResult result = AcceptToMemoryPool(*this, m_mempool, *it, true /* bypass_limits */);
-        const MempoolAcceptResult dresult = AcceptToMemoryPool(*this, m_stempool, *it, true /* bypass_limits */); // dandelion
+//FIXDANDLEION
+/*
+        const MempoolAcceptResult result = AcceptToMemoryPool(*this, m_mempool, *it, true );
+        const MempoolAcceptResult dresult = AcceptToMemoryPool(*this, m_stempool, *it, true ); // dandelion
 
         if (!fAddToMempool || (*it)->IsCoinBase() ||
             result.m_result_type != MempoolAcceptResult::ResultType::INVALID ||
@@ -384,6 +391,19 @@ void CChainState::MaybeUpdateMempoolForReorg(
 
         ++it;
     }
+    */
+           if (!fAddToMempool || (*it)->IsCoinBase() ||
+            AcceptToMemoryPool(
+                *this, *m_mempool, *it, true /* bypass_limits */).m_result_type !=
+                    MempoolAcceptResult::ResultType::VALID) {
+            // If the transaction doesn't make it in to the mempool, remove any
+            // transactions that depend on it (which would now be orphans).
+            m_mempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
+        } else if (m_mempool->exists((*it)->GetHash())) {
+            vHashUpdate.push_back((*it)->GetHash());
+        }
+        ++it;
+    }
     disconnectpool.queuedTx.clear();
     // AcceptToMemoryPool/addUnchecked all assume that new mempool entries have
     // no in-mempool children, which is generally not true when adding
@@ -391,11 +411,15 @@ void CChainState::MaybeUpdateMempoolForReorg(
     // UpdateTransactionsFromBlock finds descendants of any transactions in
     // the disconnectpool that were added back and cleans up the mempool state.
     m_mempool->UpdateTransactionsFromBlock(vHashUpdate);
-    m_stempool->UpdateTransactionsFromBlock(vHashUpdate);
+ 
+ //FIXDANDELION
+ //   m_stempool->UpdateTransactionsFromBlock(vHashUpdate);
 
     // We also need to remove any now-immature transactions
     m_mempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
-    m_stempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
+  
+//FIXDANDELION
+ //   m_stempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
 
     // Re-limit mempool size, in case we added any transactions
     LimitMempoolSize(
@@ -404,11 +428,14 @@ void CChainState::MaybeUpdateMempoolForReorg(
         gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000,
         std::chrono::hours{gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY)});
 
+//FIXDANDELION
+/*
     LimitMempoolSize(
         *m_stempool,
         this->CoinsTip(),
         gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000,
-        std::chrono::hours{gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY)});    
+        std::chrono::hours{gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY)});  
+*/  
 }
 
 /**
@@ -1706,6 +1733,25 @@ void StopScriptCheckWorkerThreads()
     scriptcheckqueue.StopWorkerThreads();
 }
 
+//FIXMULTIALGO
+/*
+// Protected by cs_main
+VersionBitsCache versionbitscache;
+
+int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, int algo)
+{
+    LOCK(cs_main);
+    int32_t nVersion = VERSIONBITS_TOP_BITS | BLOCK_VERSION_DEFAULT;
+    for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
+        ThresholdState state = DeploymentActiveAt(pindexPrev, params, static_cast<Consensus::DeploymentPos>(i), versionbitscache);
+        if (state == ThresholdState::LOCKED_IN || state == ThresholdState::STARTED) {
+            nVersion |= VersionBitsMask(params, static_cast<Consensus::DeploymentPos>(i));
+        }
+    }
+    nVersion |= GetVersionForAlgo(algo);
+    return nVersion;
+}
+
 // exported
 bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consensus, int algo)
 {
@@ -1718,7 +1764,7 @@ bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consen
         return algo == ALGO_SCRYPT;
     }
     else if (nHeight < consensus.algoSwapChangeTarget ||
-             VersionBitsState(pindexPrev, consensus, Consensus::DEPLOYMENT_ODO, versionbitscache) != ThresholdState::ACTIVE)
+             DeploymentActiveAfter(pindexPrev, consensus, Consensus::DEPLOYMENT_ODO, versionbitscache) != ThresholdState::ACTIVE)
     {
         return algo == ALGO_SHA256D
             || algo == ALGO_SCRYPT
@@ -1735,6 +1781,7 @@ bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consen
             || algo == ALGO_ODO;
     }
 }
+*/
 
 /**
  * Threshold condition checker that triggers when unknown versionbits are seen on the network.
@@ -1982,7 +2029,7 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     //Only continue to enforce if we're below BIP34 activation height or the block hash at that height doesn't correspond.
     
     //DOES NOT APPLY TO DGB
-    //fEnforceBIP30 = fEnforceBIP30 && (!pindexBIP34height || !(pindexBIP34height->GetBlockHash() == m_params.GetConsensus().BIP34Hash));
+    fEnforceBIP30 = fEnforceBIP30 && (!pindexBIP34height || !(pindexBIP34height->GetBlockHash() == m_params.GetConsensus().BIP34Hash));
 
     // TODO: Remove BIP30 checking from block height 1,983,702 on, once we have a
     // consensus change that ensures coinbases at those heights can not
@@ -2334,17 +2381,18 @@ static void AppendWarning(bilingual_str& res, const bilingual_str& warn)
     res += warn;
 }
 
-void CChainState::UpdateTip(const CBlockIndex* pindexNew)
+void CChainState::UpdateTip(const CBlockIndex* pindexNew, const CChainParams& chainParams)
 {
     // New best block
     if (m_mempool) {
         m_mempool->AddTransactionsUpdated(1);
     }
-    
+
+//FIXDANDELION    
     // Changes to mempool should also be made to Dandelion stempool
-    if (stempool) {
-        stempool->AddTransactionsUpdated(1);
-    }
+    //if (stempool) {
+     //   stempool->AddTransactionsUpdated(1);
+    //}
 
     {
         LOCK(g_best_block_mutex);
