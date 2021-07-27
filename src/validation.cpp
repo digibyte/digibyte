@@ -378,7 +378,7 @@ void CChainState::MaybeUpdateMempoolForReorg(
             // Changes to mempool should also be made to Dandelion stempool
             m_stempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
 
-        } else if (m_mempool->exists((*it)->GetHash()) || m_stempool->exists((*it)->GetHash())) {
+        } else if (m_mempool->exists((*it)->GetHash()) || m_stempool->exists((*it)->GetHash())) {
             vHashUpdate.push_back((*it)->GetHash());
         }
 
