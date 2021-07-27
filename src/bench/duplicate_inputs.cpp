@@ -27,7 +27,7 @@ static void DuplicateInputs(benchmark::Bench& bench)
     LOCK(cs_main);
     CBlockIndex* pindexPrev = testing_setup->m_node.chainman->ActiveChain().Tip();
     assert(pindexPrev != nullptr);
-    block.nBits = GetNextWorkRequired(pindexPrev, &block, chainparams.GetConsensus());
+    block.nBits = GetNextWorkRequired(pindexPrev, &block, chainparams.GetConsensus(), ALGO_SCRYPT);
     block.nNonce = 0;
     auto nHeight = pindexPrev->nHeight + 1;
 
