@@ -253,11 +253,6 @@ bool CheckSequenceLocks(CBlockIndex* tip,
                         LockPoints* lp,
                         bool useExistingLockPoints)
 {
-    //FIXDANDELION
-    //AssertLockHeld(cs_main);
-    // We could be calling this with only the stempool lock held, but mempool lock is required.
-//    LOCK(mempool.cs);
-
     assert(tip != nullptr);
 
     CBlockIndex index;
@@ -370,9 +365,6 @@ void CChainState::MaybeUpdateMempoolForReorg(
     auto it = disconnectpool.queuedTx.get<insertion_order>().rbegin();
     while (it != disconnectpool.queuedTx.get<insertion_order>().rend()) {
         // ignore validation errors in resurrected transactions
-
-//FIXDANDLEION
-/*
         const MempoolAcceptResult result = AcceptToMemoryPool(*this, m_mempool, *it, true );
         const MempoolAcceptResult dresult = AcceptToMemoryPool(*this, m_stempool, *it, true ); // dandelion
 
@@ -392,19 +384,7 @@ void CChainState::MaybeUpdateMempoolForReorg(
 
         ++it;
     }
-    */
-           if (!fAddToMempool || (*it)->IsCoinBase() ||
-            AcceptToMemoryPool(
-                *this, *m_mempool, *it, true /* bypass_limits */).m_result_type !=
-                    MempoolAcceptResult::ResultType::VALID) {
-            // If the transaction doesn't make it in to the mempool, remove any
-            // transactions that depend on it (which would now be orphans).
-            m_mempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
-        } else if (m_mempool->exists((*it)->GetHash())) {
-            vHashUpdate.push_back((*it)->GetHash());
-        }
-        ++it;
-    }
+
     disconnectpool.queuedTx.clear();
     // AcceptToMemoryPool/addUnchecked all assume that new mempool entries have
     // no in-mempool children, which is generally not true when adding
@@ -412,15 +392,11 @@ void CChainState::MaybeUpdateMempoolForReorg(
     // UpdateTransactionsFromBlock finds descendants of any transactions in
     // the disconnectpool that were added back and cleans up the mempool state.
     m_mempool->UpdateTransactionsFromBlock(vHashUpdate);
- 
- //FIXDANDELION
- //   m_stempool->UpdateTransactionsFromBlock(vHashUpdate);
+    m_stempool->UpdateTransactionsFromBlock(vHashUpdate);
 
     // We also need to remove any now-immature transactions
-    m_mempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
-  
-//FIXDANDELION
- //   m_stempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
+    m_mempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);  
+    m_stempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
 
     // Re-limit mempool size, in case we added any transactions
     LimitMempoolSize(
@@ -429,14 +405,11 @@ void CChainState::MaybeUpdateMempoolForReorg(
         gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000,
         std::chrono::hours{gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY)});
 
-//FIXDANDELION
-/*
     LimitMempoolSize(
         *m_stempool,
         this->CoinsTip(),
         gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000,
         std::chrono::hours{gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY)});  
-*/  
 }
 
 /**
@@ -2389,11 +2362,10 @@ void CChainState::UpdateTip(const CBlockIndex* pindexNew)
         m_mempool->AddTransactionsUpdated(1);
     }
 
-//FIXDANDELION    
     // Changes to mempool should also be made to Dandelion stempool
-    //if (stempool) {
-     //   stempool->AddTransactionsUpdated(1);
-    //}
+    if (stempool) {
+        stempool->AddTransactionsUpdated(1);
+    }
 
     {
         LOCK(g_best_block_mutex);
