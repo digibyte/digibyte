@@ -11,29 +11,9 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
         /*.gbt_force =*/ true,
     },
     {
-        /*.name =*/ "csv",
+        /*.name =*/ "taproot",
         /*.gbt_force =*/ true,
     },
-    {
-        /*.name =*/ "segwit",
-        /*.gbt_force =*/ true,
-    },
-    {
-        /*.name =*/ "nversionbips",
-        /*.gbt_force =*/ true,
-    },
-    {
-        /*.name =*/ "reservealgo",
-        /*.gbt_force =*/ true,
-    },
-    {
-        /*.name =*/ "odo",
-        /*.gbt_force =*/ true,
-    },
-    //{
-       // /*.name =*/ "equihash",
-        ///*.gbt_force =*/ true,
-    //}
 };
 
 std::string DeploymentName(Consensus::BuriedDeployment dep)
@@ -50,6 +30,12 @@ std::string DeploymentName(Consensus::BuriedDeployment dep)
         return "csv";
     case Consensus::DEPLOYMENT_SEGWIT:
         return "segwit";
+    case Consensus::DEPLOYMENT_NVERSIONBIPS:
+        return "nversion";
+    case Consensus::DEPLOYMENT_RESERVEALGO:
+        return "reserve-algo";
+    case Consensus::DEPLOYMENT_ODO:
+        return "odo";
     } // no default case, so the compiler can warn about missing cases
     return "";
 }
