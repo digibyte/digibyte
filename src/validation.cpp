@@ -1722,7 +1722,7 @@ bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consen
         return algo == ALGO_SCRYPT;
     }
     else if (nHeight < consensus.algoSwapChangeTarget ||
-             DeploymentActiveAfter(pindexPrev, consensus, Consensus::DEPLOYMENT_ODO, versionbitscache) != ThresholdState::ACTIVE)
+             DeploymentActiveAfter(pindexPrev, consensus, Consensus::DEPLOYMENT_ODO) == false)
     {
         return algo == ALGO_SHA256D
             || algo == ALGO_SCRYPT
@@ -1739,7 +1739,6 @@ bool IsAlgoActive(const CBlockIndex* pindexPrev, const Consensus::Params& consen
             || algo == ALGO_ODO;
     }
 }
-*/
 
 /**
  * Threshold condition checker that triggers when unknown versionbits are seen on the network.
