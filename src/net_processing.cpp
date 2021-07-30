@@ -2756,14 +2756,10 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
     // At this point, the outgoing message serialization version can't change.
     const CNetMsgMaker msgMaker(pfrom.GetCommonVersion());
 
-//FIXDANDELION
-/*
     {
         LOCK(cs_main);
-        CheckDandelionEmbargoes(m_connman, m_chainman);
+        CheckDandelionEmbargoes();
     }
-*/
-
 
     if (msg_type == NetMsgType::VERACK) {
         if (pfrom.fSuccessfullyConnected) {
