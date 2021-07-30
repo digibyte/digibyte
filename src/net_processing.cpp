@@ -36,6 +36,7 @@
 #include <util/strencodings.h>
 #include <util/system.h>
 #include <validation.h>
+#include <wallet/wallet.h>
 
 #include <algorithm>
 #include <memory>
