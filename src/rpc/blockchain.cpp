@@ -113,18 +113,18 @@ CBlockPolicyEstimator& EnsureAnyFeeEstimator(const std::any& context)
 
 /* Calculate the difficulty for a given block index.
  */
-double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
+double GetDifficulty(const CBlockIndex* tip, const CBlockIndex* blockindex, int algo)
 {
     unsigned int nBits;
     unsigned int powLimit = InitialDifficulty(Params().GetConsensus(), algo);
     if (blockindex == nullptr)
     {
-        if (chain.Tip() == nullptr)
+        if (tip == nullptr)
             nBits = powLimit;
         else
         {
             //blockindex = chainActive.Tip();
-            blockindex = GetLastBlockIndexForAlgo(chain.Tip(), Params().GetConsensus(), algo);
+            blockindex = GetLastBlockIndexForAlgo(tip, Params().GetConsensus(), algo);
             if (blockindex == nullptr)
                 nBits = powLimit;
             else
@@ -152,6 +152,11 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
     }
  
     return dDiff;
+}
+
+double GetDifficulty(const CBlockIndex* blockindex, int algo)
+{
+    return GetDifficulty(NULL, blockindex, algo);
 }
 
 static int ComputeNextBlockAndDepth(const CBlockIndex* tip, const CBlockIndex* blockindex, const CBlockIndex*& next)
@@ -209,7 +214,7 @@ UniValue blockheaderToJSON(const CBlockIndex* tip, const CBlockIndex* blockindex
     result.pushKV("mediantime", (int64_t)blockindex->GetMedianTimePast());
     result.pushKV("nonce", (uint64_t)blockindex->nNonce);
     result.pushKV("bits", strprintf("%08x", blockindex->nBits));
-    result.pushKV("difficulty", GetDifficulty(blockindex, miningAlgo));
+    result.pushKV("difficulty", GetDifficulty(tip, blockindex, miningAlgo));
     result.pushKV("chainwork", blockindex->nChainWork.GetHex());
     result.pushKV("nTx", (uint64_t)blockindex->nTx);
 
@@ -475,7 +480,7 @@ static RPCHelpMan getdifficulty()
 {
     ChainstateManager& chainman = EnsureAnyChainman(request.context);
     LOCK(cs_main);
-    return GetDifficulty(chainman.ActiveChain().Tip(),miningAlgo);
+    return GetDifficulty(chainman.ActiveChain().Tip(), miningAlgo);
 },
     };
 }
