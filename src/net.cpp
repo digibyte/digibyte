@@ -1413,7 +1413,110 @@ void CConnman::SocketEvents(std::set<SOCKET> &recv_set, std::set<SOCKET> &send_s
         return;
     }
 
-std::unordered_map<SOCKET, struct pollfd> pollfds;
+    std::unordered_map<SOCKET, struct pollfd> pollfds;
+
+    for (SOCKET socket_id : send_select_set) {
+        pollfds[socket_id].fd = socket_id;
+        pollfds[socket_id].events |= POLLOUT;
+    }
+
+    for (SOCKET socket_id : error_select_set) {
+        pollfds[socket_id].fd = socket_id;
+        // These flags are ignored, but we set them for clarity
+        pollfds[socket_id].events |= POLLERR|POLLHUP;
+    }
+
+    std::vector<struct pollfd> vpollfds;
+    vpollfds.reserve(pollfds.size());
+    for (auto it : pollfds) {
+        vpollfds.push_back(std::move(it.second));
+    }
+
+    if (poll(vpollfds.data(), vpollfds.size(), SELECT_TIMEOUT_MILLISECONDS) < 0) return;
+
+    if (interruptNet) return;
+
+    for (struct pollfd pollfd_entry : vpollfds) {
+        if (pollfd_entry.revents & POLLIN)            recv_set.insert(pollfd_entry.fd);
+        if (pollfd_entry.revents & POLLOUT)           send_set.insert(pollfd_entry.fd);
+        if (pollfd_entry.revents & (POLLERR|POLLHUP)) error_set.insert(pollfd_entry.fd);
+    }
+}
+#else
+void CConnman::SocketEvents(std::set<SOCKET> &recv_set, std::set<SOCKET> &send_set, std::set<SOCKET> &error_set)
+{
+    std::set<SOCKET> recv_select_set, send_select_set, error_select_set;
+    if (!GenerateSelectSet(recv_select_set, send_select_set, error_select_set)) {
+        interruptNet.sleep_for(std::chrono::milliseconds(SELECT_TIMEOUT_MILLISECONDS));
+        return;
+    }
+
+    //
+    // Find which sockets have data to receive
+    //
+    struct timeval timeout;
+    timeout.tv_sec  = 0;
+    timeout.tv_usec = SELECT_TIMEOUT_MILLISECONDS * 1000; // frequency to poll pnode->vSend
+
+    fd_set fdsetRecv;
+    fd_set fdsetSend;
+    fd_set fdsetError;
+    FD_ZERO(&fdsetRecv);
+    FD_ZERO(&fdsetSend);
+    FD_ZERO(&fdsetError);
+    SOCKET hSocketMax = 0;
+
+    for (SOCKET hSocket : recv_select_set) {
+        FD_SET(hSocket, &fdsetRecv);
+        hSocketMax = std::max(hSocketMax, hSocket);
+    }
+
+    for (SOCKET hSocket : send_select_set) {
+        FD_SET(hSocket, &fdsetSend);
+        hSocketMax = std::max(hSocketMax, hSocket);
+    }
+
+    for (SOCKET hSocket : error_select_set) {
+        FD_SET(hSocket, &fdsetError);
+        hSocketMax = std::max(hSocketMax, hSocket);
+    }
+
+    int nSelect = select(hSocketMax + 1, &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
+
+    if (interruptNet)
+        return;
+
+    if (nSelect == SOCKET_ERROR)
+    {
+        int nErr = WSAGetLastError();
+        LogPrintf("socket select error %s\n", NetworkErrorString(nErr));
+        for (unsigned int i = 0; i <= hSocketMax; i++)
+            FD_SET(i, &fdsetRecv);
+        FD_ZERO(&fdsetSend);
+        FD_ZERO(&fdsetError);
+        if (!interruptNet.sleep_for(std::chrono::milliseconds(SELECT_TIMEOUT_MILLISECONDS)))
+            return;
+    }
+
+    for (SOCKET hSocket : recv_select_set) {
+        if (FD_ISSET(hSocket, &fdsetRecv)) {
+            recv_set.insert(hSocket);
+        }
+    }
+
+    for (SOCKET hSocket : send_select_set) {
+        if (FD_ISSET(hSocket, &fdsetSend)) {
+            send_set.insert(hSocket);
+        }
+    }
+
+    for (SOCKET hSocket : error_select_set) {
+        if (FD_ISSET(hSocket, &fdsetError)) {
+            error_set.insert(hSocket);
+        }
+    }
+}
+#endif    
 
 bool CConnman::isDandelionInbound(const CNode* const pnode) const
 {
@@ -1694,124 +1797,22 @@ void CConnman::DandelionShuffle() {
 }
 
 void CConnman::ThreadDandelionShuffle() {
-    int64_t nCurrTime = GetTimeMicros();
-    int64_t nNextDandelionShuffle = PoissonNextSend(nCurrTime, DANDELION_SHUFFLE_INTERVAL);
+    auto current_time = GetTime<std::chrono::microseconds>();
+    auto next_dandelion_shuffle = PoissonNextSend(current_time, DANDELION_SHUFFLE_INTERVAL);
+
     while (!interruptNet) {
-        nCurrTime = GetTimeMicros();
-        if (nCurrTime > nNextDandelionShuffle) {
+        current_time = GetTime<std::chrono::microseconds>();
+        if (current_time > next_dandelion_shuffle) {
             DandelionShuffle();
-            nNextDandelionShuffle = PoissonNextSend(nCurrTime, DANDELION_SHUFFLE_INTERVAL);
+            next_dandelion_shuffle = PoissonNextSend(current_time, DANDELION_SHUFFLE_INTERVAL);
             // Sleep until the next shuffle time
-            if (!interruptNet.sleep_for(std::chrono::milliseconds((nNextDandelionShuffle-nCurrTime)/1000))) {
+            auto sleep_ms = std::chrono::duration_cast<std::chrono::milliseconds>((next_dandelion_shuffle - current_time) / 1000);
+            if (!interruptNet.sleep_for(sleep_ms)) {
                 return;
             }
         }
     }
 }
-
-
-    for (SOCKET socket_id : send_select_set) {
-        pollfds[socket_id].fd = socket_id;
-        pollfds[socket_id].events |= POLLOUT;
-    }
-
-    for (SOCKET socket_id : error_select_set) {
-        pollfds[socket_id].fd = socket_id;
-        // These flags are ignored, but we set them for clarity
-        pollfds[socket_id].events |= POLLERR|POLLHUP;
-    }
-
-    std::vector<struct pollfd> vpollfds;
-    vpollfds.reserve(pollfds.size());
-    for (auto it : pollfds) {
-        vpollfds.push_back(std::move(it.second));
-    }
-
-    if (poll(vpollfds.data(), vpollfds.size(), SELECT_TIMEOUT_MILLISECONDS) < 0) return;
-
-    if (interruptNet) return;
-
-    for (struct pollfd pollfd_entry : vpollfds) {
-        if (pollfd_entry.revents & POLLIN)            recv_set.insert(pollfd_entry.fd);
-        if (pollfd_entry.revents & POLLOUT)           send_set.insert(pollfd_entry.fd);
-        if (pollfd_entry.revents & (POLLERR|POLLHUP)) error_set.insert(pollfd_entry.fd);
-    }
-}
-#else
-void CConnman::SocketEvents(std::set<SOCKET> &recv_set, std::set<SOCKET> &send_set, std::set<SOCKET> &error_set)
-{
-    std::set<SOCKET> recv_select_set, send_select_set, error_select_set;
-    if (!GenerateSelectSet(recv_select_set, send_select_set, error_select_set)) {
-        interruptNet.sleep_for(std::chrono::milliseconds(SELECT_TIMEOUT_MILLISECONDS));
-        return;
-    }
-
-    //
-    // Find which sockets have data to receive
-    //
-    struct timeval timeout;
-    timeout.tv_sec  = 0;
-    timeout.tv_usec = SELECT_TIMEOUT_MILLISECONDS * 1000; // frequency to poll pnode->vSend
-
-    fd_set fdsetRecv;
-    fd_set fdsetSend;
-    fd_set fdsetError;
-    FD_ZERO(&fdsetRecv);
-    FD_ZERO(&fdsetSend);
-    FD_ZERO(&fdsetError);
-    SOCKET hSocketMax = 0;
-
-    for (SOCKET hSocket : recv_select_set) {
-        FD_SET(hSocket, &fdsetRecv);
-        hSocketMax = std::max(hSocketMax, hSocket);
-    }
-
-    for (SOCKET hSocket : send_select_set) {
-        FD_SET(hSocket, &fdsetSend);
-        hSocketMax = std::max(hSocketMax, hSocket);
-    }
-
-    for (SOCKET hSocket : error_select_set) {
-        FD_SET(hSocket, &fdsetError);
-        hSocketMax = std::max(hSocketMax, hSocket);
-    }
-
-    int nSelect = select(hSocketMax + 1, &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
-
-    if (interruptNet)
-        return;
-
-    if (nSelect == SOCKET_ERROR)
-    {
-        int nErr = WSAGetLastError();
-        LogPrintf("socket select error %s\n", NetworkErrorString(nErr));
-        for (unsigned int i = 0; i <= hSocketMax; i++)
-            FD_SET(i, &fdsetRecv);
-        FD_ZERO(&fdsetSend);
-        FD_ZERO(&fdsetError);
-        if (!interruptNet.sleep_for(std::chrono::milliseconds(SELECT_TIMEOUT_MILLISECONDS)))
-            return;
-    }
-
-    for (SOCKET hSocket : recv_select_set) {
-        if (FD_ISSET(hSocket, &fdsetRecv)) {
-            recv_set.insert(hSocket);
-        }
-    }
-
-    for (SOCKET hSocket : send_select_set) {
-        if (FD_ISSET(hSocket, &fdsetSend)) {
-            send_set.insert(hSocket);
-        }
-    }
-
-    for (SOCKET hSocket : error_select_set) {
-        if (FD_ISSET(hSocket, &fdsetError)) {
-            error_set.insert(hSocket);
-        }
-    }
-}
-#endif
 
 void CConnman::SocketHandler()
 {
