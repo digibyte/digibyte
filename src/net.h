@@ -86,14 +86,16 @@ static const bool DEFAULT_FIXEDSEEDS = true;
 static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
 static const size_t DEFAULT_MAXSENDBUFFER    = 1 * 1000;
 
+typedef std::chrono::seconds sec;
+
 /** Maximum number of outbound peers designated as Dandelion destinations */
 static const int DANDELION_MAX_DESTINATIONS = 2;
-/** Expected time between Dandelion routing shuffles (in seconds). */
-static const int DANDELION_SHUFFLE_INTERVAL = 600;
-/** The minimum amount of time a Dandelion transaction is embargoed (seconds) */
-static const int DANDELION_EMBARGO_MINIMUM = 10;
-/** The average additional embargo time beyond the minimum amount (seconds) */
-static const int DANDELION_EMBARGO_AVG_ADD = 20;
+/** Expected time between Dandelion routing shuffles. */
+static const sec DANDELION_SHUFFLE_INTERVAL = sec(600);
+/** The minimum amount of time a Dandelion transaction is embargoed */
+static const sec DANDELION_EMBARGO_MINIMUM = sec(10);
+/** The average additional embargo time beyond the minimum amount */
+static const sec DANDELION_EMBARGO_AVG_ADD = sec(20);
 
 typedef int64_t NodeId;
 
