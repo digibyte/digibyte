@@ -2539,15 +2539,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
 
     PeerRef peer = GetPeerRef(pfrom.GetId());
     if (peer == nullptr) return;
-//FIXDANDELION  use msg_type
-/*
-    if (strCommand == NetMsgType::REJECT)
-    {
-        if (LogAcceptCategory(BCLog::NET)) {
-            try {
-                std::string strMsg; unsigned char ccode; std::string strReason;
-                vRecv >> LIMITED_STRING(strMsg, CMessageHeader::COMMAND_SIZE) >> ccode >> LIMITED_STRING(strReason, MAX_REJECT_MESSAGE_LENGTH);
-*/
+
     if (msg_type == NetMsgType::VERSION) {
         if (pfrom.nVersion != 0) {
             LogPrint(BCLog::NET, "redundant version message from peer=%d\n", pfrom.GetId());
