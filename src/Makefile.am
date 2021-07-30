@@ -457,6 +457,8 @@ crypto_libdigibyte_crypto_base_a_SOURCES = \
   crypto/hmac_sha256.h \
   crypto/hmac_sha512.cpp \
   crypto/hmac_sha512.h \
+  crypto/KeccakP-800-reference.c \
+  crypto/KeccakP-800-SnP.h \
   crypto/poly1305.h \
   crypto/poly1305.cpp \
   crypto/muhash.h \
