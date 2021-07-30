@@ -1551,12 +1551,9 @@ CNode* CConnman::getDandelionDestination(CNode* pfrom) {
     return newPto;
 }
 
-bool CConnman::localDandelionDestinationPushInventory(const CInv& inv) {
-    if(isLocalDandelionDestinationSet()) {
-        localDandelionDestination->PushInventory(inv);
-        return true;
-    } else if (setLocalDandelionDestination()) {
-        localDandelionDestination->PushInventory(inv);
+bool CConnman::localDandelionDestinationPushInventory(const uint256& hash) {
+    if (isLocalDandelionDestinationSet() || setLocalDandelionDestination()) {
+        localDandelionDestination->PushDandelionTxInventory(hash);
         return true;
     } else {
         return false;
