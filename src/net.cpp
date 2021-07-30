@@ -2536,7 +2536,7 @@ void CConnman::OpenNetworkConnection(const CAddress& addrConnect, bool fCountFai
         // Dandelion service discovery
         uint256 dummyHash;
         dummyHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        pnode->PushDandelionServiceDiscovery(dummyHash);
+        pnode->PushDandelionTxInventory(dummyHash);
     }
 }
 
