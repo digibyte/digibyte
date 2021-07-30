@@ -1607,11 +1607,6 @@ CNode* CConnman::SelectFromDandelionDestinations() const
         }
     }
     std::vector<CNode*> candidateDestinations;
-    for (SOCKET socket_id : recv_select_set) {
-        pollfds[socket_id].fd = socket_id;
-        pollfds[socket_id].events |= POLLIN;
-    }
-
     for (auto const& e : mDandelionDestinationCounts) {
         if (e.second == minNumConnections) {
             candidateDestinations.push_back(e.first);
