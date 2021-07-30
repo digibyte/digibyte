@@ -1560,7 +1560,7 @@ bool CConnman::localDandelionDestinationPushInventory(const uint256& hash) {
     }
 }
 
-bool CConnman::insertDandelionEmbargo(const uint256& hash, const int64_t& embargo) {
+bool CConnman::insertDandelionEmbargo(const uint256& hash, const std::chrono::seconds& embargo) {
     auto pair = mDandelionEmbargo.insert(std::make_pair(hash, embargo));
     return pair.second;
 }
