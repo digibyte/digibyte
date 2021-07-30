@@ -1668,26 +1668,26 @@ void PeerManagerImpl::_RelayTransaction(const uint256& txid, const uint256& wtxi
         }
     });
 }
-//FIXDANDELION
-/*   
-static void RelayDandelionTransaction(const uint256& txid, const uint256& wtxid, ChainstateManager& chainman, CNode& pfrom)
+
+void PeerManagerImpl::RelayDandelionTransaction(const CTransaction& tx, CNode& pfrom)
 {
+    const uint256& txHash = tx.GetHash();
     FastRandomContext rng;
-    if (rng.randrange(100)<DANDELION_FLUFF) {
-        LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", txid.GetHash().ToString());
-        CTransactionRef ptx = m_stempool.get(tx.GetHash());
-        bool fMissingInputs = false;
+
+    if (rng.randrange(100) < DANDELION_FLUFF) {
+        LOCK(cs_main);
+        LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", txHash.ToString());
+        CTransactionRef ptx = m_stempool.get(txHash);
         std::list<CTransactionRef> lRemovedTxn;
 
-        const MempoolAcceptResult result = AcceptToMemoryPool(chainman.ActiveChainstate(), m_mempool, ptx, false  );
+        const MempoolAcceptResult result = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false);
         LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: peer=%d: accepted %s (poolsz %u txn, %u kB)\n",
-                 pfrom->GetId(), tx.GetHash().ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
-        RelayTransaction(tx, connman);
+                 pfrom.GetId(), txHash.ToString(), m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
+        RelayTransaction(txHash, tx.GetWitnessHash());
     } else {
-        CInv inv(MSG_DANDELION_TX, tx.GetHash());
-        CNode* destination = connman->getDandelionDestination(pfrom);
-        if (destination!=nullptr) {
-            destination->PushInventory(inv);
+        CNode* destination = m_connman.getDandelionDestination(&pfrom);
+        if (destination != nullptr) {
+            destination->PushDandelionTxInventory(txHash);
         }
     }
 }
