@@ -397,9 +397,8 @@ private:
     BanMan* const m_banman;
     ChainstateManager& m_chainman;
     CTxMemPool& m_mempool;
+    CTxMemPool& m_stempool;
 
-  //FIXDANDELION  
-  //  CTxMemPool& m_stempool;
     TxRequestTracker m_txrequest GUARDED_BY(::cs_main);
 
     /** The height of the best chain */
@@ -1401,9 +1400,8 @@ PeerManagerImpl::PeerManagerImpl(const CChainParams& chainparams, CConnman& conn
       m_addrman(addrman),
       m_banman(banman),
       m_chainman(chainman),
-      m_mempool(pool),
-//FIXDANDELION      
-//      m_stempool(stempool),
+      m_mempool(pool),  
+      m_stempool(stempool),
       m_stale_tip_check_time(0),
       m_ignore_incoming_txs(ignore_incoming_txs)
 {
