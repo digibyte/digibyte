@@ -1123,7 +1123,6 @@ private:
     // Dandelion helper functions
     CNode* SelectFromDandelionDestinations() const;
     void CloseDandelionConnections(const CNode* const pnode);
-    std::string GetDandelionRoutingDataDebugString() const;
     void DandelionShuffle();
 
     /**
