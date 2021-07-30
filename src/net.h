@@ -659,7 +659,7 @@ public:
         }
     }
 
-    void PushDandelionServiceDiscovery(const uint256& hash)
+    void PushDandelionTxInventory(const uint256& hash)
     {
         if (m_tx_relay == nullptr) return;
         LOCK(m_tx_relay->cs_dtx_inventory);
@@ -972,14 +972,14 @@ public:
     void WakeMessageHandler();
 
     // Public Dandelion field
-    std::map<uint256, int64_t> mDandelionEmbargo;
+    std::map<uint256, std::chrono::seconds> mDandelionEmbargo;
     // Dandelion methods
     bool isDandelionInbound(const CNode* const pnode) const;
     bool isLocalDandelionDestinationSet() const;
     bool setLocalDandelionDestination();
     CNode* getDandelionDestination(CNode* pfrom);
-    bool localDandelionDestinationPushInventory(const CInv& inv);
-    bool insertDandelionEmbargo(const uint256& hash, const int64_t& embargo);
+    bool localDandelionDestinationPushInventory(const uint256& hash);
+    bool insertDandelionEmbargo(const uint256& hash, const std::chrono::seconds& embargo);
     bool isTxDandelionEmbargoed(const uint256& hash) const;
     bool removeDandelionEmbargo(const uint256& hash);
 
@@ -1039,6 +1039,8 @@ private:
     void ThreadSocketHandler();
     void ThreadDNSAddressSeed();
     void ThreadDandelionShuffle();
+    std::string GetDandelionRoutingDataDebugString() const;
+
 
     uint64_t CalculateKeyedNetGroup(const CAddress& ad) const;
 
