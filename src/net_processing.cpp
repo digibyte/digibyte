@@ -1692,32 +1692,33 @@ void PeerManagerImpl::RelayDandelionTransaction(const CTransaction& tx, CNode& p
     }
 }
 
-static void CheckDandelionEmbargoes(CConnman& connman, ChainstateManager& chainman)
+void PeerManagerImpl::CheckDandelionEmbargoes()
 {
-    int64_t nCurrTime = GetTimeMicros();
-    for (auto iter=connman.mDandelionEmbargo.begin(); iter!=connman.mDandelionEmbargo.end();) {
-        if (mempool.exists(iter->first)) {
+    LOCK(cs_main);
+    const auto current_time = GetTime<std::chrono::microseconds>();
+    for (auto iter = m_connman.mDandelionEmbargo.begin(); iter != m_connman.mDandelionEmbargo.end();) {
+        if (m_mempool.exists(iter->first)) {
             LogPrint(BCLog::DANDELION, "Embargoed dandeliontx %s found in mempool; removing from embargo map\n", iter->first.ToString());
-            iter = connman.mDandelionEmbargo.erase(iter);
-        } else if (iter->second < nCurrTime) {
+            iter = m_connman.mDandelionEmbargo.erase(iter);
+
+        } else if (iter->second < current_time) {
             LogPrint(BCLog::DANDELION, "dandeliontx %s embargo expired\n", iter->first.ToString());
+
             CTransactionRef ptx = m_stempool.get(iter->first);
             if (ptx)
             {
-                bool fMissingInputs = false;
                 std::list<CTransactionRef> lRemovedTxn;
-                const MempoolAcceptResult result = AcceptToMemoryPool(chainman->ActiveChainstate(), m_mempool, ptx, false  );
+                const MempoolAcceptResult result = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false  );
                 LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
-                         iter->first.ToString(), mempool.size(), mempool.DynamicMemoryUsage() / 1000);
-                RelayTransaction(*ptx, connman);
+                         iter->first.ToString(), m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
+                RelayTransaction(ptx->GetHash(), ptx->GetWitnessHash());
             }
-            iter = connman.mDandelionEmbargo.erase(iter);
+            iter = m_connman.mDandelionEmbargo.erase(iter);
         } else {
             iter++;
         }
     }
 }
-*/
 
 void PeerManagerImpl::RelayAddress(NodeId originator,
                                    const CAddress& addr,
