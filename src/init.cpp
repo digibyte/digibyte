@@ -130,6 +130,9 @@ static fs::path GetPidFile(const ArgsManager& args)
     }
 }
 
+/** Set default mining algo to scrypt */
+int miningAlgo = ALGO_SCRYPT;
+
 //////////////////////////////////////////////////////////////////////////////
 //
 // Shutdown
