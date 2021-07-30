@@ -2379,7 +2379,7 @@ void CChainState::UpdateTip(const CBlockIndex* pindexNew)
         for (int i = 0; i < 100 && pindex != nullptr; i++)
         {
             int nAlgo = pindex->GetAlgo();
-            int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, m_params.GetConsensus(), nAlgo);
+            int32_t nExpectedVersion = g_versionbitscache.ComputeBlockVersion(pindex->pprev, m_params.GetConsensus(), nAlgo);
             if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
             {
                 ++nUpgraded;
