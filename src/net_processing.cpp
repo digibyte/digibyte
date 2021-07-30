@@ -294,10 +294,14 @@ public:
     bool IgnoresIncomingTxs() override { return m_ignore_incoming_txs; }
     void SendPings() override;
     void RelayTransaction(const uint256& txid, const uint256& wtxid) override;
+
     void SetBestHeight(int height) override { m_best_height = height; };
     void Misbehaving(const NodeId pnode, const int howmuch, const std::string& message) override;
     void ProcessMessage(CNode& pfrom, const std::string& msg_type, CDataStream& vRecv,
                         const std::chrono::microseconds time_received, const std::atomic<bool>& interruptMsgProc) override;
+
+    void RelayDandelionTransaction(const CTransaction& tx, CNode& pfrom);
+    void CheckDandelionEmbargoes();    
 
 private:
     void _RelayTransaction(const uint256& txid, const uint256& wtxid)
