@@ -29,12 +29,13 @@ FUZZ_TARGET(block_header)
         assert(block_header->IsNull() == (block_header->nBits == 0));
     }
     {
+        const Consensus::Params& consensus_params = Params().GetConsensus();
         CBlockHeader mut_block_header = *block_header;
         mut_block_header.SetNull();
         assert(mut_block_header.IsNull());
         CBlock block{*block_header};
         assert(block.GetBlockHeader().GetHash() == block_header->GetHash());
-        (void)block.ToString();
+        (void)block.ToString(consensus_params);
         block.SetNull();
         assert(block.GetBlockHeader().GetHash() == mut_block_header.GetHash());
     }
