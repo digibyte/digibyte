@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2020 The Bitcoin Core developers
-// Copyright (c) 2014-2020 The DigiByte Core developers
+// Copyright (c) 2011-2020 The Bitcoin Core developers
+// Copyright (c) 2013-2021 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -148,13 +148,11 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     txdelegate(new TxViewDelegate(platformStyle, this))
 {
     ui->setupUi(this);
-    QString theme = GUIUtil::getThemeName();
-    
 
     m_balances.balance = -1;
 
     // use a SingleColorIcon for the "out of sync warning" icon
-    QIcon icon = m_platform_style->SingleColorIcon(QStringLiteral(":/icons/"+ theme + "warning"));
+    QIcon icon = m_platform_style->SingleColorIcon(QStringLiteral(":/icons/warning"));
     ui->labelTransactionsStatus->setIcon(icon);
     ui->labelWalletStatus->setIcon(icon);
 
