@@ -171,53 +171,53 @@ RES_FONTS = \
   qt/res/fonts/RobotoMono-Bold.ttf
 
 RES_ICONS = \
-  qt/res/icons/add.png \
-  qt/res/icons/address-book.png \
+  qt/res/icons/white/add.png \
+  qt/res/icons/white/address-book.png \
   qt/res/icons/digibyte.ico \
   qt/res/icons/digibyte_testnet.ico \
   qt/res/icons/digibyte.png \
   qt/res/icons/chevron.png \
-  qt/res/icons/clock1.png \
-  qt/res/icons/clock2.png \
-  qt/res/icons/clock3.png \
-  qt/res/icons/clock4.png \
-  qt/res/icons/clock5.png \
-  qt/res/icons/connect0.png \
-  qt/res/icons/connect1.png \
-  qt/res/icons/connect2.png \
-  qt/res/icons/connect3.png \
-  qt/res/icons/connect4.png \
-  qt/res/icons/edit.png \
-  qt/res/icons/editcopy.png \
-  qt/res/icons/editpaste.png \
-  qt/res/icons/export.png \
-  qt/res/icons/eye.png \
-  qt/res/icons/eye_minus.png \
-  qt/res/icons/eye_plus.png \
-  qt/res/icons/fontbigger.png \
-  qt/res/icons/fontsmaller.png \
-  qt/res/icons/hd_disabled.png \
-  qt/res/icons/hd_enabled.png \
-  qt/res/icons/history.png \
-  qt/res/icons/lock_closed.png \
-  qt/res/icons/lock_open.png \
-  qt/res/icons/network_disabled.png \
-  qt/res/icons/overview.png \
+  qt/res/icons/white/clock1.png \
+  qt/res/icons/white/clock2.png \
+  qt/res/icons/white/clock3.png \
+  qt/res/icons/white/clock4.png \
+  qt/res/icons/white/clock5.png \
+  qt/res/icons/white/connect0.png \
+  qt/res/icons/white/connect1.png \
+  qt/res/icons/white/connect2.png \
+  qt/res/icons/white/connect3.png \
+  qt/res/icons/white/connect4.png \
+  qt/res/icons/white/edit.png \
+  qt/res/icons/white/editcopy.png \
+  qt/res/icons/white/editpaste.png \
+  qt/res/icons/white/export.png \
+  qt/res/icons/white/eye.png \
+  qt/res/icons/white/eye_minus.png \
+  qt/res/icons/white/eye_plus.png \
+  qt/res/icons/white/fontbigger.png \
+  qt/res/icons/white/fontsmaller.png \
+  qt/res/icons/white/hd_disabled.png \
+  qt/res/icons/white/hd_enabled.png \
+  qt/res/icons/white/history.png \
+  qt/res/icons/white/lock_closed.png \
+  qt/res/icons/white/lock_open.png \
+  qt/res/icons/white/network_disabled.png \
+  qt/res/icons/white/overview.png \
   qt/res/icons/proxy.png \
-  qt/res/icons/receive.png \
-  qt/res/icons/remove.png \
-  qt/res/icons/send.png \
-  qt/res/icons/synced.png \
-  qt/res/icons/transaction0.png \
-  qt/res/icons/transaction2.png \
-  qt/res/icons/transaction_abandoned.png \
-  qt/res/icons/transaction_conflicted.png \
-  qt/res/icons/tx_inout.png \
-  qt/res/icons/tx_input.png \
-  qt/res/icons/tx_output.png \
-  qt/res/icons/tx_mined.png \
+  qt/res/icons/white/receive.png \
+  qt/res/icons/white/remove.png \
+  qt/res/icons/white/send.png \
+  qt/res/icons/white/synced.png \
+  qt/res/icons/white/transaction0.png \
+  qt/res/icons/white/transaction2.png \
+  qt/res/icons/white/transaction_abandoned.png \
+  qt/res/icons/white/transaction_conflicted.png \
+  qt/res/icons/white/tx_inout.png \
+  qt/res/icons/white/tx_input.png \
+  qt/res/icons/white/tx_output.png \
+  qt/res/icons/white/tx_mined.png \
   qt/res/icons/white/digibyte.png \
-  qt/res/icons/warning.png
+  qt/res/icons/white/warning.png
 
 DIGIBYTE_QT_BASE_CPP = \
   qt/bantablemodel.cpp \
