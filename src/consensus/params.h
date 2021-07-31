@@ -30,7 +30,7 @@ enum BuriedDeployment : int16_t {
     //DEPLOYMENT_EQUIHASH, // Equihash algo swap
     //DEPLOYMENT_ETHASH, // Ethash algo swap
 };
-constexpr bool ValidDeployment(BuriedDeployment dep) { return DEPLOYMENT_HEIGHTINCB <= dep && dep <= DEPLOYMENT_SEGWIT; }
+constexpr bool ValidDeployment(BuriedDeployment dep) { return DEPLOYMENT_HEIGHTINCB <= dep && dep <= DEPLOYMENT_ODO; }
 
 enum DeploymentPos : uint16_t {
     DEPLOYMENT_TESTDUMMY,
