@@ -218,24 +218,31 @@ TestChain100Setup::TestChain100Setup()
     coinbaseKey.Set(vchKey.begin(), vchKey.end(), true);
 
     // Generate a 100-block chain:
-    this->mineBlocks(COINBASE_MATURITY);
+    this->mineBlocks(COINBASE_MATURITY_2);
 
     {
         LOCK(::cs_main);
 
         assert(
             m_node.chainman->ActiveChain().Tip()->GetBlockHash().ToString() ==
-            "2c8399d7773ffd7b1b236c6faff654b1deac9ec91fc606e5a946aea1e68f6ef7");
+            "ab7cc1f06a66c5dab486fbb20edf5721aca80453d595cf92753966e26e4651f0");
     }
 }
 
 void TestChain100Setup::mineBlocks(int num_blocks)
 {
+    const CChainParams& chainparams = Params();
+
     CScript scriptPubKey = CScript() << ToByteVector(coinbaseKey.GetPubKey()) << OP_CHECKSIG;
     for (int i = 0; i < num_blocks; i++) {
         std::vector<CMutableTransaction> noTxns;
         CBlock b = CreateAndProcessBlock(noTxns, scriptPubKey);
-        SetMockTime(GetTime() + 1);
+
+        /* Regtest allows below-min-difficulty blocks to be mined 
+         * as fPowAllowMinDifficultyBlocks = true */
+        int64_t artificialBlockTime = chainparams.GetConsensus().nTargetSpacing * 2 + 1;
+        SetMockTime(GetTime() + artificialBlockTime);
+
         m_coinbase_txns.push_back(b.vtx[0]);
     }
 }
@@ -245,6 +252,7 @@ CBlock TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransa
     const CChainParams& chainparams = Params();
     CTxMemPool empty_pool;
     CBlock block = BlockAssembler(m_node.chainman->ActiveChainstate(), empty_pool, chainparams).CreateNewBlock(scriptPubKey, ALGO_SCRYPT)->block;
+    block.nTime = GetTime(); // override adjustedBlockTime
 
     Assert(block.vtx.size() == 1);
     for (const CMutableTransaction& tx : txns) {
@@ -252,7 +260,7 @@ CBlock TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransa
     }
     RegenerateCommitments(block, *Assert(m_node.chainman));
 
-    while (!CheckProofOfWork(block.GetHash(), block.nBits, chainparams.GetConsensus())) ++block.nNonce;
+    while (!CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, chainparams.GetConsensus())) ++block.nNonce;
 
     std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(block);
     Assert(m_node.chainman)->ProcessNewBlock(chainparams, shared_pblock, true, nullptr);
