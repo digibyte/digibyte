@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2020 The DigiByte Core developers
+// Copyright (c) 2013-2021 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,11 +10,14 @@
 #include <config/digibyte-config.h>
 #endif
 
-#include <QApplication>
+#include <interfaces/node.h>
+#include <qt/initexecutor.h>
+
 #include <assert.h>
 #include <memory>
+#include <optional>
 
-#include <interfaces/node.h>
+#include <QApplication>
 
 class DigiByteGUI;
 class ClientModel;
@@ -25,31 +29,6 @@ class SplashScreen;
 class WalletController;
 class WalletModel;
 
-
-/** Class encapsulating DigiByte Core startup and shutdown.
- * Allows running startup and shutdown in a different thread from the UI thread.
- */
-class DigiByteCore: public QObject
-{
-    Q_OBJECT
-public:
-    explicit DigiByteCore(interfaces::Node& node);
-
-public Q_SLOTS:
-    void initialize();
-    void shutdown();
-
-Q_SIGNALS:
-    void initializeResult(bool success, interfaces::BlockAndHeaderTipInfo tip_info);
-    void shutdownResult();
-    void runawayException(const QString &message);
-
-private:
-    /// Pass fatal exception message to UI thread
-    void handleRunawayException(const std::exception *e);
-
-    interfaces::Node& m_node;
-};
 
 /** Main DigiByte application object */
 class DigiByteApplication: public QApplication
@@ -112,7 +91,7 @@ Q_SIGNALS:
     void windowShown(DigiByteGUI* window);
 
 private:
-    QThread *coreThread;
+    std::optional<InitExecutor> m_executor;
     OptionsModel *optionsModel;
     ClientModel *clientModel;
     DigiByteGUI *window;
