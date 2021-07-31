@@ -3514,9 +3514,6 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
         vRecv >> ptx;
         const CTransaction& tx = *ptx;
 
-        const uint256& txid = ptx->GetHash();
-        const uint256& wtxid = ptx->GetWitnessHash();
-
         CInv inv(MSG_DANDELION_TX, tx.GetHash());
         LOCK2(cs_main, g_cs_orphans);
 
