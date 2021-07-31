@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2020 The Bitcoin Core developers
-// Copyright (c) 2014-2020 The DigiByte Core developers
+// Copyright (c) 2011-2020 The Bitcoin Core developers
+// Copyright (c) 2013-2021 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,7 +63,6 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode _mode,
     mode(_mode),
     tab(_tab)
 {
-    QString theme = GUIUtil::getThemeName();
     ui->setupUi(this);
 
     if (!platformStyle->getImagesOnButtons()) {
@@ -72,10 +71,10 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode _mode,
         ui->deleteAddress->setIcon(QIcon());
         ui->exportButton->setIcon(QIcon());
     } else {
-        ui->newAddress->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/add"));
-        ui->copyAddress->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/editcopy"));
-        ui->deleteAddress->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/remove"));
-        ui->exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/export"));
+        ui->newAddress->setIcon(platformStyle->SingleColorIcon(":/icons/add"));
+        ui->copyAddress->setIcon(platformStyle->SingleColorIcon(":/icons/editcopy"));
+        ui->deleteAddress->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
+        ui->exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
     }
 
     switch(mode)
