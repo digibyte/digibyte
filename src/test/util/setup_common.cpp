@@ -145,6 +145,7 @@ ChainTestingSetup::ChainTestingSetup(const std::string& chainName, const std::ve
 
     m_node.fee_estimator = std::make_unique<CBlockPolicyEstimator>();
     m_node.mempool = std::make_unique<CTxMemPool>(m_node.fee_estimator.get(), 1);
+    m_node.stempool = std::make_unique<CTxMemPool>(m_node.fee_estimator.get(), 1);
 
     m_node.chainman = std::make_unique<ChainstateManager>();
 
@@ -166,6 +167,7 @@ ChainTestingSetup::~ChainTestingSetup()
     m_node.args = nullptr;
     UnloadBlockIndex(m_node.mempool.get(), m_node.stempool.get(), *m_node.chainman);
     m_node.mempool.reset();
+    m_node.stempool.reset();
     m_node.scheduler.reset();
     m_node.chainman->Reset();
     m_node.chainman.reset();
@@ -180,7 +182,7 @@ TestingSetup::TestingSetup(const std::string& chainName, const std::vector<const
     // instead of unit tests, but for now we need these here.
     RegisterAllCoreRPCCommands(tableRPC);
 
-    m_node.chainman->InitializeChainstate(m_node.mempool.get());
+    m_node.chainman->InitializeChainstate(m_node.mempool.get(), m_node.stempool.get());
     m_node.chainman->ActiveChainstate().InitCoinsDB(
         /* cache_size_bytes */ 1 << 23, /* in_memory */ true, /* should_wipe */ false);
     assert(!m_node.chainman->ActiveChainstate().CanFlushToDisk());

@@ -615,6 +615,7 @@ public:
 
     explicit CChainState(
         CTxMemPool* mempool,
+        CTxMemPool* stempool,
         BlockManager& blockman,
         std::optional<uint256> from_snapshot_blockhash = std::nullopt);
 
@@ -953,10 +954,13 @@ public:
     //!
     //! @param[in] mempool              The mempool to pass to the chainstate
     //                                  constructor
+    //! @param[in] stempool             The stempool that is needed for dandelion
+    //                                  to pass to the chainstate constructor   
     //! @param[in] snapshot_blockhash   If given, signify that this chainstate
     //!                                 is based on a snapshot.
     CChainState& InitializeChainstate(
         CTxMemPool* mempool,
+        CTxMemPool* stempool,
         const std::optional<uint256>& snapshot_blockhash = std::nullopt)
         EXCLUSIVE_LOCKS_REQUIRED(::cs_main);
 
