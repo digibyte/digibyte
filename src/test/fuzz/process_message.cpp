@@ -138,3 +138,4 @@ FUZZ_TARGET_MSG(tx);
 FUZZ_TARGET_MSG(verack);
 FUZZ_TARGET_MSG(version);
 FUZZ_TARGET_MSG(wtxidrelay);
+FUZZ_TARGET_MSG(dandeliontx);
