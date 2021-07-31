@@ -202,19 +202,6 @@ BOOST_AUTO_TEST_CASE(block_subsidy_test)
 #endif
 }
 
-BOOST_AUTO_TEST_CASE(subsidy_limit_test)
-{
-    const auto chainParams = CreateChainParams(*m_node.args, CBaseChainParams::MAIN);
-    CAmount nSum = 0;
-    for (int nHeight = 0; nHeight < 14000000; nHeight += 1000) {
-        CAmount nSubsidy = GetBlockSubsidy(nHeight, chainParams->GetConsensus());
-        BOOST_CHECK(nSubsidy <= 50 * COIN);
-        nSum += nSubsidy * 1000;
-        BOOST_CHECK(MoneyRange(nSum));
-    }
-    BOOST_CHECK_EQUAL(nSum, CAmount{2099999997690000});
-}
-
 BOOST_AUTO_TEST_CASE(signet_parse_tests)
 {
     ArgsManager signet_argsman;
