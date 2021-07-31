@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2020 The Bitcoin Core developers
-// Copyright (c) 2014-2020 The DigiByte Core developers
+// Copyright (c) 2011-2019 The Bitcoin Core developers
+// Copyright (c) 2013-2021 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,13 +28,11 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *_platformStyle, QWidget *par
 {
     ui->setupUi(this);
 
-    QString theme = GUIUtil::getThemeName();
-
-    ui->addressBookButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/address-book"));
-    ui->pasteButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/editpaste"));
-    ui->deleteButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/remove"));
-    ui->deleteButton_is->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/remove"));
-    ui->deleteButton_s->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/remove"));
+    ui->addressBookButton->setIcon(platformStyle->SingleColorIcon(":/icons/address-book"));
+    ui->pasteButton->setIcon(platformStyle->SingleColorIcon(":/icons/editpaste"));
+    ui->deleteButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
+    ui->deleteButton_is->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
+    ui->deleteButton_s->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
 
     setCurrentWidget(ui->SendCoins);
 
