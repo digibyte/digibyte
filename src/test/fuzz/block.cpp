@@ -55,7 +55,7 @@ FUZZ_TARGET_INIT(block, initialize_block)
         assert(valid_incl_none);
     }
     (void)block.GetHash();
-    (void)block.ToString();
+    (void)block.ToString(consensus_params);
     (void)BlockMerkleRoot(block);
     if (!block.vtx.empty()) {
         // TODO: Avoid array index out of bounds error in BlockWitnessMerkleRoot
