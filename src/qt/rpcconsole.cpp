@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2020 The Bitcoin Core developers
-// Copyright (c) 2014-2020 The DigiByte Core developers
+// Copyright (c) 2011-2020 The Bitcoin Core developers
+// Copyright (c) 2013-2021 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -490,7 +490,6 @@ RPCConsole::RPCConsole(interfaces::Node& node, const PlatformStyle *_platformSty
         // RPCConsole is a child widget.
         ui->splitter->restoreState(settings.value("RPCConsoleWidgetPeersTabSplitterSizes").toByteArray());
     }
-    QString theme = GUIUtil::getThemeName();
 
     m_peer_widget_header_state = settings.value("PeersTabPeerHeaderState").toByteArray();
     m_banlist_widget_header_state = settings.value("PeersTabBanlistHeaderState").toByteArray();
@@ -518,23 +517,23 @@ RPCConsole::RPCConsole(interfaces::Node& node, const PlatformStyle *_platformSty
     ui->openDebugLogfileButton->setToolTip(ui->openDebugLogfileButton->toolTip().arg(PACKAGE_NAME));
 
     if (platformStyle->getImagesOnButtons()) {
-        ui->openDebugLogfileButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/export"));
+        ui->openDebugLogfileButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
     }
-    ui->clearButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/remove"));
+    ui->clearButton->setIcon(platformStyle->SingleColorIcon(":/icons/remove"));
 
-    ui->fontBiggerButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/fontbigger"));
+    ui->fontBiggerButton->setIcon(platformStyle->SingleColorIcon(":/icons/fontbigger"));
     //: Main shortcut to increase the RPC console font size.
     ui->fontBiggerButton->setShortcut(tr("Ctrl++"));
     //: Secondary shortcut to increase the RPC console font size.
     GUIUtil::AddButtonShortcut(ui->fontBiggerButton, tr("Ctrl+="));
 
-    ui->fontSmallerButton->setIcon(platformStyle->SingleColorIcon(":/icons/" + theme + "/fontsmaller"));
+    ui->fontSmallerButton->setIcon(platformStyle->SingleColorIcon(":/icons/fontsmaller"));
     //: Main shortcut to decrease the RPC console font size.
     ui->fontSmallerButton->setShortcut(tr("Ctrl+-"));
     //: Secondary shortcut to decrease the RPC console font size.
     GUIUtil::AddButtonShortcut(ui->fontSmallerButton, tr("Ctrl+_"));
 
-    ui->promptIcon->setIcon(platformStyle->SingleColorIcon(QStringLiteral(":/icons/" + theme + "/prompticon")));
+    ui->promptIcon->setIcon(platformStyle->SingleColorIcon(QStringLiteral(":/icons/prompticon")));
 
     // Install event filter for up and down arrow
     ui->lineEdit->installEventFilter(this);
