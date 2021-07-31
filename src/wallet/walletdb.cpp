@@ -60,8 +60,6 @@ const std::string WATCHMETA{"watchmeta"};
 const std::string WATCHS{"watchs"};
 } // namespace DBKeys
 
-static std::atomic<unsigned int> nWalletDBUpdateCounter;
-
 //
 // WalletBatch
 //
