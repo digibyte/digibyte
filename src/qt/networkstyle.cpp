@@ -1,12 +1,11 @@
-// Copyright (c) 2009-2020 The Bitcoin Core developers
-// Copyright (c) 2014-2020 The DigiByte Core developers
+// Copyright (c) 2014-2019 The Bitcoin Core developers
+// Copyright (c) 2014-2021 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <qt/networkstyle.h>
 
 #include <qt/guiconstants.h>
-#include <qt/guiutil.h>
 
 #include <chainparamsbase.h>
 #include <tinyformat.h>
@@ -30,12 +29,8 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     appName(_appName),
     titleAddText(qApp->translate("SplashScreen", _titleAddText))
 {
-    // Make sure settings migrated properly
-    GUIUtil::migrateQtSettings();
-    // Grab theme from settings
-    QString theme = GUIUtil::getThemeName();
     // load pixmap
-    QPixmap pixmap(":/icons/" + theme + "/digibyte");
+    QPixmap pixmap(":/icons/digibyte");
 
     if(iconColorHueShift != 0 && iconColorSaturationReduction != 0)
     {
