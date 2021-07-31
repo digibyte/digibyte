@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2020 The Bitcoin Core developers
-// Copyright (c) 2014-2020 The DigiByte Core developers
+// Copyright (c) 2011-2020 The DigiByte Core developers
+// Copyright (c) 2013-2021 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -202,15 +202,6 @@ namespace GUIUtil
 
     bool GetStartOnSystemStartup();
     bool SetStartOnSystemStartup(bool fAutoStart);
-    
-    /** Modify Qt network specific settings on migration */
-    void migrateQtSettings();
-
-    /** Load global CSS theme */
-    QString loadStyleSheet();
-
-    /** Return name of current CSS theme */
-    QString getThemeName();
 
     /** Convert QString to OS specific boost path through UTF-8 */
     fs::path qstringToBoostPath(const QString &path);
