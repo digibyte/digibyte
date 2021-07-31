@@ -58,7 +58,7 @@ void initialize_process_message()
 
     static const auto testing_setup = MakeNoLogFileContext<const TestingSetup>();
     g_setup = testing_setup.get();
-    for (int i = 0; i < 2 * COINBASE_MATURITY; i++) {
+    for (int i = 0; i < 2 * COINBASE_MATURITY_2; i++) {
         MineBlock(g_setup->m_node, CScript() << OP_TRUE);
     }
     SyncWithValidationInterfaceQueue();

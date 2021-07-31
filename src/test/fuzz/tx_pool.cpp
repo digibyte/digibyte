@@ -34,10 +34,10 @@ void initialize_tx_pool()
     static const auto testing_setup = MakeNoLogFileContext<const TestingSetup>();
     g_setup = testing_setup.get();
 
-    for (int i = 0; i < 2 * COINBASE_MATURITY; ++i) {
+    for (int i = 0; i < 2 * COINBASE_MATURITY_2; ++i) {
         CTxIn in = MineBlock(g_setup->m_node, P2WSH_OP_TRUE);
         // Remember the txids to avoid expensive disk access later on
-        auto& outpoints = i < COINBASE_MATURITY ?
+        auto& outpoints = i < COINBASE_MATURITY_2 ?
                               g_outpoints_coinbase_init_mature :
                               g_outpoints_coinbase_init_immature;
         outpoints.push_back(in.prevout);
