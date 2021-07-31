@@ -12,8 +12,6 @@
 #include <uint256.h>
 #include <chainparams.h>
 
-#include "util.h" //just for logs
-
 inline unsigned int PowLimit(const Consensus::Params& params)
 {
     return UintToArith256(params.powLimit).GetCompact();
