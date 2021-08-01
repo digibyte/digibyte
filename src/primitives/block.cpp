@@ -13,7 +13,6 @@
 #include <crypto/scrypt.h>
 #include <consensus/consensus.h>
 #include <chainparams.h>
-#include <util.h>
 #include <hash.h>
 #include <tinyformat.h>
 #include <arith_uint256.h>

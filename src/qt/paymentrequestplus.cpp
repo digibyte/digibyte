@@ -10,8 +10,6 @@
 
 #include <qt/paymentrequestplus.h>
 
-#include <util.h>
-
 #include <stdexcept>
 
 #include <openssl/x509_vfy.h>

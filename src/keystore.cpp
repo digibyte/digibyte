@@ -6,8 +6,6 @@
 
 #include <keystore.h>
 
-#include <util.h>
-
 void CBasicKeyStore::ImplicitlyLearnRelatedKeyScripts(const CPubKey& pubkey)
 {
     AssertLockHeld(cs_KeyStore);
