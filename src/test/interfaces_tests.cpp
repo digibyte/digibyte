@@ -103,6 +103,7 @@ BOOST_AUTO_TEST_CASE(findCommonAncestor)
     BOOST_CHECK_EQUAL(active.Height(), orig_tip->nHeight - 10);
     coinbaseKey.MakeNewKey(true);
     for (int i = 0; i < 20; ++i) {
+        SetMockTime(GetTime() + 1);
         CreateAndProcessBlock({}, GetScriptForRawPubKey(coinbaseKey.GetPubKey()));
     }
     BOOST_CHECK_EQUAL(active.Height(), orig_tip->nHeight + 10);
