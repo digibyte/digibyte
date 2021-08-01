@@ -169,7 +169,7 @@ void sanity_check_chainparams(const ArgsManager& args, std::string chainName)
     // check max target * 4*nPowTargetTimespan doesn't overflow -- see pow.cpp:CalculateNextWorkRequired()
     if (!consensus.fPowNoRetargeting) {
         arith_uint256 targ_max("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-        targ_max /= consensus.nPowTargetTimespan*4;
+        targ_max /= 15 * 4; // Current difficulty adjustment time is 15 seconds (per algo)
         BOOST_CHECK(UintToArith256(consensus.powLimit) < targ_max);
     }
 }
