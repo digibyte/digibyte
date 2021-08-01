@@ -3,11 +3,11 @@
 ## Supported Versions
 
 See our website for versions of DigiByte Core that are currently supported with
-security updates: https://digibytecore.org/en/lifecycle/#schedule
+security updates: https://digibyte.org/en/lifecycle/#schedule
 
 ## Reporting a Vulnerability
 
-To report security issues send an email to security@digibytecore.org (not for support).
+To report security issues send an email to security@digibyte.org (not for support).
 
 The following keys may be used to communicate sensitive information to developers:
 

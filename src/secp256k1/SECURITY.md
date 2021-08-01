@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-To report security issues send an email to secp256k1-security@digibytecore.org (not for support).
+To report security issues send an email to secp256k1-security@digibyte.org (not for support).
 
 The following keys may be used to communicate sensitive information to developers:
 

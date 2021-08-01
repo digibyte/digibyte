@@ -5,7 +5,7 @@ Setup
 ---------------------
 DigiByte Core is the original DigiByte client and it builds the backbone of the network. It downloads and, by default, stores the entire history of DigiByte transactions, which requires a few hundred gigabytes of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download DigiByte Core, visit [digibytecore.org](https://digibytecore.org/en/download/).
+To download DigiByte Core, visit [digibyte.org](https://digibyte.org/en/download/).
 
 Running
 ---------------------
@@ -56,7 +56,7 @@ The DigiByte repo's [root README](/README.md) contains relevant information on t
 - [Productivity Notes](productivity.md)
 - [Release Notes](release-notes.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://doxygen.digibytecore.org/)
+- [Source Code Documentation (External Link)](https://doxygen.digibyte.org/)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [JSON-RPC Interface](JSON-RPC-interface.md)

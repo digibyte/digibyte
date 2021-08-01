@@ -41,7 +41,7 @@ NO_ZMQ ?=
 NO_UPNP ?=
 NO_NATPMP ?=
 MULTIPROCESS ?=
-FALLBACK_DOWNLOAD_PATH ?= https://digibytecore.org/depends-sources
+FALLBACK_DOWNLOAD_PATH ?= https://digibyte.org/depends-sources
 
 BUILD = $(shell ./config.guess)
 HOST ?= $(BUILD)

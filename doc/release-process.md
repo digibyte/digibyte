@@ -216,7 +216,7 @@ $(cat all.SHA256SUMS.asc)
 EOF
 ```
 
-- Upload to the digibytecore.org server (`/var/www/bin/digibyte-core-${VERSION}`):
+- Upload to the digibyte.org server (`/var/www/bin/digibyte-core-${VERSION}`):
     1. The contents of `./digibyte/guix-build-${VERSION}/output`, except for
        `*-debug*` files.
 
@@ -224,7 +224,7 @@ EOF
        for troubleshooting by developers. It is assumed that anyone that is
        interested in debugging can run guix to generate the files for
        themselves. To avoid end-user confusion about which file to pick, as well
-       as save storage space *do not upload these to the digibytecore.org server,
+       as save storage space *do not upload these to the digibyte.org server,
        nor put them in the torrent*.
 
     2. The combined clear-signed message you just created `SHA256SUMS.asc`
@@ -241,18 +241,18 @@ EOF
   ```
 
   Insert the magnet URI into the announcement sent to mailing lists. This permits
-  people without access to `digibytecore.org` to download the binary distribution.
+  people without access to `digibyte.org` to download the binary distribution.
   Also put it into the `optional_magnetlink:` slot in the YAML file for
-  digibytecore.org.
+  digibyte.org.
 
 - Update other repositories and websites for new version
 
-  - digibytecore.org blog post
+  - digibyte.org blog post
 
-  - digibytecore.org maintained versions update:
-    [table](https://github.com/digibyte-core/digibytecore.org/commits/master/_includes/posts/maintenance-table.md)
+  - digibyte.org maintained versions update:
+    [table](https://github.com/digibyte-core/digibyte.org/commits/master/_includes/posts/maintenance-table.md)
 
-  - digibytecore.org RPC documentation update
+  - digibyte.org RPC documentation update
 
       - Install [golang](https://golang.org/doc/install)
 
@@ -260,7 +260,7 @@ EOF
 
       - Run digibyted on regtest
 
-      - Clone the [digibytecore.org repository](https://github.com/digibyte-core/digibytecore.org)
+      - Clone the [digibyte.org repository](https://github.com/digibyte-core/digibyte.org)
 
       - Run: `go run generate.go` while being in `contrib/doc-gen` folder, and with digibyte-cli in PATH
 
@@ -301,7 +301,7 @@ EOF
 
   - digibyte-dev and digibyte-core-dev mailing list
 
-  - DigiByte Core announcements list https://digibytecore.org/en/list/announcements/join/
+  - DigiByte Core announcements list https://digibyte.org/en/list/announcements/join/
 
   - DigiByte Core Twitter https://twitter.com/digibytecoreorg
 

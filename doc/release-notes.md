@@ -19,7 +19,7 @@ https://github.com/digibyte-core/digibyte-devwiki/wiki/
 
 DigiByte Core version *version* is now available from:
 
-  <https://digibytecore.org/bin/digibyte-core-*version*/>
+  <https://digibyte.org/bin/digibyte-core-*version*/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
@@ -30,7 +30,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://digibytecore.org/en/list/announcements/join/>
+  <https://digibyte.org/en/list/announcements/join/>
 
 How to Upgrade
 ==============
