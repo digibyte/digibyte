@@ -19,6 +19,9 @@
 #include <validationinterface.h>
 
 #include <thread>
+    
+#define ADVANCE() SetMockTime(GetTime() + Params().GetConsensus().nTargetSpacing * 2 + 1)
+#define APPLY_BLOCK_TIME(block) SetMockTime((block)->nTime)
 
 namespace validation_block_tests {
 struct MinerTestingSetup : public RegTestingSetup {
@@ -86,8 +89,16 @@ std::shared_ptr<CBlock> MinerTestingSetup::Block(const uint256& prev_hash)
 std::shared_ptr<CBlock> MinerTestingSetup::FinalizeBlock(std::shared_ptr<CBlock> pblock)
 {
     LOCK(cs_main); // For m_node.chainman->m_blockman.LookupBlockIndex
+    auto consensus = Params().GetConsensus();
+    
+    ADVANCE();
+    pblock->nTime = GetTime();
+
     GenerateCoinbaseCommitment(*pblock, m_node.chainman->m_blockman.LookupBlockIndex(pblock->hashPrevBlock), Params().GetConsensus());
 
+    CBlockHeader header = pblock->GetBlockHeader();
+    auto prevIndex = m_node.chainman->m_blockman.LookupBlockIndex(pblock->hashPrevBlock);
+    pblock->nBits = GetNextWorkRequired(prevIndex, &header, consensus, pblock->GetAlgo());
     pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
 
     while (!CheckProofOfWork(GetPoWAlgoHash(pblock->GetBlockHeader()), pblock->nBits, Params().GetConsensus())) {
@@ -151,6 +162,7 @@ BOOST_AUTO_TEST_CASE(processnewblock_signals_ordering)
     BlockValidationState state;
     std::vector<CBlockHeader> headers;
     std::transform(blocks.begin(), blocks.end(), std::back_inserter(headers), [](std::shared_ptr<const CBlock> b) { return b->GetBlockHeader(); });
+
 
     // Process all the headers so we understand the toplogy of the chain
     BOOST_CHECK(Assert(m_node.chainman)->ProcessNewBlockHeaders(headers, state, Params()));
@@ -223,6 +235,7 @@ BOOST_AUTO_TEST_CASE(mempool_locks_reorg)
 {
     bool ignored;
     auto ProcessBlock = [&](std::shared_ptr<const CBlock> block) -> bool {
+        APPLY_BLOCK_TIME(block);                
         return Assert(m_node.chainman)->ProcessNewBlock(Params(), block, /* fForceProcessing */ true, /* fNewBlock */ &ignored);
     };
 
