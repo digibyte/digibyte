@@ -145,6 +145,10 @@ BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
         int64_t tdiff = GetBlockProofEquivalentTime(*p1, *p2, *p3, chainParams->GetConsensus());
         BOOST_CHECK_EQUAL(tdiff, p1->GetBlockTime() - p2->GetBlockTime());
     }
+
+    for (int i = 0; i < 10000; ++i) {
+        delete blocks[i].phashBlock;
+    }
 }
 
 void sanity_check_chainparams(const ArgsManager& args, std::string chainName)
@@ -170,6 +174,7 @@ void sanity_check_chainparams(const ArgsManager& args, std::string chainName)
     if (!consensus.fPowNoRetargeting) {
         arith_uint256 targ_max("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
         targ_max /= 15 * 4; // Current difficulty adjustment time is 15 seconds (per algo)
+
         BOOST_CHECK(UintToArith256(consensus.powLimit) < targ_max);
     }
 }
