@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Brew Install
-        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg
+        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
 
       - name: Auto generate
         run: ./autogen.sh
