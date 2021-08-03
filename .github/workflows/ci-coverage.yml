@@ -29,7 +29,7 @@ jobs:
       - name: Install apt dependencies
         env:
           CACHE_HIT: ${{steps.cache-apt.outputs.cache-hit}}
-          DEPS: build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev software-properties-common libdb5.3++ libdb5.3++-dev
+          DEPS: build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache
         run: |
           if [[ "$CACHE_HIT" == 'true' ]]; then
             sudo cp --force --recursive ~/apt-cache/* /
