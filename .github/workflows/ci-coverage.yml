@@ -1,4 +1,4 @@
-name: 'Build and check'
+name: 'Build & Check: Ubuntu'
 
 on: [push, pull_request]
 

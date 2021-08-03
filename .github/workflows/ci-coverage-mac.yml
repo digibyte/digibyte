@@ -1,4 +1,4 @@
-name: 'Build & check: macOS'
+name: 'Build & Check: macOS'
 
 on: [push, pull_request]
 
