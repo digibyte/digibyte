@@ -22,7 +22,7 @@ jobs:
         run: ./configure --with-gui=yes
 
       - name: make
-        run: make
+        run: make -j3
 
       - name: check
         run: make check
