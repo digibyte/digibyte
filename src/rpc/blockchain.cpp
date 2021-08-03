@@ -134,9 +134,7 @@ double GetDifficulty(const CBlockIndex* tip, const CBlockIndex* blockindex, int 
     else
         nBits = blockindex->nBits;
  
-    CHECK_NONFATAL(blockindex);
-
-    int nShift = (blockindex->nBits >> 24) & 0xff;
+    int nShift = (nBits >> 24) & 0xff;
     double dDiff =
         (double)0x0000ffff / (double)(nBits & 0x00ffffff);
  
