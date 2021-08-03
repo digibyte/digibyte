@@ -1,4 +1,4 @@
-name: 'Build and check'
+name: 'Build & check: macOS'
 
 on: [push, pull_request]
 
@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Brew Install
-        run: brew install automake libtool boost pkg-config libevent berkeley-db@4 sqlite python
+        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg
 
       - name: Auto generate
         run: ./autogen.sh
