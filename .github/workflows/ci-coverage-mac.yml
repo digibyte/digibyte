@@ -15,6 +15,9 @@ jobs:
       - name: Brew Install
         run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
 
+      - name: Brew Force Link
+        run: brew link openssl --force
+
       - name: Auto generate
         run: ./autogen.sh
 
