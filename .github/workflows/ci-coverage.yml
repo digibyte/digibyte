@@ -41,7 +41,7 @@ jobs:
             done
           fi
           
-     - name: Add BTC PPA
+      - name: Add BTC PPA
         run: sudo add-apt-repository ppa:bitcoin/bitcoin
 
       - name: Build depends
