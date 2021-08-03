@@ -40,9 +40,6 @@ jobs:
                 dpkg -L $dep | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/apt-cache/
             done
           fi
-          
-      - name: Add BTC PPA
-        run: sudo add-apt-repository ppa:bitcoin/bitcoin
 
       - name: Build depends
         if: steps.cache-dependencies.outputs.cache-hit != 'true' && steps.cache-apt.outputs.cache-hit != 'true'
@@ -52,7 +49,7 @@ jobs:
         run: ./autogen.sh
 
       - name: configure
-        run: ./configure --with-incompatible-bdb --prefix=`pwd`/depends/${{ matrix.os }}
+        run: ./configure --prefix=`pwd`/depends/${{ matrix.os }}
 
       - name: make
         run: make -j4
