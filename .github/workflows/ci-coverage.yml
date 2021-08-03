@@ -29,7 +29,7 @@ jobs:
       - name: Install apt dependencies
         env:
           CACHE_HIT: ${{steps.cache-apt.outputs.cache-hit}}
-          DEPS: build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev libdb4.8-dev libdb4.8++-dev
+          DEPS: build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev software-properties-common libdb4.8-dev libdb4.8++-dev
         run: |
           if [[ "$CACHE_HIT" == 'true' ]]; then
             sudo cp --force --recursive ~/apt-cache/* /
@@ -40,6 +40,9 @@ jobs:
                 dpkg -L $dep | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/apt-cache/
             done
           fi
+          
+     - name: Add BTC PPA
+        run: sudo add-apt-repository ppa:bitcoin/bitcoin
 
       - name: Build depends
         if: steps.cache-dependencies.outputs.cache-hit != 'true' && steps.cache-apt.outputs.cache-hit != 'true'
