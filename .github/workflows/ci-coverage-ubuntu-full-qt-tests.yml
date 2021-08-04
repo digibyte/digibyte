@@ -18,9 +18,6 @@ jobs:
       - name: Auto Generate
         run: ./autogen.sh
 
-      - name: Install db4.8
-        run: ./autogen.sh
-
       - name: Configure
         run: ./configure --with-incompatible-bdb
 
