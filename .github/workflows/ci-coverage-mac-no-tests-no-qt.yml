@@ -12,20 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Xcode Tools Remove
-        run: sudo rm -rf /Library/Developer/CommandLineTools
-
-      - name: Install Xcode Tools
-        run: xcode-select --install
-
       - name: Brew Install Dependencies
-        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
+        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg libressl
 
       - name: Brew Force Link Openssl
-        run: brew link openssl --force
-
-      - name: Include Openssl
-        run: sudo cd /usr/local/include && sudo ln -s ../opt/openssl/include/openssl 
+        run: export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/lib \
+-L/usr/local/opt/expat/lib" && export CFLAGS="-I/usr/local/opt/openssl/include/ \
+-I/usr/local/include -I/usr/local/opt/expat/include" && export \
+CPPFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include \
+-I/usr/local/opt/expat/include"
 
       - name: Auto Generate
         run: ./autogen.sh
