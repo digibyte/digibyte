@@ -13,13 +13,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Brew Install
-        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
+        run: sudo brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
 
       - name: Brew Force Link Openssl
-        run: brew link openssl --force
+        run: sudo brew link openssl --force
 
       - name: Include Openssl
-        run: cd /usr/local/include & ln -s ../opt/openssl/include/openssl 
+        run: sudo cd /usr/local/include & ln -s ../opt/openssl/include/openssl 
 
       - name: Auto generate
         run: ./autogen.sh
