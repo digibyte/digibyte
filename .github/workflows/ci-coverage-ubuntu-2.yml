@@ -1,0 +1,29 @@
+name: 'Build & Check: Ubuntu'
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          os: [x86_64-linux-gnu]
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get Deps
+        run:  sudo apt-get install install build-essential libtool libssl-dev autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev libboost-system-dev libboost-filesystem-dev libboost-test-dev libsqlite3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libqrencode-dev
+
+      - name: Auto generate
+        run: ./autogen.sh
+
+      - name: configure
+        run: ./configure --disable-wallet 
+
+      - name: make
+        run: make -j3
+
+      - name: check
+        run: make check
+        
