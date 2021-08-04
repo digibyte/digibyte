@@ -1,0 +1,41 @@
+name: 'Build & Check: macOS No QT & No Tests'
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+        matrix:
+          os: [x86_64-mac]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Xcode Tools Remove
+        run: sudo rm -rf /Library/Developer/CommandLineTools
+
+      - name: Install Xcode Tools
+        run: xcode-select --install
+
+      - name: Brew Install Dependencies
+        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
+
+      - name: Brew Force Link Openssl
+        run: brew link openssl --force
+
+      - name: Include Openssl
+        run: sudo cd /usr/local/include && sudo ln -s ../opt/openssl/include/openssl 
+
+      - name: Auto Generate
+        run: ./autogen.sh
+
+      - name: Configure
+        run: ./configure --with-gui=no --disable-tests
+
+      - name: Make
+        run: make -j3
+
+      - name: Make Check
+        run: make check
+        
