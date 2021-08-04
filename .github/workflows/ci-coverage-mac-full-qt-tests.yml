@@ -19,7 +19,7 @@ jobs:
         run: brew link openssl --force
 
       - name: Include Openssl
-        run: sudo cd /usr/local/include & ln -s ../opt/openssl/include/openssl 
+        run: sudo cd /usr/local/include && sudo ln -s ../opt/openssl/include/openssl 
 
       - name: Auto generate
         run: ./autogen.sh
