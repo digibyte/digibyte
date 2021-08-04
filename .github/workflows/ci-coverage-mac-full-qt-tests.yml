@@ -1,4 +1,4 @@
-name: 'Build & Check: macOS'
+name: 'Build & Check: macOS Full QT & Tests'
 
 on: [push, pull_request]
 
@@ -12,7 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Brew Install
+      - name: Install Xcode Tools
+        run: xcode-select --install
+
+      - name: Brew Install Dependencies
         run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
 
       - name: Brew Force Link Openssl
@@ -21,15 +24,15 @@ jobs:
       - name: Include Openssl
         run: sudo cd /usr/local/include && sudo ln -s ../opt/openssl/include/openssl 
 
-      - name: Auto generate
+      - name: Auto Generate
         run: ./autogen.sh
 
-      - name: configure
+      - name: Configure
         run: ./configure --with-gui=yes
 
-      - name: make
+      - name: Make
         run: make -j3
 
-      - name: check
+      - name: Make Check
         run: make check
         

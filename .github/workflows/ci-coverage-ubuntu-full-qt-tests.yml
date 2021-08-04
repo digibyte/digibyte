@@ -12,18 +12,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Get Deps
+      - name: Get Dependencies
         run:  sudo apt-get install build-essential libtool libssl-dev autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev libboost-system-dev libboost-filesystem-dev libboost-test-dev libsqlite3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libqrencode-dev
 
-      - name: Auto generate
+      - name: Auto Generate
         run: ./autogen.sh
 
-      - name: configure
-        run: ./configure --disable-wallet 
+      - name: Configure
+        run: ./configure
 
-      - name: make
+      - name: Make
         run: make -j3
 
-      - name: check
+      - name: Make Check
         run: make check
         
