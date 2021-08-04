@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install Xcode Tools Remove
+        run: sudo rm -rf /Library/Developer/CommandLineTools
+
       - name: Install Xcode Tools
         run: xcode-select --install
 
