@@ -1,7 +1,7 @@
 {
-    "txid": "4ebd325a4b394cff8c57e8317ccf5a8d0e2bdf1b8526f8aad6c8e43d8240621a",
-    "hash": "4ebd325a4b394cff8c57e8317ccf5a8d0e2bdf1b8526f8aad6c8e43d8240621a",
-    "version": 2,
+    "txid": "d21633ba23f70118185227be58a63527675641ad37967e2aa461559f577aec43",
+    "hash": "d21633ba23f70118185227be58a63527675641ad37967e2aa461559f577aec43",
+    "version": 1,
     "size": 10,
     "vsize": 10,
     "weight": 40,
@@ -10,5 +10,5 @@
     ],
     "vout": [
     ],
-    "hex": "02000000000000000000"
+    "hex": "01000000000000000000"
 }
