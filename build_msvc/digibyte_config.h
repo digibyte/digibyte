@@ -248,7 +248,7 @@
 #define LT_OBJDIR ".libs/"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "https://github.com/digibyte/digibyte/issues"
+#define PACKAGE_BUGREPORT "https://github.com/DigiByte-Core/digibyte/issues"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "DigiByte Core"
