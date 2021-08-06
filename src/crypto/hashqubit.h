@@ -13,10 +13,7 @@
 #include "sph_simd.h"
 #include "sph_echo.h"
 
-#include <openssl/sha.h>
-#include <openssl/ripemd.h>
 #include <vector>
-
 
 template<typename T1>
 inline uint256 HashQubit(const T1 pbegin, const T1 pend)
