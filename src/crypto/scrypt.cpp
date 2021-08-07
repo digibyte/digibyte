@@ -106,7 +106,7 @@ PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
 	}
 
 	/* Clean PShctx, since we never called _Final on it. */
-	memset(&PShctx, 0, sizeof(CHMAC_SHA256));
+	PShctx.Reset();
 }
 
 #define ROTL(a, b) (((a) << (b)) | ((a) >> (32 - (b))))

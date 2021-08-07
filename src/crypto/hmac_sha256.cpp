@@ -27,6 +27,11 @@ CHMAC_SHA256::CHMAC_SHA256(const unsigned char* key, size_t keylen)
     inner.Write(rkey, 64);
 }
 
+void CHMAC_SHA256::Reset() {
+    inner.Reset();
+    outer.Reset();
+}
+
 void CHMAC_SHA256::Finalize(unsigned char hash[OUTPUT_SIZE])
 {
     unsigned char temp[32];

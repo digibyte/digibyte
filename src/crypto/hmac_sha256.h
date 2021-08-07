@@ -27,6 +27,7 @@ public:
         inner.Write(data, len);
         return *this;
     }
+    void Reset();
     void Finalize(unsigned char hash[OUTPUT_SIZE]);
 };
 
