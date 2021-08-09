@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018 The DigiByte Core developers
+# Copyright (c) 2009-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
@@ -9,9 +10,17 @@
 
 export LC_ALL=C
 EXIT_CODE=0
-OUTPUT=$(git grep " open(" -- "*.py" | grep -vE "encoding=.(ascii|utf8|utf-8)." | grep -vE "open\([^,]*, ['\"][^'\"]*b[^'\"]*['\"]")
+OUTPUT=$(git grep " open(" -- "*.py" ":(exclude)src/crc32c/" | grep -vE "encoding=.(ascii|utf8|utf-8)." | grep -vE "open\([^,]*, ['\"][^'\"]*b[^'\"]*['\"]")
 if [[ ${OUTPUT} != "" ]]; then
     echo "Python's open(...) seems to be used to open text files without explicitly"
+    echo "specifying encoding=\"utf8\":"
+    echo
+    echo "${OUTPUT}"
+    EXIT_CODE=1
+fi
+OUTPUT=$(git grep "check_output(" -- "*.py" ":(exclude)src/crc32c/"| grep "universal_newlines=True" | grep -vE "encoding=.(ascii|utf8|utf-8).")
+if [[ ${OUTPUT} != "" ]]; then
+    echo "Python's check_output(...) seems to be used to get program outputs without explicitly"
     echo "specifying encoding=\"utf8\":"
     echo
     echo "${OUTPUT}"

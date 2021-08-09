@@ -57,10 +57,21 @@ The title of the pull request should be prefixed by the component or area that t
 
 Examples:
 
-    Consensus: Add new opcode for BIP-XXXX OP_CHECKAWESOMESIG
-    Net: Automatically create hidden service, listen on Tor
-    Qt: Add feed bump button
-    Trivial: Fix typo in init.cpp
+    consensus: Add new opcode for BIP-XXXX OP_CHECKAWESOMESIG
+    net: Automatically create onion service, listen on Tor
+    qt: Add feed bump button
+    log: Fix typo in log message
+
+The body of the pull request should contain sufficient description of *what* the
+patch does, and even more importantly, *why*, with justification and reasoning.
+You should include references to any discussions (for example, other issues or
+mailing list discussions).
+
+The description for a new pull request should not contain any `@` mentions. The
+PR description will be included in the commit message when the PR is merged and
+any users mentioned in the description will be annoyingly notified each time a
+fork of DigiByte Core copies the merge. Instead, make any username mentions in a
+subsequent comment to the PR.
 
 Note that translations should not be submitted as pull requests, please see [Translation Process](https://github.com/digibyte/digibyte/blob/master/doc/translation_process.md) for more information on helping with translations.
 
@@ -70,7 +81,9 @@ The body of the pull request should contain enough description about what the pa
 
 At this stage one should expect comments and review from other contributors. You can add more commits to your pull request by committing them locally and pushing to your fork until you have satisfied all feedback.
 
-Note: Code review is a burdensome but important part of the development process, and as such, certain types of pull requests are rejected. In general, if the **improvements** do not warrant the **review effort** required, the PR has a high chance of being rejected. It is up to the PR author to convince the reviewers that the changes warrant the review effort, and if reviewers are "Concept NAK'ing" the PR, the author may need to present arguments and/or do research backing their suggested changes.
+Note: Code review is a burdensome but important part of the development process, and as such, certain types of pull requests are rejected. In general, if the **improvements** do not warrant the **review effort** required, the PR has a high chance of being rejected. It is up to the PR author to convince the reviewers that the changes warrant the review effort, and if reviewers are "Concept NACK'ing" the PR, the author may need to present arguments and/or do research backing their suggested changes.
+
+### Squashing Commits
 
 ## Squashing Commits
 
@@ -121,28 +134,51 @@ Maintainers will take into consideration if a patch is in line with the general 
 
 In general, all pull requests must:
 
-- Have a clear use case, fix a demonstrable bug or serve the greater good of
-  the project (for example refactoring for modularisation);
-- Be well peer reviewed;
-- Have unit tests and functional tests where appropriate;
-- Follow code style guidelines ([C++](doc/developer-notes.md), [functional tests](test/functional/README.md));
-- Not break the existing test suite;
-- Where bugs are fixed, where possible, there should be unit tests
-  demonstrating the bug and also proving the fix. This helps prevent regression.
+  - Have a clear use case, fix a demonstrable bug or serve the greater good of
+    the project (for example refactoring for modularisation);
+  - Be well peer-reviewed;
+  - Have unit tests, functional tests, and fuzz tests, where appropriate;
+  - Follow code style guidelines ([C++](doc/developer-notes.md), [functional tests](test/functional/README.md));
+  - Not break the existing test suite;
+  - Where bugs are fixed, where possible, there should be unit tests
+    demonstrating the bug and also proving the fix. This helps prevent regression.
+  - Change relevant comments and documentation when behaviour of code changes.
+
+Patches that change DigiByte consensus rules are considerably more involved than
+normal because they affect the entire ecosystem and so must be preceded by
+extensive mailing list discussions and have a numbered DIP. While each case will
+be different, one should be prepared to expend more time and effort than for
+other kinds of patches because of increased peer review and consensus building
+requirements.
 
 Patches that change DigiByte consensus rules are considerably more involved than normal because they affect the entire ecosystem and so must be preceded by extensive mailing list discussions and have a numbered BIP. While each case will be different, one should be prepared to expend more time and effort than for other kinds of patches because of increased peer review and consensus building requirements.
 
 ### Peer Review
 
-Anyone may participate in peer review which is expressed by comments in the pull request. Typically reviewers will review the code for obvious errors, as well as test out the patch set and opine on the technical merits of the patch. Project maintainers take into account the peer review when determining if there is consensus to merge a pull request (remember that discussions may have been spread out over GitHub, and Gitter). The following language is used within pull-request comments:
+Anyone may participate in peer review which is expressed by comments in the pull request. Typically reviewers will review the code for obvious errors, as well as test out the patch set and opine on the technical merits of the patch. Project maintainers take into account the peer review when determining if there is consensus to merge a pull request (remember that discussions may have been spread out over GitHub, Gitter, Telegram, and mailing lists). The following language is used within pull-request comments:
 
 - ACK means "I have tested the code and I agree it should be merged";
-- NACK means "I disagree.  This should not be merged", and must be accompanied by sound technical justification (or in certain cases of copyright/patent/licensing issues, legal justification). NACKs without accompanying reasoning may be disregarded;
+- NACK means "I disagree this should be merged", and must be accompanied by sound technical justification (or in certain cases of copyright/patent/licensing issues, legal justification). NACKs without accompanying reasoning may be disregarded;
 - utACK means "I have not tested the code, but I have reviewed it and it looks OK, I agree it can be merged";
 - Concept ACK means "I agree in the general principle of this pull request";
 - Nit refers to trivial, often non-blocking issues.
 
-Reviewers should include the commit hash which they reviewed in their comments.
+A `NACK` needs to include a rationale why the change is not worthwhile.
+NACKs without accompanying reasoning may be disregarded.
+
+#### Code Review
+
+After conceptual agreement on the change, code review can be provided. A review
+begins with `ACK BRANCH_COMMIT`, where `BRANCH_COMMIT` is the top of the PR
+branch, followed by a description of how the reviewer did the review. The
+following language is used within pull request comments:
+
+  - "I have tested the code", involving change-specific manual testing in
+    addition to running the unit, functional, or fuzz tests, and in case it is
+    not obvious how the manual testing was done, it should be described;
+  - "I have not tested the code, but I have reviewed it and it looks
+    OK, I agree it can be merged";
+  - A "nit" refers to a trivial, often non-blocking issue.
 
 Project maintainers reserve the right to weigh the opinions of peer reviewers using common sense judgement and also may weight based on meritocracy: Those that have demonstrated a deeper commitment and understanding towards the project (over time) or have clear domain expertise may naturally have more weight, as one would expect in all walks of life.
 

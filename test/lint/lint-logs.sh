@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018 The DigiByte Core developers
+# Copyright (c) 2009-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
@@ -15,10 +16,12 @@
 export LC_ALL=C
 UNTERMINATED_LOGS=$(git grep --extended-regexp "LogPrintf?\(" -- "*.cpp" | \
     grep -v '\\n"' | \
+    grep -v '\.\.\.' | \
     grep -v "/\* Continued \*/" | \
     grep -v "LogPrint()" | \
     grep -v "LogPrintf()")
 if [[ ${UNTERMINATED_LOGS} != "" ]]; then
+    # shellcheck disable=SC2028
     echo "All calls to LogPrintf() and LogPrint() should be terminated with \\n"
     echo
     echo "${UNTERMINATED_LOGS}"

@@ -3,10 +3,10 @@ Repository Tools
 
 ### [Developer tools](/contrib/devtools) ###
 Specific tools for developers working on this repository.
-Contains the script `github-merge.py` for merging GitHub pull requests securely and signing them using GPG.
+Additional tools, including the `github-merge.py` script, are available in the [maintainer-tools](https://github.com/digibyte-core/digibyte-maintainer-tools) repository.
 
 ### [Verify-Commits](/contrib/verify-commits) ###
-Tool to verify that every merge commit was signed by a developer using the above `github-merge.py` script.
+Tool to verify that every merge commit was signed by a developer using the `github-merge.py` script.
 
 ### [Linearize](/contrib/linearize) ###
 Construct a linear, no-fork, best version of the blockchain.
@@ -29,19 +29,16 @@ All other packaging related files can be found in the [digibyte-core/packaging](
 ### [Gitian-descriptors](/contrib/gitian-descriptors) ###
 Files used during the gitian build process. For more information about gitian, see the [the DigiByte Core documentation repository](https://github.com/digibyte-core/docs).
 
-### [Gitian-keys](/contrib/gitian-keys)
-PGP keys used for signing DigiByte Core [Gitian release](/doc/release-process.md) results.
+### [Builder keys](/contrib/builder-keys)
+PGP keys used for signing DigiByte Core [release](/doc/release-process.md) results.
 
 ### [MacDeploy](/contrib/macdeploy) ###
-Scripts and notes for Mac builds. 
+Scripts and notes for Mac builds.
 
 ### [Gitian-build](/contrib/gitian-build.py) ###
 Script for running full Gitian builds.
 
-### [init](/contrib/init) ###
-Sample configuration files for SystemD, Upstart, OpenRC, CentOS, and OS X.
-
-Test and Verify Tools 
+Test and Verify Tools
 ---------------------
 
 ### [TestGen](/contrib/testgen) ###

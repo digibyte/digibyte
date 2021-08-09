@@ -1,19 +1,19 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <qt/modaloverlay.h>
 #include <qt/forms/ui_modaloverlay.h>
 
+#include <chainparams.h>
 #include <qt/guiutil.h>
 
-#include <chainparams.h>
-
-#include <QResizeEvent>
+#include <QEasingCurve>
 #include <QPropertyAnimation>
+#include <QResizeEvent>
 
-ModalOverlay::ModalOverlay(QWidget *parent) :
+ModalOverlay::ModalOverlay(bool enable_wallet, QWidget *parent) :
 QWidget(parent),
 ui(new Ui::ModalOverlay),
 bestHeaderHeight(0),
@@ -22,7 +22,7 @@ layerIsVisible(false),
 userClosed(false)
 {
     ui->setupUi(this);
-    connect(ui->closeButton, SIGNAL(clicked()), this, SLOT(closeClicked()));
+    connect(ui->closeButton, &QPushButton::clicked, this, &ModalOverlay::closeClicked);
     if (parent) {
         parent->installEventFilter(this);
         raise();
@@ -30,6 +30,15 @@ userClosed(false)
 
     blockProcessTime.clear();
     setVisible(false);
+    if (!enable_wallet) {
+        ui->infoText->setVisible(false);
+        ui->infoTextStrong->setText(tr("%1 is currently syncing.  It will download headers and blocks from peers and validate them until reaching the tip of the block chain.").arg(PACKAGE_NAME));
+    }
+
+    m_animation.setTargetObject(this);
+    m_animation.setPropertyName("pos");
+    m_animation.setDuration(300 /* ms */);
+    m_animation.setEasingCurve(QEasingCurve::OutQuad);
 }
 
 ModalOverlay::~ModalOverlay()
@@ -45,6 +54,9 @@ bool ModalOverlay::eventFilter(QObject * obj, QEvent * ev) {
             if (!layerIsVisible)
                 setGeometry(0, height(), width(), height());
 
+            if (m_animation.endValue().toPoint().y() > 0) {
+                m_animation.setEndValue(QPoint(0, height()));
+            }
         }
         else if (ev->type() == QEvent::ChildAdded) {
             raise();
@@ -72,6 +84,7 @@ void ModalOverlay::setKnownBestHeight(int count, const QDateTime& blockDate)
     if (count > bestHeaderHeight) {
         bestHeaderHeight = count;
         bestHeaderDate = blockDate;
+        UpdateHeaderSyncLabel();
     }
 }
 
@@ -122,7 +135,6 @@ void ModalOverlay::tipUpdate(int count, const QDateTime& blockDate, double nVeri
 
     // show the percentage done according to nVerificationProgress
     ui->percentageProgress->setText(QString::number(nVerificationProgress*100, 'f', 2)+"%");
-    ui->progressBar->setValue(nVerificationProgress*100);
 
     if (!bestHeaderDate.isValid())
         // not syncing
@@ -137,9 +149,14 @@ void ModalOverlay::tipUpdate(int count, const QDateTime& blockDate, double nVeri
     if (estimateNumHeadersLeft < HEADER_HEIGHT_DELTA_SYNC && hasBestHeader) {
         ui->numberOfBlocksLeft->setText(QString::number(bestHeaderHeight - count));
     } else {
-        ui->numberOfBlocksLeft->setText(tr("Unknown. Syncing Headers (%1)...").arg(bestHeaderHeight));
-        ui->expectedTimeLeft->setText(tr("Unknown..."));
+        UpdateHeaderSyncLabel();
+        ui->expectedTimeLeft->setText(tr("Unknown…"));
     }
+}
+
+void ModalOverlay::UpdateHeaderSyncLabel() {
+    int est_headers_left = bestHeaderDate.secsTo(QDateTime::currentDateTime()) / Params().GetConsensus().nPowTargetSpacing;
+    ui->numberOfBlocksLeft->setText(tr("Unknown. Syncing Headers (%1, %2%)…").arg(bestHeaderHeight).arg(QString::number(100.0 / (bestHeaderHeight + est_headers_left) * bestHeaderHeight, 'f', 1)));
 }
 
 void ModalOverlay::toggleVisibility()
@@ -154,17 +171,15 @@ void ModalOverlay::showHide(bool hide, bool userRequested)
     if ( (layerIsVisible && !hide) || (!layerIsVisible && hide) || (!hide && userClosed && !userRequested))
         return;
 
+    Q_EMIT triggered(hide);
+
     if (!isVisible() && !hide)
         setVisible(true);
 
-    setGeometry(0, hide ? 0 : height(), width(), height());
-
-    QPropertyAnimation* animation = new QPropertyAnimation(this, "pos");
-    animation->setDuration(300);
-    animation->setStartValue(QPoint(0, hide ? 0 : this->height()));
-    animation->setEndValue(QPoint(0, hide ? this->height() : 0));
-    animation->setEasingCurve(QEasingCurve::OutQuad);
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
+    m_animation.setStartValue(QPoint(0, hide ? 0 : height()));
+    // The eventFilter() updates the endValue if it is required for QEvent::Resize.
+    m_animation.setEndValue(QPoint(0, hide ? height() : 0));
+    m_animation.start(QAbstractAnimation::KeepWhenStopped);
     layerIsVisible = !hide;
 }
 

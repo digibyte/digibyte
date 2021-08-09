@@ -30,6 +30,10 @@
         <translation>सध्याचा निवडलेला पत्ता यादीमधून काढून टाका</translation>
     </message>
     <message>
+        <source>Enter address or label to search</source>
+        <translation>शोधण्यासाठी पत्ता किंवा लेबल दाखल करा</translation>
+    </message>
+    <message>
         <source>Export the data in the current tab to a file</source>
         <translation>सध्याच्या टॅबमधील डेटा एका फाईलमध्ये एक्स्पोर्ट करा</translation>
     </message>
@@ -47,7 +51,7 @@
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>ज्या पत्त्यावर नाणी प्राप्त करायची आहेत तो </translation>
+        <translation>ज्या पत्त्यावर नाणी प्राप्त करायची आहेत तो</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -66,10 +70,6 @@
         <translation>पैसे पाठविण्यासाठीचे हे तुमचे बिटकॉईन पत्त्ते आहेत. नाणी पाठविण्यापूर्वी नेहमी रक्कम आणि प्राप्त होणारा पत्ता तपासून पहा.</translation>
     </message>
     <message>
-        <source>These are your DigiByte addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>पैसे प्राप्त करण्यासाठीचे हे तुमचे बिटकॉईन पत्त्ते आहेत. प्रत्येक व्यवहारासाठी एक नवा स्वीकृती पत्ता वापरण्याची शिफारस सहसा केली जाते.</translation>
-    </message>
-    <message>
         <source>&amp;Copy Address</source>
         <translation>&amp;पत्ता कॉपी करा</translation>
     </message>
@@ -81,10 +81,30 @@
         <source>&amp;Edit</source>
         <translation>&amp;संपादित</translation>
     </message>
+    <message>
+        <source>Export Address List</source>
+        <translation>पत्त्याची निर्यात करा</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>निर्यात अयशस्वी</translation>
+    </message>
     </context>
 <context>
     <name>AddressTableModel</name>
-    </context>
+    <message>
+        <source>Label</source>
+        <translation>लेबल</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>पत्ता</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(लेबल नाही)</translation>
+    </message>
+</context>
 <context>
     <name>AskPassphraseDialog</name>
     </context>
@@ -96,6 +116,16 @@
     </context>
 <context>
     <name>CoinControlDialog</name>
+    <message>
+        <source>(no label)</source>
+        <translation>(लेबल नाही)</translation>
+    </message>
+    </context>
+<context>
+    <name>CreateWalletActivity</name>
+    </context>
+<context>
+    <name>CreateWalletDialog</name>
     </context>
 <context>
     <name>EditAddressDialog</name>
@@ -116,10 +146,16 @@
     <name>OpenURIDialog</name>
     </context>
 <context>
+    <name>OpenWalletActivity</name>
+    </context>
+<context>
     <name>OptionsDialog</name>
     </context>
 <context>
     <name>OverviewPage</name>
+    </context>
+<context>
+    <name>PSBTOperationsDialog</name>
     </context>
 <context>
     <name>PaymentServer</name>
@@ -129,9 +165,6 @@
     </context>
 <context>
     <name>QObject</name>
-    </context>
-<context>
-    <name>QObject::QObject</name>
     </context>
 <context>
     <name>QRImageWidget</name>
@@ -147,24 +180,30 @@
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
+    <message>
+        <source>Label</source>
+        <translation>लेबल</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(लेबल नाही)</translation>
+    </message>
     </context>
 <context>
     <name>SendCoinsDialog</name>
-    </context>
+    <message>
+        <source>(no label)</source>
+        <translation>(लेबल नाही)</translation>
+    </message>
+</context>
 <context>
     <name>SendCoinsEntry</name>
-    </context>
-<context>
-    <name>SendConfirmationDialog</name>
     </context>
 <context>
     <name>ShutdownWindow</name>
     </context>
 <context>
     <name>SignVerifyMessageDialog</name>
-    </context>
-<context>
-    <name>SplashScreen</name>
     </context>
 <context>
     <name>TrafficGraphWidget</name>
@@ -177,12 +216,35 @@
     </context>
 <context>
     <name>TransactionTableModel</name>
+    <message>
+        <source>Label</source>
+        <translation>लेबल</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>(लेबल नाही)</translation>
+    </message>
     </context>
 <context>
     <name>TransactionView</name>
+    <message>
+        <source>Label</source>
+        <translation>लेबल</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>पत्ता</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>निर्यात अयशस्वी</translation>
+    </message>
     </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
+    </context>
+<context>
+    <name>WalletController</name>
     </context>
 <context>
     <name>WalletFrame</name>
@@ -194,7 +256,7 @@
     <name>WalletView</name>
     <message>
         <source>&amp;Export</source>
-        <translation>&amp;</translation>
+        <translation>&amp;एक्स्पोर्ट</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>

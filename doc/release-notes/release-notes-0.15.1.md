@@ -1,6 +1,6 @@
 DigiByte Core version *0.15.1* is now available from:
 
-  <https://digibytecore.org/bin/digibyte-core-0.15.1/>
+  <https://digibyte.org/bin/digibyte-core-0.15.1/>
 
 or
 
@@ -15,7 +15,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://digibytecore.org/en/list/announcements/join/>
+  <https://digibyte.org/en/list/announcements/join/>
 
 How to Upgrade
 ==============

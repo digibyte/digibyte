@@ -1,16 +1,18 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <merkleblock.h>
+#include <test/util/setup_common.h>
 #include <uint256.h>
-#include <test/test_digibyte.h>
 
 #include <boost/test/unit_test.hpp>
 
+#include <set>
+#include <vector>
 
-BOOST_FIXTURE_TEST_SUITE(merkleblock_tests, BasicTestingSetup)
+BOOST_AUTO_TEST_SUITE(merkleblock_tests)
 
 /**
  * Create a CMerkleBlock using a list of txids which will be found in the

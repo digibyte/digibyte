@@ -1,18 +1,20 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <util.h>
+#include <support/lockedpool.h>
+#include <util/system.h>
 
-#include <support/allocators/secure.h>
-#include <test/test_digibyte.h>
-
+#include <limits>
 #include <memory>
+#include <stdexcept>
+#include <utility>
+#include <vector>
 
 #include <boost/test/unit_test.hpp>
 
-BOOST_FIXTURE_TEST_SUITE(allocator_tests, BasicTestingSetup)
+BOOST_AUTO_TEST_SUITE(allocator_tests)
 
 BOOST_AUTO_TEST_CASE(arena_tests)
 {
@@ -106,13 +108,13 @@ BOOST_AUTO_TEST_CASE(arena_tests)
     // Go entirely wild: free and alloc interleaved,
     // generate targets and sizes using pseudo-randomness.
     for (int x=0; x<2048; ++x)
-        addr.push_back(0);
+        addr.push_back(nullptr);
     uint32_t s = 0x12345678;
     for (int x=0; x<5000; ++x) {
         int idx = s & (addr.size()-1);
         if (s & 0x80000000) {
             b.free(addr[idx]);
-            addr[idx] = 0;
+            addr[idx] = nullptr;
         } else if(!addr[idx]) {
             addr[idx] = b.alloc((s >> 16) & 2047);
         }
@@ -145,9 +147,9 @@ public:
                 *lockingSuccess = true;
             }
 
-            return reinterpret_cast<void*>(0x08000000 + (count<<24)); // Fake address, do not actually use this memory
+            return reinterpret_cast<void*>(uint64_t{static_cast<uint64_t>(0x08000000) + (count << 24)}); // Fake address, do not actually use this memory
         }
-        return 0;
+        return nullptr;
     }
     void FreeLocked(void* addr, size_t len) override
     {
@@ -164,7 +166,7 @@ private:
 BOOST_AUTO_TEST_CASE(lockedpool_tests_mock)
 {
     // Test over three virtual arenas, of which one will succeed being locked
-    std::unique_ptr<LockedPageAllocator> x(new TestLockedPageAllocator(3, 1));
+    std::unique_ptr<LockedPageAllocator> x = std::make_unique<TestLockedPageAllocator>(3, 1);
     LockedPool pool(std::move(x));
     BOOST_CHECK(pool.stats().total == 0);
     BOOST_CHECK(pool.stats().locked == 0);

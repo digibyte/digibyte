@@ -1,6 +1,6 @@
 {
-    "txid": "4b83088dbe41f4f4ecfe5fd4d209d2c6ed157e0c2438ef9471a0dd58fddd3d49",
-    "hash": "4b83088dbe41f4f4ecfe5fd4d209d2c6ed157e0c2438ef9471a0dd58fddd3d49",
+    "txid": "999b2dbdfec4df65f7618231cc8c11efb9e40ece09c1e7246ef2486f7fb53a4d",
+    "hash": "999b2dbdfec4df65f7618231cc8c11efb9e40ece09c1e7246ef2486f7fb53a4d",
     "version": 1,
     "size": 223,
     "vsize": 223,
@@ -22,15 +22,12 @@
             "value": 0.00100000,
             "n": 0,
             "scriptPubKey": {
-                "asm": "OP_DUP OP_HASH160 e0b5cf07d580200c56c4f98a09223924cb5a64af OP_EQUALVERIFY OP_CHECKSIG",
-                "hex": "76a914e0b5cf07d580200c56c4f98a09223924cb5a64af88ac",
-                "reqSigs": 1,
-                "type": "pubkeyhash",
-                "addresses": [
-                    "DRdFhX5DamBnxgF8rTiRdUwLjt3xHRFLe4"
-                ]
+                "asm": "OP_DUP OP_HASH160 b9b3036866a5f5b67e77688dd1ff7af37d40599a OP_EQUALVERIFY OP_CHECKSIG",
+                "hex": "76a914b9b3036866a5f5b67e77688dd1ff7af37d40599a88ac",
+                "address": "DN4yzowAzPbtM6Hh4HsNjFH8QjurZ4Nzhz",
+                "type": "pubkeyhash"
             }
         }
     ],
-    "hex": "01000000018594c5bdcaec8f06b78b596f31cd292a294fd031e24eec716f43dac91ea7494d000000008a4730440220131432090a6af42da3e8335ff110831b41a44f4e9d18d88f5d50278380696c7202200fc2e48938f323ad13625890c0ea926c8a189c08b8efc38376b20c8a2188e96e01410479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8ffffffff01a0860100000000001976a914e0b5cf07d580200c56c4f98a09223924cb5a64af88ac00000000"
+    "hex": "01000000018594c5bdcaec8f06b78b596f31cd292a294fd031e24eec716f43dac91ea7494d000000008a4730440220131432090a6af42da3e8335ff110831b41a44f4e9d18d88f5d50278380696c7202200fc2e48938f323ad13625890c0ea926c8a189c08b8efc38376b20c8a2188e96e01410479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8ffffffff01a0860100000000001976a914b9b3036866a5f5b67e77688dd1ff7af37d40599a88ac00000000"
 }

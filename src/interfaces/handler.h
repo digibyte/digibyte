@@ -1,10 +1,12 @@
-// Copyright (c) 2018 The DigiByte Core developers
+// Copyright (c) 2018-2020 The Bitcoin Core developers
+// Copyright (c) 2018-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_INTERFACES_HANDLER_H
 #define DIGIBYTE_INTERFACES_HANDLER_H
 
+#include <functional>
 #include <memory>
 
 namespace boost {
@@ -29,6 +31,9 @@ public:
 
 //! Return handler wrapping a boost signal connection.
 std::unique_ptr<Handler> MakeHandler(boost::signals2::connection connection);
+
+//! Return handler wrapping a cleanup function.
+std::unique_ptr<Handler> MakeHandler(std::function<void()> cleanup);
 
 } // namespace interfaces
 

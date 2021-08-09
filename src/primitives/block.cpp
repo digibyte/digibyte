@@ -1,11 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <primitives/block.h>
-#include <utilstrencodings.h>
 #include <crypto/common.h>
 #include <crypto/hashgroestl.h>
 #include <crypto/hashodo.h>
@@ -14,11 +13,8 @@
 #include <crypto/scrypt.h>
 #include <consensus/consensus.h>
 #include <chainparams.h>
-#include <util.h>
 #include <hash.h>
 #include <tinyformat.h>
-#include <utilstrencodings.h>
-#include <crypto/common.h>
 #include <arith_uint256.h>
 
 uint256 CBlockHeader::GetHash() const
@@ -156,13 +152,4 @@ int GetAlgoByName(std::string strAlgo, int fallback)
         return ALGO_ODO;
     else
         return fallback;
-}
-
-int64_t GetBlockWeight(const CBlock& block)
-{
-    // This implements the weight = (stripped_size * 4) + witness_size formula,
-    // using only serialization with and without witness data. As witness_size
-    // is equal to total_size - stripped_size, this formula is identical to:
-    // weight = (stripped_size * 3) + total_size.
-    return ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION | SERIALIZE_TRANSACTION_NO_WITNESS) * (WITNESS_SCALE_FACTOR - 1) + ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION);
 }

@@ -26,7 +26,7 @@ inline uint256 HashOdo(const T1 pbegin, const T1 pend, uint32_t key)
 
     OdoCrypt(key).Encrypt(cipher, cipher);
     KeccakP800_Permute_12rounds(cipher);
-    memcpy(hash.data, cipher, hash.size());
+    memcpy(hash.data(), cipher, hash.size());
 
     return hash;
 }

@@ -60,16 +60,17 @@ start_pre() {
 	"${DIGIBYTED_PIDDIR}"
 
 	checkpath -f \
-	-o ${DIGIBYTED_USER}:${DIGIBYTED_GROUP} \
+	-o "${DIGIBYTED_USER}:${DIGIBYTED_GROUP}" \
 	-m 0660 \
-	${DIGIBYTED_CONFIGFILE}
+	"${DIGIBYTED_CONFIGFILE}"
 
 	checkconfig || return 1
 }
 
 checkconfig()
 {
-	if ! grep -qs '^rpcpassword=' "${DIGIBYTED_CONFIGFILE}" ; then
+	if grep -qs '^rpcuser=' "${DIGIBYTED_CONFIGFILE}" && \
+		! grep -qs '^rpcpassword=' "${DIGIBYTED_CONFIGFILE}" ; then
 		eerror ""
 		eerror "ERROR: You must set a secure rpcpassword to run digibyted."
 		eerror "The setting must appear in ${DIGIBYTED_CONFIGFILE}"

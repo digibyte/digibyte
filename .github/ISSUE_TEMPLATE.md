@@ -2,9 +2,13 @@
 
 General digibyte questions and/or support requests are best directed to the DigiByte StackExchange at https://digibyte.stackexchange.com.
 
-For reporting security issues, please read instructions at https://digibytecore.org/en/contact/.
+For reporting security issues, please read instructions at https://digibyte.org/en/contact/.
 
-If the node is "stuck" during sync or giving "block checksum mismatch" errors, please ensure your hardware is stable by running memtest and observe CPU temperature with a load-test tool such as linpack before creating an issue! -->
+If the node is "stuck" during sync or giving "block checksum mismatch" errors, please ensure your hardware is stable by running memtest and observe CPU temperature with a load-test tool such as linpack before creating an issue!
+
+Any report, issue or feature request related to the GUI should be reported at
+https://github.com/digibyte-core/gui/issues/
+-->
 
 <!-- Describe the issue -->
 <!--- What behavior did you expect? -->
@@ -16,6 +20,8 @@ If the node is "stuck" during sync or giving "block checksum mismatch" errors, p
 <!-- What version of DigiByte Core are you using, where did you get it (website, self-compiled, etc)? -->
 
 <!-- What type of machine are you observing the error on (OS/CPU and disk type)? -->
+
+<!-- GUI-related issue? What is your operating system and its version? If Linux, what is your desktop environment and graphical shell? -->
 
 <!-- Any extra information that might be useful in the debugging process. -->
 <!--- This is normally the contents of a `debug.log` or `config.log` file. Raw text or a link to a pastebin type site are preferred. -->

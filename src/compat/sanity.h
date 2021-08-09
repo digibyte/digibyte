@@ -5,7 +5,6 @@
 #ifndef DIGIBYTE_COMPAT_SANITY_H
 #define DIGIBYTE_COMPAT_SANITY_H
 
-bool glibc_sanity_test();
 bool glibcxx_sanity_test();
 
 #endif // DIGIBYTE_COMPAT_SANITY_H

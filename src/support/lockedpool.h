@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,7 +23,7 @@ public:
     virtual ~LockedPageAllocator() {}
     /** Allocate and lock memory pages.
      * If len is not a multiple of the system page size, it is rounded up.
-     * Returns 0 in case of allocation failure.
+     * Returns nullptr in case of allocation failure.
      *
      * If locking the memory pages could not be accomplished it will still
      * return the memory, however the lockingSuccess flag will be false.
@@ -222,7 +222,8 @@ public:
     /** Return the current instance, or create it once */
     static LockedPoolManager& Instance()
     {
-        std::call_once(LockedPoolManager::init_flag, LockedPoolManager::CreateInstance);
+        static std::once_flag init_flag;
+        std::call_once(init_flag, LockedPoolManager::CreateInstance);
         return *LockedPoolManager::_instance;
     }
 
@@ -235,7 +236,6 @@ private:
     static bool LockingFailed();
 
     static LockedPoolManager* _instance;
-    static std::once_flag init_flag;
 };
 
 #endif // DIGIBYTE_SUPPORT_LOCKEDPOOL_H

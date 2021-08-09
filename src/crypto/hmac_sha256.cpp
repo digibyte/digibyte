@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,6 +25,11 @@ CHMAC_SHA256::CHMAC_SHA256(const unsigned char* key, size_t keylen)
     for (int n = 0; n < 64; n++)
         rkey[n] ^= 0x5c ^ 0x36;
     inner.Write(rkey, 64);
+}
+
+void CHMAC_SHA256::Reset() {
+    inner.Reset();
+    outer.Reset();
 }
 
 void CHMAC_SHA256::Finalize(unsigned char hash[OUTPUT_SIZE])

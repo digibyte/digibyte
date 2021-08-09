@@ -1,4 +1,5 @@
-// Copyright (c) 2011-2013 The DigiByte Core developers
+// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +14,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"io.digibyte.DigiByte-Qt";
+        return @"org.digibyte.DigiByte-Qt";
     } else {
         return [self __bundleIdentifier];
     }
@@ -24,25 +25,10 @@ void MacNotificationHandler::showNotification(const QString &title, const QStrin
 {
     // check if users OS has support for NSUserNotification
     if(this->hasUserNotificationCenterSupport()) {
-        // okay, seems like 10.8+
-        QByteArray utf8 = title.toUtf8();
-        char* cString = (char *)utf8.constData();
-        NSString *titleMac = [[NSString alloc] initWithUTF8String:cString];
-
-        utf8 = text.toUtf8();
-        cString = (char *)utf8.constData();
-        NSString *textMac = [[NSString alloc] initWithUTF8String:cString];
-
-        // do everything weak linked (because we will keep <10.8 compatibility)
-        id userNotification = [[NSClassFromString(@"NSUserNotification") alloc] init];
-        [userNotification performSelector:@selector(setTitle:) withObject:titleMac];
-        [userNotification performSelector:@selector(setInformativeText:) withObject:textMac];
-
-        id notificationCenterInstance = [NSClassFromString(@"NSUserNotificationCenter") performSelector:@selector(defaultUserNotificationCenter)];
-        [notificationCenterInstance performSelector:@selector(deliverNotification:) withObject:userNotification];
-
-        [titleMac release];
-        [textMac release];
+        NSUserNotification* userNotification = [[NSUserNotification alloc] init];
+        userNotification.title = title.toNSString();
+        userNotification.informativeText = text.toNSString();
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification: userNotification];
         [userNotification release];
     }
 }

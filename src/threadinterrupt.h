@@ -1,14 +1,16 @@
-// Copyright (c) 2016-2017 The DigiByte Core developers
+// Copyright (c) 2016-2019 The Bitcoin Core developers
+// Copyright (c) 2016-2019 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef DIGIBYTE_THREADINTERRUPT_H
 #define DIGIBYTE_THREADINTERRUPT_H
 
+#include <sync.h>
+
 #include <atomic>
 #include <chrono>
 #include <condition_variable>
-#include <mutex>
 
 /*
     A helper class for interruptible sleeps. Calling operator() will interrupt
@@ -28,7 +30,7 @@ public:
 
 private:
     std::condition_variable cond;
-    std::mutex mut;
+    Mutex mut;
     std::atomic<bool> flag;
 };
 

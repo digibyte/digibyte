@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2019 The Bitcoin Core developers
-# Copyright (c) 2014-2019 The DigiByte Core developers
+# Copyright (c) 2009-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test logic for skipping signature validation on old blocks.
@@ -30,10 +30,13 @@ Start three nodes:
       block 200. node2 will reject block 102 since it's assumed valid, but it
       isn't buried by at least two weeks' work.
 """
-import time
 
-from test_framework.blocktools import (create_block, create_coinbase)
-from test_framework.key import CECKey
+from test_framework.blocktools import (
+    COINBASE_MATURITY,
+    create_block,
+    create_coinbase,
+)
+from test_framework.key import ECKey
 from test_framework.messages import (
     CBlockHeader,
     COutPoint,
@@ -41,12 +44,13 @@ from test_framework.messages import (
     CTxIn,
     CTxOut,
     msg_block,
-    msg_headers
+    msg_headers,
 )
-from test_framework.mininode import P2PInterface
+from test_framework.p2p import P2PInterface
 from test_framework.script import (CScript, OP_TRUE)
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
+
 
 class BaseNode(P2PInterface):
     def send_header_for_blocks(self, new_blocks):
@@ -58,6 +62,7 @@ class AssumeValidTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 3
+        self.rpc_timeout = 120
 
     def setup_network(self):
         self.add_nodes(3)
@@ -73,26 +78,8 @@ class AssumeValidTest(DigiByteTestFramework):
                 break
             try:
                 p2p_conn.send_message(msg_block(self.blocks[i]))
-            except IOError as e:
+            except IOError:
                 assert not p2p_conn.is_connected
-                break
-
-    def assert_blockchain_height(self, node, height):
-        """Wait until the blockchain is no longer advancing and verify it's reached the expected height."""
-        last_height = node.getblock(node.getbestblockhash())['height']
-        timeout = 10
-        while True:
-            time.sleep(0.25)
-            current_height = node.getblock(node.getbestblockhash())['height']
-            if current_height != last_height:
-                last_height = current_height
-                if timeout < 0:
-                    assert False, "blockchain too short after timeout: %d" % current_height
-                timeout - 0.25
-                continue
-            elif current_height > height:
-                assert False, "blockchain too long: %d" % current_height
-            elif current_height == height:
                 break
 
     def run_test(self):
@@ -105,9 +92,9 @@ class AssumeValidTest(DigiByteTestFramework):
         self.blocks = []
 
         # Get a pubkey for the coinbase TXO
-        coinbase_key = CECKey()
-        coinbase_key.set_secretbytes(b"horsebattery")
-        coinbase_pubkey = coinbase_key.get_pubkey()
+        coinbase_key = ECKey()
+        coinbase_key.generate()
+        coinbase_pubkey = coinbase_key.get_pubkey().get_bytes()
 
         # Create the first block with a coinbase output to our key
         height = 1
@@ -121,7 +108,7 @@ class AssumeValidTest(DigiByteTestFramework):
         height += 1
 
         # Bury the block 100 deep so the coinbase output is spendable
-        for i in range(100):
+        for _ in range(100):
             block = create_block(self.tip, create_coinbase(height), self.block_time)
             block.solve()
             self.blocks.append(block)
@@ -147,7 +134,7 @@ class AssumeValidTest(DigiByteTestFramework):
         height += 1
 
         # Bury the assumed valid block 2100 deep
-        for i in range(2100):
+        for _ in range(2100):
             block = create_block(self.tip, create_coinbase(height), self.block_time)
             block.nVersion = 4
             block.solve()
@@ -175,18 +162,21 @@ class AssumeValidTest(DigiByteTestFramework):
 
         # Send blocks to node0. Block 102 will be rejected.
         self.send_blocks_until_disconnected(p2p0)
-        self.assert_blockchain_height(self.nodes[0], 101)
+        self.wait_until(lambda: self.nodes[0].getblockcount() >= COINBASE_MATURITY + 1)
+        assert_equal(self.nodes[0].getblockcount(), COINBASE_MATURITY + 1)
 
         # Send all blocks to node1. All blocks will be accepted.
         for i in range(2202):
             p2p1.send_message(msg_block(self.blocks[i]))
         # Syncing 2200 blocks can take a while on slow systems. Give it plenty of time to sync.
-        p2p1.sync_with_ping(120)
+        p2p1.sync_with_ping(960)
         assert_equal(self.nodes[1].getblock(self.nodes[1].getbestblockhash())['height'], 2202)
 
         # Send blocks to node2. Block 102 will be rejected.
         self.send_blocks_until_disconnected(p2p2)
-        self.assert_blockchain_height(self.nodes[2], 101)
+        self.wait_until(lambda: self.nodes[2].getblockcount() >= COINBASE_MATURITY + 1)
+        assert_equal(self.nodes[2].getblockcount(), COINBASE_MATURITY + 1)
+
 
 if __name__ == '__main__':
     AssumeValidTest().main()

@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2019 The Bitcoin Core developers
-// Copyright (c) 2014-2019 The DigiByte Core developers
+// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -169,7 +169,7 @@ CSHA512& CSHA512::Write(const unsigned char* data, size_t len)
         sha512::Transform(s, buf);
         bufsize = 0;
     }
-    while (end >= data + 128) {
+    while (end - data >= 128) {
         // Process full chunks directly from the source.
         sha512::Transform(s, data);
         data += 128;

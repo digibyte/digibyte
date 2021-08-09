@@ -1,6 +1,6 @@
 DigiByte Core version 0.16.0 is now available from:
 
-  <https://digibytecore.org/bin/digibyte-core-0.16.0/>
+  <https://digibyte.org/bin/digibyte-core-0.16.0/>
 
 This is a new major version release, including new features, various bugfixes
 and performance improvements, as well as updated translations.
@@ -11,7 +11,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://digibytecore.org/en/list/announcements/join/>
+  <https://digibyte.org/en/list/announcements/join/>
 
 How to Upgrade
 ==============

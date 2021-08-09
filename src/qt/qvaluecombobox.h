@@ -1,4 +1,5 @@
-// Copyright (c) 2011-2015 The DigiByte Core developers
+// Copyright (c) 2011-2020 The Bitcoin Core developers
+// Copyright (c) 2014-2020 The DigiByte Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,7 +17,7 @@ class QValueComboBox : public QComboBox
     Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged USER true)
 
 public:
-    explicit QValueComboBox(QWidget *parent = 0);
+    explicit QValueComboBox(QWidget *parent = nullptr);
 
     QVariant value() const;
     void setValue(const QVariant &value);
