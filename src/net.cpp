@@ -1788,21 +1788,21 @@ void CConnman::DandelionShuffle() {
     LogPrint(BCLog::DANDELION, "After Dandelion shuffle:\n%s", GetDandelionRoutingDataDebugString());
 }
 
-void CConnman::ThreadDandelionShuffle() {
-    auto current_time = GetTime<std::chrono::microseconds>();
-    auto next_dandelion_shuffle = PoissonNextSend(current_time, DANDELION_SHUFFLE_INTERVAL);
+void CConnman::ThreadDandelionShuffle()
+{
+    {
+        LOCK(cs_vNodes);
+        if (!vNodes.size())
+            return;
+    }
 
-    while (!interruptNet) {
-        current_time = GetTime<std::chrono::microseconds>();
-        if (current_time > next_dandelion_shuffle) {
-            DandelionShuffle();
-            next_dandelion_shuffle = PoissonNextSend(current_time, DANDELION_SHUFFLE_INTERVAL);
-            // Sleep until the next shuffle time
-            auto sleep_ms = std::chrono::duration_cast<std::chrono::milliseconds>((next_dandelion_shuffle - current_time) / 1000);
-            if (!interruptNet.sleep_for(sleep_ms)) {
-                return;
-            }
-        }
+    //! next_dandelion_shuffle static to avoid needing a global
+    auto current_time = GetTime<std::chrono::milliseconds>();
+    static auto next_dandelion_shuffle = PoissonNextSend(current_time, DANDELION_SHUFFLE_INTERVAL);
+
+    if (current_time > next_dandelion_shuffle) {
+        DandelionShuffle();
+        next_dandelion_shuffle = PoissonNextSend(current_time, DANDELION_SHUFFLE_INTERVAL);
     }
 }
 
@@ -2922,9 +2922,6 @@ bool CConnman::Start(CScheduler& scheduler, const Options& connOptions)
         threadI2PAcceptIncoming =
             std::thread(&util::TraceThread, "i2paccept", [this] { ThreadI2PAcceptIncoming(); });
     }
-
-    // Dandelion shuffle
-    threadDandelionShuffle = std::thread(&util::TraceThread, "dandelion", [this] { ThreadDandelionShuffle(); });
 
     // Dump network addresses
     scheduler.scheduleEvery([this] { DumpAddresses(); }, DUMP_PEERS_INTERVAL);
