@@ -1414,6 +1414,10 @@ void CConnman::SocketEvents(std::set<SOCKET> &recv_set, std::set<SOCKET> &send_s
     }
 
     std::unordered_map<SOCKET, struct pollfd> pollfds;
+    for (SOCKET socket_id : recv_select_set) {
+        pollfds[socket_id].fd = socket_id;
+        pollfds[socket_id].events |= POLLIN;
+    }
 
     for (SOCKET socket_id : send_select_set) {
         pollfds[socket_id].fd = socket_id;
