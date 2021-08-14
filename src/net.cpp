@@ -2970,9 +2970,8 @@ void CConnman::Interrupt()
 
 void CConnman::StopThreads()
 {
-    if (threadI2PAcceptIncoming.joinable()) {
+    if (threadI2PAcceptIncoming.joinable())
         threadI2PAcceptIncoming.join();
-    }
     if (threadMessageHandler.joinable())
         threadMessageHandler.join();
     if (threadOpenConnections.joinable())
@@ -2983,8 +2982,6 @@ void CConnman::StopThreads()
         threadDNSAddressSeed.join();
     if (threadSocketHandler.joinable())
         threadSocketHandler.join();
-    if (threadDandelionShuffle.joinable())
-        threadDandelionShuffle.join();
 }
 
 void CConnman::StopNodes()
