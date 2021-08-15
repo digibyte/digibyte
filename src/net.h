@@ -982,7 +982,7 @@ public:
     bool insertDandelionEmbargo(const uint256& hash, const std::chrono::seconds& embargo);
     bool isTxDandelionEmbargoed(const uint256& hash) const;
     bool removeDandelionEmbargo(const uint256& hash);
-    void ThreadDandelionShuffle();
+    void CheckDandelionShuffle();
 
     /** Attempts to obfuscate tx time through exponentially distributed emitting.
         Works assuming that a single interval is used.

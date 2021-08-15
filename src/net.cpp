@@ -1788,7 +1788,7 @@ void CConnman::DandelionShuffle() {
     LogPrint(BCLog::DANDELION, "After Dandelion shuffle:\n%s", GetDandelionRoutingDataDebugString());
 }
 
-void CConnman::ThreadDandelionShuffle()
+void CConnman::CheckDandelionShuffle()
 {
     {
         LOCK(cs_vNodes);

@@ -1817,7 +1817,7 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
 
     CConnman* connman = node.connman.get();
     node.scheduler->scheduleEvery([connman]{
-        connman->ThreadDandelionShuffle();
+        connman->CheckDandelionShuffle();
     }, std::chrono::milliseconds{1000});
 
 #if HAVE_SYSTEM
