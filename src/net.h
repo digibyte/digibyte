@@ -87,6 +87,7 @@ static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
 static const size_t DEFAULT_MAXSENDBUFFER    = 1 * 1000;
 
 typedef std::chrono::seconds sec;
+typedef std::chrono::milliseconds msec;
 
 /** Maximum number of outbound peers designated as Dandelion destinations */
 static const int DANDELION_MAX_DESTINATIONS = 2;
@@ -96,6 +97,8 @@ static const sec DANDELION_SHUFFLE_INTERVAL = sec(600);
 static const sec DANDELION_EMBARGO_MINIMUM = sec(10);
 /** The average additional embargo time beyond the minimum amount */
 static const sec DANDELION_EMBARGO_AVG_ADD = sec(20);
+/** The time to wait for the scheduler before rerunning Dandelion shuffle check */
+static const msec CHECK_DANDELION_SHUFFLE_INTERVAL = msec(1000);
 
 typedef int64_t NodeId;
 
@@ -982,6 +985,7 @@ public:
     bool insertDandelionEmbargo(const uint256& hash, const std::chrono::seconds& embargo);
     bool isTxDandelionEmbargoed(const uint256& hash) const;
     bool removeDandelionEmbargo(const uint256& hash);
+    void CheckDandelionShuffle();
 
     /** Attempts to obfuscate tx time through exponentially distributed emitting.
         Works assuming that a single interval is used.
@@ -1038,7 +1042,6 @@ private:
     void SocketHandler();
     void ThreadSocketHandler();
     void ThreadDNSAddressSeed();
-    void ThreadDandelionShuffle();
     std::string GetDandelionRoutingDataDebugString() const;
 
 
@@ -1221,7 +1224,6 @@ private:
     std::thread threadOpenAddedConnections;
     std::thread threadOpenConnections;
     std::thread threadMessageHandler;
-    std::thread threadDandelionShuffle;    
     std::thread threadI2PAcceptIncoming;
 
     /** flag for deciding to connect to an extra outbound peer,

@@ -1815,6 +1815,11 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
         banman->DumpBanlist();
     }, DUMP_BANS_INTERVAL);
 
+    CConnman* connman = node.connman.get();
+    node.scheduler->scheduleEvery([connman]{
+        connman->CheckDandelionShuffle();
+    }, CHECK_DANDELION_SHUFFLE_INTERVAL);
+
 #if HAVE_SYSTEM
     StartupNotify(args);
 #endif
