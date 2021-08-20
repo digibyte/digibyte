@@ -225,15 +225,22 @@ public:
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
+
+        //DigiByte Community Seed Nodes
         vSeeds.emplace_back("seed.digibyte.org"); // Website collective
-        vSeeds.emplace_back("dnsseed.bluematt.me"); // Matt Corallo, only supports x9
-        vSeeds.emplace_back("dnsseed.digibyte.dashjr.org"); // Luke Dashjr
-        vSeeds.emplace_back("seed.digibyteservers.io"); // ChillingSilence
-        vSeeds.emplace_back("seed.digibyte.io"); // JaredTate
-        vSeeds.emplace_back("seed.digibyteblockchain.com"); // JS555
+        vSeeds.emplace_back("seed.digibyte.io"); // Jared Tate
+        vSeeds.emplace_back("seed.digihash.co"); // Jared Tate
         vSeeds.emplace_back("dnsseed.esotericizm.site"); // DigiContributor
-        vSeeds.emplace_back("seed.digibytefoundation.org"); // DigiByteFoundation
+        vSeeds.emplace_back("seed.digibytefoundation.org"); // DigiByte Foundation
+        vSeeds.emplace_back("seed.digiexplorer.info"); // DigiByte Foundation
+        vSeeds.emplace_back("seed.digiassets.net"); // DigiByte Foundation
+        vSeeds.emplace_back("digibyteblockexplorer.com"); // DigiByte Block Explorer
+        vSeeds.emplace_back("dgb1.trezor.io"); // Trezor
+        vSeeds.emplace_back("seed2.digibyte.io"); // Jared Tate
+        vSeeds.emplace_back("seed3.digibyte.io"); // Jared Tate
+        vSeeds.emplace_back("seed.digibyteblockchain.com"); // JS555
         vSeeds.emplace_back("seed.digibyte.host"); // SashaD
+        vSeeds.emplace_back("seed.digibyteservers.io"); // ChillingSilence
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
