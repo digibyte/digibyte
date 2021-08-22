@@ -22,7 +22,8 @@ BOOST_FIXTURE_TEST_SUITE(key_io_tests, BasicTestingSetup)
 // Goal: check that parsed keys match test payload
 BOOST_AUTO_TEST_CASE(key_io_valid_parse)
 {
-    UniValue tests = read_json(std::string(json_tests::key_io_valid, json_tests::key_io_valid + sizeof(json_tests::key_io_valid)));
+    std::string input = std::string(json_tests::key_io_valid, json_tests::key_io_valid + sizeof(json_tests::key_io_valid));
+    UniValue tests = read_json(input);
     CKey privkey;
     CTxDestination destination;
     SelectParams(CBaseChainParams::MAIN);

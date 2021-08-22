@@ -46,6 +46,7 @@
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/thread.hpp>
+#include <boost/bind.hpp>
 
 #if defined(NDEBUG)
 # error "DigiByte cannot be compiled without assertions."
@@ -1170,76 +1171,81 @@ bool ReadRawBlockFromDisk(std::vector<uint8_t>& block, const CBlockIndex* pindex
     return ReadRawBlockFromDisk(block, block_pos, message_start);
 }
 
-CAmount GetDGBSubsidy(int nHeight, const Consensus::Params& consensusParams) {
-	// thanks to RealSolid & WDC for helping out with this code
-	CAmount qSubsidy;
-    
-	if (nHeight < consensusParams.alwaysUpdateDiffChangeTarget)
-	{
-		qSubsidy = 8000*COIN;
-		int blocks = nHeight - consensusParams.nDiffChangeTarget;
-		int weeks = (blocks / consensusParams.patchBlockRewardDuration)+1;
-		//decrease reward by 0.5% every 10080 blocks
-		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/200);
-	}
-	else if(nHeight<consensusParams.workComputationChangeTarget)
-	{
-		qSubsidy = 2459*COIN;
-		int blocks = nHeight - consensusParams.alwaysUpdateDiffChangeTarget;
-		int weeks = (blocks / consensusParams.patchBlockRewardDuration2)+1;
-		//decrease reward by 1% every month
-		for(int i = 0; i < weeks; i++)  qSubsidy -= (qSubsidy/100);
-	}
-	else
-	{
-		//hard fork point: 1.43M
-		//subsidy at hard fork: 2157
-		//monthly decay factor: 98884/100000
-		//last block number: 41668798
-		//expected years after hard fork: 19.1395
-
-		qSubsidy = 2157*COIN/2;
-		int64_t blocks = nHeight - consensusParams.workComputationChangeTarget;
-		int64_t months = blocks*15/(3600*24*365/12);
-		for(int64_t i = 0; i < months; i++)
-		{
-			qSubsidy*=98884;
-			qSubsidy/=100000;
-		}
-	}
-
-	return qSubsidy;
-
-}
-
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
-	CAmount nSubsidy = COIN;
-     LogPrintf("block height for reward is %d\n", nHeight);
-	if(nHeight < consensusParams.nDiffChangeTarget) {
-		//this is pre-patch, reward is 8000.
-		nSubsidy = 8000 * COIN;
+    CAmount nSubsidy = COIN;
+    LogPrintf("block height for reward is %d\n", nHeight);
 
-		if(nHeight < 1440)  //1440
-		{
-			nSubsidy = 72000 * COIN;
-		}
-		else if(nHeight < 5760)  //5760
-		{
-			nSubsidy = 16000 * COIN;
-		}
+    if (nHeight < consensusParams.nDiffChangeTarget) { // < 67200
+        if (nHeight < 1440)
+        {
+            // (Period I)
+            nSubsidy = 72000 * COIN;
+        }
+        else if (nHeight < 5760)
+        {
+            // (Period II)
+            nSubsidy = 16000 * COIN;
+        }
+        else
+        {
+            // (Period III)
+            // This is pre-patch, reward is 8000.
+            nSubsidy = 8000 * COIN;
+        }
+    }
+    else if (nHeight < consensusParams.alwaysUpdateDiffChangeTarget) // < 400000
+    {
+        // (Period IV)
+        nSubsidy = 8000 * COIN;
+        int blocks = nHeight - consensusParams.nDiffChangeTarget;
+        int weeks = (blocks / consensusParams.patchBlockRewardDuration) + 1;
 
-	} else {
-		//patch takes effect after 67,200 blocks solved
-		nSubsidy = GetDGBSubsidy(nHeight, consensusParams);
-	}
+        // Decrease reward by 0.5% every 10080 blocks
+        for (int i = 0; i < weeks; i++)
+        {
+            nSubsidy -= (nSubsidy / 200);
+        }
+    }
+    else if (nHeight < consensusParams.workComputationChangeTarget) // < 1430000
+    {
+        // (Period V)
+        nSubsidy = 2459 * COIN;
+        int blocks = nHeight - consensusParams.alwaysUpdateDiffChangeTarget;
+        int weeks = (blocks / consensusParams.patchBlockRewardDuration2) + 1;
+        // decrease reward by 1% every month
+        for(int i = 0; i < weeks; i++)
+        {
+            nSubsidy -= (nSubsidy / 100);
+        }
+    }
+    else // < ∞
+    {
+        // (Period VI)
+        // Hard Fork Point: 1.43M
+        // Subsidy at Hard Fork: 2157
+        // Monthly Decay Factor: 98884/100000
+        // Last Block Number: 41668798
+        // Expected years after Hard Fork: 19.1395
+        nSubsidy = 2157 * COIN / 2;
+        int64_t blocks = nHeight - consensusParams.workComputationChangeTarget;
+        int64_t months = blocks * BLOCK_TIME_SECONDS / SECONDS_PER_MONTH;
 
-	//make sure the reward is at least 1 DGB
-	if(nSubsidy < COIN) {
-		nSubsidy = COIN;
-	}
+        for (int64_t i = 0; i < months; i++)
+        {
+            nSubsidy *= 98884;
+            nSubsidy /= 100000;
+        }
+    }
 
-	return nSubsidy;
+    // Make sure the reward is at least 1 DGB
+    // ToDo: Remove this statement in a future release, along
+    // with a fixed supply curve.
+    if (nSubsidy < COIN) {
+        nSubsidy = COIN;
+    }
+
+    return nSubsidy;
 }
 
 bool IsInitialBlockDownload()
@@ -3272,21 +3278,6 @@ bool IsNullDummyEnabled(const CBlockIndex* pindexPrev, const Consensus::Params& 
 {
     LOCK(cs_main);
     return (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_SEGWIT, versionbitscache) == ThresholdState::ACTIVE);
-}
-
-// Compute at which vout of the block's coinbase transaction the witness
-// commitment occurs, or -1 if not found.
-static int GetWitnessCommitmentIndex(const CBlock& block)
-{
-    int commitpos = -1;
-    if (!block.vtx.empty()) {
-        for (size_t o = 0; o < block.vtx[0]->vout.size(); o++) {
-            if (block.vtx[0]->vout[o].scriptPubKey.size() >= 38 && block.vtx[0]->vout[o].scriptPubKey[0] == OP_RETURN && block.vtx[0]->vout[o].scriptPubKey[1] == 0x24 && block.vtx[0]->vout[o].scriptPubKey[2] == 0xaa && block.vtx[0]->vout[o].scriptPubKey[3] == 0x21 && block.vtx[0]->vout[o].scriptPubKey[4] == 0xa9 && block.vtx[0]->vout[o].scriptPubKey[5] == 0xed) {
-                commitpos = o;
-            }
-        }
-    }
-    return commitpos;
 }
 
 void UpdateUncommittedBlockStructures(CBlock& block, const CBlockIndex* pindexPrev, const Consensus::Params& consensusParams)

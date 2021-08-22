@@ -128,8 +128,8 @@ TestChain100Setup::TestChain100Setup() : TestingSetup(CBaseChainParams::REGTEST)
 {
     // Generate a 100-block chain:
     coinbaseKey.MakeNewKey(true);
-    CScript scriptPubKey = CScript() <<  ToByteVector(coinbaseKey.GetPubKey()) << OP_CHECKSIG;
-    for (int i = 0; i < COINBASE_MATURITY; i++)
+    CScript scriptPubKey = CScript() << ToByteVector(coinbaseKey.GetPubKey()) << OP_CHECKSIG;
+    for (int i = 0; i < COINBASE_MATURITY_2; i++)
     {
         std::vector<CMutableTransaction> noTxns;
         CBlock b = CreateAndProcessBlock(noTxns, scriptPubKey);
@@ -145,24 +145,36 @@ CBlock
 TestChain100Setup::CreateAndProcessBlock(const std::vector<CMutableTransaction>& txns, const CScript& scriptPubKey)
 {
     const CChainParams& chainparams = Params();
-    std::unique_ptr<CBlockTemplate> pblocktemplate = BlockAssembler(chainparams).CreateNewBlock(scriptPubKey, 2, true);
+    std::unique_ptr<CBlockTemplate> pblocktemplate = BlockAssembler(chainparams).CreateNewBlock(scriptPubKey, ALGO_SCRYPT, true);
     CBlock& block = pblocktemplate->block;
 
     // Replace mempool-selected txns with just coinbase plus passed-in txns:
     block.vtx.resize(1);
-    for (const CMutableTransaction& tx : txns)
+    for (const CMutableTransaction& tx : txns) {
         block.vtx.push_back(MakeTransactionRef(tx));
+    }
+
     // IncrementExtraNonce creates a valid coinbase and merkleRoot
     {
         LOCK(cs_main);
         unsigned int extraNonce = 0;
+        RegenerateCommitments(block, chainActive.Tip(), chainparams.GetConsensus());
         IncrementExtraNonce(&block, chainActive.Tip(), extraNonce);
     }
 
-    while (!CheckProofOfWork(block.GetHash(), block.nBits, chainparams.GetConsensus())) ++block.nNonce;
+    while (!CheckProofOfWork(GetPoWAlgoHash(block), block.nBits, chainparams.GetConsensus())) ++block.nNonce;
 
     std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(block);
-    ProcessNewBlock(chainparams, shared_pblock, true, nullptr);
+    if (!ProcessNewBlock(chainparams, shared_pblock, true, nullptr)) {
+        // Uncomment this to catch potential errors. Use lldb/gdb to break on std::runtime_error. 
+        // Previously, if ProcessNewBlock failed, the return code wasn't checked at all, that is,
+        // as a developer you had to manually step throught the code to see where it was broken.
+        // In our case, the merkle tree (witness) commitments weren't updated properly,
+        // which caused a rejection of the block. If `wallet_tests` ever fail again,
+        // uncommenting this line might help with the investigation.
+
+        // throw new std::runtime_error("Could not process new test block");
+    }
 
     CBlock result = block;
     return result;

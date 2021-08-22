@@ -218,14 +218,13 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x72ddd9496b004221ed0557358846d9248ecd4c440ebd28ed901efc18757d0fad"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("seed1.digibyte.io");
-        vSeeds.emplace_back("seed2.digibyte.io");
-        vSeeds.emplace_back("seed3.digibyte.io");
-        vSeeds.emplace_back("seed.digibyte.io");
-        vSeeds.emplace_back("digihash.co");
-        vSeeds.emplace_back("digiexplorer.info");
-        vSeeds.emplace_back("seed.digibyteprojects.com");
-
+        vSeeds.emplace_back("seed.digibyte.org"); // Website collective
+        vSeeds.emplace_back("seed.digibyteservers.io"); // ChillingSilence
+	vSeeds.emplace_back("seed.digibyte.io"); // JaredTate
+	vSeeds.emplace_back("seed.digibyteblockchain.com"); // JS555
+	vSeeds.emplace_back("dnsseed.esotericizm.site"); // DigiContributor
+	vSeeds.emplace_back("seed.digibytefoundation.org"); // DigiByteFoundation
+	vSeeds.emplace_back("seed.digibyte.host"); // SashaD
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
@@ -412,11 +411,8 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed1.digibyte.io");
-        vSeeds.emplace_back("seed2.digibyte.io");
-        vSeeds.emplace_back("seed3.digibyte.io");
-        vSeeds.emplace_back("testnet-seed.digibyteprojects.com");
-        vSeeds.emplace_back("testnet-1.us.digibyteservers.io");
+        vSeeds.emplace_back("seed.testnet-1.us.digibyteservers.io");
+        vSeeds.emplace_back("seed.testnetexplorer.digibyteservers.io");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,126);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,140);
@@ -465,7 +461,7 @@ public:
         consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 67; // DigiShield Hard Fork Block BIP34Height 67,200
+        consensus.nDiffChangeTarget = 167; // DigiShield Hard Fork Block BIP34Height 67,200
 
         // Old 1% monthly DGB Reward before 15 secon block change
         consensus.patchBlockRewardDuration = 10; //10080; - No longer used
@@ -498,12 +494,15 @@ public:
         consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
         consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
 
+        consensus.BIP65Height = 1351;
+        consensus.BIP66Height = 1251;
 
         // DigiByte Hard Fork Block Heights
         consensus.multiAlgoDiffChangeTarget = 145; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430; // Block 1,430,000 DigiSpeed Hard Fork
         consensus.algoSwapChangeTarget = 2000; // Block 9,000,000 Odo PoW Hard Fork
+        consensus.nMinerConfirmationWindow = 3600; // 1 hour in RegTest
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
