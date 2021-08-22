@@ -38,6 +38,7 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
             '-txindex',
             '-reindex',  # Need reindex for txindex
             '-acceptnonstdtxn=0',  # Try to mimic main-net
+	    '-mempoolreplacement=1', # Disable RBF - Doesn't play nice with Dandelion
         ]] * self.num_nodes
 
     def skip_test_if_missing_module(self):

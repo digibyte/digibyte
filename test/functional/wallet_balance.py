@@ -41,6 +41,8 @@ class WalletTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
+	# Disable RBF - Doesn't play nice with Dandelion
+	self.extra_args = [["-mempoolreplacement=1"], ["-mempoolreplacement=1"]]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()

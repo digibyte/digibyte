@@ -196,8 +196,8 @@ class SegWitTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 3
-        # This test tests SegWit both pre and post-activation, so use the normal BIP9 activation.
-        self.extra_args = [["-whitelist=127.0.0.1", "-vbparams=segwit:0:999999999999"], ["-whitelist=127.0.0.1", "-acceptnonstdtxn=0", "-vbparams=segwit:0:999999999999"], ["-whitelist=127.0.0.1", "-vbparams=segwit:0:0"]]
+        # This test tests SegWit both pre and post-activation, so use the normal BIP9 activation. Disable RBF - Doesn't play nice with Dandelion.
+        self.extra_args = [["-whitelist=127.0.0.1", "-vbparams=segwit:0:999999999999", "-mempoolreplacement=1"], ["-whitelist=127.0.0.1", "-acceptnonstdtxn=0", "-vbparams=segwit:0:999999999999"], ["-whitelist=127.0.0.1", "-vbparams=segwit:0:0"]]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
