@@ -241,6 +241,7 @@ public:
         vSeeds.emplace_back("seed.digibyteblockchain.com"); // JS555
         vSeeds.emplace_back("seed.digibyte.host"); // SashaD
         vSeeds.emplace_back("seed.digibyteservers.io"); // ChillingSilence
+        vSeeds.emplace_back("seed.digibyte.help"); // Olly Stedall @saltedlolly
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
