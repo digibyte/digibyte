@@ -75,113 +75,58 @@ public:
         consensus.CSVHeight = 4164302; // 00000000000001284f16a11fc8ad177d281df64ea64f28a924ca691add701ca7
         consensus.SegwitHeight = 4394880; // add8ca420f557f62377ec2be6e6f47b96cf2e68160d58aeb7b73433de834cca0
         consensus.ReserveAlgoBitsHeight = 7550000; // f689833c01183997204d61adfbc4a7800fa9c2f8e23ef051fd29e11063da1c92
-        consensus.OdoHeight = 9112320; // 906b712a7b1f54f10b0faf86111e832ddb7b8ce86ac71a4edd2c61e5ccfe9428
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.initialTarget[ALGO_ODO] = ArithToUint256(~arith_uint256(0) >> 40); // 256 difficulty
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 60 / 4;
+        consensus.fPowAllowMinDifficultyBlocks = false;
+        consensus.fPowNoRetargeting = false;
 
-        /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
-        https://github.com/digibyte/digibyte-old/pull/36 
-        https://github.com/digibyte/digibyte-old/pull/15
-
-        Difficulty is updated for every algorithm on every block, not just the algorithm that was solved. 
-        In particular, the difficulty of one algorithm may decrease when a different algorithm is solved. 
-
-        An attacker with 90% of the SHA256D hashrate and 33% of each of the other 4 algorithms would 
-        have insufficient hashpower to mount a 51% attack.
-
-        - MultiAlgo POW (Scrypt, SHA256D, Qubit, Skein and Groestl) algorithms
-        - 15 Second Block Target (1.5 min per Algo)
-        - ~21 billion total coins in 21 years
-        - 8000 coins per block, reduces by 0.5% every 10,080 blocks starting 2/28/14 1% monthly reduction
-        - Difficulty retarget every 1 block per algo (1.5 Min)
-        **/
-
-        consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
-        consensus.nTargetSpacing = 60; // 60 seconds
-        consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 67200; // DigiShield Hard Fork Block BIP34Height 67,200
-
-        // Old 1% monthly DGB Reward before 15 secon block change
-        consensus.patchBlockRewardDuration = 10080; //10080; - No longer used
-        //4 blocks per min, x60 minutes x 24hours x 14 days = 80,160 blocks for 0.5% reduction in DGB reward supply - No longer used
-        consensus.patchBlockRewardDuration2 = 80160; //80160;
-        consensus.nTargetTimespanRe = 1*60; // 60 Seconds
-        consensus.nTargetSpacingRe = 1*60; // 60 seconds
-        consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
-
-        consensus.nAveragingInterval = 10; // 10 blocks
-        consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
-        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
-        consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
-        consensus.nAveragingTargetTimespanV4 = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
-
-        consensus.nMaxAdjustDown = 40; // 40% adjustment down
-        consensus.nMaxAdjustUp = 20; // 20% adjustment up
-        consensus.nMaxAdjustDownV3 = 16; // 16% adjustment down
-        consensus.nMaxAdjustUpV3 = 8; // 8% adjustment up
-        consensus.nMaxAdjustDownV4 = 16;
-        consensus.nMaxAdjustUpV4 = 8;
-
-        consensus.nMinActualTimespan = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUp) / 100;
-        consensus.nMaxActualTimespan = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDown) / 100;
-        consensus.nMinActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUpV3) / 100;
-        consensus.nMaxActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDownV3) / 100;
-        consensus.nMinActualTimespanV4 = consensus.nAveragingTargetTimespanV4 * (100 - consensus.nMaxAdjustUpV4) / 100;
-        consensus.nMaxActualTimespanV4 = consensus.nAveragingTargetTimespanV4 * (100 + consensus.nMaxAdjustDownV4) / 100;
-
-        consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
-        consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
-
+        // DigiByte Specific Consensus Code
+        consensus.nOdoShapechangeInterval = 10*24*60*60; // 10 days
+        consensus.nRuleChangeActivationThreshold = 28224; // 28224 - 70% of 40320 blocks
+        consensus.nMinerConfirmationWindow = 40320; // nPowTargetTimespan / nPowTargetSpacing 40320 blocks main net - 1 week
 
         // DigiByte Hard Fork Block Heights
         consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400000; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430000; // Block 1,430,000 DigiSpeed Hard Fork
         consensus.algoSwapChangeTarget = 9100000; // Block 9,100,000 Odo PoW Hard Fork
+        consensus.OdoHeight = 9112320; // 906b712a7b1f54f10b0faf86111e832ddb7b8ce86ac71a4edd2c61e5ccfe9428
 
-        consensus.fPowAllowMinDifficultyBlocks = false;
-        consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 28224; // 28224 - 70% of 40320
-        consensus.nMinerConfirmationWindow = 40320; // nPowTargetTimespan / nPowTargetSpacing 40320 main net - 1 week
-        consensus.fRbfEnabled = false;
-        
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 27;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 27; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].min_activation_height = 0; // No activation delay
-
 
         // Deployment of Taproot (BIPs 340-342)
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = 1638316800; // December 01st, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1669852800; // December 01st, 2022
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 13916366; // Approximately March 1th, 2022
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 7;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = 1630454400; // Sept 1st, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1664582400; // October 1st, 2021
+
+        // Deployment of Odo proof-of-work hardfork
+        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].bit = 6;
+        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nStartTime = 1556668800; // 1 May, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nTimeout = 1588291200;    // 1 May, 2020
+
+        // Reservation of version bits for future algos
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 12;
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1542672000; // 20 Nov, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1574208000;   // 20 Nov, 2019
 
         // Deployment of BIP68, BIP112, and BIP113.
-        // consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 12; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
-        // consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1489997089; // March 24th, 2017 1490355345
-        
-        // // Deployment of SegWit (BIP141, BIP143, and BIP147)
-        // consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 13; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
-        // consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1490355345; // March 24th, 2017 1490355345
-        // consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1521891345; // March 24th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 12; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1489997089; // March 24th, 2017 1490355345
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1521891345; // March 24th, 2018
 
-        // // Deployment of BIP65, BIP66, and BIP34.
-        // consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].bit = 14; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
-        // consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1489997089; // March 24th, 2017 1490355345
-        // consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nTimeout = 1521891345;    // March 24th, 2018
+        // Deployment of SegWit (BIP141, BIP143, and BIP147)
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 13; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1490355345; // March 24th, 2017 1490355345
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1521891345; // March 24th, 2018
 
-        // // Reservation of version bits for future algos
-        // consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 12;
-        // consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1542672000; // 20 Nov, 2018
-        // consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1574208000;   // 20 Nov, 2019
-
-        // // Deployment of Odo proof-of-work hardfork
-        // consensus.vDeployments[Consensus::DEPLOYMENT_ODO].bit = 6;
-        // consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nStartTime = 1556668800; // 1 May, 2019
-        // consensus.vDeployments[Consensus::DEPLOYMENT_ODO].nTimeout = 1588291200;    // 1 May, 2020
+        // Deployment of BIP65, BIP66, and BIP34.
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].bit = 14; //Add VERSIONBITS_NUM_BITS_TO_SKIP (12)
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nStartTime = 1489997089; // March 24th, 2017 1490355345
+        consensus.vDeployments[Consensus::DEPLOYMENT_NVERSIONBIPS].nTimeout = 1521891345;    // March 24th, 2018
 
         // Deployment of Equihash algo softfork
         //consensus.vDeployments[Consensus::DEPLOYMENT_EQUIHASH].bit = 3;
@@ -192,8 +137,6 @@ public:
         //consensus.vDeployments[Consensus::DEPLOYMENT_ETHASH].bit = 4;
         //consensus.vDeployments[Consensus::DEPLOYMENT_ETHASH].nStartTime = 1489997089; // October, 2017 
         //consensus.vDeployments[Consensus::DEPLOYMENT_ETHASH].nTimeout = 1521891345;    // October, 2018
-
-        consensus.nOdoShapechangeInterval = 10*24*60*60; // 10 days
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");
@@ -299,6 +242,66 @@ public:
             /* nTxCount */ 656509474,
             /* dTxRate  */ 2.424920418708139,
         };
+
+
+        // BEGIN OLD DGB Consensus Diff Timing Code
+
+        /*
+                /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
+        https://github.com/digibyte/digibyte-old/pull/36 
+        https://github.com/digibyte/digibyte-old/pull/15
+
+        Difficulty is updated for every algorithm on every block, not just the algorithm that was solved. 
+        In particular, the difficulty of one algorithm may decrease when a different algorithm is solved. 
+
+        An attacker with 90% of the SHA256D hashrate and 33% of each of the other 4 algorithms would 
+        have insufficient hashpower to mount a 51% attack.
+
+        - MultiAlgo POW (Scrypt, SHA256D, Qubit, Skein and Groestl) algorithms
+        - 15 Second Block Target (1.5 min per Algo)
+        - ~21 billion total coins in 21 years
+        - 8000 coins per block, reduces by 0.5% every 10,080 blocks starting 2/28/14 1% monthly reduction
+        - Difficulty retarget every 1 block per algo (1.5 Min)
+        **/
+
+        consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+        consensus.nTargetSpacing = 60; // 60 seconds
+        consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
+        consensus.nDiffChangeTarget = 67200; // DigiShield Hard Fork Block BIP34Height 67,200
+
+        // Old 1% monthly DGB Reward before 15 secon block change
+        consensus.patchBlockRewardDuration = 10080; //10080; - No longer used
+        //4 blocks per min, x60 minutes x 24hours x 14 days = 80,160 blocks for 0.5% reduction in DGB reward supply - No longer used
+        consensus.patchBlockRewardDuration2 = 80160; //80160;
+        consensus.nTargetTimespanRe = 1*60; // 60 Seconds
+        consensus.nTargetSpacingRe = 1*60; // 60 seconds
+        consensus.nIntervalRe = consensus.nTargetTimespanRe / consensus.nTargetSpacingRe; // 1 block
+
+        consensus.nAveragingInterval = 10; // 10 blocks
+        consensus.multiAlgoTargetSpacing = 30*5; // NUM_ALGOS * 30 seconds
+        consensus.multiAlgoTargetSpacingV4 = 15*5; // NUM_ALGOS * 15 seconds
+        consensus.nAveragingTargetTimespan = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacing; // 10* NUM_ALGOS * 30
+        consensus.nAveragingTargetTimespanV4 = consensus.nAveragingInterval * consensus.multiAlgoTargetSpacingV4; // 10 * NUM_ALGOS * 15
+
+        consensus.nMaxAdjustDown = 40; // 40% adjustment down
+        consensus.nMaxAdjustUp = 20; // 20% adjustment up
+        consensus.nMaxAdjustDownV3 = 16; // 16% adjustment down
+        consensus.nMaxAdjustUpV3 = 8; // 8% adjustment up
+        consensus.nMaxAdjustDownV4 = 16;
+        consensus.nMaxAdjustUpV4 = 8;
+
+        consensus.nMinActualTimespan = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUp) / 100;
+        consensus.nMaxActualTimespan = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDown) / 100;
+        consensus.nMinActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 - consensus.nMaxAdjustUpV3) / 100;
+        consensus.nMaxActualTimespanV3 = consensus.nAveragingTargetTimespan * (100 + consensus.nMaxAdjustDownV3) / 100;
+        consensus.nMinActualTimespanV4 = consensus.nAveragingTargetTimespanV4 * (100 - consensus.nMaxAdjustUpV4) / 100;
+        consensus.nMaxActualTimespanV4 = consensus.nAveragingTargetTimespanV4 * (100 + consensus.nMaxAdjustDownV4) / 100;
+
+        consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
+        consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
+       
+
+       // END Old DGB Diff Timing Code
     }
 };
 
