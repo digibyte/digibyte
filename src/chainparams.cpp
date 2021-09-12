@@ -66,16 +66,17 @@ public:
         strNetworkID = CBaseChainParams::MAIN;
         consensus.signet_blocks = false;
         consensus.signet_challenge.clear();
-        //consensus.nSubsidyHalvingInterval = 210000; - DGB
         consensus.BIP16Exception = uint256S("0x0");
-        consensus.BIP34Height = 4394880;
+
+        // BIP34, BIP65 and BIP66, CSV and Segwit were activated simultaneously
+        // DEPLOYMENT_NVERSIONBIPS, DEPLOYMENT_CSV, DEPLOYMENT_SEGWIT        
         consensus.BIP34Hash = uint256S("0xadd8ca420f557f62377ec2be6e6f47b96cf2e68160d58aeb7b73433de834cca0");
-        consensus.BIP65Height = 4394880; // 
-        consensus.BIP66Height = 4394880; // 
-        consensus.CSVHeight = 4164302; // 00000000000001284f16a11fc8ad177d281df64ea64f28a924ca691add701ca7
-        consensus.SegwitHeight = 4394880; // add8ca420f557f62377ec2be6e6f47b96cf2e68160d58aeb7b73433de834cca0
-        consensus.ReserveAlgoBitsHeight = 7550000; // f689833c01183997204d61adfbc4a7800fa9c2f8e23ef051fd29e11063da1c92
+        consensus.BIP34Height = consensus.BIP65Height = consensus.BIP66Height = 4394880; // add8ca420f557f62377ec2be6e6f47b96cf2e68160d58aeb7b73433de834cca0
+        consensus.CSVHeight = consensus.SegwitHeight = 4394880;
+
+        consensus.ReserveAlgoBitsHeight = 8547840; // d2c03966aeef35f739b222c8332b68df2676204d49c390b3a2544b967c46163f
         consensus.OdoHeight = 9112320; // 906b712a7b1f54f10b0faf86111e832ddb7b8ce86ac71a4edd2c61e5ccfe9428
+        
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.initialTarget[ALGO_ODO] = ArithToUint256(~arith_uint256(0) >> 40); // 256 difficulty
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
