@@ -1538,7 +1538,7 @@ RPCHelpMan getblockchaininfo()
     {
         if (IsAlgoActive(tip, consensusParams, algo))
         {
-            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(NULL, algo));
+            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(tip, NULL, algo));
         }
     }
     UniValue softforks(UniValue::VARR);
