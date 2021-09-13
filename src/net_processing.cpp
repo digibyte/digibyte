@@ -1675,7 +1675,6 @@ void PeerManagerImpl::RelayDandelionTransaction(const CTransaction& tx, CNode& p
     FastRandomContext rng;
 
     if (rng.randrange(100) < DANDELION_FLUFF) {
-        LOCK(cs_main);
         LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", txHash.ToString());
         CTransactionRef ptx = m_stempool.get(txHash);
         std::list<CTransactionRef> lRemovedTxn;
@@ -1694,7 +1693,6 @@ void PeerManagerImpl::RelayDandelionTransaction(const CTransaction& tx, CNode& p
 
 void PeerManagerImpl::CheckDandelionEmbargoes()
 {
-    LOCK(cs_main);
     const auto current_time = GetTime<std::chrono::microseconds>();
     for (auto iter = m_connman.mDandelionEmbargo.begin(); iter != m_connman.mDandelionEmbargo.end();) {
         if (m_mempool.exists(iter->first)) {
@@ -1963,8 +1961,10 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
     // Process as many TX items from the front of the getdata queue as
     // possible, since they're common and it's efficient to batch process
     // them.
-    while (it != peer.m_getdata_requests.end() && it->IsGenTxMsg()) {
+    while (it != peer.m_getdata_requests.end() && (it->IsGenTxMsg() || it->IsDandelionMsg()))
+    {
         if (interruptMsgProc) return;
+
         // The send buffer provides backpressure. If there's no space in
         // the buffer, pause processing until the next call.
         if (pfrom.fPauseSend) break;
@@ -1976,57 +1976,60 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
             continue;
         }
 
-        CTransactionRef tx = FindTxForGetData(pfrom, ToGenTxid(inv), mempool_req, now);
-        if (tx) {
-            //FIXDANDELION
-/*
-            if (inv.type == MSG_DANDELION_TX || inv.type == MSG_DANDELION_WITNESS_TX) {
-                int nSendFlags = (inv.type == MSG_DANDELION_TX ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
-                uint256 dandelionServiceDiscoveryHash;
-                dandelionServiceDiscoveryHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-                if (!m_connman.isDandelionInbound(pfrom) && pfrom.setDandelionInventoryKnown.count(inv.hash)!=0) {
-                    m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::DANDELIONTX, *tx));
-                } else if (inv.hash == dandelionServiceDiscoveryHash && pfrom.setDandelionInventoryKnown.count(inv.hash)!=0) {
-                    LogPrint(BCLog::DANDELION, "Peer %d supports Dandelion\n", pfrom.GetId());
-                    pfrom.fSupportsDandelion = true;
-                } else {
-                    vNotFound.push_back(inv);
+        bool push = false;
+        if (inv.IsDandelionMsg()) {
+            // Check if its a dandelion tx
+            int nSendFlags = (inv.IsDandelionMsg() ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
+            auto txinfo = m_stempool.info(inv.hash);
+            if (txinfo.tx && !m_connman.isDandelionInbound(&pfrom) && pfrom.m_tx_relay->setDandelionInventoryTxToSend.count(inv.hash) != 0) {
+                m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::DANDELIONTX, *txinfo.tx));
+                push = true;
+            }
+            if (inv.hash == DANDELION_DISCOVERYHASH) {
+                pfrom.fSupportsDandelion = true;
+                LogPrint(BCLog::DANDELION, "Peer %d supports Dandelion\n", pfrom.GetId());
+                push = true;
+            }
+        } else if (inv.IsGenTxMsg()) {
+            CTransactionRef tx = FindTxForGetData(pfrom, ToGenTxid(inv), mempool_req, now);
+            // WTX and WITNESS_TX imply we serialize with witness
+            int nSendFlags = (inv.IsMsgTx() ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
+            if (!pfrom.fSupportsDandelion && !m_connman.isDandelionInbound(&pfrom) && pfrom.m_tx_relay->setDandelionInventoryTxToSend.count(inv.hash)) {
+                auto txinfo = m_stempool.info(inv.hash);
+                if (txinfo.tx) {
+                    m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *txinfo.tx));
+                    push = true;
                 }
-            } 
-            else if (inv.type == inv.type == MSG_TX || inv.type == MSG_WITNESS_TX) {
-                 */
-
-                // WTX and WITNESS_TX imply we serialize with witness
-                int nSendFlags = (inv.IsMsgTx() ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
+            } else if (tx) {
                 m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *tx));
                 m_mempool.RemoveUnbroadcastTx(tx->GetHash());
-                // As we're going to send tx, make sure its unconfirmed parents are made requestable.
-                std::vector<uint256> parent_ids_to_add;
-                {
-                    LOCK(m_mempool.cs);
-                    auto txiter = m_mempool.GetIter(tx->GetHash());
-                    if (txiter) {
-                        const CTxMemPoolEntry::Parents& parents = (*txiter)->GetMemPoolParentsConst();
-                        parent_ids_to_add.reserve(parents.size());
-                        for (const CTxMemPoolEntry& parent : parents) {
-                            if (parent.GetTime() > now - UNCONDITIONAL_RELAY_DELAY) {
-                                parent_ids_to_add.push_back(parent.GetTx().GetHash());
-                            }
+                push = true;
+            }
+            // As we're going to send tx, make sure its unconfirmed parents are made requestable.
+            std::vector<uint256> parent_ids_to_add;
+            {
+                LOCK(m_mempool.cs);
+                auto txiter = m_mempool.GetIter(tx->GetHash());
+                if (txiter) {
+                    const CTxMemPoolEntry::Parents& parents = (*txiter)->GetMemPoolParentsConst();
+                    parent_ids_to_add.reserve(parents.size());
+                    for (const CTxMemPoolEntry& parent : parents) {
+                        if (parent.GetTime() > now - UNCONDITIONAL_RELAY_DELAY) {
+                            parent_ids_to_add.push_back(parent.GetTx().GetHash());
                         }
                     }
                 }
-        
-                for (const uint256& parent_txid : parent_ids_to_add) {
-                    // Relaying a transaction with a recent but unconfirmed parent.
-                    if (WITH_LOCK(pfrom.m_tx_relay->cs_tx_inventory, return !pfrom.m_tx_relay->filterInventoryKnown.contains(parent_txid))) {
-                        LOCK(cs_main);
-                        State(pfrom.GetId())->m_recently_announced_invs.insert(parent_txid);
-                    }
+            }
+            for (const uint256& parent_txid : parent_ids_to_add) {
+                // Relaying a transaction with a recent but unconfirmed parent.
+                if (WITH_LOCK(pfrom.m_tx_relay->cs_tx_inventory, return !pfrom.m_tx_relay->filterInventoryKnown.contains(parent_txid))) {
+                    LOCK(cs_main);
+                    State(pfrom.GetId())->m_recently_announced_invs.insert(parent_txid);
                 }
-            
-        } else {
-            vNotFound.push_back(inv);
+            }
         }
+        if (!push)
+            vNotFound.push_back(inv);
     }
 
     // Only process one BLOCK item per call, since they're uncommon and can be
@@ -3031,44 +3034,19 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
                 } else if (!fAlreadyHave && !m_chainman.ActiveChainstate().IsInitialBlockDownload()) {
                     AddTxAnnouncement(pfrom, gtxid, current_time);
                 }
-            } else {
-                LogPrint(BCLog::NET, "Unknown inv type \"%s\" received from peer=%d\n", inv.ToString(), pfrom.GetId());
-            }
-        }
-
-//FIXDANDELION
-/*
-            } else if (inv.IsGenTxMsg()) {
-                const GenTxid gtxid = ToGenTxid(inv);
-                const bool fAlreadyHave = AlreadyHaveTx(gtxid);
+            } else if (inv.IsDandelionMsg()) {
+                auto result = pfrom.m_tx_relay->setDandelionInventoryTxToSend.insert(inv.hash);
+                const bool fAlreadyHave = !result.second;
                 LogPrint(BCLog::NET, "got inv: %s  %s peer=%d\n", inv.ToString(), fAlreadyHave ? "have" : "new", pfrom.GetId());
-
-                if (fBlocksOnly) {
-                    LogPrint(BCLog::NET, "transaction (%s) inv sent in violation of protocol, disconnecting peer=%d\n", inv.hash.ToString(), pfrom.GetId());
-                    pfrom.fDisconnect = true;
-                    return;
-                }      
-
-                if (inv.type == MSG_TX) {
-                    pfrom.AddKnownTx(inv.hash);
-                     else if (!fAlreadyHave && !m_chainman.ActiveChainstate().IsInitialBlockDownload()) {
-                        AddTxAnnouncement(pfrom, gtxid, current_time);
-                    }
-                } else if (inv.type == MSG_DANDELION_TX) {
-                    auto result = pfrom.setDandelionInventoryKnown.insert(inv.hash);
-                    fAlreadyHave = !result.second;
-
-                    dandelionServiceDiscoveryHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-                    if ((!fAlreadyHave && !fImporting && !fReindex && !IsInitialBlockDownload() && connman.isDandelionInbound(&pfrom)) || (inv.hash == dandelionServiceDiscoveryHash)) {
-                        pfrom.AskFor(inv);
-                    }                    
+                if ((!fAlreadyHave && !m_chainman.ActiveChainstate().IsInitialBlockDownload() &&
+                    m_connman.isDandelionInbound(&pfrom)) || (inv.hash == DANDELION_DISCOVERYHASH)) {
+                   m_connman.PushMessage(&pfrom, msgMaker.Make(NetMsgType::GETDATA, inv));
                 }
-
             } else {
                 LogPrint(BCLog::NET, "Unknown inv type \"%s\" received from peer=%d\n", inv.ToString(), pfrom.GetId());
             }
         }
-*/
+
         if (best_block != nullptr) {
             m_connman.PushMessage(&pfrom, msgMaker.Make(NetMsgType::GETHEADERS, m_chainman.ActiveChain().GetLocator(pindexBestHeader), *best_block));
             LogPrint(BCLog::NET, "getheaders (%d) %s to peer=%d\n", pindexBestHeader->nHeight, best_block->ToString(), pfrom.GetId());
@@ -4850,9 +4828,7 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
             // Add Dandelion transactions
             for (const uint256& hash : pto->m_tx_relay->setDandelionInventoryTxToSend) {
                 pto->m_tx_relay->filterDandelionInventoryKnown.insert(hash);
-                uint256 dandelionServiceDiscoveryHash;
-                dandelionServiceDiscoveryHash.SetHex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-                if (!pto->fSupportsDandelion && hash != dandelionServiceDiscoveryHash) {
+                if (!pto->fSupportsDandelion && hash != DANDELION_DISCOVERYHASH) {
                     vInv.push_back(CInv(MSG_TX, hash));
                 } else {
                     vInv.push_back(CInv(MSG_DANDELION_TX, hash));
