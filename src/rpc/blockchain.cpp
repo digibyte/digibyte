@@ -1453,7 +1453,6 @@ RPCHelpMan getblockchaininfo()
                         {RPCResult::Type::NUM, "blocks", "the height of the most-work fully-validated chain. The genesis block has height 0"},
                         {RPCResult::Type::NUM, "headers", "the current number of headers we have validated"},
                         {RPCResult::Type::STR, "bestblockhash", "the hash of the currently best block"},
-                        {RPCResult::Type::NUM, "difficulty", "the current difficulty"},
                         {RPCResult::Type::NUM, "mediantime", "median time for the current best block"},
                         {RPCResult::Type::NUM, "verificationprogress", "estimate of verification progress [0..1]"},
                         {RPCResult::Type::BOOL, "initialblockdownload", "(debug information) estimate of whether this node is in Initial Block Download mode"},
@@ -1463,6 +1462,7 @@ RPCHelpMan getblockchaininfo()
                         {RPCResult::Type::NUM, "pruneheight", "lowest-height complete block stored (only present if pruning is enabled)"},
                         {RPCResult::Type::BOOL, "automatic_pruning", "whether automatic pruning is enabled (only present if pruning is enabled)"},
                         {RPCResult::Type::NUM, "prune_target_size", "the target size used by pruning (only present if automatic pruning is enabled)"},
+                        {RPCResult::Type::NUM, "difficulties", "The current difficulty for all 5 DGB algos."},
                         {RPCResult::Type::OBJ_DYN, "softforks", "status of softforks",
                         {
                             {RPCResult::Type::OBJ, "xxxx", "name of the softfork",
