@@ -446,21 +446,28 @@ static RPCHelpMan getmininginfo()
     LOCK(cs_main);
     const CChain& active_chain = chainman.ActiveChain();
 
+    CChainState& active_chainstate = chainman.ActiveChainstate();
+
+    const CBlockIndex* tip = active_chainstate.m_chain.Tip();
+    CHECK_NONFATAL(tip);
+
     UniValue obj(UniValue::VOBJ);
     obj.pushKV("blocks",           active_chain.Height());
     if (BlockAssembler::m_last_block_weight) obj.pushKV("currentblockweight", *BlockAssembler::m_last_block_weight);
     if (BlockAssembler::m_last_block_num_txs) obj.pushKV("currentblocktx", *BlockAssembler::m_last_block_num_txs);
     obj.pushKV("pow_algo_id",        miningAlgo);
     obj.pushKV("pow_algo",           GetAlgoName(miningAlgo));
-    obj.pushKV("difficulty",         (double)GetDifficulty(NULL, miningAlgo));
+
+    const Consensus::Params& consensusParams = Params().GetConsensus();
+    UniValue difficulties(UniValue::VOBJ);
     for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
     {
-        if (IsAlgoActive(chainman.ActiveChain().Tip(), Params().GetConsensus(), algo))
+        if (IsAlgoActive(tip, consensusParams, algo))
         {
-            std::string key = "difficulty_" + GetAlgoName(algo);
-            obj.pushKV(key, (double)GetDifficulty(NULL, algo));
+            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(NULL, algo));
         }
     }
+    obj.pushKV("difficulties", difficulties);
     obj.pushKV("networkhashps",    getnetworkhashps().HandleRequest(request));
     obj.pushKV("pooledtx",         (uint64_t)mempool.size());
     obj.pushKV("chain",            Params().NetworkIDString());
