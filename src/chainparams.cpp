@@ -135,7 +135,6 @@ public:
         consensus.nLocalTargetAdjustment = 4; //target adjustment per algo
         consensus.nLocalDifficultyAdjustment = 4; //difficulty adjustment per algo
 
-
         // DigiByte Hard Fork Block Heights
         consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400000; // Block 400,000 MultiShield Hard Fork
@@ -147,12 +146,13 @@ public:
         consensus.nRuleChangeActivationThreshold = 28224; // 28224 - 70% of 40320
         consensus.nMinerConfirmationWindow = 40320; // nPowTargetTimespan / nPowTargetSpacing 40320 main net - 1 week
         consensus.fRbfEnabled = false;
+
+        consensus.MinBIP9WarningHeight = consensus.SegwitHeight + consensus.nMinerConfirmationWindow;
         
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 27;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].min_activation_height = 0; // No activation delay
-
 
         // Deployment of Taproot (BIPs 340-342)
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 2;
@@ -561,7 +561,6 @@ public:
         consensus.nRuleChangeActivationThreshold = 1815; // 90% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.fRbfEnabled = false;
-
 
         consensus.MinBIP9WarningHeight = 0;
         consensus.initialTarget[ALGO_ODO] = ArithToUint256(~arith_uint256(0) >> 38); // 4 difficulty
