@@ -466,10 +466,13 @@ static RPCHelpMan syncwithvalidationinterfacequeue()
 static RPCHelpMan getdifficulty()
 {
     return RPCHelpMan{"getdifficulty",
-                "\nReturns the proof-of-work difficulty as a multiple of the minimum difficulty.\n",
+                "\nReturns the proof-of-work difficulty for all 5 DGB mining algos as a multiple of the minimum difficulty.\n",
                 {},
                 RPCResult{
-                    RPCResult::Type::NUM, "", "the proof-of-work difficulty as a multiple of the minimum difficulty."},
+                    RPCResult::Type::OBJ, "", "",
+                    {
+                        {RPCResult::Type::NUM, "difficulties", "The current difficulty for all 5 DGB algos."},
+                    }},
                 RPCExamples{
                     HelpExampleCli("getdifficulty", "")
             + HelpExampleRpc("getdifficulty", "")
@@ -478,7 +481,24 @@ static RPCHelpMan getdifficulty()
 {
     ChainstateManager& chainman = EnsureAnyChainman(request.context);
     LOCK(cs_main);
-    return GetDifficulty(chainman.ActiveChain().Tip(), miningAlgo);
+    CChainState& active_chainstate = chainman.ActiveChainstate();
+
+    const CBlockIndex* tip = active_chainstate.m_chain.Tip();
+    CHECK_NONFATAL(tip);
+    const int height = tip->nHeight;
+    UniValue obj(UniValue::VOBJ);
+
+    const Consensus::Params& consensusParams = Params().GetConsensus();
+    UniValue difficulties(UniValue::VOBJ);
+    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
+    {
+        if (IsAlgoActive(tip, consensusParams, algo))
+        {
+            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(tip, NULL, algo));
+        }
+    }
+    obj.pushKV("difficulties", difficulties);
+    return obj;
 },
     };
 }
