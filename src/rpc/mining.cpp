@@ -464,7 +464,7 @@ static RPCHelpMan getmininginfo()
     {
         if (IsAlgoActive(tip, consensusParams, algo))
         {
-            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(NULL, algo));
+            difficulties.pushKV(GetAlgoName(algo), (double)GetDifficulty(tip, NULL, algo));
         }
     }
     obj.pushKV("difficulties", difficulties);

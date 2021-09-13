@@ -41,7 +41,7 @@ static void RejectDifficultyMismatch(double difficulty, double expected_difficul
 static void TestDifficulty(uint32_t nbits, double expected_difficulty)
 {
     CBlockIndex* block_index = CreateBlockIndexWithNbits(nbits);
-    double difficulty = GetDifficulty(block_index, 2);
+    double difficulty = GetDifficulty(NULL, block_index, 2);
     delete block_index;
 
     RejectDifficultyMismatch(difficulty, expected_difficulty);

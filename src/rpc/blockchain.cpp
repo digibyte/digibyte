@@ -157,8 +157,6 @@ double GetDifficulty(const CBlockIndex* blockindex, int algo)
     return GetDifficulty(NULL, blockindex, algo);
 }
 
-
-
 static int ComputeNextBlockAndDepth(const CBlockIndex* tip, const CBlockIndex* blockindex, const CBlockIndex*& next)
 {
     next = tip->GetAncestor(blockindex->nHeight + 1);
