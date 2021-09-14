@@ -89,6 +89,8 @@ static const size_t DEFAULT_MAXSENDBUFFER    = 1 * 1000;
 typedef std::chrono::seconds sec;
 typedef std::chrono::milliseconds msec;
 
+static const uint256 DANDELION_DISCOVERYHASH = uint256S("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+
 /** Maximum number of outbound peers designated as Dandelion destinations */
 static const int DANDELION_MAX_DESTINATIONS = 2;
 /** Expected time between Dandelion routing shuffles. */

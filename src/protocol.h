@@ -519,6 +519,10 @@ public:
     {
         return type == MSG_BLOCK || type == MSG_FILTERED_BLOCK || type == MSG_CMPCT_BLOCK || type == MSG_WITNESS_BLOCK;
     }
+    bool IsDandelionMsg() const
+    {
+        return type == MSG_DANDELION_TX || type == MSG_DANDELION_WITNESS_TX;
+    }
 
     uint32_t type;
     uint256 hash;

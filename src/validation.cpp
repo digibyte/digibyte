@@ -2578,23 +2578,16 @@ bool CChainState::ConnectTip(BlockValidationState& state, CBlockIndex* pindexNew
     }
     int64_t nTime5 = GetTimeMicros(); nTimeChainState += nTime5 - nTime4;
     LogPrint(BCLog::BENCH, "  - Writing chainstate: %.2fms [%.2fs (%.2fms/blk)]\n", (nTime5 - nTime4) * MILLI, nTimeChainState * MICRO, nTimeChainState * MILLI / nBlocksTotal);
-    // Remove conflicting transactions from the mempool.;
 
-    bool removedFromPool = false;
-
+    // Remove conflicting transactions from the mempool.
     if (m_mempool) {
         m_mempool->removeForBlock(blockConnecting.vtx, pindexNew->nHeight);
-        disconnectpool.removeForBlock(blockConnecting.vtx);
-        removedFromPool = true;
     }
-
     if (m_stempool) {
         m_stempool->removeForBlock(blockConnecting.vtx, pindexNew->nHeight);
-
-        if (!removedFromPool) {
-            disconnectpool.removeForBlock(blockConnecting.vtx);
-        }
     }
+    disconnectpool.removeForBlock(blockConnecting.vtx);
+
     // Update m_chain & related variables.
     m_chain.SetTip(pindexNew);
     UpdateTip(pindexNew);
