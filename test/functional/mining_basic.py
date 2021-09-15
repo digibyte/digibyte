@@ -30,7 +30,7 @@ from test_framework.util import (
 )
 
 VERSIONBITS_TOP_BITS = 0x20000000
-VERSIONBITS_DEPLOYMENT_TESTDUMMY_BIT = 28
+VERSIONBITS_DEPLOYMENT_TESTDUMMY_BIT = 27
 
 
 def assert_template(node, block, expect, rehash=True):

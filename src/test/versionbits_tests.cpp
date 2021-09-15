@@ -270,7 +270,7 @@ static void check_computeblockversion(const Consensus::Params& params, Consensus
     int min_activation_height = params.vDeployments[dep].min_activation_height;
 
     // should not be any signalling for first block
-    BOOST_CHECK_EQUAL(g_versionbitscache.ComputeBlockVersion(nullptr, params, ALGO_SCRYPT), VERSIONBITS_TOP_BITS);
+    BOOST_CHECK_EQUAL(g_versionbitscache.ComputeBlockVersion(nullptr, params, ALGO_SCRYPT) & VERSIONBITS_TOP_MASK, VERSIONBITS_TOP_BITS);
 
     // always/never active deployments shouldn't need to be tested further
     if (nStartTime == Consensus::BIP9Deployment::ALWAYS_ACTIVE ||
@@ -334,7 +334,7 @@ static void check_computeblockversion(const Consensus::Params& params, Consensus
         // Next we will advance to the next period and transition to STARTED,
     }
 
-    lastBlock = firstChain.Mine(params.nMinerConfirmationWindow * 3, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+    lastBlock = firstChain.Mine(params.nMinerConfirmationWindow * 3, nTime, ALGO_SCRYPT).Tip();
     // so ComputeBlockVersion should now set the bit,
     BOOST_CHECK((g_versionbitscache.ComputeBlockVersion(lastBlock, params, ALGO_SCRYPT) & (1 << bit)) != 0);
     // and should also be using the VERSIONBITS_TOP_BITS.
