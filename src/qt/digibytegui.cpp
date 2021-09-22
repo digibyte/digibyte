@@ -56,6 +56,7 @@
 #include <QToolBar>
 #include <QUrlQuery>
 #include <QVBoxLayout>
+#include <boost/bind.hpp>
 
 const std::string DigiByteGUI::DEFAULT_UIPLATFORM =
 #if defined(Q_OS_MAC)
