@@ -30,7 +30,7 @@ Drag DigiByte Core to your applications folder, and then run DigiByte Core.
 
 * See the documentation at the [DigiByte Wiki](https://dgbwiki.com/)
 for help and more information.
-* Ask for help on [DigiByte-Core](https://gitter.im/DigiByte-Core).
+* Ask for help on [DigiByte-Core](https://gitter.im/DigiByte-Core) Gitter.
 * Ask for help on the [DigiByte Official Discussion](https://t.me/DigiByteCoin) Telegram channels.
 * Ask for help on #digibyte on Libera Chat. If you don't have an IRC client, you can use [web.libera.chat](https://web.libera.chat/#digibyte).
 
