@@ -2366,6 +2366,9 @@ void CChainState::UpdateTip(const CBlockIndex* pindexNew)
         for (int bit = 0; bit < VERSIONBITS_NUM_BITS; bit++) {
             WarningBitsConditionChecker checker(bit);
             ThresholdState state = checker.GetStateFor(pindex, m_params.GetConsensus(), warningcache[bit]);
+            // dont trigger 'unknown new rules' warning if the bit falls within
+            // the block algo version range (enum in primitives/block.h)
+            if (bit <= BLOCK_VERSION_ALGO) continue;
             if (state == ThresholdState::ACTIVE || state == ThresholdState::LOCKED_IN) {
                 const bilingual_str warning = strprintf(_("Unknown new rules activated (versionbit %i)"), bit);
                 if (state == ThresholdState::ACTIVE) {
