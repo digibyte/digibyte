@@ -90,7 +90,7 @@ public:
         consensus.nMinerConfirmationWindow = 40320; // nPowTargetTimespan / nPowTargetSpacing 40320 blocks main net - 1 week
 
         // Need to make sure we ignore activation warnings below Odo activation height, also ignores Segwit activation
-        consensus.MinBIP9WarningHeight = consensus.OdoHeight + consensus.nMinerConfirmationWindow;
+        consensus.MinBIP9WarningHeight = 9152640; // Odo height + miner confirmation window, nMinerConfirmationWindow was un initialized before, so hard coded now
 
         // DigiByte Hard Fork Block Heights
         consensus.multiAlgoDiffChangeTarget = 145000; // Block 145,000 MultiAlgo Hard Fork
