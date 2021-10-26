@@ -1,3 +1,9 @@
+Development is now occurring on the DigiByte-Core repo
+----------------
+As of 2020, development has now moved to the DigiByte-Core organization, under the digibyte repo
+
+You can find more over at https://github.com/digibyte-core/digibyte
+
 What is DigiByte?
 ----------------
 
@@ -23,7 +29,7 @@ Block Reward Reduction: 1% Monthly
 
 Current Block Reward: 688 DGB (April 2019)
 
-Mining Algorithms: Five individual: SHA256, Scrypt, Groestl, Skein & Qubit
+Mining Algorithms: Five individual: SHA256, Scrypt, Odocrypt, Skein & Qubit
 
 Block Interval: 15 Second Blocks (75 seconds per algo)
 
@@ -47,6 +53,8 @@ MultiShield Hardfork: Block 400k, Dec. 10th 2014
 
 DigiSpeed Hardfork: Block 1,430,000 Dec. 4th 2015
 
+Odocrypt Hardfork: Block 9,112,320 July 22nd 2019
+
 DigiByte vs Bitcoin
 -------------------
 
@@ -67,7 +75,7 @@ The 2015 DigiSpeed hardfork introduced changes that double the capacity of the n
 Total Supply: More DigiBytes, lower price, more micro transactions, better price stability.
 21 billion DigiBytes will be created over 21 years.
 Only 21 million Bitcoin will be created over 140 years.
-1:1000 ratio. 1 DigiByte for every 1000 Bitcoin.
+1000:1 ratio. 1000 DigiByte for every Bitcoin.
 
 Flexibility: Ability to quickly add new features.
 DigiByte can add new features & upgrades much quicker than Bitcoin.
