@@ -100,6 +100,6 @@ To create a new language template, you will need to edit the languages manifest 
 **Note:** that the language translation file **must end in `.qm`** (the compiled extension), and not `.ts`.
 
 ### Questions and general assistance
-The DigiByte-Core translation maintainers include *tcatm, seone, Diapolo, wumpus and luke-jr*. You can find them, and others, in the Freenode IRC chatroom - `irc.freenode.net #digibyte-core-dev`.
+The DigiByte-Core translation maintainers can be found on [Gitter](https://gitter.im/DigiByte-Core/protocol).
 
-If you are a translator, you should also subscribe to the mailing list, https://groups.google.com/forum/#!forum/digibyte-translators. Announcements will be posted during application pre-releases to notify translators to check for updates.
+If you are a translator, you should connect with contributors on [Gitter](https://gitter.im/DigiByte-Core/protocol). Announcements will be posted during application pre-releases to notify translators to check for updates.
