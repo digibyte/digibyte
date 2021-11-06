@@ -89,19 +89,6 @@ static const size_t DEFAULT_MAXSENDBUFFER    = 1 * 1000;
 typedef std::chrono::seconds sec;
 typedef std::chrono::milliseconds msec;
 
-static const uint256 DANDELION_DISCOVERYHASH = uint256S("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-
-/** Maximum number of outbound peers designated as Dandelion destinations */
-static const int DANDELION_MAX_DESTINATIONS = 2;
-/** Expected time between Dandelion routing shuffles. */
-static const sec DANDELION_SHUFFLE_INTERVAL = sec(600);
-/** The minimum amount of time a Dandelion transaction is embargoed */
-static const sec DANDELION_EMBARGO_MINIMUM = sec(10);
-/** The average additional embargo time beyond the minimum amount */
-static const sec DANDELION_EMBARGO_AVG_ADD = sec(20);
-/** The time to wait for the scheduler before rerunning Dandelion shuffle check */
-static const msec CHECK_DANDELION_SHUFFLE_INTERVAL = msec(1000);
-
 typedef int64_t NodeId;
 
 struct AddedNodeInfo
@@ -469,7 +456,6 @@ public:
     std::atomic_bool fDisconnect{false};
     CSemaphoreGrant grantOutbound;
     std::atomic<int> nRefCount{0};
-    bool fSupportsDandelion = false;
 
     const uint64_t nKeyedNetGroup;
     std::atomic_bool fPauseRecv{false};
@@ -554,12 +540,6 @@ public:
         //    unless it loads a bloom filter.
         bool fRelayTxes GUARDED_BY(cs_filter){false};
         std::unique_ptr<CBloomFilter> pfilter PT_GUARDED_BY(cs_filter) GUARDED_BY(cs_filter){nullptr};
-
-        // Dandelion tx mutex
-        mutable RecursiveMutex cs_dtx_inventory; 
-        // Set of transaction ids we still have to announce.
-        std::set<uint256> setDandelionInventoryTxToSend;
-        CRollingBloomFilter filterDandelionInventoryKnown GUARDED_BY(cs_dtx_inventory){50000, 0.000001};
 
         mutable RecursiveMutex cs_tx_inventory;
         CRollingBloomFilter filterInventoryKnown GUARDED_BY(cs_tx_inventory){50000, 0.000001};
@@ -662,15 +642,6 @@ public:
             LOCK(m_tx_relay->cs_tx_inventory);
             m_tx_relay->filterInventoryKnown.insert(hash);
         }
-    }
-
-    void PushDandelionTxInventory(const uint256& hash)
-    {
-        if (m_tx_relay == nullptr) return;
-        LOCK(m_tx_relay->cs_dtx_inventory);
-        if (!m_tx_relay->filterDandelionInventoryKnown.contains(hash)) {
-            m_tx_relay->setDandelionInventoryTxToSend.insert(hash);
-        }      
     }
 
     void PushTxInventory(const uint256& hash)
@@ -976,19 +947,6 @@ public:
 
     void WakeMessageHandler();
 
-    // Public Dandelion field
-    std::map<uint256, std::chrono::seconds> mDandelionEmbargo;
-    // Dandelion methods
-    bool isDandelionInbound(const CNode* const pnode) const;
-    bool isLocalDandelionDestinationSet() const;
-    bool setLocalDandelionDestination();
-    CNode* getDandelionDestination(CNode* pfrom);
-    bool localDandelionDestinationPushInventory(const uint256& hash);
-    bool insertDandelionEmbargo(const uint256& hash, const std::chrono::seconds& embargo);
-    bool isTxDandelionEmbargoed(const uint256& hash) const;
-    bool removeDandelionEmbargo(const uint256& hash);
-    void CheckDandelionShuffle();
-
     /** Attempts to obfuscate tx time through exponentially distributed emitting.
         Works assuming that a single interval is used.
         Variable intervals will result in privacy decrease.
@@ -1044,8 +1002,6 @@ private:
     void SocketHandler();
     void ThreadSocketHandler();
     void ThreadDNSAddressSeed();
-    std::string GetDandelionRoutingDataDebugString() const;
-
 
     uint64_t CalculateKeyedNetGroup(const CAddress& ad) const;
 
@@ -1117,18 +1073,6 @@ private:
     mutable RecursiveMutex cs_vNodes;
     std::atomic<NodeId> nLastNodeId{0};
     unsigned int nPrevNodeCount{0};
-
-
-    // Dandelion fields
-    std::vector<CNode*> vDandelionInbound;
-    std::vector<CNode*> vDandelionOutbound;
-    std::vector<CNode*> vDandelionDestination;
-    CNode* localDandelionDestination = nullptr;
-    std::map<CNode*, CNode*> mDandelionRoutes;
-    // Dandelion helper functions
-    CNode* SelectFromDandelionDestinations() const;
-    void CloseDandelionConnections(const CNode* const pnode);
-    void DandelionShuffle();
 
     /**
      * Cache responses to addr requests to minimize privacy leak.
