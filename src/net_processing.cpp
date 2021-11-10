@@ -273,7 +273,7 @@ class PeerManagerImpl final : public PeerManager
 public:
     PeerManagerImpl(const CChainParams& chainparams, CConnman& connman, CAddrMan& addrman,
                     BanMan* banman, CScheduler& scheduler, ChainstateManager& chainman,
-                    CTxMemPool& pool, CTxMemPool& stempool, bool ignore_incoming_txs);
+                    CTxMemPool& pool, bool ignore_incoming_txs);
 
     /** Overridden from CValidationInterface. */
     void BlockConnected(const std::shared_ptr<const CBlock>& pblock, const CBlockIndex* pindexConnected) override;
@@ -294,14 +294,10 @@ public:
     bool IgnoresIncomingTxs() override { return m_ignore_incoming_txs; }
     void SendPings() override;
     void RelayTransaction(const uint256& txid, const uint256& wtxid) override;
-
     void SetBestHeight(int height) override { m_best_height = height; };
     void Misbehaving(const NodeId pnode, const int howmuch, const std::string& message) override;
     void ProcessMessage(CNode& pfrom, const std::string& msg_type, CDataStream& vRecv,
                         const std::chrono::microseconds time_received, const std::atomic<bool>& interruptMsgProc) override;
-
-    void RelayDandelionTransaction(const CTransaction& tx, CNode& pfrom);
-    void CheckDandelionEmbargoes();    
 
 private:
     void _RelayTransaction(const uint256& txid, const uint256& wtxid)
@@ -397,8 +393,6 @@ private:
     BanMan* const m_banman;
     ChainstateManager& m_chainman;
     CTxMemPool& m_mempool;
-    CTxMemPool& m_stempool;
-
     TxRequestTracker m_txrequest GUARDED_BY(::cs_main);
 
     /** The height of the best chain */
@@ -1387,21 +1381,20 @@ bool PeerManagerImpl::BlockRequestAllowed(const CBlockIndex* pindex)
 
 std::unique_ptr<PeerManager> PeerManager::make(const CChainParams& chainparams, CConnman& connman, CAddrMan& addrman,
                                                BanMan* banman, CScheduler& scheduler, ChainstateManager& chainman,
-                                               CTxMemPool& pool, CTxMemPool& stempool, bool ignore_incoming_txs)
+                                               CTxMemPool& pool, bool ignore_incoming_txs)
 {
-    return std::make_unique<PeerManagerImpl>(chainparams, connman, addrman, banman, scheduler, chainman, pool, stempool, ignore_incoming_txs);
+    return std::make_unique<PeerManagerImpl>(chainparams, connman, addrman, banman, scheduler, chainman, pool, ignore_incoming_txs);
 }
 
 PeerManagerImpl::PeerManagerImpl(const CChainParams& chainparams, CConnman& connman, CAddrMan& addrman,
                                  BanMan* banman, CScheduler& scheduler, ChainstateManager& chainman,
-                                 CTxMemPool& pool, CTxMemPool& stempool, bool ignore_incoming_txs)
+                                 CTxMemPool& pool, bool ignore_incoming_txs)
     : m_chainparams(chainparams),
       m_connman(connman),
       m_addrman(addrman),
       m_banman(banman),
       m_chainman(chainman),
-      m_mempool(pool),  
-      m_stempool(stempool),
+      m_mempool(pool),
       m_stale_tip_check_time(0),
       m_ignore_incoming_txs(ignore_incoming_txs)
 {
@@ -1613,7 +1606,7 @@ void PeerManagerImpl::BlockChecked(const CBlock& block, const BlockValidationSta
 // Messages
 //
 
-// Dandelion must not call this function.
+
 bool PeerManagerImpl::AlreadyHaveTx(const GenTxid& gtxid)
 {
     assert(recentRejects);
@@ -1667,55 +1660,6 @@ void PeerManagerImpl::_RelayTransaction(const uint256& txid, const uint256& wtxi
             pnode->PushTxInventory(txid);
         }
     });
-}
-
-void PeerManagerImpl::RelayDandelionTransaction(const CTransaction& tx, CNode& pfrom)
-{
-    const uint256& txHash = tx.GetHash();
-    FastRandomContext rng;
-
-    if (rng.randrange(100) < DANDELION_FLUFF) {
-        LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", txHash.ToString());
-        CTransactionRef ptx = m_stempool.get(txHash);
-        std::list<CTransactionRef> lRemovedTxn;
-
-        const MempoolAcceptResult result = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false);
-        LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: peer=%d: accepted %s (poolsz %u txn, %u kB)\n",
-                 pfrom.GetId(), txHash.ToString(), m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
-        RelayTransaction(txHash, tx.GetWitnessHash());
-    } else {
-        CNode* destination = m_connman.getDandelionDestination(&pfrom);
-        if (destination != nullptr) {
-            destination->PushDandelionTxInventory(txHash);
-        }
-    }
-}
-
-void PeerManagerImpl::CheckDandelionEmbargoes()
-{
-    const auto current_time = GetTime<std::chrono::microseconds>();
-    for (auto iter = m_connman.mDandelionEmbargo.begin(); iter != m_connman.mDandelionEmbargo.end();) {
-        if (m_mempool.exists(iter->first)) {
-            LogPrint(BCLog::DANDELION, "Embargoed dandeliontx %s found in mempool; removing from embargo map\n", iter->first.ToString());
-            iter = m_connman.mDandelionEmbargo.erase(iter);
-
-        } else if (iter->second < current_time) {
-            LogPrint(BCLog::DANDELION, "dandeliontx %s embargo expired\n", iter->first.ToString());
-
-            CTransactionRef ptx = m_stempool.get(iter->first);
-            if (ptx)
-            {
-                std::list<CTransactionRef> lRemovedTxn;
-                const MempoolAcceptResult result = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false  );
-                LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
-                         iter->first.ToString(), m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
-                RelayTransaction(ptx->GetHash(), ptx->GetWitnessHash());
-            }
-            iter = m_connman.mDandelionEmbargo.erase(iter);
-        } else {
-            iter++;
-        }
-    }
 }
 
 void PeerManagerImpl::RelayAddress(NodeId originator,
@@ -1939,9 +1883,6 @@ CTransactionRef PeerManagerImpl::FindTxForGetData(const CNode& peer, const GenTx
         }
     }
 
-    // ToDo: Elaborate whether to check Dandelion Queue?
-    // stempool
-
     return {};
 }
 
@@ -1961,10 +1902,8 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
     // Process as many TX items from the front of the getdata queue as
     // possible, since they're common and it's efficient to batch process
     // them.
-    while (it != peer.m_getdata_requests.end() && (it->IsGenTxMsg() || it->IsDandelionMsg()))
-    {
+    while (it != peer.m_getdata_requests.end() && it->IsGenTxMsg()) {
         if (interruptMsgProc) return;
-
         // The send buffer provides backpressure. If there's no space in
         // the buffer, pause processing until the next call.
         if (pfrom.fPauseSend) break;
@@ -1976,35 +1915,12 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
             continue;
         }
 
-        bool push = false;
-        if (inv.IsDandelionMsg()) {
-            // Check if its a dandelion tx
-            int nSendFlags = (inv.IsDandelionMsg() ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
-            auto txinfo = m_stempool.info(inv.hash);
-            if (txinfo.tx && !m_connman.isDandelionInbound(&pfrom) && pfrom.m_tx_relay->setDandelionInventoryTxToSend.count(inv.hash) != 0) {
-                m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::DANDELIONTX, *txinfo.tx));
-                push = true;
-            }
-            if (inv.hash == DANDELION_DISCOVERYHASH) {
-                pfrom.fSupportsDandelion = true;
-                LogPrint(BCLog::DANDELION, "Peer %d supports Dandelion\n", pfrom.GetId());
-                push = true;
-            }
-        } else if (inv.IsGenTxMsg()) {
-            CTransactionRef tx = FindTxForGetData(pfrom, ToGenTxid(inv), mempool_req, now);
+        CTransactionRef tx = FindTxForGetData(pfrom, ToGenTxid(inv), mempool_req, now);
+        if (tx) {
             // WTX and WITNESS_TX imply we serialize with witness
             int nSendFlags = (inv.IsMsgTx() ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
-            if (!pfrom.fSupportsDandelion && !m_connman.isDandelionInbound(&pfrom) && pfrom.m_tx_relay->setDandelionInventoryTxToSend.count(inv.hash)) {
-                auto txinfo = m_stempool.info(inv.hash);
-                if (txinfo.tx) {
-                    m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *txinfo.tx));
-                    push = true;
-                }
-            } else if (tx) {
-                m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *tx));
-                m_mempool.RemoveUnbroadcastTx(tx->GetHash());
-                push = true;
-            }
+            m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *tx));
+            m_mempool.RemoveUnbroadcastTx(tx->GetHash());
             // As we're going to send tx, make sure its unconfirmed parents are made requestable.
             std::vector<uint256> parent_ids_to_add;
             {
@@ -2027,9 +1943,9 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
                     State(pfrom.GetId())->m_recently_announced_invs.insert(parent_txid);
                 }
             }
-        }
-        if (!push)
+        } else {
             vNotFound.push_back(inv);
+        }
     }
 
     // Only process one BLOCK item per call, since they're uncommon and can be
@@ -2759,11 +2675,6 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
     // At this point, the outgoing message serialization version can't change.
     const CNetMsgMaker msgMaker(pfrom.GetCommonVersion());
 
-    {
-        LOCK(cs_main);
-        CheckDandelionEmbargoes();
-    }
-
     if (msg_type == NetMsgType::VERACK) {
         if (pfrom.fSuccessfullyConnected) {
             LogPrint(BCLog::NET, "ignoring redundant verack message from peer=%d\n", pfrom.GetId());
@@ -3033,14 +2944,6 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
                     return;
                 } else if (!fAlreadyHave && !m_chainman.ActiveChainstate().IsInitialBlockDownload()) {
                     AddTxAnnouncement(pfrom, gtxid, current_time);
-                }
-            } else if (inv.IsDandelionMsg()) {
-                auto result = pfrom.m_tx_relay->setDandelionInventoryTxToSend.insert(inv.hash);
-                const bool fAlreadyHave = !result.second;
-                LogPrint(BCLog::NET, "got inv: %s  %s peer=%d\n", inv.ToString(), fAlreadyHave ? "have" : "new", pfrom.GetId());
-                if ((!fAlreadyHave && !m_chainman.ActiveChainstate().IsInitialBlockDownload() &&
-                    m_connman.isDandelionInbound(&pfrom)) || (inv.hash == DANDELION_DISCOVERYHASH)) {
-                   m_connman.PushMessage(&pfrom, msgMaker.Make(NetMsgType::GETDATA, inv));
                 }
             } else {
                 LogPrint(BCLog::NET, "Unknown inv type \"%s\" received from peer=%d\n", inv.ToString(), pfrom.GetId());
@@ -3330,18 +3233,8 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
         const MempoolAcceptResult result = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false /* bypass_limits */);
         const TxValidationState& state = result.m_state;
 
-        // Changes to mempool should also be made to Dandelion stempool
-        const MempoolAcceptResult dresult = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_stempool, ptx, false );
-
-        if (m_connman.isTxDandelionEmbargoed(tx.GetHash())) {
-            LogPrint(BCLog::DANDELION, "Embargoed dandeliontx %s found in mempool; removing from embargo map\n", tx.GetHash().ToString());
-            m_connman.removeDandelionEmbargo(tx.GetHash());
-        }
-
-        if (result.m_result_type == MempoolAcceptResult::ResultType::VALID || dresult.m_result_type == MempoolAcceptResult::ResultType::VALID) {
+        if (result.m_result_type == MempoolAcceptResult::ResultType::VALID) {
             m_mempool.check(m_chainman.ActiveChainstate());
-            m_stempool.check(m_chainman.ActiveChainstate());
-
             // As this version of the transaction was acceptable, we can forget about any
             // requests for it.
             m_txrequest.ForgetTxHash(tx.GetHash());
@@ -3354,8 +3247,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
             LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: peer=%d: accepted %s (poolsz %u txn, %u kB)\n",
                 pfrom.GetId(),
                 tx.GetHash().ToString(),
-                m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000
-            );
+                m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
 
             for (const CTransactionRef& removedTx : result.m_replaced_transactions.value()) {
                 AddToCompactExtraTransactions(removedTx);
@@ -3486,52 +3378,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
         }
         return;
     }
-    else if (msg_type == NetMsgType::DANDELIONTX)
-    {
-        CTransactionRef ptx;
-        vRecv >> ptx;
-        const CTransaction& tx = *ptx;
 
-        CInv inv(MSG_DANDELION_TX, tx.GetHash());
-        LOCK2(cs_main, g_cs_orphans);
-
-        if (m_connman.isDandelionInbound(&pfrom)) {
-            if (!m_stempool.exists(inv.hash)) {
-                const MempoolAcceptResult dresult = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_stempool, ptx, false );
-                const TxValidationState& dstate = dresult.m_state;
-
-                if (dresult.m_result_type == MempoolAcceptResult::ResultType::VALID) {
-                    LogPrint(BCLog::MEMPOOL, "AcceptToStemPool: peer=%d: accepted %s (poolsz %u txn, %u kB)\n",
-                             pfrom.GetId(), tx.GetHash().ToString(), m_stempool.size(), m_stempool.DynamicMemoryUsage() / 1000);
-
-                    const auto current_time = GetTime<std::chrono::microseconds>();
-
-                    const auto nEmbargo = std::chrono::duration_cast<std::chrono::seconds>(
-                        DANDELION_EMBARGO_MINIMUM + 
-                        PoissonNextSend(current_time, DANDELION_EMBARGO_AVG_ADD)
-                    ); 
-
-                    m_connman.insertDandelionEmbargo(tx.GetHash(), nEmbargo);
-                    LogPrint(
-                        BCLog::DANDELION,
-                        "dandeliontx %s embargoed for %d seconds\n",
-                        tx.GetHash().ToString(),
-                        (nEmbargo - std::chrono::duration_cast<std::chrono::seconds>(current_time)).count()
-                    );
-
-                } else if (dresult.m_result_type == MempoolAcceptResult::ResultType::INVALID) {
-                    LogPrint(BCLog::MEMPOOLREJ, "%s from peer=%d was not accepted: %s\n", tx.GetHash().ToString(),
-                             pfrom.GetId(), dstate.ToString());
-
-                    MaybePunishNodeForTx(pfrom.GetId(), dstate);                
-                }
-            }
-
-            if (m_stempool.exists(inv.hash)) {
-                RelayDandelionTransaction(tx, pfrom);
-            }
-        }
-    }
     if (msg_type == NetMsgType::CMPCTBLOCK)
     {
         // Ignore cmpctblock received while importing
@@ -4818,160 +4665,137 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
                     vInv.clear();
                 }
             }
-
             peer->m_blocks_for_inv_relay.clear();
         }
 
         if (pto->m_tx_relay != nullptr) {
-            LOCK2(pto->m_tx_relay->cs_tx_inventory, pto->m_tx_relay->cs_dtx_inventory);
-
-            // Add Dandelion transactions
-            for (const uint256& hash : pto->m_tx_relay->setDandelionInventoryTxToSend) {
-                pto->m_tx_relay->filterDandelionInventoryKnown.insert(hash);
-                if (!pto->fSupportsDandelion && hash != DANDELION_DISCOVERYHASH) {
-                    vInv.push_back(CInv(MSG_TX, hash));
-                } else {
-                    vInv.push_back(CInv(MSG_DANDELION_TX, hash));
-                }
-                if (vInv.size() == MAX_INV_SZ) {
-                    m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));
-                    vInv.clear();
-                }
-            }
-
-            pto->m_tx_relay->setDandelionInventoryTxToSend.clear();
-
-            // Check whether periodic sends should happen
-            bool fSendTrickle = pto->HasPermission(NetPermissionFlags::NoBan);
-            if (pto->m_tx_relay->nNextInvSend < current_time) {
-                fSendTrickle = true;
-                if (pto->IsInboundConn()) {
-                    pto->m_tx_relay->nNextInvSend = m_connman.PoissonNextSendInbound(current_time, INBOUND_INVENTORY_BROADCAST_INTERVAL);
-                } else {
-                    pto->m_tx_relay->nNextInvSend = PoissonNextSend(current_time, OUTBOUND_INVENTORY_BROADCAST_INTERVAL);
-                }
-            }
-
-            // Time to send but the peer has requested we not relay transactions.
-            if (fSendTrickle) {
-                LOCK(pto->m_tx_relay->cs_filter);
-                if (!pto->m_tx_relay->fRelayTxes) {
-                    pto->m_tx_relay->setInventoryTxToSend.clear();  
-                    pto->m_tx_relay->setDandelionInventoryTxToSend.clear();
-                } 
-            }
-
-            // Respond to BIP35 mempool requests
-            if (fSendTrickle && pto->m_tx_relay->fSendMempool) {
-                auto vtxinfo = m_mempool.infoAll();
-                pto->m_tx_relay->fSendMempool = false;
-                const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
-
-                LOCK(pto->m_tx_relay->cs_filter);
-
-                for (const auto& txinfo : vtxinfo) {
-                    const uint256& hash = state.m_wtxid_relay ? txinfo.tx->GetWitnessHash() : txinfo.tx->GetHash();
-                    CInv inv(state.m_wtxid_relay ? MSG_WTX : MSG_TX, hash);
-                    pto->m_tx_relay->setInventoryTxToSend.erase(hash);
-                    // Don't send transactions that peers will not put into their mempool
-                    if (txinfo.fee < filterrate.GetFee(txinfo.vsize)) {
-                        continue;
-                    }
-                    if (pto->m_tx_relay->pfilter) {
-                        if (!pto->m_tx_relay->pfilter->IsRelevantAndUpdate(*txinfo.tx)) continue;
-                    }
-                    pto->m_tx_relay->filterInventoryKnown.insert(hash);
-                    // Responses to MEMPOOL requests bypass the m_recently_announced_invs filter.
-                    vInv.push_back(inv);
-                    if (vInv.size() == MAX_INV_SZ) {
-                        m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));
-                        vInv.clear();
+                LOCK(pto->m_tx_relay->cs_tx_inventory);
+                // Check whether periodic sends should happen
+                bool fSendTrickle = pto->HasPermission(NetPermissionFlags::NoBan);
+                if (pto->m_tx_relay->nNextInvSend < current_time) {
+                    fSendTrickle = true;
+                    if (pto->IsInboundConn()) {
+                        pto->m_tx_relay->nNextInvSend = m_connman.PoissonNextSendInbound(current_time, INBOUND_INVENTORY_BROADCAST_INTERVAL);
+                    } else {
+                        pto->m_tx_relay->nNextInvSend = PoissonNextSend(current_time, OUTBOUND_INVENTORY_BROADCAST_INTERVAL);
                     }
                 }
-                pto->m_tx_relay->m_last_mempool_req = std::chrono::duration_cast<std::chrono::seconds>(current_time);
-            }
 
-            // Determine transactions to relay
-            if (fSendTrickle) {
-                // Produce a vector with all candidates for sending
-                std::vector<std::set<uint256>::iterator> vInvTx;
-                vInvTx.reserve(pto->m_tx_relay->setInventoryTxToSend.size());
-
-                for (std::set<uint256>::iterator it = pto->m_tx_relay->setInventoryTxToSend.begin(); it != pto->m_tx_relay->setInventoryTxToSend.end(); it++) {
-                    vInvTx.push_back(it);
+                // Time to send but the peer has requested we not relay transactions.
+                if (fSendTrickle) {
+                    LOCK(pto->m_tx_relay->cs_filter);
+                    if (!pto->m_tx_relay->fRelayTxes) pto->m_tx_relay->setInventoryTxToSend.clear();
                 }
 
-                const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
-                // Topologically and fee-rate sort the inventory we send for privacy and priority reasons.
-                // A heap is used so that not all items need sorting if only a few are being sent.
-                CompareInvMempoolOrder compareInvMempoolOrder(&m_mempool, state.m_wtxid_relay);
-                std::make_heap(vInvTx.begin(), vInvTx.end(), compareInvMempoolOrder);
-                // No reason to drain out at many times the network's capacity,
-                // especially since we have many peers and some will draw much shorter delays.
-                unsigned int nRelayedTransactions = 0;
-                LOCK(pto->m_tx_relay->cs_filter);
-                while (!vInvTx.empty() && nRelayedTransactions < INVENTORY_BROADCAST_MAX) {
-                    // Fetch the top element from the heap
-                    std::pop_heap(vInvTx.begin(), vInvTx.end(), compareInvMempoolOrder);
-                    std::set<uint256>::iterator it = vInvTx.back();
-                    vInvTx.pop_back();
-                    uint256 hash = *it;
-                    CInv inv(state.m_wtxid_relay ? MSG_WTX : MSG_TX, hash);
-                    // Remove it from the to-be-sent set
-                    pto->m_tx_relay->setInventoryTxToSend.erase(it);
-                    // Check if not in the filter already
-                    if (pto->m_tx_relay->filterInventoryKnown.contains(hash)) {
-                        continue;
+                // Respond to BIP35 mempool requests
+                if (fSendTrickle && pto->m_tx_relay->fSendMempool) {
+                    auto vtxinfo = m_mempool.infoAll();
+                    pto->m_tx_relay->fSendMempool = false;
+                    const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
+
+                    LOCK(pto->m_tx_relay->cs_filter);
+
+                    for (const auto& txinfo : vtxinfo) {
+                        const uint256& hash = state.m_wtxid_relay ? txinfo.tx->GetWitnessHash() : txinfo.tx->GetHash();
+                        CInv inv(state.m_wtxid_relay ? MSG_WTX : MSG_TX, hash);
+                        pto->m_tx_relay->setInventoryTxToSend.erase(hash);
+                        // Don't send transactions that peers will not put into their mempool
+                        if (txinfo.fee < filterrate.GetFee(txinfo.vsize)) {
+                            continue;
+                        }
+                        if (pto->m_tx_relay->pfilter) {
+                            if (!pto->m_tx_relay->pfilter->IsRelevantAndUpdate(*txinfo.tx)) continue;
+                        }
+                        pto->m_tx_relay->filterInventoryKnown.insert(hash);
+                        // Responses to MEMPOOL requests bypass the m_recently_announced_invs filter.
+                        vInv.push_back(inv);
+                        if (vInv.size() == MAX_INV_SZ) {
+                            m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));
+                            vInv.clear();
+                        }
                     }
-                    // Not in the mempool anymore? don't bother sending it.
-                    auto txinfo = m_mempool.info(ToGenTxid(inv));
-                    if (!txinfo.tx) {
-                        continue;
+                    pto->m_tx_relay->m_last_mempool_req = std::chrono::duration_cast<std::chrono::seconds>(current_time);
+                }
+
+                // Determine transactions to relay
+                if (fSendTrickle) {
+                    // Produce a vector with all candidates for sending
+                    std::vector<std::set<uint256>::iterator> vInvTx;
+                    vInvTx.reserve(pto->m_tx_relay->setInventoryTxToSend.size());
+                    for (std::set<uint256>::iterator it = pto->m_tx_relay->setInventoryTxToSend.begin(); it != pto->m_tx_relay->setInventoryTxToSend.end(); it++) {
+                        vInvTx.push_back(it);
                     }
-                    auto txid = txinfo.tx->GetHash();
-                    auto wtxid = txinfo.tx->GetWitnessHash();
-                    // Peer told you to not send transactions at that feerate? Don't bother sending it.
-                    if (txinfo.fee < filterrate.GetFee(txinfo.vsize)) {
-                        continue;
-                    }
-                    if (pto->m_tx_relay->pfilter && !pto->m_tx_relay->pfilter->IsRelevantAndUpdate(*txinfo.tx)) continue;
-                    // Send
-                    State(pto->GetId())->m_recently_announced_invs.insert(hash);
-                    vInv.push_back(inv);
-                    nRelayedTransactions++;
-                    {
-                        // Expire old relay messages
-                        while (!g_relay_expiration.empty() && g_relay_expiration.front().first < current_time)
+                    const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
+                    // Topologically and fee-rate sort the inventory we send for privacy and priority reasons.
+                    // A heap is used so that not all items need sorting if only a few are being sent.
+                    CompareInvMempoolOrder compareInvMempoolOrder(&m_mempool, state.m_wtxid_relay);
+                    std::make_heap(vInvTx.begin(), vInvTx.end(), compareInvMempoolOrder);
+                    // No reason to drain out at many times the network's capacity,
+                    // especially since we have many peers and some will draw much shorter delays.
+                    unsigned int nRelayedTransactions = 0;
+                    LOCK(pto->m_tx_relay->cs_filter);
+                    while (!vInvTx.empty() && nRelayedTransactions < INVENTORY_BROADCAST_MAX) {
+                        // Fetch the top element from the heap
+                        std::pop_heap(vInvTx.begin(), vInvTx.end(), compareInvMempoolOrder);
+                        std::set<uint256>::iterator it = vInvTx.back();
+                        vInvTx.pop_back();
+                        uint256 hash = *it;
+                        CInv inv(state.m_wtxid_relay ? MSG_WTX : MSG_TX, hash);
+                        // Remove it from the to-be-sent set
+                        pto->m_tx_relay->setInventoryTxToSend.erase(it);
+                        // Check if not in the filter already
+                        if (pto->m_tx_relay->filterInventoryKnown.contains(hash)) {
+                            continue;
+                        }
+                        // Not in the mempool anymore? don't bother sending it.
+                        auto txinfo = m_mempool.info(ToGenTxid(inv));
+                        if (!txinfo.tx) {
+                            continue;
+                        }
+                        auto txid = txinfo.tx->GetHash();
+                        auto wtxid = txinfo.tx->GetWitnessHash();
+                        // Peer told you to not send transactions at that feerate? Don't bother sending it.
+                        if (txinfo.fee < filterrate.GetFee(txinfo.vsize)) {
+                            continue;
+                        }
+                        if (pto->m_tx_relay->pfilter && !pto->m_tx_relay->pfilter->IsRelevantAndUpdate(*txinfo.tx)) continue;
+                        // Send
+                        State(pto->GetId())->m_recently_announced_invs.insert(hash);
+                        vInv.push_back(inv);
+                        nRelayedTransactions++;
                         {
-                            mapRelay.erase(g_relay_expiration.front().second);
-                            g_relay_expiration.pop_front();
-                        }
+                            // Expire old relay messages
+                            while (!g_relay_expiration.empty() && g_relay_expiration.front().first < current_time)
+                            {
+                                mapRelay.erase(g_relay_expiration.front().second);
+                                g_relay_expiration.pop_front();
+                            }
 
-                        auto ret = mapRelay.emplace(txid, std::move(txinfo.tx));
-                        if (ret.second) {
-                            g_relay_expiration.emplace_back(current_time + RELAY_TX_CACHE_TIME, ret.first);
+                            auto ret = mapRelay.emplace(txid, std::move(txinfo.tx));
+                            if (ret.second) {
+                                g_relay_expiration.emplace_back(current_time + RELAY_TX_CACHE_TIME, ret.first);
+                            }
+                            // Add wtxid-based lookup into mapRelay as well, so that peers can request by wtxid
+                            auto ret2 = mapRelay.emplace(wtxid, ret.first->second);
+                            if (ret2.second) {
+                                g_relay_expiration.emplace_back(current_time + RELAY_TX_CACHE_TIME, ret2.first);
+                            }
                         }
-                        // Add wtxid-based lookup into mapRelay as well, so that peers can request by wtxid
-                        auto ret2 = mapRelay.emplace(wtxid, ret.first->second);
-                        if (ret2.second) {
-                            g_relay_expiration.emplace_back(current_time + RELAY_TX_CACHE_TIME, ret2.first);
+                        if (vInv.size() == MAX_INV_SZ) {
+                            m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));
+                            vInv.clear();
                         }
-                    }
-                    if (vInv.size() == MAX_INV_SZ) {
-                        m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));
-                        vInv.clear();
-                    }
-                    pto->m_tx_relay->filterInventoryKnown.insert(hash);
-                    if (hash != txid) {
-                        // Insert txid into filterInventoryKnown, even for
-                        // wtxidrelay peers. This prevents re-adding of
-                        // unconfirmed parents to the recently_announced
-                        // filter, when a child tx is requested. See
-                        // ProcessGetData().
-                        pto->m_tx_relay->filterInventoryKnown.insert(txid);
+                        pto->m_tx_relay->filterInventoryKnown.insert(hash);
+                        if (hash != txid) {
+                            // Insert txid into filterInventoryKnown, even for
+                            // wtxidrelay peers. This prevents re-adding of
+                            // unconfirmed parents to the recently_announced
+                            // filter, when a child tx is requested. See
+                            // ProcessGetData().
+                            pto->m_tx_relay->filterInventoryKnown.insert(txid);
+                        }
                     }
                 }
-            }
         }
         if (!vInv.empty())
             m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));

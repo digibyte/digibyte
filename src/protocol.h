@@ -220,11 +220,7 @@ extern const char* GETBLOCKTXN;
  * Sent in response to a "getblocktxn" message.
  * @since protocol version 70014 as described by BIP 152
  */
-extern const char *BLOCKTXN;
-/**
- * The Dandelion tx message transmits a single Dandelion transaction.
- */
-extern const char *DANDELIONTX;
+extern const char* BLOCKTXN;
 /**
  * getcfilters requests compact filters for a range of blocks.
  * Only available with service bit NODE_COMPACT_FILTERS as described by
@@ -479,13 +475,11 @@ enum GetDataMsg : uint32_t {
     // The following can only occur in getdata. Invs always use TX/WTX or BLOCK.
     MSG_FILTERED_BLOCK = 3,                           //!< Defined in BIP37
     MSG_CMPCT_BLOCK = 4,                              //!< Defined in BIP152
-    MSG_DANDELION_TX = 6,    //!< Dandelion
     MSG_WITNESS_BLOCK = MSG_BLOCK | MSG_WITNESS_FLAG, //!< Defined in BIP144
     MSG_WITNESS_TX = MSG_TX | MSG_WITNESS_FLAG,       //!< Defined in BIP144
     // MSG_FILTERED_WITNESS_BLOCK is defined in BIP144 as reserved for future
     // use and remains unused.
     // MSG_FILTERED_WITNESS_BLOCK = MSG_FILTERED_BLOCK | MSG_WITNESS_FLAG,
-    MSG_DANDELION_WITNESS_TX = MSG_DANDELION_TX | MSG_WITNESS_FLAG,
 };
 
 /** inv message data */
@@ -518,10 +512,6 @@ public:
     bool IsGenBlkMsg() const
     {
         return type == MSG_BLOCK || type == MSG_FILTERED_BLOCK || type == MSG_CMPCT_BLOCK || type == MSG_WITNESS_BLOCK;
-    }
-    bool IsDandelionMsg() const
-    {
-        return type == MSG_DANDELION_TX || type == MSG_DANDELION_WITNESS_TX;
     }
 
     uint32_t type;

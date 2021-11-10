@@ -60,7 +60,6 @@ namespace BCLog {
         VALIDATION  = (1 << 21),
         I2P         = (1 << 22),
         IPC         = (1 << 23),
-        DANDELION   = (1 << 24),
         ALL         = ~(uint32_t)0,
     };
 

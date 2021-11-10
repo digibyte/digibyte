@@ -192,9 +192,6 @@ void Shutdown(NodeContext& node)
     util::ThreadRename("shutoff");
     if (node.mempool) node.mempool->AddTransactionsUpdated(1);
 
-    // Changes to mempool should also be made to Dandelion stempool
-    if (node.stempool) node.stempool->AddTransactionsUpdated(1);
-
     StopHTTPRPC();
     StopREST();
     StopRPC();
@@ -1180,10 +1177,8 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
     if (!ignores_incoming_txs) node.fee_estimator = std::make_unique<CBlockPolicyEstimator>();
 
     assert(!node.mempool);
-    assert(!node.stempool);
     int check_ratio = std::min<int>(std::max<int>(args.GetArg("-checkmempool", chainparams.DefaultConsistencyChecks() ? 1 : 0), 0), 1000000);
     node.mempool = std::make_unique<CTxMemPool>(node.fee_estimator.get(), check_ratio);
-    node.stempool = std::make_unique<CTxMemPool>(node.fee_estimator.get(), check_ratio);
 
     assert(!node.chainman);
     node.chainman = std::make_unique<ChainstateManager>();
@@ -1191,7 +1186,7 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
 
     assert(!node.peerman);
     node.peerman = PeerManager::make(chainparams, *node.connman, *node.addrman, node.banman.get(),
-                                     *node.scheduler, chainman, *node.mempool, *node.stempool, ignores_incoming_txs);
+                                     *node.scheduler, chainman, *node.mempool, ignores_incoming_txs);
     RegisterValidationInterface(node.peerman.get());
 
     // sanitize comments per BIP-0014, format user agent and check total size
@@ -1369,11 +1364,11 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
             const int64_t load_block_index_start_time = GetTimeMillis();
             try {
                 LOCK(cs_main);
-                chainman.InitializeChainstate(Assert(node.mempool.get()), Assert(node.stempool.get()));
+                chainman.InitializeChainstate(Assert(node.mempool.get()));
                 chainman.m_total_coinstip_cache = nCoinCacheUsage;
                 chainman.m_total_coinsdb_cache = nCoinDBCache;
 
-                UnloadBlockIndex(node.mempool.get(), node.stempool.get(), chainman);
+                UnloadBlockIndex(node.mempool.get(), chainman);
 
                 // new CBlockTreeDB tries to delete the existing file, which
                 // fails if it's still open from the previous loop. Close it first:
@@ -1814,11 +1809,6 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
     node.scheduler->scheduleEvery([banman]{
         banman->DumpBanlist();
     }, DUMP_BANS_INTERVAL);
-
-    CConnman* connman = node.connman.get();
-    node.scheduler->scheduleEvery([connman]{
-        connman->CheckDandelionShuffle();
-    }, CHECK_DANDELION_SHUFFLE_INTERVAL);
 
 #if HAVE_SYSTEM
     StartupNotify(args);
