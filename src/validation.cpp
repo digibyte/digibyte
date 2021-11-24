@@ -120,6 +120,7 @@ CBlockIndex *pindexBestHeader = nullptr;
 Mutex g_best_block_mutex;
 std::condition_variable g_best_block_cv;
 uint256 g_best_block;
+bool g_ibd_complete{false};
 bool g_parallel_script_checks{false};
 bool fRequireStandard = true;
 bool fCheckBlockIndex = false;
@@ -339,6 +340,7 @@ void CChainState::MaybeUpdateMempoolForReorg(
 
     AssertLockHeld(cs_main);
     AssertLockHeld(m_mempool->cs);
+    AssertLockHeld(m_stempool->cs);
     std::vector<uint256> vHashUpdate;
     // disconnectpool's insertion_order index sorts the entries from
     // oldest to newest, but the oldest entry will be the last tx from the
@@ -348,14 +350,14 @@ void CChainState::MaybeUpdateMempoolForReorg(
     // been previously seen in a block.
     auto it = disconnectpool.queuedTx.get<insertion_order>().rbegin();
     while (it != disconnectpool.queuedTx.get<insertion_order>().rend()) {
+        const MempoolAcceptResult result = AcceptToMemoryPool(*this, *m_mempool, *it, true /* bypass_limits */);
+        AcceptToMemoryPool(*this, *m_stempool, *it, true /* bypass_limits */);
         // ignore validation errors in resurrected transactions
-        if (!fAddToMempool || (*it)->IsCoinBase() ||
-            AcceptToMemoryPool(
-                *this, *m_mempool, *it, true /* bypass_limits */).m_result_type !=
-                    MempoolAcceptResult::ResultType::VALID) {
+        if (!fAddToMempool || (*it)->IsCoinBase() || result.m_result_type == MempoolAcceptResult::ResultType::VALID) {
             // If the transaction doesn't make it in to the mempool, remove any
             // transactions that depend on it (which would now be orphans).
             m_mempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
+            m_stempool->removeRecursive(**it, MemPoolRemovalReason::REORG);
         } else if (m_mempool->exists((*it)->GetHash())) {
             vHashUpdate.push_back((*it)->GetHash());
         }
@@ -368,13 +370,20 @@ void CChainState::MaybeUpdateMempoolForReorg(
     // UpdateTransactionsFromBlock finds descendants of any transactions in
     // the disconnectpool that were added back and cleans up the mempool state.
     m_mempool->UpdateTransactionsFromBlock(vHashUpdate);
+    m_stempool->UpdateTransactionsFromBlock(vHashUpdate);
 
     // We also need to remove any now-immature transactions
     m_mempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
+    m_stempool->removeForReorg(*this, STANDARD_LOCKTIME_VERIFY_FLAGS);
 
     // Re-limit mempool size, in case we added any transactions
     LimitMempoolSize(
         *m_mempool,
+        this->CoinsTip(),
+        gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000,
+        std::chrono::hours{gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY)});
+    LimitMempoolSize(
+        *m_stempool,
         this->CoinsTip(),
         gArgs.GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000,
         std::chrono::hours{gArgs.GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY)});
@@ -491,7 +500,7 @@ private:
     // Looks up inputs, calculates feerate, considers replacement, evaluates
     // package limits, etc. As this function can be invoked for "free" by a peer,
     // only tests that are fast should be done here (to avoid CPU DoS).
-    bool PreChecks(ATMPArgs& args, Workspace& ws) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_pool.cs);
+    bool PreChecks(ATMPArgs& args, Workspace& ws) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_pool.cs, s_pool.cs);
 
     // Run the script checks using our policy flags. As this can be slow, we should
     // only invoke this on transactions that have otherwise passed policy checks.
@@ -1277,8 +1286,9 @@ void CoinsViews::InitCache()
     m_cacheview = std::make_unique<CCoinsViewCache>(&m_catcherview);
 }
 
-CChainState::CChainState(CTxMemPool* mempool, BlockManager& blockman, std::optional<uint256> from_snapshot_blockhash)
+CChainState::CChainState(CTxMemPool* mempool, CTxMemPool* stempool, BlockManager& blockman, std::optional<uint256> from_snapshot_blockhash)
     : m_mempool(mempool),
+      m_stempool(stempool),
       m_params(::Params()),
       m_blockman(blockman),
       m_from_snapshot_blockhash(from_snapshot_blockhash) {}
@@ -1328,6 +1338,7 @@ bool CChainState::IsInitialBlockDownload() const
         return true;
     LogPrintf("Leaving InitialBlockDownload (latching to false)\n");
     m_cached_finished_ibd.store(true, std::memory_order_relaxed);
+    g_ibd_complete = true;
     return false;
 }
 
@@ -4837,7 +4848,7 @@ std::vector<CChainState*> ChainstateManager::GetAll()
 }
 
 CChainState& ChainstateManager::InitializeChainstate(
-    CTxMemPool* mempool, const std::optional<uint256>& snapshot_blockhash)
+    CTxMemPool* mempool, CTxMemPool* stempool, const std::optional<uint256>& snapshot_blockhash)
 {
     bool is_snapshot = snapshot_blockhash.has_value();
     std::unique_ptr<CChainState>& to_modify =
@@ -4846,7 +4857,7 @@ CChainState& ChainstateManager::InitializeChainstate(
     if (to_modify) {
         throw std::logic_error("should not be overwriting a chainstate");
     }
-    to_modify.reset(new CChainState(mempool, m_blockman, snapshot_blockhash));
+    to_modify.reset(new CChainState(mempool, stempool, m_blockman, snapshot_blockhash));
 
     // Snapshot chainstates and initial IBD chaintates always become active.
     if (is_snapshot || (!is_snapshot && !m_active_chainstate)) {
@@ -4916,7 +4927,7 @@ bool ChainstateManager::ActivateSnapshot(
     }
 
     auto snapshot_chainstate = WITH_LOCK(::cs_main, return std::make_unique<CChainState>(
-        /* mempool */ nullptr, m_blockman, base_blockhash));
+        /* mempool */ nullptr, /* stempool*/ nullptr, m_blockman, base_blockhash));
 
     {
         LOCK(::cs_main);

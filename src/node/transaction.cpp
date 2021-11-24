@@ -67,19 +67,28 @@ TransactionError BroadcastTransaction(NodeContext& node, const CTransactionRef t
             if (max_tx_fee > 0) {
                 // First, call ATMP with test_accept and check the fee. If ATMP
                 // fails here, return error immediately.
-                const MempoolAcceptResult result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false /* bypass_limits */,
-                                                                      true /* test_accept */);
+                const MempoolAcceptResult result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false, true);
                 if (result.m_result_type != MempoolAcceptResult::ResultType::VALID) {
                     return HandleATMPError(result.m_state, err_string);
                 } else if (result.m_base_fees.value() > max_tx_fee) {
                     return TransactionError::MAX_FEE_EXCEEDED;
+                } else {
+                    // This doesnt really matter, as its just a test; but may as well be consistent
+                    AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.stempool, tx, false, true);
                 }
             }
-            // Try to submit the transaction to the mempool.
-            const MempoolAcceptResult result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false /* bypass_limits */,
-                                                                  false /* test_accept */);
-            if (result.m_result_type != MempoolAcceptResult::ResultType::VALID) {
-                return HandleATMPError(result.m_state, err_string);
+            // Try to submit the transaction to the stempool only (if dandelion is enabled);
+            if (gArgs.GetBoolArg("-dandelion", DEFAULT_DANDELION)) {
+                const MempoolAcceptResult result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.stempool, tx, false, false);
+                if (result.m_result_type != MempoolAcceptResult::ResultType::VALID) {
+                    return HandleATMPError(result.m_state, err_string);
+                }
+            } else {
+                const MempoolAcceptResult result = AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.mempool, tx, false, false);
+                if (result.m_result_type != MempoolAcceptResult::ResultType::VALID) {
+                    return HandleATMPError(result.m_state, err_string);
+                }
+                AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.stempool, tx, false, false);
             }
 
             // Transaction was accepted to the mempool.
@@ -114,6 +123,16 @@ TransactionError BroadcastTransaction(NodeContext& node, const CTransactionRef t
     }
 
     if (relay) {
+        if (gArgs.GetBoolArg("-dandelion", DEFAULT_DANDELION)) {
+            auto current_time = GetTime<std::chrono::milliseconds>();
+            std::chrono::microseconds nEmbargo = DANDELION_EMBARGO_MINIMUM + PoissonNextSend(current_time, DANDELION_EMBARGO_AVG_ADD);
+            node.connman->insertDandelionEmbargo(txid, nEmbargo);
+            auto embargo_timeout = std::chrono::duration_cast<std::chrono::seconds>(nEmbargo - current_time).count();
+            LogPrint(BCLog::DANDELION, "dandeliontx %s embargoed for %d seconds\n", txid.ToString(), embargo_timeout);
+            CInv embargoTx(MSG_DANDELION_TX, txid);
+            node.connman->localDandelionDestinationPushInventory(embargoTx);
+            return TransactionError::OK;
+        }
         node.peerman->RelayTransaction(txid, wtxid);
     }
 

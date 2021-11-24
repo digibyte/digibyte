@@ -19,6 +19,8 @@ class ChainstateManager;
 static const unsigned int DEFAULT_MAX_ORPHAN_TRANSACTIONS = 100;
 /** Default number of orphan+recently-replaced txn to keep around for block reconstruction */
 static const unsigned int DEFAULT_BLOCK_RECONSTRUCTION_EXTRA_TXN = 100;
+/** Probability (percentage) that a Dandelion transaction enters fluff phase */
+static const unsigned int DANDELION_FLUFF = 10;
 static const bool DEFAULT_PEERBLOOMFILTERS = false;
 static const bool DEFAULT_PEERBLOCKFILTERS = false;
 /** Threshold for marking a node to be discouraged, e.g. disconnected and added to the discouragement filter. */
@@ -39,7 +41,7 @@ class PeerManager : public CValidationInterface, public NetEventsInterface
 public:
     static std::unique_ptr<PeerManager> make(const CChainParams& chainparams, CConnman& connman, CAddrMan& addrman,
                                              BanMan* banman, CScheduler& scheduler, ChainstateManager& chainman,
-                                             CTxMemPool& pool, bool ignore_incoming_txs);
+                                             CTxMemPool& pool, CTxMemPool& s_pool, bool ignore_incoming_txs);
     virtual ~PeerManager() { }
 
     /** Get statistics from node state */
