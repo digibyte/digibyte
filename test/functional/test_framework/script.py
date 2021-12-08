@@ -10,7 +10,6 @@ This file is modified from python-digibytelib.
 from collections import namedtuple
 import struct
 import unittest
-import hashlib
 from typing import List, Dict
 
 from .key import TaggedHash, tweak_add_pubkey
@@ -25,6 +24,8 @@ from .messages import (
     uint256_from_str,
 )
 
+from .ripemd160 import ripemd160
+
 MAX_SCRIPT_ELEMENT_SIZE = 520
 LOCKTIME_THRESHOLD = 500000000
 ANNEX_TAG = 0x50
@@ -32,7 +33,7 @@ ANNEX_TAG = 0x50
 LEAF_VERSION_TAPSCRIPT = 0xc0
 
 def hash160(s):
-    return hashlib.new('ripemd160', sha256(s)).digest()
+    return ripemd160(sha256(s))
 
 def bn2vch(v):
     """Convert number to digibyte-specific little endian format."""
