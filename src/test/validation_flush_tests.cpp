@@ -19,8 +19,9 @@ BOOST_FIXTURE_TEST_SUITE(validation_flush_tests, BasicTestingSetup)
 BOOST_AUTO_TEST_CASE(getcoinscachesizestate)
 {
     CTxMemPool mempool;
+    CTxMemPool stempool;
     BlockManager blockman{};
-    CChainState chainstate{&mempool, blockman};
+    CChainState chainstate{&mempool, &stempool, blockman};
     chainstate.InitCoinsDB(/*cache_size_bytes*/ 1 << 10, /*in_memory*/ true, /*should_wipe*/ false);
     WITH_LOCK(::cs_main, chainstate.InitCoinsCache(1 << 10));
 

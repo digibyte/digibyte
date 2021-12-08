@@ -145,6 +145,7 @@ ChainTestingSetup::ChainTestingSetup(const std::string& chainName, const std::ve
 
     m_node.fee_estimator = std::make_unique<CBlockPolicyEstimator>();
     m_node.mempool = std::make_unique<CTxMemPool>(m_node.fee_estimator.get(), 1);
+    m_node.stempool = std::make_unique<CTxMemPool>(m_node.fee_estimator.get(), 1);
 
     m_node.chainman = std::make_unique<ChainstateManager>();
 
@@ -166,6 +167,7 @@ ChainTestingSetup::~ChainTestingSetup()
     m_node.args = nullptr;
     UnloadBlockIndex(m_node.mempool.get(), *m_node.chainman);
     m_node.mempool.reset();
+    m_node.stempool.reset();
     m_node.scheduler.reset();
     m_node.chainman->Reset();
     m_node.chainman.reset();
@@ -180,7 +182,7 @@ TestingSetup::TestingSetup(const std::string& chainName, const std::vector<const
     // instead of unit tests, but for now we need these here.
     RegisterAllCoreRPCCommands(tableRPC);
 
-    m_node.chainman->InitializeChainstate(m_node.mempool.get());
+    m_node.chainman->InitializeChainstate(m_node.mempool.get(), m_node.stempool.get());
     m_node.chainman->ActiveChainstate().InitCoinsDB(
         /* cache_size_bytes */ 1 << 23, /* in_memory */ true, /* should_wipe */ false);
     assert(!m_node.chainman->ActiveChainstate().CanFlushToDisk());
@@ -200,7 +202,7 @@ TestingSetup::TestingSetup(const std::string& chainName, const std::vector<const
     m_node.connman = std::make_unique<CConnman>(0x1337, 0x1337, *m_node.addrman); // Deterministic randomness for tests.
     m_node.peerman = PeerManager::make(chainparams, *m_node.connman, *m_node.addrman,
                                        m_node.banman.get(), *m_node.scheduler, *m_node.chainman,
-                                       *m_node.mempool, false);
+                                       *m_node.mempool, *m_node.stempool, false);
     {
         CConnman::Options options;
         options.m_msgproc = m_node.peerman.get();
@@ -220,6 +222,7 @@ TestChain100Setup::TestChain100Setup()
 
     {
         LOCK(::cs_main);
+
         assert(
             m_node.chainman->ActiveChain().Tip()->GetBlockHash().ToString() ==
             "1b14e04a06ce040bf88b9de8f4c2c4bb38c125acefcbdc2fc841d18bb02cdff6");
