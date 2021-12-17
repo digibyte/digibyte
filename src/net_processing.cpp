@@ -1673,7 +1673,10 @@ void PeerManagerImpl::RelayDandelionTransaction(const CTransaction& tx, CNode* p
     if (willFluff) {
         LogPrint(BCLog::DANDELION, "Dandelion fluff: %s\n", tx.GetHash().ToString());
         CTransactionRef ptx = m_stempool.get(tx.GetHash());
-        AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false);
+        {
+            LOCK(cs_main);
+            AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false);
+        }
         LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
                                  tx.GetHash().ToString(), m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
         RelayTransaction(tx.GetHash(), tx.GetWitnessHash());
@@ -1698,7 +1701,10 @@ void PeerManagerImpl::CheckDandelionEmbargoes()
             LogPrint(BCLog::DANDELION, "dandeliontx %s embargo expired\n", iter->first.ToString());
             CTransactionRef ptx = m_stempool.get(iter->first);
             if (ptx) {
-                AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false /* bypass_limits */, 0 /* nAbsurdFee */);
+                {
+                    LOCK(cs_main);
+                    AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, ptx, false);
+                }
                 LogPrint(BCLog::MEMPOOL, "AcceptToMemoryPool: accepted %s (poolsz %u txn, %u kB)\n",
                                          iter->first.ToString(), m_mempool.size(), m_mempool.DynamicMemoryUsage() / 1000);
                 RelayTransaction(ptx->GetHash(), ptx->GetWitnessHash());
@@ -1970,6 +1976,7 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
         if (!push && inv.IsDandelionMsg()) {
             int nSendFlags = (inv.type == MSG_DANDELION_TX ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
             auto txinfo = m_stempool.info(inv.hash);
+            LOCK(pfrom.m_tx_relay->cs_tx_inventory);
             if (txinfo.tx && !m_connman.isDandelionInbound(&pfrom) && pfrom.m_tx_relay->setDandelionInventoryKnown.count(inv.hash)!=0) {
                 m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::DANDELIONTX, *txinfo.tx));
             } else if (inv.hash == DANDELION_DISCOVERYHASH) {
@@ -1985,6 +1992,7 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
             if (tx) {
                 // WTX and WITNESS_TX imply we serialize with witness
                 int nSendFlags = (inv.IsMsgTx() ? SERIALIZE_TRANSACTION_NO_WITNESS : 0);
+                LOCK(pfrom.m_tx_relay->cs_tx_inventory);
                 if (!pfrom.fSupportsDandelion && !m_connman.isDandelionInbound(&pfrom) && pfrom.m_tx_relay->setDandelionInventoryKnown.count(inv.hash)) {
                     auto txinfo = m_stempool.info(inv.hash);
                     if (txinfo.tx) {
@@ -3005,6 +3013,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
             bool fAlreadyHave = false;
 
             if (inv.IsDandelionMsg()) {
+                LOCK(pfrom.m_tx_relay->cs_tx_inventory);
                 auto result = pfrom.m_tx_relay->setDandelionInventoryKnown.insert(inv.hash);
                 fAlreadyHave = !result.second;
                 LogPrint(BCLog::NET, "got inv: %s  %s peer=%d\n", inv.ToString(), fAlreadyHave ? "have" : "new", pfrom.GetId());
@@ -3042,6 +3051,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
                     AddTxAnnouncement(pfrom, gtxid, current_time);
                 }
             } else if (inv.IsDandelionMsg()) {
+                LOCK(pfrom.m_tx_relay->cs_tx_inventory);
                 auto result = pfrom.m_tx_relay->setDandelionInventoryKnown.insert(inv.hash);
                 fAlreadyHave = !result.second;
                 pfrom.m_tx_relay->setDandelionInventoryKnown.insert(inv.hash);
@@ -4874,6 +4884,7 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
                     const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
 
                     LOCK(pto->m_tx_relay->cs_filter);
+                    LOCK(pto->m_tx_relay->cs_tx_inventory);
 
                     for (const auto& txinfo : vtxinfo) {
                         const uint256& hash = state.m_wtxid_relay ? txinfo.tx->GetWitnessHash() : txinfo.tx->GetHash();
