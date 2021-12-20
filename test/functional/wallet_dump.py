@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the dumpwallet RPC."""
@@ -68,13 +67,13 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                 # count key types
                 for addrObj in addrs:
                     if addrObj['address'] == addr.split(",")[0] and addrObj['hdkeypath'] == keypath and keytype == "label=":
-                        if addr.startswith('t') or addr.startswith('s'):
+                        if addr.startswith('m') or addr.startswith('n'):
                             # P2PKH address
                             found_legacy_addr += 1
-                        elif addr.startswith('s'):
+                        elif addr.startswith('2'):
                             # P2SH-segwit address
                             found_p2sh_segwit_addr += 1
-                        elif addr.startswith('dgbrt'):
+                        elif addr.startswith('bcrt1'):
                             found_bech32_addr += 1
                         break
                     elif keytype == "change=1":
@@ -135,7 +134,7 @@ class WalletDumpTest(DigiByteTestFramework):
         self.log.info('Mine a block one second before the wallet is dumped')
         dump_time = int(time.time())
         self.nodes[0].setmocktime(dump_time - 1)
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
         self.nodes[0].setmocktime(dump_time)
         dump_time_str = '# * Created on {}Z'.format(
             datetime.datetime.fromtimestamp(
@@ -219,9 +218,6 @@ class WalletDumpTest(DigiByteTestFramework):
         w3.unloadwallet()
         self.nodes[0].loadwallet("w3")
         w3.dumpwallet(os.path.join(self.nodes[0].datadir, "w3.dump"))
-
-        # Overwriting should fail
-        assert_raises_rpc_error(-8, "already exists", self.nodes[0].dumpwallet, tmpdir + "/node0/wallet.unencrypted.dump")
 
 if __name__ == '__main__':
     WalletDumpTest().main()

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2017-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool acceptance of raw transactions."""
@@ -16,20 +15,18 @@ from test_framework.messages import (
     COutPoint,
     CTxIn,
     CTxOut,
-    MAX_BLOCK_BASE_SIZE,
+    MAX_BLOCK_WEIGHT,
     MAX_MONEY,
     tx_from_hex,
 )
 from test_framework.script import (
     CScript,
     OP_0,
-    OP_2,
-    OP_3,
-    OP_CHECKMULTISIG,
     OP_HASH160,
     OP_RETURN,
 )
 from test_framework.script_util import (
+    keys_to_multisig_script,
     script_to_p2sh_script,
 )
 from test_framework.util import (
@@ -45,9 +42,6 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
             '-txindex', '-mempoolreplacement=1', '-permitbaremultisig=0',
         ]] * self.num_nodes
         self.supports_cli = False
-
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
@@ -82,7 +76,7 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
             outputs=[{node.getnewaddress(): 0.3}, {node.getnewaddress(): 49}],
         ))['hex']
         txid_in_block = node.sendrawtransaction(hexstring=raw_tx_in_block, maxfeerate=0)
-        node.generate(1)
+        self.generate(node, 1)
         self.mempool_size = 0
         self.check_mempool_result(
             result_expected=[{'txid': txid_in_block, 'allowed': False, 'reject-reason': 'txn-already-known'}],
@@ -176,7 +170,7 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
             outputs=[{node.getnewaddress(): 0.1}]
         ))['hex']
         txid_spend_both = node.sendrawtransaction(hexstring=raw_tx_spend_both, maxfeerate=0)
-        node.generate(1)
+        self.generate(node, 1)
         self.mempool_size = 0
         # Now see if we can add the coins back to the utxo set by sending the exact txs again
         self.check_mempool_result(
@@ -213,7 +207,7 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
 
         self.log.info('A really large transaction')
         tx = tx_from_hex(raw_tx_reference)
-        tx.vin = [tx.vin[0]] * math.ceil(MAX_BLOCK_BASE_SIZE / len(tx.vin[0].serialize()))
+        tx.vin = [tx.vin[0]] * math.ceil(MAX_BLOCK_WEIGHT // 4 / len(tx.vin[0].serialize()))
         self.check_mempool_result(
             result_expected=[{'txid': tx.rehash(), 'allowed': False, 'reject-reason': 'bad-txns-oversize'}],
             rawtxs=[tx.serialize().hex()],
@@ -287,7 +281,7 @@ class MempoolAcceptanceTest(DigiByteTestFramework):
         key = ECKey()
         key.generate()
         pubkey = key.get_pubkey().get_bytes()
-        tx.vout[0].scriptPubKey = CScript([OP_2, pubkey, pubkey, pubkey, OP_3, OP_CHECKMULTISIG])  # Some bare multisig script (2-of-3)
+        tx.vout[0].scriptPubKey = keys_to_multisig_script([pubkey] * 3, k=2)  # Some bare multisig script (2-of-3)
         self.check_mempool_result(
             result_expected=[{'txid': tx.rehash(), 'allowed': False, 'reject-reason': 'bare-multisig'}],
             rawtxs=[tx.serialize().hex()],

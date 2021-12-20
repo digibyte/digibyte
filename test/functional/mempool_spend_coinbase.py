@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test spending coinbase transactions.
@@ -22,9 +21,6 @@ class MempoolSpendCoinbaseTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
 
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
-
     def run_test(self):
         wallet = MiniWallet(self.nodes[0])
 
@@ -32,14 +28,14 @@ class MempoolSpendCoinbaseTest(DigiByteTestFramework):
         chain_height = 198
         self.nodes[0].invalidateblock(self.nodes[0].getblockhash(chain_height + 1))
         assert_equal(chain_height, self.nodes[0].getblockcount())
+        wallet.rescan_utxos()
 
         # Coinbase at height chain_height-100+1 ok in mempool, should
         # get mined. Coinbase at height chain_height-100+2 is
         # too immature to spend.
-        wallet.scan_blocks(start=chain_height - 100 + 1, num=1)
-        utxo_mature = wallet.get_utxo()
-        wallet.scan_blocks(start=chain_height - 100 + 2, num=1)
-        utxo_immature = wallet.get_utxo()
+        coinbase_txid = lambda h: self.nodes[0].getblock(self.nodes[0].getblockhash(h))['tx'][0]
+        utxo_mature = wallet.get_utxo(txid=coinbase_txid(chain_height - 100 + 1))
+        utxo_immature = wallet.get_utxo(txid=coinbase_txid(chain_height - 100 + 2))
 
         spend_mature_id = wallet.send_self_transfer(from_node=self.nodes[0], utxo_to_spend=utxo_mature)["txid"]
 
@@ -53,7 +49,7 @@ class MempoolSpendCoinbaseTest(DigiByteTestFramework):
         assert_equal(self.nodes[0].getrawmempool(), [spend_mature_id])
 
         # mine a block, mature one should get confirmed
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
         assert_equal(set(self.nodes[0].getrawmempool()), set())
 
         # ... and now previously immature can be spent:

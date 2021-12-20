@@ -26,7 +26,7 @@
  """
 
   from test_framework.mininode import *                          # P2PInterface
- from test_framework.test_framework import BitcoinTestFramework # BitcoinTestFramework
+ from test_framework.test_framework import DigiByteTestFramework # DigiByteTestFramework
  from test_framework.util import *                              # other stuff
  import time                                                    # sleep
 
@@ -39,7 +39,7 @@
      msg.inv.append(CInv(5,dandeliontx_hash)) # 5: "DandelionTx"
      self.send_message(msg)
 
-  class DandelionTest(BitcoinTestFramework):
+  class DandelionTest(DigiByteTestFramework):
      def set_test_params(self):
          self.setup_clean_chain = True
          self.num_nodes = 8

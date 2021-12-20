@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test processing of feefilter messages."""
@@ -44,6 +43,7 @@ class TestP2PConn(P2PInterface):
         with p2p_lock:
             self.txinvs = []
 
+
 class FeeFilterTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
@@ -58,9 +58,6 @@ class FeeFilterTest(DigiByteTestFramework):
             "-mintxfee=0.00000100",
             "-whitelist=noban@127.0.0.1",
         ]] * self.num_nodes
-
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
 
     def run_test(self):
         self.test_feefilter_forcerelay()
@@ -84,8 +81,8 @@ class FeeFilterTest(DigiByteTestFramework):
         node0 = self.nodes[0]
         miniwallet = MiniWallet(node1)
         # Add enough mature utxos to the wallet, so that all txs spend confirmed coins
-        miniwallet.generate(5)
-        node1.generate(COINBASE_MATURITY)
+        self.generate(miniwallet, 5)
+        self.generate(node1, COINBASE_MATURITY)
 
         conn = self.nodes[0].add_p2p_connection(TestP2PConn())
 
