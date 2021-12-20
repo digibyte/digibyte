@@ -139,18 +139,18 @@ class TestNode():
     AddressKeyPair = collections.namedtuple('AddressKeyPair', ['address', 'key'])
     PRIV_KEYS = [
             # address , privkey
-            AddressKeyPair('mjTkW3DjgyZck4KbiRusZsqTgaYTxdSz6z', 'cVpF924EspNh8KjYsfhgY96mmxvT6DgdWiTYMtMjuM74hJaU5psW'),
-            AddressKeyPair('msX6jQXvxiNhx3Q62PKeLPrhrqZQdSimTg', 'cUxsWyKyZ9MAQTaAhUQWJmBbSvHMwSmuv59KgxQV7oZQU3PXN3KE'),
-            AddressKeyPair('mnonCMyH9TmAsSj3M59DsbH8H63U3RKoFP', 'cTrh7dkEAeJd6b3MRX9bZK8eRmNqVCMH3LSUkE3dSFDyzjU38QxK'),
-            AddressKeyPair('mqJupas8Dt2uestQDvV2NH3RU8uZh2dqQR', 'cVuKKa7gbehEQvVq717hYcbE9Dqmq7KEBKqWgWrYBa2CKKrhtRim'),
-            AddressKeyPair('msYac7Rvd5ywm6pEmkjyxhbCDKqWsVeYws', 'cQDCBuKcjanpXDpCqacNSjYfxeQj8G6CAtH1Dsk3cXyqLNC4RPuh'),
-            AddressKeyPair('n2rnuUnwLgXqf9kk2kjvVm8R5BZK1yxQBi', 'cQakmfPSLSqKHyMFGwAqKHgWUiofJCagVGhiB4KCainaeCSxeyYq'),
-            AddressKeyPair('myzuPxRwsf3vvGzEuzPfK9Nf2RfwauwYe6', 'cQMpDLJwA8DBe9NcQbdoSb1BhmFxVjWD5gRyrLZCtpuF9Zi3a9RK'),
-            AddressKeyPair('mumwTaMtbxEPUswmLBBN3vM9oGRtGBrys8', 'cSXmRKXVcoouhNNVpcNKFfxsTsToY5pvB9DVsFksF1ENunTzRKsy'),
-            AddressKeyPair('mpV7aGShMkJCZgbW7F6iZgrvuPHjZjH9qg', 'cSoXt6tm3pqy43UMabY6eUTmR3eSUYFtB2iNQDGgb3VUnRsQys2k'),
-            AddressKeyPair('mq4fBNdckGtvY2mijd9am7DRsbRB4KjUkf', 'cN55daf1HotwBAgAKWVgDcoppmUNDtQSfb7XLutTLeAgVc3u8hik'),
-            AddressKeyPair('mpFAHDjX7KregM3rVotdXzQmkbwtbQEnZ6', 'cT7qK7g1wkYEMvKowd2ZrX1E5f6JQ7TM246UfqbCiyF7kZhorpX3'),
-            AddressKeyPair('mzRe8QZMfGi58KyWCse2exxEFry2sfF2Y7', 'cPiRWE8KMjTRxH1MWkPerhfoHFn5iHPWVK5aPqjW8NxmdwenFinJ'),
+            AddressKeyPair('swzkfmbaZb4KARFXeNvtECxhggYJnho4ud', 'ebJ1XYGDYWLtzRvUkXXoVFCcfsgfH5SDyT1ahyJQaseF7eN4RB2s'),
+            AddressKeyPair('smr6v5Zfys8DMCbWXGtzmsJn2WgyqbxFvb', 'egy4VKXfsrHAy4NB2YDnfBE7cfwuR7puyMoCZbqhXcoSL3bsrhf4'),
+            AddressKeyPair('sjoR4T9LXTdx6352sJiNTMZW4hM99AALwM', 'ebzhSCHYjnFfotoEfc1dRT9jwRvvMAYBJXndyQ8E33o6LEvKKAJH'),
+            AddressKeyPair('svDv5zBt7k5fGKLFZNX8HYs96zf2Qa4rT7', 'efSNnvBkevzVZ7DY3yeNRqH9kjpHBwaJHJp9d9oHQ1apk4zXe9kb'),
+            AddressKeyPair('sw6fu7YJV3pVxnDrf3PwmQj6xV2KRfewt3', 'efoQEaM6i1MbPyVoYWaG1aRBdT8n26h5BQHy8JXfkw58JYKzKgaM'),
+            AddressKeyPair('siu4mrtJ1s3PRpnPfUGfWUzGLH8Ha8jPSB', 'eeJV8QWm7pbQhqBTQJ45in3b9KPpLjkCJLXWatBcJtWZvXvUzzbr'),
+            AddressKeyPair('sojDzyNvpZu5FHZrcirbvJgkDbeDakJXbA', 'eieY3v9rthahVvmHuGwkK5JFa79ZFmPJvKvKZvv5jLUGFahBkjZG'),
+            AddressKeyPair('sngmoogLVKzgjtBUAfd5xk4Pv2iUWLaJJh', 'eir2ZUgmUm7R2374dUy2xsmFh6qbxFusmHNnHN8xVL9t6SzACLkC'),
+            AddressKeyPair('t4Lmd1a1uiBfaJj7BqH8BcpGMZ3fTBHN52', 'edGutstbXmSjCNGAUVdmMJyLNdFuUjPJdRvqXr68u1uPiUXkb1W2'),
+            AddressKeyPair('sxmyVSnZgxVnS1tfVrBp2swg9ABb5uooyq', 'eiBf98cYKcTchU219z3JwoBod1raipyYc7ceRrCQDBpeQzCfQX7g'),
+            AddressKeyPair('t6tULMwojEsj1szf725TEUuPRWZ5rVJnUD', 'ehLo5wRN6N7QW4yza6U5P6YJSfgmRWuxNCGDG48Dp2gN4Bx71QKq'),
+            AddressKeyPair('szM6RxXDp1de6xrSSaqfJaHdNToe6SEwxj', 'ebQJaez9X3ETeSaS1T5zB1ZvATmpuwf94GZGhKmENN8hFxBpprRi'),
     ]
 
     def get_deterministic_priv_key(self):
@@ -298,9 +298,9 @@ class TestNode():
             time.sleep(1.0 / poll_per_s)
         self._raise_assertion_error("Unable to retrieve cookie credentials after {}s".format(self.rpc_timeout))
 
-    def generate(self, nblocks, maxtries=1000000, **kwargs):
+    def generate(self, nblocks, maxtries=1000000, algo="scrypt", **kwargs):
         self.log.debug("TestNode.generate() dispatches `generate` call to `generatetoaddress`")
-        return self.generatetoaddress(nblocks=nblocks, address=self.get_deterministic_priv_key().address, maxtries=maxtries, **kwargs)
+        return self.generatetoaddress(nblocks=nblocks, address=self.get_deterministic_priv_key().address, maxtries=maxtries, algo=algo, **kwargs)
 
     def generateblock(self, *args, invalid_call, **kwargs):
         assert not invalid_call
