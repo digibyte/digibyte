@@ -88,7 +88,6 @@ TransactionError BroadcastTransaction(NodeContext& node, const CTransactionRef t
                 if (result.m_result_type != MempoolAcceptResult::ResultType::VALID) {
                     return HandleATMPError(result.m_state, err_string);
                 }
-                AcceptToMemoryPool(node.chainman->ActiveChainstate(), *node.stempool, tx, false, false);
             }
 
             // Transaction was accepted to the mempool.
