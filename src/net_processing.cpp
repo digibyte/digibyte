@@ -4852,19 +4852,6 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
                     }
                 }
 
-                // Push inventory items
-                auto queueAndMaybePushInv = [this, pto, &vInv, &msgMaker](const CInv& invIn) {
-                    AssertLockHeld(pto->m_tx_relay->cs_tx_inventory);
-                    pto->m_tx_relay->filterInventoryKnown.insert(invIn.hash);
-                    LogPrint(BCLog::NET, "SendMessages -- queued inv: %s  index=%d peer=%d\n", invIn.ToString(), vInv.size(), pto->GetId());
-                    vInv.push_back(invIn);
-                    if (vInv.size() == MAX_INV_SZ) {
-                        LogPrint(BCLog::NET, "SendMessages -- pushing invs: count=%d peer=%d\n", vInv.size(), pto->GetId());
-                        m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));
-                        vInv.clear();
-                    }
-                };
-
                 // Respond to BIP35 mempool requests
                 if (fSendTrickle && pto->m_tx_relay->fSendMempool) {
                     auto vtxinfo = m_mempool.infoAll();
