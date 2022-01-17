@@ -602,6 +602,10 @@ protected:
     //! Only the active chainstate has a mempool.
     CTxMemPool* m_mempool;
 
+    //! Optional stempool that is kept in sync with the chain.
+    //! Only the active chainstate has a stempool.
+    CTxMemPool* m_stempool;
+
     const CChainParams& m_params;
 
     //! Manages the UTXO set, which is a reflection of the contents of `m_chain`.
@@ -614,6 +618,7 @@ public:
 
     explicit CChainState(
         CTxMemPool* mempool,
+        CTxMemPool* stempool,
         BlockManager& blockman,
         std::optional<uint256> from_snapshot_blockhash = std::nullopt);
 
@@ -744,7 +749,7 @@ public:
                       CCoinsViewCache& view, bool fJustCheck = false) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
 
     // Apply the effects of a block disconnection on the UTXO set.
-    bool DisconnectTip(BlockValidationState& state, DisconnectedBlockTransactions* disconnectpool) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs);
+    bool DisconnectTip(BlockValidationState& state, DisconnectedBlockTransactions* disconnectpool) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs, m_stempool->cs);
 
     // Manual block validity manipulation:
     /** Mark a block as precious and reorganize.
@@ -797,8 +802,8 @@ public:
     std::string ToString() EXCLUSIVE_LOCKS_REQUIRED(::cs_main);
 
 private:
-    bool ActivateBestChainStep(BlockValidationState& state, CBlockIndex* pindexMostWork, const std::shared_ptr<const CBlock>& pblock, bool& fInvalidFound, ConnectTrace& connectTrace) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs);
-    bool ConnectTip(BlockValidationState& state, CBlockIndex* pindexNew, const std::shared_ptr<const CBlock>& pblock, ConnectTrace& connectTrace, DisconnectedBlockTransactions& disconnectpool) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs);
+    bool ActivateBestChainStep(BlockValidationState& state, CBlockIndex* pindexMostWork, const std::shared_ptr<const CBlock>& pblock, bool& fInvalidFound, ConnectTrace& connectTrace) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs, m_stempool->cs);
+    bool ConnectTip(BlockValidationState& state, CBlockIndex* pindexNew, const std::shared_ptr<const CBlock>& pblock, ConnectTrace& connectTrace, DisconnectedBlockTransactions& disconnectpool) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs, m_stempool->cs);
 
     void InvalidBlockFound(CBlockIndex* pindex, const BlockValidationState& state) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
     CBlockIndex* FindMostWorkChain() EXCLUSIVE_LOCKS_REQUIRED(cs_main);
@@ -817,6 +822,12 @@ private:
         return m_mempool ? &m_mempool->cs : nullptr;
     }
 
+    //! Indirection necessary to make lock annotations work with an optional mempool.
+    RecursiveMutex* StempoolMutex() const LOCK_RETURNED(m_stempool->cs)
+    {
+        return m_stempool ? &m_stempool->cs : nullptr;
+    }
+
     /**
      * Make mempool consistent after a reorg, by re-adding or recursively erasing
      * disconnected block transactions from the mempool, and also removing any
@@ -832,7 +843,7 @@ private:
      */
     void MaybeUpdateMempoolForReorg(
         DisconnectedBlockTransactions& disconnectpool,
-        bool fAddToMempool) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs);
+        bool fAddToMempool) EXCLUSIVE_LOCKS_REQUIRED(cs_main, m_mempool->cs, m_stempool->cs);
 
     /** Check warning conditions and do some notifications on new chain tip set. */
     void UpdateTip(const CBlockIndex* pindexNew)
@@ -950,6 +961,7 @@ public:
     //!                                 is based on a snapshot.
     CChainState& InitializeChainstate(
         CTxMemPool* mempool,
+        CTxMemPool* stempool,
         const std::optional<uint256>& snapshot_blockhash = std::nullopt)
         EXCLUSIVE_LOCKS_REQUIRED(::cs_main);
 

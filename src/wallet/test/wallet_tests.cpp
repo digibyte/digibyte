@@ -697,6 +697,7 @@ BOOST_FIXTURE_TEST_CASE(wallet_descriptor_test, BasicTestingSetup)
 BOOST_FIXTURE_TEST_CASE(CreateWallet, TestChain100Setup)
 {
     gArgs.ForceSetArg("-unsafesqlitesync", "1");
+    gArgs.ForceSetArg("-dandelion", "0");
     // Create new wallet with known key and unload it.
     auto wallet = TestLoadWallet(m_node.chain.get());
     CKey key;

@@ -191,6 +191,7 @@ void Shutdown(NodeContext& node)
     /// module was initialized.
     util::ThreadRename("shutoff");
     if (node.mempool) node.mempool->AddTransactionsUpdated(1);
+    if (node.stempool) node.stempool->AddTransactionsUpdated(1);
 
     StopHTTPRPC();
     StopREST();
@@ -1180,13 +1181,16 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
     int check_ratio = std::min<int>(std::max<int>(args.GetArg("-checkmempool", chainparams.DefaultConsistencyChecks() ? 1 : 0), 0), 1000000);
     node.mempool = std::make_unique<CTxMemPool>(node.fee_estimator.get(), check_ratio);
 
+    assert(!node.stempool);
+    node.stempool = std::make_unique<CTxMemPool>(node.fee_estimator.get(), check_ratio);
+
     assert(!node.chainman);
     node.chainman = std::make_unique<ChainstateManager>();
     ChainstateManager& chainman = *node.chainman;
 
     assert(!node.peerman);
     node.peerman = PeerManager::make(chainparams, *node.connman, *node.addrman, node.banman.get(),
-                                     *node.scheduler, chainman, *node.mempool, ignores_incoming_txs);
+                                     *node.scheduler, chainman, *node.mempool, *node.stempool, ignores_incoming_txs);
     RegisterValidationInterface(node.peerman.get());
 
     // sanitize comments per BIP-0014, format user agent and check total size
@@ -1364,7 +1368,7 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
             const int64_t load_block_index_start_time = GetTimeMillis();
             try {
                 LOCK(cs_main);
-                chainman.InitializeChainstate(Assert(node.mempool.get()));
+                chainman.InitializeChainstate(Assert(node.mempool.get()), Assert(node.stempool.get()));
                 chainman.m_total_coinstip_cache = nCoinCacheUsage;
                 chainman.m_total_coinsdb_cache = nCoinDBCache;
 

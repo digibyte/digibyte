@@ -330,6 +330,7 @@ libdigibyte_server_a_SOURCES = \
   blockfilter.cpp \
   chain.cpp \
   consensus/tx_verify.cpp \
+  dandelion.cpp \
   dbwrapper.cpp \
   deploymentstatus.cpp \
   flatfile.cpp \

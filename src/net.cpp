@@ -23,6 +23,7 @@
 #include <protocol.h>
 #include <random.h>
 #include <scheduler.h>
+#include <shutdown.h>
 #include <util/sock.h>
 #include <util/strencodings.h>
 #include <util/thread.h>
@@ -296,7 +297,6 @@ bool SeenLocal(const CService& addr)
     }
     return true;
 }
-
 
 /** check whether a given address is potentially local */
 bool IsLocal(const CService& addr)
@@ -1207,6 +1207,15 @@ void CConnman::CreateNodeFromAcceptedSocket(SOCKET hSocket,
         vNodes.push_back(pnode);
     }
 
+    // Dandelion: new inbound connection
+    vDandelionInbound.push_back(pnode);
+    CNode* pto = SelectFromDandelionDestinations();
+    if (pto) {
+        mDandelionRoutes.insert(std::make_pair(pnode, pto));
+    }
+
+    LogPrint(BCLog::DANDELION, "Added inbound Dandelion connection:\n%s", GetDandelionRoutingDataDebugString());
+
     // We received a new connection, harvest entropy from the time (and our peer count)
     RandAddEvent((uint32_t)id);
 }
@@ -1288,6 +1297,9 @@ void CConnman::DisconnectNodes()
         {
             // Destroy the object only after other threads have stopped using it.
             if (pnode->GetRefCount() <= 0) {
+                // Dandelion: close connection
+                CloseDandelionConnections(pnode);
+                LogPrint(BCLog::DANDELION, "Removed Dandelion connection:\n%s", GetDandelionRoutingDataDebugString());
                 vNodesDisconnected.remove(pnode);
                 DeleteNode(pnode);
             }
@@ -2229,6 +2241,16 @@ void CConnman::OpenNetworkConnection(const CAddress& addrConnect, bool fCountFai
     {
         LOCK(cs_vNodes);
         vNodes.push_back(pnode);
+        // Dandelion: new outbound connection
+        vDandelionOutbound.push_back(pnode);
+        if (vDandelionDestination.size() < DANDELION_MAX_DESTINATIONS) {
+            vDandelionDestination.push_back(pnode);
+        }
+        LogPrint(BCLog::DANDELION, "Added outbound Dandelion connection:\n%s", GetDandelionRoutingDataDebugString());
+
+        // Dandelion service discovery
+        CInv dummyInv(MSG_DANDELION_TX, DANDELION_DISCOVERYHASH);
+        pnode->PushOtherInventory(dummyInv);
     }
 }
 
@@ -2466,7 +2488,6 @@ NodeId CConnman::GetNewNodeId()
     return nLastNodeId.fetch_add(1, std::memory_order_relaxed);
 }
 
-
 bool CConnman::Bind(const CService &addr, unsigned int flags, NetPermissionFlags permissions) {
     if (!(flags & BF_EXPLICIT) && !IsReachable(addr)) {
         return false;
@@ -2610,6 +2631,12 @@ bool CConnman::Start(CScheduler& scheduler, const Options& connOptions)
     // Process messages
     threadMessageHandler = std::thread(&util::TraceThread, "msghand", [this] { ThreadMessageHandler(); });
 
+    // Dandelion shuffle thread
+    if (gArgs.GetBoolArg("-dandelion", DEFAULT_DANDELION)) {
+        LogPrintf("Dandelion privacy protocol enabled\n");
+        threadDandelionShuffle = std::thread(&util::TraceThread, "dandelion", [this] { ThreadDandelionShuffle(); });
+    }
+
     if (connOptions.m_i2p_accept_incoming && m_i2p_sam_session.get() != nullptr) {
         threadI2PAcceptIncoming =
             std::thread(&util::TraceThread, "i2paccept", [this] { ThreadI2PAcceptIncoming(); });
@@ -2662,9 +2689,8 @@ void CConnman::Interrupt()
 
 void CConnman::StopThreads()
 {
-    if (threadI2PAcceptIncoming.joinable()) {
+    if (threadI2PAcceptIncoming.joinable())
         threadI2PAcceptIncoming.join();
-    }
     if (threadMessageHandler.joinable())
         threadMessageHandler.join();
     if (threadOpenConnections.joinable())
@@ -2675,6 +2701,8 @@ void CConnman::StopThreads()
         threadDNSAddressSeed.join();
     if (threadSocketHandler.joinable())
         threadSocketHandler.join();
+    if (threadDandelionShuffle.joinable())
+        threadDandelionShuffle.join();
 }
 
 void CConnman::StopNodes()

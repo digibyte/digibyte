@@ -42,6 +42,7 @@ struct NodeContext {
     std::unique_ptr<CAddrMan> addrman;
     std::unique_ptr<CConnman> connman;
     std::unique_ptr<CTxMemPool> mempool;
+    std::unique_ptr<CTxMemPool> stempool;
     std::unique_ptr<CBlockPolicyEstimator> fee_estimator;
     std::unique_ptr<PeerManager> peerman;
     std::unique_ptr<ChainstateManager> chainman;
