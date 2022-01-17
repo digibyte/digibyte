@@ -4859,7 +4859,6 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
                     const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
 
                     LOCK(pto->m_tx_relay->cs_filter);
-                    LOCK(pto->m_tx_relay->cs_tx_inventory);
 
                     for (const auto& txinfo : vtxinfo) {
                         const uint256& hash = state.m_wtxid_relay ? txinfo.tx->GetWitnessHash() : txinfo.tx->GetHash();
