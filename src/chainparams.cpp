@@ -568,7 +568,7 @@ public:
         strNetworkID =  CBaseChainParams::REGTEST;
         consensus.signet_blocks = false;
         consensus.signet_challenge.clear();
-        consensus.nSubsidyHalvingInterval = 150;
+        consensus.nSubsidyHalvingInterval = 300;
         consensus.BIP16Exception = uint256();
         consensus.BIP34Height = 500; // BIP34 activated on regtest (Used in functional tests)
         consensus.BIP34Hash = uint256();
@@ -583,10 +583,10 @@ public:
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 60 / 4;
-        consensus.nTargetTimespan =  0.10 * 24 * 60 * 60; // 2.4 hours
+        consensus.nTargetTimespan =  0.10 * 48 * 60 * 60; // 4.8 hours
         consensus.nTargetSpacing = 60; // 60 seconds
         consensus.nInterval = consensus.nTargetTimespan / consensus.nTargetSpacing;
-        consensus.nDiffChangeTarget = 167; // DigiShield Hard Fork Block BIP34Height 67,200
+        consensus.nDiffChangeTarget = 334; // DigiShield Hard Fork Block BIP34Height 67,200
 
         // Old 1% monthly DGB Reward before 15 secon block change
         consensus.patchBlockRewardDuration = 10; //10080; - No longer used
@@ -623,7 +623,7 @@ public:
         consensus.BIP66Height = 1251;
 
         // DigiByte Hard Fork Block Heights
-        consensus.multiAlgoDiffChangeTarget = 145; // Block 145,000 MultiAlgo Hard Fork
+        consensus.multiAlgoDiffChangeTarget = 290; // Block 145,000 MultiAlgo Hard Fork
         consensus.alwaysUpdateDiffChangeTarget = 400; // Block 400,000 MultiShield Hard Fork
         consensus.workComputationChangeTarget = 1430; // Block 1,430,000 DigiSpeed Hard Fork
         consensus.algoSwapChangeTarget = 2000; // Block 9,000,000 Odo PoW Hard Fork
@@ -752,18 +752,64 @@ public:
     void UpdateActivationParametersFromArgs(const ArgsManager& args);
 };
 
+static void MaybeUpdateHeights(const ArgsManager& args, Consensus::Params& consensus)
+{
+    for (const std::string& arg : args.GetArgs("-testactivationheight")) {
+        const auto found{arg.find('@')};
+        if (found == std::string::npos) {
+            throw std::runtime_error(strprintf("Invalid format (%s) for -testactivationheight=name@height.", arg));
+        }
+        const auto name{arg.substr(0, found)};
+        const auto value{arg.substr(found + 1)};
+        int32_t height;
+        if (!ParseInt32(value, &height) || height < 0 || height >= std::numeric_limits<int>::max()) {
+            throw std::runtime_error(strprintf("Invalid height value (%s) for -testactivationheight=name@height.", arg));
+        }
+        if (name == "segwit") {
+            consensus.SegwitHeight = int{height};
+        } else if (name == "bip34") {
+            consensus.BIP34Height = int{height};
+        } else if (name == "dersig") {
+            consensus.BIP66Height = int{height};
+        } else if (name == "cltv") {
+            consensus.BIP65Height = int{height};
+        } else if (name == "csv") {
+            consensus.CSVHeight = int{height};
+        } else {
+            throw std::runtime_error(strprintf("Invalid name (%s) for -testactivationheight=name@height.", arg));
+        }
+    }
+}
+
+// This method was added to enable easy mining on regtest networks only.
+// It will postpone the activation of MultiAlgo by 999999 blocks to make sure
+// it will be easy to mine blocks in regtest network.
+// This method can only be applied to RegTest networks by design and is called from
+// `CRegTestParams::UpdateActivationParametersFromArgs`
+static void MaybeEnableEasyMining(const ArgsManager& args, Consensus::Params& consensus)
+{
+    if (!args.IsArgSet("-easypow")) return;
+
+    // Postpone MultiAlgo Activation to the 1-millionth block
+    consensus.multiAlgoDiffChangeTarget = 1000000;
+
+    // Disable Difficulty Adjustment by setting the interval
+    // to 1 million blocks
+    consensus.nInterval = 1000000;
+
+    // Delay new difficulty retargeting algorithm
+    consensus.nDiffChangeTarget = 1000000;
+
+    // Delay softforks 
+    consensus.BIP34Height = 1000000;
+    consensus.OdoHeight = 1000000;
+    consensus.CSVHeight = 1000000;
+}
+
 void CRegTestParams::UpdateActivationParametersFromArgs(const ArgsManager& args)
 {
-    if (args.IsArgSet("-segwitheight")) {
-        int64_t height = args.GetArg("-segwitheight", consensus.SegwitHeight);
-        if (height < -1 || height >= std::numeric_limits<int>::max()) {
-            throw std::runtime_error(strprintf("Activation height %ld for segwit is out of valid range. Use -1 to disable segwit.", height));
-        } else if (height == -1) {
-            LogPrintf("Segwit disabled for testing\n");
-            height = std::numeric_limits<int>::max();
-        }
-        consensus.SegwitHeight = static_cast<int>(height);
-    }
+    MaybeEnableEasyMining(args, consensus);
+    MaybeUpdateHeights(args, consensus);
 
     if (!args.IsArgSet("-vbparams")) return;
 
