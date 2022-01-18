@@ -19,7 +19,7 @@ class WalletHDTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2
-        self.extra_args = [['-dandelion=0'], ['-dandelion=0', '-keypool=0']]
+        self.extra_args = [[], ['-keypool=0']]
         self.supports_cli = False
 
     def skip_test_if_missing_module(self):
