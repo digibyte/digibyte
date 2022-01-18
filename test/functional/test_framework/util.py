@@ -371,7 +371,7 @@ def write_config(config_path, *, n, chain, extra_config="", disable_autoconnect=
             f.write("[{}]\n".format(chain_name_conf_section))
         f.write("port=" + str(p2p_port(n)) + "\n")
         f.write("rpcport=" + str(rpc_port(n)) + "\n")
-        f.write("fallbackfee=0.0002\n")
+        f.write("fallbackfee=0.001\n")
         f.write("server=1\n")
         f.write("keypool=1\n")
         f.write("discover=0\n")
