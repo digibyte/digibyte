@@ -19,7 +19,7 @@ class WalletHDTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2
-        self.extra_args = [[], ['-keypool=0']]
+        self.extra_args = [['-dandelion=0'], ['-dandelion=0', '-keypool=0']]
         self.supports_cli = False
 
     def skip_test_if_missing_module(self):
@@ -39,8 +39,8 @@ class WalletHDTest(DigiByteTestFramework):
             assert_equal(change_addrV["hdkeypath"], "m/0'/1'/0'")  #first internal child key
 
         # Import a non-HD private key in the HD wallet
-        non_hd_add = 'bcrt1qmevj8zfx0wdvp05cqwkmr6mxkfx60yezwjksmt'
-        non_hd_key = 'cS9umN9w6cDMuRVYdbkfE4c7YUFLJRoXMfhQ569uY4odiQbVN8Rt'
+        non_hd_add = 'dgbrt1qj5nyrn9vchu5fpt4e8upfqpkw8nzgazeg0tzpx'
+        non_hd_key = 'eeGXx7odSvEzn26XA6gbSr8R62Hk3ctuTSxRSpbSwrvigHTWxsZZ'
         self.nodes[1].importprivkey(non_hd_key)
 
         # This should be enough to keep the master key and the non-HD key
@@ -136,7 +136,7 @@ class WalletHDTest(DigiByteTestFramework):
                 keypath = self.nodes[1].getaddressinfo(out['scriptPubKey']['address'])['hdkeypath']
 
         if self.options.descriptors:
-            assert_equal(keypath[0:14], "m/86'/1'/0'/1/")
+            assert_equal(keypath[0:14], "m/84'/1'/0'/1/")
         else:
             assert_equal(keypath[0:7], "m/0'/1'")
 
