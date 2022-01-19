@@ -4,11 +4,11 @@
 # Copyright (c) 2010-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""DigiByte test framework primitive and message structures
+"""Bitcoin test framework primitive and message structures
 
 CBlock, CTransaction, CBlockHeader, CTxIn, CTxOut, etc....:
     data structures that should map to corresponding structures in
-    digibyte/primitives
+    bitcoin/primitives
 
 msg_block, msg_tx, msg_headers, etc.:
     data structures that represent network messages
@@ -28,16 +28,31 @@ import socket
 import struct
 import time
 
+from .blockversion import (
+    VERSIONBITS_LAST_OLD_BLOCK_VERSION,
+)
+
+import digibyte_scrypt
+
 from test_framework.siphash import siphash256
 from test_framework.util import assert_equal
 
+BLOCK_VERSION_ALGO    = (15 << 8)
+BLOCK_VERSION_SCRYPT  = (0 << 8)
+BLOCK_VERSION_SHA256D = (2 << 8)
+BLOCK_VERSION_GROESTL = (4 << 8)
+BLOCK_VERSION_SKEIN   = (6 << 8)
+BLOCK_VERSION_QUBIT   = (8 << 8)
+BLOCK_VERSION_ODO     = (14 << 8)
+
 MAX_LOCATOR_SZ = 101
 MAX_BLOCK_WEIGHT = 4000000
+MAX_BLOCK_BASE_SIZE = 1000000
 MAX_BLOOM_FILTER_SIZE = 36000
 MAX_BLOOM_HASH_FUNCS = 50
 
 COIN = 100000000  # 1 btc in satoshis
-MAX_MONEY = 21000000 * COIN
+MAX_MONEY = 21000000000 * COIN
 
 BIP125_SEQUENCE_NUMBER = 0xfffffffd  # Sequence number that is rbf-opt-in (BIP 125) and csv-opt-out (BIP 68)
 
@@ -207,13 +222,13 @@ def tx_from_hex(hex_string):
     return from_hex(CTransaction(), hex_string)
 
 
-# Objects that map to digibyted objects, which can be serialized/deserialized
+# Objects that map to bitcoind objects, which can be serialized/deserialized
 
 
 class CAddress:
     __slots__ = ("net", "ip", "nServices", "port", "time")
 
-    # see https://github.com/digibyte/bips/blob/master/bip-0155.mediawiki
+    # see https://github.com/bitcoin/bips/blob/master/bip-0155.mediawiki
     NET_IPV4 = 1
     NET_I2P = 5
 
@@ -354,7 +369,7 @@ class CBlockLocator:
 
     def serialize(self):
         r = b""
-        r += struct.pack("<i", 0)  # DigiByte Core ignores version field. Set it to 0.
+        r += struct.pack("<i", 0)  # Bitcoin Core ignores version field. Set it to 0.
         r += ser_uint256_vector(self.vHave)
         return r
 
@@ -531,7 +546,7 @@ class CTransaction:
         if len(self.vin) == 0:
             flags = struct.unpack("<B", f.read(1))[0]
             # Not sure why flags can't be zero, but this
-            # matches the implementation in digibyted
+            # matches the implementation in bitcoind
             if (flags != 0):
                 self.vin = deser_vector(f, CTxIn)
                 self.vout = deser_vector(f, CTxOut)
@@ -600,6 +615,7 @@ class CTransaction:
 
         if self.sha256 is None:
             self.sha256 = uint256_from_str(hash256(self.serialize_without_witness()))
+
         self.hash = hash256(self.serialize_without_witness())[::-1].hex()
 
     def is_valid(self):
@@ -626,7 +642,7 @@ class CTransaction:
 
 class CBlockHeader:
     __slots__ = ("hash", "hashMerkleRoot", "hashPrevBlock", "nBits", "nNonce",
-                 "nTime", "nVersion", "sha256")
+                 "nTime", "nVersion", "sha256", "powHash")
 
     def __init__(self, header=None):
         if header is None:
@@ -640,10 +656,11 @@ class CBlockHeader:
             self.nNonce = header.nNonce
             self.sha256 = header.sha256
             self.hash = header.hash
+            self.powHash = header.powHash
             self.calc_sha256()
 
     def set_null(self):
-        self.nVersion = 4
+        self.nVersion = VERSIONBITS_LAST_OLD_BLOCK_VERSION
         self.hashPrevBlock = 0
         self.hashMerkleRoot = 0
         self.nTime = 0
@@ -651,6 +668,7 @@ class CBlockHeader:
         self.nNonce = 0
         self.sha256 = None
         self.hash = None
+        self.powHash = None
 
     def deserialize(self, f):
         self.nVersion = struct.unpack("<i", f.read(4))[0]
@@ -661,6 +679,7 @@ class CBlockHeader:
         self.nNonce = struct.unpack("<I", f.read(4))[0]
         self.sha256 = None
         self.hash = None
+        self.powHash = None
 
     def serialize(self):
         r = b""
@@ -683,6 +702,31 @@ class CBlockHeader:
             r += struct.pack("<I", self.nNonce)
             self.sha256 = uint256_from_str(hash256(r))
             self.hash = hash256(r)[::-1].hex()
+
+            self.powHash = uint256_from_str(self.calcPowHash(r))
+
+    def getAlgo(self):
+        algoBits = (self.nVersion & BLOCK_VERSION_ALGO)
+
+        if algoBits == BLOCK_VERSION_SCRYPT: return "scrypt"
+        if algoBits == BLOCK_VERSION_SHA256D: return "sha256d"
+        if algoBits == BLOCK_VERSION_GROESTL: return "groestl"
+        if algoBits == BLOCK_VERSION_SKEIN: return "skein"
+        if algoBits == BLOCK_VERSION_QUBIT: return "qubit"
+        if algoBits == BLOCK_VERSION_ODO: return "odo"
+    
+        return "unknown"
+
+    def calcPowHash(self, h):
+        algo = self.getAlgo()
+
+        if algo == "scrypt":
+            return digibyte_scrypt.calcPoW(h)
+        elif algo == "sha256d":
+            return hash256(h)
+        else:
+            raise ValueError("Unknown Algo: {}".format(algo))
+
 
     def rehash(self):
         self.sha256 = None
@@ -761,7 +805,7 @@ class CBlock(CBlockHeader):
     def solve(self):
         self.rehash()
         target = uint256_from_compact(self.nBits)
-        while self.sha256 > target:
+        while self.powHash > target:
             self.nNonce += 1
             self.rehash()
 
@@ -1081,7 +1125,7 @@ class msg_version:
         self.nStartingHeight = struct.unpack("<i", f.read(4))[0]
 
         # Relay field is optional for version 70001 onwards
-        # But, unconditionally check it to match behaviour in digibyted
+        # But, unconditionally check it to match behaviour in bitcoind
         try:
             self.relay = struct.unpack("<b", f.read(1))[0]
         except struct.error:
@@ -1462,7 +1506,7 @@ class msg_headers:
         self.headers = headers if headers is not None else []
 
     def deserialize(self, f):
-        # comment in digibyted indicates these should be deserialized as blocks
+        # comment in bitcoind indicates these should be deserialized as blocks
         blocks = deser_vector(f, CBlock)
         for x in blocks:
             self.headers.append(CBlockHeader(x))

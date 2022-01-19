@@ -102,6 +102,7 @@ class TestNode():
             "-debug",
             "-debugexclude=libevent",
             "-debugexclude=leveldb",
+            "-dandelion=0",
             "-uacomment=testnode%d" % i,
         ]
         if use_valgrind:

@@ -43,6 +43,12 @@ from .script_util import (
 )
 from .util import assert_equal
 
+from .blockversion import (
+    VERSIONBITS_TOP_BITS,
+    BLOCK_VERSION,
+    VERSIONBITS_LAST_OLD_BLOCK_VERSION,
+)
+
 WITNESS_SCALE_FACTOR = 4
 MAX_BLOCK_SIGOPS = 20000
 MAX_BLOCK_SIGOPS_WEIGHT = MAX_BLOCK_SIGOPS * WITNESS_SCALE_FACTOR
@@ -53,14 +59,12 @@ TIME_GENESIS_BLOCK = 1296688602
 MAX_FUTURE_BLOCK_TIME = 2 * 60 * 60
 
 # Coinbase transaction outputs can only be spent after this number of new blocks (network rule)
-COINBASE_MATURITY = 100
+COINBASE_MATURITY = 8
 
 # From BIP141
 WITNESS_COMMITMENT_HEADER = b"\xaa\x21\xa9\xed"
 
 NORMAL_GBT_REQUEST_PARAMS = {"rules": ["segwit"]}
-VERSIONBITS_LAST_OLD_BLOCK_VERSION = 4
-
 
 def create_block(hashprev=None, coinbase=None, ntime=None, *, version=None, tmpl=None, txlist=None):
     """Create a block (with regtest difficulty)."""
@@ -83,6 +87,7 @@ def create_block(hashprev=None, coinbase=None, ntime=None, *, version=None, tmpl
                 tx = tx_from_hex(tx)
             block.vtx.append(tx)
     block.hashMerkleRoot = block.calc_merkle_root()
+    # block.calc_scrypt()
     block.calc_sha256()
     return block
 
@@ -119,7 +124,7 @@ def script_BIP34_coinbase_height(height):
     return CScript([CScriptNum(height)])
 
 
-def create_coinbase(height, pubkey=None, extra_output_script=None, fees=0, nValue=50):
+def create_coinbase(height, pubkey=None, extra_output_script=None, fees=0, nValue=72000):
     """Create a coinbase transaction.
 
     If pubkey is passed in, the coinbase output will be a P2PK output;
@@ -131,9 +136,7 @@ def create_coinbase(height, pubkey=None, extra_output_script=None, fees=0, nValu
     coinbase.vin.append(CTxIn(COutPoint(0, 0xffffffff), script_BIP34_coinbase_height(height), 0xffffffff))
     coinbaseoutput = CTxOut()
     coinbaseoutput.nValue = nValue * COIN
-    if nValue == 50:
-        halvings = int(height / 150)  # regtest
-        coinbaseoutput.nValue >>= halvings
+    if nValue == 72000:
         coinbaseoutput.nValue += fees
     if pubkey is not None:
         coinbaseoutput.scriptPubKey = key_to_p2pk_script(pubkey)
