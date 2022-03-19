@@ -112,10 +112,10 @@ static const int MAX_BLOCKTXN_DEPTH = 10;
  *  degree of disordering of blocks on disk (which make reindexing and pruning harder). We'll probably
  *  want to make this a per-peer adaptive value at some point. */
 static const unsigned int BLOCK_DOWNLOAD_WINDOW = 1024;
-/** Block download timeout base, expressed in multiples of the block interval (i.e. 10 min) */
-static constexpr double BLOCK_DOWNLOAD_TIMEOUT_BASE = 1;
-/** Additional block download timeout per parallel downloading peer (i.e. 5 min) */
-static constexpr double BLOCK_DOWNLOAD_TIMEOUT_PER_PEER = 0.5;
+/** Block download timeout base, expressed in multiples of the block interval (i.e. 15 * 6 seconds) */
+static constexpr double BLOCK_DOWNLOAD_TIMEOUT_BASE = 6;
+/** Additional block download timeout per parallel downloading peer (i.e. 1 min) */
+static constexpr double BLOCK_DOWNLOAD_TIMEOUT_PER_PEER = 4;
 /** Maximum number of headers to announce when relaying blocks with headers message.*/
 static const unsigned int MAX_BLOCKS_TO_ANNOUNCE = 8;
 /** Maximum number of unconnecting headers announcements before DoS score */
@@ -2350,7 +2350,7 @@ void PeerManagerImpl::ProcessOrphanTx(std::set<uint256>& orphan_work_set)
         }
     }
     m_mempool.check(m_chainman.ActiveChainstate());
-    m_stempool.check(m_chainman.ActiveChainstate());
+    // m_stempool.check(m_chainman.ActiveChainstate());
 }
 
 bool PeerManagerImpl::PrepareBlockFilterRequest(CNode& peer,
@@ -3345,7 +3345,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
                 m_connman.removeDandelionEmbargo(tx.GetHash());
             }
             m_mempool.check(m_chainman.ActiveChainstate());
-            m_stempool.check(m_chainman.ActiveChainstate());
+            // m_stempool.check(m_chainman.ActiveChainstate());
             // As this version of the transaction was acceptable, we can forget about any
             // requests for it.
             m_txrequest.ForgetTxHash(tx.GetHash());
