@@ -10,7 +10,9 @@ Test the DERSIG soft-fork activation on regtest.
 from test_framework.blocktools import (
     create_block,
     create_coinbase,
+    VERSIONBITS_TOP_BITS,
 )
+
 from test_framework.messages import msg_block
 from test_framework.p2p import P2PInterface
 from test_framework.script import CScript
@@ -98,7 +100,7 @@ class BIP66Test(DigiByteTestFramework):
         self.log.info("Test that blocks must now be at least version 3")
         tip = block.sha256
         block_time += 1
-        block = create_block(tip, create_coinbase(DERSIG_HEIGHT), block_time, version=2)
+        block = create_block(tip, create_coinbase(DERSIG_HEIGHT), block_time, version=0x02)
         block.solve()
 
         with self.nodes[0].assert_debug_log(expected_msgs=[f'{block.hash}, bad-version(0x00000002)']):
@@ -107,7 +109,7 @@ class BIP66Test(DigiByteTestFramework):
             peer.sync_with_ping()
 
         self.log.info("Test that transactions with non-DER signatures cannot appear in a block")
-        block.nVersion = 4
+        block.nVersion = VERSIONBITS_TOP_BITS | 0x03
 
         spendtx = self.create_tx(self.coinbase_txids[1])
         unDERify(spendtx)
