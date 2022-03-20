@@ -1342,7 +1342,7 @@ class TaprootTest(DigiByteTestFramework):
         done = 0
         while done < len(spenders):
             # Compute how many UTXOs to create with this transaction
-            count_this_tx = min(len(spenders) - done, (len(spenders) + 4) // 5, 10000)
+            count_this_tx = min(len(spenders) - done, (len(spenders) + 4) // 5, 100000)
 
             fund_tx = CTransaction()
             # Add the 50 highest-value inputs
@@ -1368,7 +1368,7 @@ class TaprootTest(DigiByteTestFramework):
                 balance -= amount
                 fund_tx.vout.append(CTxOut(amount, spenders[done + i].script))
             # Add change
-            fund_tx.vout.append(CTxOut(balance - 10000, random.choice(host_spks)))
+            fund_tx.vout.append(CTxOut(balance - 100000, random.choice(host_spks)))
             # Ask the wallet to sign
             ss = BytesIO(bytes.fromhex(node.signrawtransactionwithwallet(fund_tx.serialize().hex())["hex"]))
             fund_tx.deserialize(ss)
@@ -1382,7 +1382,7 @@ class TaprootTest(DigiByteTestFramework):
                     normal_utxos.append(utxodata)
                 done += 1
             # Mine into a block
-            self.block_submit(node, [fund_tx], "Funding tx", None, random.choice(host_pubkeys), 10000, MAX_BLOCK_SIGOPS_WEIGHT, True, True)
+            self.block_submit(node, [fund_tx], "Funding tx", None, random.choice(host_pubkeys), 100000, MAX_BLOCK_SIGOPS_WEIGHT, True, True)
 
         # Consume groups of choice(input_coins) from utxos in a tx, testing the spenders.
         self.log.info("- Running %i spending tests" % done)
