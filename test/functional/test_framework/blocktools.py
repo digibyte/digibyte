@@ -60,6 +60,7 @@ MAX_FUTURE_BLOCK_TIME = 2 * 60 * 60
 
 # Coinbase transaction outputs can only be spent after this number of new blocks (network rule)
 COINBASE_MATURITY = 8
+COINBASE_MATURITY_ORIGINAL = 100
 
 # From BIP141
 WITNESS_COMMITMENT_HEADER = b"\xaa\x21\xa9\xed"
@@ -123,6 +124,13 @@ def script_BIP34_coinbase_height(height):
         return CScript([res, OP_1])
     return CScript([CScriptNum(height)])
 
+def get_coinbase_value(height): 
+    if height < 1440:
+        return 72000
+    elif height < 5760:
+        return 16000
+    else:
+        return 8000
 
 def create_coinbase(height, pubkey=None, extra_output_script=None, fees=0, nValue=72000):
     """Create a coinbase transaction.
