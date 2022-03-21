@@ -67,13 +67,13 @@ def read_dump(file_name, addrs, script_addrs, hd_master_addr_old):
                 # count key types
                 for addrObj in addrs:
                     if addrObj['address'] == addr.split(",")[0] and addrObj['hdkeypath'] == keypath and keytype == "label=":
-                        if addr.startswith('m') or addr.startswith('n'):
+                        if addr.startswith('t') or addr.startswith('s'):
                             # P2PKH address
                             found_legacy_addr += 1
-                        elif addr.startswith('2'):
+                        elif addr.startswith('y'):
                             # P2SH-segwit address
                             found_p2sh_segwit_addr += 1
-                        elif addr.startswith('bcrt1'):
+                        elif addr.startswith('dgbrt1'):
                             found_bech32_addr += 1
                         break
                     elif keytype == "change=1":
