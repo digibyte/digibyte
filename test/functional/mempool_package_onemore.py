@@ -9,6 +9,7 @@
 
 from decimal import Decimal
 
+from test_framework.messages import COIN
 from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
@@ -36,7 +37,8 @@ class MempoolPackagesTest(DigiByteTestFramework):
         vout = utxo[0]['vout']
         value = utxo[0]['amount']
 
-        fee = Decimal("0.0002")
+        fee = Decimal("0.0023")
+        high_fee = Decimal("0.023")
         # MAX_ANCESTORS transactions off a confirmed tx should be fine
         chain = []
         for _ in range(4):
@@ -61,7 +63,7 @@ class MempoolPackagesTest(DigiByteTestFramework):
         # ...even if it chains on to two parent transactions with one in the chain.
         assert_raises_rpc_error(-26, "too-long-mempool-chain, too many descendants", chain_transaction, self.nodes[0], [chain[0][0], second_chain], [1, 0], chain[0][1] + second_chain_value, fee, 1)
         # ...especially if its > 40k weight
-        assert_raises_rpc_error(-26, "too-long-mempool-chain, too many descendants", chain_transaction, self.nodes[0], [chain[0][0]], [1], chain[0][1], fee, 350)
+        assert_raises_rpc_error(-26, "too-long-mempool-chain, too many descendants", chain_transaction, self.nodes[0], [chain[0][0]], [1], chain[0][1], high_fee, 350, 1.1)
         # But not if it chains directly off the first transaction
         (replacable_txid, replacable_orig_value) = chain_transaction(self.nodes[0], [chain[0][0]], [1], chain[0][1], fee, 1)
         # and the second chain should work just fine
@@ -71,7 +73,7 @@ class MempoolPackagesTest(DigiByteTestFramework):
         second_tx_outputs = {self.nodes[0].getrawtransaction(replacable_txid, True)["vout"][0]['scriptPubKey']['address']: replacable_orig_value - (Decimal(1) / Decimal(100))}
         second_tx = self.nodes[0].createrawtransaction([{'txid': chain[0][0], 'vout': 1}], second_tx_outputs)
         signed_second_tx = self.nodes[0].signrawtransactionwithwallet(second_tx)
-        self.nodes[0].sendrawtransaction(signed_second_tx['hex'])
+        self.nodes[0].sendrawtransaction(signed_second_tx['hex'], 1.1)
 
         # Finally, check that we added two transactions
         assert_equal(len(self.nodes[0].getrawmempool()), MAX_ANCESTORS + 3)
