@@ -23,12 +23,12 @@ class DisableWalletTest (DigiByteTestFramework):
         assert_raises_rpc_error(-32601, 'Method not found', self.nodes[0].getwalletinfo)
         x = self.nodes[0].validateaddress('3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy')
         assert x['isvalid'] == False
-        x = self.nodes[0].validateaddress('mneYUmWYsuk7kySiURxCi3AGxrAqZxLgPZ')
+        x = self.nodes[0].validateaddress('t4Au1qr9aBPfNpBRE1vLqvXhe4YAFD3iGn')
         assert x['isvalid'] == True
 
         # Checking mining to an address without a wallet. Generating to a valid address should succeed
         # but generating to an invalid address will fail.
-        self.generatetoaddress(self.nodes[0], 1, 'mneYUmWYsuk7kySiURxCi3AGxrAqZxLgPZ')
+        self.generatetoaddress(self.nodes[0], 1, 't4Au1qr9aBPfNpBRE1vLqvXhe4YAFD3iGn')
         assert_raises_rpc_error(-5, "Invalid address", self.generatetoaddress, self.nodes[0], 1, '3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy')
 
 if __name__ == '__main__':
