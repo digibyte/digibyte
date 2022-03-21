@@ -502,7 +502,7 @@ def create_confirmed_utxos(test_framework, fee, node, count, **kwargs):
     return utxos
 
 
-def chain_transaction(node, parent_txids, vouts, value, fee, num_outputs):
+def chain_transaction(node, parent_txids, vouts, value, fee, num_outputs, max_fee = 0.1):
     """Build and send a transaction that spends the given inputs (specified
     by lists of parent_txid:vout each), with the desired total value and fee,
     equally divided up to the desired number of outputs.
@@ -518,7 +518,7 @@ def chain_transaction(node, parent_txids, vouts, value, fee, num_outputs):
         outputs[node.getnewaddress()] = send_value
     rawtx = node.createrawtransaction(inputs, outputs, 0, True)
     signedtx = node.signrawtransactionwithwallet(rawtx)
-    txid = node.sendrawtransaction(signedtx['hex'])
+    txid = node.sendrawtransaction(signedtx['hex'], max_fee)
     fulltx = node.getrawtransaction(txid, 1)
     assert len(fulltx['vout']) == num_outputs  # make sure we didn't generate a change output
     return (txid, send_value)
