@@ -110,10 +110,10 @@ class WalletGroupTest(DigiByteTestFramework):
 
         if self.options.descriptors:
             # Descriptor wallets will use Taproot change by default which has different fees
-            tx4_ungrouped_fee = 3060
-            tx4_grouped_fee = 4400
-            tx5_6_ungrouped_fee = 5760
-            tx5_6_grouped_fee = 8480
+            tx4_ungrouped_fee = 14100
+            tx4_grouped_fee = 20800
+            tx5_6_ungrouped_fee = 27600
+            tx5_6_grouped_fee = 41200
         else:
             tx4_ungrouped_fee = 14100
             tx4_grouped_fee = 20800
