@@ -81,6 +81,7 @@ public:
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 60 / 4;
         consensus.fPowAllowMinDifficultyBlocks = false;
+        consensus.fEasyPow = false;
         consensus.fPowNoRetargeting = false;
         consensus.fRbfEnabled = false;
 
@@ -219,8 +220,8 @@ public:
 
         // BEGIN OLD DGB Consensus Diff Timing Code
 
-        /*
-                /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
+        /**
+        Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
         https://github.com/digibyte/digibyte-old/pull/36 
         https://github.com/digibyte/digibyte-old/pull/15
 
@@ -365,6 +366,7 @@ public:
         consensus.algoSwapChangeTarget = 20000; // Block 9,000,000 Odo PoW Hard Fork
 
         consensus.fPowAllowMinDifficultyBlocks = true;
+        consensus.fEasyPow = false;
         consensus.fPowNoRetargeting = true;
         consensus.nRuleChangeActivationThreshold = 4032; // 4032 - 70% of 5760
         consensus.nMinerConfirmationWindow = 5760; // 1 day of blocks on testnet
@@ -507,6 +509,7 @@ public:
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
+        consensus.fEasyPow = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1815; // 90% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
@@ -581,6 +584,7 @@ public:
         consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.fPowAllowMinDifficultyBlocks = true;
+        consensus.fEasyPow = false; // allow easy blocks on regtest (can be set with -easypow)
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 60 / 4;
         consensus.nTargetTimespan =  0.10 * 48 * 60 * 60; // 4.8 hours
@@ -790,14 +794,17 @@ static void MaybeEnableEasyMining(const ArgsManager& args, Consensus::Params& co
 {
     if (!args.IsArgSet("-easypow")) return;
 
-    // Postpone MultiAlgo Activation to the 1-millionth block
+    consensus.fEasyPow = true;
+    consensus.fPowAllowMinDifficultyBlocks = true;
+
+    // // Postpone MultiAlgo Activation to the 1-millionth block
     consensus.multiAlgoDiffChangeTarget = 1000000;
 
-    // Disable Difficulty Adjustment by setting the interval
-    // to 1 million blocks
-    consensus.nInterval = 1000000;
-
-    // Delay new difficulty retargeting algorithm
+    // Delay new difficulty retargeting algorithm.
+    // This will also delay have fixed subsidy as follows:
+    //  if (nHeight < 1440) 72000 * COIN;
+    //  if (nHeight < 5760) 16000 * COIN;
+    //  else nSubsidy = 8000 * COIN;
     consensus.nDiffChangeTarget = 1000000;
 
     // Delay softforks 

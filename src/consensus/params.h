@@ -115,6 +115,7 @@ struct Params {
     uint256 powLimit;
     std::map<int, uint256> initialTarget;
     bool fPowAllowMinDifficultyBlocks;
+    bool fEasyPow;
     bool fPowNoRetargeting;
     bool fRbfEnabled;
     int64_t nPowTargetSpacing;

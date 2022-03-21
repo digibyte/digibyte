@@ -258,6 +258,12 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     if (params.fPowAllowMinDifficultyBlocks)
     {
+    	// Special difficulty rule for regtest:
+    	// Always allow min difficulty blocks if fEasyPow is set
+    	if (params.fEasyPow) {
+            return PowLimit(params);
+    	}
+
         // Special difficulty rule for testnet:
         // If the new block's timestamp is more than 2 minutes
         // then allow mining of a min-difficulty block.
