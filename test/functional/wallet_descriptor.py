@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-2021 The DigiByte Core developers
+# Copyright (c) 2019-2020 The Bitcoin Core developers
+# Copyright (c) 2015-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test descriptor wallet function."""
@@ -37,12 +38,12 @@ class WalletDescriptorTest(DigiByteTestFramework):
         self.log.info("Making a descriptor wallet")
         self.nodes[0].createwallet(wallet_name="desc1", descriptors=True)
 
-        # A descriptor wallet should have 100 addresses * 4 types = 400 keys
+        # A descriptor wallet should have 100 addresses * 3 types = 300 keys
         self.log.info("Checking wallet info")
         wallet_info = self.nodes[0].getwalletinfo()
         assert_equal(wallet_info['format'], 'sqlite')
-        assert_equal(wallet_info['keypoolsize'], 400)
-        assert_equal(wallet_info['keypoolsize_hd_internal'], 400)
+        assert_equal(wallet_info['keypoolsize'], 300)
+        assert_equal(wallet_info['keypoolsize_hd_internal'], 300)
         assert 'keypoololdest' not in wallet_info
 
         # Check that getnewaddress works
@@ -84,7 +85,7 @@ class WalletDescriptorTest(DigiByteTestFramework):
         send_wrpc = self.nodes[0].get_wallet_rpc("desc1")
 
         # Generate some coins
-        self.generatetoaddress(self.nodes[0], COINBASE_MATURITY + 1, send_wrpc.getnewaddress())
+        send_wrpc.generatetoaddress(COINBASE_MATURITY + 1, send_wrpc.getnewaddress())
 
         # Make transactions
         self.log.info("Test sending and receiving")
