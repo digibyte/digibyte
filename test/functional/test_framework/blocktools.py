@@ -132,7 +132,7 @@ def get_coinbase_value(height):
     else:
         return 8000
 
-def create_coinbase(height, pubkey=None, extra_output_script=None, fees=0, nValue=72000):
+def create_coinbase(height, pubkey=None, extra_output_script=None, fees=0, nValue=None):
     """Create a coinbase transaction.
 
     If pubkey is passed in, the coinbase output will be a P2PK output;
@@ -140,11 +140,14 @@ def create_coinbase(height, pubkey=None, extra_output_script=None, fees=0, nValu
 
     If extra_output_script is given, make a 0-value output to that
     script. This is useful to pad block weight/sigops as needed. """
+    if nValue is None:
+        nValue = get_coinbase_value(height)
+
     coinbase = CTransaction()
     coinbase.vin.append(CTxIn(COutPoint(0, 0xffffffff), script_BIP34_coinbase_height(height), 0xffffffff))
     coinbaseoutput = CTxOut()
     coinbaseoutput.nValue = nValue * COIN
-    if nValue == 72000:
+    if nValue == get_coinbase_value(height):
         coinbaseoutput.nValue += fees
     if pubkey is not None:
         coinbaseoutput.scriptPubKey = key_to_p2pk_script(pubkey)
