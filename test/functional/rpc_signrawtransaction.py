@@ -58,17 +58,17 @@ class SignRawTransactionsTest(DigiByteTestFramework):
         1) The transaction has a complete set of signatures
         2) No script verification error occurred"""
         self.log.info("Test valid raw transaction with one input")
-        privKeys = ['cUeKHd5orzT3mz8P9pxyREHfsWtVfgsfDjiZZBcjUBAaGk1BTj7N', 'cVKpPfVKSJxKqVpE9awvXNWuLHCa5j5tiE7K6zbUSptFpTEtiFrA']
+        privKeys = ['efRd2dqhbxGdHY3v3fxsjr6wYSWreegTmcFbJCBST1tdV4YmycVF', 'edZ85PyGKqqRAQZDLg5gYBgEi1wh1g8FNdLgauxTW6zj3AGjfDqU']
 
         inputs = [
             # Valid pay-to-pubkey scripts
             {'txid': '9b907ef1e3c26fc71fe4a4b3580bc75264112f95050014157059c736f0202e71', 'vout': 0,
-             'scriptPubKey': '76a91460baa0f494b38ce3c940dea67f3804dc52d1fb9488ac'},
+             'scriptPubKey': '76a914ae2c07f02396429a78903e912e78be3e6fe45df488ac'}, # OP_DUP OP_HASH160 60baa0f494b38ce3c940dea67f3804dc52d1fb94 OP_EQUALVERIFY OP_CHECKSIG
             {'txid': '83a4f6a6b73660e13ee6cb3c6063fa3759c50c9b7521d0536022961898f4fb02', 'vout': 0,
-             'scriptPubKey': '76a914669b857c03a5ed269d5d85a1ffac9ed5d663072788ac'},
+             'scriptPubKey': '76a914c99e1eedf4efb76fd8e5bf7da6430948c6644c2c88ac'},
         ]
 
-        outputs = {'mpLQjfK79b7CCV4VMJWEWAj5Mpx8Up5zxB': 0.1}
+        outputs = {'syTwPPYB1uCG553DLYbiDUXxG9n1u3Rq9W': 0.1}
 
         rawTx = self.nodes[0].createrawtransaction(inputs, outputs)
         rawTxSigned = self.nodes[0].signrawtransactionwithkey(rawTx, privKeys, inputs)
@@ -97,7 +97,7 @@ class SignRawTransactionsTest(DigiByteTestFramework):
         5) Script verification errors have certain properties ("txid", "vout", "scriptSig", "sequence", "error")
         6) The verification errors refer to the invalid (vin 1) and missing input (vin 2)"""
         self.log.info("Test script verification errors")
-        privKeys = ['cUeKHd5orzT3mz8P9pxyREHfsWtVfgsfDjiZZBcjUBAaGk1BTj7N']
+        privKeys = ['efRd2dqhbxGdHY3v3fxsjr6wYSWreegTmcFbJCBST1tdV4YmycVF']
 
         inputs = [
             # Valid pay-to-pubkey script
@@ -111,13 +111,13 @@ class SignRawTransactionsTest(DigiByteTestFramework):
         scripts = [
             # Valid pay-to-pubkey script
             {'txid': '9b907ef1e3c26fc71fe4a4b3580bc75264112f95050014157059c736f0202e71', 'vout': 0,
-             'scriptPubKey': '76a91460baa0f494b38ce3c940dea67f3804dc52d1fb9488ac'},
+             'scriptPubKey': '76a914ae2c07f02396429a78903e912e78be3e6fe45df488ac'},
             # Invalid script
             {'txid': '5b8673686910442c644b1f4993d8f7753c7c8fcb5c87ee40d56eaeef25204547', 'vout': 7,
              'scriptPubKey': 'badbadbadbad'}
         ]
 
-        outputs = {'mpLQjfK79b7CCV4VMJWEWAj5Mpx8Up5zxB': 0.1}
+        outputs = {'t4Au1qr9aBPfNpBRE1vLqvXhe4YAFD3iGn': 0.1}
 
         rawTx = self.nodes[0].createrawtransaction(inputs, outputs)
 
@@ -266,6 +266,7 @@ class SignRawTransactionsTest(DigiByteTestFramework):
 
     def test_signing_with_csv(self):
         self.log.info("Test signing a transaction containing a fully signed CSV input")
+        self.restart_node(0, ["-testactivationheight=csv@20"])
         self.nodes[0].walletpassphrase("password", 9999)
         getcontext().prec = 8
 
@@ -279,9 +280,9 @@ class SignRawTransactionsTest(DigiByteTestFramework):
         # Fund that address and make the spend
         txid = self.nodes[0].sendtoaddress(address, 1)
         vout = find_vout_for_address(self.nodes[0], txid, address)
-        self.generate(self.nodes[0], 1)
+        self.generate(self.nodes[0], 1, sync_fun=self.no_op)
         utxo = self.nodes[0].listunspent()[0]
-        amt = Decimal(1) + utxo["amount"] - Decimal(0.00001)
+        amt = Decimal(1) + utxo["amount"] - Decimal(0.001)
         tx = self.nodes[0].createrawtransaction(
             [{"txid": txid, "vout": vout, "sequence": 1},{"txid": utxo["txid"], "vout": utxo["vout"]}],
             [{self.nodes[0].getnewaddress(): amt}],
@@ -301,6 +302,7 @@ class SignRawTransactionsTest(DigiByteTestFramework):
 
     def test_signing_with_cltv(self):
         self.log.info("Test signing a transaction containing a fully signed CLTV input")
+        self.restart_node(0, ["-testactivationheight=cltv@20"])
         self.nodes[0].walletpassphrase("password", 9999)
         getcontext().prec = 8
 
@@ -308,15 +310,15 @@ class SignRawTransactionsTest(DigiByteTestFramework):
         assert self.nodes[0].getblockchaininfo()['softforks']['bip65']['active']
 
         # Create a P2WSH script with CLTV
-        script = CScript([100, OP_CHECKLOCKTIMEVERIFY, OP_DROP])
+        script = CScript([20, OP_CHECKLOCKTIMEVERIFY, OP_DROP])
         address = script_to_p2wsh(script)
 
         # Fund that address and make the spend
         txid = self.nodes[0].sendtoaddress(address, 1)
         vout = find_vout_for_address(self.nodes[0], txid, address)
-        self.generate(self.nodes[0], 1)
+        self.generate(self.nodes[0], 1, sync_fun=self.no_op)
         utxo = self.nodes[0].listunspent()[0]
-        amt = Decimal(1) + utxo["amount"] - Decimal(0.00001)
+        amt = Decimal(1) + utxo["amount"] - Decimal(0.001)
         tx = self.nodes[0].createrawtransaction(
             [{"txid": txid, "vout": vout},{"txid": utxo["txid"], "vout": utxo["vout"]}],
             [{self.nodes[0].getnewaddress(): amt}],
