@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018-2021 The DigiByte Core developers
+# Copyright (c) 2018-2020 The Bitcoin Core developers
+# Copyright (c) 2018-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test digibyte-wallet."""
@@ -31,8 +32,8 @@ class ToolWalletTest(DigiByteTestFramework):
     def digibyte_wallet_process(self, *args):
         binary = self.config["environment"]["BUILDDIR"] + '/src/digibyte-wallet' + self.config["environment"]["EXEEXT"]
         default_args = ['-datadir={}'.format(self.nodes[0].datadir), '-chain=%s' % self.chain]
-        if not self.options.descriptors and 'create' in args:
-            default_args.append('-legacy')
+        if self.options.descriptors and 'create' in args:
+            default_args.append('-descriptors')
 
         return subprocess.Popen([binary] + default_args + list(args), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
@@ -70,8 +71,8 @@ class ToolWalletTest(DigiByteTestFramework):
 
     def get_expected_info_output(self, name="", transactions=0, keypool=2, address=0):
         wallet_name = self.default_wallet_name if name == "" else name
+        output_types = 3  # p2pkh, p2sh, segwit
         if self.options.descriptors:
-            output_types = 4  # p2pkh, p2sh, segwit, bech32m
             return textwrap.dedent('''\
                 Wallet info
                 ===========
@@ -85,7 +86,6 @@ class ToolWalletTest(DigiByteTestFramework):
                 Address Book: %d
             ''' % (wallet_name, keypool * output_types, transactions, address))
         else:
-            output_types = 3  # p2pkh, p2sh, segwit. Legacy wallets do not support bech32m.
             return textwrap.dedent('''\
                 Wallet info
                 ===========
@@ -194,7 +194,7 @@ class ToolWalletTest(DigiByteTestFramework):
         locked_dir = os.path.join(self.options.tmpdir, "node0", "regtest", "wallets")
         error = 'Error initializing wallet database environment "{}"!'.format(locked_dir)
         if self.options.descriptors:
-            error = f"SQLiteDatabase: Unable to obtain an exclusive lock on the database, is it being used by another instance of {self.config['environment']['PACKAGE_NAME']}?"
+            error = "SQLiteDatabase: Unable to obtain an exclusive lock on the database, is it being used by another instance of DigiByte Core?"
         self.assert_raises_tool_error(
             error,
             '-wallet=' + self.default_wallet_name,
@@ -299,8 +299,8 @@ class ToolWalletTest(DigiByteTestFramework):
             assert_equal(1000, out['keypoolsize_hd_internal'])
             assert_equal(True, 'hdseedid' in out)
         else:
-            assert_equal(4000, out['keypoolsize'])
-            assert_equal(4000, out['keypoolsize_hd_internal'])
+            assert_equal(3000, out['keypoolsize'])
+            assert_equal(3000, out['keypoolsize_hd_internal'])
 
         self.log_wallet_timestamp_comparison(timestamp_before, timestamp_after)
         assert_equal(timestamp_before, timestamp_after)
@@ -308,7 +308,7 @@ class ToolWalletTest(DigiByteTestFramework):
         self.log.debug('Wallet file shasum unchanged\n')
 
     def test_salvage(self):
-        # TODO: Check salvage actually salvages and doesn't break things. https://github.com/digibyte/digibyte/issues/7463
+        # TODO: Check salvage actually salvages and doesn't break things. https://github.com/bitcoin/bitcoin/issues/7463
         self.log.info('Check salvage')
         self.start_node(0)
         self.nodes[0].createwallet("salvage")
@@ -345,7 +345,7 @@ class ToolWalletTest(DigiByteTestFramework):
         non_exist_dump = os.path.join(self.nodes[0].datadir, "wallet.nodump")
         self.assert_raises_tool_error('Unknown wallet file format "notaformat" provided. Please provide one of "bdb" or "sqlite".', '-wallet=todump', '-format=notaformat', '-dumpfile={}'.format(wallet_dump), 'createfromdump')
         self.assert_raises_tool_error('Dump file {} does not exist.'.format(non_exist_dump), '-wallet=todump', '-dumpfile={}'.format(non_exist_dump), 'createfromdump')
-        wallet_path = os.path.join(self.nodes[0].datadir, 'regtest', 'wallets', 'todump2')
+        wallet_path = os.path.join(self.nodes[0].datadir, 'regtest/wallets/todump2')
         self.assert_raises_tool_error('Failed to create database path \'{}\'. Database already exists.'.format(wallet_path), '-wallet=todump2', '-dumpfile={}'.format(wallet_dump), 'createfromdump')
         self.assert_raises_tool_error("The -descriptors option can only be used with the 'create' command.", '-descriptors', '-wallet=todump2', '-dumpfile={}'.format(wallet_dump), 'createfromdump')
 
