@@ -17,9 +17,9 @@ class RPCGenerateTest(DigiByteTestFramework):
 
     def run_test(self):
         message = (
-            "generate\n\n"
+            "generate\n"
             "has been replaced by the -generate "
-            "cli option. Refer to -help for more information.\n"
+            "cli option. Refer to -help for more information."
         )
 
         self.log.info("Test rpc generate raises with message to use cli option")
