@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2021 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node responses to invalid network messages."""
@@ -28,6 +28,7 @@ from test_framework.p2p import (
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
+    hex_str_to_bytes,
 )
 
 VALID_DATA_LIMIT = MAX_PROTOCOL_MESSAGE_LENGTH - 5  # Account for the 5-byte length prefix
@@ -155,7 +156,7 @@ class InvalidMessagesTest(DigiByteTestFramework):
         node = self.nodes[0]
         conn = node.add_p2p_connection(SenderOfAddrV2())
 
-        # Make sure digibyted signals support for ADDRv2, otherwise this test
+        # Make sure bitcoind signals support for ADDRv2, otherwise this test
         # will bombard an old node with messages it does not recognize which
         # will produce unexpected results.
         conn.wait_for_sendaddrv2()
@@ -186,7 +187,7 @@ class InvalidMessagesTest(DigiByteTestFramework):
             [
                 'received: addrv2 (1 bytes)',
             ],
-            bytes.fromhex('00'))
+            hex_str_to_bytes('00'))
 
     def test_addrv2_too_long_address(self):
         self.test_addrv2('too long address',
@@ -195,7 +196,7 @@ class InvalidMessagesTest(DigiByteTestFramework):
                 'ProcessMessages(addrv2, 525 bytes): Exception',
                 'Address too long: 513 > 512',
             ],
-            bytes.fromhex(
+            hex_str_to_bytes(
                 '01' +       # number of entries
                 '61bc6649' + # time, Fri Jan  9 02:54:25 UTC 2009
                 '00' +       # service flags, COMPACTSIZE(NODE_NONE)
@@ -209,10 +210,10 @@ class InvalidMessagesTest(DigiByteTestFramework):
         self.test_addrv2('unrecognized network',
             [
                 'received: addrv2 (25 bytes)',
-                '9.9.9.9:8333 mapped',
+                'IP 9.9.9.9 mapped',
                 'Added 1 addresses',
             ],
-            bytes.fromhex(
+            hex_str_to_bytes(
                 '02' +     # number of entries
                 # this should be ignored without impeding acceptance of subsequent ones
                 now_hex +  # time
