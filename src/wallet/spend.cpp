@@ -778,6 +778,10 @@ bool CWallet::CreateTransactionInternal(
         fee_needed = coin_selection_params.m_effective_feerate.GetFee(nBytes);
     }
 
+    // The only time that fee_needed should be less than the amount available for fees (in change_and_fee - change_amount) is when
+    // we are subtracting the fee from the outputs. If this occurs at any other time, it is a bug.
+    assert(coin_selection_params.m_subtract_fee_outputs || fee_needed <= change_and_fee - change_amount);
+
     // Update nFeeRet in case fee_needed changed due to dropping the change output
     if (fee_needed <= change_and_fee - change_amount) {
         nFeeRet = change_and_fee - change_amount;
@@ -841,7 +845,7 @@ bool CWallet::CreateTransactionInternal(
         return false;
     }
 
-    if (nFeeRet > m_default_max_tx_fee) {
+    if (nFeeRet > m_default_max_tx_fee) {           
         error = TransactionErrorString(TransactionError::MAX_FEE_EXCEEDED);
         return false;
     }
@@ -906,6 +910,9 @@ bool CWallet::CreateTransaction(
         if (CreateTransactionInternal(vecSend, tx2, nFeeRet2, nChangePosInOut2, error2, tmp_cc, fee_calc_out, sign)) {
             // if fee of this alternative one is within the range of the max fee, we use this one
             const bool use_aps = nFeeRet2 <= nFeeRet + m_max_aps_fee;
+            std::cout << "nFeeRet2 = " << nFeeRet2 << std::endl;
+            std::cout << "m_max_aps_fee = " << m_max_aps_fee << std::endl; 
+            std::cout << "nFeeRet = " << nFeeRet << std::endl;
             WalletLogPrintf("Fee non-grouped = %lld, grouped = %lld, using %s\n", nFeeRet, nFeeRet2, use_aps ? "grouped" : "non-grouped");
             if (use_aps) {
                 tx = tx2;
