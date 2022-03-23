@@ -114,9 +114,9 @@ class WalletBackupTest(DigiByteTestFramework):
         os.remove(os.path.join(self.nodes[2].datadir, self.chain, 'wallets', self.default_wallet_name, self.wallet_data_filename))
 
     def init_three(self):
-        self.init_wallet(0)
-        self.init_wallet(1)
-        self.init_wallet(2)
+        self.init_wallet(node=0)
+        self.init_wallet(node=1)
+        self.init_wallet(node=2)
 
     def run_test(self):
         self.log.info("Generating initial blockchain")
