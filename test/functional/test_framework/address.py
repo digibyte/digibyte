@@ -24,7 +24,7 @@ from .segwit_addr import encode_segwit_address
 from .util import assert_equal
 
 ADDRESS_BCRT1_UNSPENDABLE = 'dgbrt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqn5txr0'
-ADDRESS_BCRT1_UNSPENDABLE_DESCRIPTOR = 'addr(dgbrt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqn5txr0)#juyq9d97'
+ADDRESS_BCRT1_UNSPENDABLE_DESCRIPTOR = 'addr(dgbrt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqn5txr0)#s2wufnt8'
 # Coins sent to this address can be spent with a witness stack of just OP_TRUE
 ADDRESS_BCRT1_P2WSH_OP_TRUE = 'dgbrt1qft5p2uhsdcdc3l2ua4ap5qqfg4pjaqlp250x7us7a8qqhrxrxfsqjt28qf'
 
