@@ -320,8 +320,8 @@ class RawTransactionsTest(DigiByteTestFramework):
 
         self.sync_all()
         inputs = [{"txid": txId, "vout": vout['n']}]
-        # Fee 10,000 satoshis, (1 - (10000 sat * 0.00000001 BTC/sat)) = 0.9999
-        outputs = {self.nodes[0].getnewaddress(): Decimal("0.99990000")}
+        # Fee 100,000 satoshis, (1 - (100000 sat * 0.00000001 BTC/sat)) = 0.999
+        outputs = {self.nodes[0].getnewaddress(): Decimal("0.9990000")}
         rawTx = self.nodes[2].createrawtransaction(inputs, outputs)
         rawTxSigned = self.nodes[2].signrawtransactionwithwallet(rawTx)
         assert_equal(rawTxSigned['complete'], True)
@@ -479,7 +479,7 @@ class RawTransactionsTest(DigiByteTestFramework):
         rawTx = self.nodes[0].decoderawtransaction(rawTxSigned['hex'])
         self.sync_all()
         self.generate(self.nodes[0], 1)
-        assert_equal(self.nodes[0].getbalance(), bal + Decimal('50.00000000') + Decimal('2.19000000'))  # block reward + tx
+        assert_equal(self.nodes[0].getbalance(), bal + Decimal('72000.00000000') + Decimal('2.19000000'))  # block reward + tx
 
         # 2of2 test for combining transactions
         bal = self.nodes[2].getbalance()
@@ -522,7 +522,7 @@ class RawTransactionsTest(DigiByteTestFramework):
         rawTx2 = self.nodes[0].decoderawtransaction(rawTxComb)
         self.sync_all()
         self.generate(self.nodes[0], 1)
-        assert_equal(self.nodes[0].getbalance(), bal + Decimal('50.00000000') + Decimal('2.19000000'))  # block reward + tx
+        assert_equal(self.nodes[0].getbalance(), bal + Decimal('72000.00000000') + Decimal('2.19000000'))  # block reward + tx
 
 
 if __name__ == '__main__':
