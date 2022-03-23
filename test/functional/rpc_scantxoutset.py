@@ -5,6 +5,7 @@
 """Test the scantxoutset rpc call."""
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
+from test_framework.descriptors import descsum_create
 
 from decimal import Decimal
 import shutil
@@ -36,18 +37,18 @@ class ScantxoutsetTest(DigiByteTestFramework):
         self.nodes[0].sendtoaddress(addr_BECH32, 0.004)
 
         #send to child keys of tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK
-        self.nodes[0].sendtoaddress("mkHV1C6JLheLoUSSZYk7x3FH5tnx9bu7yc", 0.008) # (m/0'/0'/0')
-        self.nodes[0].sendtoaddress("mipUSRmJAj2KrjSvsPQtnP8ynUon7FhpCR", 0.016) # (m/0'/0'/1')
-        self.nodes[0].sendtoaddress("n37dAGe6Mq1HGM9t4b6rFEEsDGq7Fcgfqg", 0.032) # (m/0'/0'/1500')
-        self.nodes[0].sendtoaddress("mqS9Rpg8nNLAzxFExsgFLCnzHBsoQ3PRM6", 0.064) # (m/0'/0'/0)
-        self.nodes[0].sendtoaddress("mnTg5gVWr3rbhHaKjJv7EEEc76ZqHgSj4S", 0.128) # (m/0'/0'/1)
-        self.nodes[0].sendtoaddress("mketCd6B9U9Uee1iCsppDJJBHfvi6U6ukC", 0.256) # (m/0'/0'/1500)
-        self.nodes[0].sendtoaddress("mj8zFzrbBcdaWXowCQ1oPZ4qioBVzLzAp7", 0.512) # (m/1/1/0')
-        self.nodes[0].sendtoaddress("mfnKpKQEftniaoE1iXuMMePQU3PUpcNisA", 1.024) # (m/1/1/1')
-        self.nodes[0].sendtoaddress("mou6cB1kaP1nNJM1sryW6YRwnd4shTbXYQ", 2.048) # (m/1/1/1500')
-        self.nodes[0].sendtoaddress("mtfUoUax9L4tzXARpw1oTGxWyoogp52KhJ", 4.096) # (m/1/1/0)
-        self.nodes[0].sendtoaddress("mxp7w7j8S1Aq6L8StS2PqVvtt4HGxXEvdy", 8.192) # (m/1/1/1)
-        self.nodes[0].sendtoaddress("mpQ8rokAhp1TAtJQR6F6TaUmjAWkAWYYBq", 16.384) # (m/1/1/1500)
+        self.nodes[0].sendtoaddress("snMXmpZczQbV4yXjvqjuDvL5XTf6oRmuXY", 0.008) # (m/0'/0'/0')
+        self.nodes[0].sendtoaddress("sktXD4EcpRyU8EYEEgQg4GDnE3fvkC3HGG", 0.016) # (m/0'/0'/1')
+        self.nodes[0].sendtoaddress("t5Bfvu7R1XxRXrFBRt6dX7KfeqhFvbEkWS", 0.032) # (m/0'/0'/1500')
+        self.nodes[0].sendtoaddress("ssWCCT9TS5HKGTLYLAg2c5snikjx5m8JTT", 0.064) # (m/0'/0'/0)
+        self.nodes[0].sendtoaddress("spXirJxqVkojxnfd6butW7KQYfRyrvBzLt", 0.128) # (m/0'/0'/1)
+        self.nodes[0].sendtoaddress("snivyFZVoB6cv971aApbVBNyjEnrmkVYu7", 0.256) # (m/0'/0'/1500)
+        self.nodes[0].sendtoaddress("smD32dKuqKain2uEZh1afS9eAN3ehRQ9Am", 0.512) # (m/1/1/0')
+        self.nodes[0].sendtoaddress("shrNawsZKbjrrJKK5pu8dXUCucFdWjx4QK", 1.024) # (m/1/1/1')
+        self.nodes[0].sendtoaddress("sqy9NoV5E5xvdoSKF9yHNRWkEBw2QDTviM", 2.048) # (m/1/1/1500')
+        self.nodes[0].sendtoaddress("svjXa74Go323G2FjCE1ajA3KRNfqUdzr6S", 4.096) # (m/1/1/0)
+        self.nodes[0].sendtoaddress("sztAhkCT5i7yMqDkFj2B7P1hKd9Re3Dax9", 8.192) # (m/1/1/1)
+        self.nodes[0].sendtoaddress("srUBdSDVMWxbSPPhnPEsjTZaAjNtsbqwax", 16.384) # (m/1/1/1500)
 
 
         self.generate(self.nodes[0], 1)
@@ -112,6 +113,7 @@ class ScantxoutsetTest(DigiByteTestFramework):
         assert_equal(self.nodes[0].scantxoutset("start", [ {"desc": "combo(tpubD6NzVbkrYhZ4WaWSyoBvQwbpLkojyoTZPRsgXELWz3Popb3qkjcJyJUGLnL4qHHoQvao8ESaAstxYSnhyswJ76uZPStJRJCTKvosUCJZL5B/1/1/*)", "range": 1500}])['total_amount'], Decimal("28.672"))
         assert_equal(self.nodes[0].scantxoutset("start", [ {"desc": "combo(tpubD6NzVbkrYhZ4WaWSyoBvQwbpLkojyoTZPRsgXELWz3Popb3qkjcJyJUGLnL4qHHoQvao8ESaAstxYSnhyswJ76uZPStJRJCTKvosUCJZL5B/1/1/*)", "range": [1500,1500]}])['total_amount'], Decimal("16.384"))
 
+        # Test the reported descriptors for a few matches
         # Test the reported descriptors for a few matches
         assert_equal(descriptors(self.nodes[0].scantxoutset("start", [ {"desc": "combo(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK/0h/0'/*)", "range": 1499}])), ["pkh([0c5f9a1e/0'/0'/0]026dbd8b2315f296d36e6b6920b1579ca75569464875c7ebe869b536a7d9503c8c)#dzxw429x", "pkh([0c5f9a1e/0'/0'/1]033e6f25d76c00bedb3a8993c7d5739ee806397f0529b1b31dda31ef890f19a60c)#43rvceed"])
         assert_equal(descriptors(self.nodes[0].scantxoutset("start", [ "combo(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK/1/1/0)"])), ["pkh([0c5f9a1e/1/1/0]03e1c5b6e650966971d7e71ef2674f80222752740fc1dfd63bbbd220d2da9bd0fb)#cxmct4w8"])
