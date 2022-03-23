@@ -38,7 +38,7 @@ from test_framework.util import (
     assert_greater_than_or_equal,
 )
 
-DEFAULT_FEE = Decimal("0.0001")
+DEFAULT_FEE = Decimal("0.005")
 
 class MiniWalletMode(Enum):
     """Determines the transaction type the MiniWallet is creating and spending.
@@ -150,7 +150,7 @@ class MiniWallet:
         self.sendrawtransaction(from_node=kwargs['from_node'], tx_hex=tx['hex'])
         return tx
 
-    def send_to(self, *, from_node, scriptPubKey, amount, fee=1000):
+    def send_to(self, *, from_node, scriptPubKey, amount, fee=15000):
         """
         Create and send a tx with an output to a given scriptPubKey/amount,
         plus a change output to our internal address. To keep things simple, a
