@@ -27,6 +27,7 @@ import logging
 import struct
 import sys
 import threading
+import time
 
 from test_framework.messages import (
     CBlockHeader,
@@ -82,7 +83,7 @@ logger = logging.getLogger("TestFramework.p2p")
 MIN_P2P_VERSION_SUPPORTED = 60001
 # The P2P version that this test framework implements and sends in its `version` message
 # Version 70016 supports wtxid relay
-P2P_VERSION = 70016
+P2P_VERSION = 70017
 # The services that this test framework offers in its `version` message
 P2P_SERVICES = NODE_NETWORK | NODE_WITNESS
 # The P2P user agent string that this test framework sends in its `version` message
@@ -127,8 +128,8 @@ MESSAGEMAP = {
 }
 
 MAGIC_BYTES = {
-    "mainnet": b"\xf9\xbe\xb4\xd9",   # mainnet
-    "testnet3": b"\x0b\x11\x09\x07",  # testnet3
+    "mainnet": b"\xfa\xc3\xb6\xda",   # mainnet
+    "testnet3": b"\xfd\xc8\xbd\xdd",  # testnet3
     "regtest": b"\xfa\xbf\xb5\xda",   # regtest
     "signet": b"\x0a\x03\xcf\x40",    # signet
 }
@@ -434,7 +435,7 @@ class P2PInterface(P2PConnection):
 
     def on_version(self, message):
         assert message.nVersion >= MIN_P2P_VERSION_SUPPORTED, "Version {} received. Test framework only supports versions greater than {}".format(message.nVersion, MIN_P2P_VERSION_SUPPORTED)
-        if message.nVersion >= 70016 and self.wtxidrelay:
+        if message.nVersion >= 70017 and self.wtxidrelay:
             self.send_message(msg_wtxidrelay())
         if self.support_addrv2:
             self.send_message(msg_sendaddrv2())
