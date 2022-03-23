@@ -33,7 +33,7 @@ class MerkleBlockTest(DigiByteTestFramework):
         self.generate(self.nodes[0], COINBASE_MATURITY)
 
         chain_height = self.nodes[1].getblockcount()
-        assert_equal(chain_height, 105)
+        assert_equal(chain_height, COINBASE_MATURITY + 5)
 
         txid1 = miniwallet.send_self_transfer(from_node=self.nodes[0])['txid']
         txid2 = miniwallet.send_self_transfer(from_node=self.nodes[0])['txid']
