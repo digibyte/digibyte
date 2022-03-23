@@ -347,13 +347,13 @@ class AddressTypeTest(DigiByteTestFramework):
         self.test_change_output_type(0, [to_address_bech32_1], 'legacy')
 
         if self.options.descriptors:
-            self.log.info("Nodes with addresstype=p2sh-segwit only use a bech32m change output if any destination address is bech32:")
+            self.log.info("Nodes with addresstype=p2sh-segwit match the change output")
             self.test_change_output_type(1, [to_address_p2sh], 'p2sh-segwit')
-            self.test_change_output_type(1, [to_address_bech32_1], 'bech32m')
-            self.test_change_output_type(1, [to_address_p2sh, to_address_bech32_1], 'bech32m')
-            self.test_change_output_type(1, [to_address_bech32_1, to_address_bech32_2], 'bech32m')
+            self.test_change_output_type(1, [to_address_bech32_1], 'bech32')
+            self.test_change_output_type(1, [to_address_p2sh, to_address_bech32_1], 'bech32')
+            self.test_change_output_type(1, [to_address_bech32_1, to_address_bech32_2], 'bech32')
         else:
-            self.log.info("Nodes with addresstype=p2sh-segwit only use a P2WPKH change output if any destination address is bech32:")
+            self.log.info("Nodes with addresstype=p2sh-segwit match the change output")
             self.test_change_output_type(1, [to_address_p2sh], 'p2sh-segwit')
             self.test_change_output_type(1, [to_address_bech32_1], 'bech32')
             self.test_change_output_type(1, [to_address_p2sh, to_address_bech32_1], 'bech32')
@@ -364,11 +364,11 @@ class AddressTypeTest(DigiByteTestFramework):
         self.test_change_output_type(2, [to_address_p2sh], 'bech32')
 
         if self.options.descriptors:
-            self.log.info("Nodes with addresstype=bech32 always use either a bech32 or bech32m change output (unless changetype is set otherwise):")
-            self.test_change_output_type(3, [to_address_bech32_1], 'bech32m')
+            self.log.info("Nodes with addresstype=bech32 match the change output (unless changetype is set otherwise):")
+            self.test_change_output_type(3, [to_address_bech32_1], 'bech32')
             self.test_change_output_type(3, [to_address_p2sh], 'bech32')
         else:
-            self.log.info("Nodes with addresstype=bech32 always use a P2WPKH change output (unless changetype is set otherwise):")
+            self.log.info("Nodes with addresstype=bech32 match the change output (unless changetype is set otherwise):")
             self.test_change_output_type(3, [to_address_bech32_1], 'bech32')
             self.test_change_output_type(3, [to_address_p2sh], 'bech32')
 
@@ -389,9 +389,10 @@ class AddressTypeTest(DigiByteTestFramework):
         self.test_address(4, self.nodes[4].getrawchangeaddress('bech32'), multisig=False, typ='bech32')
 
         if self.options.descriptors:
-            self.log.info("Descriptor wallets have bech32m addresses")
-            self.test_address(4, self.nodes[4].getnewaddress("", "bech32m"), multisig=False, typ="bech32m")
-            self.test_address(4, self.nodes[4].getrawchangeaddress("bech32m"), multisig=False, typ="bech32m")
+            self.log.info("Descriptor wallets do not have bech32m addresses by default yet")
+            # TODO: Remove this when they do
+            assert_raises_rpc_error(-12, "Error: No bech32m addresses available", self.nodes[0].getnewaddress, "", "bech32m")
+            assert_raises_rpc_error(-12, "Error: No bech32m addresses available", self.nodes[0].getrawchangeaddress, "bech32m")
         else:
             self.log.info("Legacy wallets cannot make bech32m addresses")
             assert_raises_rpc_error(-8, "Legacy wallets cannot provide bech32m addresses", self.nodes[0].getnewaddress, "", "bech32m")
