@@ -58,15 +58,19 @@ class WalletTest(DigiByteTestFramework):
     # DigiByte specific: COINBASE_MATURITY is set to 8 instead of 100 (in BTC).
     # During this test suite, more and more coinbase utxos are maturing.
     # This helper function collects them.
-    def get_coinbase_utxos(self, node_index, utxo_seen_map = None, min_amount = Decimal('72000')):
+    def get_matured_utxos(self, node_index, utxo_seen_map = None, allow_none_coinbase = False, min_amount = Decimal('72000')):
         if node_index is None: raise ValueError('node_index not specified')
         if utxo_seen_map is None: raise ValueError('utxo_seen_map not specified')
 
         new_coinbase_txs = []
 
-        unspent = self.nodes[node_index].listunspent(query_options={'minimumAmount': '71999.998'})
+        unspent = self.nodes[node_index].listunspent(query_options={'minimumAmount': min_amount})
+
         for utxo in unspent:
-            if utxo['label'] != 'coinbase': continue
+            if allow_none_coinbase == False:
+                if not 'label' in utxo: continue
+                if utxo['label'] != 'coinbase': continue
+
             if utxo['txid'] in utxo_seen_map: continue
             new_coinbase_txs.append(utxo)
             utxo_seen_map[utxo['txid']] = True
@@ -93,14 +97,16 @@ class WalletTest(DigiByteTestFramework):
         self.sync_all(self.nodes[0:3])
         self.generate(self.nodes[1], COINBASE_MATURITY + 1, sync_fun=lambda: self.sync_all(self.nodes[0:3]))
 
+        utxo_count = 1
+        expected_balance = 72000 * utxo_count
         assert_equal(self.nodes[0].getbalance(), 72000)
-        assert_equal(self.nodes[1].getbalance(), 72000)
+        assert_equal(self.nodes[1].getbalance(), expected_balance)
         assert_equal(self.nodes[2].getbalance(), 0)
 
         # Check that only first and second nodes have UTXOs
         utxos = self.nodes[0].listunspent()
         assert_equal(len(utxos), 1)
-        assert_equal(len(self.nodes[1].listunspent()), 1)
+        assert_equal(len(self.nodes[1].listunspent()), utxo_count)
         assert_equal(len(self.nodes[2].listunspent()), 0)
 
         self.log.info("Test gettxout")
@@ -347,6 +353,7 @@ class WalletTest(DigiByteTestFramework):
         tx_obj_not_broadcast = self.nodes[0].gettransaction(txid_not_broadcast)
         self.generate(self.nodes[1], 1, sync_fun=lambda: self.sync_all(self.nodes[0:3]))
 
+        self.get_matured_utxos(2, utxo_seen[2], True, Decimal('71000')) # mark all utxos as seen
         assert_equal(self.nodes[2].getbalance(), node_2_bal)  # should not be changed because tx was not broadcasted
 
         # now broadcast from another node, mine a block, sync, and check the balance
@@ -354,7 +361,7 @@ class WalletTest(DigiByteTestFramework):
         self.generate(self.nodes[1], 1, sync_fun=lambda: self.sync_all(self.nodes[0:3]))
 
         # Get newly matured utxos
-        maturedUtxos = self.get_coinbase_utxos(2, utxo_seen[2])
+        maturedUtxos = self.get_matured_utxos(2, utxo_seen[2], True, Decimal('71000'))
         node_2_bal += sum(utxo['amount'] for utxo in maturedUtxos)
 
         # Add TX value from 'txid_not_broadcast'
@@ -379,7 +386,7 @@ class WalletTest(DigiByteTestFramework):
         self.generate(self.nodes[0], 1, sync_fun=lambda: self.sync_all(self.nodes[0:3]))
 
         # Get newly matured utxos
-        maturedUtxos = self.get_coinbase_utxos(2, utxo_seen[2])
+        maturedUtxos = self.get_matured_utxos(2, utxo_seen[2], True, Decimal('71000'))
         node_2_bal += sum(utxo['amount'] for utxo in maturedUtxos)
 
         # Add TX value from 'txid_not_broadcast'
@@ -447,7 +454,7 @@ class WalletTest(DigiByteTestFramework):
 
 
             self.log.info("Test sendtoaddress with fee_rate param (explicit fee rate in sat/vB)")
-            self.get_coinbase_utxos(2, utxo_seen[2]) # clear
+            self.get_matured_utxos(2, utxo_seen[2]) # clear
             prebalance = self.nodes[2].getbalance()
             assert prebalance > 2
             address = self.nodes[1].getnewaddress()
@@ -462,7 +469,7 @@ class WalletTest(DigiByteTestFramework):
             postbalance = self.nodes[2].getbalance()
 
             # DGB: Subtract matured UTXO
-            maturedUtxos = self.get_coinbase_utxos(2, utxo_seen[2])
+            maturedUtxos = self.get_matured_utxos(2, utxo_seen[2])
             postbalance -= sum(utxo['amount'] for utxo in maturedUtxos)
 
             fee = prebalance - postbalance - Decimal(amount)
@@ -481,7 +488,7 @@ class WalletTest(DigiByteTestFramework):
             postbalance = self.nodes[2].getbalance()
 
             # DGB: Subtract matured UTXO
-            maturedUtxos = self.get_coinbase_utxos(2, utxo_seen[2])
+            maturedUtxos = self.get_matured_utxos(2, utxo_seen[2])
             maturedValue = sum(utxo['amount'] for utxo in maturedUtxos)
 
             fee = prebalance - postbalance - amount + maturedValue
@@ -605,13 +612,14 @@ class WalletTest(DigiByteTestFramework):
 
         sending_addr = self.nodes[1].getnewaddress()
         txid_list = []
-        for _ in range(chainlimit * 3):
-            txid_list.append(self.nodes[0].sendtoaddress(sending_addr, Decimal('0.0001')))
+        for _ in range(chainlimit * 2):
+            tx_id = self.nodes[0].sendtoaddress(sending_addr, Decimal('0.0001'))
+            txid_list.append(tx_id)
 
         unspent = self.nodes[0].listunspent()
 
-        assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit * 3)
-        assert_equal(len(txid_list), chainlimit * 3)
+        assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit * 2)
+        assert_equal(len(txid_list), chainlimit * 2)
 
         # Without walletrejectlongchains, we will still generate a txid
         # The tx will be stored in the wallet but not accepted to the mempool
@@ -624,11 +632,11 @@ class WalletTest(DigiByteTestFramework):
         # Try with walletrejectlongchains
         # Double chain limit but require combining inputs, so we pass SelectCoinsMinConf
         self.stop_node(0)
-        extra_args = ["-walletrejectlongchains", "-limitancestorcount=" + str(3 * chainlimit)]
+        extra_args = ["-walletrejectlongchains", "-limitancestorcount=" + str(2 * chainlimit)]
         self.start_node(0, extra_args=extra_args)
 
         # wait until the wallet has submitted all transactions to the mempool
-        self.wait_until(lambda: len(self.nodes[0].getrawmempool()) == chainlimit * 3)
+        self.wait_until(lambda: len(self.nodes[0].getrawmempool()) == chainlimit * 2)
 
         # Prevent potential race condition when calling wallet RPCs right after restart
         self.nodes[0].syncwithvalidationinterfacequeue()
