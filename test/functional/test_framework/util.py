@@ -5,6 +5,7 @@
 """Helpful routines for regression testing."""
 
 from base64 import b64encode
+from binascii import unhexlify
 from decimal import Decimal, ROUND_DOWN
 from subprocess import CalledProcessError
 import hashlib
@@ -608,6 +609,9 @@ def modinv(a, n):
     if t1 < 0:
         t1 += n
     return t1
+
+def hex_str_to_bytes(hex_str):
+    return unhexlify(hex_str.encode('ascii'))    
 
 class TestFrameworkUtil(unittest.TestCase):
     def test_modinv(self):
