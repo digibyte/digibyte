@@ -19,7 +19,7 @@ import tempfile
 import time
 
 from typing import List
-from .address import create_deterministic_address_bcrt1_p2tr_op_true
+from .address import ADDRESS_BCRT1_P2WSH_OP_TRUE
 from .authproxy import JSONRPCException
 from . import coverage
 from .p2p import NetworkThread
@@ -475,6 +475,7 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
             for i in range(len(extra_args)):
                 if versions[i] is None or versions[i] >= 219900:
                     extra_args[i] = extra_args[i] + ["-sandbox=log-and-abort"]
+
         if binary is None:
             binary = [get_bin_from_version(v, 'digibyted', self.options.digibyted) for v in versions]
         if binary_cli is None:
@@ -777,7 +778,7 @@ class DigiByteTestFramework(metaclass=DigiByteTestMetaClass):
             # block in the cache does not age too much (have an old tip age).
             # This is needed so that we are out of IBD when the test starts,
             # see the tip age check in IsInitialBlockDownload().
-            gen_addresses = [k.address for k in TestNode.PRIV_KEYS][:3] + [create_deterministic_address_bcrt1_p2tr_op_true()[0]]
+            gen_addresses = [k.address for k in TestNode.PRIV_KEYS][:3] + [ADDRESS_BCRT1_P2WSH_OP_TRUE]
             assert_equal(len(gen_addresses), 4)
             for i in range(8):
                 self.generatetoaddress(

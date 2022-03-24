@@ -11,6 +11,9 @@ that spend (directly or indirectly) coinbase transactions.
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
 from test_framework.wallet import MiniWallet
+from test_framework.blocktools import COINBASE_MATURITY
+
+from time import sleep
 
 class MempoolCoinbaseTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -31,7 +34,7 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         self.log.info("Add 4 coinbase utxos to the miniwallet")
         # Block 76 contains the first spendable coinbase txs.
         first_block = 76
-        wallet.rescan_utxos()
+        wallet.scan_blocks(start=first_block, num=4)
 
         # Three scenarios for re-orging coinbase spends in the memory pool:
         # 1. Direct coinbase spend  :  spend_1
@@ -100,7 +103,7 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         assert_equal(set(self.nodes[0].getrawmempool()), {spend_1_id, spend_2_1_id, spend_3_1_id})
 
         self.log.info("Use invalidateblock to re-org back and make all those coinbase spends immature/invalid")
-        b = self.nodes[0].getblockhash(first_block + 100)
+        b = self.nodes[0].getblockhash(first_block + COINBASE_MATURITY)
         for node in self.nodes:
             node.invalidateblock(b)
 
