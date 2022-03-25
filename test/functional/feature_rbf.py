@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2021 The DigiByte Core developers
+# Copyright (c) 2014-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the RBF code."""
 
-from copy import deepcopy
 from decimal import Decimal
 
+from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.messages import (
     BIP125_SEQUENCE_NUMBER,
     COIN,
@@ -17,18 +17,13 @@ from test_framework.messages import (
 )
 from test_framework.script import CScript, OP_DROP
 from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import (
-    assert_equal,
-    assert_raises_rpc_error,
-)
-from test_framework.script_util import (
-    DUMMY_P2WPKH_SCRIPT,
-    DUMMY_2_P2WPKH_SCRIPT,
-)
+from test_framework.util import assert_equal, assert_raises_rpc_error, satoshi_round
+from test_framework.script_util import DUMMY_P2WPKH_SCRIPT, DUMMY_2_P2WPKH_SCRIPT
 from test_framework.wallet import MiniWallet
-from test_framework.address import ADDRESS_BCRT1_UNSPENDABLE
 
 MAX_REPLACEMENT_LIMIT = 100
+
+
 class ReplaceByFeeTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
@@ -43,14 +38,57 @@ class ReplaceByFeeTest(DigiByteTestFramework):
                 "-mempoolreplacement=1",
             ],
         ]
-        self.supports_cli = False
+        self.supports_cli = False        
+
+    def skip_test_if_missing_module(self):
+        self.skip_if_no_wallet()
+
+    def make_utxo(self, node, amount, confirmed=True, scriptPubKey=DUMMY_P2WPKH_SCRIPT):
+        """Create a txout with a given amount and scriptPubKey
+
+        Mines coins as needed.
+
+        confirmed - txouts created will be confirmed in the blockchain;
+                    unconfirmed otherwise.
+        """
+        fee = 1 * COIN
+        while node.getbalance() < satoshi_round((amount + fee) / COIN):
+            self.generate(node, COINBASE_MATURITY)
+
+        new_addr = node.getnewaddress()
+        txid = node.sendtoaddress(new_addr, satoshi_round((amount + fee) / COIN))
+        tx1 = node.getrawtransaction(txid, 1)
+        txid = int(txid, 16)
+        i, _ = next(filter(lambda vout: new_addr == vout[1]['scriptPubKey']['address'], enumerate(tx1['vout'])))
+
+        tx2 = CTransaction()
+        tx2.vin = [CTxIn(COutPoint(txid, i))]
+        tx2.vout = [CTxOut(amount, scriptPubKey)]
+        tx2.rehash()
+
+        signed_tx = node.signrawtransactionwithwallet(tx2.serialize().hex())
+
+        txid = node.sendrawtransaction(signed_tx['hex'], 0)
+
+        # If requested, ensure txouts are confirmed.
+        if confirmed:
+            mempool_size = len(node.getrawmempool())
+            while mempool_size > 0:
+                self.generate(node, 1)
+                new_size = len(node.getrawmempool())
+                # Error out if we have something stuck in the mempool, as this
+                # would likely be a bug.
+                assert new_size < mempool_size
+                mempool_size = new_size
+
+        return COutPoint(int(txid, 16), 0)
+
 
     def run_test(self):
-        self.wallet = MiniWallet(self.nodes[0])
-        # the pre-mined test framework chain contains coinbase outputs to the
-        # MiniWallet's default address in blocks 76-100 (see method
-        # DigiByteTestFramework._initialize_chain())
-        self.wallet.rescan_utxos()
+        self.make_utxo(self.nodes[0], 1440 * COIN)
+
+        # Ensure nodes are synced
+        self.sync_all()
 
         self.log.info("Running test simple doublespend...")
         self.test_simple_doublespend()
@@ -90,40 +128,26 @@ class ReplaceByFeeTest(DigiByteTestFramework):
 
         self.log.info("Passed")
 
-    def make_utxo(self, node, amount, confirmed=True, scriptPubKey=DUMMY_P2WPKH_SCRIPT):
-        """Create a txout with a given amount and scriptPubKey
-
-        confirmed - txouts created will be confirmed in the blockchain;
-                    unconfirmed otherwise.
-        """
-        txid, n = self.wallet.send_to(from_node=node, scriptPubKey=scriptPubKey, amount=amount)
-
-        # If requested, ensure txouts are confirmed.
-        if confirmed:
-            mempool_size = len(node.getrawmempool())
-            while mempool_size > 0:
-                self.generate(node, 1)
-                new_size = len(node.getrawmempool())
-                # Error out if we have something stuck in the mempool, as this
-                # would likely be a bug.
-                assert new_size < mempool_size
-                mempool_size = new_size
-
-        return COutPoint(int(txid, 16), n)
-
     def test_simple_doublespend(self):
         """Simple doublespend"""
-        # we use MiniWallet to create a transaction template with inputs correctly set,
-        # and modify the output (amount, scriptPubKey) according to our needs
-        tx_template = self.wallet.create_self_transfer(from_node=self.nodes[0])['tx']
+        tx0_outpoint = self.make_utxo(self.nodes[0], int(1.1 * COIN))
 
-        tx1a = deepcopy(tx_template)
+        # make_utxo may have generated a bunch of blocks, so we need to sync
+        # before we can spend the coins generated, or else the resulting
+        # transactions might not be accepted by our peers.
+        self.sync_all()
+
+        tx1a = CTransaction()
+        tx1a.vin = [CTxIn(tx0_outpoint, nSequence=0)]
         tx1a.vout = [CTxOut(1 * COIN, DUMMY_P2WPKH_SCRIPT)]
         tx1a_hex = tx1a.serialize().hex()
         tx1a_txid = self.nodes[0].sendrawtransaction(tx1a_hex, 0)
 
+        self.sync_all()
+
         # Should fail because we haven't changed the fee
-        tx1b = deepcopy(tx_template)
+        tx1b = CTransaction()
+        tx1b.vin = [CTxIn(tx0_outpoint, nSequence=0)]
         tx1b.vout = [CTxOut(1 * COIN, DUMMY_2_P2WPKH_SCRIPT)]
         tx1b_hex = tx1b.serialize().hex()
 
@@ -131,7 +155,9 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         assert_raises_rpc_error(-26, "insufficient fee", self.nodes[0].sendrawtransaction, tx1b_hex, 0)
 
         # Extra 0.1 BTC fee
-        tx1b.vout[0].nValue -= int(0.1 * COIN)
+        tx1b = CTransaction()
+        tx1b.vin = [CTxIn(tx0_outpoint, nSequence=0)]
+        tx1b.vout = [CTxOut(int(0.9 * COIN), DUMMY_P2WPKH_SCRIPT)]
         tx1b_hex = tx1b.serialize().hex()
         # Works when enabled
         tx1b_txid = self.nodes[0].sendrawtransaction(tx1b_hex, 0)
@@ -146,14 +172,14 @@ class ReplaceByFeeTest(DigiByteTestFramework):
     def test_doublespend_chain(self):
         """Doublespend of a long chain"""
 
-        initial_nValue = 5 * COIN
+        initial_nValue = 72000 * COIN
         tx0_outpoint = self.make_utxo(self.nodes[0], initial_nValue)
 
         prevout = tx0_outpoint
         remaining_value = initial_nValue
         chain_txids = []
-        while remaining_value > 1 * COIN:
-            remaining_value -= int(0.1 * COIN)
+        while remaining_value > 14400 * COIN:
+            remaining_value -= 1440 * COIN
             tx = CTransaction()
             tx.vin = [CTxIn(prevout, nSequence=0)]
             tx.vout = [CTxOut(remaining_value, CScript([1, OP_DROP] * 15 + [1]))]
@@ -163,10 +189,10 @@ class ReplaceByFeeTest(DigiByteTestFramework):
             prevout = COutPoint(int(txid, 16), 0)
 
         # Whether the double-spend is allowed is evaluated by including all
-        # child fees - 4 BTC - so this attempt is rejected.
+        # child fees - 40 BTC - so this attempt is rejected.
         dbl_tx = CTransaction()
         dbl_tx.vin = [CTxIn(tx0_outpoint, nSequence=0)]
-        dbl_tx.vout = [CTxOut(initial_nValue - 3 * COIN, DUMMY_P2WPKH_SCRIPT)]
+        dbl_tx.vout = [CTxOut(initial_nValue - 30 * COIN, DUMMY_P2WPKH_SCRIPT)]
         dbl_tx_hex = dbl_tx.serialize().hex()
 
         # This will raise an exception due to insufficient fee
@@ -175,7 +201,7 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         # Accepted with sufficient fee
         dbl_tx = CTransaction()
         dbl_tx.vin = [CTxIn(tx0_outpoint, nSequence=0)]
-        dbl_tx.vout = [CTxOut(int(0.1 * COIN), DUMMY_P2WPKH_SCRIPT)]
+        dbl_tx.vout = [CTxOut(1 * COIN, DUMMY_P2WPKH_SCRIPT)]
         dbl_tx_hex = dbl_tx.serialize().hex()
         self.nodes[0].sendrawtransaction(dbl_tx_hex, 0)
 
@@ -186,10 +212,10 @@ class ReplaceByFeeTest(DigiByteTestFramework):
     def test_doublespend_tree(self):
         """Doublespend of a big tree of transactions"""
 
-        initial_nValue = 5 * COIN
+        initial_nValue = 72000 * COIN
         tx0_outpoint = self.make_utxo(self.nodes[0], initial_nValue)
 
-        def branch(prevout, initial_value, max_txs, tree_width=5, fee=0.00011 * COIN, _total_txs=None):
+        def branch(prevout, initial_value, max_txs, tree_width=5, fee=0.001 * COIN, _total_txs=None):
             if _total_txs is None:
                 _total_txs = [0]
             if _total_txs[0] >= max_txs:
@@ -220,7 +246,7 @@ class ReplaceByFeeTest(DigiByteTestFramework):
                                   _total_txs=_total_txs):
                     yield x
 
-        fee = int(0.00011 * COIN)
+        fee = int(0.001 * COIN)
         n = MAX_REPLACEMENT_LIMIT
         tree_txs = list(branch(tx0_outpoint, initial_nValue, n, fee=fee))
         assert_equal(len(tree_txs), n)
@@ -233,10 +259,10 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         # This will raise an exception due to insufficient fee
         assert_raises_rpc_error(-26, "insufficient fee", self.nodes[0].sendrawtransaction, dbl_tx_hex, 0)
 
-        # 0.1 BTC fee is enough
+        # 1 BTC fee is enough
         dbl_tx = CTransaction()
         dbl_tx.vin = [CTxIn(tx0_outpoint, nSequence=0)]
-        dbl_tx.vout = [CTxOut(initial_nValue - fee * n - int(0.1 * COIN), DUMMY_P2WPKH_SCRIPT)]
+        dbl_tx.vout = [CTxOut(initial_nValue - fee * n - 1 * COIN, DUMMY_P2WPKH_SCRIPT)]
         dbl_tx_hex = dbl_tx.serialize().hex()
         self.nodes[0].sendrawtransaction(dbl_tx_hex, 0)
 
@@ -249,7 +275,7 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         # Try again, but with more total transactions than the "max txs
         # double-spent at once" anti-DoS limit.
         for n in (MAX_REPLACEMENT_LIMIT + 1, MAX_REPLACEMENT_LIMIT * 2):
-            fee = int(0.00011 * COIN)
+            fee = int(0.001 * COIN)
             tx0_outpoint = self.make_utxo(self.nodes[0], initial_nValue)
             tree_txs = list(branch(tx0_outpoint, initial_nValue, n, fee=fee))
             assert_equal(len(tree_txs), n)
@@ -352,7 +378,8 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         # Start by creating a single transaction with many outputs
         initial_nValue = 100 * COIN
         utxo = self.make_utxo(self.nodes[0], initial_nValue)
-        fee = int(0.0011 * COIN)
+
+        fee = int(0.0012 * COIN)
         split_value = int((initial_nValue - fee) / (MAX_REPLACEMENT_LIMIT + 1))
 
         outputs = []
@@ -529,9 +556,9 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         assert tx2b_txid in self.nodes[0].getrawmempool()
 
     def test_rpc(self):
-        us0 = self.wallet.get_utxo()
+        us0 = self.nodes[0].listunspent()[0]
         ins = [us0]
-        outs = {ADDRESS_BCRT1_UNSPENDABLE: Decimal(1.0000000)}
+        outs = {self.nodes[0].getnewaddress(): Decimal(1.0000000)}
         rawtx0 = self.nodes[0].createrawtransaction(ins, outs, 0, True)
         rawtx1 = self.nodes[0].createrawtransaction(ins, outs, 0, False)
         json0 = self.nodes[0].decoderawtransaction(rawtx0)
@@ -539,22 +566,22 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         assert_equal(json0["vin"][0]["sequence"], 4294967293)
         assert_equal(json1["vin"][0]["sequence"], 4294967295)
 
-        if self.is_specified_wallet_compiled():
-            self.init_wallet(node=0)
-            rawtx2 = self.nodes[0].createrawtransaction([], outs)
-            frawtx2a = self.nodes[0].fundrawtransaction(rawtx2, {"replaceable": True})
-            frawtx2b = self.nodes[0].fundrawtransaction(rawtx2, {"replaceable": False})
+        rawtx2 = self.nodes[0].createrawtransaction([], outs)
+        frawtx2a = self.nodes[0].fundrawtransaction(rawtx2, {"replaceable": True})
+        frawtx2b = self.nodes[0].fundrawtransaction(rawtx2, {"replaceable": False})
 
-            json0 = self.nodes[0].decoderawtransaction(frawtx2a['hex'])
-            json1 = self.nodes[0].decoderawtransaction(frawtx2b['hex'])
-            assert_equal(json0["vin"][0]["sequence"], 4294967293)
-            assert_equal(json1["vin"][0]["sequence"], 4294967294)
+        json0 = self.nodes[0].decoderawtransaction(frawtx2a['hex'])
+        json1 = self.nodes[0].decoderawtransaction(frawtx2b['hex'])
+        assert_equal(json0["vin"][0]["sequence"], 4294967293)
+        assert_equal(json1["vin"][0]["sequence"], 4294967294)
 
     def test_no_inherited_signaling(self):
-        confirmed_utxo = self.wallet.get_utxo()
+        wallet = MiniWallet(self.nodes[0])
+        wallet.scan_blocks(start=76, num=1)
+        confirmed_utxo = wallet.get_utxo()
 
         # Create an explicitly opt-in parent transaction
-        optin_parent_tx = self.wallet.send_self_transfer(
+        optin_parent_tx = wallet.send_self_transfer(
             from_node=self.nodes[0],
             utxo_to_spend=confirmed_utxo,
             sequence=BIP125_SEQUENCE_NUMBER,
@@ -562,7 +589,7 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         )
         assert_equal(True, self.nodes[0].getmempoolentry(optin_parent_tx['txid'])['bip125-replaceable'])
 
-        replacement_parent_tx = self.wallet.create_self_transfer(
+        replacement_parent_tx = wallet.create_self_transfer(
             from_node=self.nodes[0],
             utxo_to_spend=confirmed_utxo,
             sequence=BIP125_SEQUENCE_NUMBER,
@@ -576,8 +603,8 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         assert_equal(res['allowed'], True)
 
         # Create an opt-out child tx spending the opt-in parent
-        parent_utxo = self.wallet.get_utxo(txid=optin_parent_tx['txid'])
-        optout_child_tx = self.wallet.send_self_transfer(
+        parent_utxo = wallet.get_utxo(txid=optin_parent_tx['txid'])
+        optout_child_tx = wallet.send_self_transfer(
             from_node=self.nodes[0],
             utxo_to_spend=parent_utxo,
             sequence=0xffffffff,
@@ -587,7 +614,7 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         # Reports true due to inheritance
         assert_equal(True, self.nodes[0].getmempoolentry(optout_child_tx['txid'])['bip125-replaceable'])
 
-        replacement_child_tx = self.wallet.create_self_transfer(
+        replacement_child_tx = wallet.create_self_transfer(
             from_node=self.nodes[0],
             utxo_to_spend=parent_utxo,
             sequence=0xffffffff,
@@ -605,19 +632,10 @@ class ReplaceByFeeTest(DigiByteTestFramework):
         assert_equal(True, self.nodes[0].getmempoolentry(optin_parent_tx['txid'])['bip125-replaceable'])
         assert_raises_rpc_error(-26, 'txn-mempool-conflict', self.nodes[0].sendrawtransaction, replacement_child_tx["hex"], 0)
 
-        self.log.info('Check that the child tx can still be replaced (via a tx that also replaces the parent)')
-        replacement_parent_tx = self.wallet.send_self_transfer(
-            from_node=self.nodes[0],
-            utxo_to_spend=confirmed_utxo,
-            sequence=0xffffffff,
-            fee_rate=Decimal('0.03'),
-        )
-        # Check that child is removed and update wallet utxo state
-        assert_raises_rpc_error(-5, 'Transaction not in mempool', self.nodes[0].getmempoolentry, optout_child_tx['txid'])
-        self.wallet.get_utxo(txid=optout_child_tx['txid'])
-
     def test_replacement_relay_fee(self):
-        tx = self.wallet.send_self_transfer(from_node=self.nodes[0])['tx']
+        wallet = MiniWallet(self.nodes[0])
+        wallet.scan_blocks(start=77, num=1)
+        tx = wallet.send_self_transfer(from_node=self.nodes[0])['tx']
 
         # Higher fee, higher feerate, different txid, but the replacement does not provide a relay
         # fee conforming to node's `incrementalrelayfee` policy of 1000 sat per KB.
