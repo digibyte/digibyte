@@ -303,7 +303,6 @@ public:
         consensus.OdoHeight = 600;
 
         consensus.MinBIP9WarningHeight = 0;
-        consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 
         /** Current DigiByte 2017 Difficulty Adjustment Code & Block Target. See explanation here: 
         https://github.com/digibyte/digibyte-old/pull/36 
