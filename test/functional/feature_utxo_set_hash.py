@@ -69,8 +69,8 @@ class UTXOSetHashTest(DigiByteTestFramework):
         assert_equal(finalized[::-1].hex(), node_muhash)
 
         self.log.info("Test deterministic UTXO set hash results")
-        assert_equal(node.gettxoutsetinfo()['hash_serialized_2'], "0b9fefc5297957690d13dcb1a03ba20e2f992cc30151642fc564f7c26da07e3c")
-        assert_equal(node.gettxoutsetinfo("muhash")['muhash'], "661c3ff6690d83783524b38375e489689a47bfe18a1ce24e49352da7788174a9")
+        assert_equal(node.gettxoutsetinfo()['hash_serialized_2'], "40e88b9c20adc4780a1113ece4d836107b9d947e7c8dfb27c2f49043df90cbc5")
+        assert_equal(node.gettxoutsetinfo("muhash")['muhash'], "d027002757987d940396c4a90481843ba1298d54ab3f3258a4b857967cfeec54")
 
     def run_test(self):
         self.test_muhash_implementation()
