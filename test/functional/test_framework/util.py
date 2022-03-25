@@ -359,7 +359,7 @@ def initialize_datadir(dirname, n, chain, disable_autoconnect=True):
 
 def write_config(config_path, *, n, chain, extra_config="", disable_autoconnect=True):
     # Translate chain subdirectory name to config name
-    if chain == 'testnet3':
+    if chain == 'testnet4':
         chain_name_conf_arg = 'testnet'
         chain_name_conf_section = 'test'
     else:
@@ -424,7 +424,7 @@ def get_auth_cookie(datadir, chain):
             split_userpass = userpass.split(':')
             user = split_userpass[0]
             password = split_userpass[1]
-    except OSError:
+    except OSError as e:
         pass
     if user is None or password is None:
         raise ValueError("No RPC credentials")

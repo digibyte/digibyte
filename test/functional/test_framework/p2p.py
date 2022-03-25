@@ -129,7 +129,7 @@ MESSAGEMAP = {
 
 MAGIC_BYTES = {
     "mainnet": b"\xfa\xc3\xb6\xda",   # mainnet
-    "testnet3": b"\xfd\xc8\xbd\xdd",  # testnet3
+    "testnet4": b"\xfd\xc8\xbd\xdd",  # testnet3
     "regtest": b"\xfa\xbf\xb5\xda",   # regtest
     "signet": b"\x0a\x03\xcf\x40",    # signet
 }
@@ -778,7 +778,11 @@ class P2PTxInvStore(P2PInterface):
         super().on_inv(message) # Send getdata in response.
         # Store how many times invs have been received for each tx.
         for i in message.inv:
-            if (i.type == MSG_TX) or (i.type == MSG_WTX):
+            if (i.type == MSG_TX):
+                # save txid
+                self.tx_invs_received[i.hash] += 1
+
+            if (i.type == MSG_WTX):
                 # save txid
                 self.tx_invs_received[i.hash] += 1
 
