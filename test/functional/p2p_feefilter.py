@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2021 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test processing of feefilter messages."""
@@ -8,7 +8,7 @@ from decimal import Decimal
 
 from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.messages import MSG_TX, MSG_WTX, msg_feefilter
-from test_framework.p2p import P2PInterface, p2p_lock
+from test_framework.p2p import P2PInterface, p2p_lock, P2P_VERSION, WTXID_RELAY_VERSION
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
 from test_framework.wallet import MiniWallet
@@ -86,8 +86,9 @@ class FeeFilterTest(DigiByteTestFramework):
 
         conn = self.nodes[0].add_p2p_connection(TestP2PConn())
 
-        self.log.info("Test txs paying 0.2 sat/byte are received by test connection")
-        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00000200'), from_node=node1)['wtxid'] for _ in range(3)]
+        self.log.info("Test txs paying 20 sat/byte are received by test connection")
+        TX_KEY = 'wtxid' if P2P_VERSION >= WTXID_RELAY_VERSION else 'txid'
+        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.000200'), from_node=node1)[TX_KEY] for _ in range(3)]
         conn.wait_for_invs_to_match(txids)
         conn.clear_invs()
 
@@ -95,12 +96,12 @@ class FeeFilterTest(DigiByteTestFramework):
         conn.send_and_ping(msg_feefilter(150))
 
         self.log.info("Test txs paying 0.15 sat/byte are received by test connection")
-        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00000150'), from_node=node1)['wtxid'] for _ in range(3)]
+        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00000150'), from_node=node1)[TX_KEY] for _ in range(3)]
         conn.wait_for_invs_to_match(txids)
         conn.clear_invs()
 
         self.log.info("Test txs paying 0.1 sat/byte are no longer received by test connection")
-        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00000100'), from_node=node1)['wtxid'] for _ in range(3)]
+        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00000100'), from_node=node1)[TX_KEY] for _ in range(3)]
         self.sync_mempools()  # must be sure node 0 has received all txs
 
         # Send one transaction from node0 that should be received, so that we
@@ -110,14 +111,14 @@ class FeeFilterTest(DigiByteTestFramework):
         # to 35 entries in an inv, which means that when this next transaction
         # is eligible for relay, the prior transactions from node1 are eligible
         # as well.
-        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00020000'), from_node=node0)['wtxid'] for _ in range(1)]
+        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00020000'), from_node=node0)[TX_KEY] for _ in range(1)]
         conn.wait_for_invs_to_match(txids)
         conn.clear_invs()
         self.sync_mempools()  # must be sure node 1 has received all txs
 
         self.log.info("Remove fee filter and check txs are received again")
         conn.send_and_ping(msg_feefilter(0))
-        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00020000'), from_node=node1)['wtxid'] for _ in range(3)]
+        txids = [miniwallet.send_self_transfer(fee_rate=Decimal('0.00020000'), from_node=node1)[TX_KEY] for _ in range(3)]
         conn.wait_for_invs_to_match(txids)
         conn.clear_invs()
 
