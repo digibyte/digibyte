@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-2021 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test that we reject low difficulty headers to prevent our block tree from filling up with useless bloat"""
@@ -20,7 +20,7 @@ import os
 class RejectLowDifficultyHeadersTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
-        self.chain = 'testnet3'  # Use testnet chain because it has an early checkpoint
+        self.chain = 'testnet4'  # Use testnet chain because it has an early checkpoint
         self.num_nodes = 2
 
     def add_options(self, parser):
@@ -36,7 +36,7 @@ class RejectLowDifficultyHeadersTest(DigiByteTestFramework):
         with open(self.headers_file_path, encoding='utf-8') as headers_data:
             h_lines = [l.strip() for l in headers_data.readlines()]
 
-        # The headers data is taken from testnet3 for early blocks from genesis until the first checkpoint. There are
+        # The headers data is taken from testnet4 for early blocks from genesis until the first checkpoint. There are
         # two headers with valid POW at height 1 and 2, forking off from genesis. They are indicated by the FORK_PREFIX.
         FORK_PREFIX = 'fork:'
         self.headers = [l for l in h_lines if not l.startswith(FORK_PREFIX)]
@@ -50,7 +50,7 @@ class RejectLowDifficultyHeadersTest(DigiByteTestFramework):
         peer_checkpoint.send_and_ping(msg_headers(self.headers))
         assert {
             'height': 546,
-            'hash': '000000002a936ca763904c3c35fce2f3556c559c0214345d31b1bcebf76acb70',
+            'hash': '08fa50178f4b4f9fe1bbaed3b0a2ee58d1c51cc8185f70c8089e4b95763d9cdb',
             'branchlen': 546,
             'status': 'headers-only',
         } in self.nodes[0].getchaintips()
@@ -67,7 +67,7 @@ class RejectLowDifficultyHeadersTest(DigiByteTestFramework):
         peer_no_checkpoint.send_and_ping(msg_headers(self.headers_fork))
         assert {
             "height": 2,
-            "hash": "00000000b0494bd6c3d5ff79c497cfce40831871cbf39b1bc28bd1dac817dc39",
+            "hash": "092bc73a5c80451e2f38b8d6a73d1f10cd1c3d3a12cffd55d0078e9beeb9c0b7",
             "branchlen": 2,
             "status": "headers-only",
         } in self.nodes[0].getchaintips()
@@ -77,7 +77,7 @@ class RejectLowDifficultyHeadersTest(DigiByteTestFramework):
         peer_before_checkpoint.send_and_ping(msg_headers(self.headers_fork))
         assert {
             "height": 2,
-            "hash": "00000000b0494bd6c3d5ff79c497cfce40831871cbf39b1bc28bd1dac817dc39",
+            "hash": "092bc73a5c80451e2f38b8d6a73d1f10cd1c3d3a12cffd55d0078e9beeb9c0b7",
             "branchlen": 2,
             "status": "headers-only",
         } in self.nodes[1].getchaintips()
