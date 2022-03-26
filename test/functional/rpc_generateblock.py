@@ -20,7 +20,7 @@ class GenerateBlockTest(DigiByteTestFramework):
     def run_test(self):
         node = self.nodes[0]
         miniwallet = MiniWallet(node)
-        miniwallet.rescan_utxos()
+        miniwallet.scan_blocks(start=1, num=150)
 
         self.log.info('Generate an empty block to address')
         address = miniwallet.get_address()
