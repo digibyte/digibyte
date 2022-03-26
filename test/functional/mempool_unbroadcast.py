@@ -40,12 +40,12 @@ class MempoolUnbroadcastTest(DigiByteTestFramework):
 
         # generate a wallet txn
         addr = node.getnewaddress()
-        wallet_tx_hsh = node.sendtoaddress(addr, 0.0001)
+        wallet_tx_hsh = node.sendtoaddress(addr, 0.001)
 
         # generate a txn using sendrawtransaction
         us0 = utxos.pop()
         inputs = [{"txid": us0["txid"], "vout": us0["vout"]}]
-        outputs = {addr: 0.0001}
+        outputs = {addr: 0.001}
         tx = node.createrawtransaction(inputs, outputs)
         node.settxfee(min_relay_fee)
         txF = node.fundrawtransaction(tx)
