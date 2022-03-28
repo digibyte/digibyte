@@ -314,29 +314,29 @@ class WalletSendTest(DigiByteTestFramework):
         assert res["complete"]
 
         self.log.info("Test setting explicit fee rate")
-        res1 = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate="1", add_to_wallet=False)
-        res2 = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate="1", add_to_wallet=False)
+        res1 = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate="100", add_to_wallet=False)
+        res2 = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate="100", add_to_wallet=False)
         assert_equal(self.nodes[1].decodepsbt(res1["psbt"])["fee"], self.nodes[1].decodepsbt(res2["psbt"])["fee"])
 
-        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate=7, add_to_wallet=False)
+        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate=700, add_to_wallet=False)
         fee = self.nodes[1].decodepsbt(res["psbt"])["fee"]
-        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.00007"))
+        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.007"))
 
         # "unset" and None are treated the same for estimate_mode
-        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate=2, estimate_mode="unset", add_to_wallet=False)
+        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate=200, estimate_mode="unset", add_to_wallet=False)
         fee = self.nodes[1].decodepsbt(res["psbt"])["fee"]
-        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.00002"))
+        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.002"))
 
-        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=4.531, add_to_wallet=False)
+        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=453.1, add_to_wallet=False)
         fee = self.nodes[1].decodepsbt(res["psbt"])["fee"]
-        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.00004531"))
+        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.004531"))
 
-        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=3, add_to_wallet=False)
+        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=300, add_to_wallet=False)
         fee = self.nodes[1].decodepsbt(res["psbt"])["fee"]
-        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.00003"))
+        assert_fee_amount(fee, Decimal(len(res["hex"]) / 2), Decimal("0.003"))
 
         # Test that passing fee_rate as both an argument and an option raises.
-        self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=1, fee_rate=1, add_to_wallet=False,
+        self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=100, fee_rate=100, add_to_wallet=False,
                        expect_error=(-8, "Pass the fee_rate either as an argument, or in the options object, but not both"))
 
         assert_raises_rpc_error(-8, "Use fee_rate (sat/vB) instead of feeRate", w0.send, {w1.getnewaddress(): 1}, 6, "conservative", 1, {"feeRate": 0.01})
@@ -360,14 +360,14 @@ class WalletSendTest(DigiByteTestFramework):
                     expect_error=(-3, f"Expected type number for conf_target, got {k}"))
 
         # Test setting explicit fee rate just below the minimum of 1 sat/vB.
-        self.log.info("Explicit fee rate raises RPC error 'fee rate too low' if fee_rate of 0.99999999 is passed")
-        msg = "Fee rate (0.999 sat/vB) is lower than the minimum fee rate setting (1.000 sat/vB)"
-        self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate=0.999, expect_error=(-4, msg))
-        self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=0.999, expect_error=(-4, msg))
+        self.log.info("Explicit fee rate raises RPC error 'fee rate too low' if fee_rate of 99.999999 is passed")
+        msg = "Fee rate (99.900 sat/vB) is lower than the minimum fee rate setting (100.000 sat/vB)"
+        self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate=99.9, expect_error=(-4, msg))
+        self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=99.9, expect_error=(-4, msg))
 
         self.log.info("Explicit fee rate raises if invalid fee_rate is passed")
         # Test fee_rate with zero values.
-        msg = "Fee rate (0.000 sat/vB) is lower than the minimum fee rate setting (1.000 sat/vB)"
+        msg = "Fee rate (0.000 sat/vB) is lower than the minimum fee rate setting (100.000 sat/vB)"
         for zero_value in [0, 0.000, 0.00000000, "0", "0.000", "0.00000000"]:
             self.test_send(from_wallet=w0, to_wallet=w1, amount=1, fee_rate=zero_value, expect_error=(-4, msg))
             self.test_send(from_wallet=w0, to_wallet=w1, amount=1, arg_fee_rate=zero_value, expect_error=(-4, msg))
@@ -403,12 +403,12 @@ class WalletSendTest(DigiByteTestFramework):
         res = self.test_send(from_wallet=w0, to_wallet=w1, amount=51, inputs=[], add_to_wallet=False)
         assert res["complete"]
         utxo1 = w0.listunspent()[0]
-        assert_equal(utxo1["amount"], 50)
-        self.test_send(from_wallet=w0, to_wallet=w1, amount=51, inputs=[utxo1],
+        assert_equal(utxo1["amount"], 72000)
+        self.test_send(from_wallet=w0, to_wallet=w1, amount=72001, inputs=[utxo1],
                        expect_error=(-4, "Insufficient funds"))
-        self.test_send(from_wallet=w0, to_wallet=w1, amount=51, inputs=[utxo1], add_inputs=False,
+        self.test_send(from_wallet=w0, to_wallet=w1, amount=72001, inputs=[utxo1], add_inputs=False,
                        expect_error=(-4, "Insufficient funds"))
-        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=51, inputs=[utxo1], add_inputs=True, add_to_wallet=False)
+        res = self.test_send(from_wallet=w0, to_wallet=w1, amount=72001, inputs=[utxo1], add_inputs=True, add_to_wallet=False)
         assert res["complete"]
 
         self.log.info("Manual change address and position...")
@@ -423,7 +423,7 @@ class WalletSendTest(DigiByteTestFramework):
         res = self.test_send(from_wallet=w0, to_wallet=w1, amount=1, add_to_wallet=False, change_type="legacy", change_position=0)
         assert res["complete"]
         change_address = self.nodes[0].decodepsbt(res["psbt"])["tx"]["vout"][0]["scriptPubKey"]["address"]
-        assert change_address[0] == "m" or change_address[0] == "n"
+        assert change_address[0] == "s" or change_address[0] == "n"
 
         self.log.info("Set lock time...")
         height = self.nodes[0].getblockchaininfo()["blocks"]
@@ -476,47 +476,6 @@ class WalletSendTest(DigiByteTestFramework):
         self.test_send(from_wallet=w5, to_wallet=w0, amount=1, expect_error=(-4, "Insufficient funds"))
         res = self.test_send(from_wallet=w5, to_wallet=w0, amount=1, include_unsafe=True)
         assert res["complete"]
-
-        self.log.info("External outputs")
-        eckey = ECKey()
-        eckey.generate()
-        privkey = bytes_to_wif(eckey.get_bytes())
-
-        self.nodes[1].createwallet("extsend")
-        ext_wallet = self.nodes[1].get_wallet_rpc("extsend")
-        self.nodes[1].createwallet("extfund")
-        ext_fund = self.nodes[1].get_wallet_rpc("extfund")
-
-        # Make a weird but signable script. sh(pkh()) descriptor accomplishes this
-        desc = descsum_create("sh(pkh({}))".format(privkey))
-        if self.options.descriptors:
-            res = ext_fund.importdescriptors([{"desc": desc, "timestamp": "now"}])
-        else:
-            res = ext_fund.importmulti([{"desc": desc, "timestamp": "now"}])
-        assert res[0]["success"]
-        addr = self.nodes[0].deriveaddresses(desc)[0]
-        addr_info = ext_fund.getaddressinfo(addr)
-
-        self.nodes[0].sendtoaddress(addr, 10)
-        self.nodes[0].sendtoaddress(ext_wallet.getnewaddress(), 10)
-        self.generate(self.nodes[0], 6)
-        ext_utxo = ext_fund.listunspent(addresses=[addr])[0]
-
-        # An external input without solving data should result in an error
-        self.test_send(from_wallet=ext_wallet, to_wallet=self.nodes[0], amount=15, inputs=[ext_utxo], add_inputs=True, psbt=True, include_watching=True, expect_error=(-4, "Insufficient funds"))
-
-        # But funding should work when the solving data is provided
-        res = self.test_send(from_wallet=ext_wallet, to_wallet=self.nodes[0], amount=15, inputs=[ext_utxo], add_inputs=True, psbt=True, include_watching=True, solving_data={"pubkeys": [addr_info['pubkey']], "scripts": [addr_info["embedded"]["scriptPubKey"]]})
-        signed = ext_wallet.walletprocesspsbt(res["psbt"])
-        signed = ext_fund.walletprocesspsbt(res["psbt"])
-        assert signed["complete"]
-        self.nodes[0].finalizepsbt(signed["psbt"])
-
-        res = self.test_send(from_wallet=ext_wallet, to_wallet=self.nodes[0], amount=15, inputs=[ext_utxo], add_inputs=True, psbt=True, include_watching=True, solving_data={"descriptors": [desc]})
-        signed = ext_wallet.walletprocesspsbt(res["psbt"])
-        signed = ext_fund.walletprocesspsbt(res["psbt"])
-        assert signed["complete"]
-        self.nodes[0].finalizepsbt(signed["psbt"])
 
 if __name__ == '__main__':
     WalletSendTest().main()
