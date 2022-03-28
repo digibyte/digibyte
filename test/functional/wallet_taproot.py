@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021 The DigiByte Core developers
+# Copyright (c) 2021 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test generation and spending of P2TR addresses."""
 
 import random
-
+from test_framework.blocktools import (
+    COINBASE_MATURITY,
+)
 from decimal import Decimal
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
 from test_framework.descriptors import descsum_create
-from test_framework.script import (
-    CScript,
-    OP_1,
-    OP_CHECKSIG,
-    taproot_construct,
-)
+from test_framework.script import (CScript, OP_CHECKSIG, taproot_construct)
 from test_framework.segwit_addr import encode_segwit_address
+from time import sleep
 
 # xprvs/xpubs, and m/* derived x-only pubkeys (created using independent implementation)
 KEYS = [
@@ -170,9 +168,9 @@ def pk(hex_key):
 def compute_taproot_address(pubkey, scripts):
     """Compute the address for a taproot output with given inner key and scripts."""
     tap = taproot_construct(pubkey, scripts)
-    assert tap.scriptPubKey[0] == OP_1
+    assert tap.scriptPubKey[0] == 0x51
     assert tap.scriptPubKey[1] == 0x20
-    return encode_segwit_address("bcrt", 1, tap.scriptPubKey[2:])
+    return encode_segwit_address("dgbrt", 1, tap.scriptPubKey[2:])
 
 class WalletTaprootTest(DigiByteTestFramework):
     """Test generation and spending of P2TR address outputs."""
@@ -190,7 +188,7 @@ class WalletTaprootTest(DigiByteTestFramework):
     def setup_network(self):
         self.setup_nodes()
 
-    def init_wallet(self, *, node):
+    def init_wallet(self, node):
         pass
 
     @staticmethod
@@ -242,15 +240,20 @@ class WalletTaprootTest(DigiByteTestFramework):
             assert_equal(len(rederive), 1)
             assert_equal(rederive[0], addr_g)
 
-        # tr descriptors can be imported regardless of Taproot status
+        # tr descriptors cannot be imported when Taproot is not active
         result = self.privs_tr_enabled.importdescriptors([{"desc": desc, "timestamp": "now"}])
         assert(result[0]["success"])
         result = self.pubs_tr_enabled.importdescriptors([{"desc": desc_pub, "timestamp": "now"}])
         assert(result[0]["success"])
-        result = self.privs_tr_disabled.importdescriptors([{"desc": desc, "timestamp": "now"}])
-        assert result[0]["success"]
-        result = self.pubs_tr_disabled.importdescriptors([{"desc": desc_pub, "timestamp": "now"}])
-        assert result[0]["success"]
+        if desc.startswith("tr"):
+            result = self.privs_tr_disabled.importdescriptors([{"desc": desc, "timestamp": "now"}])
+            assert(not result[0]["success"])
+            assert_equal(result[0]["error"]["code"], -4)
+            assert_equal(result[0]["error"]["message"], "Cannot import tr() descriptor when Taproot is not active")
+            result = self.pubs_tr_disabled.importdescriptors([{"desc": desc_pub, "timestamp": "now"}])
+            assert(not result[0]["success"])
+            assert_equal(result[0]["error"]["code"], -4)
+            assert_equal(result[0]["error"]["message"], "Cannot import tr() descriptor when Taproot is not active")
 
     def do_test_sendtoaddress(self, comment, pattern, privmap, treefn, keys_pay, keys_change):
         self.log.info("Testing %s through sendtoaddress" % comment)
@@ -271,11 +274,11 @@ class WalletTaprootTest(DigiByteTestFramework):
                 assert_equal(addr_g, addr_r)
             boring_balance = int(self.boring.getbalance() * 100000000)
             to_amnt = random.randrange(1000000, boring_balance)
-            self.boring.sendtoaddress(address=addr_g, amount=Decimal(to_amnt) / 100000000, subtractfeefromamount=True)
+            self.boring.sendtoaddress(address=addr_g, amount=Decimal(to_amnt) / 100000000, subtractfeefromamount=True, fee_rate=110)
             self.generatetoaddress(self.nodes[0], 1, self.boring.getnewaddress(), sync_fun=self.no_op)
             test_balance = int(self.rpc_online.getbalance() * 100000000)
             ret_amnt = random.randrange(100000, test_balance)
-            res = self.rpc_online.sendtoaddress(address=self.boring.getnewaddress(), amount=Decimal(ret_amnt) / 100000000, subtractfeefromamount=True)
+            res = self.rpc_online.sendtoaddress(address=self.boring.getnewaddress(), amount=Decimal(ret_amnt) / 100000000, subtractfeefromamount=True, fee_rate=300)
             self.generatetoaddress(self.nodes[0], 1, self.boring.getnewaddress(), sync_fun=self.no_op)
             assert(self.rpc_online.gettransaction(res)["confirmations"] > 0)
 
@@ -306,7 +309,7 @@ class WalletTaprootTest(DigiByteTestFramework):
             self.generatetoaddress(self.nodes[0], 1, self.boring.getnewaddress(), sync_fun=self.no_op)
             test_balance = int(self.psbt_online.getbalance() * 100000000)
             ret_amnt = random.randrange(100000, test_balance)
-            psbt = self.psbt_online.walletcreatefundedpsbt([], [{self.boring.getnewaddress(): Decimal(ret_amnt) / 100000000}], None, {"subtractFeeFromOutputs":[0]})['psbt']
+            psbt = self.psbt_online.walletcreatefundedpsbt([], [{self.boring.getnewaddress(): Decimal(ret_amnt) / 100000000}], None, {"subtractFeeFromOutputs":[0], "fee_rate": 300})['psbt']
             res = self.psbt_offline.walletprocesspsbt(psbt)
             assert(res['complete'])
             rawtx = self.nodes[0].finalizepsbt(res['psbt'])['hex']
@@ -343,7 +346,7 @@ class WalletTaprootTest(DigiByteTestFramework):
 
         self.log.info("Mining blocks...")
         gen_addr = self.boring.getnewaddress()
-        self.generatetoaddress(self.nodes[0], 101, gen_addr, sync_fun=self.no_op)
+        self.generatetoaddress(self.nodes[0], COINBASE_MATURITY + 1, gen_addr, sync_fun=self.no_op)
 
         self.do_test(
             "tr(XPRV)",
