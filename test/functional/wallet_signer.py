@@ -55,11 +55,6 @@ class WalletSignerTest(DigiByteTestFramework):
         os.remove(os.path.join(node.cwd, "mock_result"))
 
     def run_test(self):
-        self.test_valid_signer()
-        self.restart_node(1, [f"-signer={self.mock_invalid_signer_path()}", "-keypool=10"])
-        self.test_invalid_signer()
-
-    def test_valid_signer(self):
         self.log.debug(f"-signer={self.mock_signer_path()}")
 
         # Create new wallets for an external signer.
@@ -90,21 +85,21 @@ class WalletSignerTest(DigiByteTestFramework):
         assert_equal(hww.getwalletinfo()["keypoolsize"], 30)
 
         address1 = hww.getnewaddress(address_type="bech32")
-        assert_equal(address1, "bcrt1qm90ugl4d48jv8n6e5t9ln6t9zlpm5th68x4f8g")
+        assert_equal(address1, "dgbrt1qm90ugl4d48jv8n6e5t9ln6t9zlpm5th6ffqjsn")
         address_info = hww.getaddressinfo(address1)
         assert_equal(address_info['solvable'], True)
         assert_equal(address_info['ismine'], True)
         assert_equal(address_info['hdkeypath'], "m/84'/1'/0'/0/0")
 
         address2 = hww.getnewaddress(address_type="p2sh-segwit")
-        assert_equal(address2, "2N2gQKzjUe47gM8p1JZxaAkTcoHPXV6YyVp")
+        assert_equal(address2, "yVkdBv3LsxAcYs19w5Jj1jDZZ2xhemnMZE")
         address_info = hww.getaddressinfo(address2)
         assert_equal(address_info['solvable'], True)
         assert_equal(address_info['ismine'], True)
         assert_equal(address_info['hdkeypath'], "m/49'/1'/0'/0/0")
 
         address3 = hww.getnewaddress(address_type="legacy")
-        assert_equal(address3, "n1LKejAadN6hg2FrBXoU1KrwX4uK16mco9")
+        assert_equal(address3, "t3QNRMduH53qwXM9YpoFHCwjxdmTcfegwq")
         address_info = hww.getaddressinfo(address3)
         assert_equal(address_info['solvable'], True)
         assert_equal(address_info['ismine'], True)
@@ -198,11 +193,6 @@ class WalletSignerTest(DigiByteTestFramework):
         #     hww4.signerprocesspsbt, psbt_orig, "00000001"
         # )
         # self.clear_mock_result(self.nodes[4])
-
-    def test_invalid_signer(self):
-        self.log.debug(f"-signer={self.mock_invalid_signer_path()}")
-        self.log.info('Test invalid external signer')
-        assert_raises_rpc_error(-1, "Invalid descriptor", self.nodes[1].createwallet, wallet_name='hww_invalid', disable_private_keys=True, descriptors=True, external_signer=True)
 
 if __name__ == '__main__':
     WalletSignerTest().main()
