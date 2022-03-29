@@ -35,7 +35,6 @@ class AddrReceiver(P2PInterface):
     def on_addr(self, message):
         for addr in message.addrs:
             self.num_ipv4_received += 1
-            print(message)
             if(self.test_addr_contents):
                 # relay_tests checks the content of the addr messages match
                 # expectations based on the message creation in setup_addr_msg
@@ -111,7 +110,7 @@ class AddrTest(DigiByteTestFramework):
     def send_addr_msg(self, source, msg, receivers):
         source.send_and_ping(msg)
         # pop m_next_addr_send timer
-        self.mocktime += 10 * 60
+        self.mocktime += 2 * 60 # CHAIN_SYNC_TIMEOUT / 2
         self.nodes[0].setmocktime(self.mocktime)
         for peer in receivers:
             peer.sync_send_with_ping()
