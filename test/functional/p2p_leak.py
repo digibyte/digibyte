@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021-2022 The DigiByte Core developers
+# Copyright (c) 2017-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test message sending before handshake completion.
@@ -119,9 +119,9 @@ class P2PLeakTest(DigiByteTestFramework):
         no_verack_idle_peer = self.nodes[0].add_p2p_connection(NoVerackIdlePeer(), wait_for_verack=False)
 
         # Pre-wtxidRelay peer that sends a version but not a verack and does not support feature negotiation
-        # messages which start at nVersion == 70016
+        # messages which start at nVersion == 70018
         pre_wtxidrelay_peer = self.nodes[0].add_p2p_connection(NoVerackIdlePeer(), send_version=False, wait_for_verack=False)
-        pre_wtxidrelay_peer.send_message(self.create_old_version(70015))
+        pre_wtxidrelay_peer.send_message(self.create_old_version(70017))
 
         # Wait until the peer gets the verack in response to the version. Though, don't wait for the node to receive the
         # verack, since the peer never sent one
@@ -133,7 +133,7 @@ class P2PLeakTest(DigiByteTestFramework):
         pre_wtxidrelay_peer.wait_until(lambda: pre_wtxidrelay_peer.version_received)
 
         # Mine a block and make sure that it's not sent to the connected peers
-        self.generate(self.nodes[0], nblocks=1)
+        self.generate(self.nodes[0], 1)
 
         # Give the node enough time to possibly leak out a message
         time.sleep(PEER_TIMEOUT + 2)
