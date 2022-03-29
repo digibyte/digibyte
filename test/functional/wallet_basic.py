@@ -624,7 +624,6 @@ class WalletTest(DigiByteTestFramework):
         # Without walletrejectlongchains, we will still generate a txid
         # The tx will be stored in the wallet but not accepted to the mempool
         extra_txid = self.nodes[0].sendtoaddress(sending_addr, Decimal('0.0001'))
-        print(extra_txid)
         assert extra_txid not in self.nodes[0].getrawmempool()
         assert extra_txid in [tx["txid"] for tx in self.nodes[0].listtransactions()]
         self.nodes[0].abandontransaction(extra_txid)
