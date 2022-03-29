@@ -608,18 +608,14 @@ class WalletTest(DigiByteTestFramework):
         # Each tx we make leaves only one output of change on a chain 1 longer
         # Since the amount to send is always much less than the outputs, we only ever need one output
         # So we should be able to generate exactly chainlimit txs for each original output
-        unspent = self.nodes[0].listunspent()
-
         sending_addr = self.nodes[1].getnewaddress()
         txid_list = []
-        for _ in range(chainlimit * 2):
+        for _ in range(chainlimit * 3):
             tx_id = self.nodes[0].sendtoaddress(sending_addr, Decimal('0.0001'))
             txid_list.append(tx_id)
 
-        unspent = self.nodes[0].listunspent()
-
-        assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit * 2)
-        assert_equal(len(txid_list), chainlimit * 2)
+        assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit * 3)
+        assert_equal(len(txid_list), chainlimit * 3)
 
         # Without walletrejectlongchains, we will still generate a txid
         # The tx will be stored in the wallet but not accepted to the mempool
@@ -632,11 +628,11 @@ class WalletTest(DigiByteTestFramework):
         # Try with walletrejectlongchains
         # Double chain limit but require combining inputs, so we pass SelectCoinsMinConf
         self.stop_node(0)
-        extra_args = ["-walletrejectlongchains", "-limitancestorcount=" + str(2 * chainlimit)]
+        extra_args = ["-walletrejectlongchains", "-limitancestorcount=" + str(3 * chainlimit)]
         self.start_node(0, extra_args=extra_args)
 
         # wait until the wallet has submitted all transactions to the mempool
-        self.wait_until(lambda: len(self.nodes[0].getrawmempool()) == chainlimit * 2)
+        self.wait_until(lambda: len(self.nodes[0].getrawmempool()) == chainlimit * 3)
 
         # Prevent potential race condition when calling wallet RPCs right after restart
         self.nodes[0].syncwithvalidationinterfacequeue()
