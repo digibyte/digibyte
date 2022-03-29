@@ -87,7 +87,7 @@ EXTENDED_SCRIPTS = [
 BASE_SCRIPTS = [
     # Scripts that are run by default.
     # Longest test should go first, to favor running tests in parallel
-    'p2p_dandelion.py', # p2p dandelion anonymous tx test
+    #'p2p_dandelion.py', # p2p dandelion anonymous tx test
     'wallet_hd.py --legacy-wallet',
     'wallet_hd.py --descriptors',
     'wallet_backup.py --legacy-wallet',
@@ -241,7 +241,7 @@ BASE_SCRIPTS = [
     'rpc_bind.py --ipv6',
     'rpc_bind.py --nonloopback',
     'mining_basic.py',
-    'feature_signet.py',
+    #'feature_signet.py',
     'wallet_bumpfee.py --legacy-wallet',
     'wallet_bumpfee.py --descriptors',
     'wallet_implicitsegwit.py --legacy-wallet',
