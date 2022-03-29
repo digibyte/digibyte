@@ -572,6 +572,13 @@ class WalletTest(DigiByteTestFramework):
             '-reindex',
         ]
         chainlimit = 6
+
+        # if --legacy-wallet is used, it will call generate() a few times,
+        # which will cause some mined coins to mature. Hence, we increase
+        # the chainlimit multiplicator for long transactions, so that
+        # the wallet will reject the long transaction issued by this test.
+        M = 3 if not self.options.descriptors else 2
+
         for m in maintenance:
             self.log.info("Test " + m)
             self.stop_nodes()
@@ -610,12 +617,12 @@ class WalletTest(DigiByteTestFramework):
         # So we should be able to generate exactly chainlimit txs for each original output
         sending_addr = self.nodes[1].getnewaddress()
         txid_list = []
-        for _ in range(chainlimit * 3):
+        for _ in range(chainlimit * M):
             tx_id = self.nodes[0].sendtoaddress(sending_addr, Decimal('0.0001'))
             txid_list.append(tx_id)
 
-        assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit * 3)
-        assert_equal(len(txid_list), chainlimit * 3)
+        assert_equal(self.nodes[0].getmempoolinfo()['size'], chainlimit * M)
+        assert_equal(len(txid_list), chainlimit * M)
 
         # Without walletrejectlongchains, we will still generate a txid
         # The tx will be stored in the wallet but not accepted to the mempool
@@ -628,11 +635,11 @@ class WalletTest(DigiByteTestFramework):
         # Try with walletrejectlongchains
         # Double chain limit but require combining inputs, so we pass SelectCoinsMinConf
         self.stop_node(0)
-        extra_args = ["-walletrejectlongchains", "-limitancestorcount=" + str(3 * chainlimit)]
+        extra_args = ["-walletrejectlongchains", "-limitancestorcount=" + str(2 * chainlimit)]
         self.start_node(0, extra_args=extra_args)
 
         # wait until the wallet has submitted all transactions to the mempool
-        self.wait_until(lambda: len(self.nodes[0].getrawmempool()) == chainlimit * 3)
+        self.wait_until(lambda: len(self.nodes[0].getrawmempool()) == chainlimit * M)
 
         # Prevent potential race condition when calling wallet RPCs right after restart
         self.nodes[0].syncwithvalidationinterfacequeue()
