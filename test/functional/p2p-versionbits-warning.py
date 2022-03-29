@@ -14,8 +14,8 @@ from test_framework.util import *
 import re
 from test_framework.blocktools import create_block, create_coinbase
 
-VB_PERIOD = 144 # versionbits period length for regtest
-VB_THRESHOLD = 108 # versionbits activation threshold for regtest
+VB_PERIOD = 240           # versionbits period length for regtest
+VB_THRESHOLD = 168        # versionbits activation threshold for regtest
 VB_TOP_BITS = 0x20000000
 VB_UNKNOWN_BIT = 27 # Choose a bit unassigned to any deployment
 

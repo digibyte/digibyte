@@ -3,8 +3,9 @@
         "5120eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
         {
             "asm": "1 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-            "address": "bcrt1pamhwamhwamhwamhwamhwamhwamhwamhwamhwamhwamhwamhwamhqz6nvlh",
-            "type": "witness_v1_taproot"
+            "address": "dgbrt1pamhwamhwamhwamhwamhwamhwamhwamhwamhwamhwamhwamhwamhqqgync2",
+            "type": "witness_v1_taproot",
+            "p2sh": "yM9u3hytiPNzAFFQ6v4wHAeeatFgaHgobi"
         }
     ],
     [

@@ -39,7 +39,7 @@ def expected_messages(filename):
 class AsmapTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
-        self.extra_args = [["-checkaddrman=1"]]  # Do addrman checks on all operations.
+        self.extra_args = [[]]  # Do addrman checks on all operations.
 
     def fill_addrman(self, node_id):
         """Add 1 tried address to the addrman, followed by 1 new address."""
@@ -80,22 +80,6 @@ class AsmapTest(DigiByteTestFramework):
                 self.start_node(0, [arg])
         os.remove(self.default_asmap)
 
-    def test_asmap_interaction_with_addrman_containing_entries(self):
-        self.log.info("Test digibyted -asmap restart with addrman containing new and tried entries")
-        self.stop_node(0)
-        shutil.copyfile(self.asmap_raw, self.default_asmap)
-        self.start_node(0, ["-asmap", "-checkaddrman=1"])
-        self.fill_addrman(node_id=0)
-        self.restart_node(0, ["-asmap", "-checkaddrman=1"])
-        with self.node.assert_debug_log(
-            expected_msgs=[
-                "CheckAddrman: new 1, tried 1, total 2 started",
-                "CheckAddrman: completed",
-            ]
-        ):
-            self.node.getnodeaddresses()  # getnodeaddresses re-runs the addrman checks
-        os.remove(self.default_asmap)
-
     def test_default_asmap_with_missing_file(self):
         self.log.info('Test digibyted -asmap with missing default map file')
         self.stop_node(0)
@@ -121,7 +105,6 @@ class AsmapTest(DigiByteTestFramework):
         self.test_asmap_with_absolute_path()
         self.test_asmap_with_relative_path()
         self.test_default_asmap()
-        self.test_asmap_interaction_with_addrman_containing_entries()
         self.test_default_asmap_with_missing_file()
         self.test_empty_asmap()
 

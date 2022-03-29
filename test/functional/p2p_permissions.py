@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2021 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test p2p permission message.
@@ -94,6 +94,7 @@ class P2PPermissionsTests(DigiByteTestFramework):
 
     def check_tx_relay(self):
         block_op_true = self.nodes[0].getblock(self.generatetoaddress(self.nodes[0], 100, ADDRESS_BCRT1_P2WSH_OP_TRUE)[0])
+        self.sync_all()
 
         self.log.debug("Create a connection from a forcerelay peer that rebroadcasts raw txs")
         # A test framework p2p connection is needed to send the raw transaction directly. If a full node was used, it could only
@@ -129,7 +130,7 @@ class P2PPermissionsTests(DigiByteTestFramework):
         tx.vout[0].nValue += 1
         txid = tx.rehash()
         # Send the transaction twice. The first time, it'll be rejected by ATMP because it conflicts
-        # with a mempool transaction. The second time, it'll be in the m_recent_rejects filter.
+        # with a mempool transaction. The second time, it'll be in the recentRejects filter.
         p2p_rebroadcast_wallet.send_txs_and_test(
             [tx],
             self.nodes[1],

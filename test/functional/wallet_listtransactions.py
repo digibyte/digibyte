@@ -7,6 +7,7 @@
 from decimal import Decimal
 import os
 import shutil
+from time import sleep
 
 from test_framework.messages import (
     COIN,
@@ -42,6 +43,7 @@ class ListTransactionsTest(DigiByteTestFramework):
         self.log.info("Test confirmations change after mining a block")
         blockhash = self.generate(self.nodes[0], 1)[0]
         blockheight = self.nodes[0].getblockheader(blockhash)['height']
+
         assert_array_result(self.nodes[0].listtransactions(),
                             {"txid": txid},
                             {"category": "send", "amount": Decimal("-0.1"), "confirmations": 1, "blockhash": blockhash, "blockheight": blockheight})
@@ -253,6 +255,7 @@ class ListTransactionsTest(DigiByteTestFramework):
         # send to self transaction
         self.nodes[0].sendtoaddress(addr1, "0.001")
         self.generate(self.nodes[0], 1)
+        sleep(1)
 
         self.log.info("Verify listtransactions is the same regardless of where the address was generated")
         transactions0 = self.nodes[0].listtransactions()

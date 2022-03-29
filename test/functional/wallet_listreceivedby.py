@@ -146,7 +146,7 @@ class ReceivedByTest(DigiByteTestFramework):
         # getreceivedbyaddress should return same balance because of 0 confirmations
         balance = self.nodes[1].getreceivedbylabel(label)
         assert_equal(balance, balance_by_label)
-
+        
         self.generate(self.nodes[1], 10)
 
         self.sync_all()

@@ -30,6 +30,10 @@ from test_framework.wallet import (
     MiniWalletMode,
 )
 
+from test_framework.blockversion import (
+    calc_block_version,
+)
+
 
 # Helper function to modify a transaction by
 # 1) prepending a given script to the scriptSig of vin 0 and
@@ -60,7 +64,7 @@ def cltv_invalidate(tx, failure_reason):
         # +-------------------------------------------------+------------+--------------+
         [[OP_CHECKLOCKTIMEVERIFY],                            None,       None],
         [[OP_1NEGATE, OP_CHECKLOCKTIMEVERIFY, OP_DROP],       None,       None],
-        [[CScriptNum(100), OP_CHECKLOCKTIMEVERIFY, OP_DROP],  0,          1296688602],  # timestamp of genesis block
+        [[CScriptNum(100), OP_CHECKLOCKTIMEVERIFY, OP_DROP],  0,          1519460922],  # timestamp of genesis block
         [[CScriptNum(100), OP_CHECKLOCKTIMEVERIFY, OP_DROP],  0,          50],
         [[CScriptNum(50),  OP_CHECKLOCKTIMEVERIFY, OP_DROP],  0xffffffff, 50],
     ][failure_reason]
@@ -120,7 +124,7 @@ class BIP65Test(DigiByteTestFramework):
 
         tip = self.nodes[0].getbestblockhash()
         block_time = self.nodes[0].getblockheader(tip)['mediantime'] + 1
-        block = create_block(int(tip, 16), create_coinbase(CLTV_HEIGHT - 1), block_time, version=3, txlist=invalid_cltv_txs)
+        block = create_block(int(tip, 16), create_coinbase(CLTV_HEIGHT - 1), block_time, txlist=invalid_cltv_txs)
         block.solve()
 
         self.test_cltv_info(is_active=False)  # Not active as of current tip and next block does not need to obey rules
@@ -140,7 +144,7 @@ class BIP65Test(DigiByteTestFramework):
             peer.sync_with_ping()
 
         self.log.info("Test that invalid-according-to-CLTV transactions cannot appear in a block")
-        block.nVersion = 4
+        block.nVersion = calc_block_version(4)
         block.vtx.append(CTransaction()) # dummy tx after coinbase that will be replaced later
 
         # create and test one invalid tx per CLTV failure reason (5 in total)

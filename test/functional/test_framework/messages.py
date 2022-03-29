@@ -70,7 +70,8 @@ MSG_TX = 1
 MSG_BLOCK = 2
 MSG_FILTERED_BLOCK = 3
 MSG_CMPCT_BLOCK = 4
-MSG_WTX = 5
+MSG_DANDELION = 5
+MSG_WTX = 6
 MSG_WITNESS_FLAG = 1 << 30
 MSG_TYPE_MASK = 0xffffffff >> 2
 MSG_WITNESS_TX = MSG_TX | MSG_WITNESS_FLAG
@@ -332,6 +333,7 @@ class CInv:
         MSG_BLOCK | MSG_WITNESS_FLAG: "WitnessBlock",
         MSG_FILTERED_BLOCK: "filtered Block",
         MSG_CMPCT_BLOCK: "CompactBlock",
+        MSG_DANDELION: "DandelionTx",
         MSG_WTX: "WTX",
     }
 
@@ -725,6 +727,8 @@ class CBlockHeader:
         elif algo == "sha256d":
             return hash256(h)
         else:
+            return hash256(h)
+            
             raise ValueError("Unknown Algo: {}".format(algo))
 
 

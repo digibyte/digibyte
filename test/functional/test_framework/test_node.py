@@ -232,7 +232,7 @@ class TestNode():
                     timeout=self.rpc_timeout // 2,  # Shorter timeout to allow for one retry in case of ETIMEDOUT
                     coveragedir=self.coverage_dir,
                 )
-                rpc.getblockcount()
+                bc = rpc.getblockcount()
                 # If the call to getblockcount() succeeds then the RPC connection is up
                 if self.version_is_at_least(190000):
                     # getmempoolinfo.loaded is available since commit

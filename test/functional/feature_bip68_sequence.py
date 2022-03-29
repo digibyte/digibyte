@@ -43,10 +43,12 @@ class BIP68Test(DigiByteTestFramework):
             [
                 '-testactivationheight=csv@432',
                 "-acceptnonstdtxn=1",
+                '-easypow',
             ],
             [
                 '-testactivationheight=csv@432',
                 "-acceptnonstdtxn=0",
+                '-easypow',
             ],
         ]
 

@@ -47,8 +47,12 @@ class TxnMallTest(DigiByteTestFramework):
         else:
             output_type = "legacy"
 
-        # All nodes should start with 1,250 BTC:
-        starting_balance = 1250
+        # All nodes should start with 50 mature transactions,
+        # having 72000 per (mature) coinbase transaction, each.
+        # The fourth address from TestNode.PRIV_KEYS should have
+        # 41 mature blocks, but only 8 immature blocks.
+        # This is caused by the different COINBASE_MATURITY parameter in digibyte. 
+        starting_balance = 50 * 72000
         for i in range(3):
             assert_equal(self.nodes[i].getbalance(), starting_balance)
 
@@ -102,7 +106,10 @@ class TxnMallTest(DigiByteTestFramework):
         # matured block, minus tx1 and tx2 amounts, and minus transaction fees:
         expected = starting_balance + node0_tx1["fee"] + node0_tx2["fee"]
         if self.options.mine_block:
-            expected += 50
+            # In DigiByte, since COINBASE_MATURITY is only set to 8,
+            # node0's txs are already matured. No emission will mature
+            # even after calling a block.
+            expected += 0
         expected += tx1["amount"] + tx1["fee"]
         expected += tx2["amount"] + tx2["fee"]
         assert_equal(self.nodes[0].getbalance(), expected)
@@ -140,11 +147,12 @@ class TxnMallTest(DigiByteTestFramework):
         assert_equal(tx1_clone["confirmations"], 2)
         assert_equal(tx2["confirmations"], 1)
 
-        # Check node0's total balance; should be same as before the clone, + 100 BTC for 2 matured,
-        # less possible orphaned matured subsidy
-        expected += 100
         if (self.options.mine_block):
-            expected -= 50
+            # In DigiByte, since COINBASE_MATURITY is only set to 8,
+            # node0's txs are already matured. No emission will mature
+            # even after calling a block.
+            expected += 0
+            
         assert_equal(self.nodes[0].getbalance(), expected)
 
 

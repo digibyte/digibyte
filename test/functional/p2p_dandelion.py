@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
- # Copyright (c) 2018 Bradley Denby
- # Distributed under the MIT software license. See the accompanying file COPYING
- # or http://www.opensource.org/licenses/mit-license.php.
- """Test transaction behaviors under the Dandelion spreading policy
+# Copyright (c) 2018 Bradley Denby
+# Distributed under the MIT software license. See the accompanying file COPYING
+# or http://www.opensource.org/licenses/mit-license.php.
+
+"""Test transaction behaviors under the Dandelion spreading policy
 
  Tests:
  1. Resistance to active probing:
@@ -25,10 +26,10 @@
     Assert that Node 0 replies with tx
  """
 
-  from test_framework.mininode import *                          # P2PInterface
- from test_framework.test_framework import DigiByteTestFramework # DigiByteTestFramework
- from test_framework.util import *                              # other stuff
- import time                                                    # sleep
+from test_framework.mininode import *                          # P2PInterface
+from test_framework.test_framework import DigiByteTestFramework # DigiByteTestFramework
+from test_framework.util import *                              # other stuff
+import time                                                    # sleep
 
   class TestP2PConn(P2PInterface):
    def __init__(self):

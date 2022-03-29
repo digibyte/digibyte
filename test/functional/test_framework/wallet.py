@@ -102,9 +102,9 @@ class MiniWallet:
                 break
         tx.vin[0].scriptSig = CScript([der_sig + bytes(bytearray([SIGHASH_ALL]))])
 
-    def generate(self, num_blocks):
+    def generate(self, num_blocks, **kwargs):
         """Generate blocks with coinbase outputs to the internal address, and append the outputs to the internal list"""
-        blocks = self._test_node.generatetodescriptor(num_blocks, f'raw({self._scriptPubKey.hex()})')
+        blocks = self._test_node.generatetodescriptor(num_blocks, f'raw({self._scriptPubKey.hex()})', **kwargs)
         for b in blocks:
             cb_tx = self._test_node.getblock(blockhash=b, verbosity=2)['tx'][0]
             self._utxos.append({'txid': cb_tx['txid'], 'vout': 0, 'value': cb_tx['vout'][0]['value']})
@@ -176,4 +176,3 @@ class MiniWallet:
     def sendrawtransaction(self, *, from_node, tx_hex):
         from_node.sendrawtransaction(tx_hex)
         self.scan_tx(from_node.decoderawtransaction(tx_hex))
-        
