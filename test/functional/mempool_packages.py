@@ -64,7 +64,7 @@ class MempoolPackagesTest(DigiByteTestFramework):
             # We need the wtxids to check P2P announcements
             fulltx = self.nodes[0].getrawtransaction(txid)
             witnesstx = self.nodes[0].decoderawtransaction(fulltx, True)
-            witness_chain.append(witnesstx['txid'])
+            witness_chain.append(witnesstx['hash'])
 
         # Wait until mempool transactions have passed initial broadcast (sent inv and received getdata)
         # Otherwise, getrawmempool may be inconsistent with getmempoolentry if unbroadcast changes in between
