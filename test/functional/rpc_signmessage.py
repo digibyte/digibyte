@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
+# Copyright (c) 2009-2020 The DigiByte Core developers
 # Copyright (c) 2014-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -24,9 +24,9 @@ class SignMessagesTest(DigiByteTestFramework):
         message = 'This is just a test message'
 
         self.log.info('test signing with priv_key')
-        priv_key = 'cUeKHd5orzT3mz8P9pxyREHfsWtVfgsfDjiZZBcjUBAaGk1BTj7N'
-        address = 'mpLQjfK79b7CCV4VMJWEWAj5Mpx8Up5zxB'
-        expected_signature = 'INbVnW4e6PeRmsv2Qgu8NuopvrVjkcxob+sX8OcZG0SALhWybUjzMLPdAsXI46YZGb0KQTRii+wWIQzRpG/U+S0='
+        priv_key = 'edZ85PyGKqqRAQZDLg5gYBgEi1wh1g8FNdLgauxTW6zj3AGjfDqU'
+        address = 't1y4JfgnfaiVTSMWouAUg46dV4CDvwxAnX'
+        expected_signature = 'H8HDROG9zcC6K5vhHwofvKaVULF0WEedMUcyVTkdW7TcSxm3dm3W9mAX6SZR37KL1WZwDvMEz60AXKDOxrhigpE='
         signature = self.nodes[0].signmessagewithprivkey(priv_key, message)
         assert_equal(expected_signature, signature)
         assert self.nodes[0].verifymessage(address, signature, message)

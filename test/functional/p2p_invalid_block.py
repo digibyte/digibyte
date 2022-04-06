@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test node responses to invalid blocks.
@@ -31,9 +30,6 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
         self.setup_clean_chain = True
         self.extra_args = [["-whitelist=noban@127.0.0.1"]]
 
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
-
     def run_test(self):
         # Add p2p connection to node0
         node = self.nodes[0]  # convenience reference to the node
@@ -55,7 +51,7 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
         peer.send_blocks_and_test([block1], node, success=True)
 
         self.log.info("Mature the block.")
-        node.generatetoaddress(100, node.get_deterministic_priv_key().address)
+        self.generatetoaddress(node, 100, node.get_deterministic_priv_key().address)
 
         best_block = node.getblock(node.getbestblockhash())
         tip = int(node.getbestblockhash(), 16)
@@ -107,7 +103,7 @@ class InvalidBlockRequestTest(DigiByteTestFramework):
 
         block3 = create_block(tip, create_coinbase(height), block_time)
         block_time += 1
-        block3.vtx[0].vout[0].nValue = 100 * COIN  # Too high!
+        block3.vtx[0].vout[0].nValue = 73000 * COIN  # Too high!
         block3.vtx[0].sha256 = None
         block3.vtx[0].calc_sha256()
         block3.hashMerkleRoot = block3.calc_merkle_root()

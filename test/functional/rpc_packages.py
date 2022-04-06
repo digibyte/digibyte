@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021 The DigiByte Core developers
+# Copyright (c) 2021 The Bitcoin Core developers
+# Copyright (c) 2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """RPCs that handle raw transaction packages."""
@@ -7,7 +8,7 @@
 from decimal import Decimal
 import random
 
-from test_framework.address import ADDRESS_dgbrt_P2WSH_OP_TRUE
+from test_framework.address import ADDRESS_BCRT1_P2WSH_OP_TRUE
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.messages import (
     BIP125_SEQUENCE_NUMBER,
@@ -46,7 +47,7 @@ class RPCPackagesTest(DigiByteTestFramework):
         self.address = node.get_deterministic_priv_key().address
         self.coins = []
         # The last 100 coinbase transactions are premature
-        for b in node.generatetoaddress(200, self.address)[:100]:
+        for b in self.generatetoaddress(node, 200, self.address)[:100]:
             coinbase = node.getblock(blockhash=b, verbosity=2)["tx"][0]
             self.coins.append({
                 "txid": coinbase["txid"],
@@ -60,7 +61,7 @@ class RPCPackagesTest(DigiByteTestFramework):
         for _ in range(3):
             coin = self.coins.pop()
             rawtx = node.createrawtransaction([{"txid": coin["txid"], "vout": 0}],
-                {self.address : coin["amount"] - Decimal("0.0001")})
+                {self.address : coin["amount"] - Decimal("0.01")})
             signedtx = node.signrawtransactionwithkey(hexstring=rawtx, privkeys=self.privkeys)
             assert signedtx["complete"]
             testres = node.testmempoolaccept([signedtx["hex"]])
@@ -85,7 +86,7 @@ class RPCPackagesTest(DigiByteTestFramework):
         """
         node = self.nodes[0]
         inputs = [{"txid": parent_txid, "vout": n}]
-        my_value = parent_value - Decimal("0.0001")
+        my_value = parent_value - Decimal("0.01")
         outputs = {self.address : my_value}
         rawtx = node.createrawtransaction(inputs, outputs)
         prevtxs = [{
@@ -118,7 +119,7 @@ class RPCPackagesTest(DigiByteTestFramework):
         self.log.info("Check testmempoolaccept tells us when some transactions completed validation successfully")
         coin = self.coins.pop()
         tx_bad_sig_hex = node.createrawtransaction([{"txid": coin["txid"], "vout": 0}],
-                                           {self.address : coin["amount"] - Decimal("0.0001")})
+                                           {self.address : coin["amount"] - Decimal("0.01")})
         tx_bad_sig = tx_from_hex(tx_bad_sig_hex)
         testres_bad_sig = node.testmempoolaccept(self.independent_txns_hex + [tx_bad_sig_hex])
         # By the time the signature for the last transaction is checked, all the other transactions
@@ -179,16 +180,16 @@ class RPCPackagesTest(DigiByteTestFramework):
         assert_equal(testres_single, testres_multiple)
 
         # Clean up by clearing the mempool
-        node.generate(1)
+        self.generate(node, 1)
 
     def test_multiple_children(self):
         node = self.nodes[0]
 
         self.log.info("Testmempoolaccept a package in which a transaction has two children within the package")
         first_coin = self.coins.pop()
-        value = (first_coin["amount"] - Decimal("0.0002")) / 2 # Deduct reasonable fee and make 2 outputs
+        value = (first_coin["amount"] - Decimal("0.002")) / 2 # Deduct reasonable fee and make 2 outputs
         inputs = [{"txid": first_coin["txid"], "vout": 0}]
-        outputs = [{self.address : value}, {ADDRESS_dgbrt_P2WSH_OP_TRUE : value}]
+        outputs = [{self.address : value}, {ADDRESS_BCRT1_P2WSH_OP_TRUE : value}]
         rawtx = node.createrawtransaction(inputs, outputs)
 
         parent_signed = node.signrawtransactionwithkey(hexstring=rawtx, privkeys=self.privkeys)
@@ -198,7 +199,7 @@ class RPCPackagesTest(DigiByteTestFramework):
         assert node.testmempoolaccept([parent_signed["hex"]])[0]["allowed"]
 
         parent_locking_script_a = parent_tx.vout[0].scriptPubKey.hex()
-        child_value = value - Decimal("0.0001")
+        child_value = value - Decimal("0.001")
 
         # Child A
         (_, tx_child_a_hex, _, _) = self.chain_transaction(parent_txid, child_value, 0, parent_locking_script_a)
@@ -231,7 +232,7 @@ class RPCPackagesTest(DigiByteTestFramework):
         num_parents = len(parents_tx)
         total_value = sum(values)
         inputs = [{"txid": tx.rehash(), "vout": 0} for tx in parents_tx]
-        outputs = {self.address : total_value - num_parents * Decimal("0.0001")}
+        outputs = {self.address : total_value - num_parents * Decimal("0.01")}
         rawtx_child = self.nodes[0].createrawtransaction(inputs, outputs)
         prevtxs = []
         for i in range(num_parents):
@@ -277,8 +278,8 @@ class RPCPackagesTest(DigiByteTestFramework):
         node = self.nodes[0]
         prevtx = self.coins.pop()
         inputs = [{"txid": prevtx["txid"], "vout": 0}]
-        output1 = {node.get_deterministic_priv_key().address: 50 - 0.00125}
-        output2 = {ADDRESS_dgbrt_P2WSH_OP_TRUE: 50 - 0.00125}
+        output1 = {node.get_deterministic_priv_key().address: 72000 - 0.0125}
+        output2 = {ADDRESS_BCRT1_P2WSH_OP_TRUE: 72000 - 0.0125}
 
         # tx1 and tx2 share the same inputs
         rawtx1 = node.createrawtransaction(inputs, output1)
@@ -313,7 +314,7 @@ class RPCPackagesTest(DigiByteTestFramework):
         coin = self.coins.pop()
         inputs = [{"txid": coin["txid"], "vout": 0, "sequence": BIP125_SEQUENCE_NUMBER}]
         fee = Decimal('0.00125000')
-        output = {node.get_deterministic_priv_key().address: 50 - fee}
+        output = {node.get_deterministic_priv_key().address: 72000 - fee}
         raw_replaceable_tx = node.createrawtransaction(inputs, output)
         signed_replaceable_tx = node.signrawtransactionwithkey(hexstring=raw_replaceable_tx, privkeys=self.privkeys)
         testres_replaceable = node.testmempoolaccept([signed_replaceable_tx["hex"]])

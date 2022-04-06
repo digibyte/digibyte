@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test Hierarchical Deterministic wallet function."""
@@ -40,8 +39,8 @@ class WalletHDTest(DigiByteTestFramework):
             assert_equal(change_addrV["hdkeypath"], "m/0'/1'/0'")  #first internal child key
 
         # Import a non-HD private key in the HD wallet
-        non_hd_add = 'dgbrtqmevj8zfx0wdvp05cqwkmr6mxkfx60yezwjksmt'
-        non_hd_key = 'cS9umN9w6cDMuRVYdbkfE4c7YUFLJRoXMfhQ569uY4odiQbVN8Rt'
+        non_hd_add = 'dgbrt1qj5nyrn9vchu5fpt4e8upfqpkw8nzgazeg0tzpx'
+        non_hd_key = 'eeGXx7odSvEzn26XA6gbSr8R62Hk3ctuTSxRSpbSwrvigHTWxsZZ'
         self.nodes[1].importprivkey(non_hd_key)
 
         # This should be enough to keep the master key and the non-HD key
@@ -50,7 +49,7 @@ class WalletHDTest(DigiByteTestFramework):
 
         # Derive some HD addresses and remember the last
         # Also send funds to each add
-        self.nodes[0].generate(COINBASE_MATURITY + 1)
+        self.generate(self.nodes[0], COINBASE_MATURITY + 1)
         hd_add = None
         NUM_HD_ADDS = 10
         for i in range(1, NUM_HD_ADDS + 1):
@@ -62,9 +61,9 @@ class WalletHDTest(DigiByteTestFramework):
                 assert_equal(hd_info["hdkeypath"], "m/0'/0'/" + str(i) + "'")
             assert_equal(hd_info["hdmasterfingerprint"], hd_fingerprint)
             self.nodes[0].sendtoaddress(hd_add, 1)
-            self.nodes[0].generate(1)
+            self.generate(self.nodes[0], 1)
         self.nodes[0].sendtoaddress(non_hd_add, 1)
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
 
         # create an internal key (again)
         change_addr = self.nodes[1].getrawchangeaddress()
@@ -104,7 +103,7 @@ class WalletHDTest(DigiByteTestFramework):
         self.sync_all()
 
         # Needs rescan
-        self.restart_node(1, extra_args=self.extra_args[1] + ['-rescan'])
+        self.nodes[1].rescanblockchain()
         assert_equal(self.nodes[1].getbalance(), NUM_HD_ADDS + 1)
 
         # Try a RPC based rescan
@@ -130,7 +129,7 @@ class WalletHDTest(DigiByteTestFramework):
 
         # send a tx and make sure its using the internal chain for the changeoutput
         txid = self.nodes[1].sendtoaddress(self.nodes[0].getnewaddress(), 1)
-        outs = self.nodes[1].decoderawtransaction(self.nodes[1].gettransaction(txid)['hex'])['vout']
+        outs = self.nodes[1].gettransaction(txid=txid, verbose=True)['decoded']['vout']
         keypath = ""
         for out in outs:
             if out['value'] != 1:
@@ -180,7 +179,7 @@ class WalletHDTest(DigiByteTestFramework):
             assert_raises_rpc_error(-5, "Already have this key", self.nodes[1].sethdseed, False, self.nodes[1].dumpprivkey(self.nodes[1].getnewaddress()))
 
             self.log.info('Test sethdseed restoring with keys outside of the initial keypool')
-            self.nodes[0].generate(10)
+            self.generate(self.nodes[0], 10)
             # Restart node 1 with keypool of 3 and a different wallet
             self.nodes[1].createwallet(wallet_name='origin', blank=True)
             self.restart_node(1, extra_args=['-keypool=3', '-wallet=origin'])
@@ -229,8 +228,7 @@ class WalletHDTest(DigiByteTestFramework):
             # The wallet that has set a new seed (restore_rpc) should not detect this transaction.
             txid = self.nodes[0].sendtoaddress(addr, 1)
             origin_rpc.sendrawtransaction(self.nodes[0].gettransaction(txid)['hex'])
-            self.nodes[0].generate(1)
-            self.sync_blocks()
+            self.generate(self.nodes[0], 1)
             origin_rpc.gettransaction(txid)
             assert_raises_rpc_error(-5, 'Invalid or non-wallet transaction id', restore_rpc.gettransaction, txid)
             out_of_kp_txid = txid
@@ -240,8 +238,7 @@ class WalletHDTest(DigiByteTestFramework):
             # The previous transaction (out_of_kp_txid) should still not be detected as a rescan is required.
             txid = self.nodes[0].sendtoaddress(last_addr, 1)
             origin_rpc.sendrawtransaction(self.nodes[0].gettransaction(txid)['hex'])
-            self.nodes[0].generate(1)
-            self.sync_blocks()
+            self.generate(self.nodes[0], 1)
             origin_rpc.gettransaction(txid)
             restore_rpc.gettransaction(txid)
             assert_raises_rpc_error(-5, 'Invalid or non-wallet transaction id', restore_rpc.gettransaction, out_of_kp_txid)

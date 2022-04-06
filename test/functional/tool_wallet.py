@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018-2020 The DigiByte Core developers
+# Copyright (c) 2018-2020 The Bitcoin Core developers
+# Copyright (c) 2018-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test digibyte-wallet."""
@@ -193,7 +194,7 @@ class ToolWalletTest(DigiByteTestFramework):
         locked_dir = os.path.join(self.options.tmpdir, "node0", "regtest", "wallets")
         error = 'Error initializing wallet database environment "{}"!'.format(locked_dir)
         if self.options.descriptors:
-            error = "SQLiteDatabase: Unable to obtain an exclusive lock on the database, is it being used by another digibyted?"
+            error = "SQLiteDatabase: Unable to obtain an exclusive lock on the database, is it being used by another instance of DigiByte Core?"
         self.assert_raises_tool_error(
             error,
             '-wallet=' + self.default_wallet_name,
@@ -242,7 +243,7 @@ class ToolWalletTest(DigiByteTestFramework):
         """
         self.start_node(0)
         self.log.info('Generating transaction to mutate wallet')
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
         self.stop_node(0)
 
         self.log.info('Calling wallet tool info after generating a transaction, testing output')
@@ -307,7 +308,7 @@ class ToolWalletTest(DigiByteTestFramework):
         self.log.debug('Wallet file shasum unchanged\n')
 
     def test_salvage(self):
-        # TODO: Check salvage actually salvages and doesn't break things. https://github.com/digibyte/digibyte/issues/7463
+        # TODO: Check salvage actually salvages and doesn't break things. https://github.com/bitcoin/bitcoin/issues/7463
         self.log.info('Check salvage')
         self.start_node(0)
         self.nodes[0].createwallet("salvage")

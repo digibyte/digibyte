@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool re-org scenarios.
@@ -12,6 +11,9 @@ that spend (directly or indirectly) coinbase transactions.
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
 from test_framework.wallet import MiniWallet
+from test_framework.blocktools import COINBASE_MATURITY
+
+from time import sleep
 
 class MempoolCoinbaseTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -66,7 +68,7 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         wallet.sendrawtransaction(from_node=self.nodes[0], tx_hex=spend_2['hex'])
         wallet.sendrawtransaction(from_node=self.nodes[0], tx_hex=spend_3['hex'])
         self.log.info("Generate a block")
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
         self.log.info("Check that time-locked transaction is still too immature to spend")
         assert_raises_rpc_error(-26, 'non-final', self.nodes[0].sendrawtransaction, timelock_tx)
 
@@ -79,10 +81,9 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         self.log.info("Broadcast and mine spend_3_1")
         spend_3_1_id = self.nodes[0].sendrawtransaction(spend_3_1['hex'])
         self.log.info("Generate a block")
-        last_block = self.nodes[0].generate(1)
-        # Sync blocks, so that peer 1 gets the block before timelock_tx
-        # Otherwise, peer 1 would put the timelock_tx in recentRejects
-        self.sync_all()
+        last_block = self.generate(self.nodes[0], 1)
+        # generate() implicitly syncs blocks, so that peer 1 gets the block before timelock_tx
+        # Otherwise, peer 1 would put the timelock_tx in m_recent_rejects
 
         self.log.info("The time-locked transaction can now be spent")
         timelock_tx_id = self.nodes[0].sendrawtransaction(timelock_tx)
@@ -102,7 +103,7 @@ class MempoolCoinbaseTest(DigiByteTestFramework):
         assert_equal(set(self.nodes[0].getrawmempool()), {spend_1_id, spend_2_1_id, spend_3_1_id})
 
         self.log.info("Use invalidateblock to re-org back and make all those coinbase spends immature/invalid")
-        b = self.nodes[0].getblockhash(first_block + 100)
+        b = self.nodes[0].getblockhash(first_block + COINBASE_MATURITY)
         for node in self.nodes:
             node.invalidateblock(b)
 

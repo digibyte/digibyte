@@ -41,7 +41,7 @@ class AddressesDeprecationTest(DigiByteTestFramework):
         txid = node.sendrawtransaction(hexstring=tx_signed, maxfeerate=0)
 
         self.log.info("Test RPCResult scriptPubKey no longer returns the fields addresses or reqSigs by default")
-        hash = node.generateblock(output=node.getnewaddress(), transactions=[txid])['hash']
+        hash = self.generateblock(node, output=node.getnewaddress(), transactions=[txid])['hash']
         # Ensure both nodes have the newly generated block on disk.
         self.sync_blocks()
         script_pub_key = node.getblock(blockhash=hash, verbose=2)['tx'][-1]['vout'][0]['scriptPubKey']
@@ -49,7 +49,7 @@ class AddressesDeprecationTest(DigiByteTestFramework):
 
         self.log.info("Test RPCResult scriptPubKey returns the addresses field with -deprecatedrpc=addresses")
         script_pub_key = self.nodes[1].getblock(blockhash=hash, verbose=2)['tx'][-1]['vout'][0]['scriptPubKey']
-        assert_equal(script_pub_key['addresses'], ['mvKDK6D54HU8wQumJBLHY95eq5iHFqXSBz', 'mv3rHCQSwKp2BLSuMHD8uCS32LW5xiNAA5', 'mirrsyhAQYzo5CwVhcaYJKwUJu1WJRCRJe'])
+        assert_equal(script_pub_key['addresses'], ['sxPG5igPhzRHCv14fUL4p2ATGeaRqxmpkv', 'sx7u3psmb2mASqYCiaCvB5WqTuNEeqvNsM', 'skvuecAV4FwwLi2o4uaKaD2GkTseskvZAJ'])
         assert_equal(script_pub_key['reqSigs'], 2)
 
 

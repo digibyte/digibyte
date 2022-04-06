@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-2020 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test p2p blocksonly mode & block-relay-only connections."""
@@ -8,7 +8,7 @@ import time
 
 from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.messages import msg_tx
-from test_framework.p2p import P2PInterface, P2PTxInvStore
+from test_framework.p2p import P2PInterface, P2PTxInvStore, P2P_VERSION
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
 from test_framework.wallet import MiniWallet
@@ -23,8 +23,8 @@ class P2PBlocksOnly(DigiByteTestFramework):
     def run_test(self):
         self.miniwallet = MiniWallet(self.nodes[0])
         # Add enough mature utxos to the wallet, so that all txs spend confirmed coins
-        self.miniwallet.generate(2)
-        self.nodes[0].generate(COINBASE_MATURITY)
+        self.generate(self.miniwallet, 2)
+        self.generate(self.nodes[0], COINBASE_MATURITY)
 
         self.blocksonly_mode_tests()
         self.blocks_relay_conn_tests()
@@ -41,7 +41,10 @@ class P2PBlocksOnly(DigiByteTestFramework):
         assert_equal(self.nodes[0].getpeerinfo()[0]['relaytxes'], True)
 
         assert_equal(self.nodes[0].testmempoolaccept([tx_hex])[0]['allowed'], True)
-        with self.nodes[0].assert_debug_log(['received getdata for: wtx {} peer=1'.format(wtxid)]):
+        expected_message = 'received getdata for: tx {} peer=1'.format(txid)
+        if P2P_VERSION >= 70018:
+            expected_message = 'received getdata for: wtx {} peer=1'.format(wtxid)
+        with self.nodes[0].assert_debug_log([expected_message]):
             self.nodes[0].sendrawtransaction(tx_hex)
             tx_relay_peer.wait_for_tx(txid)
             assert_equal(self.nodes[0].getmempoolinfo()['size'], 1)
@@ -61,10 +64,10 @@ class P2PBlocksOnly(DigiByteTestFramework):
         with self.nodes[0].assert_debug_log(["received getdata"]):
             # Note that normally, first_peer would never send us transactions since we're a blocksonly node.
             # By activating blocksonly, we explicitly tell our peers that they should not send us transactions,
-            # and DigiByte Core respects that choice and will not send transactions.
+            # and Bitcoin Core respects that choice and will not send transactions.
             # But if, for some reason, first_peer decides to relay transactions to us anyway, we should relay them to
             # second_peer since we gave relay permission to first_peer.
-            # See https://github.com/digibyte/digibyte/issues/19943 for details.
+            # See https://github.com/bitcoin/bitcoin/issues/19943 for details.
             first_peer.send_message(msg_tx(tx))
             self.log.info('Check that the peer with relay-permission is still connected after sending the transaction')
             assert_equal(first_peer.is_connected, True)
@@ -73,7 +76,7 @@ class P2PBlocksOnly(DigiByteTestFramework):
         self.log.info("Relay-permission peer's transaction is accepted and relayed")
 
         self.nodes[0].disconnect_p2ps()
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
 
     def blocks_relay_conn_tests(self):
         self.log.info('Tests with node in normal mode with block-relay-only connections')

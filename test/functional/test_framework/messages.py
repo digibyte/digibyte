@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 # Copyright (c) 2010 ArtForz -- public domain half-a-node
 # Copyright (c) 2012 Jeff Garzik
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2010-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""DigiByte test framework primitive and message structures
+"""Bitcoin test framework primitive and message structures
 
 CBlock, CTransaction, CBlockHeader, CTxIn, CTxOut, etc....:
     data structures that should map to corresponding structures in
-    digibyte/primitives
+    bitcoin/primitives
 
 msg_block, msg_tx, msg_headers, etc.:
     data structures that represent network messages
@@ -20,7 +19,6 @@ Classes use __slots__ to ensure extraneous attributes aren't accidentally added
 by tests, compromising their intended effect.
 """
 from base64 import b32decode, b32encode
-from codecs import encode
 import copy
 import hashlib
 from io import BytesIO
@@ -30,21 +28,36 @@ import socket
 import struct
 import time
 
+from .blockversion import (
+    VERSIONBITS_LAST_OLD_BLOCK_VERSION,
+)
+
+import digibyte_scrypt
+
 from test_framework.siphash import siphash256
-from test_framework.util import hex_str_to_bytes, assert_equal
+from test_framework.util import assert_equal
+
+BLOCK_VERSION_ALGO    = (15 << 8)
+BLOCK_VERSION_SCRYPT  = (0 << 8)
+BLOCK_VERSION_SHA256D = (2 << 8)
+BLOCK_VERSION_GROESTL = (4 << 8)
+BLOCK_VERSION_SKEIN   = (6 << 8)
+BLOCK_VERSION_QUBIT   = (8 << 8)
+BLOCK_VERSION_ODO     = (14 << 8)
 
 MAX_LOCATOR_SZ = 101
+MAX_BLOCK_WEIGHT = 4000000
 MAX_BLOCK_BASE_SIZE = 1000000
 MAX_BLOOM_FILTER_SIZE = 36000
 MAX_BLOOM_HASH_FUNCS = 50
 
-COIN = 100000000  # 1 dgb in satoshis
+COIN = 100000000  # 1 btc in satoshis
 MAX_MONEY = 21000000000 * COIN
 
 BIP125_SEQUENCE_NUMBER = 0xfffffffd  # Sequence number that is rbf-opt-in (BIP 125) and csv-opt-out (BIP 68)
 
 MAX_PROTOCOL_MESSAGE_LENGTH = 4000000  # Maximum length of incoming protocol messages
-MAX_HEADERS_RESULTS = 2000  # Number of headers sent in one getheaders result
+MAX_HEADERS_RESULTS = 10000  # Number of headers sent in one getheaders result
 MAX_INV_SIZE = 50000  # Maximum number of entries in an 'inv' protocol message
 
 NODE_NETWORK = (1 << 0)
@@ -57,23 +70,24 @@ MSG_TX = 1
 MSG_BLOCK = 2
 MSG_FILTERED_BLOCK = 3
 MSG_CMPCT_BLOCK = 4
-MSG_WTX = 5
-MSG_DANDELION_TX = 6,
+MSG_DANDELION = 5
+MSG_WTX = 6
 MSG_WITNESS_FLAG = 1 << 30
 MSG_TYPE_MASK = 0xffffffff >> 2
 MSG_WITNESS_TX = MSG_TX | MSG_WITNESS_FLAG
-MSG_DANDELION_WITNESS_TX = MSG_DANDELION_TX | MSG_WITNESS_FLAG
 
 FILTER_TYPE_BASIC = 0
 
 WITNESS_SCALE_FACTOR = 4
 
-# Serialization/deserialization tools
+
 def sha256(s):
-    return hashlib.new('sha256', s).digest()
+    return hashlib.sha256(s).digest()
+
 
 def hash256(s):
     return sha256(sha256(s))
+
 
 def ser_compact_size(l):
     r = b""
@@ -200,7 +214,7 @@ def from_hex(obj, hex_string):
     Note that there is no complementary helper like e.g. `to_hex` for the
     inverse operation. To serialize a message object to a hex string, simply
     use obj.serialize().hex()"""
-    obj.deserialize(BytesIO(hex_str_to_bytes(hex_string)))
+    obj.deserialize(BytesIO(bytes.fromhex(hex_string)))
     return obj
 
 
@@ -209,13 +223,13 @@ def tx_from_hex(hex_string):
     return from_hex(CTransaction(), hex_string)
 
 
-# Objects that map to digibyted objects, which can be serialized/deserialized
+# Objects that map to bitcoind objects, which can be serialized/deserialized
 
 
 class CAddress:
     __slots__ = ("net", "ip", "nServices", "port", "time")
 
-    # see https://github.com/digibyte/bips/blob/master/bip-0155.mediawiki
+    # see https://github.com/bitcoin/bips/blob/master/bip-0155.mediawiki
     NET_IPV4 = 1
     NET_I2P = 5
 
@@ -319,9 +333,8 @@ class CInv:
         MSG_BLOCK | MSG_WITNESS_FLAG: "WitnessBlock",
         MSG_FILTERED_BLOCK: "filtered Block",
         MSG_CMPCT_BLOCK: "CompactBlock",
+        MSG_DANDELION: "DandelionTx",
         MSG_WTX: "WTX",
-        MSG_DANDELION_TX: "DandelionTx",
-        MSG_DANDELION_WITNESS_TX | MSG_WITNESS_FLAG: "DandelionWitnessTx",
     }
 
     def __init__(self, t=0, h=0):
@@ -358,7 +371,7 @@ class CBlockLocator:
 
     def serialize(self):
         r = b""
-        r += struct.pack("<i", 0)  # DigiByte Core ignores version field. Set it to 0.
+        r += struct.pack("<i", 0)  # Bitcoin Core ignores version field. Set it to 0.
         r += ser_uint256_vector(self.vHave)
         return r
 
@@ -535,7 +548,7 @@ class CTransaction:
         if len(self.vin) == 0:
             flags = struct.unpack("<B", f.read(1))[0]
             # Not sure why flags can't be zero, but this
-            # matches the implementation in digibyted
+            # matches the implementation in bitcoind
             if (flags != 0):
                 self.vin = deser_vector(f, CTxIn)
                 self.vout = deser_vector(f, CTxOut)
@@ -604,6 +617,7 @@ class CTransaction:
 
         if self.sha256 is None:
             self.sha256 = uint256_from_str(hash256(self.serialize_without_witness()))
+
         self.hash = hash256(self.serialize_without_witness())[::-1].hex()
 
     def is_valid(self):
@@ -613,12 +627,15 @@ class CTransaction:
                 return False
         return True
 
-    # Calculate the virtual transaction size using witness and non-witness
+    # Calculate the transaction weight using witness and non-witness
     # serialization size (does NOT use sigops).
-    def get_vsize(self):
+    def get_weight(self):
         with_witness_size = len(self.serialize_with_witness())
         without_witness_size = len(self.serialize_without_witness())
-        return math.ceil(((WITNESS_SCALE_FACTOR - 1) * without_witness_size + with_witness_size) / WITNESS_SCALE_FACTOR)
+        return (WITNESS_SCALE_FACTOR - 1) * without_witness_size + with_witness_size
+
+    def get_vsize(self):
+        return math.ceil(self.get_weight() / WITNESS_SCALE_FACTOR)
 
     def __repr__(self):
         return "CTransaction(nVersion=%i vin=%s vout=%s wit=%s nLockTime=%i)" \
@@ -627,7 +644,7 @@ class CTransaction:
 
 class CBlockHeader:
     __slots__ = ("hash", "hashMerkleRoot", "hashPrevBlock", "nBits", "nNonce",
-                 "nTime", "nVersion", "sha256")
+                 "nTime", "nVersion", "sha256", "powHash")
 
     def __init__(self, header=None):
         if header is None:
@@ -641,10 +658,11 @@ class CBlockHeader:
             self.nNonce = header.nNonce
             self.sha256 = header.sha256
             self.hash = header.hash
+            self.powHash = header.powHash
             self.calc_sha256()
 
     def set_null(self):
-        self.nVersion = 1
+        self.nVersion = VERSIONBITS_LAST_OLD_BLOCK_VERSION
         self.hashPrevBlock = 0
         self.hashMerkleRoot = 0
         self.nTime = 0
@@ -652,6 +670,7 @@ class CBlockHeader:
         self.nNonce = 0
         self.sha256 = None
         self.hash = None
+        self.powHash = None
 
     def deserialize(self, f):
         self.nVersion = struct.unpack("<i", f.read(4))[0]
@@ -662,6 +681,7 @@ class CBlockHeader:
         self.nNonce = struct.unpack("<I", f.read(4))[0]
         self.sha256 = None
         self.hash = None
+        self.powHash = None
 
     def serialize(self):
         r = b""
@@ -683,7 +703,34 @@ class CBlockHeader:
             r += struct.pack("<I", self.nBits)
             r += struct.pack("<I", self.nNonce)
             self.sha256 = uint256_from_str(hash256(r))
-            self.hash = encode(hash256(r)[::-1], 'hex_codec').decode('ascii')
+            self.hash = hash256(r)[::-1].hex()
+
+            self.powHash = uint256_from_str(self.calcPowHash(r))
+
+    def getAlgo(self):
+        algoBits = (self.nVersion & BLOCK_VERSION_ALGO)
+
+        if algoBits == BLOCK_VERSION_SCRYPT: return "scrypt"
+        if algoBits == BLOCK_VERSION_SHA256D: return "sha256d"
+        if algoBits == BLOCK_VERSION_GROESTL: return "groestl"
+        if algoBits == BLOCK_VERSION_SKEIN: return "skein"
+        if algoBits == BLOCK_VERSION_QUBIT: return "qubit"
+        if algoBits == BLOCK_VERSION_ODO: return "odo"
+    
+        return "unknown"
+
+    def calcPowHash(self, h):
+        algo = self.getAlgo()
+
+        if algo == "scrypt":
+            return digibyte_scrypt.calcPoW(h)
+        elif algo == "sha256d":
+            return hash256(h)
+        else:
+            return hash256(h)
+            
+            raise ValueError("Unknown Algo: {}".format(algo))
+
 
     def rehash(self):
         self.sha256 = None
@@ -762,9 +809,16 @@ class CBlock(CBlockHeader):
     def solve(self):
         self.rehash()
         target = uint256_from_compact(self.nBits)
-        while self.sha256 > target:
+        while self.powHash > target:
             self.nNonce += 1
             self.rehash()
+
+    # Calculate the block weight using witness and non-witness
+    # serialization size (does NOT use sigops).
+    def get_weight(self):
+        with_witness_size = len(self.serialize(with_witness=True))
+        without_witness_size = len(self.serialize(with_witness=False))
+        return (WITNESS_SCALE_FACTOR - 1) * without_witness_size + with_witness_size
 
     def __repr__(self):
         return "CBlock(nVersion=%i hashPrevBlock=%064x hashMerkleRoot=%064x nTime=%s nBits=%08x nNonce=%08x vtx=%s)" \
@@ -1075,7 +1129,7 @@ class msg_version:
         self.nStartingHeight = struct.unpack("<i", f.read(4))[0]
 
         # Relay field is optional for version 70001 onwards
-        # But, unconditionally check it to match behaviour in digibyted
+        # But, unconditionally check it to match behaviour in bitcoind
         try:
             self.relay = struct.unpack("<b", f.read(1))[0]
         except struct.error:
@@ -1456,7 +1510,7 @@ class msg_headers:
         self.headers = headers if headers is not None else []
 
     def deserialize(self, f):
-        # comment in digibyted indicates these should be deserialized as blocks
+        # comment in bitcoind indicates these should be deserialized as blocks
         blocks = deser_vector(f, CBlock)
         for x in blocks:
             self.headers.append(CBlockHeader(x))
@@ -1614,20 +1668,6 @@ class msg_cmpctblock:
     def __repr__(self):
         return "msg_cmpctblock(HeaderAndShortIDs=%s)" % repr(self.header_and_shortids)
 
-class msg_dandeliontx():
-    command = b"dandeliontx"
-        
-    def __init__(self, tx=CTransaction()):
-        self.tx = tx
-                
-    def deserialize(self, f):
-        self.tx.deserialize(f)
-                        
-    def serialize(self):
-        return self.tx.serialize_without_witness()
-                                
-    def __repr__(self):
-        return "msg_dandeliontx(tx=%s)" % (repr(self.tx))
 
 class msg_getblocktxn:
     __slots__ = ("block_txn_request",)

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-2020 The DigiByte Core developers
+# Copyright (c) 2019-2020 The Bitcoin Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 # Test Taproot softfork (BIPs 340-342)
 
 from test_framework.blocktools import (
     COINBASE_MATURITY,
+    COINBASE_MATURITY_ORIGINAL,
     create_coinbase,
     create_block,
     add_witness_commitment,
@@ -597,7 +599,7 @@ SINGLE_SIG = {"inputs": [getter("sign")]}
 SIG_ADD_ZERO = {"failure": {"sign": zero_appender(default_sign)}}
 
 DUST_LIMIT = 600
-MIN_FEE = 50000
+MIN_FEE = 1300000
 
 # === Actual test cases ===
 
@@ -1233,7 +1235,6 @@ class TaprootTest(DigiByteTestFramework):
         extra_output_script = CScript([OP_CHECKSIG]*((MAX_BLOCK_SIGOPS_WEIGHT - sigops_weight) // WITNESS_SCALE_FACTOR))
 
         block = create_block(self.tip, create_coinbase(self.lastblockheight + 1, pubkey=cb_pubkey, extra_output_script=extra_output_script, fees=fees), self.lastblocktime + 1)
-        block.nVersion = 4
         for tx in txs:
             tx.rehash()
             block.vtx.append(tx)
@@ -1461,7 +1462,7 @@ class TaprootTest(DigiByteTestFramework):
     def run_test(self):
         # Post-taproot activation tests go first (pre-taproot tests' blocks are invalid post-taproot).
         self.log.info("Post-activation tests...")
-        self.nodes[1].generate(COINBASE_MATURITY + 1)
+        self.generate(self.nodes[1], COINBASE_MATURITY + 1)
         self.test_spenders(self.nodes[1], spenders_taproot_active(), input_counts=[1, 2, 2, 2, 2, 3])
 
         # Re-connect nodes in case they have been disconnected
