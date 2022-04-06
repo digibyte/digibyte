@@ -94,6 +94,7 @@ QModelIndex FindTx(const QAbstractItemModel& model, const uint256& txid)
 }
 
 //! Invoke bumpfee on txid and check results.
+/* Digibyte: Disable RBF
 void BumpFee(TransactionView& view, const uint256& txid, bool expectDisabled, std::string expectError, bool cancel)
 {
     QTableView* table = view.findChild<QTableView*>("transactionView");
@@ -118,6 +119,7 @@ void BumpFee(TransactionView& view, const uint256& txid, bool expectDisabled, st
     action->trigger();
     QVERIFY(text.indexOf(QString::fromStdString(expectError)) != -1);
 }
+*/
 
 //! Simple qt wallet tests.
 //
@@ -191,10 +193,11 @@ void TestGUI(interfaces::Node& node)
     QVERIFY(FindTx(*transactionTableModel, txid2).isValid());
 
     // Call bumpfee. Test disabled, canceled, enabled, then failing cases.
-    BumpFee(transactionView, txid1, true /* expect disabled */, "not BIP 125 replaceable" /* expected error */, false /* cancel */);
-    BumpFee(transactionView, txid2, false /* expect disabled */, {} /* expected error */, true /* cancel */);
-    BumpFee(transactionView, txid2, false /* expect disabled */, {} /* expected error */, false /* cancel */);
-    BumpFee(transactionView, txid2, true /* expect disabled */, "already bumped" /* expected error */, false /* cancel */);
+    // Digibyte: Disable BumpFee tests
+    // BumpFee(transactionView, txid1, true /* expect disabled */, "not BIP 125 replaceable" /* expected error */, false /* cancel */);
+    // BumpFee(transactionView, txid2, false /* expect disabled */, {} /* expected error */, true /* cancel */);
+    // BumpFee(transactionView, txid2, false /* expect disabled */, {} /* expected error */, false /* cancel */);
+    // BumpFee(transactionView, txid2, true /* expect disabled */, "already bumped" /* expected error */, false /* cancel */);
 
     // Check current balance on OverviewPage
     OverviewPage overviewPage(platformStyle.get());
