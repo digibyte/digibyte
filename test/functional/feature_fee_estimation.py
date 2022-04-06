@@ -197,7 +197,7 @@ class EstimateFeeTest(DigiByteTestFramework):
             for _ in range(random.randrange(100 - 50, 100 + 50)):
                 from_index = random.randint(1, 2)
                 (txhex, fee) = small_txpuzzle_randfee(self.nodes[from_index], self.confutxo,
-                                                      self.memutxo, Decimal("0.005"), min_fee, min_fee)
+                                                      self.memutxo, Decimal("0.007"), min_fee, min_fee)
                 tx_kbytes = (len(txhex) // 2) / 1000.0
                 self.fees_per_kb.append(float(fee) / tx_kbytes)
             self.sync_mempools(wait=.1)
