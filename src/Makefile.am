@@ -668,7 +668,6 @@ libdigibyte_cli_a_SOURCES = \
   compat/stdin.h \
   compat/stdin.cpp \
   rpc/client.cpp \
-  primitives/block.cpp \
   $(DIGIBYTE_CORE_H)
 
 nodist_libdigibyte_util_a_SOURCES = $(srcdir)/obj/build.h
@@ -725,6 +724,8 @@ endif
 digibyte_cli_LDADD = \
   $(LIBDIGIBYTE_CLI) \
   $(LIBUNIVALUE) \
+  $(LIBDIGIBYTE_COMMON) \
+  $(LIBDIGIBYTE_CONSENSUS) \  
   $(LIBDIGIBYTE_UTIL) \
   $(LIBDIGIBYTE_CRYPTO)
 
