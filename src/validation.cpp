@@ -350,10 +350,9 @@ void CChainState::MaybeUpdateMempoolForReorg(
     // been previously seen in a block.
     auto it = disconnectpool.queuedTx.get<insertion_order>().rbegin();
     while (it != disconnectpool.queuedTx.get<insertion_order>().rend()) {
-        const MempoolAcceptResult result = AcceptToMemoryPool(*this, *m_mempool, *it, true /* bypass_limits */);
-        AcceptToMemoryPool(*this, *m_stempool, *it, true /* bypass_limits */);
         // ignore validation errors in resurrected transactions
-        if (!fAddToMempool || (*it)->IsCoinBase() || result.m_result_type == MempoolAcceptResult::ResultType::VALID) {
+        if (!fAddToMempool || (*it)->IsCoinBase() ||
+            AcceptToMemoryPool(*this, *m_mempool, *it, true /* bypass_limits */).m_result_type != MempoolAcceptResult::ResultType::VALID) {
             // If the transaction doesn't make it in to the mempool, remove any
             // transactions that depend on it (which would now be orphans).
             m_mempool->removeRecursive(**it, MemPoolRemovalReason::REORG);

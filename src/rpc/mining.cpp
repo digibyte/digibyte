@@ -282,11 +282,7 @@ static RPCHelpMan generatetoaddress()
 {
     const int num_blocks{request.params[0].get_int()};
     const uint64_t max_tries{request.params[2].isNull() ? DEFAULT_MAX_TRIES : request.params[2].get_int()};
-
-    int algo = miningAlgo;
-    if (!request.params[2].isNull()) {
-        algo = GetAlgoByName(request.params[2].get_str(), algo);
-    }
+    const int algo{request.params[3].isNull() ? miningAlgo : GetAlgoByName(request.params[3].get_str(), miningAlgo)};
 
     CTxDestination destination = DecodeDestination(request.params[1].get_str());
     if (!IsValidDestination(destination)) {

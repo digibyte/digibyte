@@ -37,7 +37,7 @@ static const int SHORT_IDS_BLOCKS_VERSION = 70014;
 static const int INVALID_CB_NO_BAN_VERSION = 70015;
 
 //! "wtxidrelay" command for wtxid-based relay starts with this version
-static const int WTXID_RELAY_VERSION = 70019;
+static const int WTXID_RELAY_VERSION = 70018;
 
 // Make sure that none of the values above collide with
 // `SERIALIZE_TRANSACTION_NO_WITNESS` or `ADDRV2_FORMAT`.

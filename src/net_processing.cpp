@@ -112,10 +112,10 @@ static const int MAX_BLOCKTXN_DEPTH = 10;
  *  degree of disordering of blocks on disk (which make reindexing and pruning harder). We'll probably
  *  want to make this a per-peer adaptive value at some point. */
 static const unsigned int BLOCK_DOWNLOAD_WINDOW = 1024;
-/** Block download timeout base, expressed in multiples of the block interval (i.e. 10 min) */
-static constexpr double BLOCK_DOWNLOAD_TIMEOUT_BASE = 1;
-/** Additional block download timeout per parallel downloading peer (i.e. 5 min) */
-static constexpr double BLOCK_DOWNLOAD_TIMEOUT_PER_PEER = 0.5;
+/** Block download timeout base, expressed in multiples of the block interval (i.e. 15 * 6 seconds) */
+static constexpr double BLOCK_DOWNLOAD_TIMEOUT_BASE = 6;
+/** Additional block download timeout per parallel downloading peer (i.e. 1 min) */
+static constexpr double BLOCK_DOWNLOAD_TIMEOUT_PER_PEER = 4;
 /** Maximum number of headers to announce when relaying blocks with headers message.*/
 static const unsigned int MAX_BLOCKS_TO_ANNOUNCE = 8;
 /** Maximum number of unconnecting headers announcements before DoS score */
@@ -1950,7 +1950,7 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
     // Process as many TX items from the front of the getdata queue as
     // possible, since they're common and it's efficient to batch process
     // them.
-    while (it != peer.m_getdata_requests.end() && (it->IsMsgTx() || it->IsGenTxMsg() || it->IsDandelionMsg()))
+    while (it != peer.m_getdata_requests.end() && (it->IsGenTxMsg() || it->IsDandelionMsg()))
     {
         if (interruptMsgProc) return;
         // The send buffer provides backpressure. If there's no space in
@@ -1981,7 +1981,7 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
         }
 
         // handle normal messages
-        if (!push && (inv.IsGenTxMsg() || inv.IsMsgTx())) {
+        if (!push && inv.IsGenTxMsg()) {
             CTransactionRef tx = FindTxForGetData(pfrom, ToGenTxid(inv), mempool_req, now);
             if (tx) {
                 // WTX and WITNESS_TX imply we serialize with witness
@@ -1990,13 +1990,18 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
                 if (!pfrom.fSupportsDandelion && !m_connman.isDandelionInbound(&pfrom) && pfrom.m_tx_relay->setDandelionInventoryKnown.count(inv.hash)) {
                     auto txinfo = m_stempool.info(inv.hash);
                     if (txinfo.tx) {
-                        m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *txinfo.tx));
+                        tx = txinfo.tx;
                         push = true;
                     }
                 } else if (tx) {
-                    m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *tx));
                     push = true;
                 }
+
+                if (push) {
+                    m_connman.PushMessage(&pfrom, msgMaker.Make(nSendFlags, NetMsgType::TX, *tx));
+                    m_mempool.RemoveUnbroadcastTx(tx->GetHash());
+                }
+
                 // As we're going to send tx, make sure its unconfirmed parents are made requestable.
                 std::vector<uint256> parent_ids_to_add;
                 {
@@ -2020,7 +2025,6 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
                     }
                 }
             }
-            push = true;
         }
 
         if (!push) {
@@ -2291,10 +2295,8 @@ void PeerManagerImpl::ProcessOrphanTx(std::set<uint256>& orphan_work_set)
 
         const MempoolAcceptResult result = AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_mempool, porphanTx, false /* bypass_limits */);
         const TxValidationState& state = result.m_state;
-        AcceptToMemoryPool(m_chainman.ActiveChainstate(), m_stempool, porphanTx, false /* bypass_limits */);
 
         if (result.m_result_type == MempoolAcceptResult::ResultType::VALID) {
-
             LogPrint(BCLog::MEMPOOL, "   accepted orphan tx %s\n", orphanHash.ToString());
             _RelayTransaction(orphanHash, porphanTx->GetWitnessHash());
             m_orphanage.AddChildrenToWorkSet(*porphanTx, orphan_work_set);
@@ -2303,6 +2305,7 @@ void PeerManagerImpl::ProcessOrphanTx(std::set<uint256>& orphan_work_set)
                 AddToCompactExtraTransactions(removedTx);
             }
             break;
+            
         } else if (state.GetResult() != TxValidationResult::TX_MISSING_INPUTS) {
             if (state.IsInvalid()) {
                 LogPrint(BCLog::MEMPOOL, "   invalid orphan tx %s from peer=%d. %s\n",
@@ -2623,10 +2626,10 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
         }
 
         // Signal ADDRv2 support (BIP155).
-        if (greatest_common_version >= 70016) {
+        if (greatest_common_version >= 70018) {
             // BIP155 defines addrv2 and sendaddrv2 for all protocol versions, but some
             // implementations reject messages they don't know. As a courtesy, don't send
-            // it to nodes with a version before 70016, as no software is known to support
+            // it to nodes with a version before 70018, as no software is known to support
             // BIP155 that doesn't announce at least that protocol version number.
             m_connman.PushMessage(&pfrom, msg_maker.Make(NetMsgType::SENDADDRV2));
         }
@@ -4852,19 +4855,6 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
                     }
                 }
 
-                // Push inventory items
-                auto queueAndMaybePushInv = [this, pto, &vInv, &msgMaker](const CInv& invIn) {
-                    AssertLockHeld(pto->m_tx_relay->cs_tx_inventory);
-                    pto->m_tx_relay->filterInventoryKnown.insert(invIn.hash);
-                    LogPrint(BCLog::NET, "SendMessages -- queued inv: %s  index=%d peer=%d\n", invIn.ToString(), vInv.size(), pto->GetId());
-                    vInv.push_back(invIn);
-                    if (vInv.size() == MAX_INV_SZ) {
-                        LogPrint(BCLog::NET, "SendMessages -- pushing invs: count=%d peer=%d\n", vInv.size(), pto->GetId());
-                        m_connman.PushMessage(pto, msgMaker.Make(NetMsgType::INV, vInv));
-                        vInv.clear();
-                    }
-                };
-
                 // Respond to BIP35 mempool requests
                 if (fSendTrickle && pto->m_tx_relay->fSendMempool) {
                     auto vtxinfo = m_mempool.infoAll();
@@ -4872,7 +4862,6 @@ bool PeerManagerImpl::SendMessages(CNode* pto)
                     const CFeeRate filterrate{pto->m_tx_relay->minFeeFilter.load()};
 
                     LOCK(pto->m_tx_relay->cs_filter);
-                    LOCK(pto->m_tx_relay->cs_tx_inventory);
 
                     for (const auto& txinfo : vtxinfo) {
                         const uint256& hash = state.m_wtxid_relay ? txinfo.tx->GetWitnessHash() : txinfo.tx->GetHash();
