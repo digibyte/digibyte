@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020 The DigiByte Core developers
+# Copyright (c) 2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -110,7 +110,7 @@ class AddrTest(DigiByteTestFramework):
     def send_addr_msg(self, source, msg, receivers):
         source.send_and_ping(msg)
         # pop m_next_addr_send timer
-        self.mocktime += 10 * 60
+        self.mocktime += 2 * 60 # CHAIN_SYNC_TIMEOUT / 2
         self.nodes[0].setmocktime(self.mocktime)
         for peer in receivers:
             peer.sync_send_with_ping()

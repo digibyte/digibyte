@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
-# Distributed under the MIT software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test transaction signing using the signrawtransaction* RPCs."""
-
-from test_framework.test_framework import DigiByteTestFramework
-import decimal
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2015-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multisig RPCs"""
@@ -17,7 +9,10 @@ import itertools
 import json
 import os
 
-from test_framework.blocktools import COINBASE_MATURITY
+from test_framework.blocktools import (
+    COINBASE_MATURITY,
+    COINBASE_MATURITY_ORIGINAL,
+)
 from test_framework.authproxy import JSONRPCException
 from test_framework.descriptors import descsum_create, drop_origins
 from test_framework.key import ECPubKey, ECKey
@@ -33,9 +28,6 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 3
         self.supports_cli = False
-
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
@@ -57,7 +49,7 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
         self.check_addmultisigaddress_errors()
 
         self.log.info('Generating blocks ...')
-        node0.generate(149)
+        self.generate(node0, 149)
         self.sync_all()
 
         self.moved = 0
@@ -128,8 +120,7 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
 
     def checkbalances(self):
         node0, node1, node2 = self.nodes
-        node0.generate(COINBASE_MATURITY)
-        self.sync_all()
+        self.generate(node0, COINBASE_MATURITY_ORIGINAL)
 
         bal0 = node0.getbalance()
         bal1 = node1.getbalance()
@@ -137,7 +128,7 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
 
         height = node0.getblockchaininfo()["blocks"]
         assert 150 < height < 350
-        total = 149 * 50 + (height - 149 - 100) * 25
+        total = (height - COINBASE_MATURITY) * 72000
         assert bal1 == 0
         assert bal2 == self.moved
         assert bal0 + bal1 + bal2 == total
@@ -170,7 +161,7 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
         mredeem = msig["redeemScript"]
         assert_equal(desc, msig['descriptor'])
         if self.output_type == 'bech32':
-            assert madd[0:4] == "bcrt"  # actually a bech32 address
+            assert madd[0:5] == "dgbrt"  # actually a bech32 address
 
         # compare against addmultisigaddress
         msigw = wmulti.addmultisigaddress(self.nsigs, self.pub, None, self.output_type)
@@ -191,9 +182,9 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
         value = tx["vout"][vout]["value"]
         prevtxs = [{"txid": txid, "vout": vout, "scriptPubKey": scriptPubKey, "redeemScript": mredeem, "amount": value}]
 
-        node0.generate(1)
+        self.generate(node0, 1)
 
-        outval = value - decimal.Decimal("0.00001000")
+        outval = value - decimal.Decimal("0.001000")
         rawtx = node2.createrawtransaction([{"txid": txid, "vout": vout}], [{self.final: outval}])
 
         prevtx_err = dict(prevtxs[0])
@@ -227,7 +218,7 @@ class RpcCreateMultiSigTest(DigiByteTestFramework):
 
         self.moved += outval
         tx = node0.sendrawtransaction(rawtx3["hex"], 0)
-        blk = node0.generate(1)[0]
+        blk = self.generate(node0, 1)[0]
         assert tx in node0.getblock(blk)["tx"]
 
         txinfo = node0.getrawtransaction(tx, True, blk)

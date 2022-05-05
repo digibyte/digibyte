@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test behavior of headers messages to announce blocks.
@@ -106,8 +105,9 @@ from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
 )
+from time import sleep
 
-DIRECT_FETCH_RESPONSE_TIME = 0.05
+DIRECT_FETCH_RESPONSE_TIME = 0.1
 
 class BaseNode(P2PInterface):
     def __init__(self):
@@ -201,15 +201,12 @@ class SendHeadersTest(DigiByteTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 2
 
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
-
     def mine_blocks(self, count):
         """Mine count blocks and return the new tip."""
 
         # Clear out block announcements from each p2p listener
         [x.clear_block_announcements() for x in self.nodes[0].p2ps]
-        self.nodes[0].generatetoaddress(count, self.nodes[0].get_deterministic_priv_key().address)
+        self.generatetoaddress(self.nodes[0], count, self.nodes[0].get_deterministic_priv_key().address)
         return int(self.nodes[0].getbestblockhash(), 16)
 
     def mine_reorg(self, length):
@@ -220,7 +217,7 @@ class SendHeadersTest(DigiByteTestFramework):
         return the list of block hashes newly mined."""
 
         # make sure all invalidated blocks are node0's
-        self.nodes[0].generatetoaddress(length, self.nodes[0].get_deterministic_priv_key().address)
+        self.generatetoaddress(self.nodes[0], length, self.nodes[0].get_deterministic_priv_key().address)
         self.sync_blocks(self.nodes, wait=0.1)
         for x in self.nodes[0].p2ps:
             x.wait_for_block_announcement(int(self.nodes[0].getbestblockhash(), 16))
@@ -229,7 +226,7 @@ class SendHeadersTest(DigiByteTestFramework):
         tip_height = self.nodes[1].getblockcount()
         hash_to_invalidate = self.nodes[1].getblockhash(tip_height - (length - 1))
         self.nodes[1].invalidateblock(hash_to_invalidate)
-        all_hashes = self.nodes[1].generatetoaddress(length + 1, self.nodes[1].get_deterministic_priv_key().address)  # Must be longer than the orig chain
+        all_hashes = self.generatetoaddress(self.nodes[1], length + 1, self.nodes[1].get_deterministic_priv_key().address)  # Must be longer than the orig chain
         self.sync_blocks(self.nodes, wait=0.1)
         return [int(x, 16) for x in all_hashes]
 
@@ -244,7 +241,7 @@ class SendHeadersTest(DigiByteTestFramework):
         self.test_nonnull_locators(test_node, inv_node)
 
     def test_null_locators(self, test_node, inv_node):
-        tip = self.nodes[0].getblockheader(self.nodes[0].generatetoaddress(1, self.nodes[0].get_deterministic_priv_key().address)[0])
+        tip = self.nodes[0].getblockheader(self.generatetoaddress(self.nodes[0], 1, self.nodes[0].get_deterministic_priv_key().address)[0])
         tip_hash = int(tip["hash"], 16)
 
         inv_node.check_last_inv_announcement(inv=[tip_hash])
@@ -506,15 +503,15 @@ class SendHeadersTest(DigiByteTestFramework):
         test_node.sync_with_ping()
         test_node.wait_for_getdata([x.sha256 for x in blocks[0:2]], timeout=DIRECT_FETCH_RESPONSE_TIME)
 
-        # Announcing 16 more headers should trigger direct fetch for 14 more
+        # Announcing 32 more headers should trigger direct fetch for 30 more
         # blocks
-        test_node.send_header_for_blocks(blocks[2:18])
+        test_node.send_header_for_blocks(blocks[2:34])
         test_node.sync_with_ping()
-        test_node.wait_for_getdata([x.sha256 for x in blocks[2:16]], timeout=DIRECT_FETCH_RESPONSE_TIME)
+        test_node.wait_for_getdata([x.sha256 for x in blocks[2:32]], timeout=DIRECT_FETCH_RESPONSE_TIME)
 
         # Announcing 1 more header should not trigger any response
         test_node.last_message.pop("getdata", None)
-        test_node.send_header_for_blocks(blocks[18:19])
+        test_node.send_header_for_blocks(blocks[34:35])
         test_node.sync_with_ping()
         with p2p_lock:
             assert "getdata" not in test_node.last_message

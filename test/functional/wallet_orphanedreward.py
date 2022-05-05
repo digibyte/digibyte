@@ -6,6 +6,7 @@
 
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import assert_equal
+from test_framework.blocktools import COINBASE_MATURITY
 
 class OrphanedBlockRewardTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -18,39 +19,26 @@ class OrphanedBlockRewardTest(DigiByteTestFramework):
     def run_test(self):
         # Generate some blocks and obtain some coins on node 0.  We send
         # some balance to node 1, which will hold it as a single coin.
-        self.nodes[0].generate(150)
+        self.generate(self.nodes[0], COINBASE_MATURITY + 50)
         self.nodes[0].sendtoaddress(self.nodes[1].getnewaddress(), 10)
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
 
         # Get a block reward with node 1 and remember the block so we can orphan
         # it later.
         self.sync_blocks()
-        blk = self.nodes[1].generate(1)[0]
-        self.sync_blocks()
+        blk = self.generate(self.nodes[1], 1)[0]
 
         # Let the block reward mature and send coins including both
         # the existing balance and the block reward.
-        self.nodes[0].generate(150)
-        self.sync_blocks()
-        assert_equal(self.nodes[1].getbalance(), 10 + 25)
+        self.generate(self.nodes[0], COINBASE_MATURITY + 50)
+        assert_equal(self.nodes[1].getbalance(), 10 + 72000)
         txid = self.nodes[1].sendtoaddress(self.nodes[0].getnewaddress(), 30)
 
         # Orphan the block reward and make sure that the original coins
         # from the wallet can still be spent.
         self.nodes[0].invalidateblock(blk)
-        self.nodes[0].generate(152)
-        self.sync_blocks()
-        # Without the following abandontransaction call, the coins are
-        # not considered available yet.
-        assert_equal(self.nodes[1].getbalances()["mine"], {
-          "trusted": 0,
-          "untrusted_pending": 0,
-          "immature": 0,
-        })
-        # The following abandontransaction is necessary to make the later
-        # lines succeed, and probably should not be needed; see
-        # https://github.com/digibyte/digibyte/issues/14148.
-        self.nodes[1].abandontransaction(txid)
+        self.generate(self.nodes[0], COINBASE_MATURITY + 52)
+
         assert_equal(self.nodes[1].getbalances()["mine"], {
           "trusted": 10,
           "untrusted_pending": 0,

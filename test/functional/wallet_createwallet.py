@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018-2020 The DigiByte Core developers
+# Copyright (c) 2018-2020 The Bitcoin Core developers
+# Copyright (c) 2015-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test createwallet arguments.
@@ -24,7 +25,7 @@ class CreateWalletTest(DigiByteTestFramework):
 
     def run_test(self):
         node = self.nodes[0]
-        node.generate(1) # Leave IBD for sethdseed
+        self.generate(node, 1) #Leave IBD for sethdseed
 
         self.nodes[0].createwallet(wallet_name='w0')
         w0 = node.get_wallet_rpc('w0')

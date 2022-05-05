@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
-# Distributed under the MIT software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test the importmulti RPC."""
-from test_framework.test_framework import DigiByteTestFramework
-from test_framework.util import assert_equal, assert_greater_than, assert_raises_rpc_error
-
-class ImportMultiTest (DigiByteTestFramework):
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the importmulti RPC.
@@ -71,10 +62,9 @@ class ImportMultiTest(DigiByteTestFramework):
 
     def run_test(self):
         self.log.info("Mining blocks...")
-        self.nodes[0].generate(1)
-        self.nodes[1].generate(1)
+        self.generate(self.nodes[0], 1, sync_fun=self.no_op)
+        self.generate(self.nodes[1], 1, sync_fun=self.no_op)
         timestamp = self.nodes[1].getblock(self.nodes[1].getbestblockhash())['mediantime']
-        self.nodes[1].syncwithvalidationinterfacequeue()  # Sync the timestamp to the wallet, so that importmulti works
 
         node0_address1 = self.nodes[0].getaddressinfo(self.nodes[0].getnewaddress())
 
@@ -265,11 +255,10 @@ class ImportMultiTest(DigiByteTestFramework):
 
         # P2SH address
         multisig = get_multisig(self.nodes[0])
-        self.nodes[1].generate(COINBASE_MATURITY)
+        self.generate(self.nodes[1], COINBASE_MATURITY, sync_fun=self.no_op)
         self.nodes[1].sendtoaddress(multisig.p2sh_addr, 10.00)
-        self.nodes[1].generate(1)
+        self.generate(self.nodes[1], 1, sync_fun=self.no_op)
         timestamp = self.nodes[1].getblock(self.nodes[1].getbestblockhash())['mediantime']
-        self.nodes[1].syncwithvalidationinterfacequeue()
 
         self.log.info("Should import a p2sh")
         self.test_importmulti({"scriptPubKey": {"address": multisig.p2sh_addr},
@@ -286,11 +275,10 @@ class ImportMultiTest(DigiByteTestFramework):
 
         # P2SH + Redeem script
         multisig = get_multisig(self.nodes[0])
-        self.nodes[1].generate(COINBASE_MATURITY)
+        self.generate(self.nodes[1], COINBASE_MATURITY, sync_fun=self.no_op)
         self.nodes[1].sendtoaddress(multisig.p2sh_addr, 10.00)
-        self.nodes[1].generate(1)
+        self.generate(self.nodes[1], 1, sync_fun=self.no_op)
         timestamp = self.nodes[1].getblock(self.nodes[1].getbestblockhash())['mediantime']
-        self.nodes[1].syncwithvalidationinterfacequeue()
 
         self.log.info("Should import a p2sh with respective redeem script")
         self.test_importmulti({"scriptPubKey": {"address": multisig.p2sh_addr},
@@ -307,11 +295,10 @@ class ImportMultiTest(DigiByteTestFramework):
 
         # P2SH + Redeem script + Private Keys + !Watchonly
         multisig = get_multisig(self.nodes[0])
-        self.nodes[1].generate(COINBASE_MATURITY)
+        self.generate(self.nodes[1], COINBASE_MATURITY, sync_fun=self.no_op)
         self.nodes[1].sendtoaddress(multisig.p2sh_addr, 10.00)
-        self.nodes[1].generate(1)
+        self.generate(self.nodes[1], 1, sync_fun=self.no_op)
         timestamp = self.nodes[1].getblock(self.nodes[1].getbestblockhash())['mediantime']
-        self.nodes[1].syncwithvalidationinterfacequeue()
 
         self.log.info("Should import a p2sh with respective redeem script and private keys")
         self.test_importmulti({"scriptPubKey": {"address": multisig.p2sh_addr},
@@ -333,11 +320,10 @@ class ImportMultiTest(DigiByteTestFramework):
 
         # P2SH + Redeem script + Private Keys + Watchonly
         multisig = get_multisig(self.nodes[0])
-        self.nodes[1].generate(COINBASE_MATURITY)
+        self.generate(self.nodes[1], COINBASE_MATURITY, sync_fun=self.no_op)
         self.nodes[1].sendtoaddress(multisig.p2sh_addr, 10.00)
-        self.nodes[1].generate(1)
+        self.generate(self.nodes[1], 1, sync_fun=self.no_op)
         timestamp = self.nodes[1].getblock(self.nodes[1].getbestblockhash())['mediantime']
-        self.nodes[1].syncwithvalidationinterfacequeue()
 
         self.log.info("Should import a p2sh with respective redeem script and private keys")
         self.test_importmulti({"scriptPubKey": {"address": multisig.p2sh_addr},
@@ -589,9 +575,10 @@ class ImportMultiTest(DigiByteTestFramework):
 
         # Test ranged descriptor fails if range is not specified
         xpriv = "tprv8ZgxMBicQKsPeuVhWwi6wuMQGfPKi9Li5GtX35jVNknACgqe3CY4g5xgkfDDJcmtF7o1QnxWDRYw4H5P26PXq7sbcUkEqeR4fg3Kxp2tigg"
-        addresses = ["2N7yv4p8G8yEaPddJxY41kPihnWvs39qCMf", "2MsHxyb2JS3pAySeNUsJ7mNnurtpeenDzLA"] # hdkeypath=m/0'/0'/0' and 1'
-        addresses += ["dgbrtqrd3n235cj2czsfmsuvqqpr3lu6lg0ju7scl8gn", "dgbrtqfqeppuvj0ww98r6qghmdkj70tv8qpchehegrg8"] # wpkh subscripts corresponding to the above addresses
+        addresses = ["yb48vjS8NsHWbMpTb3QAbNUeYGW3F8eRas", "yLNBqWLAfws7BAqX7NeGcMYrcePpo44GCY"] # hdkeypath=m/0'/0'/0' and 1'
+        addresses += ["dgbrt1qrd3n235cj2czsfmsuvqqpr3lu6lg0ju77h2ulg", "dgbrt1qfqeppuvj0ww98r6qghmdkj70tv8qpcheekaclu"] # wpkh subscripts corresponding to the above addresses
         desc = "sh(wpkh(" + xpriv + "/0'/0'/*'" + "))"
+
         self.log.info("Ranged descriptor import should fail without a specified range")
         self.test_importmulti({"desc": descsum_create(desc),
                                "timestamp": "now"},
@@ -627,8 +614,8 @@ class ImportMultiTest(DigiByteTestFramework):
                               success=False, error_code=-8, error_message='Range is too large')
 
         # Test importing a descriptor containing a WIF private key
-        wif_priv = "cTe1f5rdT8A8DFgVWTjyPwACsDPJM9ff4QngFxUixCSvvbg1x6sh"
-        address = "2MuhcG52uHPknxDgmGPsV18jSHFBnnRgjPg"
+        wif_priv = "efJ5gWnzWEngkYAV6BqwZjV8x8GUopWXZJbE83kEnNZyUnMgHV4g"
+        address = "yRNbfPsvBYmb8QTyAdAjjMSfiqgi4J9rXC"
         desc = "sh(wpkh(" + wif_priv + "))"
         self.log.info("Should import a descriptor with a WIF private key as spendable")
         self.test_importmulti({"desc": descsum_create(desc),
@@ -759,7 +746,7 @@ class ImportMultiTest(DigiByteTestFramework):
         self.log.info("Bech32m addresses and descriptors cannot be imported")
         self.test_importmulti(
             {
-                "scriptPubKey": {"address": "dgbrtp0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqc8gma6"},
+                "scriptPubKey": {"address": "dgbrt1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vq64ly68"},
                 "timestamp": "now",
             },
             success=False,
@@ -870,12 +857,13 @@ class ImportMultiTest(DigiByteTestFramework):
         assert_equal(wrpc.getwalletinfo()["private_keys_enabled"], False)
         xpub = "tpubDAXcJ7s7ZwicqjprRaEWdPoHKrCS215qxGYxpusRLLmJuT69ZSicuGdSfyvyKpvUNYBW1s2U3NSrT6vrCYB9e6nZUEvrqnwXPF8ArTCRXMY"
         addresses = [
-            'dgbrtqtmp74ayg7p24uslctssvjm06q5phz4yrxucgnv', # m/0'/0'/0
-            'dgbrtq8vprchan07gzagd5e6v9wd7azyucksq2xc76k8', # m/0'/0'/1
-            'dgbrtqtuqdtha7zmqgcrr26n2rqxztv5y8rafjp9lulu', # m/0'/0'/2
-            'dgbrtqau64272ymawq26t90md6an0ps99qkrse58m640', # m/0'/0'/3
-            'dgbrtqsg97266hrh6cpmutqen8s4s962aryy77jp0fg0', # m/0'/0'/4
+            'dgbrt1qtmp74ayg7p24uslctssvjm06q5phz4yrgndnyh', # m/0'/0'/0
+            'dgbrt1q8vprchan07gzagd5e6v9wd7azyucksq2ghtppu', # m/0'/0'/1
+            'dgbrt1qtuqdtha7zmqgcrr26n2rqxztv5y8rafj0228g8', # m/0'/0'/2
+            'dgbrt1qau64272ymawq26t90md6an0ps99qkrse6gwpz5', # m/0'/0'/3
+            'dgbrt1qsg97266hrh6cpmutqen8s4s962aryy77uw6jl5', # m/0'/0'/4
         ]
+
         result = wrpc.importmulti(
             [{
                 'desc': descsum_create('wpkh([80002067/0h/0h]' + xpub + '/*)'),

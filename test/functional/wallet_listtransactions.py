@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the listtransactions API."""
@@ -19,18 +18,12 @@ from test_framework.util import (
 class ListTransactionsTest(DigiByteTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
-        self.extra_args = [[
-            "-mempoolreplacement=1",
-        ] for i in range(self.num_nodes)]
-
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
     def run_test(self):
-        self.nodes[0].generate(1)  # Get out of IBD
+        self.generate(self.nodes[0], 1)  # Get out of IBD
         self.sync_all()
         # Simple send, 0 to 1:
         txid = self.nodes[0].sendtoaddress(self.nodes[1].getnewaddress(), 0.1)
@@ -42,7 +35,7 @@ class ListTransactionsTest(DigiByteTestFramework):
                             {"txid": txid},
                             {"category": "receive", "amount": Decimal("0.1"), "confirmations": 0})
         # mine a block, confirmations should change:
-        blockhash = self.nodes[0].generate(1)[0]
+        blockhash = self.generate(self.nodes[0], 1)[0]
         blockheight = self.nodes[0].getblockheader(blockhash)['height']
         self.sync_all()
         assert_array_result(self.nodes[0].listtransactions(),
@@ -99,7 +92,7 @@ class ListTransactionsTest(DigiByteTestFramework):
             multisig = self.nodes[1].createmultisig(1, [pubkey])
             self.nodes[0].importaddress(multisig["redeemScript"], "watchonly", False, True)
             txid = self.nodes[1].sendtoaddress(multisig["address"], 0.1)
-            self.nodes[1].generate(1)
+            self.generate(self.nodes[1], 1)
             self.sync_all()
             assert_equal(len(self.nodes[0].listtransactions(label="watchonly", include_watchonly=True)), 1)
             assert_equal(len(self.nodes[0].listtransactions(dummy="watchonly", include_watchonly=True)), 1)
@@ -207,7 +200,7 @@ class ListTransactionsTest(DigiByteTestFramework):
             assert_equal(n.gettransaction(txid_4)["bip125-replaceable"], "unknown")
 
         # After mining a transaction, it's no longer BIP125-replaceable
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
         assert txid_3b not in self.nodes[0].getrawmempool()
         assert_equal(self.nodes[0].gettransaction(txid_3b)["bip125-replaceable"], "no")
         assert_equal(self.nodes[0].gettransaction(txid_4)["bip125-replaceable"], "unknown")

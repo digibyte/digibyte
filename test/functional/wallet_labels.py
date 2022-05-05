@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test label RPCs.
@@ -26,9 +25,6 @@ class WalletLabelsTest(DigiByteTestFramework):
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
-
     def run_test(self):
         # Check that there's no UTXO on the node
         node = self.nodes[0]
@@ -36,12 +32,12 @@ class WalletLabelsTest(DigiByteTestFramework):
 
         # Note each time we call generate, all generated coins go into
         # the same address, so we call twice to get two addresses w/50 each
-        node.generatetoaddress(nblocks=1, address=node.getnewaddress(label='coinbase'))
-        node.generatetoaddress(nblocks=COINBASE_MATURITY + 1, address=node.getnewaddress(label='coinbase'))
-        assert_equal(node.getbalance(), 100)
+        self.generatetoaddress(node, nblocks=1, address=node.getnewaddress(label='coinbase'))
+        self.generatetoaddress(node, nblocks=COINBASE_MATURITY + 1, address=node.getnewaddress(label='coinbase'))
+        assert_equal(node.getbalance(), 72000 * 2)
 
         # there should be 2 address groups
-        # each with 1 address with a balance of 50 DigiBytes
+        # each with 1 address with a balance of 72000 DigiBytes
         address_groups = node.listaddressgroupings()
         assert_equal(len(address_groups), 2)
         # the addresses aren't linked now, but will be after we send to the
@@ -50,14 +46,14 @@ class WalletLabelsTest(DigiByteTestFramework):
         for address_group in address_groups:
             assert_equal(len(address_group), 1)
             assert_equal(len(address_group[0]), 3)
-            assert_equal(address_group[0][1], 50)
+            assert_equal(address_group[0][1], 72000)
             assert_equal(address_group[0][2], 'coinbase')
             linked_addresses.add(address_group[0][0])
 
         # send 50 from each address to a third address not in this wallet
-        common_address = "msf4WtN1YQKXvNtvdFYt9JBnUD2FB41kjr"
+        common_address = "smGXzdWyDk9UDriWWFG3PVyLgpw7USPJNh"
         node.sendmany(
-            amounts={common_address: 100},
+            amounts={common_address: 72000 * 2},
             subtractfeefrom=[common_address],
             minconf=1,
         )
@@ -69,7 +65,7 @@ class WalletLabelsTest(DigiByteTestFramework):
         assert_equal(set([a[0] for a in address_groups[0]]), linked_addresses)
         assert_equal([a[1] for a in address_groups[0]], [0, 0])
 
-        node.generate(1)
+        self.generate(node, 1)
 
         # we want to reset so that the "" label has what's expected.
         # otherwise we're off by exactly the fee amount as that's mined
@@ -93,7 +89,7 @@ class WalletLabelsTest(DigiByteTestFramework):
             label.verify(node)
 
         # Check the amounts received.
-        node.generate(1)
+        self.generate(node, 1)
         for label in labels:
             assert_equal(
                 node.getreceivedbyaddress(label.addresses[0]), amount_to_send)
@@ -102,14 +98,14 @@ class WalletLabelsTest(DigiByteTestFramework):
         for i, label in enumerate(labels):
             to_label = labels[(i + 1) % len(labels)]
             node.sendtoaddress(to_label.addresses[0], amount_to_send)
-        node.generate(1)
+        self.generate(node, 1)
         for label in labels:
             address = node.getnewaddress(label.name)
             label.add_receive_address(address)
             label.verify(node)
             assert_equal(node.getreceivedbylabel(label.name), 2)
             label.verify(node)
-        node.generate(COINBASE_MATURITY + 1)
+        self.generate(node, COINBASE_MATURITY + 1)
 
         # Check that setlabel can assign a label to a new unused address.
         for label in labels:
@@ -129,7 +125,7 @@ class WalletLabelsTest(DigiByteTestFramework):
                 label.add_address(multisig_address)
                 label.purpose[multisig_address] = "send"
                 label.verify(node)
-            node.generate(COINBASE_MATURITY + 1)
+            self.generate(node, COINBASE_MATURITY + 1)
 
         # Check that setlabel can change the label of an address from a
         # different label.
@@ -145,18 +141,18 @@ class WalletLabelsTest(DigiByteTestFramework):
             node.createwallet(wallet_name='watch_only', disable_private_keys=True)
             wallet_watch_only = node.get_wallet_rpc('watch_only')
             BECH32_VALID = {
-                '✔️_VER15_PROG40': 'dgbrt0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxkg7fn',
-                '✔️_VER16_PROG03': 'dgbrtsqqqqq8uhdgr',
-                '✔️_VER16_PROB02': 'dgbrtsqqqq4wstyw',
+                '✔️_VER15_PROG40': 'dgbrt10qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq4jx8ac',
+                '✔️_VER16_PROG03': 'dgbrt1sqqqqqg80qk9',
+                '✔️_VER16_PROB02': 'dgbrt1sqqqqgczfwf',
             }
             BECH32_INVALID = {
-                '❌_VER15_PROG41': 'dgbrtsqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqajlxj8',
-                '❌_VER16_PROB01': 'dgbrtsqq5r4036',
+                '❌_VER15_PROG41': 'dgbrt1sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqajlxj8',
+                '❌_VER16_PROB01': 'dgbrt1sqq5r4036',
             }
             for l in BECH32_VALID:
                 ad = BECH32_VALID[l]
                 wallet_watch_only.importaddress(label=l, rescan=False, address=ad)
-                node.generatetoaddress(1, ad)
+                self.generatetoaddress(node, 1, ad)
                 assert_equal(wallet_watch_only.getaddressesbylabel(label=l), {ad: {'purpose': 'receive'}})
                 assert_equal(wallet_watch_only.getreceivedbylabel(label=l), 0)
             for l in BECH32_INVALID:

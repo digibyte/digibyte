@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test various net timeouts.
 
-- Create three digibyted nodes:
+- Create three bitcoind nodes:
 
     no_verack_node - we never send a verack in response to their version
     no_version_node - we never send a version (only a ping)
@@ -33,6 +32,7 @@ class TestP2PConn(P2PInterface):
     def on_version(self, message):
         # Don't send a verack in response
         pass
+
 
 class TimeoutsTest(DigiByteTestFramework):
     def set_test_params(self):

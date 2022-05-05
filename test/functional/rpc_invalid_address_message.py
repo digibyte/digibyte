@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020 The DigiByte Core developers
+# Copyright (c) 2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test error messages for 'getaddressinfo' and 'validateaddress' RPC commands."""
@@ -11,15 +11,15 @@ from test_framework.util import (
     assert_raises_rpc_error,
 )
 
-BECH32_VALID = 'dgbrtqtmp74ayg7p24uslctssvjm06q5phz4yrxucgnv'
-BECH32_INVALID_BECH32 = 'dgbrtp0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqdmchcc'
-BECH32_INVALID_BECH32M = 'dgbrtqw508d6qejxtdg4y5r3zarvary0c5xw7k35mrzd'
-BECH32_INVALID_VERSION = 'dgbrt30xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqynjegk'
-BECH32_INVALID_SIZE = 'dgbrts0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7v8n0nx0muaewav25430mtr'
-BECH32_INVALID_V0_SIZE = 'dgbrtqw508d6qejxtdg4y5r3zarvary0c5xw7kqqq5k3my'
-BECH32_INVALID_PREFIX = 'bc1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7k7grplx'
+BECH32_VALID = 'dgbrt1qtmp74ayg7p24uslctssvjm06q5phz4yrgndnyh'
+BECH32_INVALID_BECH32 = 'dgbrt1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vq0f0gl9'
+BECH32_INVALID_BECH32M = 'dgbrt1qw508d6qejxtdg4y5r3zarvary0c5xw7klmwc4k'
+BECH32_INVALID_VERSION = 'dgbrt130xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqxp9x0t'
+BECH32_INVALID_SIZE = 'dgbrt1s0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7v8n0nx0muaewav25rew0dg'
+BECH32_INVALID_V0_SIZE = 'dgbrt1qw508d6qejxtdg4y5r3zarvary0c5xw7kqqzq6ha3'
+BECH32_INVALID_PREFIX = 'dgb1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7k5pxtuk'
 
-BASE58_VALID = 'mipcBbFg9gMiCh81Kj8tqqdgoZub1ZJRfn'
+BASE58_VALID = 't1HLHCmYY7YBZyNGYETdaWDFyjHppENiUS'
 BASE58_INVALID_PREFIX = '17VZNX1SN5NtKa8UQFxwQbFeFc3iqRYhem'
 
 INVALID_ADDRESS = 'asfah14i8fajz0123f'
