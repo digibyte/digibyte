@@ -18,6 +18,9 @@ jobs:
       - name: Brew Install Dependencies
         run: brew link openssl --force
 
+      - name: Install pypandoc
+        run: pip3 install pypandoc
+
       - name: Install scrypt for Python3
         run: pip3 install digibyte_scrypt  
         
