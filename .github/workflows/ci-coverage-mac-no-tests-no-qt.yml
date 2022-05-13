@@ -15,7 +15,7 @@ jobs:
       - name: Brew Install Dependencies
         run: brew install automake boost@1.76 berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl pandoc
       
-      - name: Brew Install Dependencies
+      - name: Brew Link OpenSSL
         run: brew link openssl --force
 
       - name: Brew Link Boost
