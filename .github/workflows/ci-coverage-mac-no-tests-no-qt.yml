@@ -13,10 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Brew Install Dependencies
-        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
-
-      - name: Brew install pandoc
-        run: brew install pandoc pandoc-citeproc Caskroom/cask/mactex
+        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl pandoc
       
       - name: Brew Install Dependencies
         run: brew link openssl --force
