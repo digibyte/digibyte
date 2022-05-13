@@ -32,8 +32,12 @@ jobs:
 
       - name: Make Check
         run: make check
+
+      - name: List Directory
+        run: ls -al
         
-      - uses: actions/upload-artifact@v3
+      - name: Upload Test Suite Log
+        uses: actions/upload-artifact@v3
         with:
           name: test-suite.log
-          path: /home/runner/work/digibyte/digibyte/src/test-suite.log
+          path: /src/test-suite.log
