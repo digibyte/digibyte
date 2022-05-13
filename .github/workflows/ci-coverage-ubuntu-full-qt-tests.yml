@@ -34,10 +34,12 @@ jobs:
         run: make check
 
       - name: List Directory
+        if: failure()
         run: ls -al
         
       - name: Upload Test Suite Log
         uses: actions/upload-artifact@v3
+        # if: failure()
         with:
-          name: test-suite.log
+          name: test-suite-log
           path: /src/test-suite.log
