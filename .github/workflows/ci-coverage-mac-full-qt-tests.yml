@@ -30,9 +30,6 @@ jobs:
       - name: Auto Generate
         run: ./autogen.sh
 
-      # - name: Configure
-      #   run: ./configure --with-gui=yes
-
       - name: Configure
         run: ./configure --with-incompatible-bdb
 

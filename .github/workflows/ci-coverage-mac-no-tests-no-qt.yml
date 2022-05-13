@@ -30,9 +30,6 @@ jobs:
       - name: Auto Generate
         run: ./autogen.sh
 
-      # - name: Configure
-      #   run: ./configure --with-gui=no --disable-tests
-
       - name: Configure
         run: ./configure --with-incompatible-bdb --without-gui --disable-tests
 
