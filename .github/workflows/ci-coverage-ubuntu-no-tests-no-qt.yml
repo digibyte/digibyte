@@ -30,15 +30,15 @@ jobs:
       - name: Configure
         run: ./configure BDB_LIBS="-L$/db4/lib -ldb_cxx-4.8" BDB_CFLAGS="-I/db4/include"
 
-      # - name: Make
-      #   run: make -j3
+      - name: Make
+        run: make -j3
 
-      # - name: Make Check
-      #   run: make check
+      - name: Make Check
+        run: make check
 
-      # - name: Upload Test Suite Log
-      #   uses: actions/upload-artifact@v3
-      #   if: failure()
-      #   with:
-      #     name: test-suite-log
-      #     path: /src/test-suite.log
+      - name: Upload Test Suite Log
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-suite-log
+          path: /src/test-suite.log
