@@ -28,7 +28,7 @@ jobs:
         run: ./autogen.sh
 
       - name: Configure
-        run: echo `pwd` && ls -al && export BDB_PREFIX="/home/runner/work/digibyte/digibyte/db4" && ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
+        run: ./configure BDB_LIBS="-L$/db4/lib -ldb_cxx-4.8" BDB_CFLAGS="-I/db4/include"
 
       # - name: Make
       #   run: make -j3
