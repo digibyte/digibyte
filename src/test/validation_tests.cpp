@@ -185,7 +185,6 @@ static void TestBlockSubsidy(const Consensus::Params& consensusParams, int nMaxB
 
 BOOST_AUTO_TEST_CASE(block_subsidy_test)
 {
-    return;
     CAmount sum;
     const auto chainParams = CreateChainParams(*m_node.args, CBaseChainParams::MAIN);
     const auto testChainParams = CreateChainParams(*m_node.args, CBaseChainParams::TESTNET);
