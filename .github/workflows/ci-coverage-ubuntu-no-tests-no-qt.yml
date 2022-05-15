@@ -21,8 +21,15 @@ jobs:
       - name: Install scrypt for Python3
         run: pip3 install digibyte_scrypt  
 
-      - name: Install Berkley DB 4.8
-        run: ./contrib/install_db4.sh `pwd` --enable-cxx 
+      - name: Install BerkleyDB
+        run: |
+          wget http://download.oracle.com/berkeley-db/db-4.8.30.zip \
+            unzip db-4.8.30.zip \
+            cd db-4.8.30 \
+            cd build_unix/ \
+            ../dist/configure --prefix=/usr/local --enable-cxx \
+            make \
+            make install
 
       - name: Auto Generate
         run: ./autogen.sh
