@@ -22,7 +22,7 @@ jobs:
         run: pip3 install digibyte_scrypt  
 
       - name: Install Berkley DB 4.8
-        run: ./contrib/install_db4.sh `pwd`
+        run: ./contrib/install_db4.sh `pwd` --enable-cxx 
 
       - name: Auto Generate
         run: ./autogen.sh
