@@ -24,14 +24,11 @@ jobs:
       - name: Install BerkleyDB
         run: ./contrib/install_db4.sh `pwd` --enable-cxx
 
-      - name: Export BerkleyDB
-        run: export BDB_PREFIX="/home/runner/work/digibyte/digibyte/db4"
-
       - name: Auto Generate
         run: ./autogen.sh
 
       - name: Configure
-        run: ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
+        run: export BDB_PREFIX="/home/runner/work/digibyte/digibyte/db4" && ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 
       - name: Make
         run: make -j3

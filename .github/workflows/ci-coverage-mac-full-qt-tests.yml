@@ -21,7 +21,7 @@ jobs:
       - name: Brew Link Boost
         run: brew link boost@1.76 --force
 
-      - name: Brew Link Boost
+      - name: Brew Link BDB
         run: brew link berkeley-db@4 --force
 
       - name: Brew Force Link Openssl
