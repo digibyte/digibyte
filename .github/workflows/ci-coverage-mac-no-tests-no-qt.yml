@@ -25,7 +25,10 @@ jobs:
         run: pip3 install pypandoc
 
       - name: Install scrypt for Python3
-        run: pip3 install digibyte_scrypt  
+        run: pip3 install digibyte_scrypt
+
+      - name: Install Berkley DB 4.8
+        run: ./contrib/install_db4.sh `pwd`
         
       - name: Brew Force Link Openssl
         run: export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/lib -L/usr/local/opt/expat/lib" && export CFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include" && export CPPFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
@@ -34,7 +37,7 @@ jobs:
         run: ./autogen.sh
 
       - name: Configure
-        run: ./configure --with-incompatible-bdb --without-gui --disable-tests
+        run: ./configure --without-gui --disable-tests
 
       - name: Make
         run: make -j3
