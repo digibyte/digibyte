@@ -28,7 +28,7 @@ jobs:
         run: ./autogen.sh
 
       - name: Configure
-        run: export BDB_PREFIX="${PWD}/db4" && ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
+        run: export BDB_PREFIX="${PWD}/db4" && ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" --without-gui --disable-tests
 
       - name: Make
         run: make -j3
