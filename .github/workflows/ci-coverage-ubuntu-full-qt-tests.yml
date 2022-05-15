@@ -22,11 +22,7 @@ jobs:
         run: pip3 install digibyte_scrypt
 
       - name: Install BerkleyDB
-        run: |
-          sudo add-apt-repository ppa:bitcoin/bitcoin \
-          sudo apt update \
-          sudo apt install -y libdb4.8-dev libdb4.8++-dev
-
+        run: ./contrib/install_db4.sh `pwd` --enable-cxx
 
       - name: Auto Generate
         run: ./autogen.sh
