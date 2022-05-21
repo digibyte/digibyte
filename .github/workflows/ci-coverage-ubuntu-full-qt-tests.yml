@@ -34,7 +34,7 @@ jobs:
         run: make -j3
 
       - name: Make Check
-        run: make check
+        run: sudo make check
 
       - name: Upload Test Suite Log
         uses: actions/upload-artifact@v3
