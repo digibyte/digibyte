@@ -10,22 +10,17 @@ jobs:
           os: [x86_64-mac]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Brew Install Dependencies
-        run: brew install automake boost@1.76 berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl pandoc
+        run: brew install automake pandoc
 
-      - name: Brew Link OpenSSL
-        run: brew link openssl --force
-
-      - name: Brew Link Boost
-        run: brew link boost@1.76 --force
-
-      - name: Brew Link BDB
-        run: brew link berkeley-db@4 --force
-
-      - name: Brew Force Link Openssl
-        run: export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/lib -L/usr/local/opt/expat/lib" && export CFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include" && export CPPFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
+      - name: Dependencies
+        run: |
+          cd depends
+          make -j3
+          cd ..
 
       - name: Install pypandoc
         run: pip3 install pypandoc
@@ -37,13 +32,13 @@ jobs:
         run: ./autogen.sh
 
       - name: Configure
-        run: ./configure
+        run: CONFIG_SITE=$PWD/depends/x86_64-apple-darwin19.6.0/share/config.site ./configure
 
       - name: Make
         run: make -j3
 
       - name: Make Check
-        run: sudo make check
+        run: make check
 
       - name: Upload Test Suite Log
         uses: actions/upload-artifact@v3
