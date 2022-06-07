@@ -13,25 +13,28 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Get Dependencies
-        run:  sudo apt update && sudo apt-get install build-essential libtool libssl-dev libdb-dev libdb++-dev autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev libboost-system-dev libboost-filesystem-dev libboost-test-dev libsqlite3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libqrencode-dev software-properties-common pandoc
+        run:  sudo apt update && sudo apt-get install build-essential libtool libssl-dev autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev libboost-system-dev libboost-filesystem-dev libboost-test-dev libsqlite3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libqrencode-dev software-properties-common pandoc
 
       - name: Install pypandoc
         run: pip3 install pypandoc
       
       - name: Install scrypt for Python3
-        run: pip3 install digibyte_scrypt  
+        run: pip3 install digibyte_scrypt
+
+      - name: Install BerkleyDB
+        run: ./contrib/install_db4.sh `pwd` --enable-cxx
 
       - name: Auto Generate
         run: ./autogen.sh
 
       - name: Configure
-        run: ./configure --with-incompatible-bdb
+        run: export BDB_PREFIX="${PWD}/db4" && ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 
       - name: Make
         run: make -j3
 
       - name: Make Check
-        run: make check
+        run: sudo make check
 
       - name: Upload Test Suite Log
         uses: actions/upload-artifact@v3
