@@ -1,6 +1,6 @@
 name: 'Build & Check: macOS Full QT & Tests'
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
