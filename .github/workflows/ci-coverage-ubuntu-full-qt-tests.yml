@@ -36,9 +36,6 @@ jobs:
       - name: Make Check
         run: sudo make check
 
-      - name: Run Functional Tests
-        run: test/functional/test_runner.py --extended
-
       - name: Upload Test Suite Log
         uses: actions/upload-artifact@v3
         if: failure()
