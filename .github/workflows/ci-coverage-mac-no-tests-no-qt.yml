@@ -1,6 +1,6 @@
 name: 'Build & Check: macOS No QT & No Tests'
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
