@@ -1,4 +1,4 @@
-name: 'Build and check'
+permissions: name: 'Build and check'
 
 on: [push, pull_request]
 
