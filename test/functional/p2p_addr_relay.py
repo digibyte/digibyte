@@ -70,7 +70,7 @@ class AddrTest(DigiByteTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 1
-        self.extra_args = [["-whitelist=addr@127.0.0.1"]]
+        self.extra_args = [["-whitelist=addr@127.0.0.1", "-easypow"]]
 
     def run_test(self):
         self.oversized_addr_test()
