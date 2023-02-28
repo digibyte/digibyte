@@ -136,7 +136,8 @@ BASE_SCRIPTS = [
     'wallet_keypool_topup.py --legacy-wallet',
     'wallet_keypool_topup.py --descriptors',
     'feature_fee_estimation.py',
-    # 'interface_zmq.py',
+    'interface_zmq.py',
+    'rpc_zmq.py',
     'rpc_invalid_address_message.py',
     'interface_digibyte_cli.py',
     'feature_bind_extra.py',
@@ -514,13 +515,13 @@ def run_tests(*, test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=
     max_len_name = len(max(test_list, key=len))
     test_count = len(test_list)
     for i in range(test_count):
-        test_result, testdir, stdout, stderr = job_queue.get_next()
+        test_result, testdir, stdout, stderr, skip_reason = job_queue.get_next()
         test_results.append(test_result)
         done_str = "{}/{} - {}{}{}".format(i + 1, test_count, BOLD[1], test_result.name, BOLD[0])
         if test_result.status == "Passed":
             logging.debug("%s passed, Duration: %s s" % (done_str, test_result.time))
         elif test_result.status == "Skipped":
-            logging.debug("%s skipped" % (done_str))
+            logging.debug(f"{done_str} skipped ({skip_reason})")
         else:
             print("%s failed, Duration: %s s\n" % (done_str, test_result.time))
             print(BOLD[1] + 'stdout:\n' + BOLD[0] + stdout + '\n')
@@ -641,10 +642,12 @@ class TestHandler:
                     log_out.seek(0), log_err.seek(0)
                     [stdout, stderr] = [log_file.read().decode('utf-8') for log_file in (log_out, log_err)]
                     log_out.close(), log_err.close()
+                    skip_reason = None
                     if proc.returncode == TEST_EXIT_PASSED and stderr == "":
                         status = "Passed"
                     elif proc.returncode == TEST_EXIT_SKIPPED:
                         status = "Skipped"
+                        skip_reason = re.search(r"Test Skipped: (.*)", stdout).group(1)
                     else:
                         status = "Failed"
                     self.num_running -= 1
@@ -653,7 +656,7 @@ class TestHandler:
                         clearline = '\r' + (' ' * dot_count) + '\r'
                         print(clearline, end='', flush=True)
                     dot_count = 0
-                    return TestResult(name, status, int(time.time() - start_time)), testdir, stdout, stderr
+                    return TestResult(name, status, int(time.time() - start_time)), testdir, stdout, stderr, skip_reason
             if self.use_term_control:
                 print('.', end='', flush=True)
             dot_count += 1
