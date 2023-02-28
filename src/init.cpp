@@ -1184,7 +1184,7 @@ bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info)
     node.mempool = std::make_unique<CTxMemPool>(node.fee_estimator.get(), check_ratio);
 
     assert(!node.stempool);
-    node.stempool = std::make_unique<CTxMemPool>(nullptr, 0);
+    node.stempool = std::make_unique<CTxMemPool>(nullptr, 0, true);
 
     assert(!node.chainman);
     node.chainman = std::make_unique<ChainstateManager>();

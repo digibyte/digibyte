@@ -334,8 +334,8 @@ void CTxMemPoolEntry::UpdateAncestorState(int64_t modifySize, CAmount modifyFee,
     assert(int(nSigOpCostWithAncestors) >= 0);
 }
 
-CTxMemPool::CTxMemPool(CBlockPolicyEstimator* estimator, int check_ratio)
-    : m_check_ratio(check_ratio), minerPolicyEstimator(estimator)
+CTxMemPool::CTxMemPool(CBlockPolicyEstimator* estimator, int check_ratio, bool isStempool)
+    : m_check_ratio(check_ratio), minerPolicyEstimator(estimator), m_is_stempool(isStempool)
 {
     _clear(); //lock free clear
 }
@@ -419,7 +419,11 @@ void CTxMemPool::removeUnchecked(txiter it, MemPoolRemovalReason reason)
         // for any reason except being included in a block. Clients interested
         // in transactions included in blocks can subscribe to the BlockConnected
         // notification.
-        GetMainSignals().TransactionRemovedFromMempool(it->GetSharedTx(), reason, mempool_sequence);
+
+        if (!this->isStempool()) {
+            // Do not notify subscribers about stempool removals
+            GetMainSignals().TransactionRemovedFromMempool(it->GetSharedTx(), reason, mempool_sequence);
+        }
     }
 
     const uint256 hash = it->GetTx().GetHash();

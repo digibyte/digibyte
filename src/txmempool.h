@@ -499,6 +499,7 @@ protected:
     void trackPackageRemoved(const CFeeRate& rate) EXCLUSIVE_LOCKS_REQUIRED(cs);
 
     bool m_is_loaded GUARDED_BY(cs){false};
+    const bool m_is_stempool;
 
 public:
 
@@ -598,7 +599,7 @@ public:
      * @param[in] estimator is used to estimate appropriate transaction fees.
      * @param[in] check_ratio is the ratio used to determine how often sanity checks will run.
      */
-    explicit CTxMemPool(CBlockPolicyEstimator* estimator = nullptr, int check_ratio = 0);
+    explicit CTxMemPool(CBlockPolicyEstimator* estimator = nullptr, int check_ratio = 0, bool isStempool = false);
 
     /**
      * If sanity-checking is turned on, check makes sure the pool is
@@ -789,6 +790,10 @@ public:
 
     uint64_t GetSequence() const EXCLUSIVE_LOCKS_REQUIRED(cs) {
         return m_sequence_number;
+    }
+
+    bool isStempool() const {
+        return this->m_is_stempool;
     }
 
 private:
