@@ -239,12 +239,12 @@
     "description": "Creates a new transaction with a single empty output script (output in json)"
   },
   { "exec": "./digibyte-tx",
-    "args": ["01000000000100000000000000000000000000"],
+    "args": ["02000000000100000000000000000000000000"],
     "output_cmp": "txcreate2.hex",
     "description": "Parses a transaction with no inputs and a single output script"
   },
   { "exec": "./digibyte-tx",
-    "args": ["-json", "01000000000100000000000000000000000000"],
+    "args": ["-json", "02000000000100000000000000000000000000"],
     "output_cmp": "txcreate2.json",
     "description": "Parses a transaction with no inputs and a single output script (output in json)"
   },

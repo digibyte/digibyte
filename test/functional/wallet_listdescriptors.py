@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2021 The DigiByte Core developers
+# Copyright (c) 2014-2021 The Bitcoin Core developers
+# Copyright (c) 2015-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the listdescriptors RPC."""
@@ -23,7 +24,7 @@ class ListDescriptorsTest(DigiByteTestFramework):
         self.skip_if_no_sqlite()
 
     # do not create any wallet by default
-    def init_wallet(self, i):
+    def init_wallet(self, node):
         return
 
     def run_test(self):
@@ -88,7 +89,7 @@ class ListDescriptorsTest(DigiByteTestFramework):
             'wallet_name': 'w4',
             'descriptors': [
                 {'active': False,
-                 'desc': 'combo(0227d85ba011276cf25b51df6a188b75e604b38770a462b2d0e9fb2fc839ef5d3f)#np574htj',
+                 'desc': 'combo(0256d8280a0dd7a01a0bc2fca30a5bde5f71ac7939b7b61599614c116b3c492170)#rxcphh28',
                  'timestamp': 1296688602},
             ]
         }

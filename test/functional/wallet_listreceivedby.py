@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2019 The Bitcoin Core developers
+# Copyright (c) 2015-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the listreceivedbyaddress RPC."""
@@ -25,7 +25,7 @@ class ReceivedByTest(DigiByteTestFramework):
 
     def run_test(self):
         # Generate block to get out of IBD
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
         self.sync_blocks()
 
         # save the number of coinbase reward addresses so far
@@ -44,7 +44,7 @@ class ReceivedByTest(DigiByteTestFramework):
                             {},
                             True)
         # Bury Tx under 10 block so it will be returned by listreceivedbyaddress
-        self.nodes[1].generate(10)
+        self.generate(self.nodes[1], 10)
         self.sync_all()
         assert_array_result(self.nodes[1].listreceivedbyaddress(),
                             {"address": addr},
@@ -79,7 +79,8 @@ class ReceivedByTest(DigiByteTestFramework):
         assert_equal(len(res), 2 + num_cb_reward_addresses)  # Right now 2 entries
         other_addr = self.nodes[1].getnewaddress()
         txid2 = self.nodes[0].sendtoaddress(other_addr, 0.1)
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
+
         self.sync_all()
         # Same test as above should still pass
         expected = {"address": addr, "label": "", "amount": Decimal("0.1"), "confirmations": 11, "txids": [txid, ]}
@@ -116,7 +117,8 @@ class ReceivedByTest(DigiByteTestFramework):
         assert_equal(balance, Decimal("0.1"))
 
         # Bury Tx under 10 block so it will be returned by the default getreceivedbyaddress
-        self.nodes[1].generate(10)
+        self.generate(self.nodes[1], 10)
+
         self.sync_all()
         balance = self.nodes[1].getreceivedbyaddress(addr)
         assert_equal(balance, Decimal("0.1"))
@@ -144,8 +146,9 @@ class ReceivedByTest(DigiByteTestFramework):
         # getreceivedbyaddress should return same balance because of 0 confirmations
         balance = self.nodes[1].getreceivedbylabel(label)
         assert_equal(balance, balance_by_label)
+        
+        self.generate(self.nodes[1], 10)
 
-        self.nodes[1].generate(10)
         self.sync_all()
         # listreceivedbylabel should return updated received list
         assert_array_result(self.nodes[1].listreceivedbylabel(),

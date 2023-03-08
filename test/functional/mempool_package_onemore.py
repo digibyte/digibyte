@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test descendant package tracking carve-out allowing one final transaction in
@@ -9,6 +9,7 @@
 
 from decimal import Decimal
 
+from test_framework.messages import COIN
 from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
@@ -30,13 +31,14 @@ class MempoolPackagesTest(DigiByteTestFramework):
 
     def run_test(self):
         # Mine some blocks and have them mature.
-        self.nodes[0].generate(COINBASE_MATURITY + 1)
+        self.generate(self.nodes[0], COINBASE_MATURITY + 1)
         utxo = self.nodes[0].listunspent(10)
         txid = utxo[0]['txid']
         vout = utxo[0]['vout']
         value = utxo[0]['amount']
 
-        fee = Decimal("0.0002")
+        fee = Decimal("0.0023")
+        high_fee = Decimal("0.023")
         # MAX_ANCESTORS transactions off a confirmed tx should be fine
         chain = []
         for _ in range(4):
@@ -51,7 +53,7 @@ class MempoolPackagesTest(DigiByteTestFramework):
         (second_chain, second_chain_value) = chain_transaction(self.nodes[0], [utxo[1]['txid']], [utxo[1]['vout']], utxo[1]['amount'], fee, 1)
 
         # Check mempool has MAX_ANCESTORS + 1 transactions in it
-        assert_equal(len(self.nodes[0].getrawmempool(True)), MAX_ANCESTORS + 1)
+        assert_equal(len(self.nodes[0].getrawmempool()), MAX_ANCESTORS + 1)
 
         # Adding one more transaction on to the chain should fail.
         assert_raises_rpc_error(-26, "too-long-mempool-chain, too many unconfirmed ancestors [limit: 25]", chain_transaction, self.nodes[0], [txid], [0], value, fee, 1)
@@ -61,7 +63,7 @@ class MempoolPackagesTest(DigiByteTestFramework):
         # ...even if it chains on to two parent transactions with one in the chain.
         assert_raises_rpc_error(-26, "too-long-mempool-chain, too many descendants", chain_transaction, self.nodes[0], [chain[0][0], second_chain], [1, 0], chain[0][1] + second_chain_value, fee, 1)
         # ...especially if its > 40k weight
-        assert_raises_rpc_error(-26, "too-long-mempool-chain, too many descendants", chain_transaction, self.nodes[0], [chain[0][0]], [1], chain[0][1], fee, 350)
+        assert_raises_rpc_error(-26, "too-long-mempool-chain, too many descendants", chain_transaction, self.nodes[0], [chain[0][0]], [1], chain[0][1], high_fee, 350, 1.1)
         # But not if it chains directly off the first transaction
         (replacable_txid, replacable_orig_value) = chain_transaction(self.nodes[0], [chain[0][0]], [1], chain[0][1], fee, 1)
         # and the second chain should work just fine
@@ -71,10 +73,10 @@ class MempoolPackagesTest(DigiByteTestFramework):
         second_tx_outputs = {self.nodes[0].getrawtransaction(replacable_txid, True)["vout"][0]['scriptPubKey']['address']: replacable_orig_value - (Decimal(1) / Decimal(100))}
         second_tx = self.nodes[0].createrawtransaction([{'txid': chain[0][0], 'vout': 1}], second_tx_outputs)
         signed_second_tx = self.nodes[0].signrawtransactionwithwallet(second_tx)
-        self.nodes[0].sendrawtransaction(signed_second_tx['hex'])
+        self.nodes[0].sendrawtransaction(signed_second_tx['hex'], 1.1)
 
         # Finally, check that we added two transactions
-        assert_equal(len(self.nodes[0].getrawmempool(True)), MAX_ANCESTORS + 3)
+        assert_equal(len(self.nodes[0].getrawmempool()), MAX_ANCESTORS + 3)
 
 if __name__ == '__main__':
     MempoolPackagesTest().main()

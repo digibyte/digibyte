@@ -79,6 +79,8 @@ static const bool DEFAULT_BLOCKSONLY = false;
 static const int64_t DEFAULT_PEER_CONNECT_TIMEOUT = 60;
 /** Number of file descriptors required for message capture **/
 static const int NUM_FDS_MESSAGE_CAPTURE = 1;
+/** The default setting for dandelion transactions */
+static const bool DEFAULT_DANDELION = true;
 
 static const bool DEFAULT_FORCEDNSSEED = false;
 static const bool DEFAULT_DNSSEED = true;
@@ -86,19 +88,16 @@ static const bool DEFAULT_FIXEDSEEDS = true;
 static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
 static const size_t DEFAULT_MAXSENDBUFFER    = 1 * 1000;
 
-typedef std::chrono::seconds sec;
-typedef std::chrono::milliseconds msec;
+static const uint256 DANDELION_DISCOVERYHASH = uint256S("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 
 /** Maximum number of outbound peers designated as Dandelion destinations */
 static const int DANDELION_MAX_DESTINATIONS = 2;
-/** Expected time between Dandelion routing shuffles. */
-static const sec DANDELION_SHUFFLE_INTERVAL = sec(600);
-/** The minimum amount of time a Dandelion transaction is embargoed */
-static const sec DANDELION_EMBARGO_MINIMUM = sec(10);
-/** The average additional embargo time beyond the minimum amount */
-static const sec DANDELION_EMBARGO_AVG_ADD = sec(20);
-/** The time to wait for the scheduler before rerunning Dandelion shuffle check */
-static const msec CHECK_DANDELION_SHUFFLE_INTERVAL = msec(1000);
+/** Expected time between Dandelion routing shuffles (in seconds). */
+static constexpr auto DANDELION_SHUFFLE_INTERVAL = 10min;
+/** The minimum amount of time a Dandelion transaction is embargoed (seconds) */
+static constexpr auto DANDELION_EMBARGO_MINIMUM = 10s;
+/** The average additional embargo time beyond the minimum amount (seconds) */
+static constexpr auto DANDELION_EMBARGO_AVG_ADD = 20s;
 
 typedef int64_t NodeId;
 
@@ -415,6 +414,8 @@ public:
     std::unique_ptr<TransportDeserializer> m_deserializer;
     std::unique_ptr<TransportSerializer> m_serializer;
 
+    bool fSupportsDandelion{false};
+
     NetPermissionFlags m_permissionFlags{NetPermissionFlags::None};
     std::atomic<ServiceFlags> nServices{NODE_NONE};
     SOCKET hSocket GUARDED_BY(cs_hSocket);
@@ -467,7 +468,6 @@ public:
     std::atomic_bool fDisconnect{false};
     CSemaphoreGrant grantOutbound;
     std::atomic<int> nRefCount{0};
-    bool fSupportsDandelion = false;
 
     const uint64_t nKeyedNetGroup;
     std::atomic_bool fPauseRecv{false};
@@ -553,19 +553,23 @@ public:
         bool fRelayTxes GUARDED_BY(cs_filter){false};
         std::unique_ptr<CBloomFilter> pfilter PT_GUARDED_BY(cs_filter) GUARDED_BY(cs_filter){nullptr};
 
-        // Dandelion tx mutex
-        mutable RecursiveMutex cs_dtx_inventory; 
-        // Set of transaction ids we still have to announce.
-        std::set<uint256> setDandelionInventoryTxToSend;
-        CRollingBloomFilter filterDandelionInventoryKnown GUARDED_BY(cs_dtx_inventory){50000, 0.000001};
-
         mutable RecursiveMutex cs_tx_inventory;
         CRollingBloomFilter filterInventoryKnown GUARDED_BY(cs_tx_inventory){50000, 0.000001};
+
         // Set of transaction ids we still have to announce.
         // They are sorted by the mempool before relay, so the order is not important.
         std::set<uint256> setInventoryTxToSend;
+        std::set<CInv> setInventoryTxToSendOther;
+
+        // Set of Dandelion transactions that should be known to this peer
+        std::set<uint256> setDandelionInventoryKnown GUARDED_BY(cs_tx_inventory);
+
+        // List of Dandelion transaction ids to announce.
+        std::vector<uint256> vInventoryDandelionTxToSend;
+
         // Used for BIP35 mempool sending
         bool fSendMempool GUARDED_BY(cs_tx_inventory){false};
+
         // Last time a "MEMPOOL" request was serviced.
         std::atomic<std::chrono::seconds> m_last_mempool_req{0s};
         std::chrono::microseconds nNextInvSend{0};
@@ -662,21 +666,21 @@ public:
         }
     }
 
-    void PushDandelionTxInventory(const uint256& hash)
-    {
-        if (m_tx_relay == nullptr) return;
-        LOCK(m_tx_relay->cs_dtx_inventory);
-        if (!m_tx_relay->filterDandelionInventoryKnown.contains(hash)) {
-            m_tx_relay->setDandelionInventoryTxToSend.insert(hash);
-        }      
-    }
-
     void PushTxInventory(const uint256& hash)
     {
         if (m_tx_relay == nullptr) return;
         LOCK(m_tx_relay->cs_tx_inventory);
         if (!m_tx_relay->filterInventoryKnown.contains(hash)) {
             m_tx_relay->setInventoryTxToSend.insert(hash);
+        }
+    }
+
+    void PushOtherInventory(const CInv& inv)
+    {
+        if (m_tx_relay == nullptr) return;
+        LOCK(m_tx_relay->cs_tx_inventory);
+        if (!m_tx_relay->filterInventoryKnown.contains(inv.hash)) {
+            m_tx_relay->setInventoryTxToSendOther.insert(inv);
         }
     }
 
@@ -974,18 +978,16 @@ public:
 
     void WakeMessageHandler();
 
-    // Public Dandelion field
-    std::map<uint256, std::chrono::seconds> mDandelionEmbargo;
-    // Dandelion methods
+    std::map<uint256, std::chrono::microseconds> mDandelionEmbargo;
+    bool insertDandelionEmbargo(const uint256& hash, std::chrono::microseconds& embargo);
     bool isDandelionInbound(const CNode* const pnode) const;
     bool isLocalDandelionDestinationSet() const;
-    bool setLocalDandelionDestination();
-    CNode* getDandelionDestination(CNode* pfrom);
-    bool localDandelionDestinationPushInventory(const uint256& hash);
-    bool insertDandelionEmbargo(const uint256& hash, const std::chrono::seconds& embargo);
     bool isTxDandelionEmbargoed(const uint256& hash) const;
+    bool localDandelionDestinationPushInventory(const CInv& inv);
     bool removeDandelionEmbargo(const uint256& hash);
-    void CheckDandelionShuffle();
+    bool setLocalDandelionDestination();
+    bool usingDandelion() const;
+    CNode* getDandelionDestination(CNode* pfrom);
 
     /** Attempts to obfuscate tx time through exponentially distributed emitting.
         Works assuming that a single interval is used.
@@ -1042,8 +1044,7 @@ private:
     void SocketHandler();
     void ThreadSocketHandler();
     void ThreadDNSAddressSeed();
-    std::string GetDandelionRoutingDataDebugString() const;
-
+    void ThreadDandelionShuffle();
 
     uint64_t CalculateKeyedNetGroup(const CAddress& ad) const;
 
@@ -1116,15 +1117,13 @@ private:
     std::atomic<NodeId> nLastNodeId{0};
     unsigned int nPrevNodeCount{0};
 
-
-    // Dandelion fields
+    CNode* localDandelionDestination = nullptr;
+    CNode* SelectFromDandelionDestinations() const;
+    std::map<CNode*, CNode*> mDandelionRoutes;
+    std::string GetDandelionRoutingDataDebugString() const;
+    std::vector<CNode*> vDandelionDestination;
     std::vector<CNode*> vDandelionInbound;
     std::vector<CNode*> vDandelionOutbound;
-    std::vector<CNode*> vDandelionDestination;
-    CNode* localDandelionDestination = nullptr;
-    std::map<CNode*, CNode*> mDandelionRoutes;
-    // Dandelion helper functions
-    CNode* SelectFromDandelionDestinations() const;
     void CloseDandelionConnections(const CNode* const pnode);
     void DandelionShuffle();
 
@@ -1224,6 +1223,7 @@ private:
     std::thread threadOpenAddedConnections;
     std::thread threadOpenConnections;
     std::thread threadMessageHandler;
+    std::thread threadDandelionShuffle;
     std::thread threadI2PAcceptIncoming;
 
     /** flag for deciding to connect to an extra outbound peer,

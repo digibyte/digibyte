@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the wallet backup features.
@@ -9,7 +9,7 @@ Test case is:
 4 nodes. 1 2 and 3 send transactions between each other,
 fourth node is a miner.
 1 2 3 each mine a block to start, then
-Miner creates 100 blocks so 1 2 3 each have 50 mature
+Miner creates 8 blocks so 1 2 3 each have 50 mature
 coins to spend.
 Then 5 iterations of 1/2/3 sending coins amongst
 themselves to get transactions in the wallets,
@@ -22,7 +22,7 @@ Miner then generates 101 more blocks, so any
 transaction fees paid mature.
 
 Sanity check:
-  Sum(1,2,3,4 balances) == 114*50
+  Sum(1,2,3,4 balances) == 22*72000
 
 1/2/3 are shutdown, and their wallets erased.
 Then restore using wallet.dat backup. And
@@ -89,7 +89,8 @@ class WalletBackupTest(DigiByteTestFramework):
         # Have the miner (node3) mine a block.
         # Must sync mempools before mining.
         self.sync_mempools()
-        self.nodes[3].generate(1)
+        self.generate(self.nodes[3], 1)
+
         self.sync_blocks()
 
     # As above, this mirrors the original bash test.
@@ -113,24 +114,24 @@ class WalletBackupTest(DigiByteTestFramework):
         os.remove(os.path.join(self.nodes[2].datadir, self.chain, 'wallets', self.default_wallet_name, self.wallet_data_filename))
 
     def init_three(self):
-        self.init_wallet(0)
-        self.init_wallet(1)
-        self.init_wallet(2)
+        self.init_wallet(node=0)
+        self.init_wallet(node=1)
+        self.init_wallet(node=2)
 
     def run_test(self):
         self.log.info("Generating initial blockchain")
-        self.nodes[0].generate(1)
+        self.generate(self.nodes[0], 1)
         self.sync_blocks()
-        self.nodes[1].generate(1)
+        self.generate(self.nodes[1], 1)
         self.sync_blocks()
-        self.nodes[2].generate(1)
+        self.generate(self.nodes[2], 1)
         self.sync_blocks()
-        self.nodes[3].generate(COINBASE_MATURITY)
+        self.generate(self.nodes[3], COINBASE_MATURITY)
         self.sync_blocks()
 
-        assert_equal(self.nodes[0].getbalance(), 50)
-        assert_equal(self.nodes[1].getbalance(), 50)
-        assert_equal(self.nodes[2].getbalance(), 50)
+        assert_equal(self.nodes[0].getbalance(), 72000)
+        assert_equal(self.nodes[1].getbalance(), 72000)
+        assert_equal(self.nodes[2].getbalance(), 72000)
         assert_equal(self.nodes[3].getbalance(), 0)
 
         self.log.info("Creating transactions")
@@ -154,7 +155,8 @@ class WalletBackupTest(DigiByteTestFramework):
             self.do_one_round()
 
         # Generate 101 more blocks, so any fees paid mature
-        self.nodes[3].generate(COINBASE_MATURITY + 1)
+        self.generate(self.nodes[3], COINBASE_MATURITY + 1)
+
         self.sync_all()
 
         balance0 = self.nodes[0].getbalance()
@@ -163,9 +165,9 @@ class WalletBackupTest(DigiByteTestFramework):
         balance3 = self.nodes[3].getbalance()
         total = balance0 + balance1 + balance2 + balance3
 
-        # At this point, there are 214 blocks (103 for setup, then 10 rounds, then 101.)
-        # 114 are mature, so the sum of all wallets should be 114 * 50 = 5700.
-        assert_equal(total, 5700)
+        # At this point, there are 214 blocks (8+3 for setup, then 10 rounds, then 8+1.)
+        # 22 are mature, so the sum of all wallets should be 22 * 72000 = 1,584,000 DGB
+        assert_equal(total, 1584000)
 
         ##
         # Test restoring spender wallets from backups

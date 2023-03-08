@@ -26,6 +26,7 @@ env:
     - SDK_URL=https://digibyte.org/depends-sources/sdks
     - WINEDEBUG=fixme-all
     - DOCKER_PACKAGES="build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git ca-certificates ccache"
+    - ENABLE_PYTHON_SCRYPT=0
 before_install:
     - export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/python/d' | tr "\n" ":" | sed "s|::|:|g")
     - BEGIN_FOLD () { echo ""; CURRENT_FOLD_NAME=$1; echo "travis_fold:start:${CURRENT_FOLD_NAME}"; }
@@ -75,6 +76,7 @@ jobs:
         DEP_OPTS="NO_QT=1"
         GOAL="install"
         DIGIBYTE_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
+	ENABLE_PYTHON_SCRYPT=1
 # Win32
     - stage: test
       env: >-
@@ -85,6 +87,7 @@ jobs:
         RUN_TESTS=true
         GOAL="install"
         DIGIBYTE_CONFIG="--enable-reduce-exports"
+	ENABLE_PYTHON_SCRYPT=1
 # Win64
     - stage: test
       env: >-
@@ -94,6 +97,7 @@ jobs:
         RUN_TESTS=true
         GOAL="install"
         DIGIBYTE_CONFIG="--enable-reduce-exports"
+	ENABLE_PYTHON_SCRYPT=1
 # 32-bit + dash
     - stage: test
       env: >-
@@ -114,6 +118,7 @@ jobs:
         RUN_BENCH=true
         GOAL="install"
         DIGIBYTE_CONFIG="--enable-zmq --with-gui=qt5 --enable-glibc-back-compat --enable-reduce-exports --enable-debug CXXFLAGS=\"-g0 -O2\""
+	ENABLE_PYTHON_SCRYPT=1
 # x86_64 Linux (Qt5 & system libs)
     - stage: test
       env: >-
@@ -123,6 +128,7 @@ jobs:
         RUN_TESTS=true
         GOAL="install"
         DIGIBYTE_CONFIG="--enable-zmq --with-incompatible-bdb --enable-glibc-back-compat --enable-reduce-exports --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER"
+	ENABLE_PYTHON_SCRYPT=1
 # x86_64 Linux, No wallet
     - stage: test
       env: >-
@@ -132,6 +138,7 @@ jobs:
         RUN_TESTS=true
         GOAL="install"
         DIGIBYTE_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
+        ENABLE_PYTHON_SCRYPT=1
 # Cross-Mac
     - stage: test
       env: >-
@@ -140,6 +147,7 @@ jobs:
         OSX_SDK=10.11
         GOAL="all deploy"
         DIGIBYTE_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
+	ENABLE_PYTHON_SCRYPT=1
     - stage: lint
       env:
       cache: false

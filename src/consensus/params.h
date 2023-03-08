@@ -38,7 +38,7 @@ enum DeploymentPos : uint16_t {
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in deploymentinfo.cpp
     MAX_VERSION_BITS_DEPLOYMENTS
 };
-constexpr bool ValidDeployment(DeploymentPos dep) { return dep < MAX_VERSION_BITS_DEPLOYMENTS; }
+constexpr bool ValidDeployment(DeploymentPos dep) { return DEPLOYMENT_TESTDUMMY <= dep && dep <= DEPLOYMENT_TAPROOT; }
 
 /**
  * Struct for each individual consensus rule change using BIP9.
@@ -115,6 +115,7 @@ struct Params {
     uint256 powLimit;
     std::map<int, uint256> initialTarget;
     bool fPowAllowMinDifficultyBlocks;
+    bool fEasyPow;
     bool fPowNoRetargeting;
     bool fRbfEnabled;
     int64_t nPowTargetSpacing;

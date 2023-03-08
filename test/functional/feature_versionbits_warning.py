@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2016-2021 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test version bits warning system.
@@ -16,29 +15,31 @@ from test_framework.messages import msg_block
 from test_framework.p2p import P2PInterface
 from test_framework.test_framework import DigiByteTestFramework
 
-VB_PERIOD = 144           # versionbits period length for regtest
-VB_THRESHOLD = 108        # versionbits activation threshold for regtest
+VB_PERIOD = 240          # versionbits period length for regtest
+VB_THRESHOLD = 168        # versionbits activation threshold for regtest
 VB_TOP_BITS = 0x20000000
-VB_UNKNOWN_BIT = 27       # Choose a bit unassigned to any deployment
+VB_UNKNOWN_BIT = 26       # Choose a bit unassigned to any deployment
 VB_UNKNOWN_VERSION = VB_TOP_BITS | (1 << VB_UNKNOWN_BIT)
 
-WARN_UNKNOWN_RULES_ACTIVE = "Unknown new rules activated (versionbit {})".format(VB_UNKNOWN_BIT)
+WARN_UNKNOWN_RULES_ACTIVE = f"Unknown new rules activated (versionbit {VB_UNKNOWN_BIT})"
 VB_PATTERN = re.compile("Unknown new rules activated.*versionbit")
 
 class VersionBitsWarningTest(DigiByteTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
-
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
+        # The experimental syscall sandbox feature (-sandbox) is not compatible with -alertnotify
+        # (which invokes execve).
+        self.disable_syscall_sandbox = True
+        self.options.timeout_factor = 4
+        self.extra_args = [["-easypow"]]
 
     def setup_network(self):
         self.alert_filename = os.path.join(self.options.tmpdir, "alert.txt")
         # Open and close to create zero-length file
         with open(self.alert_filename, 'w', encoding='utf8'):
             pass
-        self.extra_args = [["-alertnotify=echo %s >> \"" + self.alert_filename + "\""]]
+        self.extra_args = [[f"-alertnotify=echo %s >> \"{self.alert_filename}\""]]
         self.setup_nodes()
 
     def send_blocks_with_version(self, peer, numblocks, version):
@@ -49,8 +50,7 @@ class VersionBitsWarningTest(DigiByteTestFramework):
         tip = int(tip, 16)
 
         for _ in range(numblocks):
-            block = create_block(tip, create_coinbase(height + 1), block_time)
-            block.nVersion = version
+            block = create_block(tip, create_coinbase(height + 1), block_time, version=version)
             block.solve()
             peer.send_message(msg_block(block))
             block_time += 1
@@ -69,12 +69,12 @@ class VersionBitsWarningTest(DigiByteTestFramework):
 
         node_deterministic_address = node.get_deterministic_priv_key().address
         # Mine one period worth of blocks
-        node.generatetoaddress(VB_PERIOD, node_deterministic_address)
+        self.generatetoaddress(node, VB_PERIOD, node_deterministic_address)
 
         self.log.info("Check that there is no warning if previous VB_BLOCKS have <VB_THRESHOLD blocks with unknown versionbits version.")
         # Build one period of blocks with < VB_THRESHOLD blocks signaling some unknown bit
         self.send_blocks_with_version(peer, VB_THRESHOLD - 1, VB_UNKNOWN_VERSION)
-        node.generatetoaddress(VB_PERIOD - VB_THRESHOLD + 1, node_deterministic_address)
+        self.generatetoaddress(node, VB_PERIOD - VB_THRESHOLD + 1, node_deterministic_address)
 
         # Check that we're not getting any versionbit-related errors in get*info()
         assert not VB_PATTERN.match(node.getmininginfo()["warnings"])
@@ -82,21 +82,21 @@ class VersionBitsWarningTest(DigiByteTestFramework):
 
         # Build one period of blocks with VB_THRESHOLD blocks signaling some unknown bit
         self.send_blocks_with_version(peer, VB_THRESHOLD, VB_UNKNOWN_VERSION)
-        node.generatetoaddress(VB_PERIOD - VB_THRESHOLD, node_deterministic_address)
+        self.generatetoaddress(node, VB_PERIOD - VB_THRESHOLD, node_deterministic_address)
 
         self.log.info("Check that there is a warning if previous VB_BLOCKS have >=VB_THRESHOLD blocks with unknown versionbits version.")
         # Mine a period worth of expected blocks so the generic block-version warning
         # is cleared. This will move the versionbit state to ACTIVE.
-        node.generatetoaddress(VB_PERIOD, node_deterministic_address)
+        self.generatetoaddress(node, VB_PERIOD, node_deterministic_address)
 
         # Stop-start the node. This is required because digibyted will only warn once about unknown versions or unknown rules activating.
         self.restart_node(0)
 
         # Generating one block guarantees that we'll get out of IBD
-        node.generatetoaddress(1, node_deterministic_address)
+        self.generatetoaddress(node, 1, node_deterministic_address)
         self.wait_until(lambda: not node.getblockchaininfo()['initialblockdownload'])
         # Generating one more block will be enough to generate an error.
-        node.generatetoaddress(1, node_deterministic_address)
+        self.generatetoaddress(node, 1, node_deterministic_address)
         # Check that get*info() shows the versionbits unknown rules warning
         assert WARN_UNKNOWN_RULES_ACTIVE in node.getmininginfo()["warnings"]
         assert WARN_UNKNOWN_RULES_ACTIVE in node.getnetworkinfo()["warnings"]

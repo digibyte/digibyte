@@ -330,6 +330,7 @@ libdigibyte_server_a_SOURCES = \
   blockfilter.cpp \
   chain.cpp \
   consensus/tx_verify.cpp \
+  dandelion.cpp \
   dbwrapper.cpp \
   deploymentstatus.cpp \
   flatfile.cpp \
@@ -723,6 +724,8 @@ endif
 digibyte_cli_LDADD = \
   $(LIBDIGIBYTE_CLI) \
   $(LIBUNIVALUE) \
+  $(LIBDIGIBYTE_COMMON) \
+  $(LIBDIGIBYTE_CONSENSUS) \  
   $(LIBDIGIBYTE_UTIL) \
   $(LIBDIGIBYTE_CRYPTO)
 

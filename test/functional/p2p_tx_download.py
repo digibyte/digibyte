@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-2020 The DigiByte Core developers
+# Copyright (c) 2021-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -23,7 +23,7 @@ from test_framework.test_framework import DigiByteTestFramework
 from test_framework.util import (
     assert_equal,
 )
-from test_framework.address import ADDRESS_dgbrt_UNSPENDABLE
+from test_framework.address import ADDRESS_BCRT1_UNSPENDABLE
 
 import time
 
@@ -93,7 +93,7 @@ class TxDownloadTest(DigiByteTestFramework):
                 "txid": self.nodes[0].getblock(self.nodes[0].getblockhash(1))['tx'][0],
                 "vout": 0
             }],
-            outputs={ADDRESS_dgbrt_UNSPENDABLE: 50 - 0.00025},
+            outputs={ADDRESS_BCRT1_UNSPENDABLE: 72000 - 0.00025},
         )
         tx = self.nodes[0].signrawtransactionwithkey(
             hexstring=tx,
@@ -266,7 +266,7 @@ class TxDownloadTest(DigiByteTestFramework):
         self.test_large_inv_batch()
         self.test_spurious_notfound()
 
-        # Run each test against new digibyted instances, as setting mocktimes has long-term effects on when
+        # Run each test against new bitcoind instances, as setting mocktimes has long-term effects on when
         # the next trickle relay event happens.
         for test in [self.test_in_flight_max, self.test_inv_block, self.test_tx_requests]:
             self.stop_nodes()

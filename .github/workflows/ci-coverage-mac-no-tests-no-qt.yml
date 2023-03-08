@@ -1,10 +1,10 @@
 name: 'Build & Check: macOS No QT & No Tests'
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     strategy:
         matrix:
           os: [x86_64-mac]
@@ -13,19 +13,31 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Brew Install Dependencies
-        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
-
-      - name: Brew Install Dependencies
+        run: brew install automake boost@1.76 berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl pandoc
+      
+      - name: Brew Link OpenSSL
         run: brew link openssl --force
+
+      - name: Brew Link Boost
+        run: brew link boost@1.76 --force
+      
+      - name: Brew Link BDB
+        run: brew link berkeley-db@4 --force
 
       - name: Brew Force Link Openssl
         run: export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/lib -L/usr/local/opt/expat/lib" && export CFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include" && export CPPFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
+
+      - name: Install pypandoc
+        run: pip3 install pypandoc
+
+      - name: Install scrypt for Python3
+        run: pip3 install digibyte_scrypt
 
       - name: Auto Generate
         run: ./autogen.sh
 
       - name: Configure
-        run: ./configure --with-gui=no --disable-tests
+        run: ./configure --without-gui --disable-tests
 
       - name: Make
         run: make -j3
@@ -33,3 +45,9 @@ jobs:
       - name: Make Check
         run: make check
         
+      - name: Upload Test Suite Log
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-suite-log
+          path: /src/test-suite.log

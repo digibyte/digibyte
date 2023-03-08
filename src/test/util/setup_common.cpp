@@ -165,7 +165,7 @@ ChainTestingSetup::~ChainTestingSetup()
     m_node.banman.reset();
     m_node.addrman.reset();
     m_node.args = nullptr;
-    UnloadBlockIndex(m_node.mempool.get(), m_node.stempool.get(), *m_node.chainman);
+    UnloadBlockIndex(m_node.mempool.get(), *m_node.chainman);
     m_node.mempool.reset();
     m_node.stempool.reset();
     m_node.scheduler.reset();
@@ -225,7 +225,7 @@ TestChain100Setup::TestChain100Setup()
 
         assert(
             m_node.chainman->ActiveChain().Tip()->GetBlockHash().ToString() ==
-            "ab7cc1f06a66c5dab486fbb20edf5721aca80453d595cf92753966e26e4651f0");
+            "e09bcc217cb31a6c1fd7b33d160d7356c97672eac3b7d917f83f3d43ea12ad4d");
     }
 }
 

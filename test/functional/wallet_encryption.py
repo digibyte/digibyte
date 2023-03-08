@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2016-2020 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test Wallet encryption"""
@@ -13,6 +12,7 @@ from test_framework.util import (
     assert_greater_than,
     assert_greater_than_or_equal,
 )
+
 
 class WalletEncryptionTest(DigiByteTestFramework):
     def set_test_params(self):

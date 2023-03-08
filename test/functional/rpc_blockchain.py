@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPCs related to blockchainstate.
@@ -24,7 +23,7 @@ import http.client
 import os
 import subprocess
 
-from test_framework.address import ADDRESS_dgbrt_P2WSH_OP_TRUE
+from test_framework.address import ADDRESS_BCRT1_P2WSH_OP_TRUE
 from test_framework.blocktools import (
     create_block,
     create_coinbase,
@@ -57,8 +56,9 @@ class BlockchainTest(DigiByteTestFramework):
         self.supports_cli = False
 
     def run_test(self):
+        self.wallet = MiniWallet(self.nodes[0])
         self.mine_chain()
-        self.restart_node(0, extra_args=['-stopatheight=207', '-prune=1'])  # Set extra args with pruning after rescan is complete
+        self.restart_node(0, extra_args=['-stopatheight=207', '-checkblocks=-1', '-prune=1'])  # Set extra args with pruning after rescan is complete
 
         self._test_getblockchaininfo()
         self._test_getchaintxstats()
@@ -76,7 +76,7 @@ class BlockchainTest(DigiByteTestFramework):
         for t in range(TIME_GENESIS_BLOCK, TIME_GENESIS_BLOCK + 200 * 600, 600):
             # ten-minute steps from genesis block time
             self.nodes[0].setmocktime(t)
-            self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_P2WSH_OP_TRUE)
+            self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_P2WSH_OP_TRUE)
         assert_equal(self.nodes[0].getblockchaininfo()['blocks'], 200)
 
     def _test_getblockchaininfo(self):
@@ -87,7 +87,7 @@ class BlockchainTest(DigiByteTestFramework):
             'blocks',
             'chain',
             'chainwork',
-            'difficulty',
+            'difficulties',
             'headers',
             'initialblockdownload',
             'mediantime',
@@ -129,30 +129,31 @@ class BlockchainTest(DigiByteTestFramework):
         assert_equal(res['prune_target_size'], 576716800)
         assert_greater_than(res['size_on_disk'], 0)
 
+#{'bip34': {'type': 'buried', 'active': False, 'height': 1000000}, 'bip66': {'type': 'buried', 'active': False, 'height': 1251}, 'bip65': {'type': 'buried', 'active': False, 'height': 1351}, 'csv': {'type': 'buried', 'active': False, 'height': 1000000}, 'segwit': {'type': 'buried', 'active': True, 'height': 0}, 'testdummy'
+#: {'type': 'bip9', 'bip9': {'status': 'defined', 'start_time': 0, 'timeout': 9223372036854775807, 'since': 0, 'min_activation_height': 0}, 'active': False},
+#'odo': {'type': 'buried', 'active': False, 'height': 1000000}, 
+#'taproot': {'type': 'bip9', 'bip9': {'status': 'active', 'start_time': -1, 'timeout': 9223372036854775807, 'since': 0, 'min_activation_height': 0}, 'height': 0, 'active': True}}
         assert_equal(res['softforks'], {
-            'bip34': {'type': 'buried', 'active': False, 'height': 500},
+            'bip34': {'type': 'buried', 'active': False, 'height': 1000000}, # due toeasypow
             'bip66': {'type': 'buried', 'active': False, 'height': 1251},
             'bip65': {'type': 'buried', 'active': False, 'height': 1351},
-            'csv': {'type': 'buried', 'active': False, 'height': 432},
+            'csv': {'type': 'buried', 'active': False, 'height': 1000000}, # due to easypow
             'segwit': {'type': 'buried', 'active': True, 'height': 0},
             'testdummy': {
                 'type': 'bip9',
                 'bip9': {
-                    'status': 'started',
-                    'bit': 28,
+                    'status': 'defined',
                     'start_time': 0,
                     'timeout': 0x7fffffffffffffff,  # testdummy does not have a timeout so is set to the max int64 value
-                    'since': 144,
-                    'statistics': {
-                        'period': 144,
-                        'threshold': 108,
-                        'elapsed': 57,
-                        'count': 57,
-                        'possible': True,
-                    },
+                    'since': 0,
                     'min_activation_height': 0,
                 },
                 'active': False
+            },
+            'odo': {
+                'type': 'buried',
+                'active': False,
+                'height': 1000000 # due to easypow
             },
             'taproot': {
                 'type': 'bip9',
@@ -225,8 +226,7 @@ class BlockchainTest(DigiByteTestFramework):
     def _test_gettxoutsetinfo(self):
         node = self.nodes[0]
         res = node.gettxoutsetinfo()
-
-        assert_equal(res['total_amount'], Decimal('8725.00000000'))
+        assert_equal(res['total_amount'], Decimal('72000.00000000') * Decimal('200'))
         assert_equal(res['transactions'], 200)
         assert_equal(res['height'], 200)
         assert_equal(res['txouts'], 200)
@@ -323,10 +323,11 @@ class BlockchainTest(DigiByteTestFramework):
         assert 'nextblockhash' not in node.getblockheader(node.getbestblockhash())
 
     def _test_getdifficulty(self):
-        difficulty = self.nodes[0].getdifficulty()
+        response = self.nodes[0].getdifficulty()
+        difficulties = response['difficulties']
         # 1 hash in 2 should be valid, so difficulty should be 1/2**31
         # binary => decimal => binary math is why we do this check
-        assert abs(difficulty * 2**31 - 1) < 0.0001
+        assert abs(difficulties['scrypt'] * 2**31 - 1) < 0.0001
 
     def _test_getnetworkhashps(self):
         hashes_per_second = self.nodes[0].getnetworkhashps()
@@ -335,12 +336,12 @@ class BlockchainTest(DigiByteTestFramework):
 
     def _test_stopatheight(self):
         assert_equal(self.nodes[0].getblockcount(), 200)
-        self.nodes[0].generatetoaddress(6, ADDRESS_dgbrt_P2WSH_OP_TRUE)
+        self.generatetoaddress(self.nodes[0], 6, ADDRESS_BCRT1_P2WSH_OP_TRUE)
         assert_equal(self.nodes[0].getblockcount(), 206)
         self.log.debug('Node should not stop at this height')
         assert_raises(subprocess.TimeoutExpired, lambda: self.nodes[0].process.wait(timeout=3))
         try:
-            self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_P2WSH_OP_TRUE)
+            self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_P2WSH_OP_TRUE)
         except (ConnectionError, http.client.BadStatusLine):
             pass  # The node already shut down before response
         self.log.debug('Node should stop at this height...')
@@ -392,11 +393,11 @@ class BlockchainTest(DigiByteTestFramework):
         miniwallet = MiniWallet(node)
         miniwallet.scan_blocks(num=5)
 
-        fee_per_byte = Decimal('0.00000010')
+        fee_per_byte = Decimal('0.000010')
         fee_per_kb = 1000 * fee_per_byte
 
         miniwallet.send_self_transfer(fee_rate=fee_per_kb, from_node=node)
-        blockhash = node.generate(1)[0]
+        blockhash = self.generate(node, 1)[0]
 
         self.log.info("Test that getblock with verbosity 1 doesn't include fee")
         block = node.getblock(blockhash, 1)
@@ -430,6 +431,8 @@ class BlockchainTest(DigiByteTestFramework):
 
         assert 'previousblockhash' not in node.getblock(node.getblockhash(0))
         assert 'nextblockhash' not in node.getblock(node.getbestblockhash())
+
+
 
 
 if __name__ == '__main__':

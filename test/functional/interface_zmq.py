@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2015-2020 The Bitcoin Core developers
+# Copyright (c) 2015-2023 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the ZMQ notification interface."""
 import struct
 
 from test_framework.address import (
-    ADDRESS_dgbrt_P2WSH_OP_TRUE,
-    ADDRESS_dgbrt_UNSPENDABLE,
+    ADDRESS_BCRT1_P2WSH_OP_TRUE,
+    ADDRESS_BCRT1_UNSPENDABLE,
 )
 from test_framework.blocktools import (
     add_witness_commitment,
@@ -36,7 +36,6 @@ except ImportError:
 
 def hash256_reversed(byte_str):
     return hash256(byte_str)[::-1]
-
 
 class ZMQSubscriber:
     def __init__(self, socket, topic):
@@ -84,8 +83,8 @@ class ZMQTestSetupBlock:
     raw transaction data.
     """
 
-    def __init__(self, node):
-        self.block_hash = node.generate(1)[0]
+    def __init__(self, test_framework, node):
+        self.block_hash = test_framework.generate(node, 1, sync_fun=test_framework.no_op)[0]
         coinbase = node.getblock(self.block_hash, 2)['tx'][0]
         self.tx_hash = coinbase['txid']
         self.raw_tx = coinbase['hex']
@@ -112,9 +111,6 @@ class ZMQTest (DigiByteTestFramework):
     def skip_test_if_missing_module(self):
         self.skip_if_no_py3_zmq()
         self.skip_if_no_digibyted_zmq()
-
-    def import_deterministic_coinbase_privkeys(self):
-        pass
 
     def run_test(self):
         self.ctx = zmq.Context()
@@ -152,7 +148,7 @@ class ZMQTest (DigiByteTestFramework):
         for sub in subscribers:
             sub.socket.set(zmq.RCVTIMEO, 1000)
         while True:
-            test_block = ZMQTestSetupBlock(self.nodes[0])
+            test_block = ZMQTestSetupBlock(self, self.nodes[0])
             recv_failed = False
             for sub in subscribers:
                 try:
@@ -190,7 +186,7 @@ class ZMQTest (DigiByteTestFramework):
 
         num_blocks = 5
         self.log.info("Generate %(n)d blocks (and %(n)d coinbase txes)" % {"n": num_blocks})
-        genhashes = self.nodes[0].generatetoaddress(num_blocks, ADDRESS_dgbrt_UNSPENDABLE)
+        genhashes = self.generatetoaddress(self.nodes[0], num_blocks, ADDRESS_BCRT1_UNSPENDABLE)
 
         self.sync_all()
 
@@ -231,7 +227,7 @@ class ZMQTest (DigiByteTestFramework):
 
             # Mining the block with this tx should result in second notification
             # after coinbase tx notification
-            self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)
+            self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE)
             hashtx.receive()
             txid = hashtx.receive()
             assert_equal(payment_txid, txid.hex())
@@ -262,14 +258,14 @@ class ZMQTest (DigiByteTestFramework):
 
         # Generate 1 block in nodes[0] with 1 mempool tx and receive all notifications
         payment_txid = self.nodes[0].sendtoaddress(self.nodes[0].getnewaddress(), 1.0)
-        disconnect_block = self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)[0]
+        disconnect_block = self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE, sync_fun=self.no_op)[0]
         disconnect_cb = self.nodes[0].getblock(disconnect_block)["tx"][0]
         assert_equal(self.nodes[0].getbestblockhash(), hashblock.receive().hex())
         assert_equal(hashtx.receive().hex(), payment_txid)
         assert_equal(hashtx.receive().hex(), disconnect_cb)
 
         # Generate 2 blocks in nodes[1] to a different address to ensure split
-        connect_blocks = self.nodes[1].generatetoaddress(2, ADDRESS_dgbrt_P2WSH_OP_TRUE)
+        connect_blocks = self.generatetoaddress(self.nodes[1], 2, ADDRESS_BCRT1_P2WSH_OP_TRUE, sync_fun=self.no_op)
 
         # nodes[0] will reorg chain after connecting back nodes[1]
         self.connect_nodes(0, 1)
@@ -313,13 +309,13 @@ class ZMQTest (DigiByteTestFramework):
         seq_num = 1
 
         # Generate 1 block in nodes[0] and receive all notifications
-        dc_block = self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)[0]
+        dc_block = self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE, sync_fun=self.no_op)[0]
 
         # Note: We are not notified of any block transactions, coinbase or mined
         assert_equal((self.nodes[0].getbestblockhash(), "C", None), seq.receive_sequence())
 
         # Generate 2 blocks in nodes[1] to a different address to ensure a chain split
-        self.nodes[1].generatetoaddress(2, ADDRESS_dgbrt_P2WSH_OP_TRUE)
+        self.generatetoaddress(self.nodes[1], 2, ADDRESS_BCRT1_P2WSH_OP_TRUE, sync_fun=self.no_op)
 
         # nodes[0] will reorg chain after connecting back nodes[1]
         self.connect_nodes(0, 1)
@@ -354,8 +350,8 @@ class ZMQTest (DigiByteTestFramework):
             # though the mempool sequence number does go up by the number of transactions
             # removed from the mempool by the block mining it.
             mempool_size = len(self.nodes[0].getrawmempool())
-            c_block = self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)[0]
-            self.sync_all()
+            c_block = self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE, sync_fun=self.no_op)[0]
+
             # Make sure the number of mined transactions matches the number of txs out of mempool
             mempool_size_delta = mempool_size - len(self.nodes[0].getrawmempool())
             assert_equal(len(self.nodes[0].getblock(c_block)["tx"])-1, mempool_size_delta)
@@ -394,8 +390,7 @@ class ZMQTest (DigiByteTestFramework):
 
             # Other things may happen but aren't wallet-deterministic so we don't test for them currently
             self.nodes[0].reconsiderblock(best_hash)
-            self.nodes[1].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)
-            self.sync_all()
+            self.generatetoaddress(self.nodes[1], 1, ADDRESS_BCRT1_UNSPENDABLE)
 
             self.log.info("Evict mempool transaction by block conflict")
             orig_txid = self.nodes[0].sendtoaddress(address=self.nodes[0].getnewaddress(), amount=1.0, replaceable=True)
@@ -446,8 +441,7 @@ class ZMQTest (DigiByteTestFramework):
             # Last tx
             assert_equal((orig_txid_2, "A", mempool_seq), seq.receive_sequence())
             mempool_seq += 1
-            self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)
-            self.sync_all()  # want to make sure we didn't break "consensus" for other tests
+            self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE)
 
     def test_mempool_sync(self):
         """
@@ -498,7 +492,7 @@ class ZMQTest (DigiByteTestFramework):
             txids.append(self.nodes[0].sendtoaddress(address=self.nodes[0].getnewaddress(), amount=0.1, replaceable=True))
         self.nodes[0].bumpfee(txids[-1])
         self.sync_all()
-        self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)
+        self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE)
         final_txid = self.nodes[0].sendtoaddress(address=self.nodes[0].getnewaddress(), amount=0.1, replaceable=True)
 
         # 3) Consume ZMQ backlog until we get to "now" for the mempool snapshot
@@ -554,7 +548,7 @@ class ZMQTest (DigiByteTestFramework):
 
         # 5) If you miss a zmq/mempool sequence number, go back to step (2)
 
-        self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)
+        self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE)
 
     def test_multiple_interfaces(self):
         # Set up two subscribers with different addresses
@@ -567,7 +561,7 @@ class ZMQTest (DigiByteTestFramework):
         ], sync_blocks=False)
 
         # Generate 1 block in nodes[0] and receive all notifications
-        self.nodes[0].generatetoaddress(1, ADDRESS_dgbrt_UNSPENDABLE)
+        self.generatetoaddress(self.nodes[0], 1, ADDRESS_BCRT1_UNSPENDABLE)
 
         # Should receive the same block hash on both subscribers
         assert_equal(self.nodes[0].getbestblockhash(), subscribers[0].receive().hex())

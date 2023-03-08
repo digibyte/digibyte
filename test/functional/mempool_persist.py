@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# Copyright (c) 2009-2020 The Bitcoin Core developers
-# Copyright (c) 2014-2020 The DigiByte Core developers
+# Copyright (c) 2014-2020 The Bitcoin Core developers
+# Copyright (c) 2015-2022 The DigiByte Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool persistence.
 
-By default, digibyted will dump mempool on shutdown and
+By default, bitcoind will dump mempool on shutdown and
 then reload it on startup. This can be overridden with
 the -persistmempool=0 command line option.
 
@@ -47,7 +47,6 @@ from test_framework.util import (
     assert_greater_than_or_equal,
     assert_raises_rpc_error,
 )
-
 
 class MempoolPersistTest(DigiByteTestFramework):
     def set_test_params(self):
@@ -142,11 +141,11 @@ class MempoolPersistTest(DigiByteTestFramework):
         self.log.debug("Stop nodes, make node1 use mempool.dat from node0. Verify it has 6 transactions")
         os.rename(mempooldat0, mempooldat1)
         self.stop_nodes()
-        self.start_node(1, extra_args=[])
+        self.start_node(1, extra_args=["-persistmempool=1"])
         assert self.nodes[1].getmempoolinfo()["loaded"]
         assert_equal(len(self.nodes[1].getrawmempool()), 6)
 
-        self.log.debug("Prevent digibyted from writing mempool.dat to disk. Verify that `savemempool` fails")
+        self.log.debug("Prevent bitcoind from writing mempool.dat to disk. Verify that `savemempool` fails")
         # to test the exception we are creating a tmp folder called mempool.dat.new
         # which is an implementation detail that could change and break this test
         mempooldotnew1 = mempooldat1 + '.new'
@@ -159,9 +158,9 @@ class MempoolPersistTest(DigiByteTestFramework):
     def test_persist_unbroadcast(self):
         node0 = self.nodes[0]
         self.start_node(0)
-
+        
         # clear out mempool
-        node0.generate(1)
+        self.generate(node0, 1, sync_fun=self.no_op)
 
         # ensure node0 doesn't have any connections
         # make a transaction that will remain in the unbroadcast set

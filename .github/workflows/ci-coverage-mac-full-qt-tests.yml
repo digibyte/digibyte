@@ -1,35 +1,48 @@
 name: 'Build & Check: macOS Full QT & Tests'
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     strategy:
         matrix:
           os: [x86_64-mac]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Brew Install Dependencies
-        run: brew install automake boost berkeley-db@4 qt@5 miniupnpc libnatpmp zeromq librsvg openssl
+        run: brew install automake pandoc
 
-      - name: Brew Install Dependencies
-        run: brew link openssl --force
+      - name: Dependencies
+        run: |
+          cd depends
+          make -j3
+          cd ..
 
-      - name: Brew Force Link Openssl
-        run: export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/lib -L/usr/local/opt/expat/lib" && export CFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include" && export CPPFLAGS="-I/usr/local/opt/openssl/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
+      - name: Install pypandoc
+        run: pip3 install pypandoc
+
+      - name: Install scrypt for Python3
+        run: pip3 install digibyte_scrypt
 
       - name: Auto Generate
         run: ./autogen.sh
 
       - name: Configure
-        run: ./configure --with-gui=yes
+        run: CONFIG_SITE=$PWD/depends/x86_64-apple-darwin19.6.0/share/config.site ./configure
 
       - name: Make
         run: make -j3
 
       - name: Make Check
         run: make check
-        
+
+      - name: Upload Test Suite Log
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-suite-log
+          path: /src/test-suite.log
